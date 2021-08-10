@@ -1,0 +1,18 @@
+0061 736d magic
+0100 0000 version
+
+01 section type (type)
+84 8080 8000 section length (4)
+0160 0000 section content
+
+03 section type (function)
+82 8080 8000 section length (2)
+0100 section content
+
+08 section type (start)
+81 8080 8000 section length (1)
+00 section content
+
+0a section type (code)
+8980 8080 00 section length (9)
+01 8380 8080 0000 000b section content
