@@ -1,6 +1,6 @@
 open Core
 
-let file = "example.wasm"
+let file = "hello.wasm"
 
 let get_byte ic =
 	let b = In_channel.input_byte ic in
@@ -45,7 +45,13 @@ let get_vec_len ic =
 	match get_byte ic with
 	| len -> printf "vector length: %d " len; len
 
-let get_type ic =
+let get_idx ic =
+	match get_byte ic with
+	| -1 -> printf "idx error!\n"; false
+	| i -> printf "Index: %d " i; true
+
+(* Type section *)
+let valtype ic =
 	match get_byte ic with
 	| 0 -> printf "None "; true
 	| 0x7f -> printf "i32 "; true
@@ -59,7 +65,7 @@ let get_type ic =
 let rec get_types ic len =
 	match len with
 	| 0 -> true
-	| _ -> get_type ic && get_types ic (len - 1)
+	| _ -> valtype ic && get_types ic (len - 1)
 
 let get_type_vector ic =
 	match get_vec_len ic with
@@ -83,11 +89,69 @@ let read_type_section ic =
 	read_vbe ic >= 0
 	&& read_types ic (get_vec_len ic)
 
-let get_idx ic =
+(* Import section *)
+let reftype ic =
 	match get_byte ic with
-	| -1 -> printf "idx error!\n"; false
-	| i -> printf "Index: %d " i; true
+	| 0x70 -> printf "funcref"; true
+	| 0x6F -> printf "externref"; true
+	| _ -> printf "Invalid reftype!"; false
 
+let limits ic =
+	match get_byte ic with
+	| 0x00 -> printf "lower: %d, no upper" (read_vbe ic); true
+	| 0x01 -> printf "lower: %d, upper: %d" (read_vbe ic) (read_vbe ic); true
+	| _ -> printf "Invalid limits!"; false
+
+let get_table_type ic =
+	reftype ic && limits ic
+
+let get_mem_type ic =
+	limits ic
+
+let mut ic =
+	match get_byte ic with
+	| 0x00 -> printf " const"; true
+	| 0x01 -> printf " var"; true
+	| _ -> printf "Invalid mut!"; false
+
+let get_global_type ic =
+	valtype ic && mut ic
+
+let importdesc ic =
+	match get_byte ic with
+	| 0x00 -> printf "func"; (get_idx ic)
+	| 0x01 -> printf "table"; get_table_type ic
+	| 0x02 -> printf "mem "; get_mem_type ic
+	| 0x03 -> printf "global "; get_global_type ic
+	| _ -> printf("Invalid importdesc!"); false
+
+let rec get_string ic n =
+	match n with
+	| 0 -> printf " "; true
+	| _ -> printf "%c" (char_of_int (get_byte ic)); get_string ic (n-1)
+
+let name ic =
+	match get_byte ic with
+	| 0 -> printf "name length 0";true
+	| n -> printf "name length %d" n; get_string ic n
+
+let read_import ic =
+	name ic
+	&& name ic
+	&& importdesc ic
+
+let rec read_imports ic n =
+	match n with
+	| 0 -> true
+	| _ ->
+		read_import ic
+		&& read_imports ic (n-1)
+
+let read_import_section ic =
+	read_vbe ic >=0
+	&& read_imports ic (get_vec_len ic)
+
+(* Function section *)
 let read_function ic = 
 	get_idx ic
 
@@ -102,10 +166,36 @@ let read_function_section ic =
 	read_vbe ic >= 0
 	&& read_functions ic (get_vec_len ic)
 
+(* Export section *)
+let exportdesc ic =
+	match get_byte ic with
+	| 0x00 -> printf "func"; (get_idx ic)
+	| 0x01 -> printf "table"; get_table_type ic
+	| 0x02 -> printf "mem "; get_mem_type ic
+	| 0x03 -> printf "global "; get_global_type ic
+	| _ -> printf("Invalid exportdesc!"); false
+
+let read_export ic =
+	name ic &&
+	exportdesc ic
+
+let rec read_exports ic n =
+	match n with
+	| 0 -> true
+	| _ ->
+		read_export ic &&
+		read_exports ic (n-1)
+
+let read_export_section ic =
+	read_vbe ic >= 0
+	&& read_exports ic (get_vec_len ic)
+
+(* Start section *)
 let read_start_section ic =
 	read_vbe ic >= 0
 	&& get_idx ic
 
+(* Code section *)
 let get_type_count ic =
 	get_byte ic
 
@@ -171,8 +261,7 @@ let read_section_body ic id =
 	| 0 -> printf "Custom section\n";
 	skip_bytes ic (read_vbe ic)
 	| 1 -> printf "Type section\n"; read_type_section ic
-	| 2 -> printf "Import section\n";
-	skip_bytes ic (read_vbe ic)
+	| 2 -> printf "Import section\n"; read_import_section ic
 	| 3 -> printf "Function section\n"; read_function_section ic
 	| 4 -> printf "Table section\n";
 	skip_bytes ic (read_vbe ic)
@@ -180,8 +269,7 @@ let read_section_body ic id =
 	skip_bytes ic (read_vbe ic)
 	| 6 -> printf "Global section\n";
 	skip_bytes ic (read_vbe ic)
-	| 7 -> printf "Export section\n";
-	skip_bytes ic (read_vbe ic)
+	| 7 -> printf "Export section\n"; read_export_section ic
 	| 8 -> printf "Start section\n"; read_start_section ic
 	| 9 -> printf "Element section\n";
 	skip_bytes ic (read_vbe ic)
