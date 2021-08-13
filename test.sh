@@ -1,0 +1,14 @@
+./readBin.native callback.wasm
+./readBin.native example.wasm
+./readBin.native finalize.wasm
+./readBin.native global.wasm
+./readBin.native hello.wasm
+./readBin.native hostref.wasm
+./readBin.native memory.wasm
+./readBin.native multi.wasm
+./readBin.native reflect.wasm
+./readBin.native serialize.wasm
+./readBin.native start.wasm
+./readBin.native table.wasm
+./readBin.native threads.wasm
+./readBin.native trap.wasm

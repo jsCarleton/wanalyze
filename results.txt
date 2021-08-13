@@ -1,0 +1,482 @@
+**** New file: callback.wasm
+
+
+Section type: 1
+Type section
+Length 16
+vector length: 3 vector length: 1 i32 vector length: 1 i32 vector length: 0 vector length: 1 i32 vector length: 2 i32 i32 vector length: 1 i32 
+
+Section type: 2
+Import section
+Length 21
+vector length: 2 name length 0name length 5print funcIndex: 0 name length 0name length 7closure funcIndex: 1 
+
+Section type: 3
+Function section
+Length 2
+vector length: 1 Index: 2 
+
+Section type: 7
+Export section
+Length 7
+vector length: 1 name length 3run funcIndex: 2 
+
+Section type: 10
+Code section
+Length 18
+vector length: 1 Length 12
+vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 1opcode: 6aopcode: 10opcode: 0opcode: 10opcode: 1opcode: 6aend 
+
+Section type: -1
+Success!
+**** New file: example.wasm
+
+
+Section type: 1
+Type section
+Length 4
+vector length: 1 vector length: 0 vector length: 0 
+
+Section type: 3
+Function section
+Length 2
+vector length: 1 Index: 0 
+
+Section type: 8
+Start section
+Length 1
+Index: 0 
+
+Section type: 10
+Code section
+Length 9
+vector length: 1 Length 3
+vector length: 0 None end 
+
+Section type: -1
+Success!
+**** New file: finalize.wasm
+
+
+Section type: 1
+Type section
+Length 4
+vector length: 1 vector length: 0 vector length: 0 
+
+Section type: 3
+Function section
+Length 4
+vector length: 3 Index: 0 Index: 0 Index: 0 
+
+Section type: 7
+Export section
+Length 13
+vector length: 3 name length 1f funcIndex: 0 name length 1g funcIndex: 1 name length 1h funcIndex: 2 
+
+Section type: 10
+Code section
+Length 22
+vector length: 3 Length 2
+vector length: 0 end Length 2
+vector length: 0 end Length 2
+vector length: 0 end 
+
+Section type: -1
+Success!
+**** New file: global.wasm
+
+
+Section type: 1
+Type section
+Length 17
+vector length: 4 vector length: 0 vector length: 1 f32 vector length: 0 vector length: 1 i64 vector length: 1 f32 vector length: 0 vector length: 1 i64 vector length: 0 
+
+Section type: 2
+Import section
+Length 53
+vector length: 4 name length 0name length 9const f32 global f32  constname length 0name length 9const i64 global i64  constname length 0name length 7var f32 global f32  varname length 0name length 7var i64 global i64  var
+
+Section type: 3
+Function section
+Length 13
+vector length: 12 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0 Index: 1 Index: 2 Index: 3 Index: 2 Index: 3 
+
+Section type: 6
+Global section
+Length 27
+vector length: 4 f32  constopcode: 43opcode: 0opcode: 0opcode: a0opcode: 40end i64  constopcode: 42opcode: 6end f32  varopcode: 43opcode: 0opcode: 0opcode: e0opcode: 40end i64  varopcode: 42opcode: 8end 
+
+Section type: 7
+Export section
+Length 305
+vector length: 16 name length 9const f32 global Index: 4 name length 9const i64 global Index: 5 name length 7var f32 global Index: 6 name length 7var i64 global Index: 7 name length 20get const f32 import funcIndex: 0 name length 20get const i64 import funcIndex: 1 name length 18get var f32 import funcIndex: 2 name length 18get var i64 import funcIndex: 3 name length 20get const f32 export funcIndex: 4 name length 20get const i64 export funcIndex: 5 name length 18get var f32 export funcIndex: 6 name length 18get var i64 export funcIndex: 7 name length 18set var f32 import funcIndex: 8 name length 18set var i64 import funcIndex: 9 name length 18set var f32 export funcIndex: 10 name length 18set var f64 export funcIndex: 11 
+
+Section type: 10
+Code section
+Length 117
+vector length: 12 Length 4
+vector length: 0 opcode: 23opcode: 0end Length 4
+vector length: 0 opcode: 23opcode: 1end Length 4
+vector length: 0 opcode: 23opcode: 2end Length 4
+vector length: 0 opcode: 23opcode: 3end Length 4
+vector length: 0 opcode: 23opcode: 4end Length 4
+vector length: 0 opcode: 23opcode: 5end Length 4
+vector length: 0 opcode: 23opcode: 6end Length 4
+vector length: 0 opcode: 23opcode: 7end Length 6
+vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 2end Length 6
+vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 3end Length 6
+vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 6end Length 6
+vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 7end 
+
+Section type: -1
+Success!
+**** New file: hello.wasm
+
+
+Section type: 1
+Type section
+Length 4
+vector length: 1 vector length: 0 vector length: 0 
+
+Section type: 2
+Import section
+Length 10
+vector length: 1 name length 0name length 5hello funcIndex: 0 
+
+Section type: 3
+Function section
+Length 2
+vector length: 1 Index: 0 
+
+Section type: 7
+Export section
+Length 7
+vector length: 1 name length 3run funcIndex: 1 
+
+Section type: 10
+Code section
+Length 10
+vector length: 1 Length 4
+vector length: 0 opcode: 10opcode: 0end 
+
+Section type: -1
+Success!
+**** New file: hostref.wasm
+
+
+Section type: 1
+Type section
+Length 24
+vector length: 5 vector length: 1 externref vector length: 1 externref vector length: 1 externref vector length: 0 vector length: 0 vector length: 1 externref vector length: 2 i32 externref vector length: 0 vector length: 1 i32 vector length: 1 externref 
+
+Section type: 2
+Import section
+Length 6
+vector length: 1 name length 0name length 1f funcIndex: 0 
+
+Section type: 3
+Function section
+Length 6
+vector length: 5 Index: 1 Index: 2 Index: 3 Index: 4 Index: 0 
+
+Section type: 4
+Table section
+Length 4
+vector length: 1 externrefLength 10
+ lower: 10, no upper
+
+Section type: 6
+Global section
+Length 5
+vector length: 1 externref  varopcode: d0end 
+
+Section type: 7
+Export section
+Length 80
+vector length: 7 name length 6global global Index: 0 name length 5table tableIndex: 0 name length 10global.set funcIndex: 1 name length 10global.get funcIndex: 2 name length 9table.set funcIndex: 3 name length 9table.get funcIndex: 4 name length 9func.call funcIndex: 5 
+
+Section type: 10
+Code section
+Length 56
+vector length: 5 Length 6
+vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 0end Length 4
+vector length: 0 opcode: 23opcode: 0end Length 8
+vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 1opcode: 26opcode: 0end Length 6
+vector length: 0 opcode: 20opcode: 0opcode: 25opcode: 0end Length 6
+vector length: 0 opcode: 20opcode: 0opcode: 10opcode: 0end 
+
+Section type: -1
+Success!
+**** New file: memory.wasm
+
+
+Section type: 1
+Type section
+Length 15
+vector length: 3 vector length: 0 vector length: 1 i32 vector length: 1 i32 vector length: 1 i32 vector length: 2 i32 i32 vector length: 0 
+
+Section type: 3
+Function section
+Length 4
+vector length: 3 Index: 0 Index: 1 Index: 2 
+
+Section type: 5
+Memory sectionLength 4
+vector length: 1 Length 2
+ Length 3
+ lower: 3, upper: 2
+
+Section type: 7
+Export section
+Length 32
+vector length: 4 name length 6memory mem Index: 0 name length 4size funcIndex: 0 name length 4load funcIndex: 1 name length 5store funcIndex: 2 
+
+Section type: 10
+Code section
+Length 36
+vector length: 3 Length 4
+vector length: 0 opcode: 3fopcode: 0end Length 7
+vector length: 0 opcode: 20opcode: 0opcode: 2copcode: 0opcode: 0end Length 9
+vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 1opcode: 3aopcode: 0opcode: 0end 
+
+Section type: 11
+Data section
+Length 11
+vector length: 1 opcode: 41opcode: 80opcode: 20end vector length: 4 1 2 3 4 
+
+Section type: -1
+Success!
+**** New file: multi.wasm
+
+
+Section type: 1
+Type section
+Length 12
+vector length: 1 vector length: 4 i32 i64 i64 i32 vector length: 4 i32 i64 i64 i32 
+
+Section type: 2
+Import section
+Length 6
+vector length: 1 name length 0name length 1f funcIndex: 0 
+
+Section type: 3
+Function section
+Length 2
+vector length: 1 Index: 0 
+
+Section type: 7
+Export section
+Length 5
+vector length: 1 name length 1g funcIndex: 1 
+
+Section type: 10
+Code section
+Length 18
+vector length: 1 Length 12
+vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 2opcode: 20opcode: 1opcode: 20opcode: 3opcode: 10opcode: 0end 
+
+Section type: -1
+Success!
+**** New file: reflect.wasm
+
+
+Section type: 1
+Type section
+Length 8
+vector length: 1 vector length: 3 i32 f64 f32 vector length: 1 i32 
+
+Section type: 3
+Function section
+Length 2
+vector length: 1 Index: 0 
+
+Section type: 4
+Table section
+Length 5
+vector length: 1 funcrefLength 0
+ Length 50
+ lower: 50, upper: 0
+
+Section type: 5
+Memory sectionLength 3
+vector length: 1 Length 1
+ lower: 1, no upper
+
+Section type: 6
+Global section
+Length 13
+vector length: 1 f64  constopcode: 44opcode: 0opcode: 0opcode: 0opcode: 0opcode: 0opcode: 0opcode: 0opcode: 0end 
+
+Section type: 7
+Export section
+Length 34
+vector length: 4 name length 4func funcIndex: 0 name length 6global global Index: 0 name length 5table tableIndex: 0 name length 6memory mem Index: 0 
+
+Section type: 10
+Code section
+Length 9
+vector length: 1 Length 3
+vector length: 0 None end 
+
+Section type: -1
+Success!
+**** New file: serialize.wasm
+
+
+Section type: 1
+Type section
+Length 4
+vector length: 1 vector length: 0 vector length: 0 
+
+Section type: 2
+Import section
+Length 10
+vector length: 1 name length 0name length 5hello funcIndex: 0 
+
+Section type: 3
+Function section
+Length 2
+vector length: 1 Index: 0 
+
+Section type: 7
+Export section
+Length 7
+vector length: 1 name length 3run funcIndex: 1 
+
+Section type: 10
+Code section
+Length 10
+vector length: 1 Length 4
+vector length: 0 opcode: 10opcode: 0end 
+
+Section type: -1
+Success!
+**** New file: start.wasm
+
+
+Section type: 1
+Type section
+Length 4
+vector length: 1 vector length: 0 vector length: 0 
+
+Section type: 3
+Function section
+Length 2
+vector length: 1 Index: 0 
+
+Section type: 8
+Start section
+Length 1
+Index: 0 
+
+Section type: 10
+Code section
+Length 9
+vector length: 1 Length 3
+vector length: 0 None end 
+
+Section type: -1
+Success!
+**** New file: table.wasm
+
+
+Section type: 1
+Type section
+Length 12
+vector length: 2 vector length: 2 i32 i32 vector length: 1 i32 vector length: 1 i32 vector length: 1 i32 
+
+Section type: 3
+Function section
+Length 4
+vector length: 3 Index: 0 Index: 1 Index: 1 
+
+Section type: 4
+Table section
+Length 5
+vector length: 1 funcrefLength 2
+ Length 10
+ lower: 10, upper: 2
+
+Section type: 7
+Export section
+Length 33
+vector length: 4 name length 5table tableIndex: 0 name length 13call_indirect funcIndex: 0 name length 1f funcIndex: 1 name length 1g funcIndex: 2 
+
+Section type: 9
+Element section
+Length 7
+vector length: 1 opcode: 41opcode: 1end Index: 1 
+
+Section type: 10
+Code section
+Length 34
+vector length: 3 Length 9
+vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 1opcode: 11opcode: 1opcode: 0end Length 4
+vector length: 0 opcode: 20opcode: 0end Length 5
+vector length: 0 opcode: 41opcode: 9aopcode: 5end 
+
+Section type: -1
+Success!
+**** New file: threads.wasm
+
+
+Section type: 1
+Type section
+Length 8
+vector length: 2 vector length: 1 i32 vector length: 0 vector length: 0 vector length: 0 
+
+Section type: 2
+Import section
+Length 17
+vector length: 2 name length 0name length 5hello funcIndex: 0 name length 0name length 2id global i32  const
+
+Section type: 3
+Function section
+Length 2
+vector length: 1 Index: 1 
+
+Section type: 7
+Export section
+Length 7
+vector length: 1 name length 3run funcIndex: 1 
+
+Section type: 10
+Code section
+Length 12
+vector length: 1 Length 6
+vector length: 0 opcode: 23opcode: 0opcode: 10opcode: 0end 
+
+Section type: -1
+Success!
+**** New file: trap.wasm
+
+
+Section type: 1
+Type section
+Length 5
+vector length: 1 vector length: 0 vector length: 1 i32 
+
+Section type: 2
+Import section
+Length 13
+vector length: 1 name length 0name length 8callback funcIndex: 0 
+
+Section type: 3
+Function section
+Length 3
+vector length: 2 Index: 0 Index: 0 
+
+Section type: 7
+Export section
+Length 26
+vector length: 2 name length 8callback funcIndex: 1 name length 11unreachable funcIndex: 2 
+
+Section type: 10
+Code section
+Length 20
+vector length: 2 Length 4
+vector length: 0 opcode: 10opcode: 0end Length 5
+vector length: 0 None opcode: 41opcode: 1end 
+
+Section type: -1
+Success!

@@ -1,14 +1,21 @@
 open Core
 
-let file = "hello.wasm"
+let usage_msg = "readBin -verbose <file1> <file2> ..."
+let verbose = ref false
+let input_files = ref []
+let speclist =
+	  [("-verbose", Arg.Set verbose, "Output debug information")]
+let anon_fun filename =
+       input_files := filename::!input_files
 
 let get_byte ic =
 	let b = In_channel.input_byte ic in
 		match b with
 		| None -> -1
 		| Some x -> 
-			printf "%X " x;
-			x
+			match !verbose with
+			| true -> printf "%X " x; x
+			| _ -> x
 
 let read_magic ic =
 	get_byte ic = 0x00
@@ -28,18 +35,18 @@ let rec skip_bytes ic n =
 	| _ ->
 		get_byte ic >= 0 && skip_bytes ic (n-1)
 
-let rec read_vbe' ic =
-	match get_byte ic with
+let rec read_vbe' ic b =
+	match b with
 	| 0 -> 0
-	| b -> (b land 0x7f) + ((read_vbe' ic) lsl 7)
+	| b -> (b land 0x7f) + ((read_vbe' ic (get_byte ic)) lsl 7)
 
-let read_vbe ic = 
-	match 
-		read_vbe' ic
-	with
-	| len ->
-		printf "Length: %d\n" len;
-		len
+let read_vbe ic =
+	let b = get_byte ic in
+	match b < 128 with
+	| true -> printf "Length %d\n " b; b
+	| _ ->
+		let len = (read_vbe' ic b) in
+			printf "Length %d\n" len; len
 
 let get_vec_len ic =
 	match get_byte ic with
@@ -49,6 +56,29 @@ let get_idx ic =
 	match get_byte ic with
 	| -1 -> printf "idx error!\n"; false
 	| i -> printf "Index: %d " i; true
+
+let print_op_code op =
+	match op with
+	| 0x0b -> printf "end "
+	| _ -> printf "opcode: %x" op
+
+let rec expr ic op =
+	print_op_code op;
+	match op with
+	| 0x0b -> true
+	| _ -> expr ic (get_byte ic)
+
+(* Sections consisting of vectors of entries *)
+let rec read_entry ic n entry_handler =
+	match n with
+	| 0 -> true
+	| _ ->
+		entry_handler ic &&
+		read_entry ic (n-1) entry_handler
+
+let read_section ic entry_handler =
+	read_vbe ic >= 0
+	&& read_entry ic (get_vec_len ic) entry_handler
 
 (* Type section *)
 let valtype ic =
@@ -60,7 +90,7 @@ let valtype ic =
 	| 0x7c -> printf "f64 "; true
 	| 0x70 -> printf "funcref "; true
 	| 0x6f -> printf "externref "; true
-	| _ -> printf "invalid "; false
+	| x -> printf "invalid valtype %x" x; false
 
 let rec get_types ic len =
 	match len with
@@ -166,13 +196,48 @@ let read_function_section ic =
 	read_vbe ic >= 0
 	&& read_functions ic (get_vec_len ic)
 
+(* Table section *)
+let read_table ic =
+	get_table_type ic
+
+let rec read_tables ic n =
+	match n with
+	| 0 -> true
+	| _ ->
+		read_table ic &&
+		read_tables ic (n-1)
+
+let read_table_section ic =
+	read_vbe ic >= 0
+	&& read_tables ic (get_vec_len ic)
+
+(* Memory section *)
+let memory_reader ic =
+	get_mem_type ic
+
+(* Global section *)
+let read_global ic =
+	get_global_type ic &&
+	expr ic (get_byte ic)
+
+let rec read_globals ic n =
+	match n with
+	| 0 -> true
+	| _ ->
+		read_global ic &&
+		read_globals ic (n-1)
+
+let read_global_section ic =
+	read_vbe ic >= 0
+	&& read_globals ic (get_vec_len ic)
+
 (* Export section *)
 let exportdesc ic =
 	match get_byte ic with
-	| 0x00 -> printf "func"; (get_idx ic)
-	| 0x01 -> printf "table"; get_table_type ic
-	| 0x02 -> printf "mem "; get_mem_type ic
-	| 0x03 -> printf "global "; get_global_type ic
+	| 0x00 -> printf "func"; get_idx ic
+	| 0x01 -> printf "table"; get_idx ic
+	| 0x02 -> printf "mem "; get_idx ic
+	| 0x03 -> printf "global "; get_idx ic
 	| _ -> printf("Invalid exportdesc!"); false
 
 let read_export ic =
@@ -194,6 +259,60 @@ let read_export_section ic =
 let read_start_section ic =
 	read_vbe ic >= 0
 	&& get_idx ic
+
+(* Element section *)
+let rec vec_idx ic n =
+	match n with
+	| 0 -> true
+	| _ ->
+		get_idx ic
+		&& vec_idx ic (n-1)
+
+let elemkind ic =
+	match get_byte ic with
+	| 0x00 -> true
+	| _ -> printf "Invalid elemkind"; false
+
+let rec vec_expr ic n =
+	match n with
+	| 0 -> true
+	| _ ->
+		expr ic (get_byte ic)
+		&& vec_expr ic (n-1)
+
+let element_reader ic = 
+	match get_byte ic with
+	| 0x00 ->
+		expr ic (get_byte ic)
+		&& vec_idx ic (get_byte ic)
+	| 0x01 ->
+		elemkind ic
+		&& vec_idx ic (get_byte ic)
+	| 0x02 ->
+		get_idx ic
+		&& expr ic (get_byte ic)
+		&& elemkind ic
+		&& vec_idx ic (get_byte ic)
+	| 0x03 ->
+		elemkind ic
+		&& vec_idx ic (get_byte ic)
+	| 0x04 ->
+		expr ic (get_byte ic)
+		&& vec_expr ic (get_byte ic)
+	| 0x05 ->
+		reftype ic
+		&& vec_expr ic (get_byte ic)
+	| 0x06 -> 
+		get_idx ic
+		&& expr ic (get_byte ic)
+		&& reftype ic
+		&& vec_expr ic (get_byte ic)
+	| 0x07 ->
+		reftype ic
+		&& vec_expr ic (get_byte ic)
+	| _ ->
+		printf "Invalid element item";
+		false
 
 (* Code section *)
 let get_type_count ic =
@@ -226,17 +345,6 @@ let rec val_type_list ic =
 		| 0x7C -> printf "f64 "; val_type_list ic
 		| n -> n
 
-let print_op_code op =
-	match op with
-	| 0x0b -> printf "end "
-	| _ -> printf "opcode: %x" op
-
-let rec expr ic op =
-	print_op_code op;
-	match op with
-	| 0x0b -> true
-	| _ -> expr ic (get_byte ic)
-
 let get_code ic =
 	expr ic (val_type_list ic)
 
@@ -256,27 +364,37 @@ let read_code_section ic =
 	read_vbe ic >= 0
 	&& read_codes ic (get_vec_len ic)
 
+(* Data section *)
+let rec vec_bytes ic n =
+	match n with
+	| 0 -> true
+	| _ ->
+		printf "%X " (get_byte ic);
+		vec_bytes ic (n-1)
+
+let data_reader ic =
+	match get_byte ic with
+	| 0x00 -> expr ic (get_byte ic) && vec_bytes ic (get_vec_len ic)
+	| 0x01 -> vec_bytes ic (get_vec_len ic)
+	| 0x02 -> get_idx ic && expr ic (get_byte ic) && vec_bytes ic (get_vec_len ic)
+	| _ -> printf "Invalid data item\n"; false
+
 let read_section_body ic id =
 	match id with
-	| 0 -> printf "Custom section\n";
+	| 0 -> printf "Custom section - unimplemented\n";
 	skip_bytes ic (read_vbe ic)
 	| 1 -> printf "Type section\n"; read_type_section ic
 	| 2 -> printf "Import section\n"; read_import_section ic
 	| 3 -> printf "Function section\n"; read_function_section ic
-	| 4 -> printf "Table section\n";
-	skip_bytes ic (read_vbe ic)
-	| 5 -> printf "Memory section\n";
-	skip_bytes ic (read_vbe ic)
-	| 6 -> printf "Global section\n";
-	skip_bytes ic (read_vbe ic)
+	| 4 -> printf "Table section\n"; read_table_section ic
+	| 5 -> printf "Memory section"; read_section ic memory_reader
+	| 6 -> printf "Global section\n"; read_global_section ic
 	| 7 -> printf "Export section\n"; read_export_section ic
 	| 8 -> printf "Start section\n"; read_start_section ic
-	| 9 -> printf "Element section\n";
-	skip_bytes ic (read_vbe ic)
+	| 9 -> printf "Element section\n"; read_section ic element_reader
 	| 10 -> printf "Code section\n"; read_code_section ic
-	| 11 -> printf "Data section\n";
-	skip_bytes ic (read_vbe ic)
-	| 12 -> printf "Data count section\n";
+	| 11 -> printf "Data section\n"; read_section ic data_reader
+	| 12 -> printf "Data count section - unimplemented\n";
 	skip_bytes ic (read_vbe ic)
 	| _ -> printf "Unknown section\n";
 	skip_bytes ic (read_vbe ic)
@@ -299,8 +417,18 @@ let parse_wasm ic =
 	&& read_version ic
 	&& read_sections ic
 
+let rec parseFiles filelist =
+	match filelist with
+	| [] -> true
+	| file::files ->
+		printf "**** New file: %s\n" file;
+	  	let ic = In_channel.create file in
+			match parse_wasm ic with
+			| true -> parseFiles files 
+			| _ -> false
+
 let () =
-	let ic = In_channel.create file in
-		match parse_wasm ic with
-		| true -> printf "Success!\n"
-		| _ -> printf "Fail!\n"
+	Arg.parse speclist anon_fun usage_msg;
+	match parseFiles !input_files with
+	| true -> printf "Success!\n"
+	| _ -> printf "Fail!\n"
