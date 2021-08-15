@@ -25,7 +25,7 @@ Section type: 10
 Code section
 Length 18
 vector length: 1 Length 12
-vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 1opcode: 6aopcode: 10opcode: 0opcode: 10opcode: 1opcode: 6aend 
+vector length: 0 opcode: 20unreachable opcode: 20nop opcode: 6acall 0call 1opcode: 6aend 
 
 Section type: -1
 Success!
@@ -51,7 +51,7 @@ Section type: 10
 Code section
 Length 9
 vector length: 1 Length 3
-vector length: 0 None end 
+vector length: 0 unreachable end 
 
 Section type: -1
 Success!
@@ -104,7 +104,7 @@ vector length: 12 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0
 Section type: 6
 Global section
 Length 27
-vector length: 4 f32  constopcode: 43opcode: 0opcode: 0opcode: a0opcode: 40end i64  constopcode: 42opcode: 6end f32  varopcode: 43opcode: 0opcode: 0opcode: e0opcode: 40end i64  varopcode: 42opcode: 8end 
+vector length: 4 f32  constopcode: 43unreachable unreachable opcode: a0opcode: 40end i64  constopcode: 42opcode: 6end f32  varopcode: 43unreachable unreachable opcode: e0opcode: 40end i64  varopcode: 42opcode: 8end 
 
 Section type: 7
 Export section
@@ -115,21 +115,14 @@ Section type: 10
 Code section
 Length 117
 vector length: 12 Length 4
-vector length: 0 opcode: 23opcode: 0end Length 4
-vector length: 0 opcode: 23opcode: 1end Length 4
-vector length: 0 opcode: 23opcode: 2end Length 4
-vector length: 0 opcode: 23opcode: 3end Length 4
-vector length: 0 opcode: 23opcode: 4end Length 4
-vector length: 0 opcode: 23opcode: 5end Length 4
+vector length: 0 opcode: 23unreachable end Length 4
+vector length: 0 opcode: 23nop end Length 4
+vector length: 0 opcode: 23block, type:Bopcode: 84opcode: 80opcode: 80opcode: 80unreachable unreachable opcode: 23loop, type:Bopcode: 84opcode: 80opcode: 80opcode: 80unreachable unreachable opcode: 23if, type:Bopcode: 84opcode: 80opcode: 80opcode: 80unreachable unreachable opcode: 23opcode: 5end Length 4
 vector length: 0 opcode: 23opcode: 6end Length 4
 vector length: 0 opcode: 23opcode: 7end Length 6
-vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 2end Length 6
-vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 3end Length 6
-vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 6end Length 6
-vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 7end 
-
-Section type: -1
-Success!
+vector length: 0 opcode: 20unreachable opcode: 24block, type:Bopcode: 86opcode: 80opcode: 80opcode: 80unreachable unreachable opcode: 20unreachable opcode: 24loop, type:Bopcode: 86opcode: 80opcode: 80opcode: 80unreachable unreachable opcode: 20unreachable opcode: 24opcode: 6end Length 6
+vector length: 0 opcode: 20unreachable opcode: 24opcode: 7end Length -1
+ Fail!
 **** New file: hello.wasm
 
 
@@ -157,7 +150,7 @@ Section type: 10
 Code section
 Length 10
 vector length: 1 Length 4
-vector length: 0 opcode: 10opcode: 0end 
+vector length: 0 call 0end 
 
 Section type: -1
 Success!
@@ -199,11 +192,11 @@ Section type: 10
 Code section
 Length 56
 vector length: 5 Length 6
-vector length: 0 opcode: 20opcode: 0opcode: 24opcode: 0end Length 4
-vector length: 0 opcode: 23opcode: 0end Length 8
-vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 1opcode: 26opcode: 0end Length 6
-vector length: 0 opcode: 20opcode: 0opcode: 25opcode: 0end Length 6
-vector length: 0 opcode: 20opcode: 0opcode: 10opcode: 0end 
+vector length: 0 opcode: 20unreachable opcode: 24unreachable end Length 4
+vector length: 0 opcode: 23unreachable end Length 8
+vector length: 0 opcode: 20unreachable opcode: 20nop opcode: 26unreachable end Length 6
+vector length: 0 opcode: 20unreachable opcode: 25unreachable end Length 6
+vector length: 0 opcode: 20unreachable call 0end 
 
 Section type: -1
 Success!
@@ -235,9 +228,9 @@ Section type: 10
 Code section
 Length 36
 vector length: 3 Length 4
-vector length: 0 opcode: 3fopcode: 0end Length 7
-vector length: 0 opcode: 20opcode: 0opcode: 2copcode: 0opcode: 0end Length 9
-vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 1opcode: 3aopcode: 0opcode: 0end 
+vector length: 0 opcode: 3funreachable end Length 7
+vector length: 0 opcode: 20unreachable opcode: 2cunreachable unreachable end Length 9
+vector length: 0 opcode: 20unreachable opcode: 20nop opcode: 3aunreachable unreachable end 
 
 Section type: 11
 Data section
@@ -273,7 +266,7 @@ Section type: 10
 Code section
 Length 18
 vector length: 1 Length 12
-vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 2opcode: 20opcode: 1opcode: 20opcode: 3opcode: 10opcode: 0end 
+vector length: 0 opcode: 20unreachable opcode: 20block, type:20nop opcode: 20loop, type:10unreachable end 
 
 Section type: -1
 Success!
@@ -305,7 +298,7 @@ vector length: 1 Length 1
 Section type: 6
 Global section
 Length 13
-vector length: 1 f64  constopcode: 44opcode: 0opcode: 0opcode: 0opcode: 0opcode: 0opcode: 0opcode: 0opcode: 0end 
+vector length: 1 f64  constopcode: 44unreachable unreachable unreachable unreachable unreachable unreachable unreachable unreachable end 
 
 Section type: 7
 Export section
@@ -316,7 +309,7 @@ Section type: 10
 Code section
 Length 9
 vector length: 1 Length 3
-vector length: 0 None end 
+vector length: 0 unreachable end 
 
 Section type: -1
 Success!
@@ -347,7 +340,7 @@ Section type: 10
 Code section
 Length 10
 vector length: 1 Length 4
-vector length: 0 opcode: 10opcode: 0end 
+vector length: 0 call 0end 
 
 Section type: -1
 Success!
@@ -373,7 +366,7 @@ Section type: 10
 Code section
 Length 9
 vector length: 1 Length 3
-vector length: 0 None end 
+vector length: 0 unreachable end 
 
 Section type: -1
 Success!
@@ -405,14 +398,14 @@ vector length: 4 name length 5table tableIndex: 0 name length 13call_indirect fu
 Section type: 9
 Element section
 Length 7
-vector length: 1 opcode: 41opcode: 1end Index: 1 
+vector length: 1 opcode: 41nop end Index: 1 
 
 Section type: 10
 Code section
 Length 34
 vector length: 3 Length 9
-vector length: 0 opcode: 20opcode: 0opcode: 20opcode: 1opcode: 11opcode: 1opcode: 0end Length 4
-vector length: 0 opcode: 20opcode: 0end Length 5
+vector length: 0 opcode: 20unreachable opcode: 20nop call_indirect 0 1end Length 4
+vector length: 0 opcode: 20unreachable end Length 5
 vector length: 0 opcode: 41opcode: 9aopcode: 5end 
 
 Section type: -1
@@ -444,7 +437,7 @@ Section type: 10
 Code section
 Length 12
 vector length: 1 Length 6
-vector length: 0 opcode: 23opcode: 0opcode: 10opcode: 0end 
+vector length: 0 opcode: 23unreachable call 0end 
 
 Section type: -1
 Success!
@@ -475,8 +468,8 @@ Section type: 10
 Code section
 Length 20
 vector length: 2 Length 4
-vector length: 0 opcode: 10opcode: 0end Length 5
-vector length: 0 None opcode: 41opcode: 1end 
+vector length: 0 call 0end Length 5
+vector length: 0 unreachable opcode: 41nop end 
 
 Section type: -1
 Success!

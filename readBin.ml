@@ -57,16 +57,52 @@ let get_idx ic =
 	| -1 -> printf "idx error!\n"; false
 	| i -> printf "Index: %d " i; true
 
-let print_op_code op =
-	match op with
-	| 0x0b -> printf "end "
-	| _ -> printf "opcode: %x" op
+	let rec vec_idx ic n =
+		match n with
+		| 0 -> true
+		| _ ->
+			get_idx ic
+			&& vec_idx ic (n-1)
+	
+	let rec instr ic =
+	let opcode = get_byte ic in
+		match opcode with
+		(* control instructions *)
+		| 0x00 -> printf "unreachable "; opcode
+		| 0x01 -> printf "nop "; opcode
+		| 0x02 -> printf "block, type:%X" (get_byte ic);
+				(	match instr ic with
+					| 0x0b -> printf "end "; opcode
+					| _ -> instr ic
+				)
+		|	0x03 -> printf "loop, type:%X" (get_byte ic);
+				(	match instr ic with
+					| 0x0b -> printf "end "; opcode
+					| _ -> instr ic
+				)
+		|	0x04 -> printf "if, type:%X" (get_byte ic);
+				(	match instr ic with
+					| 0x05 -> printf "else ";
+						( match instr ic with
+							| 0x0b -> printf "end "; opcode
+							| _ -> instr ic
+						)
+					| 0x0b -> printf "end "; opcode
+					| _ -> instr ic
+				)
+		| 0x0c -> printf "br %x" (get_byte ic); opcode
+		| 0x0d -> printf "br_if %x" (get_byte ic); opcode
+		| 0x0e -> ignore(vec_idx ic (get_byte ic): bool); printf "br_table %X" (get_byte ic); opcode
+		| 0x0f -> printf "return "; opcode
+		| 0x10 -> printf "call %x" (get_byte ic); opcode
+		| 0x11 -> printf "call_indirect %x %x" (get_byte ic) (get_byte ic); opcode
+		| 0x0b -> printf "end "; opcode
+		| _ -> printf "opcode: %x" opcode; opcode
 
-let rec expr ic op =
-	print_op_code op;
-	match op with
-	| 0x0b -> true
-	| _ -> expr ic (get_byte ic)
+let rec expr ic =
+	match instr ic with
+	| 0x0B -> true
+	| _ -> expr ic
 
 (* Sections consisting of vectors of entries *)
 let rec read_entry ic n entry_handler =
@@ -174,7 +210,7 @@ let memory_reader ic =
 (* Global section *)
 let read_global ic =
 	get_global_type ic &&
-	expr ic (get_byte ic)
+	expr ic
 
 (* Export section *)
 let exportdesc ic =
@@ -195,13 +231,6 @@ let read_start_section ic =
 	&& get_idx ic
 
 (* Element section *)
-let rec vec_idx ic n =
-	match n with
-	| 0 -> true
-	| _ ->
-		get_idx ic
-		&& vec_idx ic (n-1)
-
 let elemkind ic =
 	match get_byte ic with
 	| 0x00 -> true
@@ -211,34 +240,34 @@ let rec vec_expr ic n =
 	match n with
 	| 0 -> true
 	| _ ->
-		expr ic (get_byte ic)
+		expr ic
 		&& vec_expr ic (n-1)
 
 let element_reader ic = 
 	match get_byte ic with
 	| 0x00 ->
-		expr ic (get_byte ic)
+		expr ic
 		&& vec_idx ic (get_byte ic)
 	| 0x01 ->
 		elemkind ic
 		&& vec_idx ic (get_byte ic)
 	| 0x02 ->
 		get_idx ic
-		&& expr ic (get_byte ic)
+		&& expr ic
 		&& elemkind ic
 		&& vec_idx ic (get_byte ic)
 	| 0x03 ->
 		elemkind ic
 		&& vec_idx ic (get_byte ic)
 	| 0x04 ->
-		expr ic (get_byte ic)
+		expr ic
 		&& vec_expr ic (get_byte ic)
 	| 0x05 ->
 		reftype ic
 		&& vec_expr ic (get_byte ic)
 	| 0x06 -> 
 		get_idx ic
-		&& expr ic (get_byte ic)
+		&& expr ic
 		&& reftype ic
 		&& vec_expr ic (get_byte ic)
 	| 0x07 ->
@@ -280,7 +309,7 @@ let rec val_type_list ic =
 		| n -> n
 
 let get_code ic =
-	expr ic (val_type_list ic)
+	expr ic
 
 let read_code ic =
 	read_vbe ic >= 0
@@ -297,9 +326,9 @@ let rec vec_bytes ic n =
 
 let data_reader ic =
 	match get_byte ic with
-	| 0x00 -> expr ic (get_byte ic) && vec_bytes ic (get_vec_len ic)
+	| 0x00 -> expr ic && vec_bytes ic (get_vec_len ic)
 	| 0x01 -> vec_bytes ic (get_vec_len ic)
-	| 0x02 -> get_idx ic && expr ic (get_byte ic) && vec_bytes ic (get_vec_len ic)
+	| 0x02 -> get_idx ic && expr ic && vec_bytes ic (get_vec_len ic)
 	| _ -> printf "Invalid data item\n"; false
 
 let read_section_body ic id =
