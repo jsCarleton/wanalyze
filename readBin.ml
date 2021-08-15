@@ -108,17 +108,6 @@ let read_type ic =
 	&& get_type_vector ic
 	&& get_type_vector ic
 
-let rec read_types ic n =
-	match n with
-	| 0 -> true
-	| _ ->
-		read_type ic &&
-		read_types ic (n-1)
-
-let read_type_section ic =
-	read_vbe ic >= 0
-	&& read_types ic (get_vec_len ic)
-
 (* Import section *)
 let reftype ic =
 	match get_byte ic with
@@ -170,46 +159,13 @@ let read_import ic =
 	&& name ic
 	&& importdesc ic
 
-let rec read_imports ic n =
-	match n with
-	| 0 -> true
-	| _ ->
-		read_import ic
-		&& read_imports ic (n-1)
-
-let read_import_section ic =
-	read_vbe ic >=0
-	&& read_imports ic (get_vec_len ic)
-
 (* Function section *)
 let read_function ic = 
 	get_idx ic
 
-let rec read_functions ic n =
-	match n with
-	| 0 -> true
-	| _ ->
-		read_function ic &&
-		read_functions ic (n-1)
-
-let read_function_section ic =
-	read_vbe ic >= 0
-	&& read_functions ic (get_vec_len ic)
-
 (* Table section *)
 let read_table ic =
 	get_table_type ic
-
-let rec read_tables ic n =
-	match n with
-	| 0 -> true
-	| _ ->
-		read_table ic &&
-		read_tables ic (n-1)
-
-let read_table_section ic =
-	read_vbe ic >= 0
-	&& read_tables ic (get_vec_len ic)
 
 (* Memory section *)
 let memory_reader ic =
@@ -219,17 +175,6 @@ let memory_reader ic =
 let read_global ic =
 	get_global_type ic &&
 	expr ic (get_byte ic)
-
-let rec read_globals ic n =
-	match n with
-	| 0 -> true
-	| _ ->
-		read_global ic &&
-		read_globals ic (n-1)
-
-let read_global_section ic =
-	read_vbe ic >= 0
-	&& read_globals ic (get_vec_len ic)
 
 (* Export section *)
 let exportdesc ic =
@@ -243,17 +188,6 @@ let exportdesc ic =
 let read_export ic =
 	name ic &&
 	exportdesc ic
-
-let rec read_exports ic n =
-	match n with
-	| 0 -> true
-	| _ ->
-		read_export ic &&
-		read_exports ic (n-1)
-
-let read_export_section ic =
-	read_vbe ic >= 0
-	&& read_exports ic (get_vec_len ic)
 
 (* Start section *)
 let read_start_section ic =
@@ -353,17 +287,6 @@ let read_code ic =
 	&& get_locals ic (get_vec_len ic)
 	&& get_code ic
 
-let rec read_codes ic n =
-	match n with
-	| 0 -> true
-	| _ ->
-		read_code ic &&
-		read_codes ic (n-1)
-
-let read_code_section ic =
-	read_vbe ic >= 0
-	&& read_codes ic (get_vec_len ic)
-
 (* Data section *)
 let rec vec_bytes ic n =
 	match n with
@@ -383,16 +306,16 @@ let read_section_body ic id =
 	match id with
 	| 0 -> printf "Custom section - unimplemented\n";
 	skip_bytes ic (read_vbe ic)
-	| 1 -> printf "Type section\n"; read_type_section ic
-	| 2 -> printf "Import section\n"; read_import_section ic
-	| 3 -> printf "Function section\n"; read_function_section ic
-	| 4 -> printf "Table section\n"; read_table_section ic
+	| 1 -> printf "Type section\n"; read_section ic read_type
+	| 2 -> printf "Import section\n"; read_section ic read_import
+	| 3 -> printf "Function section\n"; read_section ic read_function
+	| 4 -> printf "Table section\n"; read_section ic read_table
 	| 5 -> printf "Memory section"; read_section ic memory_reader
-	| 6 -> printf "Global section\n"; read_global_section ic
-	| 7 -> printf "Export section\n"; read_export_section ic
+	| 6 -> printf "Global section\n"; read_section ic read_global
+	| 7 -> printf "Export section\n"; read_section ic read_export
 	| 8 -> printf "Start section\n"; read_start_section ic
 	| 9 -> printf "Element section\n"; read_section ic element_reader
-	| 10 -> printf "Code section\n"; read_code_section ic
+	| 10 -> printf "Code section\n"; read_section ic read_code
 	| 11 -> printf "Data section\n"; read_section ic data_reader
 	| 12 -> printf "Data count section - unimplemented\n";
 	skip_bytes ic (read_vbe ic)
