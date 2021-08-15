@@ -43,10 +43,15 @@ let rec read_vbe' ic b =
 let read_vbe ic =
 	let b = get_byte ic in
 	match b < 128 with
-	| true -> printf "Length %d\n " b; b
+	| true -> 
+		(match !verbose with
+		 | true -> printf "Length %d\n " b; b
+		 | _ -> b)
 	| _ ->
 		let len = (read_vbe' ic b) in
-			printf "Length %d\n" len; len
+		(match !verbose with
+		| true -> printf "Length %d\n" len; len
+		| _ -> len)
 
 let get_vec_len ic =
 	match get_byte ic with
@@ -64,6 +69,23 @@ let get_idx ic =
 			get_idx ic
 			&& vec_idx ic (n-1)
 	
+	let get_i16 ic =
+		(get_byte ic) + ((get_byte ic)*256)
+	let get_i32 ic =
+			(get_i16 ic) + ((get_i16 ic)*256*256)
+	let get_i64 ic = read_vbe ic
+	
+	let reftype ic =
+		match get_byte ic with
+		| 0x70 -> printf "funcref"; true
+		| 0x6F -> printf "externref"; true
+		| x -> printf "Invalid reftype %x!" x; false
+	
+	let memarg ic =
+		printf "align: %d " (read_vbe ic);
+		printf "offset: %d " (read_vbe ic);
+		true
+
 	let rec instr ic =
 	let opcode = get_byte ic in
 		match opcode with
@@ -90,18 +112,41 @@ let get_idx ic =
 					| 0x0b -> printf "end "; opcode
 					| _ -> instr ic
 				)
-		| 0x0c -> printf "br %x" (get_byte ic); opcode
-		| 0x0d -> printf "br_if %x" (get_byte ic); opcode
+		| 0x0c -> printf "br %x " (get_byte ic); opcode
+		| 0x0d -> printf "br_if %x " (get_byte ic); opcode
 		| 0x0e -> ignore(vec_idx ic (get_byte ic): bool); printf "br_table %X" (get_byte ic); opcode
 		| 0x0f -> printf "return "; opcode
-		| 0x10 -> printf "call %x" (get_byte ic); opcode
-		| 0x11 -> printf "call_indirect %x %x" (get_byte ic) (get_byte ic); opcode
+		| 0x10 -> printf "call %x " (get_byte ic); opcode
+		| 0x11 -> printf "call_indirect %x %x " (get_byte ic) (get_byte ic); opcode
 		| 0x0b -> printf "end "; opcode
-		| _ -> printf "opcode: %x" opcode; opcode
+		(* reference instructions*)
+		| 0xd0 -> printf "ref.null "; opcode (* not what the spec says *)
+		(* parametric instructions *)
+		(* variable instructions*)
+		| 0x20 -> printf "local.get %x " (get_byte ic); opcode
+		| 0x21 -> printf "local.set %x " (get_byte ic); opcode
+		| 0x22 -> printf "local.tee %x " (get_byte ic); opcode
+		| 0x23 -> printf "global.get %x " (get_byte ic); opcode
+		| 0x24 -> printf "global.set %x " (get_byte ic); opcode
+		(* table instructions *)
+		| 0x25 -> printf "table.get %x " (get_byte ic); opcode
+		| 0x26 -> printf "table.set %x " (get_byte ic); opcode
+		(* memory instructions *)
+		| 0x2c -> printf "i32.load8_s "; ignore(memarg ic: bool); opcode
+		| 0x3a -> printf "i32.store 8 "; ignore(memarg ic: bool); opcode
+		| 0x3f -> printf "memory.size %x" (get_byte ic); opcode
+		(* numeric instructions *)
+		| 0x41 -> printf "i32.const %d " (get_i32 ic); opcode
+		|	0x42 -> printf "i64.const %d " (get_i64 ic); opcode
+		| 0x43 -> printf "f32.const %d " (get_i32 ic); opcode
+		| 0x6a -> printf "i32.add "; opcode
+		(* unhandled opcode *)
+		| _ -> printf "unhandled opcode: %x" opcode; -1
 
 let rec expr ic =
 	match instr ic with
 	| 0x0B -> true
+	| -1 -> false
 	| _ -> expr ic
 
 (* Sections consisting of vectors of entries *)
@@ -145,12 +190,6 @@ let read_type ic =
 	&& get_type_vector ic
 
 (* Import section *)
-let reftype ic =
-	match get_byte ic with
-	| 0x70 -> printf "funcref"; true
-	| 0x6F -> printf "externref"; true
-	| _ -> printf "Invalid reftype!"; false
-
 let limits ic =
 	match get_byte ic with
 	| 0x00 -> printf "lower: %d, no upper" (read_vbe ic); true
@@ -165,19 +204,19 @@ let get_mem_type ic =
 
 let mut ic =
 	match get_byte ic with
-	| 0x00 -> printf " const"; true
-	| 0x01 -> printf " var"; true
+	| 0x00 -> printf "const "; true
+	| 0x01 -> printf "var "; true
 	| _ -> printf "Invalid mut!"; false
 
-let get_global_type ic =
+let globaltype ic =
 	valtype ic && mut ic
 
 let importdesc ic =
 	match get_byte ic with
-	| 0x00 -> printf "func"; (get_idx ic)
-	| 0x01 -> printf "table"; get_table_type ic
+	| 0x00 -> printf "func "; (get_idx ic)
+	| 0x01 -> printf "table "; get_table_type ic
 	| 0x02 -> printf "mem "; get_mem_type ic
-	| 0x03 -> printf "global "; get_global_type ic
+	| 0x03 -> printf "global "; globaltype ic
 	| _ -> printf("Invalid importdesc!"); false
 
 let rec get_string ic n =
@@ -209,8 +248,7 @@ let memory_reader ic =
 
 (* Global section *)
 let read_global ic =
-	get_global_type ic &&
-	expr ic
+	globaltype ic && expr ic
 
 (* Export section *)
 let exportdesc ic =
