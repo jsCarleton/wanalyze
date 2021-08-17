@@ -82,7 +82,7 @@ vector length: 12 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0
 
 Section type: 6
 Global section
-vector length: 4 f32 const f32.const 41024 end i64 const i64.const 6 end f32 var f32.const 57408 end i64 var i64.const 8 end 
+vector length: 4 f32 const f32.const 0.000000 end i64 const i64.const 6 end f32 var f32.const 0.000000 end i64 var i64.const 8 end 
 
 Section type: 7
 Export section
@@ -172,11 +172,14 @@ vector length: 4 name length 6memory mem Index: 0 name length 4size funcIndex: 0
 
 Section type: 10
 Code section
-vector length: 3 vector length: 0 memory.size 0end vector length: 0 local.get 0 i32.load8_s align: 0 offset: 0 end vector length: 0 local.get 0 local.get 1 i32.store 8 align: 0 offset: 0 end 
+vector length: 3 vector length: 0 memory.size unreachable end vector length: 0 local.get 0 i32.load8_s align: 0 offset: 0 end vector length: 0 local.get 0 local.get 1 i32.store 8 align: 0 offset: 0 end 
 
 Section type: 11
 Data section
-vector length: 1 i32.const 2149583620 nop block, type:3if, type:7FFFFFFFFFFFFFFFunhandled opcode: 7fffffffffffffffunhandled opcode: 7fffffffffffffffunhandled opcode: 7fffffffffffffffFail!
+vector length: 1 i32.const 137438953472 end vector length: 4 1 2 3 4 
+
+Section type: -1
+Success!
 **** New file: multi.wasm
 
 
@@ -222,7 +225,18 @@ Memory sectionvector length: 1 lower: 1, no upper
 
 Section type: 6
 Global section
-vector length: 1 f64 const unhandled opcode: 44Fail!
+vector length: 1 f64 const f64.const 0.000000 end 
+
+Section type: 7
+Export section
+vector length: 4 name length 4func funcIndex: 0 name length 6global global Index: 0 name length 5table tableIndex: 0 name length 6memory mem Index: 0 
+
+Section type: 10
+Code section
+vector length: 1 vector length: 0 unreachable end 
+
+Section type: -1
+Success!
 **** New file: serialize.wasm
 
 
@@ -290,7 +304,14 @@ vector length: 4 name length 5table tableIndex: 0 name length 13call_indirect fu
 
 Section type: 9
 Element section
-vector length: 1 i32.const 17498369 unhandled opcode: aFail!
+vector length: 1 i32.const 1 end Index: 1 
+
+Section type: 10
+Code section
+vector length: 3 vector length: 0 local.get 0 local.get 1 call_indirect 0 1 end vector length: 0 local.get 0 end vector length: 0 i32.const 21474836506 end 
+
+Section type: -1
+Success!
 **** New file: threads.wasm
 
 
@@ -337,4 +358,7 @@ vector length: 2 name length 8callback funcIndex: 1 name length 11unreachable fu
 
 Section type: 10
 Code section
-vector length: 2 vector length: 0 call 0 end vector length: 0 unreachable i32.const 17497855 unhandled opcode: 7fffffffffffffffFail!
+vector length: 2 vector length: 0 call 0 end vector length: 0 unreachable i32.const 1 end 
+
+Section type: -1
+Success!

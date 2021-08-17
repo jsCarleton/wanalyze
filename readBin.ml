@@ -1,3 +1,4 @@
+open Stdlib
 open Core
 
 let usage_msg = "readBin -verbose <file1> <file2> ..."
@@ -8,7 +9,7 @@ let speclist =
 let anon_fun filename =
        input_files := filename::!input_files
 
-let get_byte ic =
+let get_byte ic : int =
 	let b = In_channel.input_byte ic in
 		match b with
 		| None -> -1
@@ -34,6 +35,31 @@ let rec skip_bytes ic n =
 	| 0 -> true
 	| _ ->
 		get_byte ic >= 0 && skip_bytes ic (n-1)
+
+let rec uLEB ic size =
+	let n = get_byte ic in
+	match (n < (1 lsl 7)) && (n < (1 lsl size)) with
+	| true -> n
+	| _ -> (1 lsl size) * (uLEB ic (size-7)) + (n - (1 lsl 7))
+
+(* i64 helper functions *)
+let i64lt i1 i2 = (Int64.compare i1 i2) < 0
+let i64le i1 i2 = (Int64.compare i1 i2) <=0
+let i64mul i1 i2 : int64 = Stdlib.Int64.mul i1 i2
+let i64add i1 i2 : int64 = Stdlib.Int64.add i1 i2
+let i64sub i1 i2 : int64 = Stdlib.Int64.sub i1 i2
+let i64lsl i n : int64 = Stdlib.Int64.shift_left i n
+
+let rec sLEB ic size : int64 =
+	let n = Int64.of_int (get_byte ic) in
+	match (i64lt n (i64lsl 1L 7)) && (size >=64 || (i64lt n (i64lsl 1L size))) with
+	| true -> n
+	| _ -> 
+		(match (i64le (i64lsl 1L 6) n) && (i64lt n (i64lsl 1L 7)) 
+				&& (i64le n (i64sub (i64lsl 1L 7) (i64lsl 1L (size-1)))) with
+		 | true -> (i64sub n (i64lsl 1L 7))
+		 | _ -> i64add (i64mul (i64lsl 1L size)  (sLEB ic (size-7)))  (i64sub n (i64lsl 1L 7))
+		)
 
 let rec read_vbe' ic b =
 	match b with
@@ -69,12 +95,22 @@ let get_idx ic =
 			get_idx ic
 			&& vec_idx ic (n-1)
 	
-	let get_i16 ic =
-		(get_byte ic) + ((get_byte ic)*256)
-	let get_i32 ic =
-			(get_i16 ic) + ((get_i16 ic)*256*256)
-	let get_i64 ic = read_vbe ic
-	
+	let get_i16 ic = Int64.to_int (sLEB ic 16)
+	let get_i32 ic = 
+		match Int64.to_int (sLEB ic 32) with
+		| None -> -1
+		| Some x -> x
+	let get_i64 ic = sLEB ic 64
+
+	let rec bytes_to_i64' ic n acc : int64 =
+		match n with
+		| 0 -> acc
+		| _ -> bytes_to_i64' ic (n-1) (i64add (i64lsl acc 8) (Int64.of_int (get_byte ic)))
+	let bytes_to_i64 ic n : int64 = bytes_to_i64' ic n 0L
+
+	let get_f32 ic = Int64.float_of_bits (Int64.shift_left (bytes_to_i64 ic 4) 32)
+	let get_f64 ic = Int64.float_of_bits (bytes_to_i64 ic 8)
+												
 	let reftype ic =
 		match get_byte ic with
 		| 0x70 -> printf "funcref"; true
@@ -134,14 +170,19 @@ let get_idx ic =
 		(* memory instructions *)
 		| 0x2c -> printf "i32.load8_s "; ignore(memarg ic: bool); opcode
 		| 0x3a -> printf "i32.store 8 "; ignore(memarg ic: bool); opcode
-		| 0x3f -> printf "memory.size %x" (get_byte ic); opcode
+		| 0x3f -> printf "memory.size "; opcode (* not what the spec says *)
+		| 0x40 -> printf "memory grow "; opcode (* not what the spec says *)
 		(* numeric instructions *)
 		| 0x41 -> printf "i32.const %d " (get_i32 ic); opcode
-		|	0x42 -> printf "i64.const %d " (get_i64 ic); opcode
-		| 0x43 -> printf "f32.const %d " (get_i32 ic); opcode
+		|	0x42 -> printf "i64.const %Ld " (get_i64 ic); opcode
+		| 0x43 -> printf "f32.const %f " (get_f32 ic); opcode
+		| 0x44 -> printf "f64.const %f " (get_f64 ic); opcode
 		| 0x6a -> printf "i32.add "; opcode
+		| 0x7d -> printf "i64.sub "; opcode
+		| 0x7e -> printf "i64.mul "; opcode
+		| 0xa0 -> printf "f64.add "; opcode
 		(* unhandled opcode *)
-		| _ -> printf "unhandled opcode: %x" opcode; -1
+		| _ -> printf "unhandled opcode: %x " opcode; -1
 
 let rec expr ic =
 	match instr ic with
