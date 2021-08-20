@@ -459,6 +459,7 @@ let rec parseFiles filelist =
 			| _ -> false
 
 let () =
+	let w = Wasm_module.create in
 	Arg.parse speclist anon_fun usage_msg;
 	match parseFiles !input_files with
 	| true -> printf "Success!\n"
