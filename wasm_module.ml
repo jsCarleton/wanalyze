@@ -1,7 +1,26 @@
-type typesec =
+type numtype =
+  | I32 | I64 | F32 | F64
+
+type reftype =
+  | Funcref | Externref
+
+type valtype =
+  | Numtype of numtype
+  | Reftype of reftype
+
+type resulttype =
 {
-  ts_x: string;
+  t:      valtype;
 }
+
+type functype =
+{
+  rt1:    resulttype list;
+  rt2:    resulttype list;
+}
+let create_functype rt1 rt2 =
+  { rt1; rt2}
+
 type importsec =
 {
   x: string;
@@ -49,12 +68,11 @@ type datasec =
 
 type wasm_module =
 {
-  magic:        string;
-  version:      string;
-  type_section: typesec; 
+  mutable type_section: functype list; 
 }
-
-let ts_create =
-  { ts_x = "ts"}
+let ts_update w ((b1, rt1),(b2, rt2)) =
+  match (b1,b2) with
+  | (true, true) -> w.type_section <- List.append w.type_section [create_functype rt1 rt2]; true
+  | _ -> false
 let create =
-  { magic = ""; version = ""; type_section = ts_create }
+  { type_section = [] }

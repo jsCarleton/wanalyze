@@ -1,5 +1,5 @@
-open Stdlib
 open Core
+open Wasm_module
 
 let usage_msg = "readBin -verbose <file1> <file2> ..."
 let verbose = ref false
@@ -191,16 +191,16 @@ let rec expr ic =
 	| _ -> expr ic
 
 (* Sections consisting of vectors of entries *)
-let rec read_entry ic n entry_handler =
+let rec read_entry ic n w entry_handler =
 	match n with
 	| 0 -> true
 	| _ ->
-		entry_handler ic &&
-		read_entry ic (n-1) entry_handler
+		entry_handler ic w &&
+		read_entry ic (n-1) w entry_handler
 
-let read_section ic entry_handler =
+let read_section ic section entry_handler =
 	read_vbe ic >= 0
-	&& read_entry ic (get_vec_len ic) entry_handler
+	&& read_entry ic (get_vec_len ic) section entry_handler
 
 (* Type section *)
 let valtype ic =
@@ -225,10 +225,45 @@ let get_type_vector ic =
 	| len ->
 		get_types ic len
 
-let read_type ic =
+		(*
+let [@warning "-27"]read_type ic w =
 	get_byte ic = 0x60
 	&& get_type_vector ic
 	&& get_type_vector ic
+*)
+
+let xxvaltype ic =
+	match get_byte ic with
+	| 0 -> printf "None "; (true, 0)
+	| 0x7f -> printf "i32 "; (true, 0x7f)
+	| 0x7e -> printf "i64 "; (true, 0x7e)
+	| 0x7d -> printf "f32 "; (true, 0x7d)
+	| 0x7c -> printf "f64 "; (true, 0x7c)
+	| 0x70 -> printf "funcref "; (true, 0x70)
+	| 0x6f -> printf "externref "; (true, 0x6f)
+	| x -> printf "invalid valtype %x" x; (false, -1)
+	
+let rec xxget_types ic len acc =
+		match len with
+		| 0 -> (true, [])
+		| _ -> (
+			match xxvaltype ic with
+			| (false, _) -> (false, [])
+			| (_, x) -> xxget_types ic (len - 1) (List.append acc [x])
+		)
+	
+let xxget_type_vector ic =
+	match get_vec_len ic with
+	| 0 -> (true, [])
+	| len ->
+		xxget_types ic len []
+
+let xxget_functype ic =
+	(xxget_type_vector ic, xxget_type_vector ic)
+
+let read_type ic w =
+	get_byte ic = 0x60
+	&& ts_update w (xxget_functype ic)
 
 (* Import section *)
 let limits ic =
@@ -270,25 +305,25 @@ let name ic =
 	| 0 -> printf "name length 0";true
 	| n -> printf "name length %d" n; get_string ic n
 
-let read_import ic =
+let [@warning "-27"]read_import ic w =
 	name ic
 	&& name ic
 	&& importdesc ic
 
 (* Function section *)
-let read_function ic = 
+let [@warning "-27"]read_function ic w = 
 	get_idx ic
 
 (* Table section *)
-let read_table ic =
+let [@warning "-27"]read_table ic w =
 	get_table_type ic
 
 (* Memory section *)
-let memory_reader ic =
+let [@warning "-27"]memory_reader ic w =
 	get_mem_type ic
 
 (* Global section *)
-let read_global ic =
+let [@warning "-27"]read_global ic w =
 	globaltype ic && expr ic
 
 (* Export section *)
@@ -300,12 +335,12 @@ let exportdesc ic =
 	| 0x03 -> printf "global "; get_idx ic
 	| _ -> printf("Invalid exportdesc!"); false
 
-let read_export ic =
+let [@warning "-27"]read_export ic w =
 	name ic &&
 	exportdesc ic
 
 (* Start section *)
-let read_start_section ic =
+let [@warning "-27"]read_start_section ic w =
 	read_vbe ic >= 0
 	&& get_idx ic
 
@@ -322,7 +357,7 @@ let rec vec_expr ic n =
 		expr ic
 		&& vec_expr ic (n-1)
 
-let element_reader ic = 
+let [@warning "-27"]element_reader ic w = 
 	match get_byte ic with
 	| 0x00 ->
 		expr ic
@@ -390,7 +425,7 @@ let rec val_type_list ic =
 let get_code ic =
 	expr ic
 
-let read_code ic =
+let [@warning "-27"]read_code ic w =
 	read_vbe ic >= 0
 	&& get_locals ic (get_vec_len ic)
 	&& get_code ic
@@ -403,28 +438,28 @@ let rec vec_bytes ic n =
 		printf "%X " (get_byte ic);
 		vec_bytes ic (n-1)
 
-let data_reader ic =
+let [@warning "-27"]data_reader ic w =
 	match get_byte ic with
 	| 0x00 -> expr ic && vec_bytes ic (get_vec_len ic)
 	| 0x01 -> vec_bytes ic (get_vec_len ic)
 	| 0x02 -> get_idx ic && expr ic && vec_bytes ic (get_vec_len ic)
 	| _ -> printf "Invalid data item\n"; false
 
-let read_section_body ic id =
+let read_section_body ic w id =
 	match id with
 	| 0 -> printf "Custom section - unimplemented\n";
 	skip_bytes ic (read_vbe ic)
-	| 1 -> printf "Type section\n"; read_section ic read_type
-	| 2 -> printf "Import section\n"; read_section ic read_import
-	| 3 -> printf "Function section\n"; read_section ic read_function
-	| 4 -> printf "Table section\n"; read_section ic read_table
-	| 5 -> printf "Memory section"; read_section ic memory_reader
-	| 6 -> printf "Global section\n"; read_section ic read_global
-	| 7 -> printf "Export section\n"; read_section ic read_export
-	| 8 -> printf "Start section\n"; read_start_section ic
-	| 9 -> printf "Element section\n"; read_section ic element_reader
-	| 10 -> printf "Code section\n"; read_section ic read_code
-	| 11 -> printf "Data section\n"; read_section ic data_reader
+	| 1 -> printf "Type section\n"; read_section ic w read_type
+	| 2 -> printf "Import section\n"; read_section ic w read_import
+	| 3 -> printf "Function section\n"; read_section ic w read_function
+	| 4 -> printf "Table section\n"; read_section ic w read_table
+	| 5 -> printf "Memory section"; read_section ic w memory_reader
+	| 6 -> printf "Global section\n"; read_section ic w read_global
+	| 7 -> printf "Export section\n"; read_section ic w read_export
+	| 8 -> printf "Start section\n"; read_start_section ic w
+	| 9 -> printf "Element section\n"; read_section ic w element_reader
+	| 10 -> printf "Code section\n"; read_section ic w read_code
+	| 11 -> printf "Data section\n"; read_section ic w data_reader
 	| 12 -> printf "Data count section - unimplemented\n";
 	skip_bytes ic (read_vbe ic)
 	| _ -> printf "Unknown section\n";
@@ -436,17 +471,17 @@ let read_section_id ic =
 		printf "\n\nSection type: %d\n" id;
 		id
 
-let rec read_sections ic =
+let rec read_sections ic w =
 	match read_section_id ic with
 	| -1 -> true
 	| id ->
-		read_section_body ic id
-		&& read_sections ic
+		read_section_body ic w id
+		&& read_sections ic w
 
-let parse_wasm ic =
+let parse_wasm ic w =
 	read_magic ic
 	&& read_version ic
-	&& read_sections ic
+	&& read_sections ic w
 
 let rec parseFiles filelist =
 	match filelist with
@@ -454,12 +489,12 @@ let rec parseFiles filelist =
 	| file::files ->
 		printf "**** New file: %s\n" file;
 	  	let ic = In_channel.create file in
-			match parse_wasm ic with
+			let w = Wasm_module.create in
+			match parse_wasm ic w with
 			| true -> parseFiles files 
 			| _ -> false
 
 let () =
-	let w = Wasm_module.create in
 	Arg.parse speclist anon_fun usage_msg;
 	match parseFiles !input_files with
 	| true -> printf "Success!\n"
