@@ -489,9 +489,9 @@ let rec parseFiles filelist =
 	| file::files ->
 		printf "**** New file: %s\n" file;
 	  	let ic = In_channel.create file in
-			let w = Wasm_module.create in
+			let w = Wasm_module.create file in
 			match parse_wasm ic w with
-			| true -> parseFiles files 
+			| true -> Wasm_module.print w; parseFiles files 
 			| _ -> false
 
 let () =

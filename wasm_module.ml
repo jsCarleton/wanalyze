@@ -1,3 +1,5 @@
+open Core
+
 type numtype =
   | I32 | I64 | F32 | F64
 
@@ -66,13 +68,47 @@ type datasec =
   x: string;
 }
 
+
+let string_of_numtype nt =
+  match nt with
+  | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64" 
+let string_of_reftype rt =
+  match rt with  
+  | Funcref -> "funcref" | Externref -> "externref"
+let string_of_resulttype rt =
+  match rt.t with
+  | Numtype x -> string_of_numtype x
+  | Reftype x -> string_of_reftype x
+let string_of_param  p = "(param " ^ (string_of_resulttype p) ^ ")"
+let string_of_result r = "(result " ^ (string_of_resulttype r) ^ ")"
+let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
+let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
+let string_of_functype i ft = "  (type (;" ^ (string_of_int i) ^ ";) (func " ^ (string_of_params ft.rt1) ^ (string_of_results ft.rt2) ^ "))"
+let string_of_type_section section = String.concat ~sep:"\n" (List.mapi ~f:string_of_functype section)
+
+(*let print_params rt = List.iter print_param rt;
+let print_pr i ft = 
+  printf "(type (;%d%) (func ";
+  print_rts "param" ft.rt1;
+  print_rts "result" ft.rt2;
+  printf "))\n";
+let print_ts ts = List.iteri print_pr ts;
+*)
+
 type wasm_module =
 {
-  mutable type_section: functype list; 
+  module_name:          string;
+  mutable type_section: functype list;
 }
 let ts_update w ((b1, rt1),(b2, rt2)) =
+  printf "updating, before:%d" (List.length w.type_section);
   match (b1,b2) with
   | (true, true) -> w.type_section <- List.append w.type_section [create_functype rt1 rt2]; true
   | _ -> false
-let create =
-  { type_section = [] }
+let create name =
+  { module_name = name; type_section = [] }
+let print w =
+  printf "Module: %s\n" w.module_name;
+  printf "(module\n";
+  printf "%s" (string_of_type_section w.type_section);
+  printf ")";

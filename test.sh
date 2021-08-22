@@ -1,7 +1,7 @@
+./readBin.native global.wasm
 ./readBin.native callback.wasm
 ./readBin.native example.wasm
 ./readBin.native finalize.wasm
-./readBin.native global.wasm
 ./readBin.native hello.wasm
 ./readBin.native hostref.wasm
 ./readBin.native memory.wasm
