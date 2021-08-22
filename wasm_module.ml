@@ -1,5 +1,6 @@
 open Core
 
+(* Types *)
 type numtype =
   | I32 | I64 | F32 | F64
 
@@ -30,14 +31,17 @@ type functype =
 let create_functype rt1 rt2 =
   { rt1; rt2}
 
+(* Imports *)
 type importsec =
 {
   x: string;
 }
-type funcsec =
-{
-  x: string;
-}
+
+(* Functions *)
+type typeidx = int
+let string_of_typeidx = string_of_int
+
+(* Tables *)
 type tablesec =
 {
   x: string;
@@ -75,7 +79,7 @@ type datasec =
   x: string;
 }
 
-
+(* Type section printing *)
 let string_of_numtype nt =
   match nt with
   | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64" 
@@ -90,23 +94,32 @@ let string_of_param  p = "(param " ^ (string_of_resulttype p) ^ ")"
 let string_of_result r = "(result " ^ (string_of_resulttype r) ^ ")"
 let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
 let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
-let string_of_functype i ft = "  (type (;" ^ (string_of_int i) ^ ";) (func " ^ (string_of_params ft.rt1) ^ (string_of_results ft.rt2) ^ "))"
-let string_of_type_section section = String.concat ~sep:"\n" (List.mapi ~f:string_of_functype section)
+let string_of_functype i ft = "  (type (;" ^ (string_of_int i) ^ ";) (func " ^ (string_of_params ft.rt1) ^ (string_of_results ft.rt2) ^ "))\n"
+let string_of_type_section section = String.concat ~sep:"" (List.mapi ~f:string_of_functype section)
 
-(*let print_params rt = List.iter print_param rt;
-let print_pr i ft = 
-  printf "(type (;%d%) (func ";
-  print_rts "param" ft.rt1;
-  print_rts "result" ft.rt2;
-  printf "))\n";
-let print_ts ts = List.iteri print_pr ts;
-*)
-
+(* Modules *)
 type wasm_module =
 {
-  module_name:          string;
-  mutable type_section: functype list;
+  module_name:              string;
+  mutable type_section:     functype list;
+  mutable function_section: typeidx list;
 }
+let create name =
+  { module_name = name; type_section = []; function_section = []}
+
+(* Function section printing *)
+let get_params w idx =
+  match List.nth w.type_section idx with
+  | Some x -> x
+  | _ -> {rt1 = []; rt2 = []} (* TODO this shouldn't happen*)
+
+let string_of_function w i idx = 
+  "  (func (;" ^ (string_of_int i) ^ ";) (type " ^ (string_of_typeidx idx) ^ ") " 
+    ^ (string_of_params (get_params w idx).rt1) ^ (string_of_results (get_params w idx).rt2) ^ ")\n"
+let string_of_function_section w = 
+  String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
+
+(* Section updating *)
 let update_type_section w ((b1, rt1),(b2, rt2)) =
   printf "updating, before:%d\n" (List.length w.type_section);
   printf "rt1 len:%d rt2 len:%d\n" (List.length rt1)(List.length rt2);
@@ -115,10 +128,18 @@ let update_type_section w ((b1, rt1),(b2, rt2)) =
           w.type_section 
             <- List.append w.type_section [create_functype (List.map ~f:resulttype_of_int rt1) (List.map ~f:resulttype_of_int rt2) ]; true
   | _ -> false
-let create name =
-  { module_name = name; type_section = [] }
+let update_function_section w (b, i) =
+  match b, i with
+  | true, __ ->
+          w.function_section
+            <- List.append w.function_section [i]; true
+  | _ -> false
+
 let print w =
+  let ff x = (printf "%d") x in
+  ff 1;
   printf "Module: %s\n" w.module_name;
   printf "(module\n";
   printf "%s" (string_of_type_section w.type_section);
+  printf "%s" (string_of_function_section w);
   printf ")";

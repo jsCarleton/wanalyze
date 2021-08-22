@@ -1,8 +1,11 @@
 open Core
 open Wasm_module
 (* TODO: 
-		use map instead of coding recursion on lists 
-		use read_ instead of get_ when reading from ic *)
+		- use map instead of coding recursion on lists 
+		- use read_ instead of get_ when reading from ic
+		- make printfs look at verbose flag 
+		- add validation of indices (e.g. functions, types)
+		- add the rest of the op codes *)
 
 let usage_msg = "readBin -verbose <file1> <file2> ..."
 let verbose = ref false
@@ -85,6 +88,11 @@ let read_vbe ic =
 let get_vec_len ic =
 	match get_byte ic with
 	| len -> printf "vector length: %d " len; len
+
+let xxget_idx ic =
+	match get_byte ic with
+	| -1 -> printf "idx error!\n"; false, -1
+	| i -> printf "Index: %d " i; true, i
 
 let get_idx ic =
 	match get_byte ic with
@@ -290,7 +298,7 @@ let [@warning "-27"]read_import ic w =
 
 (* Function section *)
 let [@warning "-27"]read_function ic w = 
-	get_idx ic
+	update_function_section w (xxget_idx ic)
 
 (* Table section *)
 let [@warning "-27"]read_table ic w =
