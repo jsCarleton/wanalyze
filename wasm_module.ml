@@ -10,10 +10,17 @@ type valtype =
   | Numtype of numtype
   | Reftype of reftype
 
-type resulttype =
-{
-  t:      valtype;
-}
+type resulttype = valtype
+
+let resulttype_of_int i =
+  match i with
+  | 0x7f -> Numtype I32
+	| 0x7e -> Numtype I64
+	| 0x7d -> Numtype F32
+	| 0x7c -> Numtype F64
+	| 0x70 -> Reftype Funcref
+	| 0x6f -> Reftype Externref
+  | _ -> Numtype I32 (*TODO*)
 
 type functype =
 {
@@ -76,7 +83,7 @@ let string_of_reftype rt =
   match rt with  
   | Funcref -> "funcref" | Externref -> "externref"
 let string_of_resulttype rt =
-  match rt.t with
+  match rt with
   | Numtype x -> string_of_numtype x
   | Reftype x -> string_of_reftype x
 let string_of_param  p = "(param " ^ (string_of_resulttype p) ^ ")"
@@ -100,10 +107,13 @@ type wasm_module =
   module_name:          string;
   mutable type_section: functype list;
 }
-let ts_update w ((b1, rt1),(b2, rt2)) =
-  printf "updating, before:%d" (List.length w.type_section);
+let update_type_section w ((b1, rt1),(b2, rt2)) =
+  printf "updating, before:%d\n" (List.length w.type_section);
+  printf "rt1 len:%d rt2 len:%d\n" (List.length rt1)(List.length rt2);
   match (b1,b2) with
-  | (true, true) -> w.type_section <- List.append w.type_section [create_functype rt1 rt2]; true
+  | (true, true) -> 
+          w.type_section 
+            <- List.append w.type_section [create_functype (List.map ~f:resulttype_of_int rt1) (List.map ~f:resulttype_of_int rt2) ]; true
   | _ -> false
 let create name =
   { module_name = name; type_section = [] }

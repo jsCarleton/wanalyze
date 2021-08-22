@@ -1,5 +1,8 @@
 open Core
 open Wasm_module
+(* TODO: 
+		use map instead of coding recursion on lists 
+		use read_ instead of get_ when reading from ic *)
 
 let usage_msg = "readBin -verbose <file1> <file2> ..."
 let verbose = ref false
@@ -205,35 +208,6 @@ let read_section ic section entry_handler =
 (* Type section *)
 let valtype ic =
 	match get_byte ic with
-	| 0 -> printf "None "; true
-	| 0x7f -> printf "i32 "; true
-	| 0x7e -> printf "i64 "; true
-	| 0x7d -> printf "f32 "; true
-	| 0x7c -> printf "f64 "; true
-	| 0x70 -> printf "funcref "; true
-	| 0x6f -> printf "externref "; true
-	| x -> printf "invalid valtype %x" x; false
-
-let rec get_types ic len =
-	match len with
-	| 0 -> true
-	| _ -> valtype ic && get_types ic (len - 1)
-
-let get_type_vector ic =
-	match get_vec_len ic with
-	| 0 -> true
-	| len ->
-		get_types ic len
-
-		(*
-let [@warning "-27"]read_type ic w =
-	get_byte ic = 0x60
-	&& get_type_vector ic
-	&& get_type_vector ic
-*)
-
-let xxvaltype ic =
-	match get_byte ic with
 	| 0 -> printf "None "; (true, 0)
 	| 0x7f -> printf "i32 "; (true, 0x7f)
 	| 0x7e -> printf "i64 "; (true, 0x7e)
@@ -243,27 +217,31 @@ let xxvaltype ic =
 	| 0x6f -> printf "externref "; (true, 0x6f)
 	| x -> printf "invalid valtype %x" x; (false, -1)
 	
-let rec xxget_types ic len acc =
+let rec get_types ic len acc =
 		match len with
-		| 0 -> (true, [])
+		| 0 -> (true, acc)
 		| _ -> (
-			match xxvaltype ic with
+			match (valtype ic) with
 			| (false, _) -> (false, [])
-			| (_, x) -> xxget_types ic (len - 1) (List.append acc [x])
+			| (_, x) -> get_types ic (len - 1) (List.append acc [x])
 		)
 	
-let xxget_type_vector ic =
+let get_type_vector ic =
 	match get_vec_len ic with
 	| 0 -> (true, [])
 	| len ->
-		xxget_types ic len []
+		get_types ic len []
 
-let xxget_functype ic =
-	(xxget_type_vector ic, xxget_type_vector ic)
+let get_functype ic =
+	(* it seems we need to write it like this to ensure that the order of
+	   evaluation is correct *)
+	let rt1 = get_type_vector ic in
+	let rt2 = get_type_vector ic in
+	rt1, rt2
 
 let read_type ic w =
 	get_byte ic = 0x60
-	&& ts_update w (xxget_functype ic)
+	&& update_type_section w (get_functype ic)
 
 (* Import section *)
 let limits ic =
@@ -285,7 +263,7 @@ let mut ic =
 	| _ -> printf "Invalid mut!"; false
 
 let globaltype ic =
-	valtype ic && mut ic
+	(fst (valtype ic)) && (mut ic)
 
 let importdesc ic =
 	match get_byte ic with
