@@ -1,4 +1,4 @@
-**** New file: global.wasm
+**** New file: test_cases/global.wasm
 
 
 Section type: 1
@@ -31,29 +31,8 @@ vector length: 16 name length 9const f32 global Index: 4 name length 9const i64 
 
 Section type: 10
 Code section
-vector length: 12 vector length: 0 global.get 0 end vector length: 0 global.get 1 end vector length: 0 global.get 2 end vector length: 0 global.get 3 end vector length: 0 global.get 4 end vector length: 0 global.get 5 end vector length: 0 global.get 6 end vector length: 0 global.get 7 end vector length: 0 local.get 0 global.set 2 end vector length: 0 local.get 0 global.set 3 end vector length: 0 local.get 0 global.set 6 end vector length: 0 local.get 0 global.set 7 end 
-
-Section type: -1
-1Module: global.wasm
-(module
-  (type (;0;) (func (result f32)))
-  (type (;1;) (func (result i64)))
-  (type (;2;) (func (param f32)))
-  (type (;3;) (func (param i64)))
-  (func (;0;) (type 0) (result f32))
-  (func (;1;) (type 1) (result i64))
-  (func (;2;) (type 0) (result f32))
-  (func (;3;) (type 1) (result i64))
-  (func (;4;) (type 0) (result f32))
-  (func (;5;) (type 1) (result i64))
-  (func (;6;) (type 0) (result f32))
-  (func (;7;) (type 1) (result i64))
-  (func (;8;) (type 2) (param f32))
-  (func (;9;) (type 3) (param i64))
-  (func (;10;) (type 2) (param f32))
-  (func (;11;) (type 3) (param i64))
-)Success!
-**** New file: callback.wasm
+vector length: 12 unreachable global.get end vector length: 132 Fail!
+**** New file: test_cases/callback.wasm
 
 
 Section type: 1
@@ -80,17 +59,7 @@ vector length: 1 name length 3run funcIndex: 2
 
 Section type: 10
 Code section
-vector length: 1 vector length: 0 local.get 0 local.get 1 i32.add call 0 call 1 i32.add end 
-
-Section type: -1
-1Module: callback.wasm
-(module
-  (type (;0;) (func (param i32)(result i32)))
-  (type (;1;) (func (result i32)))
-  (type (;2;) (func (param i32)(param i32)(result i32)))
-  (func (;0;) (type 2) (param i32)(param i32)(result i32))
-)Success!
-**** New file: example.wasm
+vector length: 1 unreachable local.get local.get i32.add call call i32.add end vector length: -1 **** New file: test_cases/example.wasm
 
 
 Section type: 1
@@ -109,15 +78,7 @@ Index: 0
 
 Section type: 10
 Code section
-vector length: 1 vector length: 0 unreachable end 
-
-Section type: -1
-1Module: example.wasm
-(module
-  (type (;0;) (func ))
-  (func (;0;) (type 0) )
-)Success!
-**** New file: finalize.wasm
+vector length: 1 unreachable unreachable end vector length: -1 **** New file: test_cases/finalize.wasm
 
 
 Section type: 1
@@ -136,17 +97,8 @@ vector length: 3 name length 1f funcIndex: 0 name length 1g funcIndex: 1 name le
 
 Section type: 10
 Code section
-vector length: 3 vector length: 0 end vector length: 0 end vector length: 0 end 
-
-Section type: -1
-1Module: finalize.wasm
-(module
-  (type (;0;) (func ))
-  (func (;0;) (type 0) )
-  (func (;1;) (type 0) )
-  (func (;2;) (type 0) )
-)Success!
-**** New file: hello.wasm
+vector length: 3 unreachable end vector length: 130 Fail!
+**** New file: test_cases/hello.wasm
 
 
 Section type: 1
@@ -169,15 +121,7 @@ vector length: 1 name length 3run funcIndex: 1
 
 Section type: 10
 Code section
-vector length: 1 vector length: 0 call 0 end 
-
-Section type: -1
-1Module: hello.wasm
-(module
-  (type (;0;) (func ))
-  (func (;0;) (type 0) )
-)Success!
-**** New file: hostref.wasm
+vector length: 1 unreachable call end vector length: -1 **** New file: test_cases/hostref.wasm
 
 
 Section type: 1
@@ -216,23 +160,8 @@ vector length: 7 name length 6global global Index: 0 name length 5table tableInd
 
 Section type: 10
 Code section
-vector length: 5 vector length: 0 local.get 0 global.set 0 end vector length: 0 global.get 0 end vector length: 0 local.get 0 local.get 1 table.set 0 end vector length: 0 local.get 0 table.get 0 end vector length: 0 local.get 0 call 0 end 
-
-Section type: -1
-1Module: hostref.wasm
-(module
-  (type (;0;) (func (param externref)(result externref)))
-  (type (;1;) (func (param externref)))
-  (type (;2;) (func (result externref)))
-  (type (;3;) (func (param i32)(param externref)))
-  (type (;4;) (func (param i32)(result externref)))
-  (func (;0;) (type 1) (param externref))
-  (func (;1;) (type 2) (result externref))
-  (func (;2;) (type 3) (param i32)(param externref))
-  (func (;3;) (type 4) (param i32)(result externref))
-  (func (;4;) (type 0) (param externref)(result externref))
-)Success!
-**** New file: memory.wasm
+vector length: 5 unreachable local.get global.set end vector length: 132 Fail!
+**** New file: test_cases/memory.wasm
 
 
 Section type: 1
@@ -258,23 +187,8 @@ vector length: 4 name length 6memory mem Index: 0 name length 4size funcIndex: 0
 
 Section type: 10
 Code section
-vector length: 3 vector length: 0 memory.size unreachable end vector length: 0 local.get 0 i32.load8_s align: 0 offset: 0 end vector length: 0 local.get 0 local.get 1 i32.store 8 align: 0 offset: 0 end 
-
-Section type: 11
-Data section
-vector length: 1 i32.const 137438953472 end vector length: 4 1 2 3 4 
-
-Section type: -1
-1Module: memory.wasm
-(module
-  (type (;0;) (func (result i32)))
-  (type (;1;) (func (param i32)(result i32)))
-  (type (;2;) (func (param i32)(param i32)))
-  (func (;0;) (type 0) (result i32))
-  (func (;1;) (type 1) (param i32)(result i32))
-  (func (;2;) (type 2) (param i32)(param i32))
-)Success!
-**** New file: multi.wasm
+vector length: 3 unreachable memory.size unreachable end vector length: 135 Fail!
+**** New file: test_cases/multi.wasm
 
 
 Section type: 1
@@ -297,15 +211,7 @@ vector length: 1 name length 1g funcIndex: 1
 
 Section type: 10
 Code section
-vector length: 1 vector length: 0 local.get 0 local.get 2 local.get 1 local.get 3 call 0 end 
-
-Section type: -1
-1Module: multi.wasm
-(module
-  (type (;0;) (func (param i32)(param i64)(param i64)(param i32)(result i32)(result i64)(result i64)(result i32)))
-  (func (;0;) (type 0) (param i32)(param i64)(param i64)(param i32)(result i32)(result i64)(result i64)(result i32))
-)Success!
-**** New file: reflect.wasm
+vector length: 1 unreachable local.get local.get local.get local.get call end vector length: -1 **** New file: test_cases/reflect.wasm
 
 
 Section type: 1
@@ -335,15 +241,7 @@ vector length: 4 name length 4func funcIndex: 0 name length 6global global Index
 
 Section type: 10
 Code section
-vector length: 1 vector length: 0 unreachable end 
-
-Section type: -1
-1Module: reflect.wasm
-(module
-  (type (;0;) (func (param i32)(param f64)(param f32)(result i32)))
-  (func (;0;) (type 0) (param i32)(param f64)(param f32)(result i32))
-)Success!
-**** New file: serialize.wasm
+vector length: 1 unreachable unreachable end vector length: -1 **** New file: test_cases/serialize.wasm
 
 
 Section type: 1
@@ -366,15 +264,7 @@ vector length: 1 name length 3run funcIndex: 1
 
 Section type: 10
 Code section
-vector length: 1 vector length: 0 call 0 end 
-
-Section type: -1
-1Module: serialize.wasm
-(module
-  (type (;0;) (func ))
-  (func (;0;) (type 0) )
-)Success!
-**** New file: start.wasm
+vector length: 1 unreachable call end vector length: -1 **** New file: test_cases/start.wasm
 
 
 Section type: 1
@@ -393,15 +283,7 @@ Index: 0
 
 Section type: 10
 Code section
-vector length: 1 vector length: 0 unreachable end 
-
-Section type: -1
-1Module: start.wasm
-(module
-  (type (;0;) (func ))
-  (func (;0;) (type 0) )
-)Success!
-**** New file: table.wasm
+vector length: 1 unreachable unreachable end vector length: -1 **** New file: test_cases/table.wasm
 
 
 Section type: 1
@@ -430,18 +312,8 @@ vector length: 1 i32.const 1 end Index: 1
 
 Section type: 10
 Code section
-vector length: 3 vector length: 0 local.get 0 local.get 1 call_indirect 0 1 end vector length: 0 local.get 0 end vector length: 0 i32.const 21474836506 end 
-
-Section type: -1
-1Module: table.wasm
-(module
-  (type (;0;) (func (param i32)(param i32)(result i32)))
-  (type (;1;) (func (param i32)(result i32)))
-  (func (;0;) (type 0) (param i32)(param i32)(result i32))
-  (func (;1;) (type 1) (param i32)(result i32))
-  (func (;2;) (type 1) (param i32)(result i32))
-)Success!
-**** New file: threads.wasm
+vector length: 3 unreachable local.get local.get call_indirect end vector length: 132 Fail!
+**** New file: test_cases/threads.wasm
 
 
 Section type: 1
@@ -466,16 +338,7 @@ vector length: 1 name length 3run funcIndex: 1
 
 Section type: 10
 Code section
-vector length: 1 vector length: 0 global.get 0 call 0 end 
-
-Section type: -1
-1Module: threads.wasm
-(module
-  (type (;0;) (func (param i32)))
-  (type (;1;) (func ))
-  (func (;0;) (type 1) )
-)Success!
-**** New file: trap.wasm
+vector length: 1 unreachable global.get call end vector length: -1 **** New file: test_cases/trap.wasm
 
 
 Section type: 1
@@ -498,12 +361,4 @@ vector length: 2 name length 8callback funcIndex: 1 name length 11unreachable fu
 
 Section type: 10
 Code section
-vector length: 2 vector length: 0 call 0 end vector length: 0 unreachable i32.const 1 end 
-
-Section type: -1
-1Module: trap.wasm
-(module
-  (type (;0;) (func (result i32)))
-  (func (;0;) (type 0) (result i32))
-  (func (;1;) (type 0) (result i32))
-)Success!
+vector length: 2 unreachable call end vector length: 133 Fail!

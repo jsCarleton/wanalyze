@@ -70,9 +70,18 @@ type datacountsec =
 {
   x: string;
 }
-type codesec =
+
+(* Code *)
+type expr = int list (*TODO*)
+type local_type =
 {
-  x: string;
+  n:  int;
+  v:  valtype;
+}
+type func =
+{
+  locals: local_type list;
+  e:      expr;
 }
 type datasec =
 {
@@ -103,9 +112,10 @@ type wasm_module =
   module_name:              string;
   mutable type_section:     functype list;
   mutable function_section: typeidx list;
+  mutable code_section:     func list;
 }
 let create name =
-  { module_name = name; type_section = []; function_section = []}
+  { module_name = name; type_section = []; function_section = []; code_section = []}
 
 (* Function section printing *)
 let get_params w idx =
@@ -130,9 +140,15 @@ let update_type_section w ((b1, rt1),(b2, rt2)) =
   | _ -> false
 let update_function_section w (b, i) =
   match b, i with
-  | true, __ ->
+  | true, _ ->
           w.function_section
             <- List.append w.function_section [i]; true
+  | _ -> false
+let update_code_section w ((b1, locals), (b2, e)) =
+  match b1, b2 with
+  | true, true ->
+        w.code_section
+          <- List.append w.code_section [{locals; e}]; true
   | _ -> false
 
 let print w =

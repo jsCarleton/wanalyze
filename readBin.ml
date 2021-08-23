@@ -5,7 +5,10 @@ open Wasm_module
 		- use read_ instead of get_ when reading from ic
 		- make printfs look at verbose flag 
 		- add validation of indices (e.g. functions, types)
-		- add the rest of the op codes *)
+		- add the rest of the op codes 
+		- fix up all calls to get_idx 
+		- get rid of all [@warning "-27"]
+		- replace read_vbe with xLEB *)
 
 let usage_msg = "readBin -verbose <file1> <file2> ..."
 let verbose = ref false
@@ -387,9 +390,9 @@ let get_local ic =
 	| n ->
 		match get_byte ic with
 		| 0x7F -> printf "%d i32 " n; true
-		| 0x7E -> printf "%d i32 " n; true
-		| 0x7D -> printf "%d i32 " n; true
-		| 0x7C -> printf "%d i32 " n; true
+		| 0x7E -> printf "%d i64 " n; true
+		| 0x7D -> printf "%d f32 " n; true
+		| 0x7C -> printf "%d f64 " n; true
 		| _ -> printf "Type error!\n"; false
 
 let rec get_locals ic n =
@@ -408,14 +411,83 @@ let rec val_type_list ic =
 		| 0x7C -> printf "f64 "; val_type_list ic
 		| n -> n
 
-let get_code ic =
-	expr ic
+let rec get_args ic opcode get_instr_list =
+	match opcode with
+	(* control instructions *)
+	| 0x00 -> printf "unreachable "; []
+	| 0x01 -> printf "nop "; []
+	| 0x02 -> printf "block, type:"; (get_byte ic) :: get_instr_list ic [] 
+	|	0x03 -> printf "loop, type:"; (get_byte ic) :: get_instr_list ic [] 
+	|	0x04 -> printf "if, type:"; (get_byte ic) ::
+			(	let opcode' = get_byte ic in
+				match opcode' with
+				| 0x05 -> printf "else "; 0x05 ::
+					( let opcode'' = get_byte ic in
+						match opcode'' with
+            | 0x0b -> printf "end "; [0x0b]
+            | _ -> get_instr_list ic (opcode'' :: (get_args ic opcode'' get_instr_list)) 
+					)
+				| 0x0b -> printf "end ";  [0x0b]
+				| _ -> get_instr_list ic (opcode' :: (get_args ic opcode' get_instr_list))
+			)
+	| 0x0b -> printf(" end"); []
+	| 0x0c -> printf "br "; [get_byte ic]
+	| 0x0d -> printf "br_if ";  [get_byte ic]
+	| 0x0e -> ignore(vec_idx ic (get_byte ic): bool); printf "br_table %X" (get_byte ic); [] (* TODO *)
+	| 0x0f -> printf "return "; []
+	| 0x10 -> printf "call "; [get_byte ic]
+	| 0x11 -> printf "call_indirect "; [(get_byte ic); (get_byte ic)]
+	(* reference instructions*)
+	| 0xd0 -> printf "ref.null "; [] (* not what the spec says *)
+	(* parametric instructions *)
+	(* variable instructions*)
+	| 0x20 -> printf "local.get "; [get_byte ic]
+	| 0x21 -> printf "local.set "; [get_byte ic]
+	| 0x22 -> printf "local.tee "; [get_byte ic]
+	| 0x23 -> printf "global.get "; [get_byte ic]
+	| 0x24 -> printf "global.set "; [get_byte ic]
+	(* table instructions *)
+	| 0x25 -> printf "table.get "; [get_byte ic]
+	| 0x26 -> printf "table.set "; [get_byte ic]
+	(* memory instructions *)
+  | 0x2c -> printf "i32.load8_s "; [0; 0] (*[int_of (sLEB ic 32); sLEB ic 32]*) (* TODO *)
+	| 0x3a -> printf "i32.store 8 "; [0; 0] (*[int_of (sLEB ic 32); sLEB ic 32]*) (* TODO *)
+	| 0x3f -> printf "memory.size "; [] (* not what the spec says *)
+	| 0x40 -> printf "memory grow "; [] (* not what the spec says *)
+	(* numeric instructions *)
+	| 0x41 -> printf "i32.const "; [get_i32 ic]
+	|	0x42 -> printf "i64.const "; [0] (* TODO [get_i64 ic] *)
+	| 0x43 -> printf "f32.const "; [0] (* TODO [get_f32 ic] *)
+	| 0x44 -> printf "f64.const "; [0] (* TODO [get_f64 ic] *)
+	| 0x6a -> printf "i32.add "; []
+	| 0x7d -> printf "i64.sub "; []
+	| 0x7e -> printf "i64.mul "; []
+	| 0xa0 -> printf "f64.add "; []
+	(* unhandled opcode *)
+	| _ -> printf "unhandled opcode: "; [opcode]
+
+
+let xxget_local ic = (fun _ -> { n = get_byte ic; v = Numtype I32})
+let rec get_instr_list ic acc =
+	let opcode = get_byte ic in
+	match opcode with
+	| 0x0b -> printf "end "; List.append acc [opcode]
+  | _ -> get_instr_list ic (List.append acc (opcode :: (get_args ic opcode get_instr_list)))
 
 let [@warning "-27"]read_code ic w =
-	read_vbe ic >= 0
-	&& get_locals ic (get_vec_len ic)
-	&& get_code ic
-
+	read_vbe ic >= 0 (* we discard the size *)
+	&&
+	(* func *)
+		update_code_section w ((true, List.init (get_vec_len ic) ~f:(xxget_local ic)), (true, get_instr_list ic []))
+(* 		((true,
+			(* vec of locals *)
+				List.init (get_vec_len ic) ~f:(xxget_local ic)) ,
+			(* count*)
+			(* type *)
+		(* expr *)
+		(true, [])	
+		)
+ *)
 (* Data section *)
 let rec vec_bytes ic n =
 	match n with
