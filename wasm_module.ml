@@ -13,6 +13,7 @@ type valtype =
 
 type resulttype = valtype
 
+(* TODO in the spec resulttype is a vec of valtype *)
 let resulttype_of_int i =
   match i with
   | 0x7f -> Numtype I32
@@ -23,6 +24,18 @@ let resulttype_of_int i =
   | 0x6f -> Reftype Externref
   | _ -> Numtype I32 (*TODO*)
 
+let string_of_numtype nt =
+  match nt with
+  | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64" 
+let string_of_reftype rt =
+  match rt with  
+  | Funcref -> "funcref" | Externref -> "externref"
+let string_of_resulttype rt =
+  match rt with
+  | Numtype x -> string_of_numtype x
+  | Reftype x -> string_of_reftype x
+let string_of_valtype vt = string_of_resulttype vt
+  
 type functype =
 {
   rt1:    resulttype list;
@@ -31,6 +44,49 @@ type functype =
 let create_functype rt1 rt2 =
   { rt1; rt2}
 
+
+(* Instructions *)
+(* TODO - do I want to use this?
+type memarg =
+{
+  align:  int; (* TODO spec actually says uint32 *)
+  offset: int;
+}
+type memory_instruction_args =
+{ size:   numtype;
+  m:      memarg;
+}
+type control_instruction = Unreachable | Nop | Block | Loop | If | IfElse | Bt | BtElse | Br | BrIf | Return | Call | CallIndirect
+type reference_instruction = RefNull | RefIsNull | RefFunc
+type parametric_instruction = Drop | Select | SelectType
+type variable_instruction = LocalGet | LocalSet | LocalTee | GlobalGet | GlobalSet
+type table_instruction = TableGet | TableSet | TableInit | ElemDrop | TableCopy | TableGrow | TableSize | TableFill
+type memory_instruction = Load of memory_instruction_args | Store of memory_instruction_args
+type numeric_instruction = Const
+type instruction_type = 
+    ControlInstruction of control_instruction 
+    | ReferenceInstruction of reference_instruction
+    | ParametricInstruction of parametric_instruction
+    | VariableInstruction of variable_instruction
+    | TableInstruction of table_instruction
+    | MemoryInstruction of memory_instruction
+    | NumericInstruction of numeric_instruction
+
+type instruction =
+{ opcode:       int;
+  name:         string;
+  details:      instruction_type;
+}
+
+let all_instructions =
+  [
+    {opcode=0x00; name="unreachable"; details=ControlInstruction Unreachable};
+    {opcode=0x01; name="nop"; details=ControlInstruction Nop};
+    {opcode=0x02; name="block %s %s end"; details=ControlInstruction Block};
+    {opcode=0x03; name="loop %s %s end"; details=ControlInstruction Loop}
+    {opcode=0x04; name="if %s %s end"; details=ControlInstruction If}
+  ]
+ *)
 (* Imports *)
 type importsec =
 {
@@ -89,16 +145,6 @@ type datasec =
 }
 
 (* Type section printing *)
-let string_of_numtype nt =
-  match nt with
-  | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64" 
-let string_of_reftype rt =
-  match rt with  
-  | Funcref -> "funcref" | Externref -> "externref"
-let string_of_resulttype rt =
-  match rt with
-  | Numtype x -> string_of_numtype x
-  | Reftype x -> string_of_reftype x
 let string_of_param  p = "(param " ^ (string_of_resulttype p) ^ ")"
 let string_of_result r = "(result " ^ (string_of_resulttype r) ^ ")"
 let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
@@ -118,17 +164,66 @@ let create name =
   { module_name = name; type_section = []; function_section = []; code_section = []}
 
 (* Function section printing *)
+let list_item l i =
+  match List.nth l i with
+  | Some x -> x
+  | None -> -1
+
 let get_params w idx =
   match List.nth w.type_section idx with
   | Some x -> x
   | _ -> {rt1 = []; rt2 = []} (* TODO this shouldn't happen*)
 
-let string_of_code w i =
-  ""
+let string_of_local i local = 
+  "  (local " ^ (string_of_int i) ^ " count: " ^ (string_of_int local.n) ^ " " ^ (string_of_valtype local.v)
+
+let string_of_locals locals =
+  String.concat ~sep:"" (List.mapi ~f:string_of_local locals)
+
+let string_of_memarg a o =
+  "align: " ^ (string_of_int a) ^ " offset: " ^ (string_of_int o)
+
+let string_of_opcode e i =
+  match list_item e i with
+  | 0x00 -> ("    unreachable", 1)
+  | 0x0b -> ("    end", 1)
+  | 0x10 -> ("    call " ^ (string_of_int (list_item e (i+1))), 2)
+  | 0x11 -> ("    call_indirect "^ (string_of_int (list_item e (i+1))) ^ " " ^ (string_of_int (list_item e (i+2))), 3)
+  | 0x20 -> ("    local.get " ^ (string_of_int (list_item e (i+1))), 2)
+  | 0x23 -> ("    global.get " ^ (string_of_int (list_item e (i+1))), 2)
+  | 0x24 -> ("    global.set " ^ (string_of_int (list_item e (i+1))), 2)
+  | 0x25 -> ("    table.get " ^ (string_of_int (list_item e (i+1))), 2)
+  | 0x26 -> ("    table.set " ^ (string_of_int (list_item e (i+1))), 2)
+  | 0x2c -> ("    i32.load8_s "^ (string_of_memarg (list_item e (i+1)) (list_item e (i+2))), 3)
+  | 0x32 -> ("    i64.load16_s " ^ (string_of_memarg (list_item e (i+1)) (list_item e (i+2))), 3)
+  | 0x3a -> ("    i32.store8 " ^ (string_of_memarg (list_item e (i+1)) (list_item e (i+2))), 3)
+  | 0x3f -> ("    memory.size", 1)
+  | 0x41 -> ("    i32.const " ^ (string_of_int (list_item e (i+1))), 2)
+  | 0x6a -> ("    i32.add", 1)
+  | -1 -> ("Unexpected error!", 1)
+  | opcode -> ("Unknown opcode: " ^ (sprintf "%x" opcode), 1)
+
+let rec string_of_expr' e idx acc =
+  match idx < (List.length e) with
+  | false -> acc
+  | true -> 
+    let (code, length) = string_of_opcode e idx in
+      string_of_expr' e (idx+length) (acc ^ code ^ "\n")
+
+let string_of_expr e =
+  string_of_expr' e 0 ""
+
+let string_of_code w idx =
+  let code = List.nth w.code_section idx in
+  match code with
+  | Some code' ->
+    (string_of_locals code'.locals) ^ (string_of_expr code'.e)
+  | _ -> "Error"
+
 let string_of_function w i idx = 
   "  (func (;" ^ (string_of_int i) ^ ";) (type " ^ (string_of_typeidx idx) ^ ") " 
     ^ (string_of_params (get_params w idx).rt1) ^ (string_of_results (get_params w idx).rt2)
-    ^ (string_of_code w idx) ^")\n"
+    ^ "\n" ^ (string_of_code w i) ^ "  )\n"
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
 
@@ -148,6 +243,7 @@ let update_function_section w (b, i) =
             <- List.append w.function_section [i]; true
   | _ -> false
 let update_code_section w ((b1, locals), (b2, e)) =
+  (* TODO locals always seems to be empty *)
   match b1, b2 with
   | true, true ->
         w.code_section

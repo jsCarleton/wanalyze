@@ -3,7 +3,7 @@
 
 Section type: 1
 Type section
-vector length: 4 vector length: 0 vector length: 1 f32 updating, before:0
+Reading section: vector length: 4 vector length: 0 vector length: 1 f32 updating, before:0
 rt1 len:0 rt2 len:1
 vector length: 0 vector length: 1 i64 updating, before:1
 rt1 len:0 rt2 len:1
@@ -15,29 +15,90 @@ rt1 len:1 rt2 len:0
 
 Section type: 2
 Import section
-vector length: 4 name length 0name length 9const f32 global f32 const name length 0name length 9const i64 global i64 const name length 0name length 7var f32 global f32 var name length 0name length 7var i64 global i64 var 
+Reading section: vector length: 4 name length 0name length 9const f32 global f32 const name length 0name length 9const i64 global i64 const name length 0name length 7var f32 global f32 var name length 0name length 7var i64 global i64 var 
 
 Section type: 3
 Function section
-vector length: 12 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0 Index: 1 Index: 2 Index: 3 Index: 2 Index: 3 
+Reading section: vector length: 12 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0 Index: 1 Index: 0 Index: 1 Index: 2 Index: 3 Index: 2 Index: 3 
 
 Section type: 6
 Global section
-vector length: 4 f32 const f32.const 0.000000 end i64 const i64.const 6 end f32 var f32.const 0.000000 end i64 var i64.const 8 end 
+Reading section: vector length: 4 f32 const f32.const 0.000000 end i64 const i64.const 6 end f32 var f32.const 0.000000 end i64 var i64.const 8 end 
 
 Section type: 7
 Export section
-vector length: 16 name length 9const f32 global Index: 4 name length 9const i64 global Index: 5 name length 7var f32 global Index: 6 name length 7var i64 global Index: 7 name length 20get const f32 import funcIndex: 0 name length 20get const i64 import funcIndex: 1 name length 18get var f32 import funcIndex: 2 name length 18get var i64 import funcIndex: 3 name length 20get const f32 export funcIndex: 4 name length 20get const i64 export funcIndex: 5 name length 18get var f32 export funcIndex: 6 name length 18get var i64 export funcIndex: 7 name length 18set var f32 import funcIndex: 8 name length 18set var i64 import funcIndex: 9 name length 18set var f32 export funcIndex: 10 name length 18set var f64 export funcIndex: 11 
+Reading section: vector length: 16 name length 9const f32 global Index: 4 name length 9const i64 global Index: 5 name length 7var f32 global Index: 6 name length 7var i64 global Index: 7 name length 20get const f32 import funcIndex: 0 name length 20get const i64 import funcIndex: 1 name length 18get var f32 import funcIndex: 2 name length 18get var i64 import funcIndex: 3 name length 20get const f32 export funcIndex: 4 name length 20get const i64 export funcIndex: 5 name length 18get var f32 export funcIndex: 6 name length 18get var i64 export funcIndex: 7 name length 18set var f32 import funcIndex: 8 name length 18set var i64 import funcIndex: 9 name length 18set var f32 export funcIndex: 10 name length 18set var f64 export funcIndex: 11 
 
 Section type: 10
 Code section
-vector length: 12 unreachable global.get end vector length: 132 Fail!
+Reading section: vector length: 12 vector length: 0 global.get end vector length: 0 global.get end vector length: 0 global.get end vector length: 0 global.get end vector length: 0 global.get end vector length: 0 global.get end vector length: 0 global.get end vector length: 0 global.get end vector length: 0 local.get global.set end vector length: 0 local.get global.set end vector length: 0 local.get global.set end vector length: 0 local.get global.set end 
+
+Section type: -1
+1Module: test_cases/global.wasm
+(module
+  (type (;0;) (func (result f32)))
+  (type (;1;) (func (result i64)))
+  (type (;2;) (func (param f32)))
+  (type (;3;) (func (param i64)))
+  (func (;0;) (type 0) (result f32)
+    global.get 0
+    end
+  )
+  (func (;1;) (type 1) (result i64)
+    global.get 1
+    end
+  )
+  (func (;2;) (type 0) (result f32)
+    global.get 2
+    end
+  )
+  (func (;3;) (type 1) (result i64)
+    global.get 3
+    end
+  )
+  (func (;4;) (type 0) (result f32)
+    global.get 4
+    end
+  )
+  (func (;5;) (type 1) (result i64)
+    global.get 5
+    end
+  )
+  (func (;6;) (type 0) (result f32)
+    global.get 6
+    end
+  )
+  (func (;7;) (type 1) (result i64)
+    global.get 7
+    end
+  )
+  (func (;8;) (type 2) (param f32)
+    local.get 0
+    global.set 2
+    end
+  )
+  (func (;9;) (type 3) (param i64)
+    local.get 0
+    global.set 3
+    end
+  )
+  (func (;10;) (type 2) (param f32)
+    local.get 0
+    global.set 6
+    end
+  )
+  (func (;11;) (type 3) (param i64)
+    local.get 0
+    global.set 7
+    end
+  )
+)Success!
 **** New file: test_cases/callback.wasm
 
 
 Section type: 1
 Type section
-vector length: 3 vector length: 1 i32 vector length: 1 i32 updating, before:0
+Reading section: vector length: 3 vector length: 1 i32 vector length: 1 i32 updating, before:0
 rt1 len:1 rt2 len:1
 vector length: 0 vector length: 1 i32 updating, before:1
 rt1 len:0 rt2 len:1
@@ -47,30 +108,48 @@ rt1 len:2 rt2 len:1
 
 Section type: 2
 Import section
-vector length: 2 name length 0name length 5print func Index: 0 name length 0name length 7closure func Index: 1 
+Reading section: vector length: 2 name length 0name length 5print func Index: 0 name length 0name length 7closure func Index: 1 
 
 Section type: 3
 Function section
-vector length: 1 Index: 2 
+Reading section: vector length: 1 Index: 2 
 
 Section type: 7
 Export section
-vector length: 1 name length 3run funcIndex: 2 
+Reading section: vector length: 1 name length 3run funcIndex: 2 
 
 Section type: 10
 Code section
-vector length: 1 unreachable local.get local.get i32.add call call i32.add end vector length: -1 **** New file: test_cases/example.wasm
+Reading section: vector length: 1 vector length: 0 local.get local.get i32.add call call i32.add end 
+
+Section type: -1
+1Module: test_cases/callback.wasm
+(module
+  (type (;0;) (func (param i32)(result i32)))
+  (type (;1;) (func (result i32)))
+  (type (;2;) (func (param i32)(param i32)(result i32)))
+  (func (;0;) (type 2) (param i32)(param i32)(result i32)
+    local.get 0
+    local.get 1
+    i32.add
+    call 0
+    call 1
+    i32.add
+    end
+  )
+)Success!
+**** New file: test_cases/example.wasm
 
 
 Section type: 1
 Type section
-vector length: 1 vector length: 0 vector length: 0 updating, before:0
+Reading section: vector length: 1 vector length: 0 vector length: 0 updating, before:0
 rt1 len:0 rt2 len:0
 
 
 Section type: 3
 Function section
-vector length: 1 Index: 0 
+Reading section: vector length: 1 Index: 0 
 
 Section type: 8
 Start section
@@ -78,55 +157,92 @@ Index: 0
 
 Section type: 10
 Code section
-vector length: 1 unreachable unreachable end vector length: -1 **** New file: test_cases/finalize.wasm
+Reading section: vector length: 1 vector length: 0 unreachable end 
+
+Section type: -1
+1Module: test_cases/example.wasm
+(module
+  (type (;0;) (func ))
+  (func (;0;) (type 0) 
+    unreachable
+    end
+  )
+)Success!
+**** New file: test_cases/finalize.wasm
 
 
 Section type: 1
 Type section
-vector length: 1 vector length: 0 vector length: 0 updating, before:0
+Reading section: vector length: 1 vector length: 0 vector length: 0 updating, before:0
 rt1 len:0 rt2 len:0
 
 
 Section type: 3
 Function section
-vector length: 3 Index: 0 Index: 0 Index: 0 
+Reading section: vector length: 3 Index: 0 Index: 0 Index: 0 
 
 Section type: 7
 Export section
-vector length: 3 name length 1f funcIndex: 0 name length 1g funcIndex: 1 name length 1h funcIndex: 2 
+Reading section: vector length: 3 name length 1f funcIndex: 0 name length 1g funcIndex: 1 name length 1h funcIndex: 2 
 
 Section type: 10
 Code section
-vector length: 3 unreachable end vector length: 130 Fail!
+Reading section: vector length: 3 vector length: 0 end vector length: 0 end vector length: 0 end 
+
+Section type: -1
+1Module: test_cases/finalize.wasm
+(module
+  (type (;0;) (func ))
+  (func (;0;) (type 0) 
+    end
+  )
+  (func (;1;) (type 0) 
+    end
+  )
+  (func (;2;) (type 0) 
+    end
+  )
+)Success!
 **** New file: test_cases/hello.wasm
 
 
 Section type: 1
 Type section
-vector length: 1 vector length: 0 vector length: 0 updating, before:0
+Reading section: vector length: 1 vector length: 0 vector length: 0 updating, before:0
 rt1 len:0 rt2 len:0
 
 
 Section type: 2
 Import section
-vector length: 1 name length 0name length 5hello func Index: 0 
+Reading section: vector length: 1 name length 0name length 5hello func Index: 0 
 
 Section type: 3
 Function section
-vector length: 1 Index: 0 
+Reading section: vector length: 1 Index: 0 
 
 Section type: 7
 Export section
-vector length: 1 name length 3run funcIndex: 1 
+Reading section: vector length: 1 name length 3run funcIndex: 1 
 
 Section type: 10
 Code section
-vector length: 1 unreachable call end vector length: -1 **** New file: test_cases/hostref.wasm
+Reading section: vector length: 1 vector length: 0 call end 
+
+Section type: -1
+1Module: test_cases/hello.wasm
+(module
+  (type (;0;) (func ))
+  (func (;0;) (type 0) 
+    call 0
+    end
+  )
+)Success!
+**** New file: test_cases/hostref.wasm
 
 
 Section type: 1
 Type section
-vector length: 5 vector length: 1 externref vector length: 1 externref updating, before:0
+Reading section: vector length: 5 vector length: 1 externref vector length: 1 externref updating, before:0
 rt1 len:1 rt2 len:1
 vector length: 1 externref vector length: 0 updating, before:1
 rt1 len:1 rt2 len:0
@@ -140,33 +256,68 @@ rt1 len:1 rt2 len:1
 
 Section type: 2
 Import section
-vector length: 1 name length 0name length 1f func Index: 0 
+Reading section: vector length: 1 name length 0name length 1f func Index: 0 
 
 Section type: 3
 Function section
-vector length: 5 Index: 1 Index: 2 Index: 3 Index: 4 Index: 0 
+Reading section: vector length: 5 Index: 1 Index: 2 Index: 3 Index: 4 Index: 0 
 
 Section type: 4
 Table section
-vector length: 1 externreflower: 10, no upper
+Reading section: vector length: 1 externreflower: 10, no upper
 
 Section type: 6
 Global section
-vector length: 1 externref var ref.null end 
+Reading section: vector length: 1 externref var ref.null end 
 
 Section type: 7
 Export section
-vector length: 7 name length 6global global Index: 0 name length 5table tableIndex: 0 name length 10global.set funcIndex: 1 name length 10global.get funcIndex: 2 name length 9table.set funcIndex: 3 name length 9table.get funcIndex: 4 name length 9func.call funcIndex: 5 
+Reading section: vector length: 7 name length 6global global Index: 0 name length 5table tableIndex: 0 name length 10global.set funcIndex: 1 name length 10global.get funcIndex: 2 name length 9table.set funcIndex: 3 name length 9table.get funcIndex: 4 name length 9func.call funcIndex: 5 
 
 Section type: 10
 Code section
-vector length: 5 unreachable local.get global.set end vector length: 132 Fail!
+Reading section: vector length: 5 vector length: 0 local.get global.set end vector length: 0 global.get end vector length: 0 local.get local.get table.set end vector length: 0 local.get table.get end vector length: 0 local.get call end 
+
+Section type: -1
+1Module: test_cases/hostref.wasm
+(module
+  (type (;0;) (func (param externref)(result externref)))
+  (type (;1;) (func (param externref)))
+  (type (;2;) (func (result externref)))
+  (type (;3;) (func (param i32)(param externref)))
+  (type (;4;) (func (param i32)(result externref)))
+  (func (;0;) (type 1) (param externref)
+    local.get 0
+    global.set 0
+    end
+  )
+  (func (;1;) (type 2) (result externref)
+    global.get 0
+    end
+  )
+  (func (;2;) (type 3) (param i32)(param externref)
+    local.get 0
+    local.get 1
+    table.set 0
+    end
+  )
+  (func (;3;) (type 4) (param i32)(result externref)
+    local.get 0
+    table.get 0
+    end
+  )
+  (func (;4;) (type 0) (param externref)(result externref)
+    local.get 0
+    call 0
+    end
+  )
+)Success!
 **** New file: test_cases/memory.wasm
 
 
 Section type: 1
 Type section
-vector length: 3 vector length: 0 vector length: 1 i32 updating, before:0
+Reading section: vector length: 3 vector length: 0 vector length: 1 i32 updating, before:0
 rt1 len:0 rt2 len:1
 vector length: 1 i32 vector length: 1 i32 updating, before:1
 rt1 len:1 rt2 len:1
@@ -176,106 +327,175 @@ rt1 len:2 rt2 len:0
 
 Section type: 3
 Function section
-vector length: 3 Index: 0 Index: 1 Index: 2 
+Reading section: vector length: 3 Index: 0 Index: 1 Index: 2 
 
 Section type: 5
-Memory sectionvector length: 1 lower: 3, upper: 2
+Memory sectionReading section: vector length: 1 lower: 3, upper: 2
 
 Section type: 7
 Export section
-vector length: 4 name length 6memory mem Index: 0 name length 4size funcIndex: 0 name length 4load funcIndex: 1 name length 5store funcIndex: 2 
+Reading section: vector length: 4 name length 6memory mem Index: 0 name length 4size funcIndex: 0 name length 4load funcIndex: 1 name length 5store funcIndex: 2 
 
 Section type: 10
 Code section
-vector length: 3 unreachable memory.size unreachable end vector length: 135 Fail!
+Reading section: vector length: 3 vector length: 0 memory.size unreachable end vector length: 0 local.get i32.load8_s unreachable unreachable end vector length: 0 local.get local.get i32.store 8 unreachable unreachable end 
+
+Section type: 11
+Data section
+Reading section: vector length: 1 i32.const 137438953472 end vector length: 4 1 2 3 4 
+
+Section type: -1
+1Module: test_cases/memory.wasm
+(module
+  (type (;0;) (func (result i32)))
+  (type (;1;) (func (param i32)(result i32)))
+  (type (;2;) (func (param i32)(param i32)))
+  (func (;0;) (type 0) (result i32)
+    memory.size
+    unreachable
+    end
+  )
+  (func (;1;) (type 1) (param i32)(result i32)
+    local.get 0
+    i32.load8_s align: 0 offset: 0
+    unreachable
+    unreachable
+    end
+  )
+  (func (;2;) (type 2) (param i32)(param i32)
+    local.get 0
+    local.get 1
+    i32.store8 align: 0 offset: 0
+    unreachable
+    unreachable
+    end
+  )
+)Success!
 **** New file: test_cases/multi.wasm
 
 
 Section type: 1
 Type section
-vector length: 1 vector length: 4 i32 i64 i64 i32 vector length: 4 i32 i64 i64 i32 updating, before:0
+Reading section: vector length: 1 vector length: 4 i32 i64 i64 i32 vector length: 4 i32 i64 i64 i32 updating, before:0
 rt1 len:4 rt2 len:4
 
 
 Section type: 2
 Import section
-vector length: 1 name length 0name length 1f func Index: 0 
+Reading section: vector length: 1 name length 0name length 1f func Index: 0 
 
 Section type: 3
 Function section
-vector length: 1 Index: 0 
+Reading section: vector length: 1 Index: 0 
 
 Section type: 7
 Export section
-vector length: 1 name length 1g funcIndex: 1 
+Reading section: vector length: 1 name length 1g funcIndex: 1 
 
 Section type: 10
 Code section
-vector length: 1 unreachable local.get local.get local.get local.get call end vector length: -1 **** New file: test_cases/reflect.wasm
+Reading section: vector length: 1 vector length: 0 local.get local.get local.get local.get call end 
+
+Section type: -1
+1Module: test_cases/multi.wasm
+(module
+  (type (;0;) (func (param i32)(param i64)(param i64)(param i32)(result i32)(result i64)(result i64)(result i32)))
+  (func (;0;) (type 0) (param i32)(param i64)(param i64)(param i32)(result i32)(result i64)(result i64)(result i32)
+    local.get 0
+    local.get 2
+    local.get 1
+    local.get 3
+    call 0
+    end
+  )
+)Success!
+**** New file: test_cases/reflect.wasm
 
 
 Section type: 1
 Type section
-vector length: 1 vector length: 3 i32 f64 f32 vector length: 1 i32 updating, before:0
+Reading section: vector length: 1 vector length: 3 i32 f64 f32 vector length: 1 i32 updating, before:0
 rt1 len:3 rt2 len:1
 
 
 Section type: 3
 Function section
-vector length: 1 Index: 0 
+Reading section: vector length: 1 Index: 0 
 
 Section type: 4
 Table section
-vector length: 1 funcreflower: 50, upper: 0
+Reading section: vector length: 1 funcreflower: 50, upper: 0
 
 Section type: 5
-Memory sectionvector length: 1 lower: 1, no upper
+Memory sectionReading section: vector length: 1 lower: 1, no upper
 
 Section type: 6
 Global section
-vector length: 1 f64 const f64.const 0.000000 end 
+Reading section: vector length: 1 f64 const f64.const 0.000000 end 
 
 Section type: 7
 Export section
-vector length: 4 name length 4func funcIndex: 0 name length 6global global Index: 0 name length 5table tableIndex: 0 name length 6memory mem Index: 0 
+Reading section: vector length: 4 name length 4func funcIndex: 0 name length 6global global Index: 0 name length 5table tableIndex: 0 name length 6memory mem Index: 0 
 
 Section type: 10
 Code section
-vector length: 1 unreachable unreachable end vector length: -1 **** New file: test_cases/serialize.wasm
+Reading section: vector length: 1 vector length: 0 unreachable end 
+
+Section type: -1
+1Module: test_cases/reflect.wasm
+(module
+  (type (;0;) (func (param i32)(param f64)(param f32)(result i32)))
+  (func (;0;) (type 0) (param i32)(param f64)(param f32)(result i32)
+    unreachable
+    end
+  )
+)Success!
+**** New file: test_cases/serialize.wasm
 
 
 Section type: 1
 Type section
-vector length: 1 vector length: 0 vector length: 0 updating, before:0
+Reading section: vector length: 1 vector length: 0 vector length: 0 updating, before:0
 rt1 len:0 rt2 len:0
 
 
 Section type: 2
 Import section
-vector length: 1 name length 0name length 5hello func Index: 0 
+Reading section: vector length: 1 name length 0name length 5hello func Index: 0 
 
 Section type: 3
 Function section
-vector length: 1 Index: 0 
+Reading section: vector length: 1 Index: 0 
 
 Section type: 7
 Export section
-vector length: 1 name length 3run funcIndex: 1 
+Reading section: vector length: 1 name length 3run funcIndex: 1 
 
 Section type: 10
 Code section
-vector length: 1 unreachable call end vector length: -1 **** New file: test_cases/start.wasm
+Reading section: vector length: 1 vector length: 0 call end 
+
+Section type: -1
+1Module: test_cases/serialize.wasm
+(module
+  (type (;0;) (func ))
+  (func (;0;) (type 0) 
+    call 0
+    end
+  )
+)Success!
+**** New file: test_cases/start.wasm
 
 
 Section type: 1
 Type section
-vector length: 1 vector length: 0 vector length: 0 updating, before:0
+Reading section: vector length: 1 vector length: 0 vector length: 0 updating, before:0
 rt1 len:0 rt2 len:0
 
 
 Section type: 3
 Function section
-vector length: 1 Index: 0 
+Reading section: vector length: 1 Index: 0 
 
 Section type: 8
 Start section
@@ -283,12 +503,23 @@ Index: 0
 
 Section type: 10
 Code section
-vector length: 1 unreachable unreachable end vector length: -1 **** New file: test_cases/table.wasm
+Reading section: vector length: 1 vector length: 0 unreachable end 
+
+Section type: -1
+1Module: test_cases/start.wasm
+(module
+  (type (;0;) (func ))
+  (func (;0;) (type 0) 
+    unreachable
+    end
+  )
+)Success!
+**** New file: test_cases/table.wasm
 
 
 Section type: 1
 Type section
-vector length: 2 vector length: 2 i32 i32 vector length: 1 i32 updating, before:0
+Reading section: vector length: 2 vector length: 2 i32 i32 vector length: 1 i32 updating, before:0
 rt1 len:2 rt2 len:1
 vector length: 1 i32 vector length: 1 i32 updating, before:1
 rt1 len:1 rt2 len:1
@@ -296,29 +527,50 @@ rt1 len:1 rt2 len:1
 
 Section type: 3
 Function section
-vector length: 3 Index: 0 Index: 1 Index: 1 
+Reading section: vector length: 3 Index: 0 Index: 1 Index: 1 
 
 Section type: 4
 Table section
-vector length: 1 funcreflower: 10, upper: 2
+Reading section: vector length: 1 funcreflower: 10, upper: 2
 
 Section type: 7
 Export section
-vector length: 4 name length 5table tableIndex: 0 name length 13call_indirect funcIndex: 0 name length 1f funcIndex: 1 name length 1g funcIndex: 2 
+Reading section: vector length: 4 name length 5table tableIndex: 0 name length 13call_indirect funcIndex: 0 name length 1f funcIndex: 1 name length 1g funcIndex: 2 
 
 Section type: 9
 Element section
-vector length: 1 i32.const 1 end Index: 1 
+Reading section: vector length: 1 i32.const 1 end Index: 1 
 
 Section type: 10
 Code section
-vector length: 3 unreachable local.get local.get call_indirect end vector length: 132 Fail!
+Reading section: vector length: 3 vector length: 0 local.get local.get call_indirect end vector length: 0 local.get end vector length: 0 i32.const end 
+
+Section type: -1
+1Module: test_cases/table.wasm
+(module
+  (type (;0;) (func (param i32)(param i32)(result i32)))
+  (type (;1;) (func (param i32)(result i32)))
+  (func (;0;) (type 0) (param i32)(param i32)(result i32)
+    local.get 0
+    local.get 1
+    call_indirect 0 1
+    end
+  )
+  (func (;1;) (type 1) (param i32)(result i32)
+    local.get 0
+    end
+  )
+  (func (;2;) (type 1) (param i32)(result i32)
+    i32.const 21474836506
+    end
+  )
+)Success!
 **** New file: test_cases/threads.wasm
 
 
 Section type: 1
 Type section
-vector length: 2 vector length: 1 i32 vector length: 0 updating, before:0
+Reading section: vector length: 2 vector length: 1 i32 vector length: 0 updating, before:0
 rt1 len:1 rt2 len:0
 vector length: 0 vector length: 0 updating, before:1
 rt1 len:0 rt2 len:0
@@ -326,39 +578,67 @@ rt1 len:0 rt2 len:0
 
 Section type: 2
 Import section
-vector length: 2 name length 0name length 5hello func Index: 0 name length 0name length 2id global i32 const 
+Reading section: vector length: 2 name length 0name length 5hello func Index: 0 name length 0name length 2id global i32 const 
 
 Section type: 3
 Function section
-vector length: 1 Index: 1 
+Reading section: vector length: 1 Index: 1 
 
 Section type: 7
 Export section
-vector length: 1 name length 3run funcIndex: 1 
+Reading section: vector length: 1 name length 3run funcIndex: 1 
 
 Section type: 10
 Code section
-vector length: 1 unreachable global.get call end vector length: -1 **** New file: test_cases/trap.wasm
+Reading section: vector length: 1 vector length: 0 global.get call end 
+
+Section type: -1
+1Module: test_cases/threads.wasm
+(module
+  (type (;0;) (func (param i32)))
+  (type (;1;) (func ))
+  (func (;0;) (type 1) 
+    global.get 0
+    call 0
+    end
+  )
+)Success!
+**** New file: test_cases/trap.wasm
 
 
 Section type: 1
 Type section
-vector length: 1 vector length: 0 vector length: 1 i32 updating, before:0
+Reading section: vector length: 1 vector length: 0 vector length: 1 i32 updating, before:0
 rt1 len:0 rt2 len:1
 
 
 Section type: 2
 Import section
-vector length: 1 name length 0name length 8callback func Index: 0 
+Reading section: vector length: 1 name length 0name length 8callback func Index: 0 
 
 Section type: 3
 Function section
-vector length: 2 Index: 0 Index: 0 
+Reading section: vector length: 2 Index: 0 Index: 0 
 
 Section type: 7
 Export section
-vector length: 2 name length 8callback funcIndex: 1 name length 11unreachable funcIndex: 2 
+Reading section: vector length: 2 name length 8callback funcIndex: 1 name length 11unreachable funcIndex: 2 
 
 Section type: 10
 Code section
-vector length: 2 unreachable call end vector length: 133 Fail!
+Reading section: vector length: 2 vector length: 0 call end vector length: 0 unreachable i32.const end 
+
+Section type: -1
+1Module: test_cases/trap.wasm
+(module
+  (type (;0;) (func (result i32)))
+  (func (;0;) (type 0) (result i32)
+    call 0
+    end
+  )
+  (func (;1;) (type 0) (result i32)
+    unreachable
+    i32.const 1
+    end
+  )
+)Success!
