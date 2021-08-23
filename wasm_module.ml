@@ -123,9 +123,12 @@ let get_params w idx =
   | Some x -> x
   | _ -> {rt1 = []; rt2 = []} (* TODO this shouldn't happen*)
 
+let string_of_code w i =
+  ""
 let string_of_function w i idx = 
   "  (func (;" ^ (string_of_int i) ^ ";) (type " ^ (string_of_typeidx idx) ^ ") " 
-    ^ (string_of_params (get_params w idx).rt1) ^ (string_of_results (get_params w idx).rt2) ^ ")\n"
+    ^ (string_of_params (get_params w idx).rt1) ^ (string_of_results (get_params w idx).rt2)
+    ^ (string_of_code w idx) ^")\n"
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
 
