@@ -16,11 +16,11 @@ type resulttype = valtype
 let resulttype_of_int i =
   match i with
   | 0x7f -> Numtype I32
-	| 0x7e -> Numtype I64
-	| 0x7d -> Numtype F32
-	| 0x7c -> Numtype F64
-	| 0x70 -> Reftype Funcref
-	| 0x6f -> Reftype Externref
+  | 0x7e -> Numtype I64
+  | 0x7d -> Numtype F32
+  | 0x7c -> Numtype F64
+  | 0x70 -> Reftype Funcref
+  | 0x6f -> Reftype Externref
   | _ -> Numtype I32 (*TODO*)
 
 type functype =
