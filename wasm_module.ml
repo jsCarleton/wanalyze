@@ -14,7 +14,7 @@ type valtype =
 type resulttype = valtype
 
 (* TODO in the spec resulttype is a vec of valtype *)
-let resulttype_of_int i =
+let valtype_of_int i =
   match i with
   | 0x7f -> Numtype I32
   | 0x7e -> Numtype I64
@@ -200,6 +200,7 @@ let string_of_opcode e i =
   | 0x3f -> ("    memory.size", 1)
   | 0x41 -> ("    i32.const " ^ (string_of_int (list_item e (i+1))), 2)
   | 0x6a -> ("    i32.add", 1)
+  | 0x72 -> ("    i32.or ", 1)
   | -1 -> ("Unexpected error!", 1)
   | opcode -> ("Unknown opcode: " ^ (sprintf "%x" opcode), 1)
 
@@ -234,7 +235,7 @@ let update_type_section w ((b1, rt1),(b2, rt2)) =
   match (b1,b2) with
   | (true, true) -> 
           w.type_section 
-            <- List.append w.type_section [create_functype (List.map ~f:resulttype_of_int rt1) (List.map ~f:resulttype_of_int rt2) ]; true
+            <- List.append w.type_section [create_functype (List.map ~f:valtype_of_int rt1) (List.map ~f:valtype_of_int rt2) ]; true
   | _ -> false
 let update_function_section w (b, i) =
   match b, i with
