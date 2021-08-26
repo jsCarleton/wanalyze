@@ -61,11 +61,11 @@ let rec uLEB ic size =
   let n = get_byte ic in
   match (n < (1 lsl 7)) && (n < (1 lsl size)) with
   | true -> n
-  | _ -> (1 lsl size) * (uLEB ic (size-7)) + (n - (1 lsl 7))
+  | _ -> (1 lsl 7) * (uLEB ic (size-7)) + (n - (1 lsl 7))
 
 let rec fillbits n bits =
-  match bits with
-  | 0 -> n
+  match bits <= 0 with
+  | true -> n
   | _ -> fillbits (i64lor (i64lsl 1L (64-bits)) n) (bits - 1)
 
 let rec nLEB ic size n acc bits =
@@ -528,6 +528,32 @@ let rec get_args ic opcode get_instr_list =
   | 0x4d -> printf "i32.le_u "; []
   | 0x4e -> printf "i32.ge_s "; []
   | 0x4f -> printf "i32.ge_u "; []
+  | 0x50 -> printf "i64.eqz "; []
+  | 0x51 -> printf "i64.eq "; []
+  | 0x52 -> printf "i64.ne "; []
+  | 0x53 -> printf "i64.lt_s "; []
+  | 0x54 -> printf "i64.lt_u "; []
+  | 0x55 -> printf "i64.gt_s "; []
+  | 0x56 -> printf "i64.gt_u "; []
+  | 0x57 -> printf "i64.le_s "; []
+  | 0x58 -> printf "i64.le_u "; []
+  | 0x59 -> printf "i64.ge_s "; []
+  | 0x5a -> printf "i64.ge_u "; []
+  | 0x5b -> printf "f32.eq "; []
+  | 0x5c -> printf "f32.ne "; []
+  | 0x5d -> printf "f32.lt "; []
+  | 0x5e -> printf "f32.gt "; []
+  | 0x5f -> printf "f32.le "; []
+  | 0x60 -> printf "f32.ge "; []
+  | 0x61 -> printf "f64.eq "; []
+  | 0x62 -> printf "f64.ne "; []
+  | 0x63 -> printf "f64.lt "; []
+  | 0x64 -> printf "f64.gt "; []
+  | 0x65 -> printf "f64.le "; []
+  | 0x66 -> printf "f64.ge "; []
+  | 0x67 -> printf "i32.clz "; []
+  | 0x68 -> printf "i32.ctz "; []
+  | 0x69 -> printf "i32.popcnt "; []
   | 0x6a -> printf "i32.add "; []
   | 0x6b -> printf "i32.sub "; []
   | 0x6c -> printf "i32.mul "; []
