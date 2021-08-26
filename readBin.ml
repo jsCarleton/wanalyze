@@ -53,6 +53,9 @@ let i64mul i1 i2 : int64 = Stdlib.Int64.mul i1 i2
 let i64add i1 i2 : int64 = Stdlib.Int64.add i1 i2
 let i64sub i1 i2 : int64 = Stdlib.Int64.sub i1 i2
 let i64lsl i n : int64 = Stdlib.Int64.shift_left i n
+let i64lor i1 i2 : int64 = Stdlib.Int64.logor i1 i2
+let i64land i1 i2 : int64 = Stdlib.Int64.logand i1 i2
+let of_int i : int64 = Stdlib.Int64.of_int i
 
 let rec uLEB ic size =
   let n = get_byte ic in
@@ -60,8 +63,24 @@ let rec uLEB ic size =
   | true -> n
   | _ -> (1 lsl size) * (uLEB ic (size-7)) + (n - (1 lsl 7))
 
+let rec fillbits n bits =
+  match bits with
+  | 0 -> n
+  | _ -> fillbits (i64lor (i64lsl 1L (64-bits)) n) (bits - 1)
+
+let rec nLEB ic size n acc bits =
+  match i64land n 0x80L with
+  | 0x80L -> nLEB ic size (of_int (get_byte ic)) (i64lor (i64lsl acc 7) (i64land n 0x7fL)) (bits+7)
+  | _ -> fillbits (i64lor (i64lsl acc 7) (i64land n 0x7fL)) (64-bits-7)
+  
 let rec sLEB ic size : int64 =
-  let n = Int64.of_int (get_byte ic) in
+  let n = of_int (get_byte ic) in
+  match i64land n 0x40L with
+  | 0x40L -> let n = nLEB ic size n 0L 0 in
+            printf "negative LEB %Ld" n;
+            n
+  | _ ->
+  (
   match (i64lt n (i64lsl 1L 6)) && (size >=64 || (i64lt n (i64lsl 1L (size - 1)))) with
   | true -> n
   | _ -> 
@@ -70,6 +89,7 @@ let rec sLEB ic size : int64 =
      | true -> (i64sub n (i64lsl 1L 7))
      | _ -> i64add (i64mul (i64lsl 1L 7)  (sLEB ic (size-7)))  (i64sub n (i64lsl 1L 7))
     )
+  )
 
 let rec read_vbe' ic b =
   match b with
