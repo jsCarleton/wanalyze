@@ -8,7 +8,6 @@ open Wasm_module
     - add the rest of the op codes 
     - fix up all calls to get_idx 
     - get rid of all [@warning "-27"]
-    - replace read_vbe with xLEB 
     - fix format of param and result in section 1*)
 
 let usage_msg = "readBin -verbose <file1> <file2> ..."
@@ -91,24 +90,6 @@ let rec sLEB ic size : int64 =
     )
   )
 
-let rec read_vbe' ic b =
-  match b with
-  | 0 -> 0
-  | b -> (b land 0x7f) + ((read_vbe' ic (get_byte ic)) lsl 7)
-
-let read_vbe ic =
-  let b = get_byte ic in
-  match b < 128 with
-  | true -> 
-    (match !verbose with
-     | true -> printf "Length %d\n " b; b
-     | _ -> b)
-  | _ ->
-    let len = (read_vbe' ic b) in
-    (match !verbose with
-    | true -> printf "Length %d\n" len; len
-    | _ -> len)
-
 let get_vec_len ic =
   let len = uLEB ic 32 in
     printf "vector length: %d" len; len
@@ -123,105 +104,105 @@ let get_idx ic =
   | -1 -> printf "idx error!\n"; false
   | i -> printf "Index: %d " i; true
 
-  let rec vec_idx ic n =
-    match n with
-    | 0 -> true
-    | _ ->
-      get_idx ic
-      && vec_idx ic (n-1)
-  
-  let get_i16 ic = Int64.to_int (sLEB ic 16)
-  let get_i32 ic = 
-    match Int64.to_int (sLEB ic 32) with
-    | None -> -1
-    | Some x -> x
-  let get_i64 ic = sLEB ic 64
+let rec vec_idx ic n =
+  match n with
+  | 0 -> true
+  | _ ->
+    get_idx ic
+    && vec_idx ic (n-1)
 
-  let rec bytes_to_i64' ic n acc : int64 =
-    match n with
-    | 0 -> acc
-    | _ -> bytes_to_i64' ic (n-1) (i64add (i64lsl acc 8) (Int64.of_int (get_byte ic)))
-  let bytes_to_i64 ic n : int64 = bytes_to_i64' ic n 0L
+let get_i16 ic = Int64.to_int (sLEB ic 16)
+let get_i32 ic = 
+  match Int64.to_int (sLEB ic 32) with
+  | None -> -1
+  | Some x -> x
+let get_i64 ic = sLEB ic 64
 
-  let get_f32 ic = Int64.float_of_bits (Int64.shift_left (bytes_to_i64 ic 4) 32)
-  let get_f64 ic = Int64.float_of_bits (bytes_to_i64 ic 8)
-                        
-  let reftype ic =
-    match get_byte ic with
-    | 0x70 -> printf "funcref"; true
-    | 0x6F -> printf "externref"; true
-    | x -> printf "Invalid reftype %x!" x; false
-  
-  let memarg ic =
-    printf "align: %d " (read_vbe ic);
-    printf "offset: %d " (read_vbe ic);
-    true
+let rec bytes_to_i64' ic n acc : int64 =
+  match n with
+  | 0 -> acc
+  | _ -> bytes_to_i64' ic (n-1) (i64add (i64lsl acc 8) (Int64.of_int (get_byte ic)))
+let bytes_to_i64 ic n : int64 = bytes_to_i64' ic n 0L
 
-  let read_memarg ic =
-    [uLEB ic 32; uLEB ic 32]
+let get_f32 ic = Int64.float_of_bits (Int64.shift_left (bytes_to_i64 ic 4) 32)
+let get_f64 ic = Int64.float_of_bits (bytes_to_i64 ic 8)
+                      
+let reftype ic =
+  match get_byte ic with
+  | 0x70 -> printf "funcref"; true
+  | 0x6F -> printf "externref"; true
+  | x -> printf "Invalid reftype %x!" x; false
 
-  let rec instr ic =
-  let opcode = get_byte ic in
-    match opcode with
-    (* control instructions *)
-    | 0x00 -> printf "unreachable "; opcode
-    | 0x01 -> printf "nop "; opcode
-    | 0x02 -> printf "block, type:%X" (get_byte ic);
-        (	match instr ic with
-          | 0x0b -> printf "end "; opcode
-          | _ -> instr ic
-        )
-    |	0x03 -> printf "loop, type:%X" (get_byte ic);
-        (	match instr ic with
-          | 0x0b -> printf "end "; opcode
-          | _ -> instr ic
-        )
-    |	0x04 -> printf "if, type:%X" (get_byte ic);
-        (	match instr ic with
-          | 0x05 -> printf "else ";
-            ( match instr ic with
-              | 0x0b -> printf "end "; opcode
-              | _ -> instr ic
-            )
-          | 0x0b -> printf "end "; opcode
-          | _ -> instr ic
-        )
-    | 0x0c -> printf "br %x " (get_byte ic); opcode
-    | 0x0d -> printf "br_if %x " (get_byte ic); opcode
-    | 0x0e -> ignore(vec_idx ic (get_byte ic): bool); printf "br_table %X" (get_byte ic); opcode
-    | 0x0f -> printf "return "; opcode
-    | 0x10 -> printf "call %x " (get_byte ic); opcode
-    | 0x11 -> printf "call_indirect %x %x " (get_byte ic) (get_byte ic); opcode
-    | 0x0b -> printf "end "; opcode
-    (* reference instructions*)
-    | 0xd0 -> printf "ref.null "; opcode (* not what the spec says *)
-    (* parametric instructions *)
-    (* variable instructions*)
-    | 0x20 -> printf "local.get %x " (get_byte ic); opcode
-    | 0x21 -> printf "local.set %x " (get_byte ic); opcode
-    | 0x22 -> printf "local.tee %x " (get_byte ic); opcode
-    | 0x23 -> printf "global.get %x " (get_byte ic); opcode
-    | 0x24 -> printf "global.set %x " (get_byte ic); opcode
-    (* table instructions *)
-    | 0x25 -> printf "table.get %x " (get_byte ic); opcode
-    | 0x26 -> printf "table.set %x " (get_byte ic); opcode
-    (* memory instructions *)
-    | 0x28 -> printf "i32.load %d %d " 0 0 (* TODO *); opcode
-    | 0x2c -> printf "i32.load8_s "; ignore(memarg ic: bool); opcode
-    | 0x3a -> printf "i32.store 8 "; ignore(memarg ic: bool); opcode
-    | 0x3f -> printf "memory.size "; opcode (* not what the spec says *)
-    | 0x40 -> printf "memory grow "; opcode (* not what the spec says *)
-    (* numeric instructions *)
-    | 0x41 -> printf "i32.const %d " (get_i32 ic); opcode
-    |	0x42 -> printf "i64.const %Ld " (get_i64 ic); opcode
-    | 0x43 -> printf "f32.const %f " (get_f32 ic); opcode
-    | 0x44 -> printf "f64.const %f " (get_f64 ic); opcode
-    | 0x6a -> printf "i32.add "; opcode
-    | 0x7d -> printf "i64.sub "; opcode
-    | 0x7e -> printf "i64.mul "; opcode
-    | 0xa0 -> printf "f64.add "; opcode
-    (* unhandled opcode *)
-    | _ -> printf "unhandled opcode: %x " opcode; -1
+let memarg ic =
+  printf "align: %d " (uLEB ic 32);
+  printf "offset: %d " (uLEB ic 32);
+  true
+
+let read_memarg ic =
+  [uLEB ic 32; uLEB ic 32]
+
+let rec instr ic =
+let opcode = get_byte ic in
+  match opcode with
+  (* control instructions *)
+  | 0x00 -> printf "unreachable "; opcode
+  | 0x01 -> printf "nop "; opcode
+  | 0x02 -> printf "block, type:%X" (get_byte ic);
+      (	match instr ic with
+        | 0x0b -> printf "end "; opcode
+        | _ -> instr ic
+      )
+  |	0x03 -> printf "loop, type:%X" (get_byte ic);
+      (	match instr ic with
+        | 0x0b -> printf "end "; opcode
+        | _ -> instr ic
+      )
+  |	0x04 -> printf "if, type:%X" (get_byte ic);
+      (	match instr ic with
+        | 0x05 -> printf "else ";
+          ( match instr ic with
+            | 0x0b -> printf "end "; opcode
+            | _ -> instr ic
+          )
+        | 0x0b -> printf "end "; opcode
+        | _ -> instr ic
+      )
+  | 0x0c -> printf "br %x " (get_byte ic); opcode
+  | 0x0d -> printf "br_if %x " (get_byte ic); opcode
+  | 0x0e -> ignore(vec_idx ic (get_byte ic): bool); printf "br_table %X" (get_byte ic); opcode
+  | 0x0f -> printf "return "; opcode
+  | 0x10 -> printf "call %x " (get_byte ic); opcode
+  | 0x11 -> printf "call_indirect %x %x " (get_byte ic) (get_byte ic); opcode
+  | 0x0b -> printf "end "; opcode
+  (* reference instructions*)
+  | 0xd0 -> printf "ref.null "; opcode (* not what the spec says *)
+  (* parametric instructions *)
+  (* variable instructions*)
+  | 0x20 -> printf "local.get %x " (get_byte ic); opcode
+  | 0x21 -> printf "local.set %x " (get_byte ic); opcode
+  | 0x22 -> printf "local.tee %x " (get_byte ic); opcode
+  | 0x23 -> printf "global.get %x " (get_byte ic); opcode
+  | 0x24 -> printf "global.set %x " (get_byte ic); opcode
+  (* table instructions *)
+  | 0x25 -> printf "table.get %x " (get_byte ic); opcode
+  | 0x26 -> printf "table.set %x " (get_byte ic); opcode
+  (* memory instructions *)
+  | 0x28 -> printf "i32.load %d %d " 0 0 (* TODO *); opcode
+  | 0x2c -> printf "i32.load8_s "; ignore(memarg ic: bool); opcode
+  | 0x3a -> printf "i32.store 8 "; ignore(memarg ic: bool); opcode
+  | 0x3f -> printf "memory.size "; opcode (* not what the spec says *)
+  | 0x40 -> printf "memory grow "; opcode (* not what the spec says *)
+  (* numeric instructions *)
+  | 0x41 -> printf "i32.const %d " (get_i32 ic); opcode
+  |	0x42 -> printf "i64.const %Ld " (get_i64 ic); opcode
+  | 0x43 -> printf "f32.const %f " (get_f32 ic); opcode
+  | 0x44 -> printf "f64.const %f " (get_f64 ic); opcode
+  | 0x6a -> printf "i32.add "; opcode
+  | 0x7d -> printf "i64.sub "; opcode
+  | 0x7e -> printf "i64.mul "; opcode
+  | 0xa0 -> printf "f64.add "; opcode
+  (* unhandled opcode *)
+  | _ -> printf "unhandled opcode: %x " opcode; -1
 
 let rec expr ic =
   match instr ic with
@@ -238,9 +219,10 @@ let rec read_entries ic n w entry_handler =
     entry_handler ic w &&
     read_entries ic (n-1) w entry_handler
 
+let read_section_length ic = uLEB ic 32
 let read_section ic section entry_handler =
   printf "reading section: \n";
-  uLEB ic 32 >= 0 (* discard the section size *)
+  read_section_length ic >= 0 (* discard the section size *)
   && read_entries ic (get_vec_len ic) section entry_handler
 
 (* Type section *)
@@ -357,7 +339,7 @@ let [@warning "-27"]read_export ic w =
 
 (* Start section *)
 let [@warning "-27"]read_start_section ic w =
-  read_vbe ic >= 0
+  read_section_length ic >= 0 (* discard the section length *)
   && get_idx ic
 
 (* Element section *)
@@ -429,6 +411,7 @@ let rec get_locals ic n =
     get_local ic
     && get_locals ic (n-1)
 
+(* TODO this is wrong see 5.4.1*)
 let read_blocktype ic =
   let t = get_byte ic in
     printf "%d\n" t;
@@ -438,18 +421,34 @@ let read_vec_valtype ic =
   List.init (get_vec_len ic) ~f:(fun _ -> get_byte ic)
 
 let ints_of_i64 _ = [0; 0] (* TODO *)
-let rec get_args ic opcode get_instr_list =
-  match opcode with
-  (* control instructions *)
-  | 0x00 -> printf "unreachable "; []
-  | 0x01 -> printf "nop "; []
-  | 0x02 -> printf "block, type:"; 
+
+let read_labelidx ic = uLEB ic 32
+let rec read_vec_labelidx' ic len acc =
+  match len with
+  | 0 -> acc
+  | _ ->
+      let label = read_labelidx ic in
+      read_vec_labelidx' ic (len-1) (List.append acc [label])
+let read_vec_labelidx ic =
+  read_vec_labelidx' ic (get_vec_len ic) []
+
+let get_args ic opcode _ =
+   match opcode with
+ (* control instructions *)
+  | 0x00 -> ("unreachable ", [])
+  | 0x01 -> ("nop ", [])
+  | 0x02 -> ("block", [read_blocktype ic])
+  | 0x03 -> ("loop", [read_blocktype ic])
+  | 0x04 -> ("if", [read_blocktype ic])
+  | 0x05 -> ("else", [])
+(*  | 0x02 -> printf "block, type:"; 
       let bt =  read_blocktype ic in
       bt :: (get_instr_list ic [])
   |	0x03 -> printf "loop, type:"; 
       let bt =  read_blocktype ic in
       bt :: (get_instr_list ic [])
-  |	0x04 -> printf "if, type is"; 
+*
+  |	0x04 -> ("if",  
       let bt = read_blocktype ic in
       bt ::
       (	let opcode' = get_byte ic in
@@ -463,194 +462,206 @@ let rec get_args ic opcode get_instr_list =
         | 0x0b -> printf "end ";  [0x0b]
         | _ -> get_instr_list ic (opcode' :: (get_args ic opcode' get_instr_list))
       )
+
   | 0x05 -> printf "else "; [] (* TODO this is an error if it's not in a nested block *)
-  | 0x0b -> printf(" end"); []
-  | 0x0c -> printf "br "; [get_byte ic]
-  | 0x0d -> printf "br_if ";  [get_byte ic]
-  | 0x0e -> ignore(vec_idx ic (get_byte ic): bool); printf "br_table %X" (get_byte ic); [] (* TODO *)
-  | 0x0f -> printf "return "; []
-  | 0x10 -> printf "call "; [get_byte ic]
-  | 0x11 -> printf "call_indirect "; [(get_byte ic); (get_byte ic)]
+*)
+  | 0x0b -> (" end", [])
+  | 0x0c -> ("br ", [get_byte ic])
+  | 0x0d -> ("br_if ",  [get_byte ic])
+  | 0x0e -> let labels = read_vec_labelidx ic in
+      ("br_table", List.append labels [read_labelidx ic])
+  | 0x0f -> ("return ", [])
+  | 0x10 -> ("call ", [get_byte ic])
+  | 0x11 -> ("call_indirect ", [(get_byte ic); (get_byte ic)])
   (* reference instructions*)
-  | 0xd0 -> printf "ref.null "; [] (* not what the spec says *)
+  | 0xd0 -> ("ref.null ", []) (* not what the spec says *)
   (* parametric instructions *)
-  | 0x1a -> printf "drop "; []
-  | 0x1b -> printf "select "; []
-  | 0x1c -> printf "select "; (read_vec_valtype ic)
+  | 0x1a -> ("drop ", [])
+  | 0x1b -> ("select ", [])
+  | 0x1c -> ("select ", (read_vec_valtype ic))
   (* variable instructions*)
-  | 0x20 -> printf "local.get "; [get_byte ic]
-  | 0x21 -> printf "local.set "; [get_byte ic]
-  | 0x22 -> printf "local.tee "; [get_byte ic]
-  | 0x23 -> printf "global.get "; [get_byte ic]
-  | 0x24 -> printf "global.set "; [get_byte ic]
+  | 0x20 -> ("local.get ", [get_byte ic])
+  | 0x21 -> ("local.set ", [get_byte ic])
+  | 0x22 -> ("local.tee ", [get_byte ic])
+  | 0x23 -> ("global.get ", [get_byte ic])
+  | 0x24 -> ("global.set ", [get_byte ic])
   (* table instructions *)
-  | 0x25 -> printf "table.get "; [get_byte ic]
-  | 0x26 -> printf "table.set "; [get_byte ic]
+  | 0x25 -> ("table.get ", [get_byte ic])
+  | 0x26 -> ("table.set ", [get_byte ic])
   (* memory instructions *)
-  | 0x28 -> printf "i32.load "; (read_memarg ic)
-  | 0x29 -> printf "i64.load "; (read_memarg ic)
-  | 0x2a -> printf "f32.load "; (read_memarg ic)
-  | 0x2b -> printf "f64.load "; (read_memarg ic)
-  | 0x2c -> printf "i32.load8_s "; (read_memarg ic)
-  | 0x2d -> printf "i32.load8_u "; (read_memarg ic)
-  | 0x2e -> printf "i32.load16_s "; (read_memarg ic)
-  | 0x2f -> printf "i32.load16_u "; (read_memarg ic)
-  | 0x30 -> printf "i64.load8_s "; (read_memarg ic)
-  | 0x31 -> printf "i64.load8_u "; (read_memarg ic)
-  | 0x32 -> printf "i64.load16_s "; (read_memarg ic)
-  | 0x33 -> printf "i64.load16_u "; (read_memarg ic)
-  | 0x34 -> printf "i64.load32_s "; (read_memarg ic)
-  | 0x35 -> printf "i64.load32_u "; (read_memarg ic)
-  | 0x36 -> printf "i32.store "; (read_memarg ic)
-  | 0x37 -> printf "i64.store "; (read_memarg ic)
-  | 0x38 -> printf "f32.store "; (read_memarg ic)
-  | 0x39 -> printf "f64.store "; (read_memarg ic)
-  | 0x3a -> printf "i32.store8 "; (read_memarg ic)
-  | 0x3b -> printf "i32.store16 "; (read_memarg ic)
-  | 0x3c -> printf "i64.store8 "; (read_memarg ic)
-  | 0x3d -> printf "i64.store16 "; (read_memarg ic)
-  | 0x3e -> printf "i64.store32 "; (read_memarg ic)
-  | 0x3f -> printf "memory.size "; [] (* not what the spec says *)
-  | 0x40 -> printf "memory grow "; [] (* not what the spec says *)
+  | 0x28 -> ("i32.load ", (read_memarg ic))
+  | 0x29 -> ("i64.load ", (read_memarg ic))
+  | 0x2a -> ("f32.load ", (read_memarg ic))
+  | 0x2b -> ("f64.load ", (read_memarg ic))
+  | 0x2c -> ("i32.load8_s ", (read_memarg ic))
+  | 0x2d -> ("i32.load8_u ", (read_memarg ic))
+  | 0x2e -> ("i32.load16_s ", (read_memarg ic))
+  | 0x2f -> ("i32.load16_u ", (read_memarg ic))
+  | 0x30 -> ("i64.load8_s ", (read_memarg ic))
+  | 0x31 -> ("i64.load8_u ", (read_memarg ic))
+  | 0x32 -> ("i64.load16_s ", (read_memarg ic))
+  | 0x33 -> ("i64.load16_u ", (read_memarg ic))
+  | 0x34 -> ("i64.load32_s ", (read_memarg ic))
+  | 0x35 -> ("i64.load32_u ", (read_memarg ic))
+  | 0x36 -> ("i32.store ", (read_memarg ic))
+  | 0x37 -> ("i64.store ", (read_memarg ic))
+  | 0x38 -> ("f32.store ", (read_memarg ic))
+  | 0x39 -> ("f64.store ", (read_memarg ic))
+  | 0x3a -> ("i32.store8 ", (read_memarg ic))
+  | 0x3b -> ("i32.store16 ", (read_memarg ic))
+  | 0x3c -> ("i64.store8 ", (read_memarg ic))
+  | 0x3d -> ("i64.store16 ", (read_memarg ic))
+  | 0x3e -> ("i64.store32 ", (read_memarg ic))
+  | 0x3f -> ("memory.size ", []) (* not what the spec says *)
+  | 0x40 -> ("memory grow ", []) (* not what the spec says *)
   (* numeric instructions *)
-  | 0x41 -> printf "i32.const "; [get_i32 ic]
-  |	0x42 -> printf "i64.const "; ints_of_i64 (sLEB ic 64)
-  | 0x43 -> printf "f32.const "; [0] (* TODO [get_f32 ic] *)
-  | 0x44 -> printf "f64.const "; [0] (* TODO [get_f64 ic] *)
-  | 0x45 -> printf "i32.eqz "; []
-  | 0x46 -> printf "i32.eq "; []
-  | 0x47 -> printf "i32.ne "; []
-  | 0x48 -> printf "i32.lt_s "; []
-  | 0x49 -> printf "i32.lt_u "; []
-  | 0x4a -> printf "i32.gt_s "; []
-  | 0x4b -> printf "i32.gt_u "; []
-  | 0x4c -> printf "i32.le_s "; []
-  | 0x4d -> printf "i32.le_u "; []
-  | 0x4e -> printf "i32.ge_s "; []
-  | 0x4f -> printf "i32.ge_u "; []
-  | 0x50 -> printf "i64.eqz "; []
-  | 0x51 -> printf "i64.eq "; []
-  | 0x52 -> printf "i64.ne "; []
-  | 0x53 -> printf "i64.lt_s "; []
-  | 0x54 -> printf "i64.lt_u "; []
-  | 0x55 -> printf "i64.gt_s "; []
-  | 0x56 -> printf "i64.gt_u "; []
-  | 0x57 -> printf "i64.le_s "; []
-  | 0x58 -> printf "i64.le_u "; []
-  | 0x59 -> printf "i64.ge_s "; []
-  | 0x5a -> printf "i64.ge_u "; []
-  | 0x5b -> printf "f32.eq "; []
-  | 0x5c -> printf "f32.ne "; []
-  | 0x5d -> printf "f32.lt "; []
-  | 0x5e -> printf "f32.gt "; []
-  | 0x5f -> printf "f32.le "; []
-  | 0x60 -> printf "f32.ge "; []
-  | 0x61 -> printf "f64.eq "; []
-  | 0x62 -> printf "f64.ne "; []
-  | 0x63 -> printf "f64.lt "; []
-  | 0x64 -> printf "f64.gt "; []
-  | 0x65 -> printf "f64.le "; []
-  | 0x66 -> printf "f64.ge "; []
-  | 0x67 -> printf "i32.clz "; []
-  | 0x68 -> printf "i32.ctz "; []
-  | 0x69 -> printf "i32.popcnt "; []
-  | 0x6a -> printf "i32.add "; []
-  | 0x6b -> printf "i32.sub "; []
-  | 0x6c -> printf "i32.mul "; []
-  | 0x6d -> printf "i32.div_s "; []
-  | 0x6e -> printf "i32.div_u "; []
-  | 0x6f -> printf "i32.rem_s "; []
-  | 0x70 -> printf "i32.rem_u "; []
-  | 0x71 -> printf "i32.and "; []
-  | 0x72 -> printf "i32.or "; []
-  | 0x73 -> printf "i32.xor "; []
-  | 0x74 -> printf "i32.shl "; []
-  | 0x75 -> printf "i32.shr_s "; []
-  | 0x76 -> printf "i32.shr_u "; []
-  | 0x77 -> printf "i32.rotl "; []
-  | 0x78 -> printf "i32.rotr "; []
-  | 0x79 -> printf "i64.clz "; []
-  | 0x7a -> printf "i64.ctz "; []
-  | 0x7b -> printf "i64.popcnt "; []
-  | 0x7c -> printf "i64.add "; []
-  | 0x7d -> printf "i64.sub "; []
-  | 0x7e -> printf "i64.mul "; []
-  | 0x7f -> printf "i64.div_s "; []
-  | 0x80 -> printf "i64.div_u "; []
-  | 0x81 -> printf "i64.rem_s "; []
-  | 0x82 -> printf "i64.rem_u "; []
-  | 0x83 -> printf "i64.and "; []
-  | 0x84 -> printf "i64.or "; []
-  | 0x85 -> printf "i64.xor "; []
-  | 0x86 -> printf "i64.shl "; []
-  | 0x87 -> printf "i64.shr_s "; []
-  | 0x88 -> printf "i64.shr_u "; []
-  | 0x89 -> printf "i64.rotl "; []
-  | 0x8a -> printf "i64.rotr "; []
-  | 0x8b -> printf "f32.abs "; []
-  | 0x8c -> printf "f32.neg "; []
-  | 0x8d -> printf "f32.ceil "; []
-  | 0x8e -> printf "f32.floor "; []
-  | 0x8f -> printf "f32.trunc "; []
-  | 0x90 -> printf "f32.nearest "; []
-  | 0x91 -> printf "f32.sqrt "; []
-  | 0x92 -> printf "f32.add "; []
-  | 0x93 -> printf "f32.sub "; []
-  | 0x94 -> printf "f32.mul "; []
-  | 0x95 -> printf "f32.div "; []
-  | 0x96 -> printf "f32.min "; []
-  | 0x97 -> printf "f32.max "; []
-  | 0x98 -> printf "f32.copysign "; []
-  | 0x99 -> printf "f64.abs "; []
-  | 0x9a -> printf "f64.neg "; []
-  | 0x9b -> printf "f64.ceil "; []
-  | 0x9c -> printf "f64.floor "; []
-  | 0x9d -> printf "f64.trunc "; []
-  | 0x9e -> printf "f64.nearest "; []
-  | 0x9f -> printf "f64.sqrt "; []
-  | 0xa0 -> printf "f64.add "; []
-  | 0xa1 -> printf "f64.sub "; []
-  | 0xa2 -> printf "f64.mul "; []
-  | 0xa3 -> printf "f64.div "; []
-  | 0xa4 -> printf "f64.min "; []
-  | 0xa5 -> printf "f64.max "; []
-  | 0xa6 -> printf "f64.copysign "; []
-  | 0xa7 -> printf "i32.wrap_i64 "; []
-  | 0xa8 -> printf "i32.trunc_f32_s "; []
-  | 0xa9 -> printf "i32.trunc_f32_u "; []
-  | 0xaa -> printf "i32.trunc_f64_s "; []
-  | 0xab -> printf "i32.trunc_f64_u "; []
-  | 0xac -> printf "i64.extend_i32_s "; []
-  | 0xad -> printf "i64.extend_i32_u "; []
-  | 0xae -> printf "i64.trunc_f32_s "; []
-  | 0xaf -> printf "i64.trunc_f32_u "; []
-  | 0xb0 -> printf "i64.trunc_f64_s "; []
-  | 0xb1 -> printf "i64.trunc_f64_u "; []
-  | 0xb2 -> printf "f32.convert_i32_s "; []
-  | 0xb3 -> printf "f32.convert_i32_u "; []
-  | 0xb4 -> printf "f32.convert_i64_s "; []
-  | 0xb5 -> printf "f32.convert_i64_u "; []
-  | 0xb6 -> printf "f32.demote_f64 "; []
-  | 0xb7 -> printf "f64.convert_i32_s "; []
-  | 0xb8 -> printf "f64.convert_i32_u "; []
-  | 0xb9 -> printf "f64.convert_i64_s "; []
-  | 0xba -> printf "f64.convert_i64_u "; []
-  | 0xbb -> printf "f64.promote_f64 "; []
-  | 0xbc -> printf "f32.reinterpret_f32 "; []
-  | 0xbd -> printf "i64.reinterpret_f64 "; []
-  | 0xbe -> printf "f32.reinterpret_i32 "; []
-  | 0xbf -> printf "f64.reinterpret_i64 "; []
+  | 0x41 -> ("i32.const ", [get_i32 ic])
+  |	0x42 -> ("i64.const ", ints_of_i64 (sLEB ic 64))
+  | 0x43 -> ("f32.const ", [0]) (* TODO [get_f32 ic] *)
+  | 0x44 -> ("f64.const ", [0]) (* TODO [get_f64 ic] *)
+  | 0x45 -> ("i32.eqz ", [])
+  | 0x46 -> ("i32.eq ", [])
+  | 0x47 -> ("i32.ne ", [])
+  | 0x48 -> ("i32.lt_s ", [])
+  | 0x49 -> ("i32.lt_u ", [])
+  | 0x4a -> ("i32.gt_s ", [])
+  | 0x4b -> ("i32.gt_u ", [])
+  | 0x4c -> ("i32.le_s ", [])
+  | 0x4d -> ("i32.le_u ", [])
+  | 0x4e -> ("i32.ge_s ", [])
+  | 0x4f -> ("i32.ge_u ", [])
+  | 0x50 -> ("i64.eqz ", [])
+  | 0x51 -> ("i64.eq ", [])
+  | 0x52 -> ("i64.ne ", [])
+  | 0x53 -> ("i64.lt_s ", [])
+  | 0x54 -> ("i64.lt_u ", [])
+  | 0x55 -> ("i64.gt_s ", [])
+  | 0x56 -> ("i64.gt_u ", [])
+  | 0x57 -> ("i64.le_s ", [])
+  | 0x58 -> ("i64.le_u ", [])
+  | 0x59 -> ("i64.ge_s ", [])
+  | 0x5a -> ("i64.ge_u ", [])
+  | 0x5b -> ("f32.eq ", [])
+  | 0x5c -> ("f32.ne ", [])
+  | 0x5d -> ("f32.lt ", [])
+  | 0x5e -> ("f32.gt ", [])
+  | 0x5f -> ("f32.le ", [])
+  | 0x60 -> ("f32.ge ", [])
+  | 0x61 -> ("f64.eq ", [])
+  | 0x62 -> ("f64.ne ", [])
+  | 0x63 -> ("f64.lt ", [])
+  | 0x64 -> ("f64.gt ", [])
+  | 0x65 -> ("f64.le ", [])
+  | 0x66 -> ("f64.ge ", [])
+  | 0x67 -> ("i32.clz ", [])
+  | 0x68 -> ("i32.ctz ", [])
+  | 0x69 -> ("i32.popcnt ", [])
+  | 0x6a -> ("i32.add ", [])
+  | 0x6b -> ("i32.sub ", [])
+  | 0x6c -> ("i32.mul ", [])
+  | 0x6d -> ("i32.div_s ", [])
+  | 0x6e -> ("i32.div_u ", [])
+  | 0x6f -> ("i32.rem_s ", [])
+  | 0x70 -> ("i32.rem_u ", [])
+  | 0x71 -> ("i32.and ", [])
+  | 0x72 -> ("i32.or ", [])
+  | 0x73 -> ("i32.xor ", [])
+  | 0x74 -> ("i32.shl ", [])
+  | 0x75 -> ("i32.shr_s ", [])
+  | 0x76 -> ("i32.shr_u ", [])
+  | 0x77 -> ("i32.rotl ", [])
+  | 0x78 -> ("i32.rotr ", [])
+  | 0x79 -> ("i64.clz ", [])
+  | 0x7a -> ("i64.ctz ", [])
+  | 0x7b -> ("i64.popcnt ", [])
+  | 0x7c -> ("i64.add ", [])
+  | 0x7d -> ("i64.sub ", [])
+  | 0x7e -> ("i64.mul ", [])
+  | 0x7f -> ("i64.div_s ", [])
+  | 0x80 -> ("i64.div_u ", [])
+  | 0x81 -> ("i64.rem_s ", [])
+  | 0x82 -> ("i64.rem_u ", [])
+  | 0x83 -> ("i64.and ", [])
+  | 0x84 -> ("i64.or ", [])
+  | 0x85 -> ("i64.xor ", [])
+  | 0x86 -> ("i64.shl ", [])
+  | 0x87 -> ("i64.shr_s ", [])
+  | 0x88 -> ("i64.shr_u ", [])
+  | 0x89 -> ("i64.rotl ", [])
+  | 0x8a -> ("i64.rotr ", [])
+  | 0x8b -> ("f32.abs ", [])
+  | 0x8c -> ("f32.neg ", [])
+  | 0x8d -> ("f32.ceil ", [])
+  | 0x8e -> ("f32.floor ", [])
+  | 0x8f -> ("f32.trunc ", [])
+  | 0x90 -> ("f32.nearest ", [])
+  | 0x91 -> ("f32.sqrt ", [])
+  | 0x92 -> ("f32.add ", [])
+  | 0x93 -> ("f32.sub ", [])
+  | 0x94 -> ("f32.mul ", [])
+  | 0x95 -> ("f32.div ", [])
+  | 0x96 -> ("f32.min ", [])
+  | 0x97 -> ("f32.max ", [])
+  | 0x98 -> ("f32.copysign ", [])
+  | 0x99 -> ("f64.abs ", [])
+  | 0x9a -> ("f64.neg ", [])
+  | 0x9b -> ("f64.ceil ", [])
+  | 0x9c -> ("f64.floor ", [])
+  | 0x9d -> ("f64.trunc ", [])
+  | 0x9e -> ("f64.nearest ", [])
+  | 0x9f -> ("f64.sqrt ", [])
+  | 0xa0 -> ("f64.add ", [])
+  | 0xa1 -> ("f64.sub ", [])
+  | 0xa2 -> ("f64.mul ", [])
+  | 0xa3 -> ("f64.div ", [])
+  | 0xa4 -> ("f64.min ", [])
+  | 0xa5 -> ("f64.max ", [])
+  | 0xa6 -> ("f64.copysign ", [])
+  | 0xa7 -> ("i32.wrap_i64 ", [])
+  | 0xa8 -> ("i32.trunc_f32_s ", [])
+  | 0xa9 -> ("i32.trunc_f32_u ", [])
+  | 0xaa -> ("i32.trunc_f64_s ", [])
+  | 0xab -> ("i32.trunc_f64_u ", [])
+  | 0xac -> ("i64.extend_i32_s ", [])
+  | 0xad -> ("i64.extend_i32_u ", [])
+  | 0xae -> ("i64.trunc_f32_s ", [])
+  | 0xaf -> ("i64.trunc_f32_u ", [])
+  | 0xb0 -> ("i64.trunc_f64_s ", [])
+  | 0xb1 -> ("i64.trunc_f64_u ", [])
+  | 0xb2 -> ("f32.convert_i32_s ", [])
+  | 0xb3 -> ("f32.convert_i32_u ", [])
+  | 0xb4 -> ("f32.convert_i64_s ", [])
+  | 0xb5 -> ("f32.convert_i64_u ", [])
+  | 0xb6 -> ("f32.demote_f64 ", [])
+  | 0xb7 -> ("f64.convert_i32_s ", [])
+  | 0xb8 -> ("f64.convert_i32_u ", [])
+  | 0xb9 -> ("f64.convert_i64_s ", [])
+  | 0xba -> ("f64.convert_i64_u ", [])
+  | 0xbb -> ("f64.promote_f64 ", [])
+  | 0xbc -> ("f32.reinterpret_f32 ", [])
+  | 0xbd -> ("i64.reinterpret_f64 ", [])
+  | 0xbe -> ("f32.reinterpret_i32 ", [])
+  | 0xbf -> ("f64.reinterpret_i64 ", [])
+ 
   (* unhandled opcode *)
-  | _ -> printf "unknown opcode: %x\n" opcode; [opcode]
+  | _ -> ("unknown opcode:", [])
 
 let read_valtype ic = valtype_of_int (get_byte ic)
 let xxget_local ic = (fun _ -> printf "local \n"; { n = get_byte ic; v = (read_valtype ic)})
+
 let rec get_instr_list ic acc =
   let opcode = get_byte ic in
   printf "\n";
   match opcode with
-  | 0x0b -> printf "end "; List.append acc [opcode]
-  | _ -> get_instr_list ic (List.append acc (opcode :: (get_args ic opcode get_instr_list)))
+  | 0x0b -> List.append acc [{opcode=opcode; opname="end"; args=[]}]
+  | _ -> 
+    let (opname, args) = (get_args ic opcode get_instr_list) in
+    match opcode with
+    | 0x02 -> []
+    | 0x03 -> []
+    | 0x04 -> []
+    | 0x05 -> []
+    | _ ->  get_instr_list ic (List.append acc [{opcode; opname; args}])
 
 let read_code ic w =
   (uLEB ic 32) >= 0 (* we discard the size *)
@@ -677,8 +688,7 @@ let [@warning "-27"]data_reader ic w =
 
 let read_section_body ic w id =
   match id with
-  | 0 -> printf "Custom section - unimplemented\n";
-  skip_bytes ic (read_vbe ic)
+  | 0 -> printf "Custom section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic)
   | 1 -> printf "Type section\n"; read_section ic w read_type
   | 2 -> printf "Import section\n"; read_section ic w read_import
   | 3 -> printf "Function section\n"; read_section ic w read_function
@@ -690,10 +700,8 @@ let read_section_body ic w id =
   | 9 -> printf "Element section\n"; read_section ic w element_reader
   | 10 -> printf "Code section\n"; read_section ic w read_code
   | 11 -> printf "Data section\n"; read_section ic w data_reader
-  | 12 -> printf "Data count section - unimplemented\n";
-  skip_bytes ic (read_vbe ic)
-  | _ -> printf "Unknown section\n";
-  skip_bytes ic (read_vbe ic)
+  | 12 -> printf "Data count section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic)
+  | _ -> printf "Unknown section, skipping\n"; skip_bytes ic (read_section_length ic)
 
 let read_section_id ic =
   match get_byte ic with
@@ -724,19 +732,7 @@ let rec parseFiles filelist =
       | true -> Wasm_module.print w; parseFiles files 
       | _ -> Wasm_module.print w; false
 
-let rec tsLEB size b i : int64 =
-  let n = Int64.of_int (list_item b i) in
-  match (i64lt n (i64lsl 1L 6)) && (size >=64 || (i64lt n (i64lsl 1L (size - 1)))) with
-  | true -> n
-  | _ -> 
-    (match (i64le (i64lsl 1L 6) n) && (i64lt n (i64lsl 1L 7)) 
-        && (i64le n (i64sub (i64lsl 1L 7) (i64lsl 1L (size-1)))) with
-      | true -> (i64sub n (i64lsl 1L 7))
-      | _ -> i64add (i64mul (i64lsl 1L 7)  (tsLEB (size-7) b (i+1)))  (i64sub n (i64lsl 1L 7))
-    )
-      
 let () =
-  printf "%Ld" (tsLEB 32 [0x7c; 0x71; 0x22; 0x2] 0);
   Arg.parse speclist anon_fun usage_msg;
   match parseFiles !input_files with
   | true -> printf "Success!\n"

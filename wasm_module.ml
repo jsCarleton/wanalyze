@@ -128,7 +128,13 @@ type datacountsec =
 }
 
 (* Code *)
-type expr = int list (*TODO*)
+type op_type =
+{
+  opcode: int;
+  opname: string;
+  args:   int list;
+}
+type expr = op_type list
 type local_type =
 {
   n:  int;
@@ -183,7 +189,7 @@ let string_of_locals locals =
 let string_of_memarg a o =
   "align: " ^ (string_of_int a) ^ " offset: " ^ (string_of_int o)
 
-let string_of_opcode e i =
+(* let string_of_opcode e i =
   match list_item e i with
   | 0x00 -> ("    unreachable", 1)
   | 0x0b -> ("    end", 1)
@@ -203,13 +209,17 @@ let string_of_opcode e i =
   | 0x72 -> ("    i32.or ", 1)
   | -1 -> ("Unexpected error!", 1)
   | opcode -> ("Unknown opcode: " ^ (sprintf "%x" opcode), 1)
+ *)
+let string_of_opcode e idx =
+    let op = List.nth e idx in
+    match op with
+    | Some op -> op.opname
+    | _ -> "** unknown **"
 
 let rec string_of_expr' e idx acc =
   match idx < (List.length e) with
   | false -> acc
-  | true -> 
-    let (code, length) = string_of_opcode e idx in
-      string_of_expr' e (idx+length) (acc ^ code ^ "\n")
+  | true -> string_of_expr' e (idx+1) (acc ^ (string_of_opcode e idx) ^ "\n")
 
 let string_of_expr e =
   string_of_expr' e 0 ""
