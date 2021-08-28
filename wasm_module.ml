@@ -94,7 +94,6 @@ type importsec =
 }
 
 (* Functions *)
-type typeidx = int
 let string_of_typeidx = string_of_int
 
 (* Tables *)
@@ -128,6 +127,61 @@ type datacountsec =
 }
 
 (* Code *)
+type labelidx = int
+type blockidx = int
+type blocktype = int
+type funcidx = int
+type typeidx = int
+type tableidx = int
+type localidx = int
+type globalidx = int
+type elemidx = int
+type dataidx = int
+type br_table =
+{
+  table:  labelidx list;
+  index:  labelidx;
+}
+type call_indirect =
+{
+  y:      typeidx;
+  x:      tableidx;
+}
+type table_init =
+{
+  y:      elemidx;
+  x:      tableidx;
+}
+type table_copy =
+{
+  x:      tableidx;
+  y:      tableidx;
+}
+type memarg =
+{
+  a:      int;
+  o:      int;
+}
+type op_arg =
+  | Blocktype of blocktype
+  | Labelidx of labelidx
+  | BrTable of br_table
+  | Funcidx of funcidx
+  | CallIndirect of call_indirect
+  | Reftype of reftype
+  | ValtypeList of valtype list
+  | Globalidx of globalidx
+  | Localidx of localidx
+  | Tableidx of tableidx
+  | Elemidx of elemidx
+  | TableCopy of table_copy
+  | Memarg of memarg
+  | Dataidx of dataidx
+  | I32value of int
+  | I64value of int64
+  | F32value of float (* do we distinguish between float32 and float64? *)
+  | F64value of float
+  | None
 type op_type =
 {
   opcode:   int;

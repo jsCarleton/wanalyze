@@ -495,6 +495,7 @@ let get_args ic opcode _ =
   |	0x42 -> ("i64.const", ints_of_i64 (sLEB ic 64))
   | 0x43 -> ("f32.const", [0]) (* TODO [get_f32 ic] *)
   | 0x44 -> ("f64.const", [0]) (* TODO [get_f64 ic] *)
+  
   | 0x45 -> ("i32.eqz", [])
   | 0x46 -> ("i32.eq", [])
   | 0x47 -> ("i32.ne", [])
@@ -506,6 +507,7 @@ let get_args ic opcode _ =
   | 0x4d -> ("i32.le_u", [])
   | 0x4e -> ("i32.ge_s", [])
   | 0x4f -> ("i32.ge_u", [])
+
   | 0x50 -> ("i64.eqz", [])
   | 0x51 -> ("i64.eq", [])
   | 0x52 -> ("i64.ne", [])
@@ -517,18 +519,21 @@ let get_args ic opcode _ =
   | 0x58 -> ("i64.le_u", [])
   | 0x59 -> ("i64.ge_s", [])
   | 0x5a -> ("i64.ge_u", [])
+
   | 0x5b -> ("f32.eq", [])
   | 0x5c -> ("f32.ne", [])
   | 0x5d -> ("f32.lt", [])
   | 0x5e -> ("f32.gt", [])
   | 0x5f -> ("f32.le", [])
   | 0x60 -> ("f32.ge", [])
+
   | 0x61 -> ("f64.eq", [])
   | 0x62 -> ("f64.ne", [])
   | 0x63 -> ("f64.lt", [])
   | 0x64 -> ("f64.gt", [])
   | 0x65 -> ("f64.le", [])
   | 0x66 -> ("f64.ge", [])
+
   | 0x67 -> ("i32.clz", [])
   | 0x68 -> ("i32.ctz", [])
   | 0x69 -> ("i32.popcnt", [])
@@ -547,6 +552,7 @@ let get_args ic opcode _ =
   | 0x76 -> ("i32.shr_u", [])
   | 0x77 -> ("i32.rotl", [])
   | 0x78 -> ("i32.rotr", [])
+
   | 0x79 -> ("i64.clz", [])
   | 0x7a -> ("i64.ctz", [])
   | 0x7b -> ("i64.popcnt", [])
@@ -565,6 +571,7 @@ let get_args ic opcode _ =
   | 0x88 -> ("i64.shr_u", [])
   | 0x89 -> ("i64.rotl", [])
   | 0x8a -> ("i64.rotr", [])
+
   | 0x8b -> ("f32.abs", [])
   | 0x8c -> ("f32.neg", [])
   | 0x8d -> ("f32.ceil", [])
@@ -579,6 +586,7 @@ let get_args ic opcode _ =
   | 0x96 -> ("f32.min", [])
   | 0x97 -> ("f32.max", [])
   | 0x98 -> ("f32.copysign", [])
+
   | 0x99 -> ("f64.abs", [])
   | 0x9a -> ("f64.neg", [])
   | 0x9b -> ("f64.ceil", [])
@@ -593,6 +601,7 @@ let get_args ic opcode _ =
   | 0xa4 -> ("f64.min", [])
   | 0xa5 -> ("f64.max", [])
   | 0xa6 -> ("f64.copysign", [])
+
   | 0xa7 -> ("i32.wrap_i64", [])
   | 0xa8 -> ("i32.trunc_f32_s", [])
   | 0xa9 -> ("i32.trunc_f32_u", [])
@@ -618,6 +627,14 @@ let get_args ic opcode _ =
   | 0xbd -> ("i64.reinterpret_f64", [])
   | 0xbe -> ("f32.reinterpret_i32", [])
   | 0xbf -> ("f64.reinterpret_i64", [])
+
+  | 0xc0 -> ("i32.extend_8_s", [])
+  | 0xc1 -> ("i32.extend_16_s", [])
+  | 0xc2 -> ("i64.extend_8_s", [])
+  | 0xc3 -> ("i64.extend_16_s", [])
+  | 0xc4 -> ("i64.extend_32_s", [])
+
+  | 0xFC -> ("ixx.trunc_sat_fxx_x", [get_i32 ic]) (* TODO a polymorphic opcode that needs interpretation to be printed correctly *)
  
   (* unhandled opcode *)
   | _ -> ("unknown opcode:", [])
