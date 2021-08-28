@@ -83,46 +83,18 @@ Section type: 10
 Code section
 reading section: 
 vector length: 12section has 12 entries left
-vector length: 0
-global.get 
-end section has 11 entries left
-vector length: 0
-global.get 
-end section has 10 entries left
-vector length: 0
-global.get 
-end section has 9 entries left
-vector length: 0
-global.get 
-end section has 8 entries left
-vector length: 0
-global.get 
-end section has 7 entries left
-vector length: 0
-global.get 
-end section has 6 entries left
-vector length: 0
-global.get 
-end section has 5 entries left
-vector length: 0
-global.get 
-end section has 4 entries left
-vector length: 0
-local.get 
-global.set 
-end section has 3 entries left
-vector length: 0
-local.get 
-global.set 
-end section has 2 entries left
-vector length: 0
-local.get 
-global.set 
-end section has 1 entries left
-vector length: 0
-local.get 
-global.set 
-end section has 0 entries left
+vector length: 0section has 11 entries left
+vector length: 0section has 10 entries left
+vector length: 0section has 9 entries left
+vector length: 0section has 8 entries left
+vector length: 0section has 7 entries left
+vector length: 0section has 6 entries left
+vector length: 0section has 5 entries left
+vector length: 0section has 4 entries left
+vector length: 0section has 3 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -133,55 +105,55 @@ Section type: -1
   (type (;2;) (func (param f32)))
   (type (;3;) (func (param i64)))
   (func (;0;) (type 0) (result f32)
-    global.get 0
+    global.get
     end
   )
   (func (;1;) (type 1) (result i64)
-    global.get 1
+    global.get
     end
   )
   (func (;2;) (type 0) (result f32)
-    global.get 2
+    global.get
     end
   )
   (func (;3;) (type 1) (result i64)
-    global.get 3
+    global.get
     end
   )
   (func (;4;) (type 0) (result f32)
-    global.get 4
+    global.get
     end
   )
   (func (;5;) (type 1) (result i64)
-    global.get 5
+    global.get
     end
   )
   (func (;6;) (type 0) (result f32)
-    global.get 6
+    global.get
     end
   )
   (func (;7;) (type 1) (result i64)
-    global.get 7
+    global.get
     end
   )
   (func (;8;) (type 2) (param f32)
-    local.get 0
-    global.set 2
+    local.get
+    global.set
     end
   )
   (func (;9;) (type 3) (param i64)
-    local.get 0
-    global.set 3
+    local.get
+    global.set
     end
   )
   (func (;10;) (type 2) (param f32)
-    local.get 0
-    global.set 6
+    local.get
+    global.set
     end
   )
   (func (;11;) (type 3) (param i64)
-    local.get 0
-    global.set 7
+    local.get
+    global.set
     end
   )
 )Success!
@@ -229,14 +201,7 @@ Section type: 10
 Code section
 reading section: 
 vector length: 1section has 1 entries left
-vector length: 0
-local.get 
-local.get 
-i32.add 
-call 
-call 
-i32.add 
-end section has 0 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -246,11 +211,11 @@ Section type: -1
   (type (;1;) (func (result i32)))
   (type (;2;) (func (param i32)(param i32)(result i32)))
   (func (;0;) (type 2) (param i32)(param i32)(result i32)
-    local.get 0
-    local.get 1
+    local.get
+    local.get
     i32.add
-    call 0
-    call 1
+    call
+    call
     i32.add
     end
   )
@@ -282,9 +247,7 @@ Section type: 10
 Code section
 reading section: 
 vector length: 1section has 1 entries left
-vector length: 0
-unreachable 
-end section has 0 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -330,12 +293,9 @@ Section type: 10
 Code section
 reading section: 
 vector length: 3section has 3 entries left
-vector length: 0
-end section has 2 entries left
-vector length: 0
-end section has 1 entries left
-vector length: 0
-end section has 0 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -389,9 +349,7 @@ Section type: 10
 Code section
 reading section: 
 vector length: 1section has 1 entries left
-vector length: 0
-call 
-end section has 0 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -399,7 +357,7 @@ Section type: -1
 (module
   (type (;0;) (func ))
   (func (;0;) (type 0) 
-    call 0
+    call
     end
   )
 )Success!
@@ -476,26 +434,11 @@ Section type: 10
 Code section
 reading section: 
 vector length: 5section has 5 entries left
-vector length: 0
-local.get 
-global.set 
-end section has 4 entries left
-vector length: 0
-global.get 
-end section has 3 entries left
-vector length: 0
-local.get 
-local.get 
-table.set 
-end section has 2 entries left
-vector length: 0
-local.get 
-table.get 
-end section has 1 entries left
-vector length: 0
-local.get 
-call 
-end section has 0 entries left
+vector length: 0section has 4 entries left
+vector length: 0section has 3 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -507,28 +450,28 @@ Section type: -1
   (type (;3;) (func (param i32)(param externref)))
   (type (;4;) (func (param i32)(result externref)))
   (func (;0;) (type 1) (param externref)
-    local.get 0
-    global.set 0
+    local.get
+    global.set
     end
   )
   (func (;1;) (type 2) (result externref)
-    global.get 0
+    global.get
     end
   )
   (func (;2;) (type 3) (param i32)(param externref)
-    local.get 0
-    local.get 1
-    table.set 0
+    local.get
+    local.get
+    table.set
     end
   )
   (func (;3;) (type 4) (param i32)(result externref)
-    local.get 0
-    table.get 0
+    local.get
+    table.get
     end
   )
   (func (;4;) (type 0) (param externref)(result externref)
-    local.get 0
-    call 0
+    local.get
+    call
     end
   )
 )Success!
@@ -579,19 +522,9 @@ Section type: 10
 Code section
 reading section: 
 vector length: 3section has 3 entries left
-vector length: 0
-memory.size 
-unreachable 
-end section has 2 entries left
-vector length: 0
-local.get 
-i32.load8_s 
-end section has 1 entries left
-vector length: 0
-local.get 
-local.get 
-i32.store8 
-end section has 0 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: 11
@@ -614,14 +547,14 @@ Section type: -1
     end
   )
   (func (;1;) (type 1) (param i32)(result i32)
-    local.get 0
-    i32.load8_s align: 0 offset: 0
+    local.get
+    i32.load8_s
     end
   )
   (func (;2;) (type 2) (param i32)(param i32)
-    local.get 0
-    local.get 1
-    i32.store8 align: 0 offset: 0
+    local.get
+    local.get
+    i32.store8
     end
   )
 )Success!
@@ -662,13 +595,7 @@ Section type: 10
 Code section
 reading section: 
 vector length: 1section has 1 entries left
-vector length: 0
-local.get 
-local.get 
-local.get 
-local.get 
-call 
-end section has 0 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -676,11 +603,11 @@ Section type: -1
 (module
   (type (;0;) (func (param i32)(param i64)(param i64)(param i32)(result i32)(result i64)(result i64)(result i32)))
   (func (;0;) (type 0) (param i32)(param i64)(param i64)(param i32)(result i32)(result i64)(result i64)(result i32)
-    local.get 0
-    local.get 2
-    local.get 1
-    local.get 3
-    call 0
+    local.get
+    local.get
+    local.get
+    local.get
+    call
     end
   )
 )Success!
@@ -737,9 +664,7 @@ Section type: 10
 Code section
 reading section: 
 vector length: 1section has 1 entries left
-vector length: 0
-unreachable 
-end section has 0 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -788,9 +713,7 @@ Section type: 10
 Code section
 reading section: 
 vector length: 1section has 1 entries left
-vector length: 0
-call 
-end section has 0 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -798,7 +721,7 @@ Section type: -1
 (module
   (type (;0;) (func ))
   (func (;0;) (type 0) 
-    call 0
+    call
     end
   )
 )Success!
@@ -829,9 +752,7 @@ Section type: 10
 Code section
 reading section: 
 vector length: 1section has 1 entries left
-vector length: 0
-unreachable 
-end section has 0 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -895,17 +816,9 @@ Section type: 10
 Code section
 reading section: 
 vector length: 3section has 3 entries left
-vector length: 0
-local.get 
-local.get 
-call_indirect 
-end section has 2 entries left
-vector length: 0
-local.get 
-end section has 1 entries left
-vector length: 0
-i32.const 
-end section has 0 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -914,17 +827,17 @@ Section type: -1
   (type (;0;) (func (param i32)(param i32)(result i32)))
   (type (;1;) (func (param i32)(result i32)))
   (func (;0;) (type 0) (param i32)(param i32)(result i32)
-    local.get 0
-    local.get 1
-    call_indirect 0 1
+    local.get
+    local.get
+    call_indirect
     end
   )
   (func (;1;) (type 1) (param i32)(result i32)
-    local.get 0
+    local.get
     end
   )
   (func (;2;) (type 1) (param i32)(result i32)
-    i32.const 666
+    i32.const
     end
   )
 )Success!
@@ -969,10 +882,7 @@ Section type: 10
 Code section
 reading section: 
 vector length: 1section has 1 entries left
-vector length: 0
-global.get 
-call 
-end section has 0 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -981,8 +891,8 @@ Section type: -1
   (type (;0;) (func (param i32)))
   (type (;1;) (func ))
   (func (;0;) (type 1) 
-    global.get 0
-    call 0
+    global.get
+    call
     end
   )
 )Success!
@@ -1025,13 +935,8 @@ Section type: 10
 Code section
 reading section: 
 vector length: 2section has 2 entries left
-vector length: 0
-call 
-end section has 1 entries left
-vector length: 0
-unreachable 
-i32.const 
-end section has 0 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
 
 
 Section type: -1
@@ -1039,12 +944,12 @@ Section type: -1
 (module
   (type (;0;) (func (result i32)))
   (func (;0;) (type 0) (result i32)
-    call 0
+    call
     end
   )
   (func (;1;) (type 0) (result i32)
     unreachable
-    i32.const 1
+    i32.const
     end
   )
 )Success!

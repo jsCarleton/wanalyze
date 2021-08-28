@@ -130,9 +130,10 @@ type datacountsec =
 (* Code *)
 type op_type =
 {
-  opcode: int;
-  opname: string;
-  args:   int list;
+  opcode:   int;
+  opname:   string;
+  args:     int list;
+  nesting:  int;
 }
 type expr = op_type list
 type local_type =
@@ -213,7 +214,7 @@ let string_of_memarg a o =
 let string_of_opcode e idx =
     let op = List.nth e idx in
     match op with
-    | Some op -> op.opname
+    | Some op -> (String.make (op.nesting*2 + 4) ' ') ^ op.opname
     | _ -> "** unknown **"
 
 let rec string_of_expr' e idx acc =
