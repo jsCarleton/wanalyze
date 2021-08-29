@@ -312,7 +312,7 @@ let string_of_memarg a o =
 let string_of_opcode e idx =
     let op = List.nth e idx in
     match op with
-    | Some op -> (String.make (op.nesting*2 + 4) ' ') ^ op.opname
+    | Some op -> (String.make (op.nesting*2 + 4) ' ') ^ op.opname ^ " " ^ (string_of_arg op.arg)
     | _ -> "** unknown **"
 
 let rec string_of_expr' e idx acc =

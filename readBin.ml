@@ -71,23 +71,30 @@ let rec nLEB ic size n acc bits =
   match i64land n 0x80L with
   | 0x80L -> nLEB ic size (of_int (get_byte ic)) (i64lor (i64lsl acc 7) (i64land n 0x7fL)) (bits+7)
   | _ -> fillbits (i64lor (i64lsl acc 7) (i64land n 0x7fL)) (64-bits-7)
+
+
+let vprint s =
+  match !verbose with
+  | true -> printf "%s" s;
+  | _ -> printf ""
   
 let rec sLEB ic size : int64 =
   let n = of_int (get_byte ic) in
   match i64land n 0x40L with
-  | 0x40L -> let n = nLEB ic size n 0L 0 in
-            printf "negative LEB %Ld" n;
-            n
+  | 0x40L ->
+      let n = nLEB ic size n 0L 0 in
+      vprint (sprintf "negative LEB %Ld" n);
+      n
   | _ ->
   (
-  match (i64lt n (i64lsl 1L 6)) && (size >=64 || (i64lt n (i64lsl 1L (size - 1)))) with
-  | true -> n
-  | _ -> 
-    (match (i64le (i64lsl 1L 6) n) && (i64lt n (i64lsl 1L 7)) 
-        && (i64le n (i64sub (i64lsl 1L 7) (i64lsl 1L (size-1)))) with
-     | true -> (i64sub n (i64lsl 1L 7))
-     | _ -> i64add (i64mul (i64lsl 1L 7)  (sLEB ic (size-7)))  (i64sub n (i64lsl 1L 7))
-    )
+    match (i64lt n (i64lsl 1L 6)) && (size >=64 || (i64lt n (i64lsl 1L (size - 1)))) with
+    | true -> n
+    | _ -> 
+      (match (i64le (i64lsl 1L 6) n) && (i64lt n (i64lsl 1L 7)) 
+          && (i64le n (i64sub (i64lsl 1L 7) (i64lsl 1L (size-1)))) with
+      | true -> (i64sub n (i64lsl 1L 7))
+      | _ -> i64add (i64mul (i64lsl 1L 7)  (sLEB ic (size-7)))  (i64sub n (i64lsl 1L 7))
+      )
   )
 
 let get_vec_len ic =
