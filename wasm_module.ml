@@ -101,27 +101,33 @@ type tablesec =
 {
   x: string;
 }
+
+(* Memories *)
 type memsec =
 {
   x: string;
 }
+
+(* Globals *)
 type globalsec =
 {
   x: string;
 }
+
+(* Exports *)
 type exportsec =
 {
   x: string;
 }
+
+(* Start *)
 type startsec =
 {
   x: string;
 }
+
+(* Elements *)
 type elemsec =
-{
-  x: string;
-}
-type datacountsec =
 {
   x: string;
 }
@@ -181,12 +187,41 @@ type op_arg =
   | I64value of int64
   | F32value of float (* do we distinguish between float32 and float64? *)
   | F64value of float
-  | None
+  | TruncSat of int
+  | EmptyArg
+
+let string_of_br_table _ = ""
+let string_of_arg a  =
+  match a with 
+  | Blocktype b -> string_of_int b
+  | Labelidx l -> string_of_int l
+  | BrTable b -> string_of_br_table b
+  | Funcidx f -> string_of_int f
+  | CallIndirect ci -> (string_of_int ci.y) ^ "," ^ (string_of_int ci.x) 
+  | Reftype r -> string_of_reftype r
+  | ValtypeList vl -> String.concat ~sep:"," (List.map vl ~f:string_of_valtype)
+  | Globalidx g -> string_of_int g
+  | Localidx l -> string_of_int l
+  | Tableidx t-> string_of_int t
+  | Elemidx e -> string_of_int e
+  | TableCopy tc -> (string_of_int tc.x) ^ "," ^ (string_of_int tc.y)
+  | Memarg m-> "align:" ^ (string_of_int m.a) ^ ",offset:" ^ (string_of_int m.o)
+  | Dataidx d -> string_of_int d
+  | I32value i -> string_of_int i
+  | I64value i -> sprintf "%Ld" i
+  | F32value f -> string_of_float f
+  | F64value f -> string_of_float f
+  | TruncSat i -> string_of_int i
+  | EmptyArg -> ""
+
+let string_of_args a =
+  String.concat ~sep:"," (List.map a ~f:string_of_arg)
+
 type op_type =
 {
   opcode:   int;
   opname:   string;
-  args:     int list;
+  arg:      op_arg;
   nesting:  int;
 }
 type expr = op_type list
@@ -200,7 +235,15 @@ type func =
   locals: local_type list;
   e:      expr;
 }
+
+(* Data *)
 type datasec =
+{
+  x: string;
+}
+
+(* Data Count *)
+type datacountsec =
 {
   x: string;
 }
@@ -265,6 +308,7 @@ let string_of_memarg a o =
   | -1 -> ("Unexpected error!", 1)
   | opcode -> ("Unknown opcode: " ^ (sprintf "%x" opcode), 1)
  *)
+
 let string_of_opcode e idx =
     let op = List.nth e idx in
     match op with
