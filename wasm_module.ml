@@ -24,16 +24,30 @@ let valtype_of_int i =
   | 0x6f -> Reftype Externref
   | _ -> Numtype I32 (*TODO*)
 
+type labelidx = int
+type blockidx = int
+type blocktype = int
+type funcidx = int
+type typeidx = int
+type tableidx = int
+type localidx = int
+type globalidx = int
+type elemidx = int
+type dataidx = int
+
 let string_of_numtype nt =
   match nt with
-  | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64" 
+  | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64"
+
 let string_of_reftype rt =
   match rt with  
   | Funcref -> "funcref" | Externref -> "externref"
+
 let string_of_resulttype rt =
   match rt with
   | Numtype x -> string_of_numtype x
   | Reftype x -> string_of_reftype x
+
 let string_of_valtype vt = string_of_resulttype vt
   
 type functype =
@@ -44,57 +58,43 @@ type functype =
 let create_functype rt1 rt2 =
   { rt1; rt2}
 
-
-(* Instructions *)
-(* TODO - do I want to use this?
-type memarg =
-{
-  align:  int; (* TODO spec actually says uint32 *)
-  offset: int;
-}
-type memory_instruction_args =
-{ size:   numtype;
-  m:      memarg;
-}
-type control_instruction = Unreachable | Nop | Block | Loop | If | IfElse | Bt | BtElse | Br | BrIf | Return | Call | CallIndirect
-type reference_instruction = RefNull | RefIsNull | RefFunc
-type parametric_instruction = Drop | Select | SelectType
-type variable_instruction = LocalGet | LocalSet | LocalTee | GlobalGet | GlobalSet
-type table_instruction = TableGet | TableSet | TableInit | ElemDrop | TableCopy | TableGrow | TableSize | TableFill
-type memory_instruction = Load of memory_instruction_args | Store of memory_instruction_args
-type numeric_instruction = Const
-type instruction_type = 
-    ControlInstruction of control_instruction 
-    | ReferenceInstruction of reference_instruction
-    | ParametricInstruction of parametric_instruction
-    | VariableInstruction of variable_instruction
-    | TableInstruction of table_instruction
-    | MemoryInstruction of memory_instruction
-    | NumericInstruction of numeric_instruction
-
-type instruction =
-{ opcode:       int;
-  name:         string;
-  details:      instruction_type;
-}
-
-let all_instructions =
-  [
-    {opcode=0x00; name="unreachable"; details=ControlInstruction Unreachable};
-    {opcode=0x01; name="nop"; details=ControlInstruction Nop};
-    {opcode=0x02; name="block %s %s end"; details=ControlInstruction Block};
-    {opcode=0x03; name="loop %s %s end"; details=ControlInstruction Loop}
-    {opcode=0x04; name="if %s %s end"; details=ControlInstruction If}
-  ]
- *)
 (* Imports *)
-type importsec =
+type limits =
+| Noupper of int
+| Lowerupper of int*int
+
+type tabletype =
 {
-  x: string;
+  et:   reftype;
+  lim:  limits;
+}
+
+type memtype = limits
+
+type mut =
+| Const
+| Var
+
+type globaltype = 
+{
+  t:  valtype;
+  m:  mut;
+}
+
+type importdesc = 
+| Typeidx     of typeidx
+| Tabletype   of tabletype
+| Memtype     of memtype
+| Globaltype  of globaltype
+
+type import =
+{
+  module_name: string;
+  import_name: string;
+  description: importdesc;
 }
 
 (* Functions *)
-let string_of_typeidx = string_of_int
 
 (* Tables *)
 type tablesec =
@@ -133,16 +133,6 @@ type elemsec =
 }
 
 (* Code *)
-type labelidx = int
-type blockidx = int
-type blocktype = int
-type funcidx = int
-type typeidx = int
-type tableidx = int
-type localidx = int
-type globalidx = int
-type elemidx = int
-type dataidx = int
 type br_table =
 {
   table:  labelidx list;
@@ -248,6 +238,19 @@ type datacountsec =
   x: string;
 }
 
+(* wasm Module *)
+type wasm_module =
+{
+  module_name:              string;
+  mutable max_func_idx:     int;
+  mutable type_section:     functype list;
+  mutable import_section:   import list;
+  mutable function_section: typeidx list;
+  mutable code_section:     func list;
+}
+let create name =
+  { module_name = name; max_func_idx = 0; type_section = []; import_section = []; function_section = []; code_section = []}
+
 (* Type section printing *)
 let string_of_param  p = "(param " ^ (string_of_resulttype p) ^ ")"
 let string_of_result r = "(result " ^ (string_of_resulttype r) ^ ")"
@@ -256,17 +259,30 @@ let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result r
 let string_of_functype i ft = "  (type (;" ^ (string_of_int i) ^ ";) (func " ^ (string_of_params ft.rt1) ^ (string_of_results ft.rt2) ^ "))\n"
 let string_of_type_section section = String.concat ~sep:"" (List.mapi ~f:string_of_functype section)
 
-(* Modules *)
-type wasm_module =
-{
-  module_name:              string;
-  mutable type_section:     functype list;
-  mutable function_section: typeidx list;
-  mutable code_section:     func list;
-}
-let create name =
-  { module_name = name; type_section = []; function_section = []; code_section = []}
+(* Import section printing *)
+let string_of_typeidx ti =
+  "(func (;TBD;) (type " ^ string_of_int ti ^ ")"
+let string_of_limits (limit: limits) = 
+  match limit with
+  | Noupper l -> string_of_int l
+  | Lowerupper (l,u) -> string_of_int l ^ " " ^ string_of_int u
+let string_of_tabletype tt =
+"(table (;TBD;) " ^ string_of_limits tt.lim ^ " " ^ string_of_reftype tt.et ^ ")" 
+let string_of_memtype mt =
+  "(memory (;TBD;) " ^ string_of_limits mt ^ ")"
+let string_of_globaltype gt =
+  "(global (;TBD;) " ^ string_of_valtype gt.t ^ ")"
 
+let string_of_description d =
+  match d with
+  | Typeidx ti -> string_of_typeidx ti
+  | Tabletype tt -> string_of_tabletype tt
+  | Memtype mt -> string_of_memtype mt
+  | Globaltype gt -> string_of_globaltype gt
+let string_of_import (i: import) = "  (import \"" ^ i.module_name ^ "\" \"" ^ i.import_name ^ "\" "
+      ^ string_of_description i.description ^ ")\n"
+let string_of_import_section section = String.concat ~sep:"" (List.map ~f:string_of_import section)
+  
 (* Function section printing *)
 let list_item l i =
   match List.nth l i with
@@ -286,28 +302,6 @@ let string_of_locals locals =
 
 let string_of_memarg a o =
   "align: " ^ (string_of_int a) ^ " offset: " ^ (string_of_int o)
-
-(* let string_of_opcode e i =
-  match list_item e i with
-  | 0x00 -> ("    unreachable", 1)
-  | 0x0b -> ("    end", 1)
-  | 0x10 -> ("    call " ^ (string_of_int (list_item e (i+1))), 2)
-  | 0x11 -> ("    call_indirect "^ (string_of_int (list_item e (i+1))) ^ " " ^ (string_of_int (list_item e (i+2))), 3)
-  | 0x20 -> ("    local.get " ^ (string_of_int (list_item e (i+1))), 2)
-  | 0x23 -> ("    global.get " ^ (string_of_int (list_item e (i+1))), 2)
-  | 0x24 -> ("    global.set " ^ (string_of_int (list_item e (i+1))), 2)
-  | 0x25 -> ("    table.get " ^ (string_of_int (list_item e (i+1))), 2)
-  | 0x26 -> ("    table.set " ^ (string_of_int (list_item e (i+1))), 2)
-  | 0x2c -> ("    i32.load8_s "^ (string_of_memarg (list_item e (i+1)) (list_item e (i+2))), 3)
-  | 0x32 -> ("    i64.load16_s " ^ (string_of_memarg (list_item e (i+1)) (list_item e (i+2))), 3)
-  | 0x3a -> ("    i32.store8 " ^ (string_of_memarg (list_item e (i+1)) (list_item e (i+2))), 3)
-  | 0x3f -> ("    memory.size", 1)
-  | 0x41 -> ("    i32.const " ^ (string_of_int (list_item e (i+1))), 2)
-  | 0x6a -> ("    i32.add", 1)
-  | 0x72 -> ("    i32.or ", 1)
-  | -1 -> ("Unexpected error!", 1)
-  | opcode -> ("Unknown opcode: " ^ (sprintf "%x" opcode), 1)
- *)
 
 let string_of_opcode e idx =
     let op = List.nth e idx in
@@ -331,7 +325,7 @@ let string_of_code w idx =
   | _ -> "Error"
 
 let string_of_function w i idx = 
-  "  (func (;" ^ (string_of_int i) ^ ";) (type " ^ (string_of_typeidx idx) ^ ") " 
+  "  (func (;" ^ (string_of_int i) ^ ";) (type " ^ (string_of_int idx) ^ ") " 
     ^ (string_of_params (get_params w idx).rt1) ^ (string_of_results (get_params w idx).rt2)
     ^ "\n" ^ (string_of_code w i) ^ "  )\n"
 let string_of_function_section w = 
@@ -346,14 +340,22 @@ let update_type_section w ((b1, rt1),(b2, rt2)) =
           w.type_section 
             <- List.append w.type_section [create_functype (List.map ~f:valtype_of_int rt1) (List.map ~f:valtype_of_int rt2) ]; true
   | _ -> false
+
+let update_import_section w module_name import_name description =
+  match description with
+  | None -> false
+  | Some x ->
+      w.import_section 
+          <- List.append w.import_section [{module_name; import_name; description=x}]; true
+
 let update_function_section w (b, i) =
   match b, i with
   | true, _ ->
           w.function_section
             <- List.append w.function_section [i]; true
   | _ -> false
+
 let update_code_section w ((b1, locals), (b2, e)) =
-  (* TODO locals always seems to be empty *)
   match b1, b2 with
   | true, true ->
         w.code_section
@@ -364,5 +366,6 @@ let print w =
   printf "Module: %s\n" w.module_name;
   printf "(module\n";
   printf "%s" (string_of_type_section w.type_section);
+  printf "%s" (string_of_import_section w.import_section);
   printf "%s" (string_of_function_section w);
   printf ")";
