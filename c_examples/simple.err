@@ -1,0 +1,136 @@
+**** New file: simple.wasm
+!0! !61! !73! !6D! !1! !0! !0! !0! !1! 
+
+Section type: 1
+Type section
+reading section: 
+!A5! !80! !80! !80! !0! !7! vector length: 7section has 7 entries left
+!60! !0! vector length: 0!1! vector length: 1!7F! i32 updating, before:0
+rt1 len:0 rt2 len:1
+section has 6 entries left
+!60! !1! vector length: 1!7F! i32 !0! vector length: 0updating, before:1
+rt1 len:1 rt2 len:0
+section has 5 entries left
+!60! !1! vector length: 1!7F! i32 !1! vector length: 1!7F! i32 updating, before:2
+rt1 len:1 rt2 len:1
+section has 4 entries left
+!60! !0! vector length: 0!0! vector length: 0updating, before:3
+rt1 len:0 rt2 len:0
+section has 3 entries left
+!60! !2! vector length: 2!7F! i32 !7F! i32 !1! vector length: 1!7F! i32 updating, before:4
+rt1 len:2 rt2 len:1
+section has 2 entries left
+!60! !3! vector length: 3!7F! i32 !7F! i32 !7F! i32 !1! vector length: 1!7F! i32 updating, before:5
+rt1 len:3 rt2 len:1
+section has 1 entries left
+!60! !3! vector length: 3!7F! i32 !7E! i64 !7F! i32 !1! vector length: 1!7E! i64 updating, before:6
+rt1 len:3 rt2 len:1
+section has 0 entries left
+!3! 
+
+Section type: 3
+Function section
+reading section: 
+!93! !80! !80! !80! !0! !12! vector length: 18section has 18 entries left
+!3! Index: 3 section has 17 entries left
+!4! Index: 4 section has 16 entries left
+!4! Index: 4 section has 15 entries left
+!0! Index: 0 section has 14 entries left
+!1! Index: 1 section has 13 entries left
+!2! Index: 2 section has 12 entries left
+!3! Index: 3 section has 11 entries left
+!0! Index: 0 section has 10 entries left
+!0! Index: 0 section has 9 entries left
+!2! Index: 2 section has 8 entries left
+!1! Index: 1 section has 7 entries left
+!1! Index: 1 section has 6 entries left
+!1! Index: 1 section has 5 entries left
+!0! Index: 0 section has 4 entries left
+!3! Index: 3 section has 3 entries left
+!2! Index: 2 section has 2 entries left
+!2! Index: 2 section has 1 entries left
+!0! Index: 0 section has 0 entries left
+!4! 
+
+Section type: 4
+Table section
+reading section: 
+!85! !80! !80! !80! !0! !1! vector length: 1section has 1 entries left
+!70! funcref!1! !1! !1! lower: 1, upper: 1section has 0 entries left
+!5! 
+
+Section type: 5
+Memory sectionreading section: 
+!86! !80! !80! !80! !0! !1! vector length: 1section has 1 entries left
+!1! !80! !2! !80! !2! lower: 256, upper: 256section has 0 entries left
+!6! 
+
+Section type: 6
+Global section
+reading section: 
+!93! !80! !80! !80! !0! !3! vector length: 3section has 3 entries left
+!7F! i32 !1! var !41! !A0! !88! !C0! !2! i32.const 5243936 !B! end section has 2 entries left
+!7F! i32 !1! var !41! !0! i32.const 0 !B! end section has 1 entries left
+!7F! i32 !1! var !41! !0! i32.const 0 !B! end section has 0 entries left
+!7! 
+
+Section type: 7
+Export section
+reading section: 
+!D4! !81! !80! !80! !0! !C! vector length: 12section has 12 entries left
+!6! name length 6!6D! m!65! e!6D! m!6F! o!72! r!79! y !2! mem !0! Index: 0 section has 11 entries left
+!11! name length 17!5F! _!5F! _!77! w!61! a!73! s!6D! m!5F! _!63! c!61! a!6C! l!6C! l!5F! _!63! c!74! t!6F! o!72! r!73! s !0! func!0! Index: 0 section has 10 entries left
+!4! name length 4!6D! m!61! a!69! i!6E! n !0! func!2! Index: 2 section has 9 entries left
+!6! name length 6!66! f!66! f!6C! l!75! u!73! s!68! h !0! func!F! Index: 15 section has 8 entries left
+!10! name length 16!5F! _!5F! _!65! e!72! r!72! r!6E! n!6F! o!5F! _!6C! l!6F! o!63! c!61! a!74! t!69! i!6F! o!6E! n !0! func!11! Index: 17 section has 7 entries left
+!9! name length 9!73! s!74! t!61! a!63! c!6B! k!53! S!61! a!76! v!65! e !0! func!3! Index: 3 section has 6 entries left
+!C! name length 12!73! s!74! t!61! a!63! c!6B! k!52! R!65! e!73! s!74! t!6F! o!72! r!65! e !0! func!4! Index: 4 section has 5 entries left
+!A! name length 10!73! s!74! t!61! a!63! c!6B! k!41! A!6C! l!6C! l!6F! o!63! c !0! func!5! Index: 5 section has 4 entries left
+!15! name length 21!65! e!6D! m!73! s!63! c!72! r!69! i!70! p!74! t!65! e!6E! n!5F! _!73! s!74! t!61! a!63! c!6B! k!5F! _!69! i!6E! n!69! i!74! t !0! func!6! Index: 6 section has 3 entries left
+!19! name length 25!65! e!6D! m!73! s!63! c!72! r!69! i!70! p!74! t!65! e!6E! n!5F! _!73! s!74! t!61! a!63! c!6B! k!5F! _!67! g!65! e!74! t!5F! _!66! f!72! r!65! e!65! e !0! func!7! Index: 7 section has 2 entries left
+!18! name length 24!65! e!6D! m!73! s!63! c!72! r!69! i!70! p!74! t!65! e!6E! n!5F! _!73! s!74! t!61! a!63! c!6B! k!5F! _!67! g!65! e!74! t!5F! _!65! e!6E! n!64! d !0! func!8! Index: 8 section has 1 entries left
+!19! name length 25!5F! _!5F! _!69! i!6E! n!64! d!69! i!72! r!65! e!63! c!74! t!5F! _!66! f!75! u!6E! n!63! c!74! t!69! i!6F! o!6E! n!5F! _!74! t!61! a!62! b!6C! l!65! e !1! table!0! Index: 0 section has 0 entries left
+!A! 
+
+Section type: 10
+Code section
+reading section: 
+!97! !84! !80! !80! !0! !12! vector length: 18section has 18 entries left
+!4! !0! vector length: 0!10! !6! !B! section has 17 entries left
+!39! !1! vector length: 1local 
+!6! !7F! !23! !0! !21! !2! !41! !10! !21! !3! !20! !2! !20! !3! !6B! !21! !4! !20! !4! !20! !0! !36! !2! !C! !20! !4! !20! !1! !36! !2! !8! !20! !4! !28! !2! !C! !21! !5! !20! !4! !28! !2! !8! !21! !6! !20! !5! !20! !6! !6A! !21! !7! !20! !7! !F! !B! section has 16 entries left
+!54! !1! vector length: 1local 
+!9! !7F! !23! !0! !21! !2! !41! !10! !21! !3! !20! !2! !20! !3! !6B! !21! !4! !20! !4! !24! !0! !41! !0! !21! !5! !20! !4! !20! !5! !36! !2! !C! !20! !4! !20! !0! !36! !2! !8! !20! !4! !20! !1! !36! !2! !4! !41! !BC! !9! !21! !6! !41! !E1! !21! !21! !7! !20! !6! !20! !7! !10! !1! !21! !8! !41! !10! !21! !9! !20! !4! !20! !9! !6A! !21! !A! !20! !A! !24! !0! !20! !8! !F! !B! section has 15 entries left
+!4! !0! vector length: 0!23! !0! !B! section has 14 entries left
+!6! !0! vector length: 0!20! !0! !24! !0! !B! section has 13 entries left
+!12! !1! vector length: 1local 
+!2! !7F! !23! !0! !20! !0! !6B! !41! !70! !71! !22! !1! !24! !0! !20! !1! !B! section has 12 entries left
+!14! !0! vector length: 0!41! !A0! !88! !C0! !2! !24! !2! !41! !94! !8! !41! !F! !6A! !41! !70! !71! !24! !1! !B! section has 11 entries left
+!7! !0! vector length: 0!23! !0! !23! !1! !6B! !B! section has 10 entries left
+!4! !0! vector length: 0!23! !1! !B! section has 9 entries left
+!4! !0! vector length: 0!41! !1! !B! section has 8 entries left
+!2! !0! vector length: 0!B! section has 7 entries left
+!2! !0! vector length: 0!B! section has 6 entries left
+!2! !0! vector length: 0!B! section has 5 entries left
+!A! !0! vector length: 0!41! !80! !8! !10! !B! !41! !88! !8! !B! section has 4 entries left
+!7! !0! vector length: 0!41! !80! !8! !10! !C! !B! section has 3 entries left
+!AC! !1! !1! vector length: 1local 
+!2! !7F! !2! !40! 64
+!2! !40! 64
+!20! !0! !45! !D! !0! !2! !40! 64
+!20! !0! !28! !2! !4C! !41! !7F! !4A! !D! !0! !20! !0! !10! !10! !F! !B! !20! !0! !10! !9! !21! !1! !20! !0! !10! !10! !21! !2! !20! !1! !45! !D! !1! !20! !0! !10! !A! !20! !2! !F! !B! !41! !0! !21! !2! !2! !40! 64
+!41! !0! !28! !2! !8C! !8! !45! !D! !0! !41! !0! !28! !2! !8C! !8! !10! !F! !21! !2! !B! !2! !40! 64
+!10! !D! !28! !2! !0! !22! !0! !45! !D! !0! !3! !40! 64
+!41! !0! !21! !1! !2! !40! 64
+!20! !0! !28! !2! !4C! !41! !0! !48! !D! !0! !20! !0! !10! !9! !21! !1! !B! !2! !40! 64
+!20! !0! !28! !2! !14! !20! !0! !28! !2! !1C! !4D! !D! !0! !20! !0! !10! !10! !20! !2! !72! !21! !2! !B! !2! !40! 64
+!20! !1! !45! !D! !0! !20! !0! !10! !A! !B! !20! !0! !28! !2! !38! !22! !0! !D! !0! !B! !B! !10! !E! !B! !20! !2! !B! section has 2 entries left
+!6B! !1! vector length: 1local 
+!2! !7F! !2! !40! 64
+!20! !0! !28! !2! !14! !20! !0! !28! !2! !1C! !4D! !D! !0! !20! !0! !41! !0! !41! !0! !20! !0! !28! !2! !24! !11! !5! !0! !1A! !20! !0! !28! !2! !14! !D! !0! !41! !7F! !F! !B! !2! !40! 64
+!20! !0! !28! !2! !4! !22! !1! !20! !0! !28! !2! !8! !22! !2! !4F! !D! !0! !20! !0! !20! !1! !20! !2! !6B! !AC! !41! !1! !20! !0! !28! !2! !28! !11! !6! !0! !1A! !B! !20! !0! !41! !0! !36! !2! !1C! !20! !0! !42! !0! !37! !3! !10! !20! !0! !42! !0! !37! !2! !4! !41! !0! !B! section has 1 entries left
+!5! !0! vector length: 0!41! !90! !8! !B! section has 0 entries left
+
+
+Section type: -1
+Success!

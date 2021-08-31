@@ -1,0 +1,733 @@
+**** New file: test_cases/global.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 4section has 4 entries left
+vector length: 0vector length: 1f32 updating, before:0
+rt1 len:0 rt2 len:1
+section has 3 entries left
+vector length: 0vector length: 1i64 updating, before:1
+rt1 len:0 rt2 len:1
+section has 2 entries left
+vector length: 1f32 vector length: 0updating, before:2
+rt1 len:1 rt2 len:0
+section has 1 entries left
+vector length: 1i64 vector length: 0updating, before:3
+rt1 len:1 rt2 len:0
+section has 0 entries left
+
+
+Section type: 2
+Import section
+reading section: 
+vector length: 4section has 4 entries left
+name length 0 name length 9const f32 global f32 const section has 3 entries left
+name length 0 name length 9const i64 global i64 const section has 2 entries left
+name length 0 name length 7var f32 global f32 var section has 1 entries left
+name length 0 name length 7var i64 global i64 var section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 12section has 12 entries left
+Index: 0 section has 11 entries left
+Index: 1 section has 10 entries left
+Index: 0 section has 9 entries left
+Index: 1 section has 8 entries left
+Index: 0 section has 7 entries left
+Index: 1 section has 6 entries left
+Index: 0 section has 5 entries left
+Index: 1 section has 4 entries left
+Index: 2 section has 3 entries left
+Index: 3 section has 2 entries left
+Index: 2 section has 1 entries left
+Index: 3 section has 0 entries left
+
+
+Section type: 6
+Global section
+reading section: 
+vector length: 4section has 4 entries left
+f32 const f32.const 0.000000 end section has 3 entries left
+i64 const i64.const 768 end section has 2 entries left
+f32 var f32.const 0.000000 end section has 1 entries left
+i64 var i64.const 1024 end section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 16section has 16 entries left
+name length 9const f32 global Index: 4 section has 15 entries left
+name length 9const i64 global Index: 5 section has 14 entries left
+name length 7var f32 global Index: 6 section has 13 entries left
+name length 7var i64 global Index: 7 section has 12 entries left
+name length 20get const f32 import funcIndex: 0 section has 11 entries left
+name length 20get const i64 import funcIndex: 1 section has 10 entries left
+name length 18get var f32 import funcIndex: 2 section has 9 entries left
+name length 18get var i64 import funcIndex: 3 section has 8 entries left
+name length 20get const f32 export funcIndex: 4 section has 7 entries left
+name length 20get const i64 export funcIndex: 5 section has 6 entries left
+name length 18get var f32 export funcIndex: 6 section has 5 entries left
+name length 18get var i64 export funcIndex: 7 section has 4 entries left
+name length 18set var f32 import funcIndex: 8 section has 3 entries left
+name length 18set var i64 import funcIndex: 9 section has 2 entries left
+name length 18set var f32 export funcIndex: 10 section has 1 entries left
+name length 18set var f64 export funcIndex: 11 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 12section has 12 entries left
+vector length: 0section has 11 entries left
+vector length: 0section has 10 entries left
+vector length: 0section has 9 entries left
+vector length: 0section has 8 entries left
+vector length: 0section has 7 entries left
+vector length: 0section has 6 entries left
+vector length: 0section has 5 entries left
+vector length: 0section has 4 entries left
+vector length: 0section has 3 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/callback.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 3section has 3 entries left
+vector length: 1i32 vector length: 1i32 updating, before:0
+rt1 len:1 rt2 len:1
+section has 2 entries left
+vector length: 0vector length: 1i32 updating, before:1
+rt1 len:0 rt2 len:1
+section has 1 entries left
+vector length: 2i32 i32 vector length: 1i32 updating, before:2
+rt1 len:2 rt2 len:1
+section has 0 entries left
+
+
+Section type: 2
+Import section
+reading section: 
+vector length: 2section has 2 entries left
+name length 0 name length 5print func Index: 0 section has 1 entries left
+name length 0 name length 7closure func Index: 1 section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 1section has 1 entries left
+Index: 2 section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 1section has 1 entries left
+name length 3run funcIndex: 2 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/example.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0vector length: 0updating, before:0
+rt1 len:0 rt2 len:0
+section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 1section has 1 entries left
+Index: 0 section has 0 entries left
+
+
+Section type: 8
+Start section
+Index: 0 
+
+Section type: 10
+Code section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/finalize.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0vector length: 0updating, before:0
+rt1 len:0 rt2 len:0
+section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 3section has 3 entries left
+Index: 0 section has 2 entries left
+Index: 0 section has 1 entries left
+Index: 0 section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 3section has 3 entries left
+name length 1f funcIndex: 0 section has 2 entries left
+name length 1g funcIndex: 1 section has 1 entries left
+name length 1h funcIndex: 2 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 3section has 3 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/hello.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0vector length: 0updating, before:0
+rt1 len:0 rt2 len:0
+section has 0 entries left
+
+
+Section type: 2
+Import section
+reading section: 
+vector length: 1section has 1 entries left
+name length 0 name length 5hello func Index: 0 section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 1section has 1 entries left
+Index: 0 section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 1section has 1 entries left
+name length 3run funcIndex: 1 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/hostref.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 5section has 5 entries left
+vector length: 1externref vector length: 1externref updating, before:0
+rt1 len:1 rt2 len:1
+section has 4 entries left
+vector length: 1externref vector length: 0updating, before:1
+rt1 len:1 rt2 len:0
+section has 3 entries left
+vector length: 0vector length: 1externref updating, before:2
+rt1 len:0 rt2 len:1
+section has 2 entries left
+vector length: 2i32 externref vector length: 0updating, before:3
+rt1 len:2 rt2 len:0
+section has 1 entries left
+vector length: 1i32 vector length: 1externref updating, before:4
+rt1 len:1 rt2 len:1
+section has 0 entries left
+
+
+Section type: 2
+Import section
+reading section: 
+vector length: 1section has 1 entries left
+name length 0 name length 1f func Index: 0 section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 5section has 5 entries left
+Index: 1 section has 4 entries left
+Index: 2 section has 3 entries left
+Index: 3 section has 2 entries left
+Index: 4 section has 1 entries left
+Index: 0 section has 0 entries left
+
+
+Section type: 4
+Table section
+reading section: 
+vector length: 1section has 1 entries left
+externreflower: 10, no uppersection has 0 entries left
+
+
+Section type: 6
+Global section
+reading section: 
+vector length: 1section has 1 entries left
+externref var ref.null end section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 7section has 7 entries left
+name length 6global global Index: 0 section has 6 entries left
+name length 5table tableIndex: 0 section has 5 entries left
+name length 10global.set funcIndex: 1 section has 4 entries left
+name length 10global.get funcIndex: 2 section has 3 entries left
+name length 9table.set funcIndex: 3 section has 2 entries left
+name length 9table.get funcIndex: 4 section has 1 entries left
+name length 9func.call funcIndex: 5 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 5section has 5 entries left
+vector length: 0section has 4 entries left
+vector length: 0section has 3 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/memory.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 3section has 3 entries left
+vector length: 0vector length: 1i32 updating, before:0
+rt1 len:0 rt2 len:1
+section has 2 entries left
+vector length: 1i32 vector length: 1i32 updating, before:1
+rt1 len:1 rt2 len:1
+section has 1 entries left
+vector length: 2i32 i32 vector length: 0updating, before:2
+rt1 len:2 rt2 len:0
+section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 3section has 3 entries left
+Index: 0 section has 2 entries left
+Index: 1 section has 1 entries left
+Index: 2 section has 0 entries left
+
+
+Section type: 5
+Memory sectionreading section: 
+vector length: 1section has 1 entries left
+lower: 3, upper: 2section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 4section has 4 entries left
+name length 6memory mem Index: 0 section has 3 entries left
+name length 4size funcIndex: 0 section has 2 entries left
+name length 4load funcIndex: 1 section has 1 entries left
+name length 5store funcIndex: 2 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 3section has 3 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: 11
+Data section
+reading section: 
+vector length: 1section has 1 entries left
+data section type 0
+i32.const 20480 end vector length: 41 2 3 4 section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/multi.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 4i32 i64 i64 i32 vector length: 4i32 i64 i64 i32 updating, before:0
+rt1 len:4 rt2 len:4
+section has 0 entries left
+
+
+Section type: 2
+Import section
+reading section: 
+vector length: 1section has 1 entries left
+name length 0 name length 1f func Index: 0 section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 1section has 1 entries left
+Index: 0 section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 1section has 1 entries left
+name length 1g funcIndex: 1 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/reflect.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 3i32 f64 f32 vector length: 1i32 updating, before:0
+rt1 len:3 rt2 len:1
+section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 1section has 1 entries left
+Index: 0 section has 0 entries left
+
+
+Section type: 4
+Table section
+reading section: 
+vector length: 1section has 1 entries left
+funcreflower: 50, upper: 0section has 0 entries left
+
+
+Section type: 5
+Memory sectionreading section: 
+vector length: 1section has 1 entries left
+lower: 1, no uppersection has 0 entries left
+
+
+Section type: 6
+Global section
+reading section: 
+vector length: 1section has 1 entries left
+f64 const f64.const 0.000000 end section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 4section has 4 entries left
+name length 4func funcIndex: 0 section has 3 entries left
+name length 6global global Index: 0 section has 2 entries left
+name length 5table tableIndex: 0 section has 1 entries left
+name length 6memory mem Index: 0 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/serialize.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0vector length: 0updating, before:0
+rt1 len:0 rt2 len:0
+section has 0 entries left
+
+
+Section type: 2
+Import section
+reading section: 
+vector length: 1section has 1 entries left
+name length 0 name length 5hello func Index: 0 section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 1section has 1 entries left
+Index: 0 section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 1section has 1 entries left
+name length 3run funcIndex: 1 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/start.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0vector length: 0updating, before:0
+rt1 len:0 rt2 len:0
+section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 1section has 1 entries left
+Index: 0 section has 0 entries left
+
+
+Section type: 8
+Start section
+Index: 0 
+
+Section type: 10
+Code section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/table.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 2section has 2 entries left
+vector length: 2i32 i32 vector length: 1i32 updating, before:0
+rt1 len:2 rt2 len:1
+section has 1 entries left
+vector length: 1i32 vector length: 1i32 updating, before:1
+rt1 len:1 rt2 len:1
+section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 3section has 3 entries left
+Index: 0 section has 2 entries left
+Index: 1 section has 1 entries left
+Index: 1 section has 0 entries left
+
+
+Section type: 4
+Table section
+reading section: 
+vector length: 1section has 1 entries left
+funcreflower: 10, upper: 2section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 4section has 4 entries left
+name length 5table tableIndex: 0 section has 3 entries left
+name length 13call_indirect funcIndex: 0 section has 2 entries left
+name length 1f funcIndex: 1 section has 1 entries left
+name length 1g funcIndex: 2 section has 0 entries left
+
+
+Section type: 9
+Element section
+reading section: 
+vector length: 1section has 1 entries left
+i32.const 128 end Index: 1 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 3section has 3 entries left
+vector length: 0section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/threads.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 2section has 2 entries left
+vector length: 1i32 vector length: 0updating, before:0
+rt1 len:1 rt2 len:0
+section has 1 entries left
+vector length: 0vector length: 0updating, before:1
+rt1 len:0 rt2 len:0
+section has 0 entries left
+
+
+Section type: 2
+Import section
+reading section: 
+vector length: 2section has 2 entries left
+name length 0 name length 5hello func Index: 0 section has 1 entries left
+name length 0 name length 2id global i32 const section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 1section has 1 entries left
+Index: 1 section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 1section has 1 entries left
+name length 3run funcIndex: 1 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!
+**** New file: test_cases/trap.wasm
+
+
+Section type: 1
+Type section
+reading section: 
+vector length: 1section has 1 entries left
+vector length: 0vector length: 1i32 updating, before:0
+rt1 len:0 rt2 len:1
+section has 0 entries left
+
+
+Section type: 2
+Import section
+reading section: 
+vector length: 1section has 1 entries left
+name length 0 name length 8callback func Index: 0 section has 0 entries left
+
+
+Section type: 3
+Function section
+reading section: 
+vector length: 2section has 2 entries left
+Index: 0 section has 1 entries left
+Index: 0 section has 0 entries left
+
+
+Section type: 7
+Export section
+reading section: 
+vector length: 2section has 2 entries left
+name length 8callback funcIndex: 1 section has 1 entries left
+name length 11unreachable funcIndex: 2 section has 0 entries left
+
+
+Section type: 10
+Code section
+reading section: 
+vector length: 2section has 2 entries left
+vector length: 0section has 1 entries left
+vector length: 0section has 0 entries left
+
+
+Section type: -1
+Success!

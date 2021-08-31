@@ -3,7 +3,7 @@ open Wasm_module
 (* TODO: 
     - use map instead of coding recursion on lists 
     - use read_ instead of get_ when reading from ic
-    - make printfs look at verbose flag 
+    - make eprintfs look at verbose flag 
     - add validation of indices (e.g. functions, types)
     - add the rest of the op codes 
     - fix up all calls to get_idx 
@@ -24,7 +24,7 @@ let get_byte ic : int =
     | None -> -1
     | Some x -> 
       match !verbose with
-      | true -> printf "!%X! " x; x
+      | true -> eprintf "!%X! " x; x
       | _ -> x
 
 let read_magic ic =
@@ -73,18 +73,49 @@ let rec nLEB ic size n acc bits =
   | _ -> fillbits (i64lor (i64lsl acc 7) (i64land n 0x7fL)) (64-bits-7)
 
 
+
+(*
+result = 0;
+shift = 0;
+
+/* the size in bits of the result variable, e.g., 64 if result's type is int64_t */
+size = number of bits in signed integer;
+
+do {
+  byte = next byte in input; 
+  result |= (low-order 7 bits of byte << shift);
+  shift += 7;
+} while (high-order bit of byte != 0);
+
+/* sign bit of byte is second high-order bit (0x40) */
+if ((shift <size) && (sign bit of byte is set))
+  /* sign extend */
+  result |= (~0 << shift);
+*)
+
+let rec new_sLEB' ic size acc shift: int64 =
+  let b = of_int (get_byte ic) in
+  match i64land 0xC0L b with
+  | 0x80L | 0xC0L-> new_sLEB' ic size (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (shift+7)
+  | 0x00L -> i64lor (i64lsl (i64land b 0x7FL) shift) acc
+  | 0x40L -> i64lor (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (i64lsl 0xffffffffffffffffL shift)
+  | _ -> printf "invalid byte in LEB: %Lx\n" b; 0L
+
+let sLEB ic size : int64 =
+  new_sLEB' ic size 0L 0
+
 let vprint s =
   match !verbose with
-  | true -> printf "%s" s;
-  | _ -> printf ""
+  | true -> eprintf "%s" s;
+  | _ -> eprintf ""
   
-let rec sLEB ic size : int64 =
+(* let rec sLEB ic size : int64 =
   let n = of_int (get_byte ic) in
   match i64land n 0x40L with
   | 0x40L ->
-      let n = nLEB ic size n 0L 0 in
-      vprint (sprintf "negative LEB %Ld" n);
-      n
+      let m = nLEB ic size n 0L 0 in
+      eprintf "negative LEB (%Lx %Ld)" n m;
+      m
   | _ ->
   (
     match (i64lt n (i64lsl 1L 6)) && (size >=64 || (i64lt n (i64lsl 1L (size - 1)))) with
@@ -96,20 +127,20 @@ let rec sLEB ic size : int64 =
       | _ -> i64add (i64mul (i64lsl 1L 7)  (sLEB ic (size-7)))  (i64sub n (i64lsl 1L 7))
       )
   )
-
+ *)
 let get_vec_len ic =
   let len = uLEB ic 32 in
-    printf "vector length: %d" len; len
+    eprintf "vector length: %d" len; len
 
 let xxget_idx ic =
   match get_byte ic with
-  | -1 -> printf "idx error!\n"; false, -1
-  | i -> printf "Index: %d " i; true, i
+  | -1 -> eprintf "idx error!\n"; false, -1
+  | i -> eprintf "Index: %d " i; true, i
 
 let get_idx ic =
   match get_byte ic with
-  | -1 -> printf "idx error!\n"; false
-  | i -> printf "Index: %d " i; true
+  | -1 -> eprintf "idx error!\n"; false
+  | i -> eprintf "Index: %d " i; true
 
 let rec vec_idx ic n =
   match n with
@@ -136,13 +167,13 @@ let get_f64 ic = Int64.float_of_bits (bytes_to_i64 ic 8)
                       
 let reftype ic =
   match get_byte ic with
-  | 0x70 -> printf "funcref"; true
-  | 0x6F -> printf "externref"; true
+  | 0x70 -> eprintf "funcref"; true
+  | 0x6F -> eprintf "externref"; true
   | x -> printf "Invalid reftype %x!" x; false
 
 let memarg ic =
-  printf "align: %d " (uLEB ic 32);
-  printf "offset: %d " (uLEB ic 32);
+  eprintf "align: %d " (uLEB ic 32);
+  eprintf "offset: %d " (uLEB ic 32);
   true
 
 let read_memarg ic =
@@ -152,64 +183,64 @@ let rec instr ic =
 let opcode = get_byte ic in
   match opcode with
   (* control instructions *)
-  | 0x00 -> printf "unreachable "; opcode
-  | 0x01 -> printf "nop "; opcode
-  | 0x02 -> printf "block, type:%X" (get_byte ic);
+  | 0x00 -> eprintf "unreachable "; opcode
+  | 0x01 -> eprintf "nop "; opcode
+  | 0x02 -> eprintf "block, type:%X" (get_byte ic);
       (	match instr ic with
-        | 0x0b -> printf "end "; opcode
+        | 0x0b -> eprintf "end "; opcode
         | _ -> instr ic
       )
-  |	0x03 -> printf "loop, type:%X" (get_byte ic);
+  |	0x03 -> eprintf "loop, type:%X" (get_byte ic);
       (	match instr ic with
-        | 0x0b -> printf "end "; opcode
+        | 0x0b -> eprintf "end "; opcode
         | _ -> instr ic
       )
-  |	0x04 -> printf "if, type:%X" (get_byte ic);
+  |	0x04 -> eprintf "if, type:%X" (get_byte ic);
       (	match instr ic with
-        | 0x05 -> printf "else ";
+        | 0x05 -> eprintf "else ";
           ( match instr ic with
-            | 0x0b -> printf "end "; opcode
+            | 0x0b -> eprintf "end "; opcode
             | _ -> instr ic
           )
-        | 0x0b -> printf "end "; opcode
+        | 0x0b -> eprintf "end "; opcode
         | _ -> instr ic
       )
-  | 0x0c -> printf "br %x " (get_byte ic); opcode
-  | 0x0d -> printf "br_if %x " (get_byte ic); opcode
-  | 0x0e -> ignore(vec_idx ic (get_byte ic): bool); printf "br_table %X" (get_byte ic); opcode
-  | 0x0f -> printf "return "; opcode
-  | 0x10 -> printf "call %x " (get_byte ic); opcode
-  | 0x11 -> printf "call_indirect %x %x " (get_byte ic) (get_byte ic); opcode
-  | 0x0b -> printf "end "; opcode
+  | 0x0c -> eprintf "br %x " (get_byte ic); opcode
+  | 0x0d -> eprintf "br_if %x " (get_byte ic); opcode
+  | 0x0e -> ignore(vec_idx ic (get_byte ic): bool); eprintf "br_table %X" (get_byte ic); opcode
+  | 0x0f -> eprintf "return "; opcode
+  | 0x10 -> eprintf "call %x " (get_byte ic); opcode
+  | 0x11 -> eprintf "call_indirect %x %x " (get_byte ic) (get_byte ic); opcode
+  | 0x0b -> eprintf "end "; opcode
   (* reference instructions*)
-  | 0xd0 -> printf "ref.null "; opcode (* not what the spec says *)
+  | 0xd0 -> eprintf "ref.null "; opcode (* not what the spec says *)
   (* parametric instructions *)
   (* variable instructions*)
-  | 0x20 -> printf "local.get %x " (get_byte ic); opcode
-  | 0x21 -> printf "local.set %x " (get_byte ic); opcode
-  | 0x22 -> printf "local.tee %x " (get_byte ic); opcode
-  | 0x23 -> printf "global.get %x " (get_byte ic); opcode
-  | 0x24 -> printf "global.set %x " (get_byte ic); opcode
+  | 0x20 -> eprintf "local.get %x " (get_byte ic); opcode
+  | 0x21 -> eprintf "local.set %x " (get_byte ic); opcode
+  | 0x22 -> eprintf "local.tee %x " (get_byte ic); opcode
+  | 0x23 -> eprintf "global.get %x " (get_byte ic); opcode
+  | 0x24 -> eprintf "global.set %x " (get_byte ic); opcode
   (* table instructions *)
-  | 0x25 -> printf "table.get %x " (get_byte ic); opcode
-  | 0x26 -> printf "table.set %x " (get_byte ic); opcode
+  | 0x25 -> eprintf "table.get %x " (get_byte ic); opcode
+  | 0x26 -> eprintf "table.set %x " (get_byte ic); opcode
   (* memory instructions *)
-  | 0x28 -> printf "i32.load %d %d " 0 0 (* TODO *); opcode
-  | 0x2c -> printf "i32.load8_s "; ignore(memarg ic: bool); opcode
-  | 0x3a -> printf "i32.store 8 "; ignore(memarg ic: bool); opcode
-  | 0x3f -> printf "memory.size "; opcode (* not what the spec says *)
-  | 0x40 -> printf "memory grow "; opcode (* not what the spec says *)
+  | 0x28 -> eprintf "i32.load %d %d " 0 0 (* TODO *); opcode
+  | 0x2c -> eprintf "i32.load8_s "; ignore(memarg ic: bool); opcode
+  | 0x3a -> eprintf "i32.store 8 "; ignore(memarg ic: bool); opcode
+  | 0x3f -> eprintf "memory.size "; opcode (* not what the spec says *)
+  | 0x40 -> eprintf "memory grow "; opcode (* not what the spec says *)
   (* numeric instructions *)
-  | 0x41 -> printf "i32.const %d " (get_i32 ic); opcode
-  |	0x42 -> printf "i64.const %Ld " (get_i64 ic); opcode
-  | 0x43 -> printf "f32.const %f " (get_f32 ic); opcode
-  | 0x44 -> printf "f64.const %f " (get_f64 ic); opcode
-  | 0x6a -> printf "i32.add "; opcode
-  | 0x7d -> printf "i64.sub "; opcode
-  | 0x7e -> printf "i64.mul "; opcode
-  | 0xa0 -> printf "f64.add "; opcode
+  | 0x41 -> eprintf "i32.const %d " (get_i32 ic); opcode
+  |	0x42 -> eprintf "i64.const %Ld " (get_i64 ic); opcode
+  | 0x43 -> eprintf "f32.const %f " (get_f32 ic); opcode
+  | 0x44 -> eprintf "f64.const %f " (get_f64 ic); opcode
+  | 0x6a -> eprintf "i32.add "; opcode
+  | 0x7d -> eprintf "i64.sub "; opcode
+  | 0x7e -> eprintf "i64.mul "; opcode
+  | 0xa0 -> eprintf "f64.add "; opcode
   (* unhandled opcode *)
-  | _ -> printf "unhandled opcode: %x " opcode; -1
+  | _ -> eprintf "unhandled opcode: %x " opcode; -1
 
 let rec expr ic =
   match instr ic with
@@ -219,7 +250,7 @@ let rec expr ic =
 
 (* Sections consisting of vectors of entries *)
 let rec read_entries ic n w entry_handler =
-  printf "section has %d entries left\n" n;
+  eprintf "section has %d entries left\n" n;
   match n with
   | 0 -> true
   | _ ->
@@ -228,20 +259,20 @@ let rec read_entries ic n w entry_handler =
 
 let read_section_length ic = uLEB ic 32
 let read_section ic section entry_handler =
-  printf "reading section: \n";
+  eprintf "reading section: \n";
   read_section_length ic >= 0 (* discard the section size *)
   && read_entries ic (get_vec_len ic) section entry_handler
 
 (* Type section *)
 let valtype ic =
   match get_byte ic with
-  | 0 -> printf "None "; (true, 0)
-  | 0x7f -> printf "i32 "; (true, 0x7f)
-  | 0x7e -> printf "i64 "; (true, 0x7e)
-  | 0x7d -> printf "f32 "; (true, 0x7d)
-  | 0x7c -> printf "f64 "; (true, 0x7c)
-  | 0x70 -> printf "funcref "; (true, 0x70)
-  | 0x6f -> printf "externref "; (true, 0x6f)
+  | 0 -> eprintf "None "; (true, 0)
+  | 0x7f -> eprintf "i32 "; (true, 0x7f)
+  | 0x7e -> eprintf "i64 "; (true, 0x7e)
+  | 0x7d -> eprintf "f32 "; (true, 0x7d)
+  | 0x7c -> eprintf "f64 "; (true, 0x7c)
+  | 0x70 -> eprintf "funcref "; (true, 0x70)
+  | 0x6f -> eprintf "externref "; (true, 0x6f)
   | x -> printf "invalid valtype %x" x; (false, -1)
   
 let rec get_types ic len acc =
@@ -272,10 +303,11 @@ let read_type ic w =
 
 (* Import section *)
 let limits ic =
-  match get_byte ic with
-  | 0x00 -> printf "lower: %d, no upper" (uLEB ic 32); true
-  | 0x01 -> printf "lower: %d, upper: %d" (uLEB ic 32) (uLEB ic 32); true
-  | _ -> printf "Invalid limits!"; false
+  let limit_type = get_byte ic in
+  match limit_type with
+  | 0x00 -> eprintf "lower: %d, no upper" (uLEB ic 32); true
+  | 0x01 -> eprintf "lower: %d, upper: %d" (uLEB ic 32) (uLEB ic 32); true
+  | _ -> printf "Invalid limits %x!" limit_type; false
 
 let get_table_type ic =
   reftype ic && limits ic
@@ -284,31 +316,33 @@ let get_mem_type ic =
   limits ic
 
 let mut ic =
-  match get_byte ic with
-  | 0x00 -> printf "const "; true
-  | 0x01 -> printf "var "; true
-  | _ -> printf "Invalid mut!"; false
+  let mut_type = get_byte ic in
+  match mut_type with
+  | 0x00 -> eprintf "const "; true
+  | 0x01 -> eprintf "var "; true
+  | _ -> printf "Invalid mut %x!" mut_type; false
 
 let globaltype ic =
   (fst (valtype ic)) && (mut ic)
 
 let importdesc ic =
-  match get_byte ic with
-  | 0x00 -> printf "func "; (get_idx ic)
-  | 0x01 -> printf "table "; get_table_type ic
-  | 0x02 -> printf "mem "; get_mem_type ic
-  | 0x03 -> printf "global "; globaltype ic
-  | _ -> printf("Invalid importdesc!"); false
+  let importdesc_type = get_byte ic in
+  match importdesc_type with
+  | 0x00 -> eprintf "func "; (get_idx ic)
+  | 0x01 -> eprintf "table "; get_table_type ic
+  | 0x02 -> eprintf "mem "; get_mem_type ic
+  | 0x03 -> eprintf "global "; globaltype ic
+  | _ -> printf("Invalid importdesc %x!") importdesc_type; false
 
 let rec get_string ic n =
   match n with
-  | 0 -> printf " "; true
-  | _ -> printf "%c" (char_of_int (get_byte ic)); get_string ic (n-1)
+  | 0 -> eprintf " "; true
+  | _ -> eprintf "%c" (char_of_int (get_byte ic)); get_string ic (n-1)
 
 let name ic =
   match get_byte ic with
-  | 0 -> printf "name length 0 ";true
-  | n -> printf "name length %d" n ; get_string ic n
+  | 0 -> eprintf "name length 0 ";true
+  | n -> eprintf "name length %d" n ; get_string ic n
 
 let [@warning "-27"]read_import ic w =
   name ic
@@ -333,12 +367,13 @@ let [@warning "-27"]read_global ic w =
 
 (* Export section *)
 let exportdesc ic =
-  match get_byte ic with
-  | 0x00 -> printf "func"; get_idx ic
-  | 0x01 -> printf "table"; get_idx ic
-  | 0x02 -> printf "mem "; get_idx ic
-  | 0x03 -> printf "global "; get_idx ic
-  | _ -> printf("Invalid exportdesc!"); false
+  let exportdesc_type = get_byte ic in
+  match exportdesc_type with
+  | 0x00 -> eprintf "func"; get_idx ic
+  | 0x01 -> eprintf "table"; get_idx ic
+  | 0x02 -> eprintf "mem "; get_idx ic
+  | 0x03 -> eprintf "global "; get_idx ic
+  | _ -> printf("Invalid exportdesc %x!") exportdesc_type; false
 
 let [@warning "-27"]read_export ic w =
   name ic &&
@@ -351,9 +386,10 @@ let [@warning "-27"]read_start_section ic w =
 
 (* Element section *)
 let elemkind ic =
-  match get_byte ic with
+  let elemkind_type = get_byte ic in
+  match elemkind_type with
   | 0x00 -> true
-  | _ -> printf "Invalid elemkind"; false
+  | _ -> printf "Invalid elemkind %x" elemkind_type; false
 
 let rec vec_expr ic n =
   match n with
@@ -362,39 +398,18 @@ let rec vec_expr ic n =
     expr ic
     && vec_expr ic (n-1)
 
-let [@warning "-27"]element_reader ic w = 
-  match get_byte ic with
-  | 0x00 ->
-    expr ic
-    && vec_idx ic (get_byte ic)
-  | 0x01 ->
-    elemkind ic
-    && vec_idx ic (get_byte ic)
-  | 0x02 ->
-    get_idx ic
-    && expr ic
-    && elemkind ic
-    && vec_idx ic (get_byte ic)
-  | 0x03 ->
-    elemkind ic
-    && vec_idx ic (get_byte ic)
-  | 0x04 ->
-    expr ic
-    && vec_expr ic (get_byte ic)
-  | 0x05 ->
-    reftype ic
-    && vec_expr ic (get_byte ic)
-  | 0x06 -> 
-    get_idx ic
-    && expr ic
-    && reftype ic
-    && vec_expr ic (get_byte ic)
-  | 0x07 ->
-    reftype ic
-    && vec_expr ic (get_byte ic)
-  | _ ->
-    printf "Invalid element item";
-    false
+let [@warning "-27"]element_reader ic w =
+  let element_type = get_byte ic in
+  match element_type with
+  | 0x00 -> expr ic && vec_idx ic (get_byte ic)
+  | 0x01 -> elemkind ic && vec_idx ic (get_byte ic)
+  | 0x02 -> get_idx ic && expr ic && elemkind ic && vec_idx ic (get_byte ic)
+  | 0x03 -> elemkind ic && vec_idx ic (get_byte ic)
+  | 0x04 -> expr ic && vec_expr ic (get_byte ic)
+  | 0x05 -> reftype ic && vec_expr ic (get_byte ic)
+  | 0x06 -> get_idx ic && expr ic && reftype ic && vec_expr ic (get_byte ic)
+  | 0x07 -> reftype ic && vec_expr ic (get_byte ic)
+  | _ ->  printf "Invalid element item %x" element_type; false
 
 (* Code section *)
 let get_type_count ic =
@@ -404,12 +419,13 @@ let get_local ic =
   match get_type_count ic with
   | 0 -> printf("Type count error!\n"); false
   | n ->
-    match get_byte ic with
-    | 0x7F -> printf "%d i32 " n; true
-    | 0x7E -> printf "%d i64 " n; true
-    | 0x7D -> printf "%d f32 " n; true
-    | 0x7C -> printf "%d f64 " n; true
-    | _ -> printf "Type error!\n"; false
+    let type_type = get_byte ic in
+    match type_type with
+    | 0x7F -> eprintf "%d i32 " n; true
+    | 0x7E -> eprintf "%d i64 " n; true
+    | 0x7D -> eprintf "%d f32 " n; true
+    | 0x7C -> eprintf "%d f64 " n; true
+    | _ -> printf "Type error %x!\n" type_type; false
 
 let rec get_locals ic n =
   match n with
@@ -421,7 +437,7 @@ let rec get_locals ic n =
 (* TODO this is wrong see 5.4.1*)
 let read_blocktype ic =
   let t = get_byte ic in
-    printf "%d\n" t;
+    eprintf "%d\n" t;
     t
 
 let read_vec_valtype ic =
@@ -451,7 +467,10 @@ let get_arg ic opcode _ =
   | 0x0b -> ("end", EmptyArg)
   | 0x0c -> ("br", Labelidx (get_byte ic))
   | 0x0d -> ("br_if",  Labelidx (get_byte ic))
-  | 0x0e -> ("br_table", BrTable {table = (read_vec_labelidx ic); index = (read_labelidx ic)})
+  | 0x0e -> ("br_table", 
+      let table = (read_vec_labelidx ic) in
+      let index = (read_labelidx ic) in
+      BrTable {table; index})
   | 0x0f -> ("return", EmptyArg)
   | 0x10 -> ("call", Funcidx (get_byte ic))
   | 0x11 -> ("call_indirect", CallIndirect {y = (get_byte ic); x = (get_byte ic)})
@@ -643,10 +662,10 @@ let get_arg ic opcode _ =
   | 0xFC -> ("ixx.trunc_sat_fxx_x", TruncSat (get_i32 ic)) (* TODO a polymorphic opcode that needs interpretation to be printed correctly *)
 
   (* unhandled opcode *)
-  | _ -> ("unknown opcode:", EmptyArg)
+  | _ -> (sprintf "unknown opcode: %x" opcode, EmptyArg)
 
 let read_valtype ic = valtype_of_int (get_byte ic)
-let xxget_local ic = (fun _ -> printf "local \n"; { n = get_byte ic; v = (read_valtype ic)})
+let xxget_local ic = (fun _ -> eprintf "local \n"; { n = get_byte ic; v = (read_valtype ic)})
 
 let rec get_instr_list ic acc nesting =
   let opcode = get_byte ic in
@@ -678,45 +697,44 @@ let rec vec_bytes ic n =
   match n with
   | 0 -> true
   | _ ->
-    printf "%X " (get_byte ic);
+    eprintf "%X " (get_byte ic);
     vec_bytes ic (n-1)
 
 let [@warning "-27"]data_reader ic w =
-  match get_byte ic with
-  | 0x00 -> printf "data section type 0\n"; expr ic && vec_bytes ic (get_vec_len ic)
-  | 0x01 -> printf "data section type 1\n"; vec_bytes ic (get_vec_len ic)
-  | 0x02 -> printf "data section type 2\n"; get_idx ic && expr ic && vec_bytes ic (get_vec_len ic)
-  | _ -> printf "Invalid data item\n"; false
+  let data_item_type = get_byte ic in
+  match data_item_type with
+  | 0x00 -> eprintf "data section type 0\n"; expr ic && vec_bytes ic (get_vec_len ic)
+  | 0x01 -> eprintf "data section type 1\n"; vec_bytes ic (get_vec_len ic)
+  | 0x02 -> eprintf "data section type 2\n"; get_idx ic && expr ic && vec_bytes ic (get_vec_len ic)
+  | _ -> printf "Invalid data item %x\n" data_item_type; false
 
 let read_section_body ic w id =
   match id with
-  | 0 -> printf "Custom section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic)
-  | 1 -> printf "Type section\n"; read_section ic w read_type
-  | 2 -> printf "Import section\n"; read_section ic w read_import
-  | 3 -> printf "Function section\n"; read_section ic w read_function
-  | 4 -> printf "Table section\n"; read_section ic w read_table
-  | 5 -> printf "Memory section"; read_section ic w memory_reader
-  | 6 -> printf "Global section\n"; read_section ic w read_global
-  | 7 -> printf "Export section\n"; read_section ic w read_export
-  | 8 -> printf "Start section\n"; read_start_section ic w
-  | 9 -> printf "Element section\n"; read_section ic w element_reader
-  | 10 -> printf "Code section\n"; read_section ic w read_code
-  | 11 -> printf "Data section\n"; read_section ic w data_reader
-  | 12 -> printf "Data count section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic)
-  | _ -> printf "Unknown section, skipping\n"; skip_bytes ic (read_section_length ic)
+  | 0 -> eprintf "Custom section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic)
+  | 1 -> eprintf "Type section\n";      read_section ic w read_type
+  | 2 -> eprintf "Import section\n";    read_section ic w read_import
+  | 3 -> eprintf "Function section\n";  read_section ic w read_function
+  | 4 -> eprintf "Table section\n";     read_section ic w read_table
+  | 5 -> eprintf "Memory section";      read_section ic w memory_reader
+  | 6 -> eprintf "Global section\n";    read_section ic w read_global
+  | 7 -> eprintf "Export section\n";    read_section ic w read_export
+  | 8 -> eprintf "Start section\n";     read_start_section ic w
+  | 9 -> eprintf "Element section\n";   read_section ic w element_reader
+  | 10 -> eprintf "Code section\n";     read_section ic w read_code
+  | 11 -> eprintf "Data section\n";     read_section ic w data_reader
+  | 12 -> eprintf "Data count section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic)
+  | _ -> eprintf "Unknown section, skipping\n"; skip_bytes ic (read_section_length ic)
 
 let read_section_id ic =
   match get_byte ic with
   | id ->
-    printf "\n\nSection type: %d\n" id;
+    eprintf "\n\nSection type: %d\n" id;
     id
 
 let rec read_sections ic w =
   match read_section_id ic with
   | -1 -> true
-  | id ->
-    read_section_body ic w id
-    && read_sections ic w
+  | id -> read_section_body ic w id && read_sections ic w
 
 let parse_wasm ic w =
   read_magic ic
@@ -727,7 +745,7 @@ let rec parseFiles filelist =
   match filelist with
   | [] -> true
   | file::files ->
-    printf "**** New file: %s\n" file;
+    eprintf "**** New file: %s\n" file;
       let ic = In_channel.create file in
       let w = Wasm_module.create file in
       match parse_wasm ic w with
@@ -737,5 +755,5 @@ let rec parseFiles filelist =
 let () =
   Arg.parse speclist anon_fun usage_msg;
   match parseFiles !input_files with
-  | true -> printf "Success!\n"
-  | _ -> printf "Fail!\n"
+  | true -> eprintf "Success!\n"
+  | _ -> eprintf "Fail!\n"

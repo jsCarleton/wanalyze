@@ -279,7 +279,7 @@ let get_params w idx =
   | _ -> {rt1 = []; rt2 = []} (* TODO this shouldn't happen*)
 
 let string_of_local i local = 
-  "  (local " ^ (string_of_int i) ^ " count: " ^ (string_of_int local.n) ^ " " ^ (string_of_valtype local.v)
+  "  (local " ^ (string_of_int i) ^ " count: " ^ (string_of_int local.n) ^ " " ^ (string_of_valtype local.v) ^ ")\n"
 
 let string_of_locals locals =
   String.concat ~sep:"" (List.mapi ~f:string_of_local locals)
@@ -339,8 +339,8 @@ let string_of_function_section w =
 
 (* Section updating *)
 let update_type_section w ((b1, rt1),(b2, rt2)) =
-  printf "updating, before:%d\n" (List.length w.type_section);
-  printf "rt1 len:%d rt2 len:%d\n" (List.length rt1)(List.length rt2);
+  eprintf "updating, before:%d\n" (List.length w.type_section);
+  eprintf "rt1 len:%d rt2 len:%d\n" (List.length rt1)(List.length rt2);
   match (b1,b2) with
   | (true, true) -> 
           w.type_section 
@@ -361,8 +361,6 @@ let update_code_section w ((b1, locals), (b2, e)) =
   | _ -> false
 
 let print w =
-  let ff x = (printf "%d") x in
-  ff 1;
   printf "Module: %s\n" w.module_name;
   printf "(module\n";
   printf "%s" (string_of_type_section w.type_section);
