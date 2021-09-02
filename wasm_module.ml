@@ -92,6 +92,7 @@ type import =
   module_name: string;
   import_name: string;
   description: importdesc;
+  index:       int;
 }
 
 (* Functions *)
@@ -180,33 +181,6 @@ type op_arg =
   | TruncSat of int
   | EmptyArg
 
-let string_of_br_table _ = ""
-let string_of_arg a  =
-  match a with 
-  | Blocktype b -> string_of_int b
-  | Labelidx l -> string_of_int l
-  | BrTable b -> string_of_br_table b
-  | Funcidx f -> string_of_int f
-  | CallIndirect ci -> (string_of_int ci.y) ^ "," ^ (string_of_int ci.x) 
-  | Reftype r -> string_of_reftype r
-  | ValtypeList vl -> String.concat ~sep:"," (List.map vl ~f:string_of_valtype)
-  | Globalidx g -> string_of_int g
-  | Localidx l -> string_of_int l
-  | Tableidx t-> string_of_int t
-  | Elemidx e -> string_of_int e
-  | TableCopy tc -> (string_of_int tc.x) ^ "," ^ (string_of_int tc.y)
-  | Memarg m-> "align:" ^ (string_of_int m.a) ^ ",offset:" ^ (string_of_int m.o)
-  | Dataidx d -> string_of_int d
-  | I32value i -> string_of_int i
-  | I64value i -> sprintf "%Ld" i
-  | F32value f -> string_of_float f
-  | F64value f -> string_of_float f
-  | TruncSat i -> string_of_int i
-  | EmptyArg -> ""
-
-let string_of_args a =
-  String.concat ~sep:"," (List.map a ~f:string_of_arg)
-
 type op_type =
 {
   opcode:   int;
@@ -242,14 +216,18 @@ type datacountsec =
 type wasm_module =
 {
   module_name:              string;
-  mutable max_func_idx:     int;
   mutable type_section:     functype list;
   mutable import_section:   import list;
   mutable function_section: typeidx list;
   mutable code_section:     func list;
+  mutable next_func:        int;
+  mutable next_global:      int;
+  mutable next_memory:      int;
+  mutable next_table:       int;
 }
 let create name =
-  { module_name = name; max_func_idx = 0; type_section = []; import_section = []; function_section = []; code_section = []}
+  { module_name = name; type_section = []; import_section = []; function_section = []; code_section = [];
+    next_func = 0; next_global = 0; next_memory = 0; next_table = 0}
 
 (* Type section printing *)
 let string_of_param  p = "(param " ^ (string_of_resulttype p) ^ ")"
@@ -260,27 +238,27 @@ let string_of_functype i ft = "  (type (;" ^ (string_of_int i) ^ ";) (func " ^ (
 let string_of_type_section section = String.concat ~sep:"" (List.mapi ~f:string_of_functype section)
 
 (* Import section printing *)
-let string_of_typeidx ti =
-  "(func (;TBD;) (type " ^ string_of_int ti ^ ")"
+let string_of_typeidx ti i =
+  "(func (;" ^ string_of_int i ^ ";) (type " ^ string_of_int ti ^ ")"
 let string_of_limits (limit: limits) = 
   match limit with
   | Noupper l -> string_of_int l
   | Lowerupper (l,u) -> string_of_int l ^ " " ^ string_of_int u
-let string_of_tabletype tt =
-"(table (;TBD;) " ^ string_of_limits tt.lim ^ " " ^ string_of_reftype tt.et ^ ")" 
-let string_of_memtype mt =
-  "(memory (;TBD;) " ^ string_of_limits mt ^ ")"
-let string_of_globaltype gt =
-  "(global (;TBD;) " ^ string_of_valtype gt.t ^ ")"
+let string_of_tabletype tt i =
+"(table (;" ^ string_of_int i ^ ";) " ^ string_of_limits tt.lim ^ " " ^ string_of_reftype tt.et ^ ")" 
+let string_of_memtype mt i =
+  "(memory (;" ^ string_of_int i ^ ";) " ^ string_of_limits mt ^ ")"
+let string_of_globaltype gt i =
+  "(global (;" ^ string_of_int i ^ ";) " ^ string_of_valtype gt.t ^ ")"
 
-let string_of_description d =
+let string_of_description d i =
   match d with
-  | Typeidx ti -> string_of_typeidx ti
-  | Tabletype tt -> string_of_tabletype tt
-  | Memtype mt -> string_of_memtype mt
-  | Globaltype gt -> string_of_globaltype gt
+  | Typeidx ti -> string_of_typeidx ti i
+  | Tabletype tt -> string_of_tabletype tt i
+  | Memtype mt -> string_of_memtype mt i
+  | Globaltype gt -> string_of_globaltype gt i
 let string_of_import (i: import) = "  (import \"" ^ i.module_name ^ "\" \"" ^ i.import_name ^ "\" "
-      ^ string_of_description i.description ^ ")\n"
+      ^ string_of_description i.description i.index ^ ")\n"
 let string_of_import_section section = String.concat ~sep:"" (List.map ~f:string_of_import section)
   
 (* Function section printing *)
@@ -303,19 +281,43 @@ let string_of_locals locals =
 let string_of_memarg a o =
   "align: " ^ (string_of_int a) ^ " offset: " ^ (string_of_int o)
 
+let string_of_br_table _ = "" (* TODO *)
+let string_of_arg a  =
+  match a with 
+  | Blocktype b -> string_of_int b
+  | Labelidx l -> string_of_int l
+  | BrTable b -> string_of_br_table b
+  | Funcidx f -> string_of_int f
+  | CallIndirect ci -> (string_of_int ci.y) ^ "," ^ (string_of_int ci.x) 
+  | Reftype r -> string_of_reftype r
+  | ValtypeList vl -> String.concat ~sep:"," (List.map vl ~f:string_of_valtype)
+  | Globalidx g -> string_of_int g
+  | Localidx l -> string_of_int l
+  | Tableidx t-> string_of_int t
+  | Elemidx e -> string_of_int e
+  | TableCopy tc -> (string_of_int tc.x) ^ "," ^ (string_of_int tc.y)
+  | Memarg m-> "align:" ^ (string_of_int m.a) ^ ",offset:" ^ (string_of_int m.o)
+  | Dataidx d -> string_of_int d
+  | I32value i -> string_of_int i
+  | I64value i -> sprintf "%Ld" i
+  | F32value f -> string_of_float f
+  | F64value f -> string_of_float f
+  | TruncSat i -> string_of_int i
+  | EmptyArg -> ""
+
+
 let string_of_opcode e idx =
-    let op = List.nth e idx in
-    match op with
-    | Some op -> (String.make (op.nesting*2 + 4) ' ') ^ op.opname ^ " " ^ (string_of_arg op.arg)
-    | _ -> "** unknown **"
+  let op = List.nth e idx in
+  match op with
+  | Some op -> (String.make (op.nesting*2 + 4) ' ') ^ op.opname ^ " " ^ (string_of_arg op.arg)
+  | _ -> "** unknown **"
 
 let rec string_of_expr' e idx acc =
   match idx < (List.length e) with
   | false -> acc
   | true -> string_of_expr' e (idx+1) (acc ^ (string_of_opcode e idx) ^ "\n")
 
-let string_of_expr e =
-  string_of_expr' e 0 ""
+let string_of_expr e = string_of_expr' e 0 ""
 
 let string_of_code w idx =
   let code = List.nth w.code_section idx in
@@ -325,7 +327,7 @@ let string_of_code w idx =
   | _ -> "Error"
 
 let string_of_function w i idx = 
-  "  (func (;" ^ (string_of_int i) ^ ";) (type " ^ (string_of_int idx) ^ ") " 
+  "  (func (;" ^ string_of_int (i + w.next_func) ^ ";) (type " ^ (string_of_int idx) ^ ") " 
     ^ (string_of_params (get_params w idx).rt1) ^ (string_of_results (get_params w idx).rt2)
     ^ "\n" ^ (string_of_code w i) ^ "  )\n"
 let string_of_function_section w = 
@@ -341,12 +343,21 @@ let update_type_section w ((b1, rt1),(b2, rt2)) =
             <- List.append w.type_section [create_functype (List.map ~f:valtype_of_int rt1) (List.map ~f:valtype_of_int rt2) ]; true
   | _ -> false
 
+let index_of w desc =
+  (match desc with
+  | Typeidx _ -> w.next_func <- w.next_func + 1; w.next_func-1
+  | Tabletype _ -> w.next_table <- w.next_table + 1; w.next_table-1
+  | Memtype _ -> w.next_memory <- w.next_memory + 1; w.next_memory-1
+  | Globaltype _ -> w.next_global <- w.next_global + 1; w.next_global-1
+  )
+
 let update_import_section w module_name import_name description =
   match description with
   | None -> false
-  | Some x ->
+  | Some desc ->
       w.import_section 
-          <- List.append w.import_section [{module_name; import_name; description=x}]; true
+          <- List.append w.import_section [{module_name; import_name; description=desc; index = index_of w desc}];
+      true
 
 let update_function_section w (b, i) =
   match b, i with
