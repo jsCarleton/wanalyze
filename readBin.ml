@@ -309,7 +309,7 @@ let read_idx ic = get_byte ic
 let read_importdesc ic =
   let importdesc_type = get_byte ic in
   match importdesc_type with
-  | 0x00 -> eprintf "func ";    Some (Typeidx (read_idx ic))
+  | 0x00 -> eprintf "func ";    Some (Functype (read_idx ic))
   | 0x01 -> eprintf "table ";   Some (Tabletype (read_table_type ic))
   | 0x02 -> eprintf "mem ";     Some (Memtype (read_mem_type ic))
   | 0x03 -> eprintf "global ";  Some (Globaltype (read_globaltype ic))
@@ -434,11 +434,12 @@ let rec get_locals ic n =
     get_local ic
     && get_locals ic (n-1)
 
-(* TODO this is wrong see 5.4.1*)
 let read_blocktype ic =
   let t = get_byte ic in
-    eprintf "%d\n" t;
-    t
+  match t with
+  | 0x40 -> Emptytype
+  | 0x7F | 0x7E | 0x7D | 0x7C | 0x70 | 0x6F -> Valuetype (valtype_of_int t)
+  | _ -> Typeindex t (* TODO this needs to handle the multi-byte integer case *)
 
 let read_vec_valtype ic =
   List.init (get_vec_len ic) ~f:(fun _ -> (valtype_of_int (get_byte ic)))

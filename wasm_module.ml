@@ -26,9 +26,12 @@ let valtype_of_int i =
 
 type labelidx = int
 type blockidx = int
-type blocktype = int
 type funcidx = int
 type typeidx = int
+type blocktype = 
+  | Emptytype
+  | Valuetype of valtype
+  | Typeindex of typeidx
 type tableidx = int
 type localidx = int
 type globalidx = int
@@ -82,7 +85,7 @@ type globaltype =
 }
 
 type importdesc = 
-| Typeidx     of typeidx
+| Functype    of typeidx
 | Tabletype   of tabletype
 | Memtype     of memtype
 | Globaltype  of globaltype
@@ -230,16 +233,18 @@ let create name =
     next_func = 0; next_global = 0; next_memory = 0; next_table = 0}
 
 (* Type section printing *)
-let string_of_param  p = "(param " ^ (string_of_resulttype p) ^ ")"
-let string_of_result r = "(result " ^ (string_of_resulttype r) ^ ")"
-let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
-let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
-let string_of_functype i ft = "  (type (;" ^ (string_of_int i) ^ ";) (func " ^ (string_of_params ft.rt1) ^ (string_of_results ft.rt2) ^ "))\n"
+let string_of_types n l =
+  match List.length l with
+  | 0 -> ""
+  | _ ->  " (" ^ n ^ " " ^  String.concat ~sep:" " (List.map ~f:string_of_resulttype l) ^ ")"
+let string_of_functype i ft = 
+  "  (type (;" ^ (string_of_int i) ^ ";) (func" 
+  ^ (string_of_types "param" ft.rt1) ^ (string_of_types "result" ft.rt2) ^ "))\n"
 let string_of_type_section section = String.concat ~sep:"" (List.mapi ~f:string_of_functype section)
 
 (* Import section printing *)
-let string_of_typeidx ti i =
-  "(func (;" ^ string_of_int i ^ ";) (type " ^ string_of_int ti ^ ")"
+let string_of_functype ti i =
+  "(func (;" ^ string_of_int i ^ ";) (type " ^ string_of_int ti ^ "))"
 let string_of_limits (limit: limits) = 
   match limit with
   | Noupper l -> string_of_int l
@@ -253,7 +258,7 @@ let string_of_globaltype gt i =
 
 let string_of_description d i =
   match d with
-  | Typeidx ti -> string_of_typeidx ti i
+  | Functype ti -> string_of_functype ti i
   | Tabletype tt -> string_of_tabletype tt i
   | Memtype mt -> string_of_memtype mt i
   | Globaltype gt -> string_of_globaltype gt i
@@ -281,10 +286,19 @@ let string_of_locals locals =
 let string_of_memarg a o =
   "align: " ^ (string_of_int a) ^ " offset: " ^ (string_of_int o)
 
+let string_of_typeidx ti =
+  "(type " ^ string_of_int ti ^ " )"
+
+let string_of_blocktype b =
+  match b with
+  | Emptytype -> ""
+  | Valuetype vt -> string_of_valtype vt
+  | Typeindex ti -> string_of_typeidx ti
+
 let string_of_br_table _ = "" (* TODO *)
 let string_of_arg a  =
   match a with 
-  | Blocktype b -> string_of_int b
+  | Blocktype b -> string_of_blocktype b
   | Labelidx l -> string_of_int l
   | BrTable b -> string_of_br_table b
   | Funcidx f -> string_of_int f
@@ -326,9 +340,14 @@ let string_of_code w idx =
     (string_of_locals code'.locals) ^ (string_of_expr code'.e)
   | _ -> "Error"
 
+let string_of_param  p = "(param " ^ (string_of_resulttype p) ^ ")"
+let string_of_result r = "(result " ^ (string_of_resulttype r) ^ ")"
+let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
+let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
+  
 let string_of_function w i idx = 
-  "  (func (;" ^ string_of_int (i + w.next_func) ^ ";) (type " ^ (string_of_int idx) ^ ") " 
-    ^ (string_of_params (get_params w idx).rt1) ^ (string_of_results (get_params w idx).rt2)
+  "  (func (;" ^ string_of_int (i + w.next_func) ^ ";) (type " ^ (string_of_int idx) ^ ")" 
+    ^ (string_of_types "param" (get_params w idx).rt1) ^ (string_of_types "result" (get_params w idx).rt2)
     ^ "\n" ^ (string_of_code w i) ^ "  )\n"
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
@@ -345,7 +364,7 @@ let update_type_section w ((b1, rt1),(b2, rt2)) =
 
 let index_of w desc =
   (match desc with
-  | Typeidx _ -> w.next_func <- w.next_func + 1; w.next_func-1
+  | Functype _ -> w.next_func <- w.next_func + 1; w.next_func-1
   | Tabletype _ -> w.next_table <- w.next_table + 1; w.next_table-1
   | Memtype _ -> w.next_memory <- w.next_memory + 1; w.next_memory-1
   | Globaltype _ -> w.next_global <- w.next_global + 1; w.next_global-1
