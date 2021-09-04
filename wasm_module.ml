@@ -161,6 +161,7 @@ type memarg =
 {
   a:      int;
   o:      int;
+  bits:   int;
 }
 type op_arg =
   | Blocktype of blocktype
@@ -197,10 +198,16 @@ type local_type =
   n:  int;
   v:  valtype;
 }
+type label_type = 
+{
+  index:  labelidx;
+  name:   string;
+}
 type func =
 {
-  locals: local_type list;
-  e:      expr;
+  locals:   local_type list;
+  e:        expr;
+  labels:   label_type list;
 }
 
 (* Data *)
@@ -277,59 +284,91 @@ let get_params w idx =
   | Some x -> x
   | _ -> {rt1 = []; rt2 = []} (* TODO this shouldn't happen*)
 
-let string_of_local i local = 
-  "  (local " ^ (string_of_int i) ^ " count: " ^ (string_of_int local.n) ^ " " ^ (string_of_valtype local.v) ^ ")\n"
+let rec string_repeat' s sep n acc =
+  match n with
+  | 0 -> acc
+  | _ -> string_repeat' s sep (n-1) (acc ^ sep ^ s)
+let string_repeat s sep n = string_repeat' s sep n ""
+
+let string_of_local local = 
+  "\n    (local" ^ string_repeat (string_of_valtype local.v) " " local.n ^ ")"
 
 let string_of_locals locals =
-  String.concat ~sep:"" (List.mapi ~f:string_of_local locals)
+  String.concat ~sep:"" (List.map ~f:string_of_local locals)
 
-let string_of_memarg a o =
-  "align: " ^ (string_of_int a) ^ " offset: " ^ (string_of_int o)
+let string_of_memarg m = 
+  match m.bits with
+  | 64 ->
+    (match m.a with
+    | 0 -> "align=1"
+    | 2 -> "align=4"
+    | _ -> ""
+    )
+  | _ -> ""
 
-let string_of_typeidx ti =
+  let string_of_typeidx ti =
   "(type " ^ string_of_int ti ^ " )"
 
 let string_of_blocktype b =
   match b with
   | Emptytype -> ""
-  | Valuetype vt -> string_of_valtype vt
+  | Valuetype vt -> "(result " ^ string_of_valtype vt ^ ")"
   | Typeindex ti -> string_of_typeidx ti
 
 let string_of_br_table _ = "" (* TODO *)
+let string_of_arg' a  =
+match a with 
+| Blocktype b -> string_of_blocktype b
+| Labelidx l -> string_of_int l
+| BrTable b -> string_of_br_table b
+| Funcidx f -> string_of_int f
+| CallIndirect ci -> (string_of_int ci.y) ^ "," ^ (string_of_int ci.x) 
+| Reftype r -> string_of_reftype r
+| ValtypeList vl -> String.concat ~sep:"," (List.map vl ~f:string_of_valtype)
+| Globalidx g -> string_of_int g
+| Localidx l -> string_of_int l
+| Tableidx t-> string_of_int t
+| Elemidx e -> string_of_int e
+| TableCopy tc -> (string_of_int tc.x) ^ "," ^ (string_of_int tc.y)
+| Memarg m-> string_of_memarg m
+| Dataidx d -> string_of_int d
+| I32value i -> string_of_int i
+| I64value i -> sprintf "%Ld" i
+| F32value f -> string_of_float f
+| F64value f -> string_of_float f
+| TruncSat i -> string_of_int i
+| EmptyArg -> ""
 let string_of_arg a  =
-  match a with 
-  | Blocktype b -> string_of_blocktype b
-  | Labelidx l -> string_of_int l
-  | BrTable b -> string_of_br_table b
-  | Funcidx f -> string_of_int f
-  | CallIndirect ci -> (string_of_int ci.y) ^ "," ^ (string_of_int ci.x) 
-  | Reftype r -> string_of_reftype r
-  | ValtypeList vl -> String.concat ~sep:"," (List.map vl ~f:string_of_valtype)
-  | Globalidx g -> string_of_int g
-  | Localidx l -> string_of_int l
-  | Tableidx t-> string_of_int t
-  | Elemidx e -> string_of_int e
-  | TableCopy tc -> (string_of_int tc.x) ^ "," ^ (string_of_int tc.y)
-  | Memarg m-> "align:" ^ (string_of_int m.a) ^ ",offset:" ^ (string_of_int m.o)
-  | Dataidx d -> string_of_int d
-  | I32value i -> string_of_int i
-  | I64value i -> sprintf "%Ld" i
-  | F32value f -> string_of_float f
-  | F64value f -> string_of_float f
-  | TruncSat i -> string_of_int i
-  | EmptyArg -> ""
+  let argstring = string_of_arg' a in
+  match String.length argstring with
+  | 0 -> ""
+  | _ -> " " ^ argstring
 
-
+let string_of_opcode' op comment =
+  "\n" ^ (String.make (op.nesting*2 + 4) ' ') ^ op.opname ^ (string_of_arg op.arg) ^ comment 
 let string_of_opcode e idx =
   let op = List.nth e idx in
   match op with
-  | Some op -> (String.make (op.nesting*2 + 4) ' ') ^ op.opname ^ " " ^ (string_of_arg op.arg)
+  | Some op -> 
+    (* some special cases need to be handled here *)
+    ( match op.opcode with
+    | 0x02 (* block *)
+    | 0x03 (* loop *)
+    | 0x04 (* if *)
+        -> string_of_opcode' op "  ;; label = @" ^ string_of_int (op.nesting + 1)
+    | 0x0b (* end *) ->
+      (match op.nesting with
+      | -1 -> ""
+      | _ -> string_of_opcode' op ""
+      )
+    | _ -> string_of_opcode' op ""
+    )
   | _ -> "** unknown **"
 
 let rec string_of_expr' e idx acc =
   match idx < (List.length e) with
   | false -> acc
-  | true -> string_of_expr' e (idx+1) (acc ^ (string_of_opcode e idx) ^ "\n")
+  | true -> string_of_expr' e (idx+1) (acc ^ (string_of_opcode e idx))
 
 let string_of_expr e = string_of_expr' e 0 ""
 
@@ -348,7 +387,7 @@ let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result r
 let string_of_function w i idx = 
   "  (func (;" ^ string_of_int (i + w.next_func) ^ ";) (type " ^ (string_of_int idx) ^ ")" 
     ^ (string_of_types "param" (get_params w idx).rt1) ^ (string_of_types "result" (get_params w idx).rt2)
-    ^ "\n" ^ (string_of_code w i) ^ "  )\n"
+    ^ (string_of_code w i) ^ ")\n"
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
 
@@ -385,12 +424,8 @@ let update_function_section w (b, i) =
             <- List.append w.function_section [i]; true
   | _ -> false
 
-let update_code_section w ((b1, locals), (b2, e)) =
-  match b1, b2 with
-  | true, true ->
-        w.code_section
-          <- List.append w.code_section [{locals; e}]; true
-  | _ -> false
+let update_code_section w locals e labels =
+  w.code_section <- List.append w.code_section [{locals; e; labels}]
 
 let print w =
   printf "Module: %s\n" w.module_name;

@@ -27,23 +27,13 @@ let get_byte ic : int =
       | true -> eprintf "!%X! " x; x
       | _ -> x
 
-let read_magic ic =
-  get_byte ic = 0x00
-  && get_byte ic = 0x61
-  && get_byte ic = 0x73
-  && get_byte ic = 0x6d
-
-let read_version ic =
-  get_byte ic = 0x01
-  && get_byte ic = 0x00
-  && get_byte ic = 0x00
-  && get_byte ic = 0x00
+let read_magic ic = get_byte ic = 0x00 && get_byte ic = 0x61 && get_byte ic = 0x73 && get_byte ic = 0x6d
+let read_version ic = get_byte ic = 0x01 && get_byte ic = 0x00 && get_byte ic = 0x00 && get_byte ic = 0x00
 
 let rec skip_bytes ic n =
   match n with
   | 0 -> true
-  | _ ->
-    get_byte ic >= 0 && skip_bytes ic (n-1)
+  | _ -> get_byte ic >= 0 && skip_bytes ic (n-1)
 
 (* i64 helper functions *)
 let i64lt i1 i2 = (Int64.compare i1 i2) < 0
@@ -75,13 +65,13 @@ let rec nLEB ic size n acc bits =
 let rec sLEB' ic size acc shift: int64 =
   let b = of_int (get_byte ic) in
   match i64land 0xC0L b with
-  | 0x80L | 0xC0L-> sLEB' ic size (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (shift+7)
-  | 0x00L -> i64lor (i64lsl (i64land b 0x7FL) shift) acc
-  | 0x40L -> i64lor (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (i64lsl 0xffffffffffffffffL shift)
+  | 0x80L | 0xC0L-> sLEB' ic size 
+                    (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (shift+7)
+  | 0x00L ->         i64lor (i64lsl (i64land b 0x7FL) shift) acc
+  | 0x40L -> i64lor (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (i64lsl 0xffffffffffffff80L shift)
   | _ -> printf "invalid byte in LEB: %Lx\n" b; 0L
 
-let sLEB ic size : int64 =
-  sLEB' ic size 0L 0
+let sLEB ic size : int64 = sLEB' ic size 0L 0
 
 let get_vec_len ic =
   let len = uLEB ic 32 in
@@ -131,7 +121,9 @@ let memarg ic =
   eprintf "offset: %d " (uLEB ic 32);
   true
 
-let read_memarg ic = {a=uLEB ic 32; o=uLEB ic 32}
+let read_memarg ic bits = 
+  let a = uLEB ic 32 in
+  {a; o=uLEB ic 32; bits}
 
 let rec instr ic =
 let opcode = get_byte ic in
@@ -170,14 +162,14 @@ let opcode = get_byte ic in
   | 0xd0 -> eprintf "ref.null "; opcode (* not what the spec says *)
   (* parametric instructions *)
   (* variable instructions*)
-  | 0x20 -> eprintf "local.get %x " (get_byte ic); opcode
-  | 0x21 -> eprintf "local.set %x " (get_byte ic); opcode
-  | 0x22 -> eprintf "local.tee %x " (get_byte ic); opcode
-  | 0x23 -> eprintf "global.get %x " (get_byte ic); opcode
-  | 0x24 -> eprintf "global.set %x " (get_byte ic); opcode
+  | 0x20 -> eprintf "local.get %x " (uLEB ic 32); opcode
+  | 0x21 -> eprintf "local.set %x " (uLEB ic 32); opcode
+  | 0x22 -> eprintf "local.tee %x " (uLEB ic 32); opcode
+  | 0x23 -> eprintf "global.get %x " (uLEB ic 32); opcode
+  | 0x24 -> eprintf "global.set %x " (uLEB ic 32); opcode
   (* table instructions *)
-  | 0x25 -> eprintf "table.get %x " (get_byte ic); opcode
-  | 0x26 -> eprintf "table.set %x " (get_byte ic); opcode
+  | 0x25 -> eprintf "table.get %x " (uLEB ic 32); opcode
+  | 0x26 -> eprintf "table.set %x " (uLEB ic 32); opcode
   (* memory instructions *)
   | 0x28 -> eprintf "i32.load %d %d " 0 0 (* TODO *); opcode
   | 0x2c -> eprintf "i32.load8_s "; ignore(memarg ic: bool); opcode
@@ -412,8 +404,7 @@ let [@warning "-27"]read_element ic w =
   | _ ->  printf "Invalid element item %x" element_type; false
 
 (* Code section *)
-let get_type_count ic =
-  get_byte ic
+let get_type_count ic = uLEB ic 32
 
 let get_local ic =
   match get_type_count ic with
@@ -431,8 +422,7 @@ let rec get_locals ic n =
   match n with
   | 0 -> true
   | _ ->
-    get_local ic
-    && get_locals ic (n-1)
+    get_local ic && get_locals ic (n-1)
 
 let read_blocktype ic =
   let t = get_byte ic in
@@ -482,42 +472,42 @@ let get_arg ic opcode _ =
   | 0x1b -> ("select", EmptyArg)
    | 0x1c -> ("select", ValtypeList (read_vec_valtype ic))
   (* variable instructions*)
-  | 0x20 -> ("local.get", Localidx (get_byte ic))
-  | 0x21 -> ("local.set", Localidx (get_byte ic))
-  | 0x22 -> ("local.tee", Localidx (get_byte ic))
-  | 0x23 -> ("global.get", Globalidx (get_byte ic))
-  | 0x24 -> ("global.set", Globalidx (get_byte ic))
+  | 0x20 -> ("local.get", Localidx (uLEB ic 32))
+  | 0x21 -> ("local.set", Localidx (uLEB ic 32))
+  | 0x22 -> ("local.tee", Localidx (uLEB ic 32))
+  | 0x23 -> ("global.get", Globalidx (uLEB ic 32))
+  | 0x24 -> ("global.set", Globalidx (uLEB ic 32))
   (* table instructions *)
-  | 0x25 -> ("table.get", Tableidx (get_byte ic))
-  | 0x26 -> ("table.set", Tableidx (get_byte ic))
+  | 0x25 -> ("table.get", Tableidx (uLEB ic 32))
+  | 0x26 -> ("table.set", Tableidx (uLEB ic 32))
   (* memory instructions *)
-  | 0x28 -> ("i32.load", Memarg (read_memarg ic))
-  | 0x29 -> ("i64.load", Memarg (read_memarg ic))
-  | 0x2a -> ("f32.load", Memarg (read_memarg ic))
-  | 0x2b -> ("f64.load", Memarg (read_memarg ic))
-  | 0x2c -> ("i32.load8_s", Memarg (read_memarg ic))
-  | 0x2d -> ("i32.load8_u", Memarg (read_memarg ic))
-  | 0x2e -> ("i32.load16_s", Memarg (read_memarg ic))
-  | 0x2f -> ("i32.load16_u", Memarg (read_memarg ic))
-  | 0x30 -> ("i64.load8_s", Memarg (read_memarg ic))
-  | 0x31 -> ("i64.load8_u", Memarg (read_memarg ic))
-  | 0x32 -> ("i64.load16_s", Memarg (read_memarg ic))
-  | 0x33 -> ("i64.load16_u", Memarg (read_memarg ic))
-  | 0x34 -> ("i64.load32_s", Memarg (read_memarg ic))
-  | 0x35 -> ("i64.load32_u", Memarg (read_memarg ic))
-  | 0x36 -> ("i32.store", Memarg (read_memarg ic))
-  | 0x37 -> ("i64.store", Memarg (read_memarg ic))
-  | 0x38 -> ("f32.store", Memarg (read_memarg ic))
-  | 0x39 -> ("f64.store", Memarg (read_memarg ic))
-  | 0x3a -> ("i32.store8", Memarg (read_memarg ic))
-  | 0x3b -> ("i32.store16", Memarg (read_memarg ic))
-  | 0x3c -> ("i64.store8", Memarg (read_memarg ic))
-  | 0x3d -> ("i64.store16", Memarg (read_memarg ic))
-  | 0x3e -> ("i64.store32", Memarg (read_memarg ic))
+  | 0x28 -> ("i32.load", Memarg (read_memarg ic 32))
+  | 0x29 -> ("i64.load", Memarg (read_memarg ic 64))
+  | 0x2a -> ("f32.load", Memarg (read_memarg ic 32))
+  | 0x2b -> ("f64.load", Memarg (read_memarg ic 64))
+  | 0x2c -> ("i32.load8_s", Memarg (read_memarg ic 8))
+  | 0x2d -> ("i32.load8_u", Memarg (read_memarg ic 8))
+  | 0x2e -> ("i32.load16_s", Memarg (read_memarg ic 16))
+  | 0x2f -> ("i32.load16_u", Memarg (read_memarg ic 16))
+  | 0x30 -> ("i64.load8_s", Memarg (read_memarg ic 8))
+  | 0x31 -> ("i64.load8_u", Memarg (read_memarg ic 8))
+  | 0x32 -> ("i64.load16_s", Memarg (read_memarg ic 16))
+  | 0x33 -> ("i64.load16_u", Memarg (read_memarg ic 16))
+  | 0x34 -> ("i64.load32_s", Memarg (read_memarg ic 32))
+  | 0x35 -> ("i64.load32_u", Memarg (read_memarg ic 32))
+  | 0x36 -> ("i32.store", Memarg (read_memarg ic 32))
+  | 0x37 -> ("i64.store", Memarg (read_memarg ic 64))
+  | 0x38 -> ("f32.store", Memarg (read_memarg ic 32))
+  | 0x39 -> ("f64.store", Memarg (read_memarg ic 64))
+  | 0x3a -> ("i32.store8", Memarg (read_memarg ic 8))
+  | 0x3b -> ("i32.store16", Memarg (read_memarg ic 16))
+  | 0x3c -> ("i64.store8", Memarg (read_memarg ic 8))
+  | 0x3d -> ("i64.store16", Memarg (read_memarg ic 16))
+  | 0x3e -> ("i64.store32", Memarg (read_memarg ic 32))
   | 0x3f -> ("memory.size", EmptyArg) (* not what the spec says *)
   | 0x40 -> ("memory grow", EmptyArg) (* not what the spec says *)
   (* numeric instructions *)
-   | 0x41 -> ("i32.const", I32value (get_i32 ic))
+  | 0x41 -> ("i32.const", I32value (get_i32 ic))
   |	0x42 -> ("i64.const", I64value (sLEB ic 64))
   | 0x43 -> ("f32.const", F32value (get_f32 ic))
   | 0x44 -> ("f64.const", F64value (get_f64 ic))
@@ -666,32 +656,36 @@ let get_arg ic opcode _ =
   | _ -> (sprintf "unknown opcode: %x" opcode, EmptyArg)
 
 let read_valtype ic = valtype_of_int (get_byte ic)
-let xxget_local ic = (fun _ -> eprintf "local \n"; { n = get_byte ic; v = (read_valtype ic)})
+let xxget_local ic = (fun _ -> eprintf "local \n"; 
+  let n = uLEB ic 32 in
+  {n; v = (read_valtype ic)})
 
-let rec get_instr_list ic acc nesting =
+let rec get_instr_list ic nesting acc_instr acc_labels =
   let opcode = get_byte ic in
   let (opname, arg) = (get_arg ic opcode get_instr_list) in
   match opcode with
   (* end *)
   | 0x0b ->
       ( match nesting with
-        | 0 -> List.append acc [{opcode; opname; arg; nesting=nesting-1}]
-        | _ -> get_instr_list ic (List.append acc [{opcode; opname; arg; nesting=nesting-1}]) (nesting-1)
+        | 0 -> List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}], acc_labels
+        | _ -> get_instr_list ic  (nesting-1)  (List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}]) acc_labels
       )
   (* block, loop, if *)
-  | 0x02 | 0x03 | 0x04 -> get_instr_list ic (List.append acc [{opcode; opname; arg; nesting}]) (nesting+1)
+  | 0x02 | 0x03 | 0x04 -> get_instr_list ic (nesting+1) (List.append acc_instr [{opcode; opname; arg; nesting}]) acc_labels
   (* else, all others *)
-  | 0x05 ->  get_instr_list ic (List.append acc [{opcode; opname; arg; nesting=nesting-1}]) nesting
+  | 0x05 ->  get_instr_list ic  nesting (List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}]) acc_labels
   (* all others *)
-  | _ ->  get_instr_list ic (List.append acc [{opcode; opname; arg; nesting}]) nesting
+  | _ ->  get_instr_list ic nesting (List.append acc_instr [{opcode; opname; arg; nesting}]) acc_labels
 
 let read_code ic w =
   (uLEB ic 32) >= 0 (* we discard the size *)
   &&
   (* func *)
-  let locals = List.init (get_vec_len ic) ~f:(xxget_local ic) in
-  let e = get_instr_list ic [] 0 in
-  update_code_section w ((true, locals), (true, e)) (* why pass true? *)
+  let len = get_vec_len ic in
+  let locals = List.init len ~f:(xxget_local ic) in
+  let (e, labels) = get_instr_list ic 0 [] [] in
+  update_code_section w locals e labels;
+  true
 
 (* Data section *)
 let rec vec_bytes ic n =
