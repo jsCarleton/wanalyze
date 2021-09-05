@@ -656,9 +656,11 @@ let get_arg ic opcode _ =
   | _ -> (sprintf "unknown opcode: %x" opcode, EmptyArg)
 
 let read_valtype ic = valtype_of_int (get_byte ic)
-let xxget_local ic = (fun _ -> eprintf "local \n"; 
+let xxget_local ic = (fun _ ->
   let n = uLEB ic 32 in
-  {n; v = (read_valtype ic)})
+  let v = read_valtype ic in
+  eprintf "local count: %d type: %s\n" n (string_of_valtype v); 
+  {n; v})
 
 let rec get_instr_list ic nesting acc_instr acc_labels =
   let opcode = get_byte ic in
@@ -682,8 +684,9 @@ let read_code ic w =
   &&
   (* func *)
   let len = get_vec_len ic in
-  let locals = List.init len ~f:(xxget_local ic) in
+  let locals = List.rev (List.init len ~f:(xxget_local ic)) in (* TODO: fix this hack that relies on the fact that List.init calls in reverse order *)
   let (e, labels) = get_instr_list ic 0 [] [] in
+  eprintf "locals %s\n" (string_of_locals locals);
   update_code_section w locals e labels;
   true
 

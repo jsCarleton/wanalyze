@@ -291,10 +291,12 @@ let rec string_repeat' s sep n acc =
 let string_repeat s sep n = string_repeat' s sep n ""
 
 let string_of_local local = 
-  "\n    (local" ^ string_repeat (string_of_valtype local.v) " " local.n ^ ")"
+  string_repeat (string_of_valtype local.v) " " local.n
 
 let string_of_locals locals =
-  String.concat ~sep:"" (List.map ~f:string_of_local locals)
+  match List.length locals with
+  | 0 -> ""
+  | _ -> "\n    (local" ^ (String.concat ~sep:"" (List.map ~f:string_of_local locals)) ^ ")"
 
 let string_of_memarg m = 
   match m.bits with
@@ -322,7 +324,7 @@ match a with
 | Labelidx l -> string_of_int l
 | BrTable b -> string_of_br_table b
 | Funcidx f -> string_of_int f
-| CallIndirect ci -> (string_of_int ci.y) ^ "," ^ (string_of_int ci.x) 
+| CallIndirect ci -> "(type " ^ (string_of_int ci.y) ^ ")"
 | Reftype r -> string_of_reftype r
 | ValtypeList vl -> String.concat ~sep:"," (List.map vl ~f:string_of_valtype)
 | Globalidx g -> string_of_int g
@@ -356,6 +358,9 @@ let string_of_opcode e idx =
     | 0x03 (* loop *)
     | 0x04 (* if *)
         -> string_of_opcode' op "  ;; label = @" ^ string_of_int (op.nesting + 1)
+    | 0x0c (* br *)
+    | 0x0d (* br_if *)
+        -> string_of_opcode' op " (;@" ^ string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ^ ";)" 
     | 0x0b (* end *) ->
       (match op.nesting with
       | -1 -> ""
