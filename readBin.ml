@@ -595,7 +595,7 @@ let rec get_instr_list ic nesting acc_instr acc_labels = (* TODO do we need labe
   | 0x0b ->
       ( match nesting with
         | 0 -> List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}], acc_labels
-        | _ -> get_instr_list ic (nesting-1) (List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}]) acc_labels
+        | _ -> get_instr_list ic  (nesting-1)  (List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}]) acc_labels
       )
   (* block, loop, if *)
   | 0x02 | 0x03 | 0x04 -> get_instr_list ic (nesting+1) (List.append acc_instr [{opcode; opname; arg; nesting}]) acc_labels
@@ -619,16 +619,18 @@ let read_global ic w =
   update_global_section w gt (fst e)
 
 (* Export section *)
-let exportdesc ic =
+let read_exportdesc ic =
   let exportdesc_type = get_byte ic in
   match exportdesc_type with
-  | 0x00 -> eprintf "func"; get_idx ic
-  | 0x01 -> eprintf "table"; get_idx ic
-  | 0x02 -> eprintf "mem "; get_idx ic
-  | 0x03 -> eprintf "global "; get_idx ic
-  | _ -> printf("Invalid exportdesc %x!") exportdesc_type; false
+  | 0x00 -> eprintf "func"; Func (read_idx ic)
+  | 0x01 -> eprintf "table"; Table (read_idx ic)
+  | 0x02 -> eprintf "mem "; Mem (read_idx ic)
+  | 0x03 -> eprintf "global "; Global (read_idx ic)
+  | _ -> printf("Invalid exportdesc %x!") exportdesc_type; Func (read_idx ic)
 
-let [@warning "-27"]read_export ic w = get_name ic && exportdesc ic
+let read_export ic w = 
+  let name = read_name ic in
+  update_export_section w name (read_exportdesc ic)
 
 (* Start section *)
 let [@warning "-27"]read_start ic w =
@@ -748,8 +750,8 @@ let rec parseFiles filelist =
       let ic = In_channel.create file in
       let w  = Wasm_module.create file in
       match parse_wasm ic w with
-      | true  -> Wasm_module.print w; parseFiles files 
-      | _     -> Wasm_module.print w; false
+      | true  -> Wasm_module.print w && parseFiles files 
+      | _     -> Wasm_module.print w && false
 
 let () =
   Arg.parse speclist anon_fun usage_msg;

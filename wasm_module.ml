@@ -37,6 +37,7 @@ type localidx = int
 type globalidx = int
 type elemidx = int
 type dataidx = int
+type memidx = int
 
 let string_of_numtype nt =
   match nt with
@@ -118,9 +119,16 @@ type memsec =
 }
 
 (* Exports *)
-type exportsec =
+type exportdesc =
+| Func    of funcidx
+| Table   of tableidx
+| Mem     of memidx
+| Global  of globalidx
+
+type export =
 {
-  x: string;
+  name: string;
+  desc: exportdesc;
 }
 
 (* Start *)
@@ -237,6 +245,7 @@ type wasm_module =
   mutable import_section:   import list;
   mutable function_section: typeidx list;
   mutable global_section:   global list;
+  mutable export_section:   export list;
   mutable code_section:     func list;
   mutable next_func:        int;
   mutable next_global:      int;
@@ -245,10 +254,11 @@ type wasm_module =
 }
 let create name =
   { module_name = name; type_section = []; import_section = []; function_section = []; 
-    global_section = []; code_section = [];
+    global_section = []; export_section = []; code_section = [];
     next_func = 0; next_global = 0; next_memory = 0; next_table = 0}
 
-(* Type section printing *)
+(* Printable strings *)
+(* Type section *)
 let string_of_types n l =
   match List.length l with
   | 0 -> ""
@@ -258,7 +268,7 @@ let string_of_functype i ft =
   ^ (string_of_types "param" ft.rt1) ^ (string_of_types "result" ft.rt2) ^ "))\n"
 let string_of_type_section section = String.concat ~sep:"" (List.mapi ~f:string_of_functype section)
 
-(* Import section printing *)
+(* Import section *)
 let string_of_functype ti i =
   "(func (;" ^ string_of_int i ^ ";) (type " ^ string_of_int ti ^ "))"
 let string_of_limits (limit: limits) = 
@@ -281,8 +291,21 @@ let string_of_description d i =
 let string_of_import (i: import) = "  (import \"" ^ i.module_name ^ "\" \"" ^ i.import_name ^ "\" "
       ^ string_of_description i.description i.index ^ ")\n"
 let string_of_import_section section = String.concat ~sep:"" (List.map ~f:string_of_import section)
+
+(* (export "___errno_location" (func 51))
+ *)
+(* Export section *)
+let string_of_exportdesc d =
+  match d with
+  | Func f -> "func " ^ string_of_int f
+  | Table t -> "table " ^ string_of_int t
+  | Mem m -> "table " ^ string_of_int m
+  | Global g -> "table " ^ string_of_int g
+let string_of_export (e: export) =
+  "(export \"" ^ e.name ^ "\" (" ^ string_of_exportdesc e.desc ^ "))\n"
+let string_of_export_section section = String.concat ~sep:"" (List.map ~f:string_of_export section)
   
-(* Function section printing *)
+(* Function section *)
 let list_item l i =
   match List.nth l i with
   | Some x -> x
@@ -317,7 +340,7 @@ let string_of_memarg m =
     )
   | _ -> ""
 
-  let string_of_typeidx ti =
+let string_of_typeidx ti =
   "(type " ^ string_of_int ti ^ " )"
 
 let string_of_blocktype b =
@@ -404,14 +427,22 @@ let string_of_function w i idx =
     ^ (string_of_code w i) ^ ")\n"
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
-(* 
-  (global (;4;) (mut i32) (global.get 1))
- *)
-let string_of_global _ g =
+
+let string_of_global g =
   "  (global (;" ^ string_of_int g.index ^ ";) " ^ "(" ^ (string_of_mut g.gt.m) ^ " " ^ (string_of_valtype g.gt.t) 
   ^ ") (" ^ (String.drop_prefix (string_of_expr g.e) 5) ^ "))\n" 
-let string_of_global_section w =
-  String.concat ~sep:"" (List.map ~f:(string_of_global w) w.global_section)
+let string_of_global_section section =
+  String.concat ~sep:"" (List.map ~f:string_of_global section)
+
+let print w =
+  printf "Module: %s\n" w.module_name;
+  printf "(module\n";
+  printf "%s" (string_of_type_section w.type_section);
+  printf "%s" (string_of_import_section w.import_section);
+  printf "%s" (string_of_function_section w);
+  printf "%s" (string_of_global_section w.global_section);
+  printf "%s" (string_of_export_section w.export_section);
+  printf ")"; true
 
 (* Section updating *)
 (* type section *)
@@ -424,7 +455,7 @@ let update_type_section w ((b1, rt1),(b2, rt2)) =
             <- List.append w.type_section [create_functype (List.map ~f:valtype_of_int rt1) (List.map ~f:valtype_of_int rt2) ]; true
   | _ -> false
 
-(* import section*)
+(* import section *)
 let index_of w desc =
   (match desc with
   | Functype _ -> w.next_func <- w.next_func + 1; w.next_func-1
@@ -440,12 +471,7 @@ let update_import_section w module_name import_name description =
           <- List.append w.import_section [{module_name; import_name; description=desc; index = index_of w desc}];
       true
 
-(* global section *)
-let index_of_global w =
-  w.next_global <- w.next_global + 1; w.next_global-1
-let update_global_section w gt e =
-  w.global_section <- List.append w.global_section [{gt; e; index = index_of_global w}]; true
-
+(* function section *)
 let update_function_section w (b, i) =
   match b, i with
   | true, _ ->
@@ -453,14 +479,16 @@ let update_function_section w (b, i) =
             <- List.append w.function_section [i]; true
   | _ -> false
 
+(* global section *)
+let index_of_global w =
+  w.next_global <- w.next_global + 1; w.next_global-1
+let update_global_section w gt e =
+  w.global_section <- List.append w.global_section [{gt; e; index = index_of_global w}]; true
+
+(* export section *)
+let update_export_section w name desc =
+  w.export_section <- List.append w.export_section [{name; desc}]; true
+
+(* code section *)
 let update_code_section w locals e labels =
   w.code_section <- List.append w.code_section [{locals; e; labels}]
-
-let print w =
-  printf "Module: %s\n" w.module_name;
-  printf "(module\n";
-  printf "%s" (string_of_type_section w.type_section);
-  printf "%s" (string_of_import_section w.import_section);
-  printf "%s" (string_of_function_section w);
-  printf "%s" (string_of_global_section w);
-  printf ")";
