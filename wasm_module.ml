@@ -78,6 +78,11 @@ type mut =
 | Const
 | Var
 
+let string_of_mut m =
+match m with
+| Const -> ""
+| Var -> "mut"
+
 type globaltype = 
 {
   t:  valtype;
@@ -108,12 +113,6 @@ type tablesec =
 
 (* Memories *)
 type memsec =
-{
-  x: string;
-}
-
-(* Globals *)
-type globalsec =
 {
   x: string;
 }
@@ -210,6 +209,14 @@ type func =
   labels:   label_type list;
 }
 
+(* Globals *)
+type global =
+{
+  index:  int;
+  gt:     globaltype;
+  e:      expr;
+}
+
 (* Data *)
 type datasec =
 {
@@ -229,6 +236,7 @@ type wasm_module =
   mutable type_section:     functype list;
   mutable import_section:   import list;
   mutable function_section: typeidx list;
+  mutable global_section:   global list;
   mutable code_section:     func list;
   mutable next_func:        int;
   mutable next_global:      int;
@@ -236,7 +244,8 @@ type wasm_module =
   mutable next_table:       int;
 }
 let create name =
-  { module_name = name; type_section = []; import_section = []; function_section = []; code_section = [];
+  { module_name = name; type_section = []; import_section = []; function_section = []; 
+    global_section = []; code_section = [];
     next_func = 0; next_global = 0; next_memory = 0; next_table = 0}
 
 (* Type section printing *)
@@ -395,8 +404,17 @@ let string_of_function w i idx =
     ^ (string_of_code w i) ^ ")\n"
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
+(* 
+  (global (;4;) (mut i32) (global.get 1))
+ *)
+let string_of_global _ g =
+  "  (global (;" ^ string_of_int g.index ^ ";) " ^ "(" ^ (string_of_mut g.gt.m) ^ " " ^ (string_of_valtype g.gt.t) 
+  ^ ") (" ^ (String.drop_prefix (string_of_expr g.e) 5) ^ "))\n" 
+let string_of_global_section w =
+  String.concat ~sep:"" (List.map ~f:(string_of_global w) w.global_section)
 
 (* Section updating *)
+(* type section *)
 let update_type_section w ((b1, rt1),(b2, rt2)) =
   eprintf "updating, before:%d\n" (List.length w.type_section);
   eprintf "rt1 len:%d rt2 len:%d\n" (List.length rt1)(List.length rt2);
@@ -406,6 +424,7 @@ let update_type_section w ((b1, rt1),(b2, rt2)) =
             <- List.append w.type_section [create_functype (List.map ~f:valtype_of_int rt1) (List.map ~f:valtype_of_int rt2) ]; true
   | _ -> false
 
+(* import section*)
 let index_of w desc =
   (match desc with
   | Functype _ -> w.next_func <- w.next_func + 1; w.next_func-1
@@ -413,7 +432,6 @@ let index_of w desc =
   | Memtype _ -> w.next_memory <- w.next_memory + 1; w.next_memory-1
   | Globaltype _ -> w.next_global <- w.next_global + 1; w.next_global-1
   )
-
 let update_import_section w module_name import_name description =
   match description with
   | None -> false
@@ -421,6 +439,12 @@ let update_import_section w module_name import_name description =
       w.import_section 
           <- List.append w.import_section [{module_name; import_name; description=desc; index = index_of w desc}];
       true
+
+(* global section *)
+let index_of_global w =
+  w.next_global <- w.next_global + 1; w.next_global-1
+let update_global_section w gt e =
+  w.global_section <- List.append w.global_section [{gt; e; index = index_of_global w}]; true
 
 let update_function_section w (b, i) =
   match b, i with
@@ -438,4 +462,5 @@ let print w =
   printf "%s" (string_of_type_section w.type_section);
   printf "%s" (string_of_import_section w.import_section);
   printf "%s" (string_of_function_section w);
+  printf "%s" (string_of_global_section w);
   printf ")";

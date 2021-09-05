@@ -348,82 +348,6 @@ let get_mem_type ic = limits ic
 let [@warning "-27"]read_memory ic w = get_mem_type ic
 
 (* Global section *)
-let mut ic =
-  let mut_type = get_byte ic in
-  match mut_type with
-  | 0x00 -> eprintf "const "; true
-  | 0x01 -> eprintf "var "; true
-  | _ -> eprintf "Invalid mut %x!" mut_type; false
-
-let globaltype ic = (fst (valtype ic)) && mut ic
-
-let [@warning "-27"]read_global ic w = globaltype ic && expr ic
-
-(* Export section *)
-let exportdesc ic =
-  let exportdesc_type = get_byte ic in
-  match exportdesc_type with
-  | 0x00 -> eprintf "func"; get_idx ic
-  | 0x01 -> eprintf "table"; get_idx ic
-  | 0x02 -> eprintf "mem "; get_idx ic
-  | 0x03 -> eprintf "global "; get_idx ic
-  | _ -> printf("Invalid exportdesc %x!") exportdesc_type; false
-
-let [@warning "-27"]read_export ic w = get_name ic && exportdesc ic
-
-(* Start section *)
-let [@warning "-27"]read_start ic w =
-  read_section_length ic >= 0 (* discard the section length *)
-  && get_idx ic
-
-(* Element section *)
-let elemkind ic =
-  let elemkind_type = get_byte ic in
-  match elemkind_type with
-  | 0x00 -> true
-  | _ -> printf "Invalid elemkind %x" elemkind_type; false
-
-let rec vec_expr ic n =
-  match n with
-  | 0 -> true
-  | _ ->
-    expr ic
-    && vec_expr ic (n-1)
-
-let [@warning "-27"]read_element ic w =
-  let element_type = get_byte ic in
-  match element_type with
-  | 0x00 -> expr ic && vec_idx ic (get_byte ic)
-  | 0x01 -> elemkind ic && vec_idx ic (get_byte ic)
-  | 0x02 -> get_idx ic && expr ic && elemkind ic && vec_idx ic (get_byte ic)
-  | 0x03 -> elemkind ic && vec_idx ic (get_byte ic)
-  | 0x04 -> expr ic && vec_expr ic (get_byte ic)
-  | 0x05 -> reftype ic && vec_expr ic (get_byte ic)
-  | 0x06 -> get_idx ic && expr ic && reftype ic && vec_expr ic (get_byte ic)
-  | 0x07 -> reftype ic && vec_expr ic (get_byte ic)
-  | _ ->  printf "Invalid element item %x" element_type; false
-
-(* Code section *)
-let get_type_count ic = uLEB ic 32
-
-let get_local ic =
-  match get_type_count ic with
-  | 0 -> printf("Type count error!\n"); false
-  | n ->
-    let type_type = get_byte ic in
-    match type_type with
-    | 0x7F -> eprintf "%d i32 " n; true
-    | 0x7E -> eprintf "%d i64 " n; true
-    | 0x7D -> eprintf "%d f32 " n; true
-    | 0x7C -> eprintf "%d f64 " n; true
-    | _ -> printf "Type error %x!\n" type_type; false
-
-let rec get_locals ic n =
-  match n with
-  | 0 -> true
-  | _ ->
-    get_local ic && get_locals ic (n-1)
-
 let read_blocktype ic =
   let t = get_byte ic in
   match t with
@@ -656,13 +580,14 @@ let get_arg ic opcode _ =
   | _ -> (sprintf "unknown opcode: %x" opcode, EmptyArg)
 
 let read_valtype ic = valtype_of_int (get_byte ic)
+
 let xxget_local ic = (fun _ ->
   let n = uLEB ic 32 in
   let v = read_valtype ic in
   eprintf "local count: %d type: %s\n" n (string_of_valtype v); 
   {n; v})
 
-let rec get_instr_list ic nesting acc_instr acc_labels =
+let rec get_instr_list ic nesting acc_instr acc_labels = (* TODO do we need labels? *)
   let opcode = get_byte ic in
   let (opname, arg) = (get_arg ic opcode get_instr_list) in
   match opcode with
@@ -670,7 +595,7 @@ let rec get_instr_list ic nesting acc_instr acc_labels =
   | 0x0b ->
       ( match nesting with
         | 0 -> List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}], acc_labels
-        | _ -> get_instr_list ic  (nesting-1)  (List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}]) acc_labels
+        | _ -> get_instr_list ic (nesting-1) (List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}]) acc_labels
       )
   (* block, loop, if *)
   | 0x02 | 0x03 | 0x04 -> get_instr_list ic (nesting+1) (List.append acc_instr [{opcode; opname; arg; nesting}]) acc_labels
@@ -678,6 +603,85 @@ let rec get_instr_list ic nesting acc_instr acc_labels =
   | 0x05 ->  get_instr_list ic  nesting (List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}]) acc_labels
   (* all others *)
   | _ ->  get_instr_list ic nesting (List.append acc_instr [{opcode; opname; arg; nesting}]) acc_labels
+  
+  let mut ic =
+  let mut_type = get_byte ic in
+  match mut_type with
+  | 0x00 -> eprintf "const "; true
+  | 0x01 -> eprintf "var "; true
+  | _ -> eprintf "Invalid mut %x!" mut_type; false
+
+let globaltype ic = (fst (valtype ic)) && mut ic
+
+let read_global ic w = 
+  let gt = read_globaltype ic in
+  let e = get_instr_list ic 0 [] [] in
+  update_global_section w gt (fst e)
+
+(* Export section *)
+let exportdesc ic =
+  let exportdesc_type = get_byte ic in
+  match exportdesc_type with
+  | 0x00 -> eprintf "func"; get_idx ic
+  | 0x01 -> eprintf "table"; get_idx ic
+  | 0x02 -> eprintf "mem "; get_idx ic
+  | 0x03 -> eprintf "global "; get_idx ic
+  | _ -> printf("Invalid exportdesc %x!") exportdesc_type; false
+
+let [@warning "-27"]read_export ic w = get_name ic && exportdesc ic
+
+(* Start section *)
+let [@warning "-27"]read_start ic w =
+  read_section_length ic >= 0 (* discard the section length *)
+  && get_idx ic
+
+(* Element section *)
+let elemkind ic =
+  let elemkind_type = get_byte ic in
+  match elemkind_type with
+  | 0x00 -> true
+  | _ -> printf "Invalid elemkind %x" elemkind_type; false
+
+let rec vec_expr ic n =
+  match n with
+  | 0 -> true
+  | _ ->
+    expr ic
+    && vec_expr ic (n-1)
+
+let [@warning "-27"]read_element ic w =
+  let element_type = get_byte ic in
+  match element_type with
+  | 0x00 -> expr ic && vec_idx ic (get_byte ic)
+  | 0x01 -> elemkind ic && vec_idx ic (get_byte ic)
+  | 0x02 -> get_idx ic && expr ic && elemkind ic && vec_idx ic (get_byte ic)
+  | 0x03 -> elemkind ic && vec_idx ic (get_byte ic)
+  | 0x04 -> expr ic && vec_expr ic (get_byte ic)
+  | 0x05 -> reftype ic && vec_expr ic (get_byte ic)
+  | 0x06 -> get_idx ic && expr ic && reftype ic && vec_expr ic (get_byte ic)
+  | 0x07 -> reftype ic && vec_expr ic (get_byte ic)
+  | _ ->  printf "Invalid element item %x" element_type; false
+
+(* Code section *)
+let get_type_count ic = uLEB ic 32
+
+let get_local ic =
+  match get_type_count ic with
+  | 0 -> printf("Type count error!\n"); false
+  | n ->
+    let type_type = get_byte ic in
+    match type_type with
+    | 0x7F -> eprintf "%d i32 " n; true
+    | 0x7E -> eprintf "%d i64 " n; true
+    | 0x7D -> eprintf "%d f32 " n; true
+    | 0x7C -> eprintf "%d f64 " n; true
+    | _ -> printf "Type error %x!\n" type_type; false
+
+let rec get_locals ic n =
+  match n with
+  | 0 -> true
+  | _ ->
+    get_local ic && get_locals ic (n-1)
 
 let read_code ic w =
   (uLEB ic 32) >= 0 (* we discard the size *)

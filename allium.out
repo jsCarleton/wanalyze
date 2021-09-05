@@ -61913,4 +61913,10 @@ Module: allium.wasm
       call 2
     end
     local.get 2)
+  (global (;4;) (mut i32) (global.get 1))
+  (global (;5;) (mut i32) (global.get 2))
+  (global (;6;) (mut i32) (global.get 3))
+  (global (;7;) (mut i32) (i32.const 0))
+  (global (;8;) (mut i32) (i32.const 0))
+  (global (;9;) (mut i32) (i32.const 0))
 )
