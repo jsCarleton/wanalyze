@@ -138,12 +138,6 @@ type startsec =
 }
 
 (* Elements *)
-type elemsec =
-{
-  x: string;
-}
-
-(* Code *)
 type br_table =
 {
   table:  labelidx list;
@@ -200,6 +194,51 @@ type op_type =
   nesting:  int;
 }
 type expr = op_type list
+
+type expr_func =
+{
+  e:   expr;
+  y:   funcidx list;
+}
+type elem_func =
+{
+  y:   funcidx list;
+}
+type table_expr_elem_func =
+{
+  x:  tableidx;
+  e:  expr;
+  y:  funcidx list;
+}
+type expr_expr =
+{
+  e:  expr;
+  el: expr list;
+}
+type ref_expr =
+{
+  et: reftype;
+  el: expr list;
+}
+type table_expr_ref_expr =
+{
+  x:  tableidx;
+  e:  expr;
+  et: reftype;
+  el: expr list;
+}
+
+type element =
+| ExprFunc of expr_func
+| ElemFuncP of elem_func
+| TableExprElemFunc of table_expr_elem_func
+| ElemFuncD of elem_func
+| ExprExpr of expr_expr
+| RefExprP of ref_expr
+| TableExprRefExpr of table_expr_ref_expr
+| RefExprD of ref_expr
+
+(* Code *)
 type local_type =
 {
   n:  int;
@@ -226,15 +265,31 @@ type global =
 }
 
 (* Data *)
-type datasec =
+type expr_bytes =
 {
-  x: string;
+  e:  expr;
+  b:  int list;
+}
+type mem_expr_bytes =
+{
+  x:  memidx;
+  e:  expr;
+  b:  int list;
+}
+type data_details =
+| ExprBytes of expr_bytes
+| Bytes of int list
+| MemExprBytes of mem_expr_bytes
+type data =
+{
+  index:    int;
+  details:  data_details;
 }
 
 (* Data Count *)
 type datacountsec =
 {
-  x: string;
+  x: string; (* TODO *)
 }
 
 (* wasm Module *)
@@ -246,16 +301,20 @@ type wasm_module =
   mutable function_section: typeidx list;
   mutable global_section:   global list;
   mutable export_section:   export list;
+  mutable element_section:  element list;
   mutable code_section:     func list;
+  mutable data_section:     data list;
   mutable next_func:        int;
   mutable next_global:      int;
   mutable next_memory:      int;
   mutable next_table:       int;
+  mutable next_data:        int;
 }
 let create name =
   { module_name = name; type_section = []; import_section = []; function_section = []; 
-    global_section = []; export_section = []; code_section = [];
-    next_func = 0; next_global = 0; next_memory = 0; next_table = 0}
+    global_section = []; export_section = []; element_section = []; code_section = [];
+    data_section = [];
+    next_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
 
 (* Printable strings *)
 (* Type section *)
@@ -292,8 +351,6 @@ let string_of_import (i: import) = "  (import \"" ^ i.module_name ^ "\" \"" ^ i.
       ^ string_of_description i.description i.index ^ ")\n"
 let string_of_import_section section = String.concat ~sep:"" (List.map ~f:string_of_import section)
 
-(* (export "___errno_location" (func 51))
- *)
 (* Export section *)
 let string_of_exportdesc d =
   match d with
@@ -302,7 +359,7 @@ let string_of_exportdesc d =
   | Mem m -> "table " ^ string_of_int m
   | Global g -> "table " ^ string_of_int g
 let string_of_export (e: export) =
-  "(export \"" ^ e.name ^ "\" (" ^ string_of_exportdesc e.desc ^ "))\n"
+  "  (export \"" ^ e.name ^ "\" (" ^ string_of_exportdesc e.desc ^ "))\n"
 let string_of_export_section section = String.concat ~sep:"" (List.map ~f:string_of_export section)
   
 (* Function section *)
@@ -428,12 +485,58 @@ let string_of_function w i idx =
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
 
-let string_of_global g =
+(* Global section *)
+let string_of_inline_expr e =
+  (String.drop_prefix (string_of_expr e) 5)
+let string_of_global (g: global) =
   "  (global (;" ^ string_of_int g.index ^ ";) " ^ "(" ^ (string_of_mut g.gt.m) ^ " " ^ (string_of_valtype g.gt.t) 
-  ^ ") (" ^ (String.drop_prefix (string_of_expr g.e) 5) ^ "))\n" 
+  ^ ") (" ^ (string_of_inline_expr g.e) ^ "))\n" 
 let string_of_global_section section =
   String.concat ~sep:"" (List.map ~f:string_of_global section)
 
+(* Element section *)
+let string_of_list_idx li =
+  String.concat ~sep:" " (List.map ~f:string_of_int li)
+
+let string_of_element e =
+match e with
+| ExprFunc exf ->
+    "  (elem (;0;) (" ^ string_of_inline_expr exf.e ^ ") func " ^ string_of_list_idx exf.y ^ ")\n" 
+| ElemFuncP _ -> "B" (* TODO *)
+| TableExprElemFunc _ -> "C"
+| ElemFuncD _ -> "D"
+| ExprExpr _ -> "E"
+| RefExprP _ -> "F"
+| TableExprRefExpr _ -> "G"
+| RefExprD _ -> "H"
+  
+let string_of_element_section section =
+  String.concat ~sep:"" (List.map ~f:string_of_element section)
+
+(* Data section *)
+let hexEscape s =
+  eprintf "escaping: %s\n" s;
+  match (String.length s > 1)
+     && (Char.compare (String.get s 0) '\\' = 0)
+     && (Char.compare (String.get s 1) '0' >= 0) 
+     && (Char.compare (String.get s 1) '9' <= 0) with
+  | true -> "\\" ^ sprintf "%2.2x" (int_of_string (String.suffix s ((String.length s) - 1)))
+  | _ -> s
+let specialEscape s = Str.global_replace (Str.regexp "\\t") "\\09" s
+
+let string_of_bytes b =
+  specialEscape (String.concat ~sep:"" (List.map ~f:hexEscape (List.map ~f:Char.escaped (List.map ~f:char_of_int b))))
+
+let string_of_data d = 
+  match d.details with
+  | ExprBytes eb ->
+     "  (data (;" ^ string_of_int d.index ^ ";) (" ^ string_of_inline_expr eb.e ^ ") \"" ^ string_of_bytes eb.b ^ "\")\n"
+  | Bytes _ -> "B\n"
+  | MemExprBytes _ -> "C\n"
+let string_of_data_section section =
+  String.concat ~sep:"" (List.map ~f:string_of_data section)
+
+(* Print the whole wasm module *)
 let print w =
   printf "Module: %s\n" w.module_name;
   printf "(module\n";
@@ -442,6 +545,8 @@ let print w =
   printf "%s" (string_of_function_section w);
   printf "%s" (string_of_global_section w.global_section);
   printf "%s" (string_of_export_section w.export_section);
+  printf "%s" (string_of_element_section w.element_section);
+  printf "%s" (string_of_data_section w.data_section);
   printf ")"; true
 
 (* Section updating *)
@@ -489,6 +594,16 @@ let update_global_section w gt e =
 let update_export_section w name desc =
   w.export_section <- List.append w.export_section [{name; desc}]; true
 
+(* element section *)
+let update_element_section w elem =
+  w.element_section <- List.append w.element_section [elem]; true
+
 (* code section *)
 let update_code_section w locals e labels =
   w.code_section <- List.append w.code_section [{locals; e; labels}]
+
+(* data section *)
+let index_of_data w =
+  w.next_data <- w.next_data + 1; w.next_data-1
+let update_data_section w details =
+  w.data_section <- w.data_section@[{index = index_of_data w; details}]; true

@@ -18,7 +18,7 @@ let speclist =
 let anon_fun filename =
        input_files := filename::!input_files
 
-let get_byte ic : int =
+let read_byte ic : int =
   let b = In_channel.input_byte ic in
     match b with
     | None -> -1
@@ -27,13 +27,13 @@ let get_byte ic : int =
       | true -> eprintf "!%X! " x; x
       | _ -> x
 
-let read_magic ic = get_byte ic = 0x00 && get_byte ic = 0x61 && get_byte ic = 0x73 && get_byte ic = 0x6d
-let read_version ic = get_byte ic = 0x01 && get_byte ic = 0x00 && get_byte ic = 0x00 && get_byte ic = 0x00
+let read_magic ic = read_byte ic = 0x00 && read_byte ic = 0x61 && read_byte ic = 0x73 && read_byte ic = 0x6d
+let read_version ic = read_byte ic = 0x01 && read_byte ic = 0x00 && read_byte ic = 0x00 && read_byte ic = 0x00
 
 let rec skip_bytes ic n =
   match n with
   | 0 -> true
-  | _ -> get_byte ic >= 0 && skip_bytes ic (n-1)
+  | _ -> read_byte ic >= 0 && skip_bytes ic (n-1)
 
 (* i64 helper functions *)
 let i64lt i1 i2 = (Int64.compare i1 i2) < 0
@@ -47,7 +47,7 @@ let i64land i1 i2 : int64 = Stdlib.Int64.logand i1 i2
 let of_int i : int64 = Stdlib.Int64.of_int i
 
 let rec uLEB ic size =
-  let n = get_byte ic in
+  let n = read_byte ic in
   match (n < (1 lsl 7)) && (n < (1 lsl size)) with
   | true -> n
   | _ -> (1 lsl 7) * (uLEB ic (size-7)) + (n - (1 lsl 7))
@@ -59,11 +59,11 @@ let rec fillbits n bits =
 
 let rec nLEB ic size n acc bits =
   match i64land n 0x80L with
-  | 0x80L -> nLEB ic size (of_int (get_byte ic)) (i64lor (i64lsl acc 7) (i64land n 0x7fL)) (bits+7)
+  | 0x80L -> nLEB ic size (of_int (read_byte ic)) (i64lor (i64lsl acc 7) (i64land n 0x7fL)) (bits+7)
   | _ -> fillbits (i64lor (i64lsl acc 7) (i64land n 0x7fL)) (64-bits-7)
 
 let rec sLEB' ic size acc shift: int64 =
-  let b = of_int (get_byte ic) in
+  let b = of_int (read_byte ic) in
   match i64land 0xC0L b with
   | 0x80L | 0xC0L-> sLEB' ic size 
                     (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (shift+7)
@@ -78,12 +78,12 @@ let get_vec_len ic =
     eprintf "vector length: %d" len; len
 
 let xxget_idx ic =
-  match get_byte ic with
+  match read_byte ic with
   | -1 -> eprintf "idx error!\n"; false, -1
   | i -> eprintf "Index: %d " i; true, i
 
 let get_idx ic =
-  match get_byte ic with
+  match read_byte ic with
   | -1 -> eprintf "idx error!\n"; false
   | i -> eprintf "Index: %d " i; true
 
@@ -104,14 +104,14 @@ let get_i64 ic = sLEB ic 64
 let rec bytes_to_i64' ic n acc : int64 =
   match n with
   | 0 -> acc
-  | _ -> bytes_to_i64' ic (n-1) (i64add (i64lsl acc 8) (Int64.of_int (get_byte ic)))
+  | _ -> bytes_to_i64' ic (n-1) (i64add (i64lsl acc 8) (Int64.of_int (read_byte ic)))
 let bytes_to_i64 ic n : int64 = bytes_to_i64' ic n 0L
 
 let get_f32 ic = Int64.float_of_bits (Int64.shift_left (bytes_to_i64 ic 4) 32)
 let get_f64 ic = Int64.float_of_bits (bytes_to_i64 ic 8)
                       
 let reftype ic =
-  match get_byte ic with
+  match read_byte ic with
   | 0x70 -> eprintf "funcref"; true
   | 0x6F -> eprintf "externref"; true
   | x -> printf "Invalid reftype %x!" x; false
@@ -126,22 +126,22 @@ let read_memarg ic bits =
   {a; o=uLEB ic 32; bits}
 
 let rec instr ic =
-let opcode = get_byte ic in
+let opcode = read_byte ic in
   match opcode with
   (* control instructions *)
   | 0x00 -> eprintf "unreachable "; opcode
   | 0x01 -> eprintf "nop "; opcode
-  | 0x02 -> eprintf "block, type:%X" (get_byte ic);
+  | 0x02 -> eprintf "block, type:%X" (read_byte ic);
       (	match instr ic with
         | 0x0b -> eprintf "end "; opcode
         | _ -> instr ic
       )
-  |	0x03 -> eprintf "loop, type:%X" (get_byte ic);
+  |	0x03 -> eprintf "loop, type:%X" (read_byte ic);
       (	match instr ic with
         | 0x0b -> eprintf "end "; opcode
         | _ -> instr ic
       )
-  |	0x04 -> eprintf "if, type:%X" (get_byte ic);
+  |	0x04 -> eprintf "if, type:%X" (read_byte ic);
       (	match instr ic with
         | 0x05 -> eprintf "else ";
           ( match instr ic with
@@ -151,12 +151,12 @@ let opcode = get_byte ic in
         | 0x0b -> eprintf "end "; opcode
         | _ -> instr ic
       )
-  | 0x0c -> eprintf "br %x " (get_byte ic); opcode
-  | 0x0d -> eprintf "br_if %x " (get_byte ic); opcode
-  | 0x0e -> ignore(vec_idx ic (get_byte ic): bool); eprintf "br_table %X" (get_byte ic); opcode
+  | 0x0c -> eprintf "br %x " (read_byte ic); opcode
+  | 0x0d -> eprintf "br_if %x " (read_byte ic); opcode
+  | 0x0e -> ignore(vec_idx ic (read_byte ic): bool); eprintf "br_table %X" (read_byte ic); opcode
   | 0x0f -> eprintf "return "; opcode
-  | 0x10 -> eprintf "call %x " (get_byte ic); opcode
-  | 0x11 -> eprintf "call_indirect %x %x " (get_byte ic) (get_byte ic); opcode
+  | 0x10 -> eprintf "call %x " (read_byte ic); opcode
+  | 0x11 -> eprintf "call_indirect %x %x " (read_byte ic) (read_byte ic); opcode
   | 0x0b -> eprintf "end "; opcode
   (* reference instructions*)
   | 0xd0 -> eprintf "ref.null "; opcode (* not what the spec says *)
@@ -211,7 +211,7 @@ let read_section ic section entry_handler =
 
 (* Type section *)
 let valtype ic =
-  match get_byte ic with
+  match read_byte ic with
   | 0 -> eprintf "None "; (true, 0)
   | 0x7f -> eprintf "i32 "; (true, 0x7f)
   | 0x7e -> eprintf "i64 "; (true, 0x7e)
@@ -227,7 +227,7 @@ let rec get_types ic len acc =
     | _ -> (
       match (valtype ic) with
       | (false, _) -> (false, [])
-      | (_, x) -> get_types ic (len - 1) (List.append acc [x])
+      | (_, x) -> get_types ic (len - 1) (acc@[x])
     )
   
 let get_type_vector ic =
@@ -242,18 +242,18 @@ let get_functype ic =
   let rt2 = get_type_vector ic in
   rt1, rt2
 
-let read_type ic w = (get_byte ic = 0x60) && update_type_section w (get_functype ic)
+let read_type ic w = (read_byte ic = 0x60) && update_type_section w (get_functype ic)
 
 (* Import section *)
 let limits ic =
-  let limit_type = get_byte ic in
+  let limit_type = read_byte ic in
   match limit_type with
   | 0x00 -> eprintf "lower: %d, no upper" (uLEB ic 32); true
   | 0x01 -> eprintf "lower: %d, upper: %d" (uLEB ic 32) (uLEB ic 32); true
   | _ -> eprintf "Invalid limits %x!" limit_type; false
 
 let read_limits ic = 
-  let limit_type = get_byte ic in
+  let limit_type = read_byte ic in
   match limit_type with
   | 0x00 -> eprintf "lower limit"; Noupper (uLEB ic 32)
   | 0x01 -> eprintf "lower, upper"; Lowerupper ((uLEB ic 32), (uLEB ic 32))
@@ -262,7 +262,7 @@ let read_limits ic =
 let read_mem_type ic = read_limits ic
 
 let read_reftype ic =
-  let x = get_byte ic in
+  let x = read_byte ic in
   match x with
   | 0x70 -> eprintf "funcref"; Funcref
   | 0x6F -> eprintf "externref"; Externref
@@ -274,14 +274,14 @@ let read_table_type ic =
   {et; lim}
 
 let read_mut ic =
-  let mut_type = get_byte ic in
+  let mut_type = read_byte ic in
   match mut_type with
   | 0x00 -> eprintf "const "; Const
   | 0x01 -> eprintf "var "; Var
   | _ -> eprintf "Invalid mut %x!" mut_type; Const
 
 let read_valtype ic =
-  let valtype = get_byte ic in
+  let valtype = read_byte ic in
   match valtype with
   | 0x7f -> Numtype I32
   | 0x7e -> Numtype I64
@@ -296,10 +296,10 @@ let read_globaltype ic =
   let m = read_mut ic in
   {t; m}
 
-let read_idx ic = get_byte ic
+let read_idx ic = read_byte ic
 
 let read_importdesc ic =
-  let importdesc_type = get_byte ic in
+  let importdesc_type = read_byte ic in
   match importdesc_type with
   | 0x00 -> eprintf "func ";    Some (Functype (read_idx ic))
   | 0x01 -> eprintf "table ";   Some (Tabletype (read_table_type ic))
@@ -310,23 +310,25 @@ let read_importdesc ic =
 let rec get_string ic n =
   match n with
   | 0 -> eprintf " "; true
-  | _ -> eprintf "%c" (char_of_int (get_byte ic)); get_string ic (n-1)
+  | _ -> eprintf "%c" (char_of_int (read_byte ic)); get_string ic (n-1)
 
 let get_name ic =
-  match get_byte ic with
+  match read_byte ic with
   | 0 -> eprintf "name length 0 ";true
   | n -> eprintf "name length %d" n ; get_string ic n
 
 let rec read_string' ic len acc =
   match len with
   | 0 -> acc
-  | _ -> read_string' ic (len-1) (List.append acc [Char.escaped (char_of_int (get_byte ic))])
+  | _ ->
+    let c = [Char.escaped (char_of_int (read_byte ic))] in
+    read_string' ic (len-1) (acc@c)
 
 let read_string ic len =
   String.concat ~sep:"" (read_string' ic len [])
 
 let read_name ic =
-  let name = read_string ic (get_byte ic) in
+  let name = read_string ic (read_byte ic) in
   eprintf("name = %s") name; name
 
 let read_import ic w =
@@ -349,14 +351,14 @@ let [@warning "-27"]read_memory ic w = get_mem_type ic
 
 (* Global section *)
 let read_blocktype ic =
-  let t = get_byte ic in
+  let t = read_byte ic in
   match t with
   | 0x40 -> Emptytype
   | 0x7F | 0x7E | 0x7D | 0x7C | 0x70 | 0x6F -> Valuetype (valtype_of_int t)
   | _ -> Typeindex t (* TODO this needs to handle the multi-byte integer case *)
 
 let read_vec_valtype ic =
-  List.init (get_vec_len ic) ~f:(fun _ -> (valtype_of_int (get_byte ic)))
+  List.init (get_vec_len ic) ~f:(fun _ -> (valtype_of_int (read_byte ic)))
 
 let ints_of_i64 _ = [0; 0] (* TODO *)
 
@@ -366,7 +368,7 @@ let rec read_vec_labelidx' ic len acc =
   | 0 -> acc
   | _ ->
       let label = read_labelidx ic in
-      read_vec_labelidx' ic (len-1) (List.append acc [label])
+      read_vec_labelidx' ic (len-1) acc@[label]
 let read_vec_labelidx ic =
   read_vec_labelidx' ic (get_vec_len ic) []
 
@@ -380,15 +382,15 @@ let get_arg ic opcode _ =
   | 0x04 -> ("if", Blocktype (read_blocktype ic))
   | 0x05 -> ("else", EmptyArg)
   | 0x0b -> ("end", EmptyArg)
-  | 0x0c -> ("br", Labelidx (get_byte ic))
-  | 0x0d -> ("br_if",  Labelidx (get_byte ic))
+  | 0x0c -> ("br", Labelidx (read_byte ic))
+  | 0x0d -> ("br_if",  Labelidx (read_byte ic))
   | 0x0e -> ("br_table", 
       let table = (read_vec_labelidx ic) in
       let index = (read_labelidx ic) in
       BrTable {table; index})
   | 0x0f -> ("return", EmptyArg)
-  | 0x10 -> ("call", Funcidx (get_byte ic))
-  | 0x11 -> ("call_indirect", CallIndirect {y = (get_byte ic); x = (get_byte ic)})
+  | 0x10 -> ("call", Funcidx (read_byte ic))
+  | 0x11 -> ("call_indirect", CallIndirect {y = (read_byte ic); x = (read_byte ic)})
    (* reference instructions*)
   | 0xd0 -> ("ref.null", EmptyArg) (* not what the spec says *)
   (* parametric instructions *)
@@ -579,7 +581,7 @@ let get_arg ic opcode _ =
   (* unhandled opcode *)
   | _ -> (sprintf "unknown opcode: %x" opcode, EmptyArg)
 
-let read_valtype ic = valtype_of_int (get_byte ic)
+let read_valtype ic = valtype_of_int (read_byte ic)
 
 let xxget_local ic = (fun _ ->
   let n = uLEB ic 32 in
@@ -588,24 +590,24 @@ let xxget_local ic = (fun _ ->
   {n; v})
 
 let rec get_instr_list ic nesting acc_instr acc_labels = (* TODO do we need labels? *)
-  let opcode = get_byte ic in
+  let opcode = read_byte ic in
   let (opname, arg) = (get_arg ic opcode get_instr_list) in
   match opcode with
   (* end *)
   | 0x0b ->
       ( match nesting with
-        | 0 -> List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}], acc_labels
-        | _ -> get_instr_list ic  (nesting-1)  (List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}]) acc_labels
+        | 0 -> acc_instr@[{opcode; opname; arg; nesting=nesting-1}], acc_labels
+        | _ -> get_instr_list ic  (nesting-1)  (acc_instr@[{opcode; opname; arg; nesting=nesting-1}]) acc_labels
       )
   (* block, loop, if *)
-  | 0x02 | 0x03 | 0x04 -> get_instr_list ic (nesting+1) (List.append acc_instr [{opcode; opname; arg; nesting}]) acc_labels
+  | 0x02 | 0x03 | 0x04 -> get_instr_list ic (nesting+1) (acc_instr@[{opcode; opname; arg; nesting}]) acc_labels
   (* else, all others *)
-  | 0x05 ->  get_instr_list ic  nesting (List.append acc_instr [{opcode; opname; arg; nesting=nesting-1}]) acc_labels
+  | 0x05 ->  get_instr_list ic  nesting (acc_instr@[{opcode; opname; arg; nesting=nesting-1}]) acc_labels
   (* all others *)
-  | _ ->  get_instr_list ic nesting (List.append acc_instr [{opcode; opname; arg; nesting}]) acc_labels
+  | _ ->  get_instr_list ic nesting (acc_instr@[{opcode; opname; arg; nesting}]) acc_labels
   
   let mut ic =
-  let mut_type = get_byte ic in
+  let mut_type = read_byte ic in
   match mut_type with
   | 0x00 -> eprintf "const "; true
   | 0x01 -> eprintf "var "; true
@@ -613,14 +615,15 @@ let rec get_instr_list ic nesting acc_instr acc_labels = (* TODO do we need labe
 
 let globaltype ic = (fst (valtype ic)) && mut ic
 
+let read_expr ic = fst (get_instr_list ic 0 [] []) (* TODO sort out this fst hack *)
 let read_global ic w = 
   let gt = read_globaltype ic in
-  let e = get_instr_list ic 0 [] [] in
-  update_global_section w gt (fst e)
+  let e = read_expr ic in
+  update_global_section w gt e
 
 (* Export section *)
 let read_exportdesc ic =
-  let exportdesc_type = get_byte ic in
+  let exportdesc_type = read_byte ic in
   match exportdesc_type with
   | 0x00 -> eprintf "func"; Func (read_idx ic)
   | 0x01 -> eprintf "table"; Table (read_idx ic)
@@ -638,11 +641,11 @@ let [@warning "-27"]read_start ic w =
   && get_idx ic
 
 (* Element section *)
-let elemkind ic =
-  let elemkind_type = get_byte ic in
-  match elemkind_type with
-  | 0x00 -> true
-  | _ -> printf "Invalid elemkind %x" elemkind_type; false
+let read_elemkind ic: int =
+  let k = read_byte ic in
+  match k with
+  | 0x00 -> k
+  | _ -> printf "Invalid elemkind %x" k; k
 
 let rec vec_expr ic n =
   match n with
@@ -651,17 +654,57 @@ let rec vec_expr ic n =
     expr ic
     && vec_expr ic (n-1)
 
-let [@warning "-27"]read_element ic w =
-  let element_type = get_byte ic in
+let read_idx ic =
+  match uLEB ic 32 with
+  | -1 -> eprintf "idx error!\n"; 0
+  | i -> eprintf "Index: %d " i; i
+
+let read_vec_len ic = uLEB ic 32
+let rec read_vec' ic n reader acc =
+  match n with
+  | 0 -> acc
+  | _ -> read_vec' ic (n-1) reader (acc@[reader ic])
+let read_vec ic reader = read_vec' ic (read_vec_len ic) reader []
+
+let read_element ic w =
+  let element_type = read_byte ic in
   match element_type with
-  | 0x00 -> expr ic && vec_idx ic (get_byte ic)
-  | 0x01 -> elemkind ic && vec_idx ic (get_byte ic)
-  | 0x02 -> get_idx ic && expr ic && elemkind ic && vec_idx ic (get_byte ic)
-  | 0x03 -> elemkind ic && vec_idx ic (get_byte ic)
-  | 0x04 -> expr ic && vec_expr ic (get_byte ic)
-  | 0x05 -> reftype ic && vec_expr ic (get_byte ic)
-  | 0x06 -> get_idx ic && expr ic && reftype ic && vec_expr ic (get_byte ic)
-  | 0x07 -> reftype ic && vec_expr ic (get_byte ic)
+  | 0x00 ->
+      let e = read_expr ic in
+      let y = read_vec ic read_idx in
+      update_element_section w (ExprFunc {e; y})
+  | 0x01 ->
+      let (_: int) = read_elemkind ic in
+      let y = read_vec ic read_idx in
+      update_element_section w (ElemFuncP {y})
+  | 0x02 ->
+      let x = read_idx ic in
+      let e = read_expr ic in
+      let (_: int) = read_elemkind ic in
+      let y = read_vec ic read_idx in
+      update_element_section w (TableExprElemFunc {x; e; y})
+  | 0x03 -> 
+      let (_: int) = read_elemkind ic in
+      let y = read_vec ic read_idx in
+      update_element_section w (ElemFuncD {y})
+  | 0x04 -> 
+      let e = read_expr ic in
+      let el = read_vec ic read_expr in
+      update_element_section w (ExprExpr {e; el})
+  | 0x05 ->
+      let et = read_reftype ic in
+      let el = read_vec ic read_expr in
+      update_element_section w (RefExprP {et; el})
+  | 0x06 -> 
+      let x = read_idx ic in
+      let e = read_expr ic in
+      let et = read_reftype ic in
+      let el = read_vec ic read_expr in
+      update_element_section w (TableExprRefExpr {x; e; et; el})
+  | 0x07 -> 
+      let et = read_reftype ic in
+      let el = read_vec ic read_expr in
+      update_element_section w (RefExprD {et; el})
   | _ ->  printf "Invalid element item %x" element_type; false
 
 (* Code section *)
@@ -671,7 +714,7 @@ let get_local ic =
   match get_type_count ic with
   | 0 -> printf("Type count error!\n"); false
   | n ->
-    let type_type = get_byte ic in
+    let type_type = read_byte ic in
     match type_type with
     | 0x7F -> eprintf "%d i32 " n; true
     | 0x7E -> eprintf "%d i64 " n; true
@@ -697,17 +740,21 @@ let read_code ic w =
   true
 
 (* Data section *)
-let rec vec_bytes ic n =
-  match n with
-  | 0 -> true
-  | _ -> eprintf "%X " (get_byte ic); vec_bytes ic (n-1)
-
-let [@warning "-27"]read_data ic w =
-  let data_item_type = get_byte ic in
+let read_data ic w =
+  let data_item_type = read_byte ic in
   match data_item_type with
-  | 0x00 -> eprintf "data section type 0\n"; expr ic && vec_bytes ic (get_vec_len ic)
-  | 0x01 -> eprintf "data section type 1\n"; vec_bytes ic (get_vec_len ic)
-  | 0x02 -> eprintf "data section type 2\n"; get_idx ic && expr ic && vec_bytes ic (get_vec_len ic)
+  | 0x00 -> 
+      let e = read_expr ic in
+      let b = read_vec ic read_byte in
+      update_data_section w (ExprBytes {e; b})
+  | 0x01 -> 
+      let b = read_vec ic read_byte in
+      update_data_section w (Bytes b)
+  | 0x02 -> 
+      let x = read_idx ic in
+      let e = read_expr ic in
+      let b = read_vec ic read_byte in
+      update_data_section w (MemExprBytes {x; e; b})
   | _ -> printf "Invalid data item %x\n" data_item_type; false
 
 (* Section reader *)
@@ -729,7 +776,7 @@ let read_section_body ic w id =
   | _ -> eprintf "Unknown section, skipping\n"; skip_bytes ic (read_section_length ic)
 
 let read_section_id ic =
-  match get_byte ic with
+  match read_byte ic with
   | id -> eprintf "\n\nSection type: %d\n" id; id
 
 

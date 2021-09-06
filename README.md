@@ -36,7 +36,7 @@ Install common OCAML packages
 
 Build and run wanalyze
 - from the directory that you cloned the wanalyze repo to
-- build: "corebuild readBin.native"
+- build: "corebuild -lib str readBin.native"
 - to run wanalyze on a wasm file: "./readBin.native file.wasm >file.out 2>file.err"
 
 (Optional) Install MS Code
