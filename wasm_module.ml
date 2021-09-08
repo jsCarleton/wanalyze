@@ -514,18 +514,34 @@ let string_of_element_section section =
   String.concat ~sep:"" (List.map ~f:string_of_element section)
 
 (* Data section *)
-let hexEscape s =
-  eprintf "escaping: %s\n" s;
-  match (String.length s > 1)
-     && (Char.compare (String.get s 0) '\\' = 0)
-     && (Char.compare (String.get s 1) '0' >= 0) 
-     && (Char.compare (String.get s 1) '9' <= 0) with
-  | true -> "\\" ^ sprintf "%2.2x" (int_of_string (String.suffix s ((String.length s) - 1)))
-  | _ -> s
-let specialEscape s = Str.global_replace (Str.regexp "\\t") "\\09" s
-
+let hexEscape b =
+  if b < 32 || b > 126 then sprintf "\\%2.2x" b
+  else (
+    if b = 34 then "\\22"
+    else 
+      if b = 39 then "'"
+      else 
+      if b = 92 then "\\5c"
+      else Char.escaped (char_of_int b))
+(*   eprintf "escaping: %s length %d\n" s (String.length s);
+  match s with 
+  | "\\b" -> "\\08"
+  | "\\t" -> "\\09"
+  | "\\n" -> "\\0a"
+  | "\\r" -> "\\0d"
+  | "\"" -> "\\22"
+  | "\\\\" -> "\\5c"
+  | "\\'" -> "'"
+  | _ -> (
+    match (String.length s > 1)
+      && (Char.compare (String.get s 0) '\\' = 0)
+      && (Char.compare (String.get s 1) '0' >= 0) 
+      && (Char.compare (String.get s 1) '9' <= 0) with
+    | true -> "\\" ^ sprintf "%2.2x" (int_of_string (String.suffix s ((String.length s) - 1)))
+    | _ -> s)
+ *)
 let string_of_bytes b =
-  specialEscape (String.concat ~sep:"" (List.map ~f:hexEscape (List.map ~f:Char.escaped (List.map ~f:char_of_int b))))
+  (String.concat ~sep:"" (List.map ~f:hexEscape b))
 
 let string_of_data d = 
   match d.details with
