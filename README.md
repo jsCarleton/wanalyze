@@ -42,3 +42,13 @@ Build and run wanalyze
 (Optional) Install MS Code
 - download https://go.microsoft.com/fwlink/?LinkID=760868
 - then sudo apt install ./<file downloaded>.deb
+
+MacOS installation instructions
+-------------------------------
+
+Install OCaml
+- brew install ocaml
+
+Install OPAM
+- brew install gpatch
+- brew install opam

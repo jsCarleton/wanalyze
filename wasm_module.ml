@@ -244,16 +244,10 @@ type local_type =
   n:  int;
   v:  valtype;
 }
-type label_type = 
-{
-  index:  labelidx;
-  name:   string;
-}
 type func =
 {
   locals:   local_type list;
   e:        expr;
-  labels:   label_type list;
 }
 
 (* Globals *)
@@ -301,6 +295,7 @@ type wasm_module =
   mutable function_section: typeidx list;
   mutable global_section:   global list;
   mutable export_section:   export list;
+  mutable start_section:    funcidx option;
   mutable element_section:  element list;
   mutable code_section:     func list;
   mutable data_section:     data list;
@@ -312,8 +307,8 @@ type wasm_module =
 }
 let create name =
   { module_name = name; type_section = []; import_section = []; function_section = []; 
-    global_section = []; export_section = []; element_section = []; code_section = [];
-    data_section = [];
+    global_section = []; export_section = []; start_section = None; element_section = []; 
+    code_section = []; data_section = [];
     next_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
 
 (* Printable strings *)
@@ -361,6 +356,12 @@ let string_of_exportdesc d =
 let string_of_export (e: export) =
   "  (export \"" ^ e.name ^ "\" (" ^ string_of_exportdesc e.desc ^ "))\n"
 let string_of_export_section section = String.concat ~sep:"" (List.map ~f:string_of_export section)
+
+(* Start section *)
+let string_of_start idx =
+  match idx with
+  | Some idx' -> "(start " ^string_of_int idx' ^ ")\n"
+  | _ -> ""
   
 (* Function section *)
 let list_item l i =
@@ -523,23 +524,7 @@ let hexEscape b =
       else 
       if b = 92 then "\\5c"
       else Char.escaped (char_of_int b))
-(*   eprintf "escaping: %s length %d\n" s (String.length s);
-  match s with 
-  | "\\b" -> "\\08"
-  | "\\t" -> "\\09"
-  | "\\n" -> "\\0a"
-  | "\\r" -> "\\0d"
-  | "\"" -> "\\22"
-  | "\\\\" -> "\\5c"
-  | "\\'" -> "'"
-  | _ -> (
-    match (String.length s > 1)
-      && (Char.compare (String.get s 0) '\\' = 0)
-      && (Char.compare (String.get s 1) '0' >= 0) 
-      && (Char.compare (String.get s 1) '9' <= 0) with
-    | true -> "\\" ^ sprintf "%2.2x" (int_of_string (String.suffix s ((String.length s) - 1)))
-    | _ -> s)
- *)
+
 let string_of_bytes b =
   (String.concat ~sep:"" (List.map ~f:hexEscape b))
 
@@ -561,20 +546,16 @@ let print w =
   printf "%s" (string_of_function_section w);
   printf "%s" (string_of_global_section w.global_section);
   printf "%s" (string_of_export_section w.export_section);
+  printf "%s" (string_of_start w.start_section);
   printf "%s" (string_of_element_section w.element_section);
   printf "%s" (string_of_data_section w.data_section);
-  printf ")"; true
+  printf ")"; ()
 
 (* Section updating *)
 (* type section *)
-let update_type_section w ((b1, rt1),(b2, rt2)) =
-  eprintf "updating, before:%d\n" (List.length w.type_section);
-  eprintf "rt1 len:%d rt2 len:%d\n" (List.length rt1)(List.length rt2);
-  match (b1,b2) with
-  | (true, true) -> 
-          w.type_section 
-            <- List.append w.type_section [create_functype (List.map ~f:valtype_of_int rt1) (List.map ~f:valtype_of_int rt2) ]; true
-  | _ -> false
+let update_type_section w (rt1, rt2) =
+  w.type_section 
+    <- List.append w.type_section [create_functype (List.map ~f:valtype_of_int rt1) (List.map ~f:valtype_of_int rt2) ]; true
 
 (* import section *)
 let index_of w desc =
@@ -593,12 +574,8 @@ let update_import_section w module_name import_name description =
       true
 
 (* function section *)
-let update_function_section w (b, i) =
-  match b, i with
-  | true, _ ->
-          w.function_section
-            <- List.append w.function_section [i]; true
-  | _ -> false
+let update_function_section w i =
+  w.function_section <- List.append w.function_section [i]; true
 
 (* global section *)
 let index_of_global w =
@@ -610,13 +587,16 @@ let update_global_section w gt e =
 let update_export_section w name desc =
   w.export_section <- List.append w.export_section [{name; desc}]; true
 
+(* start section *)
+let update_start_section w idx = w.start_section <- Some idx; true
+
 (* element section *)
 let update_element_section w elem =
   w.element_section <- List.append w.element_section [elem]; true
 
 (* code section *)
-let update_code_section w locals e labels =
-  w.code_section <- List.append w.code_section [{locals; e; labels}]
+let update_code_section w locals e =
+  w.code_section <- List.append w.code_section [{locals; e}]
 
 (* data section *)
 let index_of_data w =
