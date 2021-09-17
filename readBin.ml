@@ -1,11 +1,8 @@
 open Core
 open Wasm_module
 (* TODO: 
-    - use map instead of coding recursion on lists 
-    - use read_ instead of get_ when reading from ic
     - make eprintfs look at verbose flag 
     - add validation of indices (e.g. functions, types)
-    - get rid of all [@warning "-27"]
     - fix format of param and result in section 1*)
 
 let usage_msg = "readBin -verbose <file1> <file2> ..."
@@ -81,11 +78,6 @@ let reftype ic =
   | 0x6F -> eprintf "externref"; true
   | x -> printf "Invalid reftype %x!" x; false
 
-let memarg ic =
-  eprintf "align: %d " (uLEB ic 32);
-  eprintf "offset: %d " (uLEB ic 32);
-  true
-
 let read_memarg ic bits = 
   let a = uLEB ic 32 in
   {a; o=uLEB ic 32; bits}
@@ -157,7 +149,7 @@ let read_reftype ic =
   | 0x6F -> eprintf "externref"; Externref
   | x -> printf "Invalid reftype %x!" x; Funcref
 
-let read_table_type ic = 
+let read_tabletype ic = 
   let et = read_reftype ic in
   let lim = read_limits ic in
   {et; lim}
@@ -191,7 +183,7 @@ let read_importdesc ic =
   let importdesc_type = read_byte ic in
   match importdesc_type with
   | 0x00 -> eprintf "func ";    Some (Functype (read_idx ic))
-  | 0x01 -> eprintf "table ";   Some (Tabletype (read_table_type ic))
+  | 0x01 -> eprintf "table ";   Some (Tabletype (read_tabletype ic))
   | 0x02 -> eprintf "mem ";     Some (Memtype (read_mem_type ic))
   | 0x03 -> eprintf "global ";  Some (Globaltype (read_globaltype ic))
   | _ -> printf("Invalid importdesc %x!") importdesc_type; None
@@ -220,13 +212,11 @@ let read_import ic w =
 let read_function ic w = update_function_section w (read_idx ic)
 
 (* Table section *)
-let get_table_type ic = reftype ic && limits ic
-  
-let [@warning "-27"]read_table ic w = get_table_type ic
+let read_table ic w = update_table_section w (read_tabletype ic)
 
 (* Memory section *)
-let get_mem_type ic = limits ic
-let [@warning "-27"]read_memory ic w = get_mem_type ic
+let read_mem_type ic = read_limits ic
+let read_memory ic w = update_memory_section w (read_mem_type ic)
 
 (* Global section *)
 let read_blocktype ic =
@@ -485,13 +475,6 @@ let rec read_instr_list ic nesting acc_instr =
   (* all others *)
   | _ ->  read_instr_list ic nesting (acc_instr@[{opcode; opname; arg; nesting}])
   
-  let mut ic =
-  let mut_type = read_byte ic in
-  match mut_type with
-  | 0x00 -> eprintf "const "; true
-  | 0x01 -> eprintf "var "; true
-  | _ -> eprintf "Invalid mut %x!" mut_type; false
-
 let read_expr ic = read_instr_list ic 0 []
 let read_global ic w = 
   let gt = read_globaltype ic in

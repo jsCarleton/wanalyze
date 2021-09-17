@@ -293,6 +293,8 @@ type wasm_module =
   mutable type_section:     functype list;
   mutable import_section:   import list;
   mutable function_section: typeidx list;
+  mutable table_section:    tabletype list;
+  mutable memory_section:   memtype list;
   mutable global_section:   global list;
   mutable export_section:   export list;
   mutable start_section:    funcidx option;
@@ -306,9 +308,9 @@ type wasm_module =
   mutable next_data:        int;
 }
 let create name =
-  { module_name = name; type_section = []; import_section = []; function_section = []; 
-    global_section = []; export_section = []; start_section = None; element_section = []; 
-    code_section = []; data_section = [];
+  { module_name = name; type_section = []; import_section = []; function_section = [];
+    table_section = []; memory_section = []; global_section = []; export_section = [];
+    start_section = None; element_section = []; code_section = []; data_section = [];
     next_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
 
 (* Printable strings *)
@@ -330,7 +332,7 @@ let string_of_limits (limit: limits) =
   | Noupper l -> string_of_int l
   | Lowerupper (l,u) -> string_of_int l ^ " " ^ string_of_int u
 let string_of_tabletype tt i =
-"(table (;" ^ string_of_int i ^ ";) " ^ string_of_limits tt.lim ^ " " ^ string_of_reftype tt.et ^ ")" 
+  "(table (;" ^ string_of_int i ^ ";) " ^ string_of_limits tt.lim ^ " " ^ string_of_reftype tt.et ^ ")" 
 let string_of_memtype mt i =
   "(memory (;" ^ string_of_int i ^ ";) " ^ string_of_limits mt ^ ")"
 let string_of_globaltype gt i =
@@ -486,6 +488,14 @@ let string_of_function w i idx =
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
 
+(* Table section *) 
+let string_of_table i (t: tabletype) = (string_of_tabletype t i) ^ "\n"
+let string_of_table_section section = String.concat ~sep:"" (List.mapi ~f:string_of_table section)
+
+  (* Memory section *) 
+let string_of_memory i (m: memtype) = (string_of_memtype m i) ^ "\n"
+let string_of_memory_section section = String.concat ~sep:"" (List.mapi ~f:string_of_memory section)
+
 (* Global section *)
 let string_of_inline_expr e =
   (String.drop_prefix (string_of_expr e) 5)
@@ -544,6 +554,8 @@ let print w =
   printf "%s" (string_of_type_section w.type_section);
   printf "%s" (string_of_import_section w.import_section);
   printf "%s" (string_of_function_section w);
+  printf "%s" (string_of_table_section w.table_section);
+  printf "%s" (string_of_memory_section w.memory_section);
   printf "%s" (string_of_global_section w.global_section);
   printf "%s" (string_of_export_section w.export_section);
   printf "%s" (string_of_start w.start_section);
@@ -576,6 +588,14 @@ let update_import_section w module_name import_name description =
 (* function section *)
 let update_function_section w i =
   w.function_section <- List.append w.function_section [i]; true
+
+(* table section *)
+let update_table_section w t =
+  w.table_section <- List.append w.table_section [t]; true
+
+(* memory section *)
+let update_memory_section w m =
+  w.memory_section <- List.append w.memory_section [m]; true
 
 (* global section *)
 let index_of_global w =
