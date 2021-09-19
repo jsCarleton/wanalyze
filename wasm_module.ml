@@ -13,7 +13,6 @@ type valtype =
 
 type resulttype = valtype
 
-(* TODO in the spec resulttype is a vec of valtype *)
 let valtype_of_int i =
   match i with
   | 0x7f -> Numtype I32
@@ -22,7 +21,7 @@ let valtype_of_int i =
   | 0x7c -> Numtype F64
   | 0x70 -> Reftype Funcref
   | 0x6f -> Reftype Externref
-  | _ -> Numtype I32 (*TODO*)
+  | _ -> eprintf "Invalid valtype %d\n" i; Numtype I32
 
 type labelidx = int
 type blockidx = int
@@ -281,15 +280,12 @@ type data =
 }
 
 (* Data Count *)
-type datacountsec =
-{
-  x: string; (* TODO *)
-}
 
 (* wasm Module *)
 type wasm_module =
 {
   module_name:              string;
+  mutable data_count:       int;
   mutable type_section:     functype list;
   mutable import_section:   import list;
   mutable function_section: typeidx list;
@@ -308,9 +304,10 @@ type wasm_module =
   mutable next_data:        int;
 }
 let create name =
-  { module_name = name; type_section = []; import_section = []; function_section = [];
-    table_section = []; memory_section = []; global_section = []; export_section = [];
-    start_section = None; element_section = []; code_section = []; data_section = [];
+  { module_name = name; data_count = 0;
+    type_section = []; import_section = []; function_section = []; table_section = []; 
+    memory_section = []; global_section = []; export_section = []; start_section = None; 
+    element_section = []; code_section = []; data_section = [];
     next_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
 
 (* Printable strings *)
@@ -371,10 +368,10 @@ let list_item l i =
   | Some x -> x
   | None -> -1
 
-let get_params w idx =
+let get_type_sig w idx =
   match List.nth w.type_section idx with
   | Some x -> x
-  | _ -> {rt1 = []; rt2 = []} (* TODO this shouldn't happen*)
+  | _ -> eprintf "Invalid index: %d" idx; {rt1 = []; rt2 = []}
 
 let rec string_repeat' s sep n acc =
   match n with
@@ -409,7 +406,7 @@ let string_of_blocktype b =
   | Valuetype vt -> "(result " ^ string_of_valtype vt ^ ")"
   | Typeindex ti -> string_of_typeidx ti
 
-let string_of_br_table _ = "" (* TODO *)
+let string_of_br_table b = (String.concat ~sep:" " (List.map ~f:string_of_int b.table)) ^ " " ^ string_of_int b.index
 let string_of_arg' a  =
 match a with 
 | Blocktype b -> string_of_blocktype b
@@ -430,8 +427,20 @@ match a with
 | I64value i -> sprintf "%Ld" i
 | F32value f -> string_of_float f
 | F64value f -> string_of_float f
-| TruncSat i -> string_of_int i
+| TruncSat i -> 
+    (match i with
+    | 0 -> "i32.trunc_sat_f32_s"
+    | 1 -> "i32.trunc_sat_f32_u"
+    | 2 -> "i32.trunc_sat_f64_s"
+    | 3 -> "i32.trunc_sat_f64_u"
+    | 4 -> "i64.trunc_sat_f32_s"
+    | 5 -> "i64.trunc_sat_f32_u"
+    | 6 -> "i64.trunc_sat_f64_s"
+    | 7 -> "i64.trunc_sat_f64_u"
+    | _ -> "invalid trunc_sat: " ^ (string_of_int i)
+    )
 | EmptyArg -> ""
+
 let string_of_arg a  =
   let argstring = string_of_arg' a in
   match String.length argstring with
@@ -483,7 +492,7 @@ let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result r
   
 let string_of_function w i idx = 
   "  (func (;" ^ string_of_int (i + w.next_func) ^ ";) (type " ^ (string_of_int idx) ^ ")" 
-    ^ (string_of_types "param" (get_params w idx).rt1) ^ (string_of_types "result" (get_params w idx).rt2)
+    ^ (string_of_types "param" (get_type_sig w idx).rt1) ^ (string_of_types "result" (get_type_sig w idx).rt2)
     ^ (string_of_code w i) ^ ")\n"
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
@@ -509,20 +518,33 @@ let string_of_global_section section =
 let string_of_list_idx li =
   String.concat ~sep:" " (List.map ~f:string_of_int li)
 
-let string_of_element e =
+let string_of_expr_item e = "(item " ^ string_of_inline_expr e ^ ")"
+let string_of_expr_list el = String.concat ~sep:"" (List.map ~f:string_of_expr_item el)
+
+let string_of_element i e =
 match e with
 | ExprFunc exf ->
-    "  (elem (;0;) (" ^ string_of_inline_expr exf.e ^ ") func " ^ string_of_list_idx exf.y ^ ")\n" 
-| ElemFuncP _ -> "B" (* TODO *)
-| TableExprElemFunc _ -> "C"
-| ElemFuncD _ -> "D"
-| ExprExpr _ -> "E"
-| RefExprP _ -> "F"
-| TableExprRefExpr _ -> "G"
-| RefExprD _ -> "H"
+    "  (elem (;" ^ string_of_int i ^ ";) (" ^ string_of_inline_expr exf.e ^ ") func " ^ string_of_list_idx exf.y ^ ")\n" 
+| ElemFuncP ef ->
+    "  (elem (;" ^ string_of_int i ^ ";) func " ^ string_of_list_idx ef.y ^ ")\n"
+| TableExprElemFunc teef->
+    "  (elem (;" ^ string_of_int i ^ ";) (table " ^ string_of_int teef.x ^ ") (offset " ^ string_of_inline_expr teef.e
+          ^ ") func " ^ string_of_list_idx teef.y ^ ")\n"
+| ElemFuncD ef ->
+    "  (elem (;" ^ string_of_int i ^ ";) func " ^ string_of_list_idx ef.y ^ ")\n"
+| ExprExpr ee ->
+    "  (elem (;" ^ string_of_int i ^ ";) (offset " ^ string_of_inline_expr ee.e ^ ") "
+          ^ String.concat ~sep:"" (List.map ~f:string_of_expr_item ee.el) ^ ")\n"
+| RefExprP re ->
+    "  (elem (;" ^ string_of_int i ^ ";) " ^ string_of_reftype re.et ^ " " ^ string_of_expr_list re.el ^ ")\n"
+| TableExprRefExpr tere ->
+  "  (elem (;" ^ string_of_int i ^ ";) (table " ^ string_of_int tere.x ^ ") (offset " ^ string_of_inline_expr tere.e
+          ^ string_of_reftype tere.et ^ ")" ^ string_of_expr_list tere.el ^ ")\n"
+| RefExprD re ->
+    "  (elem (;" ^ string_of_int i ^ ";) declare " ^ string_of_reftype re.et ^ " " ^ string_of_expr_list re.el ^ ")\n"
   
 let string_of_element_section section =
-  String.concat ~sep:"" (List.map ~f:string_of_element section)
+  String.concat ~sep:"" (List.mapi ~f:string_of_element section)
 
 (* Data section *)
 let hexEscape b =
@@ -535,17 +557,31 @@ let hexEscape b =
       if b = 92 then "\\5c"
       else Char.escaped (char_of_int b))
 
-let string_of_bytes b =
-  (String.concat ~sep:"" (List.map ~f:hexEscape b))
+let string_of_bytes b = (String.concat ~sep:"" (List.map ~f:hexEscape b))
+let string_of_hex bl = (String.concat ~sep:" " (List.map ~f:(fun b -> sprintf "%2.2x" b) bl))
 
-let string_of_data d = 
+(*   type data_details =
+  | ExprBytes of expr_bytes
+  | Bytes of int list
+  | MemExprBytes of mem_expr_bytes
+type mem_expr_bytes =
+{
+  x:  memidx;
+  e:  expr;
+  b:  int list;
+}
+ *)  
+
+let string_of_data d =
   match d.details with
   | ExprBytes eb ->
-     "  (data (;" ^ string_of_int d.index ^ ";) (" ^ string_of_inline_expr eb.e ^ ") \"" ^ string_of_bytes eb.b ^ "\")\n"
-  | Bytes _ -> "B\n"
-  | MemExprBytes _ -> "C\n"
-let string_of_data_section section =
-  String.concat ~sep:"" (List.map ~f:string_of_data section)
+      "  (data (;" ^ string_of_int d.index ^ ";) (" ^ string_of_inline_expr eb.e ^ ") \"" ^ string_of_bytes eb.b ^ "\")\n"
+  | Bytes b ->
+      "  (data (;" ^ string_of_int d.index ^ ";) (" ^ string_of_hex b ^ ")\n"
+  | MemExprBytes meb ->
+      "  (data (;" ^ string_of_int d.index ^ ";) (memory " ^ string_of_int meb.x ^ ") (offset: " ^ string_of_inline_expr meb.e 
+          ^ ") "  ^ string_of_hex meb.b ^ ")\n"
+let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_of_data section)
 
 (* Print the whole wasm module *)
 let print w =
@@ -623,3 +659,6 @@ let index_of_data w =
   w.next_data <- w.next_data + 1; w.next_data-1
 let update_data_section w details =
   w.data_section <- w.data_section@[{index = index_of_data w; details}]; true
+
+(* data count *)
+let update_data_count_section w count = w.data_count <- count; true

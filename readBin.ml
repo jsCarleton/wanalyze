@@ -2,8 +2,7 @@ open Core
 open Wasm_module
 (* TODO: 
     - make eprintfs look at verbose flag 
-    - add validation of indices (e.g. functions, types)
-    - fix format of param and result in section 1*)
+    - add validation of indices (e.g. functions, types)*)
 
 let usage_msg = "readBin -verbose <file1> <file2> ..."
 let verbose = ref false
@@ -47,21 +46,25 @@ let rec uLEB ic size =
   | true -> n
   | _ -> (1 lsl 7) * (uLEB ic (size-7)) + (n - (1 lsl 7))
 
-let rec sLEB' ic size acc shift: int64 =
-  let b = of_int (read_byte ic) in
+let rec sLEB' ic size acc shift b: int64 =
   match i64land 0xC0L b with
   | 0x80L | 0xC0L-> sLEB' ic size 
-                    (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (shift+7)
+                    (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (shift+7) (of_int (read_byte ic))
   | 0x00L ->         i64lor (i64lsl (i64land b 0x7FL) shift) acc
   | 0x40L -> i64lor (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (i64lsl 0xffffffffffffff80L shift)
   | _ -> printf "invalid byte in LEB: %Lx\n" b; 0L
 
-let sLEB ic size : int64 = sLEB' ic size 0L 0
+let sLEB ic size : int64 = sLEB' ic size 0L 0 (of_int (read_byte ic))
 
 let read_i32 ic = 
   match Int64.to_int (sLEB ic 32) with
   | None -> -1
   | Some x -> x
+
+let read_i32' ic b = 
+    match Int64.to_int (sLEB' ic 32 0L 0 (of_int b)) with
+    | None -> -1
+    | Some x -> x
 
 let rec bytes_to_i64' ic n acc : int64 =
   match n with
@@ -224,12 +227,10 @@ let read_blocktype ic =
   match t with
   | 0x40 -> Emptytype
   | 0x7F | 0x7E | 0x7D | 0x7C | 0x70 | 0x6F -> Valuetype (valtype_of_int t)
-  | _ -> Typeindex t (* TODO this needs to handle the multi-byte integer case *)
+  | _ -> Typeindex (read_i32' ic t)
 
 let read_vec_valtype ic =
   List.init (read_vec_len ic) ~f:(fun _ -> (valtype_of_int (read_byte ic)))
-
-let ints_of_i64 _ = [0; 0] (* TODO *)
 
 let read_labelidx ic = uLEB ic 32
 let rec read_vec_labelidx' ic len acc =
@@ -445,7 +446,7 @@ let read_instr ic opcode _ =
   | 0xc3 -> ("i64.extend_16_s", EmptyArg)
   | 0xc4 -> ("i64.extend_32_s", EmptyArg)
 
-  | 0xFC -> ("ixx.trunc_sat_fxx_x", TruncSat (read_i32 ic)) (* TODO a polymorphic opcode that needs interpretation to be printed correctly *)
+  | 0xFC -> ("", TruncSat (read_i32 ic)) (* ixx.trunc_sat_fyy_z *)
 
   (* unhandled opcode *)
   | _ -> (sprintf "unknown opcode: %x" opcode, EmptyArg)
@@ -558,8 +559,7 @@ let read_code ic w =
   (uLEB ic 32) >= 0 (* we discard the size *)
   &&
   (* func *)
-  let len = read_vec_len ic in
-  let locals = List.rev (List.init len ~f:(read_local ic)) in (* TODO: fix this hack that relies on the fact that List.init calls in reverse order *)
+  let locals = read_vec ic (read_local ic) in
   let e = read_instr_list ic 0 [] in
   eprintf "locals %s\n" (string_of_locals locals);
   update_code_section w locals e;
@@ -583,6 +583,11 @@ let read_data ic w =
       update_data_section w (MemExprBytes {x; e; b})
   | _ -> printf "Invalid data item %x\n" data_item_type; false
 
+(* Data count section *)
+let read_data_count ic w =
+  read_section_length ic >= 0 (* discard the section length *)
+  && update_data_count_section w (uLEB ic 32)
+
 (* Section reader *)
 let read_section_body ic w id =
   match id with
@@ -598,7 +603,7 @@ let read_section_body ic w id =
   | 9 -> eprintf "Element section\n";   read_section ic w read_element
   | 10 -> eprintf "Code section\n";     read_section ic w read_code
   | 11 -> eprintf "Data section\n";     read_section ic w read_data
-  | 12 -> eprintf "Data count section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic)
+  | 12 -> eprintf "Data count\n"; read_data_count ic w
   | _ -> eprintf "Unknown section, skipping\n"; skip_bytes ic (read_section_length ic)
 
 let read_section_id ic =
