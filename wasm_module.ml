@@ -1,5 +1,16 @@
 open Core
 
+(* helpful functions *)
+let list_item l i =
+  match List.nth l i with
+  | Some x -> x
+  | None -> failwith "Invalid list index: " ^ string_of_int i
+let list_head l = list_item l 0
+let list_tail l =
+  match List.tl l with
+  | Some x -> x
+  | None -> failwith "Trying to tail an empty list"
+
 (* Types *)
 type numtype =
   | I32 | I64 | F32 | F64
@@ -106,7 +117,7 @@ type import =
 (* Functions *)
 
 (* Tables *)
-type tablesec =
+type tablesec = (* TODO *)
 {
   x: string;
 }
@@ -184,13 +195,33 @@ type op_arg =
   | F64value of float
   | TruncSat of int
   | EmptyArg
+type instr_type =
+  | Control
+  | Reference
+  | Parametric
+  | VariableGL 
+  | VariableSL 
+  | VariableTL 
+  | VariableGG 
+  | VariableSG 
+  | Table 
+  | MemoryL 
+  | MemoryS 
+  | MemoryM 
+  | Constop
+  | Unop 
+  | Binop of string
+  | Testop 
+  | Relop 
+  | Cvtop
 
 type op_type =
 {
-  opcode:   int;
-  opname:   string;
-  arg:      op_arg;
-  nesting:  int;
+  opcode:     int;
+  opname:     string;
+  arg:        op_arg;
+  nesting:    int;
+  instrtype:  instr_type;
 }
 type expr = op_type list
 
@@ -363,11 +394,6 @@ let string_of_start idx =
   | _ -> ""
   
 (* Function section *)
-let list_item l i =
-  match List.nth l i with
-  | Some x -> x
-  | None -> -1
-
 let get_type_sig w idx =
   match List.nth w.type_section idx with
   | Some x -> x
@@ -559,18 +585,6 @@ let hexEscape b =
 
 let string_of_bytes b = (String.concat ~sep:"" (List.map ~f:hexEscape b))
 let string_of_hex bl = (String.concat ~sep:" " (List.map ~f:(fun b -> sprintf "%2.2x" b) bl))
-
-(*   type data_details =
-  | ExprBytes of expr_bytes
-  | Bytes of int list
-  | MemExprBytes of mem_expr_bytes
-type mem_expr_bytes =
-{
-  x:  memidx;
-  e:  expr;
-  b:  int list;
-}
- *)  
 
 let string_of_data d =
   match d.details with
