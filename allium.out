@@ -61949,4 +61949,218 @@ Module: allium.wasm
   (data (;11;) (i32.const 17820) "\01")
   (data (;12;) (i32.const 17835) "\0a\ff\ff\ff\ff")
   (data (;13;) (i32.const 17884) "`E")
-)
+)local.get 0
+  Instructions: 1
+  Stack: [N0]
+  Locals: [N0, N1, ??]
+local.get 1
+  Instructions: 2
+  Stack: [N1, N0]
+  Locals: [N0, N1, ??]
+i32.add
+  Instructions: 2
+  Stack: [(N1 + N0)]
+  Locals: [N0, N1, ??]
+local.set 2
+  Instructions: 2
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+local.get 2
+  Instructions: 3
+  Stack: [(N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+i32.const 0
+  Instructions: 4
+  Stack: [0, (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+i32.eq
+  Instructions: 4
+  Stack: [(0 == (N1 + N0))]
+  Locals: [N0, N1, (N1 + N0)]
+local.get 2
+  Instructions: 5
+  Stack: [(N1 + N0), (0 == (N1 + N0))]
+  Locals: [N0, N1, (N1 + N0)]
+i32.const 8
+  Instructions: 6
+  Stack: [8, (N1 + N0), (0 == (N1 + N0))]
+  Locals: [N0, N1, (N1 + N0)]
+i32.add
+  Instructions: 6
+  Stack: [(8 + (N1 + N0)), (0 == (N1 + N0))]
+  Locals: [N0, N1, (N1 + N0)]
+global.get 1
+  Instructions: 7
+  Stack: [abc, (8 + (N1 + N0)), (0 == (N1 + N0))]
+  Locals: [N0, N1, (N1 + N0)]
+i32.load
+  Instructions: 8
+  Stack: [i32.load@(abc), (8 + (N1 + N0)), (0 == (N1 + N0))]
+  Locals: [N0, N1, (N1 + N0)]
+i32.gt_u
+  Instructions: 8
+  Stack: [(i32.load@(abc) > (8 + (N1 + N0))), (0 == (N1 + N0))]
+  Locals: [N0, N1, (N1 + N0)]
+i32.or
+  Instructions: 8
+  Stack: [((i32.load@(abc) > (8 + (N1 + N0))) || (0 == (N1 + N0)))]
+  Locals: [N0, N1, (N1 + N0)]
+if  ;; label = @1
+  Instructions: 9
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 9
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+  call 0
+  Instructions: 9
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 9
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+end
+  Instructions: 9
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 9
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+local.get 2
+  Instructions: 11
+  Stack: [(N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 11
+  Stack: [(N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+i32.const 7
+  Instructions: 13
+  Stack: [7, 7, (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 13
+  Stack: [7, 7, (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+i32.and
+  Instructions: 13
+  Stack: [((7 && 7) && (N1 + N0)), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 13
+  Stack: [((7 && 7) && (N1 + N0)), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+if  ;; label = @1
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+  call 1
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+end
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 15
+  Stack: []
+  Locals: [N0, N1, (N1 + N0)]
+local.get 2
+  Instructions: 19
+  Stack: [(N1 + N0), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 19
+  Stack: [(N1 + N0), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 19
+  Stack: [(N1 + N0), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 19
+  Stack: [(N1 + N0), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+i64.load
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]
+
+  Instructions: 23
+  Stack: [i64.load@(i64.load@(i64.load@(i64.load@((N1 + N0))))), (N1 + N0), (N1 + N0), (N1 + N0)]
+  Locals: [N0, N1, (N1 + N0)]

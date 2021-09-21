@@ -212,7 +212,7 @@ type instr_type =
   | Unop 
   | Binop of string
   | Testop 
-  | Relop 
+  | Relop of string
   | Cvtop
 
 type op_type =
@@ -220,7 +220,7 @@ type op_type =
   opcode:     int;
   opname:     string;
   arg:        op_arg;
-  nesting:    int;
+  nesting:    int;            (* the lexical nesting level of the instruction *)
   instrtype:  instr_type;
 }
 type expr = op_type list

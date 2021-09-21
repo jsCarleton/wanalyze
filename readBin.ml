@@ -309,42 +309,42 @@ let read_instr ic opcode _ =
   | 0x44 -> ("f64.const", F64value (read_f64 ic), Constop)
 
   | 0x45 -> ("i32.eqz", EmptyArg, Testop)
-  | 0x46 -> ("i32.eq", EmptyArg, Relop)
-  | 0x47 -> ("i32.ne", EmptyArg, Relop)
-  | 0x48 -> ("i32.lt_s", EmptyArg, Relop)
-  | 0x49 -> ("i32.lt_u", EmptyArg, Relop)
-  | 0x4a -> ("i32.gt_s", EmptyArg, Relop)
-  | 0x4b -> ("i32.gt_u", EmptyArg, Relop)
-  | 0x4c -> ("i32.le_s", EmptyArg, Relop)
-  | 0x4d -> ("i32.le_u", EmptyArg, Relop)
-  | 0x4e -> ("i32.ge_s", EmptyArg, Relop)
-  | 0x4f -> ("i32.ge_u", EmptyArg, Relop)
+  | 0x46 -> ("i32.eq", EmptyArg, Relop "==")
+  | 0x47 -> ("i32.ne", EmptyArg, Relop "!=")
+  | 0x48 -> ("i32.lt_s", EmptyArg, Relop "<")
+  | 0x49 -> ("i32.lt_u", EmptyArg, Relop "<")
+  | 0x4a -> ("i32.gt_s", EmptyArg, Relop ">")
+  | 0x4b -> ("i32.gt_u", EmptyArg, Relop ">")
+  | 0x4c -> ("i32.le_s", EmptyArg, Relop "<=")
+  | 0x4d -> ("i32.le_u", EmptyArg, Relop "<=")
+  | 0x4e -> ("i32.ge_s", EmptyArg, Relop ">=")
+  | 0x4f -> ("i32.ge_u", EmptyArg, Relop ">=")
 
   | 0x50 -> ("i64.eqz", EmptyArg, Testop)
-  | 0x51 -> ("i64.eq", EmptyArg, Relop)
-  | 0x52 -> ("i64.ne", EmptyArg, Relop)
-  | 0x53 -> ("i64.lt_s", EmptyArg, Relop)
-  | 0x54 -> ("i64.lt_u", EmptyArg, Relop)
-  | 0x55 -> ("i64.gt_s", EmptyArg, Relop)
-  | 0x56 -> ("i64.gt_u", EmptyArg, Relop)
-  | 0x57 -> ("i64.le_s", EmptyArg, Relop)
-  | 0x58 -> ("i64.le_u", EmptyArg, Relop)
-  | 0x59 -> ("i64.ge_s", EmptyArg, Relop)
-  | 0x5a -> ("i64.ge_u", EmptyArg, Relop)
+  | 0x51 -> ("i64.eq", EmptyArg, Relop "==")
+  | 0x52 -> ("i64.ne", EmptyArg, Relop "!=")
+  | 0x53 -> ("i64.lt_s", EmptyArg, Relop "<")
+  | 0x54 -> ("i64.lt_u", EmptyArg, Relop "<")
+  | 0x55 -> ("i64.gt_s", EmptyArg, Relop ">")
+  | 0x56 -> ("i64.gt_u", EmptyArg, Relop ">")
+  | 0x57 -> ("i64.le_s", EmptyArg, Relop "<=")
+  | 0x58 -> ("i64.le_u", EmptyArg, Relop "<=")
+  | 0x59 -> ("i64.ge_s", EmptyArg, Relop ">=")
+  | 0x5a -> ("i64.ge_u", EmptyArg, Relop ">=")
 
-  | 0x5b -> ("f32.eq", EmptyArg, Relop)
-  | 0x5c -> ("f32.ne", EmptyArg, Relop)
-  | 0x5d -> ("f32.lt", EmptyArg, Relop)
-  | 0x5e -> ("f32.gt", EmptyArg, Relop)
-  | 0x5f -> ("f32.le", EmptyArg, Relop)
-  | 0x60 -> ("f32.ge", EmptyArg, Relop)
+  | 0x5b -> ("f32.eq", EmptyArg, Relop "==")
+  | 0x5c -> ("f32.ne", EmptyArg, Relop "!=")
+  | 0x5d -> ("f32.lt", EmptyArg, Relop "<")
+  | 0x5e -> ("f32.gt", EmptyArg, Relop ">")
+  | 0x5f -> ("f32.le", EmptyArg, Relop "<=")
+  | 0x60 -> ("f32.ge", EmptyArg, Relop ">")
 
-  | 0x61 -> ("f64.eq", EmptyArg, Relop)
-  | 0x62 -> ("f64.ne", EmptyArg, Relop)
-  | 0x63 -> ("f64.lt", EmptyArg, Relop)
-  | 0x64 -> ("f64.gt", EmptyArg, Relop)
-  | 0x65 -> ("f64.le", EmptyArg, Relop)
-  | 0x66 -> ("f64.ge", EmptyArg, Relop)
+  | 0x61 -> ("f64.eq", EmptyArg, Relop "==")
+  | 0x62 -> ("f64.ne", EmptyArg, Relop "!=")
+  | 0x63 -> ("f64.lt", EmptyArg, Relop "<")
+  | 0x64 -> ("f64.gt", EmptyArg, Relop ">")
+  | 0x65 -> ("f64.le", EmptyArg, Relop "<=")
+  | 0x66 -> ("f64.ge", EmptyArg, Relop ">=")
 
   | 0x67 -> ("i32.clz", EmptyArg, Unop)
   | 0x68 -> ("i32.ctz", EmptyArg, Unop)
@@ -465,17 +465,20 @@ let rec read_instr_list ic nesting acc_instr =
   match opcode with
   (* end *)
   | 0x0b ->
+      (* does this end mark the end of the program? *)
       ( match nesting with
+        (* yes *)
         | 0 -> acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}]
+        (* no, it's the end of a block, loop, if [else] - decrease the nesting *)
         | _ -> read_instr_list ic  (nesting-1)  (acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}])
       )
-  (* block, loop, if *)
+  (* block, loop, if - increase the nesting *)
   | 0x02 | 0x03 | 0x04 ->
       read_instr_list ic (nesting+1) (acc_instr@[{opcode; opname; arg; nesting; instrtype}])
-  (* else *)
+  (* else - descrease the nesting *)
   | 0x05 ->  
       read_instr_list ic  nesting (acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}])
-  (* all others *)
+  (* all others - same nesting *)
   | _ ->  
       read_instr_list ic nesting (acc_instr@[{opcode; opname; arg; nesting; instrtype}])
   
@@ -627,8 +630,9 @@ let processFile file =
   let ic = In_channel.create file in
   let w  = Wasm_module.create file in
   match parse_wasm ic w with
-  | true  -> printf "Success yes\n"; Wasm_module.print w
-  | _     -> printf "Failed\n"; Wasm_module.print w
+  | true  -> printf "Success yes\n"; Wasm_module.print w; print_reduction (List.nth_exn w.code_section 0) 2
+  | _     -> printf "Failed\n"; Wasm_module.print w; print_reduction (List.nth_exn w.code_section 0) 2
+  
 
 let () =
   Arg.parse speclist anon_fun usage_msg;
