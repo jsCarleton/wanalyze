@@ -436,3 +436,14 @@ section has 0 entries left
 
 
 Section type: -1
+Uncaught exception:
+  
+  (Failure "Unimplemented control3")
+
+Raised at file "stdlib.ml", line 29, characters 17-33
+Called from file "reduce.ml", line 195, characters 20-35
+Called from file "reduce.ml", line 207, characters 43-64
+Called from file "list.ml", line 147, characters 24-31
+Called from file "list.ml", line 110, characters 12-15
+Called from file "src/list0.ml" (inlined), line 25, characters 16-35
+Called from file "readBin.ml", line 642, characters 2-39

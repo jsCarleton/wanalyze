@@ -629,10 +629,13 @@ let processFile file =
   eprintf "**** New file: %s\n" file;
   let ic = In_channel.create file in
   let w  = Wasm_module.create file in
-  match parse_wasm ic w with
-  | true  -> printf "Success yes\n"; Wasm_module.print w; print_reduction (List.nth_exn w.code_section 0) 2
-  | _     -> printf "Failed\n"; Wasm_module.print w; print_reduction (List.nth_exn w.code_section 0) 2
-  
+  (match parse_wasm ic w with
+   | true  -> printf "Success yes\n"
+   | _     -> printf "Failed\n"
+  );
+  Wasm_module.print w; 
+  print_reductions w.code_section w.function_section w.type_section
+
 
 let () =
   Arg.parse speclist anon_fun usage_msg;

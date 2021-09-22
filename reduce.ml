@@ -203,5 +203,9 @@ let reduce_fn (f: func) (nparams: int): states =
      pending=[]}
 
 let print_reduction (f: func) (nparams: int) =
-  printf "\nStarting state:\n";
+  printf "\n\nStarting state:\n";
   printf "Final states:\n%s" (string_of_ps (reduce_fn f nparams).active)
+
+let param_count types func_type = List.length (List.nth_exn types func_type).rt1
+let print_reductions (fs: func list) (param_types: typeidx list) (types: functype list) =
+  List.iter2_exn ~f:print_reduction fs (List.map ~f:(param_count types) param_types)

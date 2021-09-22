@@ -61950,6 +61950,7 @@ Module: allium.wasm
   (data (;12;) (i32.const 17835) "\0a\ff\ff\ff\ff")
   (data (;13;) (i32.const 17884) "`E")
 )
+
 Starting state:
   steps: 0; stack: []; locals: [N0, N1, ??]
 local.get 0
@@ -62023,3 +62024,626 @@ Final states:
   steps: 24; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
   steps: 24; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
   steps: 22; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+
+Starting state:
+  steps: 0; stack: []; locals: [N0, N1, N2, ??]
+local.get 0
+  steps: 1; stack: [N0]; locals: [N0, N1, N2, ??]
+local.get 1
+  steps: 2; stack: [N1, N0]; locals: [N0, N1, N2, ??]
+i32.add
+  steps: 3; stack: [(N1 + N0)]; locals: [N0, N1, N2, ??]
+local.set 3
+  steps: 4; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 5; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 0
+  steps: 6; stack: [0, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.eq
+  steps: 7; stack: [(0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 8; stack: [(N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 4
+  steps: 9; stack: [4, (N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.add
+  steps: 10; stack: [(4 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+global.get 1
+  steps: 11; stack: [abc, (4 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.load
+  steps: 12; stack: [i32.load@(abc), (4 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.gt_u
+  steps: 13; stack: [(i32.load@(abc) > (4 + (N1 + N0))), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.or
+  steps: 14; stack: [((i32.load@(abc) > (4 + (N1 + N0))) || (0 == (N1 + N0)))]; locals: [N0, N1, N2, (N1 + N0)]
+if  ;; label = @1
+  steps: 15; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+call 0
+  steps: 16; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+end
+  steps: 17; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 15; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 18; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 16; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 3
+  steps: 19; stack: [3, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 17; stack: [3, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.and
+  steps: 20; stack: [(3 && (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 18; stack: [(3 && (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+if  ;; label = @1
+  steps: 21; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+call 1
+  steps: 22; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 20; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+end
+  steps: 23; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 20; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+local.get 2
+  steps: 25; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 23; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 23; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 21; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.store
+  steps: 26; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+
+Final states:
+  steps: 27; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 25; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 25; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 23; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+
+Starting state:
+  steps: 0; stack: []; locals: [N0, N1, N2, ??]
+local.get 0
+  steps: 1; stack: [N0]; locals: [N0, N1, N2, ??]
+local.get 1
+  steps: 2; stack: [N1, N0]; locals: [N0, N1, N2, ??]
+i32.add
+  steps: 3; stack: [(N1 + N0)]; locals: [N0, N1, N2, ??]
+local.set 3
+  steps: 4; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 5; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 0
+  steps: 6; stack: [0, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.eq
+  steps: 7; stack: [(0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 8; stack: [(N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 8
+  steps: 9; stack: [8, (N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.add
+  steps: 10; stack: [(8 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+global.get 1
+  steps: 11; stack: [abc, (8 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.load
+  steps: 12; stack: [i32.load@(abc), (8 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.gt_u
+  steps: 13; stack: [(i32.load@(abc) > (8 + (N1 + N0))), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.or
+  steps: 14; stack: [((i32.load@(abc) > (8 + (N1 + N0))) || (0 == (N1 + N0)))]; locals: [N0, N1, N2, (N1 + N0)]
+if  ;; label = @1
+  steps: 15; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+call 0
+  steps: 16; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+end
+  steps: 17; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 15; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 18; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 16; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 7
+  steps: 19; stack: [7, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 17; stack: [7, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.and
+  steps: 20; stack: [(7 && (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 18; stack: [(7 && (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+if  ;; label = @1
+  steps: 21; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+call 1
+  steps: 22; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 20; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+end
+  steps: 23; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 20; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+local.get 2
+  steps: 25; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 23; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 23; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 21; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i64.store
+  steps: 26; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+
+Final states:
+  steps: 27; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 25; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 25; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 23; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+
+Starting state:
+  steps: 0; stack: []; locals: [N0, N1, ??]
+local.get 0
+  steps: 1; stack: [N0]; locals: [N0, N1, ??]
+local.get 1
+  steps: 2; stack: [N1, N0]; locals: [N0, N1, ??]
+i32.add
+  steps: 3; stack: [(N1 + N0)]; locals: [N0, N1, ??]
+local.set 2
+  steps: 4; stack: []; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 5; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.const 0
+  steps: 6; stack: [0, (N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.eq
+  steps: 7; stack: [(0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 8; stack: [(N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.const 1
+  steps: 9; stack: [1, (N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.add
+  steps: 10; stack: [(1 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+global.get 1
+  steps: 11; stack: [abc, (1 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.load
+  steps: 12; stack: [i32.load@(abc), (1 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.gt_u
+  steps: 13; stack: [(i32.load@(abc) > (1 + (N1 + N0))), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.or
+  steps: 14; stack: [((i32.load@(abc) > (1 + (N1 + N0))) || (0 == (N1 + N0)))]; locals: [N0, N1, (N1 + N0)]
+if  ;; label = @1
+  steps: 15; stack: []; locals: [N0, N1, (N1 + N0)]
+call 0
+  steps: 16; stack: []; locals: [N0, N1, (N1 + N0)]
+end
+  steps: 17; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 15; stack: []; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 18; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 16; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.load8_u
+  steps: 19; stack: [i32.load8_u@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 17; stack: [i32.load8_u@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+
+Final states:
+  steps: 20; stack: [i32.load8_u@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 18; stack: [i32.load8_u@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+
+Starting state:
+  steps: 0; stack: []; locals: [N0, N1, ??]
+local.get 0
+  steps: 1; stack: [N0]; locals: [N0, N1, ??]
+local.get 1
+  steps: 2; stack: [N1, N0]; locals: [N0, N1, ??]
+i32.add
+  steps: 3; stack: [(N1 + N0)]; locals: [N0, N1, ??]
+local.set 2
+  steps: 4; stack: []; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 5; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.const 0
+  steps: 6; stack: [0, (N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.eq
+  steps: 7; stack: [(0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 8; stack: [(N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.const 4
+  steps: 9; stack: [4, (N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.add
+  steps: 10; stack: [(4 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+global.get 1
+  steps: 11; stack: [abc, (4 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.load
+  steps: 12; stack: [i32.load@(abc), (4 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.gt_u
+  steps: 13; stack: [(i32.load@(abc) > (4 + (N1 + N0))), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.or
+  steps: 14; stack: [((i32.load@(abc) > (4 + (N1 + N0))) || (0 == (N1 + N0)))]; locals: [N0, N1, (N1 + N0)]
+if  ;; label = @1
+  steps: 15; stack: []; locals: [N0, N1, (N1 + N0)]
+call 0
+  steps: 16; stack: []; locals: [N0, N1, (N1 + N0)]
+end
+  steps: 17; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 15; stack: []; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 18; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 16; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.const 3
+  steps: 19; stack: [3, (N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 17; stack: [3, (N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.and
+  steps: 20; stack: [(3 && (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 18; stack: [(3 && (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+if  ;; label = @1
+  steps: 21; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, (N1 + N0)]
+call 1
+  steps: 22; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 20; stack: []; locals: [N0, N1, (N1 + N0)]
+end
+  steps: 23; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 20; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.load
+  steps: 25; stack: [i32.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 23; stack: [i32.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 23; stack: [i32.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 21; stack: [i32.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+
+Final states:
+  steps: 26; stack: [i32.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 24; stack: [i32.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 24; stack: [i32.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 22; stack: [i32.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+
+Starting state:
+  steps: 0; stack: []; locals: [N0, N1, N2, ??]
+local.get 0
+  steps: 1; stack: [N0]; locals: [N0, N1, N2, ??]
+local.get 1
+  steps: 2; stack: [N1, N0]; locals: [N0, N1, N2, ??]
+i32.add
+  steps: 3; stack: [(N1 + N0)]; locals: [N0, N1, N2, ??]
+local.set 3
+  steps: 4; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 5; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 0
+  steps: 6; stack: [0, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.eq
+  steps: 7; stack: [(0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 8; stack: [(N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 1
+  steps: 9; stack: [1, (N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.add
+  steps: 10; stack: [(1 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+global.get 1
+  steps: 11; stack: [abc, (1 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.load
+  steps: 12; stack: [i32.load@(abc), (1 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.gt_u
+  steps: 13; stack: [(i32.load@(abc) > (1 + (N1 + N0))), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.or
+  steps: 14; stack: [((i32.load@(abc) > (1 + (N1 + N0))) || (0 == (N1 + N0)))]; locals: [N0, N1, N2, (N1 + N0)]
+if  ;; label = @1
+  steps: 15; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+call 0
+  steps: 16; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+end
+  steps: 17; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 15; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 18; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 16; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+local.get 2
+  steps: 19; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 17; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i64.store8
+  steps: 20; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 18; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+
+Final states:
+  steps: 21; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 19; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+
+Starting state:
+  steps: 0; stack: []; locals: [N0, N1, N2, ??]
+local.get 0
+  steps: 1; stack: [N0]; locals: [N0, N1, N2, ??]
+local.get 1
+  steps: 2; stack: [N1, N0]; locals: [N0, N1, N2, ??]
+i32.add
+  steps: 3; stack: [(N1 + N0)]; locals: [N0, N1, N2, ??]
+local.set 3
+  steps: 4; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 5; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 0
+  steps: 6; stack: [0, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.eq
+  steps: 7; stack: [(0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 8; stack: [(N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 8
+  steps: 9; stack: [8, (N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.add
+  steps: 10; stack: [(8 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+global.get 1
+  steps: 11; stack: [abc, (8 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.load
+  steps: 12; stack: [i32.load@(abc), (8 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.gt_u
+  steps: 13; stack: [(i32.load@(abc) > (8 + (N1 + N0))), (0 == (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+i32.or
+  steps: 14; stack: [((i32.load@(abc) > (8 + (N1 + N0))) || (0 == (N1 + N0)))]; locals: [N0, N1, N2, (N1 + N0)]
+if  ;; label = @1
+  steps: 15; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+call 0
+  steps: 16; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+end
+  steps: 17; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 15; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 18; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 16; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.const 3
+  steps: 19; stack: [3, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 17; stack: [3, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i32.and
+  steps: 20; stack: [(3 && (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 18; stack: [(3 && (N1 + N0))]; locals: [N0, N1, N2, (N1 + N0)]
+if  ;; label = @1
+  steps: 21; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+call 1
+  steps: 22; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 20; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+end
+  steps: 23; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, N2, (N1 + N0)]
+local.get 3
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 20; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+local.get 2
+  steps: 25; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 23; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 23; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 21; stack: [N2, (N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+i64.store align=4
+  steps: 26; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+
+Final states:
+  steps: 27; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 25; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 25; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+  steps: 23; stack: [(N1 + N0)]; locals: [N0, N1, N2, (N1 + N0)]
+
+Starting state:
+  steps: 0; stack: []; locals: [N0, N1, ??]
+local.get 0
+  steps: 1; stack: [N0]; locals: [N0, N1, ??]
+local.get 1
+  steps: 2; stack: [N1, N0]; locals: [N0, N1, ??]
+i32.add
+  steps: 3; stack: [(N1 + N0)]; locals: [N0, N1, ??]
+local.set 2
+  steps: 4; stack: []; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 5; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.const 0
+  steps: 6; stack: [0, (N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.eq
+  steps: 7; stack: [(0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 8; stack: [(N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.const 8
+  steps: 9; stack: [8, (N1 + N0), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.add
+  steps: 10; stack: [(8 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+global.get 1
+  steps: 11; stack: [abc, (8 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.load
+  steps: 12; stack: [i32.load@(abc), (8 + (N1 + N0)), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.gt_u
+  steps: 13; stack: [(i32.load@(abc) > (8 + (N1 + N0))), (0 == (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+i32.or
+  steps: 14; stack: [((i32.load@(abc) > (8 + (N1 + N0))) || (0 == (N1 + N0)))]; locals: [N0, N1, (N1 + N0)]
+if  ;; label = @1
+  steps: 15; stack: []; locals: [N0, N1, (N1 + N0)]
+call 0
+  steps: 16; stack: []; locals: [N0, N1, (N1 + N0)]
+end
+  steps: 17; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 15; stack: []; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 18; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 16; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.const 3
+  steps: 19; stack: [3, (N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 17; stack: [3, (N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i32.and
+  steps: 20; stack: [(3 && (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 18; stack: [(3 && (N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+if  ;; label = @1
+  steps: 21; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, (N1 + N0)]
+call 1
+  steps: 22; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 20; stack: []; locals: [N0, N1, (N1 + N0)]
+end
+  steps: 23; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 21; stack: []; locals: [N0, N1, (N1 + N0)]
+  steps: 19; stack: []; locals: [N0, N1, (N1 + N0)]
+local.get 2
+  steps: 24; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 22; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+  steps: 20; stack: [(N1 + N0)]; locals: [N0, N1, (N1 + N0)]
+i64.load align=4
+  steps: 25; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 23; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 23; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 21; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+
+Final states:
+  steps: 26; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 24; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 24; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+  steps: 22; stack: [i64.load@((N1 + N0))]; locals: [N0, N1, (N1 + N0)]
+
+Starting state:
+  steps: 0; stack: []; locals: [N0, N1, N2]
+local.get 0
+  steps: 1; stack: [N0]; locals: [N0, N1, N2]
+i32.const 0
+  steps: 2; stack: [0, N0]; locals: [N0, N1, N2]
+i32.le_s
+  steps: 3; stack: [(0 <= N0)]; locals: [N0, N1, N2]
+if  ;; label = @1
+  steps: 4; stack: []; locals: [N0, N1, N2]
+call 0
+  steps: 5; stack: []; locals: [N0, N1, N2]
+end
+  steps: 6; stack: []; locals: [N0, N1, N2]
+  steps: 4; stack: []; locals: [N0, N1, N2]
+local.get 0
+  steps: 7; stack: [N0]; locals: [N0, N1, N2]
+  steps: 5; stack: [N0]; locals: [N0, N1, N2]
+local.get 2
+  steps: 8; stack: [N2, N0]; locals: [N0, N1, N2]
+  steps: 6; stack: [N2, N0]; locals: [N0, N1, N2]
+i32.add
+  steps: 9; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 7; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+global.get 4
+  steps: 10; stack: [abc, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 8; stack: [abc, (N2 + N0)]; locals: [N0, N1, N2]
+i32.const 0
+  steps: 11; stack: [0, abc, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 9; stack: [0, abc, (N2 + N0)]; locals: [N0, N1, N2]
+call 20
+  steps: 12; stack: [0, abc, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 10; stack: [0, abc, (N2 + N0)]; locals: [N0, N1, N2]
+i32.gt_s
+  steps: 13; stack: [(0 > abc), (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 11; stack: [(0 > abc), (N2 + N0)]; locals: [N0, N1, N2]
+if  ;; label = @1
+  steps: 14; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 12; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+call 0
+  steps: 15; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 13; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+end
+  steps: 16; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 14; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 14; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 12; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+local.get 2
+  steps: 17; stack: [N2, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 15; stack: [N2, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 15; stack: [N2, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 13; stack: [N2, (N2 + N0)]; locals: [N0, N1, N2]
+i32.const 4
+  steps: 18; stack: [4, N2, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 16; stack: [4, N2, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 16; stack: [4, N2, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 14; stack: [4, N2, (N2 + N0)]; locals: [N0, N1, N2]
+i32.eq
+  steps: 19; stack: [(4 == N2), (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 17; stack: [(4 == N2), (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 17; stack: [(4 == N2), (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 15; stack: [(4 == N2), (N2 + N0)]; locals: [N0, N1, N2]
+if  ;; label = @1
+  steps: 20; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 18; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 18; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 16; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+local.get 0
+  steps: 21; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 19; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 19; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 17; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+i32.const 3
+  steps: 22; stack: [3, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 20; stack: [3, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 20; stack: [3, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 18; stack: [3, N0, (N2 + N0)]; locals: [N0, N1, N2]
+i32.and
+  steps: 23; stack: [(3 && N0), (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 21; stack: [(3 && N0), (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 21; stack: [(3 && N0), (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 19; stack: [(3 && N0), (N2 + N0)]; locals: [N0, N1, N2]
+if  ;; label = @2
+  steps: 24; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 22; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 22; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 20; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+call 1
+  steps: 25; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 23; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 23; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 21; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+end
+  steps: 26; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 24; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 24; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 22; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 24; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 22; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 22; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+  steps: 20; stack: [(N2 + N0)]; locals: [N0, N1, N2]
+local.get 0
+  steps: 27; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 25; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 25; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 23; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 25; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 23; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 23; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 21; stack: [N0, (N2 + N0)]; locals: [N0, N1, N2]
+i32.const 0
+  steps: 28; stack: [0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 26; stack: [0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 26; stack: [0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 24; stack: [0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 26; stack: [0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 24; stack: [0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 24; stack: [0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 22; stack: [0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+local.get 1
+  steps: 29; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 27; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 27; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 25; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 27; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 25; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 25; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 23; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+call 17
+  steps: 30; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 28; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 28; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 26; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 28; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 26; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 26; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+  steps: 24; stack: [N1, 0, N0, (N2 + N0)]; locals: [N0, N1, N2]
+else
