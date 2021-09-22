@@ -9,25 +9,35 @@ type program_state =
   mutable local_values:   string array;
   mutable global_values:  string array;
 }
-type possible_states = program_state list
+type program_states = program_state list
+
+type states =
+{
+  mutable active:   program_states;
+  mutable pending:  program_states list;
+}
 
 (* printing the state *)
-let string_of_instr_count (count: int) = "  Instructions: " ^ string_of_int count ^ "\n"
-let string_of_value_stack (stack: string list) = "  Stack: [" ^ (String.concat ~sep:", " stack) ^ "]\n"
-let string_of_local_values (locals: string array) = "  Locals: [" ^ (String.concat ~sep:", " (Array.to_list locals)) ^ "]\n"
+let string_of_instr_count (count: int) = "  steps: " ^ string_of_int count ^ "; "
+let string_of_value_stack (stack: string list) = "stack: [" ^ (String.concat ~sep:", " stack) ^ "]; "
+let string_of_local_values (locals: string array) = "locals: [" ^ (String.concat ~sep:", " (Array.to_list locals)) ^ "]"
 let string_of_state (state: program_state): string =
   string_of_instr_count state.instr_count ^ string_of_value_stack state.value_stack ^ string_of_local_values state.local_values
-let string_of_ps (ps: possible_states): string =
-  String.concat ~sep:"\n" (List.map ~f:string_of_state ps)
+let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:string_of_state ps)
 
 (* updating the state of the program *)
 
 (* control operators *)
 let update_state_ifop (state: program_state) =
-  state.value_stack <- list_tail state.value_stack;
-  state.instr_count <- state.instr_count + 1
+  state.value_stack <- list_tail state.value_stack
+let state_copy (s: program_state): program_state =
+  {instr_count=s.instr_count; value_stack=s.value_stack; local_values=s.local_values; global_values=s.global_values}
+let states_copy (states: program_states): program_states =
+  List.map ~f:state_copy states
+let push_states (dest: program_states list) (src: program_states): program_states list =
+  List.cons (states_copy src) dest
 
-let update_states_controlop (op: op_type) (ps: possible_states): possible_states = 
+let update_states_controlop (op: op_type) (s: states): states = 
   match op.opcode with
   (* all other control ops: unreachable, nop, br, br_if, br_table, return, call_indirect *)
   | 0x00 | 0x01 | 0x0c | 0x0d | 0x0e | 0x0f | 0x11 ->  failwith "Unimplemented control1"
@@ -35,13 +45,23 @@ let update_states_controlop (op: op_type) (ps: possible_states): possible_states
   | 0x02 | 0x03 -> failwith "Unimplemented control2"
   (* if *)
   | 0x04 ->
-      List.iter ~f:update_state_ifop ps; List.append ps ps
+      List.iter ~f:update_state_ifop s.active;
+      s.pending <- push_states s.pending s.active;
+      s
   (* else *)
   | 0x05 -> failwith "Unimplemented control3"
   (* end *)
-  | 0x0b -> ps (* TODO *)
+  | 0x0b ->
+    (match op.nesting with
+    | -1 -> s
+    |  _ ->
+      let new_states = List.nth_exn s.pending 0 in
+      s.active <- List.append s.active new_states;
+      s.pending <- List.tl_exn s.pending;
+      s
+    )
   (* call *) (* TODO - account for the type signature *)
-  | 0x10 -> ps
+  | 0x10 -> s
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
 
@@ -55,8 +75,7 @@ let int_of_get_argG arg =
     | Globalidx i -> i
     | _ -> failwith "Invalid global index"
 let update_state_varGLop (op: op_type) (state: program_state) = (* get local *)
-  state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack;
-  state.instr_count <- state.instr_count + 1
+  state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack
 let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
   let value = list_head state.value_stack in
   state.value_stack <- list_tail state.value_stack;
@@ -65,8 +84,7 @@ let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
   let value = list_head state.value_stack in
   Array.set state.local_values (int_of_get_argL op.arg) value
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
-  state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack;
-  state.instr_count <- state.instr_count + 1
+  state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
   let value = list_head state.value_stack in
   state.value_stack <- list_tail state.value_stack;
@@ -76,11 +94,9 @@ let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
 let update_state_memloadop (op: op_type) (state: program_state) = 
   let addr = list_head state.value_stack in
   state.value_stack <- list_tail state.value_stack;
-  state.value_stack <- List.cons (op.opname ^ "@(" ^ addr ^ ")") state.value_stack;
-  state.instr_count <- state.instr_count + 1
+  state.value_stack <- List.cons (op.opname ^ "@(" ^ addr ^ ")") state.value_stack
 let update_state_memstoreop (state: program_state) = 
-  state.value_stack <- list_tail state.value_stack;
-  state.instr_count <- state.instr_count + 1
+  state.value_stack <- list_tail state.value_stack
 
 (* constant operators *)
 let string_of_const_arg arg =
@@ -91,13 +107,11 @@ let string_of_const_arg arg =
   | F64value f -> string_of_float f
   | _-> failwith "Invalid const argument"
 let update_state_constop (op: op_type) (state: program_state) =
-  state.value_stack <- List.cons (string_of_const_arg op.arg) state.value_stack;
-  state.instr_count <- state.instr_count + 1
+  state.value_stack <- List.cons (string_of_const_arg op.arg) state.value_stack
 
 (* unary operators *)
 let update_state_unop (op: op_type) (state: program_state) = 
-  state.value_stack <- List.cons (op.opname ^ "(" ^ (list_head state.value_stack) ^ ")") (list_tail state.value_stack);
-  state.instr_count <- state.instr_count + 1
+  state.value_stack <- List.cons (op.opname ^ "(" ^ (list_head state.value_stack) ^ ")") (list_tail state.value_stack)
 
 (* binary operators *)
 let update_state_binop (f: string) (state: program_state) =
@@ -109,8 +123,7 @@ let update_state_binop (f: string) (state: program_state) =
 
 (* test operators *)
 let update_state_testop (op: op_type) (state: program_state) = 
-  state.value_stack <- List.cons (op.opname ^ "(" ^ (list_head state.value_stack) ^ ")") (list_tail state.value_stack);
-  state.instr_count <- state.instr_count + 1
+  state.value_stack <- List.cons (op.opname ^ "(" ^ (list_head state.value_stack) ^ ")") (list_tail state.value_stack)
   
 (* rel operators *)
 let update_state_relop (f: string) (state: program_state) =
@@ -120,25 +133,31 @@ let update_state_relop (f: string) (state: program_state) =
   state.value_stack <- list_tail state.value_stack;
   state.value_stack <- List.cons ("(" ^ arg1 ^ " " ^ f ^ " " ^arg2 ^ ")") state.value_stack
 
-let update_ps (ps: possible_states) (op: op_type): possible_states =
+(* instruction counter*)
+let update_instr_count (state: program_state) =
+  state.instr_count <- state.instr_count + 1
+
+(* given an instruction, update states *)
+let update_s (s: states) (op: op_type): states =
+  List.iter ~f:update_instr_count s.active;
   match op.instrtype with
-  | Control -> update_states_controlop op ps
+  | Control -> update_states_controlop op s
   | Reference -> failwith "Unimplemented reference"
   | Parametric -> failwith "Unimplemented parametric"
-  | VariableGL -> List.iter ~f:(update_state_varGLop op) ps; ps
-  | VariableSL -> List.iter ~f:(update_state_varSLop op) ps; ps
-  | VariableTL -> List.iter ~f:(update_state_varTLop op) ps; ps
-  | VariableGG -> List.iter ~f:(update_state_varGGop op) ps; ps
-  | VariableSG -> List.iter ~f:(update_state_varSGop op) ps; ps
+  | VariableGL -> List.iter ~f:(update_state_varGLop op) s.active; s
+  | VariableSL -> List.iter ~f:(update_state_varSLop op) s.active; s
+  | VariableTL -> List.iter ~f:(update_state_varTLop op) s.active; s
+  | VariableGG -> List.iter ~f:(update_state_varGGop op) s.active; s
+  | VariableSG -> List.iter ~f:(update_state_varSGop op) s.active; s
   | Table -> failwith "Unimplemented table"
-  | MemoryL -> List.iter ~f:(update_state_memloadop op) ps; ps
-  | MemoryS -> List.iter ~f:update_state_memstoreop ps; ps
-  | MemoryM -> ps (* nothing to do in this case *)
-  | Constop -> List.iter ~f:(update_state_constop op) ps; ps
-  | Unop -> List.iter ~f:(update_state_unop op) ps; ps
-  | Binop f -> List.iter ~f:(update_state_binop f) ps; ps
-  | Testop -> List.iter ~f:(update_state_testop op) ps; ps
-  | Relop f -> List.iter ~f:(update_state_binop f) ps; ps
+  | MemoryL -> List.iter ~f:(update_state_memloadop op) s.active; s
+  | MemoryS -> List.iter ~f:update_state_memstoreop s.active; s
+  | MemoryM -> s (* nothing to do in this case *)
+  | Constop -> List.iter ~f:(update_state_constop op) s.active; s
+  | Unop -> List.iter ~f:(update_state_unop op) s.active; s
+  | Binop f -> List.iter ~f:(update_state_binop f) s.active; s
+  | Testop -> List.iter ~f:(update_state_testop op) s.active; s
+  | Relop f -> List.iter ~f:(update_state_binop f) s.active; s
   | Cvtop -> failwith "Unimplemented cvtop"
   
  (*  
@@ -167,22 +186,22 @@ let local_value n i =
   | true -> "??"
   | _    -> "N" ^ string_of_int i
 
-let rec reduce_fn' (e: expr) (ps: possible_states): possible_states =
+let rec reduce_fn' (e: expr) (s: states): states =
     match e with
-    | []     -> ps
+    | []     -> s
     | hd::tl -> 
-      printf "%s\n" (string_of_inline_expr [List.nth_exn e 0]);
-      let ps' = update_ps ps hd in
-      printf "%s" (string_of_ps ps');
-      reduce_fn' tl ps' 
-let reduce_fn (f: func) (nparams: int): possible_states =
-  eprintf "function has %d locals\n" (List.length f.locals);
+      printf "%s" (string_of_ps s.active);
+      printf "\n%s\n" (string_of_inline_expr [List.nth_exn e 0]);
+      reduce_fn' tl (update_s s hd) 
+let reduce_fn (f: func) (nparams: int): states =
   reduce_fn'
     f.e
-    [{instr_count=0; 
-        value_stack=[]; 
-        local_values=Array.init ((List.length f.locals) + nparams) ~f:(local_value nparams); 
-        global_values=Array.create ~len:1000 "abc"}]
+    {active=[{instr_count=0;
+                value_stack=[]; 
+                local_values=Array.init ((List.length f.locals) + nparams) ~f:(local_value nparams); 
+                global_values=Array.create ~len:1000 "abc"}];
+     pending=[]}
 
 let print_reduction (f: func) (nparams: int) =
-  printf "%s" (string_of_ps (reduce_fn f nparams))
+  printf "\nStarting state:\n";
+  printf "Final states:\n%s" (string_of_ps (reduce_fn f nparams).active)

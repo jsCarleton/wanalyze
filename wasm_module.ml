@@ -532,8 +532,7 @@ let string_of_memory i (m: memtype) = (string_of_memtype m i) ^ "\n"
 let string_of_memory_section section = String.concat ~sep:"" (List.mapi ~f:string_of_memory section)
 
 (* Global section *)
-let string_of_inline_expr e =
-  (String.drop_prefix (string_of_expr e) 5)
+let string_of_inline_expr e = String.strip (string_of_expr e)
 let string_of_global (g: global) =
   "  (global (;" ^ string_of_int g.index ^ ";) " ^ "(" ^ (string_of_mut g.gt.m) ^ " " ^ (string_of_valtype g.gt.t) 
   ^ ") (" ^ (string_of_inline_expr g.e) ^ "))\n" 
