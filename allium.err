@@ -1,4 +1,6 @@
 **** New file: allium.wasm
+Magic:   0061736d
+Version: 01000000
 
 
 Section type: 1
@@ -23,28 +25,28 @@ Section type: 2
 Import section
 reading section: 
 section has 22 entries left
-name = envname = segfaultfunc section has 21 entries left
-name = envname = alignfaultfunc section has 20 entries left
-name = envname = abortStackOverflowfunc section has 19 entries left
-name = envname = ___setErrNofunc section has 18 entries left
-name = envname = ___syscall146func section has 17 entries left
-name = envname = ___lockfunc section has 16 entries left
-name = envname = nullFunc_iiiifunc section has 15 entries left
-name = envname = nullFunc_iifunc section has 14 entries left
-name = envname = abortOnCannotGrowMemoryfunc section has 13 entries left
-name = envname = _emscripten_memcpy_bigfunc section has 12 entries left
-name = envname = ___unlockfunc section has 11 entries left
-name = envname = ___syscall6func section has 10 entries left
-name = envname = ___syscall54func section has 9 entries left
-name = envname = ___syscall140func section has 8 entries left
-name = envname = getTotalMemoryfunc section has 7 entries left
-name = envname = enlargeMemoryfunc section has 6 entries left
-name = envname = tableBaseglobal const section has 5 entries left
-name = envname = DYNAMICTOP_PTRglobal const section has 4 entries left
-name = envname = STACKTOPglobal const section has 3 entries left
-name = envname = STACK_MAXglobal const section has 2 entries left
-name = envname = memorymem lower limitsection has 1 entries left
-name = envname = tabletable funcreflower, uppersection has 0 entries left
+name = env name = segfault func section has 21 entries left
+name = env name = alignfault func section has 20 entries left
+name = env name = abortStackOverflow func section has 19 entries left
+name = env name = ___setErrNo func section has 18 entries left
+name = env name = ___syscall146 func section has 17 entries left
+name = env name = ___lock func section has 16 entries left
+name = env name = nullFunc_iiii func section has 15 entries left
+name = env name = nullFunc_ii func section has 14 entries left
+name = env name = abortOnCannotGrowMemory func section has 13 entries left
+name = env name = _emscripten_memcpy_big func section has 12 entries left
+name = env name = ___unlock func section has 11 entries left
+name = env name = ___syscall6 func section has 10 entries left
+name = env name = ___syscall54 func section has 9 entries left
+name = env name = ___syscall140 func section has 8 entries left
+name = env name = getTotalMemory func section has 7 entries left
+name = env name = enlargeMemory func section has 6 entries left
+name = env name = tableBase global const section has 5 entries left
+name = env name = DYNAMICTOP_PTR global const section has 4 entries left
+name = env name = STACKTOP global const section has 3 entries left
+name = env name = STACK_MAX global const section has 2 entries left
+name = env name = memory mem lower limitsection has 1 entries left
+name = env name = table table funcreflower, uppersection has 0 entries left
 
 
 Section type: 3
@@ -137,20 +139,20 @@ Section type: 7
 Export section
 reading section: 
 section has 14 entries left
-name = ___errno_locationfuncsection has 13 entries left
-name = _allium_hashfuncsection has 12 entries left
-name = _fflushfuncsection has 11 entries left
-name = _freefuncsection has 10 entries left
-name = _mallocfuncsection has 9 entries left
-name = _sbrkfuncsection has 8 entries left
-name = establishStackSpacefuncsection has 7 entries left
-name = getTempRet0funcsection has 6 entries left
-name = setDynamicTopfuncsection has 5 entries left
-name = setTempRet0funcsection has 4 entries left
-name = setThrewfuncsection has 3 entries left
-name = stackAllocfuncsection has 2 entries left
-name = stackRestorefuncsection has 1 entries left
-name = stackSavefuncsection has 0 entries left
+name = ___errno_location funcsection has 13 entries left
+name = _allium_hash funcsection has 12 entries left
+name = _fflush funcsection has 11 entries left
+name = _free funcsection has 10 entries left
+name = _malloc funcsection has 9 entries left
+name = _sbrk funcsection has 8 entries left
+name = establishStackSpace funcsection has 7 entries left
+name = getTempRet0 funcsection has 6 entries left
+name = setDynamicTop funcsection has 5 entries left
+name = setTempRet0 funcsection has 4 entries left
+name = setThrew funcsection has 3 entries left
+name = stackAlloc funcsection has 2 entries left
+name = stackRestore funcsection has 1 entries left
+name = stackSave funcsection has 0 entries left
 
 
 Section type: 9
@@ -438,12 +440,21 @@ section has 0 entries left
 Section type: -1
 Uncaught exception:
   
-  (Failure "Unimplemented control3")
+  (Failure "Invalid list index: ")
 
 Raised at file "stdlib.ml", line 29, characters 17-33
-Called from file "reduce.ml", line 195, characters 20-35
-Called from file "reduce.ml", line 207, characters 43-64
-Called from file "list.ml", line 147, characters 24-31
+Called from file "wasm_module.ml", line 7, characters 12-43
+Called from file "wasm_module.ml" (inlined), line 8, characters 18-31
+Called from file "reduce.ml", line 137, characters 14-41
 Called from file "list.ml", line 110, characters 12-15
 Called from file "src/list0.ml" (inlined), line 25, characters 16-35
-Called from file "readBin.ml", line 642, characters 2-39
+Called from file "reduce.ml", line 203, characters 46-93
+Called from file "reduce.ml", line 228, characters 47-89
+Called from file "reduce.ml", line 244, characters 43-99
+Called from file "src/list.ml", line 544, characters 7-12
+Called from file "list.ml", line 121, characters 24-34
+Called from file "src/list0.ml" (inlined), line 21, characters 22-52
+Called from file "src/list.ml", line 543, characters 5-62
+Called from file "list.ml", line 110, characters 12-15
+Called from file "src/list0.ml" (inlined), line 25, characters 16-35
+Called from file "readBin.ml", line 643, characters 2-39

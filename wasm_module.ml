@@ -315,7 +315,7 @@ type data =
 (* wasm Module *)
 type wasm_module =
 {
-  module_name:              string;
+  module_name:                  string;
   mutable data_count:       int;
   mutable type_section:     functype list;
   mutable import_section:   import list;
@@ -328,7 +328,7 @@ type wasm_module =
   mutable element_section:  element list;
   mutable code_section:     func list;
   mutable data_section:     data list;
-  mutable next_func:        int;
+  mutable last_import_func: funcidx;
   mutable next_global:      int;
   mutable next_memory:      int;
   mutable next_table:       int;
@@ -339,7 +339,7 @@ let create name =
     type_section = []; import_section = []; function_section = []; table_section = []; 
     memory_section = []; global_section = []; export_section = []; start_section = None; 
     element_section = []; code_section = []; data_section = [];
-    next_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
+    last_import_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
 
 (* Printable strings *)
 (* Type section *)
@@ -517,7 +517,7 @@ let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
 let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
   
 let string_of_function w i idx = 
-  "  (func (;" ^ string_of_int (i + w.next_func) ^ ";) (type " ^ (string_of_int idx) ^ ")" 
+  "  (func (;" ^ string_of_int (i + w.last_import_func) ^ ";) (type " ^ (string_of_int idx) ^ ")" 
     ^ (string_of_types "param" (get_type_sig w idx).rt1) ^ (string_of_types "result" (get_type_sig w idx).rt2)
     ^ (string_of_code w i) ^ ")\n"
 let string_of_function_section w = 
@@ -621,7 +621,7 @@ let update_type_section w (rt1, rt2) =
 (* import section *)
 let index_of w desc =
   (match desc with
-  | Functype _ -> w.next_func <- w.next_func + 1; w.next_func-1
+  | Functype _ -> w.last_import_func <- w.last_import_func + 1; w.last_import_func-1
   | Tabletype _ -> w.next_table <- w.next_table + 1; w.next_table-1
   | Memtype _ -> w.next_memory <- w.next_memory + 1; w.next_memory-1
   | Globaltype _ -> w.next_global <- w.next_global + 1; w.next_global-1

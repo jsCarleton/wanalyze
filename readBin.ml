@@ -22,8 +22,16 @@ let read_byte ic : int =
       | true -> eprintf "!%X! " x; x
       | _ -> x
 
-let read_magic ic = read_byte ic = 0x00 && read_byte ic = 0x61 && read_byte ic = 0x73 && read_byte ic = 0x6d
-let read_version ic = read_byte ic = 0x01 && read_byte ic = 0x00 && read_byte ic = 0x00 && read_byte ic = 0x00
+let read_4bytes ic =
+  (read_byte ic) lor ((read_byte ic) lsl 8) lor ((read_byte ic) lsl 16) lor ((read_byte ic) lsl 24)
+let read_magic ic = 
+  let magic =  read_4bytes ic in
+  eprintf "Magic:   %8.8x\n" magic;
+  magic = 0x0061736d
+let read_version ic = 
+  let version = (read_byte ic) lor ((read_byte ic) lsl 8) lor ((read_byte ic) lsl 16) lor ((read_byte ic) lsl 24) in
+  eprintf "Version: %8.8x\n" version;
+  version =0x01000000
 
 let rec skip_bytes ic n =
   match n with
@@ -130,19 +138,12 @@ let read_functype ic =
 let read_type ic w = (read_byte ic = 0x60) && update_type_section w (read_functype ic)
 
 (* Import section *)
-let limits ic =
-  let limit_type = read_byte ic in
-  match limit_type with
-  | 0x00 -> eprintf "lower: %d, no upper" (uLEB ic 32); true
-  | 0x01 -> eprintf "lower: %d, upper: %d" (uLEB ic 32) (uLEB ic 32); true
-  | _ -> eprintf "Invalid limits %x!" limit_type; false
-
 let read_limits ic = 
   let limit_type = read_byte ic in
   match limit_type with
   | 0x00 -> eprintf "lower limit"; Noupper (uLEB ic 32)
   | 0x01 -> eprintf "lower, upper"; Lowerupper ((uLEB ic 32), (uLEB ic 32))
-  | _ -> eprintf "Invalid limits %x!" limit_type; Lowerupper (0, 0)
+  | _ -> failwith ("Invalid limit type: " ^ string_of_int limit_type)
 
 let read_mem_type ic = read_limits ic
 
@@ -204,7 +205,7 @@ let read_string ic len =
 
 let read_name ic =
   let name = read_string ic (read_byte ic) in
-  eprintf("name = %s") name; name
+  eprintf("name = %s ") name; name
 
 let read_import ic w =
   let module_name = read_name ic in
@@ -634,7 +635,7 @@ let processFile file =
    | _     -> printf "Failed\n"
   );
   Wasm_module.print w; 
-  print_reductions w.code_section w.function_section w.type_section
+  print_reductions w
 
 
 let () =

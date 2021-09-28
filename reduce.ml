@@ -15,6 +15,7 @@ type states =
 {
   mutable active:   program_states;
   mutable pending:  program_states list;
+  mutable final:    program_states;
 }
 
 (* printing the state *)
@@ -25,9 +26,17 @@ let string_of_state (state: program_state): string =
   string_of_instr_count state.instr_count ^ string_of_value_stack state.value_stack ^ string_of_local_values state.local_values
 let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:string_of_state ps)
 
-(* updating the state of the program *)
+(* Updating the state of the program *)
 
-(* control operators *)
+(* Parametric operators *) (* TODO *)
+let update_states_parametricop (op: op_type) (s: states): states = 
+  match op.opcode with
+  | 0x1a -> (* drop *) s
+  | 0x1b -> (* select *) s
+  | 0x1c -> (* select t* *) s
+  | _ -> failwith (sprintf "Invalid parametric %x " op.opcode) 
+
+(* Control operators *)
 let update_state_ifop (state: program_state) =
   state.value_stack <- list_tail state.value_stack
 let state_copy (s: program_state): program_state =
@@ -36,32 +45,76 @@ let states_copy (states: program_states): program_states =
   List.map ~f:state_copy states
 let push_states (dest: program_states list) (src: program_states): program_states list =
   List.cons (states_copy src) dest
+let push_retval (state: program_state) (retval: string) =
+  state.value_stack <- List.cons retval state.value_stack
 
-let update_states_controlop (op: op_type) (s: states): states = 
+(* call op handling *)
+let update_state_callop fidx (param_count: int) (retval_count: int) (state: program_state) =
+  printf "Calling %d, nparams: %d, nrets: %d\n" fidx param_count retval_count;
+  state.value_stack <- List.drop state.value_stack param_count;
+  List.iter ~f:(push_retval state) (List.init retval_count ~f:(fun i -> "R" ^ string_of_int i))
+let update_states_callop (param_counts: int list) (retval_counts: int list)  (op: op_type) (s: states): states =
+  (match op.arg with
+  | Funcidx fidx -> 
+      printf "Calling %d\n" fidx;
+      List.iter ~f:(update_state_callop fidx (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx)) s.active;
+  | _ -> failwith "Invalid call argument");
+  s
+  
+let update_states_controlop (param_counts: int list) (retval_counts: int list) (op: op_type) (s: states): states = 
   match op.opcode with
   (* all other control ops: unreachable, nop, br, br_if, br_table, return, call_indirect *)
-  | 0x00 | 0x01 | 0x0c | 0x0d | 0x0e | 0x0f | 0x11 ->  failwith "Unimplemented control1"
-  (* block, loop, if *)
-  | 0x02 | 0x03 -> failwith "Unimplemented control2"
-  (* if *)
-  | 0x04 ->
-      List.iter ~f:update_state_ifop s.active;
+  | 0x00 -> failwith "Unimplemented unreachable"
+  (* nop - nothing to do *)
+  | 0x01 -> s
+  (* block *)
+  | 0x02 -> (* TODO *)
       s.pending <- push_states s.pending s.active;
       s
-  (* else *)
-  | 0x05 -> failwith "Unimplemented control3"
-  (* end *)
+  (* loop *)
+  | 0x03 -> (* TODO *)
+      s.pending <- push_states s.pending s.active;
+      s
+  (* if - make a copy of our current states on the pending stack *)
+    | 0x04 ->
+        List.iter ~f:update_state_ifop s.active;
+        s.pending <- push_states s.pending s.active;
+        s
+  (* else - swap the top of the pending stack and our current states *)
+  | 0x05 ->
+    let current = s.active in
+      s.active <- List.hd_exn s.pending;
+      s.pending <- List.cons current (List.tl_exn s.pending);
+      s
+  (* end - pop states from the pending stack and append to the current states,
+          unless it's the end of the program in which case we append the current
+          states to the final states *)
   | 0x0b ->
     (match op.nesting with
-    | -1 -> s
+    | -1 -> 
+        s.final <- List.append (states_copy s.active) s.final;
+        s
     |  _ ->
-      let new_states = List.nth_exn s.pending 0 in
-      s.active <- List.append s.active new_states;
-      s.pending <- List.tl_exn s.pending;
-      s
+        let new_states = List.nth_exn s.pending 0 in
+        s.active <- List.append s.active new_states;
+        s.pending <- List.tl_exn s.pending;
+        s
     )
+  (* br *)
+  | 0x0c -> s (* TODO *)
+  (* br_if *)
+  | 0x0d -> s (* TODO *)
+  | 0x0e -> failwith "Unimplemented br_table"
+  (* return - remember our current states as final states, clear any current states *)
+  | 0x0f -> 
+      s.final <- List.append (states_copy s.active) s.final;
+      s.active <- [];
+      s
   (* call *) (* TODO - account for the type signature *)
-  | 0x10 -> s
+  | 0x10 -> 
+      update_states_callop param_counts retval_counts op s
+  (* call_indirect *)
+  | 0x11 -> failwith "Unimplemented call_indirect"
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
 
@@ -138,74 +191,73 @@ let update_instr_count (state: program_state) =
   state.instr_count <- state.instr_count + 1
 
 (* given an instruction, update states *)
-let update_s (s: states) (op: op_type): states =
+let update_s (s: states) (param_counts: int list) (retval_counts: int list)  (op: op_type): states =
+  printf "States: %d " (List.length s.final);
   List.iter ~f:update_instr_count s.active;
   match op.instrtype with
-  | Control -> update_states_controlop op s
+  | Control -> printf "type: Control\n";update_states_controlop param_counts retval_counts op s
   | Reference -> failwith "Unimplemented reference"
-  | Parametric -> failwith "Unimplemented parametric"
-  | VariableGL -> List.iter ~f:(update_state_varGLop op) s.active; s
-  | VariableSL -> List.iter ~f:(update_state_varSLop op) s.active; s
-  | VariableTL -> List.iter ~f:(update_state_varTLop op) s.active; s
-  | VariableGG -> List.iter ~f:(update_state_varGGop op) s.active; s
-  | VariableSG -> List.iter ~f:(update_state_varSGop op) s.active; s
+  | Parametric -> printf "type: Parametric\n";update_states_parametricop op s
+  | VariableGL -> printf "type: VariableGL\n";List.iter ~f:(update_state_varGLop op) s.active; s
+  | VariableSL -> printf "type: VariableSL\n";List.iter ~f:(update_state_varSLop op) s.active; s
+  | VariableTL -> printf "type: VariableTL\n";List.iter ~f:(update_state_varTLop op) s.active; s
+  | VariableGG -> printf "type: VariableGG\n";List.iter ~f:(update_state_varGGop op) s.active; s
+  | VariableSG -> printf "type: VariableSG\n";List.iter ~f:(update_state_varSGop op) s.active; s
   | Table -> failwith "Unimplemented table"
-  | MemoryL -> List.iter ~f:(update_state_memloadop op) s.active; s
-  | MemoryS -> List.iter ~f:update_state_memstoreop s.active; s
-  | MemoryM -> s (* nothing to do in this case *)
-  | Constop -> List.iter ~f:(update_state_constop op) s.active; s
-  | Unop -> List.iter ~f:(update_state_unop op) s.active; s
-  | Binop f -> List.iter ~f:(update_state_binop f) s.active; s
-  | Testop -> List.iter ~f:(update_state_testop op) s.active; s
-  | Relop f -> List.iter ~f:(update_state_binop f) s.active; s
+  | MemoryL -> printf "type: MemoryL\n";List.iter ~f:(update_state_memloadop op) s.active; s
+  | MemoryS -> printf "type: MemoryS\n";List.iter ~f:update_state_memstoreop s.active; s
+  | MemoryM -> printf "type: MemoryM\n";s (* nothing to do in this case *)
+  | Constop -> printf "type: Constop\n";List.iter ~f:(update_state_constop op) s.active; s
+  | Unop -> printf "type: Unop\n";List.iter ~f:(update_state_unop op) s.active; s
+  | Binop f -> printf "type: Binop\n";List.iter ~f:(update_state_binop f) s.active; s
+  | Testop -> printf "type: Testop\n";List.iter ~f:(update_state_testop op) s.active; s
+  | Relop f -> printf "type: Relop\n";List.iter ~f:(update_state_binop f) s.active; s
   | Cvtop -> failwith "Unimplemented cvtop"
-  
- (*  
-type func =
-{
-  locals:   local_type list;
-  e:        expr;
-}
-{
-  mutable instr_count:    int;
-  mutable value_stack:    string list;
-  mutable local_values:   string array;
-  mutable global_values:  string array;
-}
-
-type functype =
-{
-  rt1:    resulttype list;
-  rt2:    resulttype list;
-}
-
- *)
 
 let local_value n i = 
   match i >= n with
   | true -> "??"
   | _    -> "N" ^ string_of_int i
 
-let rec reduce_fn' (e: expr) (s: states): states =
+let rec reduce_fn' (e: expr) (param_counts: int list) (retval_counts: int list) (s: states): states =
     match e with
     | []     -> s
     | hd::tl -> 
       printf "%s" (string_of_ps s.active);
       printf "\n%s\n" (string_of_inline_expr [List.nth_exn e 0]);
-      reduce_fn' tl (update_s s hd) 
-let reduce_fn (f: func) (nparams: int): states =
+      reduce_fn' tl param_counts retval_counts (update_s s param_counts retval_counts hd) 
+let reduce_fn (f: func) (param_counts: int list) (retval_counts: int list) (nparams: int) (nlocals: int): states =
   reduce_fn'
-    f.e
+    f.e param_counts retval_counts
     {active=[{instr_count=0;
                 value_stack=[]; 
-                local_values=Array.init ((List.length f.locals) + nparams) ~f:(local_value nparams); 
+                local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
                 global_values=Array.create ~len:1000 "abc"}];
-     pending=[]}
+     pending=[];
+     final=[]}
 
-let print_reduction (f: func) (nparams: int) =
-  printf "\n\nStarting state:\n";
-  printf "Final states:\n%s" (string_of_ps (reduce_fn f nparams).active)
+let sum_nlocals acc l = acc + l.n
+let print_reduction (param_counts: int list) (retval_counts: int list) (last_import_idx: funcidx) (func_idx: funcidx) (f: func) =
+  let nparams = List.nth_exn param_counts (func_idx+last_import_idx) in
+  let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
+  printf "\n\nStarting state for function %d:, %d parameters %d locals " (func_idx+last_import_idx) nparams nlocals;
+  printf "Final states:\n%s" (string_of_ps (reduce_fn f param_counts retval_counts nparams nlocals).final)
+ 
+let param_count  (func_sigs: functype list) (func_idx: int): int = List.length (List.nth_exn func_sigs func_idx).rt1
+let retval_count (func_sigs: functype list) (func_idx: int): int = List.length (List.nth_exn func_sigs func_idx).rt2
 
-let param_count types func_type = List.length (List.nth_exn types func_type).rt1
-let print_reductions (fs: func list) (param_types: typeidx list) (types: functype list) =
-  List.iter2_exn ~f:print_reduction fs (List.map ~f:(param_count types) param_types)
+let filter_import_fn (imp: import): bool =
+  match imp.description with
+  | Functype _ -> true
+  | _ -> false
+
+let get_import_typeidx (imp: import): typeidx =
+  match imp.description with
+    | Functype idx -> idx
+    | _ -> failwith "Not an import function"
+  
+let print_reductions (w: wasm_module) =
+  let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
+  let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
+  let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
+  List.iteri ~f:(print_reduction param_counts retval_counts w.last_import_func) w.code_section
