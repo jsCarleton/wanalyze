@@ -117,16 +117,10 @@ type import =
 (* Functions *)
 
 (* Tables *)
-type tablesec = (* TODO *)
-{
-  x: string;
-}
+(* TODO *)
 
 (* Memories *)
-type memsec =
-{
-  x: string;
-}
+(* TODO *)
 
 (* Exports *)
 type exportdesc =
@@ -142,10 +136,7 @@ type export =
 }
 
 (* Start *)
-type startsec =
-{
-  x: string;
-}
+(* TODO *)
 
 (* Elements *)
 type br_table =
