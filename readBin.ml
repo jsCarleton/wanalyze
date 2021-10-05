@@ -19,7 +19,7 @@ let read_byte ic : int =
     | None -> -1
     | Some x -> 
       match !verbose with
-      | true -> eprintf "!%X! " x; x
+      | true -> eprintf "!%X!\n" x; x
       | _ -> x
 
 let read_4bytes ic =
@@ -254,14 +254,14 @@ let read_instr ic opcode _ =
   | 0x04 -> ("if", Blocktype (read_blocktype ic), Control)
   | 0x05 -> ("else", EmptyArg, Control)
   | 0x0b -> ("end", EmptyArg, Control)
-  | 0x0c -> ("br", Labelidx (read_byte ic), Control)
-  | 0x0d -> ("br_if",  Labelidx (read_byte ic), Control)
+  | 0x0c -> ("br", Labelidx (read_idx ic), Control)
+  | 0x0d -> ("br_if",  Labelidx (read_idx ic), Control)
   | 0x0e -> ("br_table", 
       (let table = (read_vec_labelidx ic) in let index = (read_labelidx ic) in
        BrTable {table; index}), Control)
   | 0x0f -> ("return", EmptyArg, Control)
-  | 0x10 -> ("call", Funcidx (read_byte ic), Control)
-  | 0x11 -> ("call_indirect", CallIndirect {y = (read_byte ic); x = (read_byte ic)}, Control)
+  | 0x10 -> ("call", Funcidx (read_idx ic), Control)
+  | 0x11 -> ("call_indirect", CallIndirect {y = (read_idx ic); x = (read_idx ic)}, Control)
    (* reference instructions*)
   | 0xd0 -> ("ref.null", EmptyArg, Reference) (* TODO not what the spec says *)
   (* parametric instructions *)
