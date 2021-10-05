@@ -65,7 +65,13 @@ let rec sLEB' ic size acc shift b: int64 =
 
 let sLEB ic size : int64 = sLEB' ic size 0L 0 (of_int (read_byte ic))
 
-let read_i32 ic = 
+let read_vec_len ic = uLEB ic 32
+      
+let read_bytes ic: (int list) =
+  let len = read_vec_len ic in
+  List.init len ~f:(fun _ -> (read_byte ic))
+
+ let read_i32 ic = 
   match Int64.to_int (sLEB ic 32) with
   | None -> -1
   | Some x -> x
@@ -94,7 +100,6 @@ let read_memarg ic bits =
   let a = uLEB ic 32 in
   {a; o=uLEB ic 32; bits}
 
-let read_vec_len ic = uLEB ic 32
 let rec read_vec' ic n reader acc =
   match n with
   | 0 -> acc
@@ -103,7 +108,7 @@ let read_vec ic reader = read_vec' ic (read_vec_len ic) reader []
 
 (* Sections consisting of vectors of entries *)
 let rec read_entries ic n w entry_handler =
-  eprintf "section has %d entries left\n" n;
+  eprintf "%s - section has %d entries left\n" (Time.to_sec_string ~zone:Time.Zone.utc (Time.now ())) n;
   match n with
   | 0 -> true
   | _ ->
@@ -578,15 +583,15 @@ let read_data ic w =
   match data_item_type with
   | 0x00 -> 
       let e = read_expr ic in
-      let b = read_vec ic read_byte in
+      let b = read_bytes ic in
       update_data_section w (ExprBytes {e; b})
   | 0x01 -> 
-      let b = read_vec ic read_byte in
+      let b = read_bytes ic in
       update_data_section w (Bytes b)
   | 0x02 -> 
       let x = read_idx ic in
       let e = read_expr ic in
-      let b = read_vec ic read_byte in
+      let b = read_bytes ic in
       update_data_section w (MemExprBytes {x; e; b})
   | _ -> printf "Invalid data item %x\n" data_item_type; false
 
