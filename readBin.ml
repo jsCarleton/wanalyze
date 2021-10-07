@@ -5,11 +5,13 @@ open Reduce
     - make eprintfs look at verbose flag 
     - add validation of indices (e.g. functions, types)*)
 
-let usage_msg = "readBin -verbose <file1> <file2> ..."
+let usage_msg = "readBin -verbose [-f n] <file1> <file2> ..."
 let verbose = ref false
+let fn_arg = ref (-1)
 let input_files = ref []
 let speclist =
-    [("-verbose", Arg.Set verbose, "Output debug information")]
+    [("-verbose", Arg.Set verbose, "Output debug information");
+    ("-f", Arg.Set_int fn_arg, "Analyze function specified by argument")]
 let anon_fun filename =
        input_files := filename::!input_files
 
@@ -266,7 +268,10 @@ let read_instr ic opcode _ =
        BrTable {table; index}), Control)
   | 0x0f -> ("return", EmptyArg, Control)
   | 0x10 -> ("call", Funcidx (read_idx ic), Control)
-  | 0x11 -> ("call_indirect", CallIndirect {y = (read_idx ic); x = (read_idx ic)}, Control)
+  | 0x11 -> ("call_indirect", 
+      (let y = read_idx ic in
+       let x = read_idx ic in
+       CallIndirect {y; x}), Control)
    (* reference instructions*)
   | 0xd0 -> ("ref.null", EmptyArg, Reference) (* TODO not what the spec says *)
   (* parametric instructions *)
@@ -640,7 +645,7 @@ let processFile file =
    | _     -> printf "Failed\n"
   );
   Wasm_module.print w; 
-  print_reductions w
+  print_reductions w !fn_arg
 
 
 let () =

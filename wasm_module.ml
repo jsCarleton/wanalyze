@@ -69,8 +69,7 @@ type functype =
   rt1:    resulttype list;
   rt2:    resulttype list;
 }
-let create_functype rt1 rt2 =
-  { rt1; rt2}
+let create_functype rt1 rt2 = { rt1; rt2}
 
 (* Imports *)
 type limits =
