@@ -470,9 +470,9 @@ let read_local ic = (fun _ ->
   eprintf "local count: %d type: %s\n" n (string_of_valtype v); 
   {n; v})
 
-let rec read_instr_list ic nesting acc_instr =
+let rec read_expr' ic (nesting: int) (acc_instr: op_type list) : op_type list =
   let opcode = read_byte ic in
-  let (opname, arg, instrtype) = (read_instr ic opcode read_instr_list) in
+  let (opname, arg, instrtype) = (read_instr ic opcode read_expr') in
   match opcode with
   (* end *)
   | 0x0b ->
@@ -481,19 +481,19 @@ let rec read_instr_list ic nesting acc_instr =
         (* yes *)
         | 0 -> acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}]
         (* no, it's the end of a block, loop, if [else] - decrease the nesting *)
-        | _ -> read_instr_list ic  (nesting-1)  (acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}])
+        | _ -> read_expr' ic  (nesting-1)  (acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}])
       )
   (* block, loop, if - increase the nesting *)
   | 0x02 | 0x03 | 0x04 ->
-      read_instr_list ic (nesting+1) (acc_instr@[{opcode; opname; arg; nesting; instrtype}])
+      read_expr' ic (nesting+1) (acc_instr@[{opcode; opname; arg; nesting; instrtype}])
   (* else - descrease the nesting *)
   | 0x05 ->  
-      read_instr_list ic  nesting (acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}])
+      read_expr' ic  nesting (acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}])
   (* all others - same nesting *)
   | _ ->  
-      read_instr_list ic nesting (acc_instr@[{opcode; opname; arg; nesting; instrtype}])
+      read_expr' ic nesting (acc_instr@[{opcode; opname; arg; nesting; instrtype}])
   
-let read_expr ic = read_instr_list ic 0 []
+let read_expr ic = read_expr' ic 0 []
 let read_global ic w = 
   let gt = read_globaltype ic in
   let e = read_expr ic in
@@ -577,7 +577,7 @@ let read_code ic w =
   &&
   (* func *)
   let locals = read_vec ic (read_local ic) in
-  let e = read_instr_list ic 0 [] in
+  let e = read_expr ic in
   eprintf "locals %s\n" (string_of_locals locals);
   update_code_section w locals e;
   true

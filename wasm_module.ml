@@ -1,16 +1,5 @@
 open Core
 
-(* helpful functions *)
-let list_item l i =
-  match List.nth l i with
-  | Some x -> x
-  | None -> failwith "Invalid list index: " ^ string_of_int i
-let list_head l = list_item l 0
-let list_tail l =
-  match List.tl l with
-  | Some x -> x
-  | None -> failwith "Trying to tail an empty list"
-
 (* Types *)
 type numtype =
   | I32 | I64 | F32 | F64
@@ -32,7 +21,7 @@ let valtype_of_int i =
   | 0x7c -> Numtype F64
   | 0x70 -> Reftype Funcref
   | 0x6f -> Reftype Externref
-  | _ -> eprintf "Invalid valtype %d\n" i; Numtype I32
+  | _ -> failwith ("Invalid valtype: " ^ (string_of_int i))
 
 type labelidx = int
 type blockidx = int
@@ -269,6 +258,40 @@ type func =
   locals:   local_type list;
   e:        expr;
 }
+type segment =
+{
+          start_op:    int;         (* index into e of the first op in the expr *)
+  mutable end_op:      int;         (* index+1 of the last op in the expr *)
+  mutable succ1:       int option;  (* segment index for true side of a conditional or next segment for an unconditional *)
+  mutable succ2:       int option;  (* false side of a conditional *)
+}
+
+let rec get_segments'' (e: expr) (seg_acc: segment list) (current: segment)
+    (get_segments': expr -> segment list -> int -> segment list): segment list =
+current.end_op <- current.end_op + 1;
+match (List.hd_exn e).opcode with
+| (* end *)         0x0b
+| (* unreachable *) 0x00
+| (* return *)      0x0f ->
+( match current.start_op = current.end_op-1 with
+  | true  -> get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
+  | false -> get_segments' (List.tl_exn e) (List.append seg_acc [current; {start_op=current.end_op; end_op=current.end_op+1; succ1=None; succ2=None}]) current.end_op
+)
+| (* loop *)        0x03
+| (* if *)          0x04
+| (* br *)          0x0c
+| (* br_if *)       0x0d
+| (* br_table *)    0x0e ->
+    get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
+| _ ->
+    get_segments'' (List.tl_exn e) seg_acc current get_segments'
+
+let rec get_segments' (e: expr) (seg_acc: segment list) (start: int)=
+match e with
+| [] -> seg_acc
+| _  -> get_segments'' e seg_acc {start_op=start; end_op=start+1; succ1=None; succ2=None} get_segments'
+
+let get_segments (e: expr) : segment list = get_segments' e [] 0
 
 (* Globals *)
 type global =

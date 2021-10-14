@@ -29,7 +29,7 @@ let string_of_ps (_: program_states): string = "" (*String.concat ~sep:"\n" (Lis
 
 (* Updating the state of the program *)
 let pop_value (state: program_state) =
-  state.value_stack <- list_tail state.value_stack
+  state.value_stack <- List.tl_exn state.value_stack
 
 (* Parametric operators *)
 let update_states_parametricop (op: op_type) (s: states) = 
@@ -151,26 +151,26 @@ let int_of_get_argG arg =
 let update_state_varGLop (op: op_type) (state: program_state) = (* get local *)
   state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack
 let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
-  let value = list_head state.value_stack in
-  state.value_stack <- list_tail state.value_stack;
+  let value = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
   Array.set state.local_values (int_of_get_argL op.arg) value
 let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
-  let value = list_head state.value_stack in
+  let value = List.hd_exn state.value_stack in
   Array.set state.local_values (int_of_get_argL op.arg) value
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
   state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
-  let value = list_head state.value_stack in
-  state.value_stack <- list_tail state.value_stack;
+  let value = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
   Array.set state.global_values (int_of_get_argG op.arg) value
 
 (* memory operator *)
 let update_state_memloadop (op: op_type) (state: program_state) = 
-  let addr = list_head state.value_stack in
-  state.value_stack <- list_tail state.value_stack;
+  let addr = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
   state.value_stack <- List.cons (op.opname ^ "@(" ^ addr ^ ")") state.value_stack
 let update_state_memstoreop (state: program_state) = 
-  state.value_stack <- list_tail state.value_stack
+  state.value_stack <- List.tl_exn state.value_stack
 
 (* constant operators *)
 let string_of_const_arg arg =
@@ -185,7 +185,7 @@ let update_state_constop (op: op_type) (state: program_state) =
 
 (* unary operators *)
 let update_state_unop (op: op_type) (state: program_state) = 
-  state.value_stack <- List.cons (op.opname ^ "(" ^ (list_head state.value_stack) ^ ")") (list_tail state.value_stack)
+  state.value_stack <- List.cons (op.opname ^ "(" ^ (List.hd_exn state.value_stack) ^ ")") (List.tl_exn state.value_stack)
 
 (* binary operators *)
 let update_state_binop (f: string) (state: program_state) =
@@ -197,23 +197,23 @@ let update_state_binop (f: string) (state: program_state) =
 
 (* test operators *)
 let update_state_testop (op: op_type) (state: program_state) = 
-  state.value_stack <- List.cons (op.opname ^ "(" ^ (list_head state.value_stack) ^ ")") (list_tail state.value_stack)
+  state.value_stack <- List.cons (op.opname ^ "(" ^ (List.hd_exn state.value_stack) ^ ")") (List.tl_exn state.value_stack)
   
 (* rel operators *)
 let update_state_relop (f: string) (state: program_state) =
-  let arg1 = list_head state.value_stack in
-  state.value_stack <- list_tail state.value_stack;
-  let arg2 = list_head state.value_stack in
-  state.value_stack <- list_tail state.value_stack;
+  let arg1 = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
+  let arg2 = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
   state.value_stack <- List.cons ("(" ^ arg1 ^ " " ^ f ^ " " ^arg2 ^ ")") state.value_stack
 
 (* cvt operators *)
 let update_state_cvtop (op: op_type) (state: program_state) =
   match op.opcode with
   | 0xfc ->
-      state.value_stack <- List.cons ((string_of_arg op.arg) ^ "(" ^ (list_head state.value_stack) ^ ")") (list_tail state.value_stack)
+      state.value_stack <- List.cons ((string_of_arg op.arg) ^ "(" ^ (List.hd_exn state.value_stack) ^ ")") (List.tl_exn state.value_stack)
   | _ ->
-      state.value_stack <- List.cons (op.opname ^ "(" ^ (list_head state.value_stack) ^ ")") (list_tail state.value_stack)
+      state.value_stack <- List.cons (op.opname ^ "(" ^ (List.hd_exn state.value_stack) ^ ")") (List.tl_exn state.value_stack)
 
 (* instruction counter*)
 let update_instr_count (state: program_state) =
