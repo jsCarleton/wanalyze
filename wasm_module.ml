@@ -21,7 +21,7 @@ let valtype_of_int i =
   | 0x7c -> Numtype F64
   | 0x70 -> Reftype Funcref
   | 0x6f -> Reftype Externref
-  | _ -> failwith ("Invalid valtype: " ^ (string_of_int i))
+  | _ -> failwith (String.concat ["Invalid valtype: " ; (string_of_int i)])
 
 type labelidx = int
 type blockidx = int
@@ -328,7 +328,7 @@ type data =
 (* wasm Module *)
 type wasm_module =
 {
-  module_name:                  string;
+  module_name:              string;
   mutable data_count:       int;
   mutable type_section:     functype list;
   mutable import_section:   import list;
@@ -359,25 +359,25 @@ let create name =
 let string_of_types n l =
   match List.length l with
   | 0 -> ""
-  | _ ->  " (" ^ n ^ " " ^  String.concat ~sep:" " (List.map ~f:string_of_resulttype l) ^ ")"
+  | _ ->  String.concat [" (" ; n ; " " ;  String.concat ~sep:" " (List.map ~f:string_of_resulttype l) ; ")"]
 let string_of_functype i ft = 
-  "  (type (;" ^ (string_of_int i) ^ ";) (func" 
-  ^ (string_of_types "param" ft.rt1) ^ (string_of_types "result" ft.rt2) ^ "))\n"
+  String.concat ["  (type (;" ; (string_of_int i) ; ";) (func" 
+  ; (string_of_types "param" ft.rt1) ; (string_of_types "result" ft.rt2) ; "))\n"]
 let string_of_type_section section = String.concat ~sep:"" (List.mapi ~f:string_of_functype section)
 
 (* Import section *)
 let string_of_functype ti i =
-  "(func (;" ^ string_of_int i ^ ";) (type " ^ string_of_int ti ^ "))"
+  String.concat ["(func (;" ; string_of_int i ; ";) (type " ; string_of_int ti ; "))"]
 let string_of_limits (limit: limits) = 
   match limit with
   | Noupper l -> string_of_int l
-  | Lowerupper (l,u) -> string_of_int l ^ " " ^ string_of_int u
+  | Lowerupper (l,u) -> String.concat [string_of_int l ; " " ; string_of_int u]
 let string_of_tabletype tt i =
-  "(table (;" ^ string_of_int i ^ ";) " ^ string_of_limits tt.lim ^ " " ^ string_of_reftype tt.et ^ ")" 
+  String.concat ["(table (;" ; string_of_int i ; ";) " ; string_of_limits tt.lim ; " " ; string_of_reftype tt.et ; ")"]
 let string_of_memtype mt i =
-  "(memory (;" ^ string_of_int i ^ ";) " ^ string_of_limits mt ^ ")"
+  String.concat ["(memory (;" ; string_of_int i ; ";) " ; string_of_limits mt ; ")"]
 let string_of_globaltype gt i =
-  "(global (;" ^ string_of_int i ^ ";) " ^ string_of_valtype gt.t ^ ")"
+  String.concat ["(global (;" ; string_of_int i ; ";) " ; string_of_valtype gt.t ; ")"]
 
 let string_of_description d i =
   match d with
@@ -385,25 +385,25 @@ let string_of_description d i =
   | Tabletype tt -> string_of_tabletype tt i
   | Memtype mt -> string_of_memtype mt i
   | Globaltype gt -> string_of_globaltype gt i
-let string_of_import (i: import) = "  (import \"" ^ i.module_name ^ "\" \"" ^ i.import_name ^ "\" "
-      ^ string_of_description i.description i.index ^ ")\n"
+let string_of_import (i: import) = String.concat ["  (import \"" ; i.module_name ; "\" \"" ; i.import_name ; "\" "
+      ; string_of_description i.description i.index ; ")\n"]
 let string_of_import_section section = String.concat ~sep:"" (List.map ~f:string_of_import section)
 
 (* Export section *)
 let string_of_exportdesc d =
   match d with
-  | Func f -> "func " ^ string_of_int f
-  | Table t -> "table " ^ string_of_int t
-  | Mem m -> "table " ^ string_of_int m
-  | Global g -> "table " ^ string_of_int g
+  | Func f -> String.concat ["func " ; string_of_int f]
+  | Table t -> String.concat ["table " ; string_of_int t]
+  | Mem m -> String.concat ["table " ; string_of_int m]
+  | Global g -> String.concat ["table " ; string_of_int g]
 let string_of_export (e: export) =
-  "  (export \"" ^ e.name ^ "\" (" ^ string_of_exportdesc e.desc ^ "))\n"
+  String.concat ["  (export \"" ; e.name ; "\" (" ; string_of_exportdesc e.desc ; "))\n"]
 let string_of_export_section section = String.concat ~sep:"" (List.map ~f:string_of_export section)
 
 (* Start section *)
 let string_of_start idx =
   match idx with
-  | Some idx' -> "(start " ^string_of_int idx' ^ ")\n"
+  | Some idx' -> String.concat ["(start " ; string_of_int idx' ; ")\n"]
   | _ -> ""
   
 (* Function section *)
@@ -415,7 +415,7 @@ let get_type_sig w idx =
 let rec string_repeat' s sep n acc =
   match n with
   | 0 -> acc
-  | _ -> string_repeat' s sep (n-1) (acc ^ sep ^ s)
+  | _ -> string_repeat' s sep (n-1) (String.concat [acc ; sep ; s])
 let string_repeat s sep n = string_repeat' s sep n ""
 
 let string_of_local local = 
@@ -424,7 +424,7 @@ let string_of_local local =
 let string_of_locals locals =
   match List.length locals with
   | 0 -> ""
-  | _ -> "\n    (local" ^ (String.concat ~sep:"" (List.map ~f:string_of_local locals)) ^ ")"
+  | _ -> String.concat ["\n    (local" ; (String.concat ~sep:"" (List.map ~f:string_of_local locals)) ; ")"]
 
 let string_of_memarg m = 
   match m.bits with
@@ -437,29 +437,29 @@ let string_of_memarg m =
   | _ -> ""
 
 let string_of_typeidx ti =
-  "(type " ^ string_of_int ti ^ " )"
+  String.concat ["(type " ; string_of_int ti ; " )"]
 
 let string_of_blocktype b =
   match b with
   | Emptytype -> ""
-  | Valuetype vt -> "(result " ^ string_of_valtype vt ^ ")"
+  | Valuetype vt -> String.concat ["(result " ; string_of_valtype vt ; ")"]
   | Typeindex ti -> string_of_typeidx ti
 
-let string_of_br_table b = (String.concat ~sep:" " (List.map ~f:string_of_int b.table)) ^ " " ^ string_of_int b.index
+let string_of_br_table b = String.concat [(String.concat ~sep:" " (List.map ~f:string_of_int b.table)) ; " " ; string_of_int b.index]
 let string_of_arg' a  =
 match a with 
 | Blocktype b -> string_of_blocktype b
 | Labelidx l -> string_of_int l
 | BrTable b -> string_of_br_table b
 | Funcidx f -> string_of_int f
-| CallIndirect ci -> "(type " ^ (string_of_int ci.y) ^ ")"
+| CallIndirect ci -> String.concat ["(type " ; (string_of_int ci.y) ; ")"]
 | Reftype r -> string_of_reftype r
 | ValtypeList vl -> String.concat ~sep:"," (List.map vl ~f:string_of_valtype)
 | Globalidx g -> string_of_int g
 | Localidx l -> string_of_int l
 | Tableidx t-> string_of_int t
 | Elemidx e -> string_of_int e
-| TableCopy tc -> (string_of_int tc.x) ^ "," ^ (string_of_int tc.y)
+| TableCopy tc -> String.concat [(string_of_int tc.x) ; "," ; (string_of_int tc.y)]
 | Memarg m-> string_of_memarg m
 | Dataidx d -> string_of_int d
 | I32value i -> string_of_int i
@@ -476,7 +476,7 @@ match a with
     | 5 -> "i64.trunc_sat_f32_u"
     | 6 -> "i64.trunc_sat_f64_s"
     | 7 -> "i64.trunc_sat_f64_u"
-    | _ -> "invalid trunc_sat: " ^ (string_of_int i)
+    | _ -> failwith (String.concat ["invalid trunc_sat: " ; (string_of_int i)])
     )
 | EmptyArg -> ""
 
@@ -484,10 +484,10 @@ let string_of_arg a  =
   let argstring = string_of_arg' a in
   match String.length argstring with
   | 0 -> ""
-  | _ -> " " ^ argstring
+  | _ -> String.concat [" " ; argstring]
 
 let string_of_opcode' op comment =
-  "\n" ^ (String.make (op.nesting*2 + 4) ' ') ^ op.opname ^ (string_of_arg op.arg) ^ comment 
+String.concat ["\n" ; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
 let string_of_opcode e idx =
   let op = List.nth e idx in
   match op with
@@ -497,10 +497,10 @@ let string_of_opcode e idx =
     | 0x02 (* block *)
     | 0x03 (* loop *)
     | 0x04 (* if *)
-        -> string_of_opcode' op "  ;; label = @" ^ string_of_int (op.nesting + 1)
+        -> string_of_opcode' op (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)])
     | 0x0c (* br *)
     | 0x0d (* br_if *)
-        -> string_of_opcode' op " (;@" ^ string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ^ ";)" 
+        -> string_of_opcode' op (String.concat [" (;@" ; string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ; ";)"])
     | 0x0b (* end *) ->
       (match op.nesting with
       | -1 -> ""
@@ -513,7 +513,7 @@ let string_of_opcode e idx =
 let rec string_of_expr' e idx acc =
   match idx < (List.length e) with
   | false -> acc
-  | true -> string_of_expr' e (idx+1) (acc ^ (string_of_opcode e idx))
+  | true -> string_of_expr' e (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
 
 let string_of_expr e = string_of_expr' e 0 ""
 
@@ -521,34 +521,34 @@ let string_of_code w idx =
   let code = List.nth w.code_section idx in
   match code with
   | Some code' ->
-    (string_of_locals code'.locals) ^ (string_of_expr code'.e)
+    String.concat [(string_of_locals code'.locals) ; (string_of_expr code'.e)]
   | _ -> "Error"
 
-let string_of_param  p = "(param " ^ (string_of_resulttype p) ^ ")"
-let string_of_result r = "(result " ^ (string_of_resulttype r) ^ ")"
+let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
+let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
 let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
 let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
   
 let string_of_function w i idx = 
-  "  (func (;" ^ string_of_int (i + w.last_import_func) ^ ";) (type " ^ (string_of_int idx) ^ ")" 
-    ^ (string_of_types "param" (get_type_sig w idx).rt1) ^ (string_of_types "result" (get_type_sig w idx).rt2)
-    ^ (string_of_code w i) ^ ")\n"
+  String.concat ["  (func (;" ; string_of_int (i + w.last_import_func) ; ";) (type " ; (string_of_int idx) ; ")" 
+    ; (string_of_types "param" (get_type_sig w idx).rt1) ; (string_of_types "result" (get_type_sig w idx).rt2)
+    ; (string_of_code w i) ; ")\n"]
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
 
 (* Table section *) 
-let string_of_table i (t: tabletype) = (string_of_tabletype t i) ^ "\n"
+let string_of_table i (t: tabletype) = String.concat [(string_of_tabletype t i) ; "\n"]
 let string_of_table_section section = String.concat ~sep:"" (List.mapi ~f:string_of_table section)
 
   (* Memory section *) 
-let string_of_memory i (m: memtype) = (string_of_memtype m i) ^ "\n"
+let string_of_memory i (m: memtype) = String.concat [(string_of_memtype m i) ; "\n"]
 let string_of_memory_section section = String.concat ~sep:"" (List.mapi ~f:string_of_memory section)
 
 (* Global section *)
 let string_of_inline_expr e = String.strip (string_of_expr e)
 let string_of_global (g: global) =
-  "  (global (;" ^ string_of_int g.index ^ ";) " ^ "(" ^ (string_of_mut g.gt.m) ^ " " ^ (string_of_valtype g.gt.t) 
-  ^ ") (" ^ (string_of_inline_expr g.e) ^ "))\n" 
+  String.concat ["  (global (;" ; string_of_int g.index ; ";) " ; "(" ; (string_of_mut g.gt.m) ; " " ; (string_of_valtype g.gt.t) 
+  ; ") (" ; (string_of_inline_expr g.e) ; "))\n"]
 let string_of_global_section section =
   String.concat ~sep:"" (List.map ~f:string_of_global section)
 
@@ -556,30 +556,30 @@ let string_of_global_section section =
 let string_of_list_idx li =
   String.concat ~sep:" " (List.map ~f:string_of_int li)
 
-let string_of_expr_item e = "(item " ^ string_of_inline_expr e ^ ")"
+let string_of_expr_item e = String.concat ["(item " ; string_of_inline_expr e ; ")"]
 let string_of_expr_list el = String.concat ~sep:"" (List.map ~f:string_of_expr_item el)
 
 let string_of_element i e =
 match e with
 | ExprFunc exf ->
-    "  (elem (;" ^ string_of_int i ^ ";) (" ^ string_of_inline_expr exf.e ^ ") func " ^ string_of_list_idx exf.y ^ ")\n" 
+    String.concat ["  (elem (;" ; string_of_int i ; ";) (" ; string_of_inline_expr exf.e ; ") func " ; string_of_list_idx exf.y ; ")\n"]
 | ElemFuncP ef ->
-    "  (elem (;" ^ string_of_int i ^ ";) func " ^ string_of_list_idx ef.y ^ ")\n"
+    String.concat ["  (elem (;" ; string_of_int i ; ";) func " ; string_of_list_idx ef.y ; ")\n"]
 | TableExprElemFunc teef->
-    "  (elem (;" ^ string_of_int i ^ ";) (table " ^ string_of_int teef.x ^ ") (offset " ^ string_of_inline_expr teef.e
-          ^ ") func " ^ string_of_list_idx teef.y ^ ")\n"
+    String.concat ["  (elem (;" ; string_of_int i ; ";) (table " ; string_of_int teef.x ; ") (offset " ; string_of_inline_expr teef.e
+          ; ") func " ; string_of_list_idx teef.y ; ")\n"]
 | ElemFuncD ef ->
-    "  (elem (;" ^ string_of_int i ^ ";) func " ^ string_of_list_idx ef.y ^ ")\n"
+    String.concat ["  (elem (;" ; string_of_int i ; ";) func " ; string_of_list_idx ef.y ; ")\n"]
 | ExprExpr ee ->
-    "  (elem (;" ^ string_of_int i ^ ";) (offset " ^ string_of_inline_expr ee.e ^ ") "
-          ^ String.concat ~sep:"" (List.map ~f:string_of_expr_item ee.el) ^ ")\n"
+    String.concat ["  (elem (;" ; string_of_int i ; ";) (offset " ; string_of_inline_expr ee.e ; ") "
+          ; String.concat ~sep:"" (List.map ~f:string_of_expr_item ee.el) ; ")\n"]
 | RefExprP re ->
-    "  (elem (;" ^ string_of_int i ^ ";) " ^ string_of_reftype re.et ^ " " ^ string_of_expr_list re.el ^ ")\n"
+    String.concat ["  (elem (;" ; string_of_int i ; ";) " ; string_of_reftype re.et ; " " ; string_of_expr_list re.el ; ")\n"]
 | TableExprRefExpr tere ->
-  "  (elem (;" ^ string_of_int i ^ ";) (table " ^ string_of_int tere.x ^ ") (offset " ^ string_of_inline_expr tere.e
-          ^ string_of_reftype tere.et ^ ")" ^ string_of_expr_list tere.el ^ ")\n"
+    String.concat ["  (elem (;" ; string_of_int i ; ";) (table " ; string_of_int tere.x ; ") (offset " ; string_of_inline_expr tere.e
+          ; string_of_reftype tere.et ; ")" ; string_of_expr_list tere.el ; ")\n"]
 | RefExprD re ->
-    "  (elem (;" ^ string_of_int i ^ ";) declare " ^ string_of_reftype re.et ^ " " ^ string_of_expr_list re.el ^ ")\n"
+    String.concat ["  (elem (;" ; string_of_int i ; ";) declare " ; string_of_reftype re.et ; " " ; string_of_expr_list re.el ; ")\n"]
   
 let string_of_element_section section =
   String.concat ~sep:"" (List.mapi ~f:string_of_element section)
@@ -601,12 +601,12 @@ let string_of_hex bl = (String.concat ~sep:" " (List.map ~f:(fun b -> sprintf "%
 let string_of_data d =
   match d.details with
   | ExprBytes eb ->
-      "  (data (;" ^ string_of_int d.index ^ ";) (" ^ string_of_inline_expr eb.e ^ ") \"" ^ string_of_bytes eb.b ^ "\")\n"
+      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; string_of_inline_expr eb.e ; ") \"" ; string_of_bytes eb.b ; "\")\n"]
   | Bytes b ->
-      "  (data (;" ^ string_of_int d.index ^ ";) (" ^ string_of_hex b ^ ")\n"
+      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; string_of_hex b ; ")\n"]
   | MemExprBytes meb ->
-      "  (data (;" ^ string_of_int d.index ^ ";) (memory " ^ string_of_int meb.x ^ ") (offset: " ^ string_of_inline_expr meb.e 
-          ^ ") "  ^ string_of_hex meb.b ^ ")\n"
+      String.concat ["  (data (;" ; string_of_int d.index ; ";) (memory " ; string_of_int meb.x ; ") (offset: " ; string_of_inline_expr meb.e 
+          ; ") "  ; string_of_hex meb.b ; ")\n"]
 let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_of_data section)
 
 (* Print the whole wasm module *)

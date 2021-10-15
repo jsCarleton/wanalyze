@@ -20,11 +20,11 @@ type states =
 }
 
 (* printing the state *)
-let string_of_instr_count (count: int) = "  steps: " ^ string_of_int count ^ "; "
-let string_of_value_stack (stack: string list) = "stack: [" ^ (String.concat ~sep:", " stack) ^ "]; "
-let string_of_local_values (locals: string array) = "locals: [" ^ (String.concat ~sep:", " (Array.to_list locals)) ^ "]"
+let string_of_instr_count (count: int) = String.concat ["  steps: " ; string_of_int count ; "; "]
+let string_of_value_stack (stack: string list) = String.concat ["stack: [" ; (String.concat ~sep:", " stack) ; "]; "]
+let string_of_local_values (locals: string array) = String.concat ["locals: [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]"]
 let string_of_state (state: program_state): string =
-  string_of_instr_count state.instr_count ^ string_of_value_stack state.value_stack ^ string_of_local_values state.local_values
+  String.concat [string_of_instr_count state.instr_count ;  string_of_value_stack state.value_stack ; string_of_local_values state.local_values]
 let string_of_ps (_: program_states): string = "" (*String.concat ~sep:"\n" (List.map ~f:string_of_state ps)*)
 
 (* Updating the state of the program *)
@@ -59,7 +59,7 @@ let push_retval (state: program_state) (retval: string) =
 let update_state_callop _ (param_count: int) (retval_count: int) (state: program_state) =
 (*   printf "Calling %d, nparams: %d, nrets: %d\n" fidx param_count retval_count;
  *)  state.value_stack <- List.drop state.value_stack param_count;
-  List.iter ~f:(push_retval state) (List.init retval_count ~f:(fun i -> "R" ^ string_of_int i))
+  List.iter ~f:(push_retval state) (List.init retval_count ~f:(fun i -> String.concat ["R" ; string_of_int i]))
 let update_states_callop (param_counts: int list) (retval_counts: int list) (op: op_type) (s: states) =
   (match op.arg with
   | Funcidx fidx -> 
@@ -168,7 +168,7 @@ let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
 let update_state_memloadop (op: op_type) (state: program_state) = 
   let addr = List.hd_exn state.value_stack in
   state.value_stack <- List.tl_exn state.value_stack;
-  state.value_stack <- List.cons (op.opname ^ "@(" ^ addr ^ ")") state.value_stack
+  state.value_stack <- List.cons (String.concat [op.opname ; "@(" ; addr ; ")"]) state.value_stack
 let update_state_memstoreop (state: program_state) = 
   state.value_stack <- List.tl_exn state.value_stack
 
@@ -185,19 +185,19 @@ let update_state_constop (op: op_type) (state: program_state) =
 
 (* unary operators *)
 let update_state_unop (op: op_type) (state: program_state) = 
-  state.value_stack <- List.cons (op.opname ^ "(" ^ (List.hd_exn state.value_stack) ^ ")") (List.tl_exn state.value_stack)
+  state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
 
 (* binary operators *)
 let update_state_binop (f: string) (state: program_state) =
   printf "starting update_state_binop %d\n%!" (List.length state.value_stack);
   state.value_stack <- 
-    List.cons ("(" ^ (List.nth_exn state.value_stack 0) ^ " " ^ f ^ " " ^ (List.nth_exn state.value_stack 1) ^ ")")
+    List.cons (String.concat ["(" ; (List.nth_exn state.value_stack 0) ; " " ; f ; " " ; (List.nth_exn state.value_stack 1) ; ")"])
               (List.tl_exn (List.tl_exn state.value_stack));
   (printf "ending update_state_binop\n%!")
 
 (* test operators *)
 let update_state_testop (op: op_type) (state: program_state) = 
-  state.value_stack <- List.cons (op.opname ^ "(" ^ (List.hd_exn state.value_stack) ^ ")") (List.tl_exn state.value_stack)
+  state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
   
 (* rel operators *)
 let update_state_relop (f: string) (state: program_state) =
@@ -205,15 +205,15 @@ let update_state_relop (f: string) (state: program_state) =
   state.value_stack <- List.tl_exn state.value_stack;
   let arg2 = List.hd_exn state.value_stack in
   state.value_stack <- List.tl_exn state.value_stack;
-  state.value_stack <- List.cons ("(" ^ arg1 ^ " " ^ f ^ " " ^arg2 ^ ")") state.value_stack
+  state.value_stack <- List.cons (String.concat ["(" ; arg1 ; " " ; f ; " " ; arg2 ; ")"]) state.value_stack
 
 (* cvt operators *)
 let update_state_cvtop (op: op_type) (state: program_state) =
   match op.opcode with
   | 0xfc ->
-      state.value_stack <- List.cons ((string_of_arg op.arg) ^ "(" ^ (List.hd_exn state.value_stack) ^ ")") (List.tl_exn state.value_stack)
+      state.value_stack <- List.cons (String.concat [(string_of_arg op.arg) ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
   | _ ->
-      state.value_stack <- List.cons (op.opname ^ "(" ^ (List.hd_exn state.value_stack) ^ ")") (List.tl_exn state.value_stack)
+      state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
 
 (* instruction counter*)
 let update_instr_count (state: program_state) =
@@ -246,7 +246,7 @@ let update_s (s: states) (param_counts: int list) (retval_counts: int list) (typ
 let local_value n i = 
   match i >= n with
   | true -> "??"
-  | _    -> "N" ^ string_of_int i
+  | _    -> String.concat ["N" ; string_of_int i]
 
 let reduce_fn'' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
   for index = 0 to (List.length e) -1 do

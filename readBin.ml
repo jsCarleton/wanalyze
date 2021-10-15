@@ -150,7 +150,7 @@ let read_limits ic =
   match limit_type with
   | 0x00 -> eprintf "lower limit"; Noupper (uLEB ic 32)
   | 0x01 -> eprintf "lower, upper"; Lowerupper ((uLEB ic 32), (uLEB ic 32))
-  | _ -> failwith ("Invalid limit type: " ^ string_of_int limit_type)
+  | _ -> failwith (String.concat ["Invalid limit type: " ; string_of_int limit_type])
 
 let read_mem_type ic = read_limits ic
 
