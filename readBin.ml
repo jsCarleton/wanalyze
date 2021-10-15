@@ -69,9 +69,9 @@ let sLEB ic size : int64 = sLEB' ic size 0L 0 (of_int (read_byte ic))
 
 let read_vec_len ic = uLEB ic 32
       
-let read_bytes ic: (int list) =
+let read_bytes ic : bytes =
   let len = read_vec_len ic in
-  List.init len ~f:(fun _ -> (read_byte ic))
+  Bytes.init len ~f:(fun _ -> Char.of_int_exn (read_byte ic))
 
  let read_i32 ic = 
   match Int64.to_int (sLEB ic 32) with

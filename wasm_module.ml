@@ -305,17 +305,17 @@ type global =
 type expr_bytes =
 {
   e:  expr;
-  b:  int list;
+  b:  bytes;
 }
 type mem_expr_bytes =
 {
   x:  memidx;
   e:  expr;
-  b:  int list;
+  b:  bytes;
 }
 type data_details =
 | ExprBytes of expr_bytes
-| Bytes of int list
+| Bytes of bytes
 | MemExprBytes of mem_expr_bytes
 type data =
 {
@@ -585,7 +585,8 @@ let string_of_element_section section =
   String.concat ~sep:"" (List.mapi ~f:string_of_element section)
 
 (* Data section *)
-let hexEscape b =
+let hexEscape (c: char) : string =
+  let b = Char.to_int c in
   if b < 32 || b > 126 then sprintf "\\%2.2x" b
   else (
     if b = 34 then "\\22"
@@ -595,18 +596,20 @@ let hexEscape b =
       if b = 92 then "\\5c"
       else Char.escaped (char_of_int b))
 
-let string_of_bytes b = (String.concat ~sep:"" (List.map ~f:hexEscape b))
-let string_of_hex bl = (String.concat ~sep:" " (List.map ~f:(fun b -> sprintf "%2.2x" b) bl))
+let string_of_bytes    (b: bytes) : string = 
+  String.concat ~sep:"" (List.init (Bytes.length b) ~f:(fun i -> (hexEscape (Bytes.get b i))))
+let hexstring_of_bytes (b: bytes) : string = 
+  String.concat ~sep:"" (List.init (Bytes.length b) ~f:(fun i -> (sprintf "%2.2x" (Char.to_int (Bytes.get b i)))))
 
 let string_of_data d =
   match d.details with
   | ExprBytes eb ->
       String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; string_of_inline_expr eb.e ; ") \"" ; string_of_bytes eb.b ; "\")\n"]
   | Bytes b ->
-      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; string_of_hex b ; ")\n"]
+      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; hexstring_of_bytes b ; ")\n"]
   | MemExprBytes meb ->
       String.concat ["  (data (;" ; string_of_int d.index ; ";) (memory " ; string_of_int meb.x ; ") (offset: " ; string_of_inline_expr meb.e 
-          ; ") "  ; string_of_hex meb.b ; ")\n"]
+          ; ") "  ; hexstring_of_bytes meb.b ; ")\n"]
 let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_of_data section)
 
 (* Print the whole wasm module *)
