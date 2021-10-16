@@ -268,30 +268,38 @@ type segment =
 
 let rec get_segments'' (e: expr) (seg_acc: segment list) (current: segment)
     (get_segments': expr -> segment list -> int -> segment list): segment list =
-current.end_op <- current.end_op + 1;
 match (List.hd_exn e).opcode with
 | (* end *)         0x0b
 | (* unreachable *) 0x00
 | (* return *)      0x0f ->
-( match current.start_op = current.end_op-1 with
+( match current.start_op = current.end_op with
   | true  -> get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
-  | false -> get_segments' (List.tl_exn e) (List.append seg_acc [current; {start_op=current.end_op; end_op=current.end_op+1; succ1=None; succ2=None}]) current.end_op
+  | false -> get_segments' (List.tl_exn e) 
+                           (List.append seg_acc [current; {start_op=current.end_op; end_op=current.end_op+1; succ1=None; succ2=None}]) 
+                           (current.end_op+1)
 )
+
 | (* loop *)        0x03
 | (* if *)          0x04
 | (* br *)          0x0c
 | (* br_if *)       0x0d
 | (* br_table *)    0x0e ->
-    get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
+  current.end_op <- current.end_op + 1;
+  get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
 | _ ->
-    get_segments'' (List.tl_exn e) seg_acc current get_segments'
+  current.end_op <- current.end_op + 1;
+  get_segments'' (List.tl_exn e) seg_acc current get_segments'
 
 let rec get_segments' (e: expr) (seg_acc: segment list) (start: int)=
 match e with
 | [] -> seg_acc
-| _  -> get_segments'' e seg_acc {start_op=start; end_op=start+1; succ1=None; succ2=None} get_segments'
+| _  -> get_segments'' e seg_acc {start_op=start; end_op=start; succ1=None; succ2=None} get_segments'
 
 let get_segments (e: expr) : segment list = get_segments' e [] 0
+
+let string_of_segment (s: segment) : string = sprintf "start: %4.4d end: %4.4d\n" s.start_op s.end_op
+let string_of_segments (s: segment list) : string =
+  String.concat (List.map ~f:string_of_segment s)
 
 (* Globals *)
 type global =
@@ -518,11 +526,7 @@ let rec string_of_expr' e idx acc =
 let string_of_expr e = string_of_expr' e 0 ""
 
 let string_of_code w idx =
-  let code = List.nth w.code_section idx in
-  match code with
-  | Some code' ->
-    String.concat [(string_of_locals code'.locals) ; (string_of_expr code'.e)]
-  | _ -> "Error"
+  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr (List.nth_exn w.code_section idx).e)]
 
 let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
 let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
@@ -532,7 +536,7 @@ let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result r
 let string_of_function w i idx = 
   String.concat ["  (func (;" ; string_of_int (i + w.last_import_func) ; ";) (type " ; (string_of_int idx) ; ")" 
     ; (string_of_types "param" (get_type_sig w idx).rt1) ; (string_of_types "result" (get_type_sig w idx).rt2)
-    ; (string_of_code w i) ; ")\n"]
+    ; (string_of_code w i) ; ")\n" ; string_of_segments (get_segments (List.nth_exn w.code_section i).e)]
 let string_of_function_section w = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
 

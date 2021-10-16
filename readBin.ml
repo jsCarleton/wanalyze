@@ -37,8 +37,8 @@ let read_version ic =
 
 let rec skip_bytes ic n =
   match n with
-  | 0 -> true
-  | _ -> read_byte ic >= 0 && skip_bytes ic (n-1)
+  | 0 -> ()
+  | _ -> ignore (read_byte ic: int); skip_bytes ic (n-1)
   
 (* i64 helper functions *)
 let i64lt i1 i2 = (Int64.compare i1 i2) < 0
@@ -92,12 +92,6 @@ let bytes_to_i64 ic n : int64 = bytes_to_i64' ic n 0L
 let read_f32 ic = Int64.float_of_bits (Int64.shift_left (bytes_to_i64 ic 4) 32)
 let read_f64 ic = Int64.float_of_bits (bytes_to_i64 ic 8)
                       
-let reftype ic =
-  match read_byte ic with
-  | 0x70 -> eprintf "funcref"; true
-  | 0x6F -> eprintf "externref"; true
-  | x -> printf "Invalid reftype %x!" x; false
-
 let read_memarg ic bits = 
   let a = uLEB ic 32 in
   {a; o=uLEB ic 32; bits}
@@ -110,7 +104,7 @@ let read_vec ic reader = read_vec' ic (read_vec_len ic) reader []
 
 (* Sections consisting of vectors of entries *)
 let rec read_entries ic n w entry_handler =
-  eprintf "%s - section has %d entries left\n" (Time.to_sec_string ~zone:Time.Zone.utc (Time.now ())) n;
+   eprintf "%s - section has %d entries left\n" (Time.to_sec_string ~zone:Time.Zone.utc (Time.now ())) n;
   match n with
   | 0 -> true
   | _ ->
@@ -119,7 +113,7 @@ let rec read_entries ic n w entry_handler =
 
 let read_section_length ic = uLEB ic 32
 let read_section ic section entry_handler =
-  eprintf "reading section: \n";
+  eprintf "reading section: \n";  
   read_section_length ic >= 0 (* discard the section size *)
   && read_entries ic (read_vec_len ic) section entry_handler
 
@@ -569,7 +563,7 @@ let read_element ic w =
       let et = read_reftype ic in
       let el = read_vec ic read_expr in
       update_element_section w (RefExprD {et; el})
-  | _ ->  printf "Invalid element item %x" element_type; false
+  | _ -> failwith (String.concat ["Invalid element item: " ; (string_of_int element_type)])
 
 (* Code section *)
 let read_code ic w =
@@ -598,7 +592,7 @@ let read_data ic w =
       let e = read_expr ic in
       let b = read_bytes ic in
       update_data_section w (MemExprBytes {x; e; b})
-  | _ -> printf "Invalid data item %x\n" data_item_type; false
+  | _ -> failwith (String.concat ["Invalid data item: " ; string_of_int data_item_type])
 
 (* Data count section *)
 let read_data_count ic w =
@@ -608,7 +602,7 @@ let read_data_count ic w =
 (* Section reader *)
 let read_section_body ic w id =
   match id with
-  | 0 -> eprintf "Custom section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic)
+  | 0 -> eprintf "Custom section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic); true
   | 1 -> eprintf "Type section\n";      read_section ic w read_type
   | 2 -> eprintf "Import section\n";    read_section ic w read_import
   | 3 -> eprintf "Function section\n";  read_section ic w read_function
@@ -621,7 +615,7 @@ let read_section_body ic w id =
   | 10 -> eprintf "Code section\n";     read_section ic w read_code
   | 11 -> eprintf "Data section\n";     read_section ic w read_data
   | 12 -> eprintf "Data count\n"; read_data_count ic w
-  | _ -> eprintf "Unknown section, skipping\n"; skip_bytes ic (read_section_length ic)
+  | _ -> eprintf "Unknown section, skipping\n"; skip_bytes ic (read_section_length ic); true
 
 let read_section_id ic =
   match read_byte ic with

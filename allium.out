@@ -62,6 +62,14 @@ Module: allium.wasm
     end
     local.get 2
     i64.load)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0021
+start: 0021 end: 0022
+start: 0022 end: 0023
+start: 0023 end: 0025
+start: 0025 end: 0026
   (func (;17;) (type 7) (param i32 i32 i32)
     (local i32)
     local.get 0
@@ -90,6 +98,14 @@ Module: allium.wasm
     local.get 3
     local.get 2
     i32.store)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0021
+start: 0021 end: 0022
+start: 0022 end: 0023
+start: 0023 end: 0026
+start: 0026 end: 0027
   (func (;18;) (type 8) (param i32 i32 i64)
     (local i32)
     local.get 0
@@ -118,6 +134,14 @@ Module: allium.wasm
     local.get 3
     local.get 2
     i64.store)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0021
+start: 0021 end: 0022
+start: 0022 end: 0023
+start: 0023 end: 0026
+start: 0026 end: 0027
   (func (;19;) (type 5) (param i32 i32) (result i32)
     (local i32)
     local.get 0
@@ -139,6 +163,11 @@ Module: allium.wasm
     end
     local.get 2
     i32.load8_u)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0019
+start: 0019 end: 0020
   (func (;20;) (type 5) (param i32 i32) (result i32)
     (local i32)
     local.get 0
@@ -166,6 +195,14 @@ Module: allium.wasm
     end
     local.get 2
     i32.load)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0021
+start: 0021 end: 0022
+start: 0022 end: 0023
+start: 0023 end: 0025
+start: 0025 end: 0026
   (func (;21;) (type 8) (param i32 i32 i64)
     (local i32)
     local.get 0
@@ -188,6 +225,11 @@ Module: allium.wasm
     local.get 3
     local.get 2
     i64.store8)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0020
+start: 0020 end: 0021
   (func (;22;) (type 8) (param i32 i32 i64)
     (local i32)
     local.get 0
@@ -216,6 +258,14 @@ Module: allium.wasm
     local.get 3
     local.get 2
     i64.store align=4)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0021
+start: 0021 end: 0022
+start: 0022 end: 0023
+start: 0023 end: 0026
+start: 0026 end: 0027
   (func (;23;) (type 11) (param i32 i32) (result i64)
     (local i32)
     local.get 0
@@ -243,6 +293,14 @@ Module: allium.wasm
     end
     local.get 2
     i64.load align=4)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0021
+start: 0021 end: 0022
+start: 0022 end: 0023
+start: 0023 end: 0025
+start: 0025 end: 0026
   (func (;24;) (type 7) (param i32 i32 i32)
     local.get 0
     i32.const 0
@@ -296,6 +354,24 @@ Module: allium.wasm
         call 81
       end
     end)
+start: 0000 end: 0004
+start: 0004 end: 0005
+start: 0005 end: 0006
+start: 0006 end: 0014
+start: 0014 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0020
+start: 0020 end: 0024
+start: 0024 end: 0025
+start: 0025 end: 0026
+start: 0026 end: 0035
+start: 0035 end: 0044
+start: 0044 end: 0045
+start: 0045 end: 0046
+start: 0046 end: 0050
+start: 0050 end: 0051
+start: 0051 end: 0051
+start: 0051 end: 0051
   (func (;25;) (type 7) (param i32 i32 i32)
     (local i32)
     local.get 0
@@ -318,6 +394,11 @@ Module: allium.wasm
     local.get 3
     local.get 2
     i32.store8)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0020
+start: 0020 end: 0021
   (func (;26;) (type 8) (param i32 i32 i64)
     (local i32)
     local.get 0
@@ -340,6 +421,11 @@ Module: allium.wasm
     local.get 3
     local.get 2
     i64.store align=1)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0020
+start: 0020 end: 0021
   (func (;27;) (type 5) (param i32 i32) (result i32)
     local.get 0
     i32.const 0
@@ -391,6 +477,28 @@ Module: allium.wasm
     local.get 0
     i32.const 0
     call 47)
+start: 0000 end: 0004
+start: 0004 end: 0005
+start: 0005 end: 0006
+start: 0006 end: 0014
+start: 0014 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0020
+start: 0020 end: 0024
+start: 0024 end: 0025
+start: 0025 end: 0026
+start: 0026 end: 0029
+start: 0029 end: 0030
+start: 0030 end: 0035
+start: 0035 end: 0038
+start: 0038 end: 0039
+start: 0039 end: 0039
+start: 0039 end: 0039
+start: 0039 end: 0043
+start: 0043 end: 0044
+start: 0044 end: 0045
+start: 0045 end: 0048
+start: 0048 end: 0049
   (func (;28;) (type 11) (param i32 i32) (result i64)
     (local i32)
     local.get 0
@@ -412,6 +520,11 @@ Module: allium.wasm
     end
     local.get 2
     i64.load align=1)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0019
+start: 0019 end: 0020
   (func (;29;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32)
     local.get 2
@@ -752,6 +865,43 @@ Module: allium.wasm
       end
     end
     local.get 4)
+start: 0000 end: 0004
+start: 0004 end: 0008
+start: 0008 end: 0009
+start: 0009 end: 0009
+start: 0009 end: 0023
+start: 0023 end: 0024
+start: 0024 end: 0028
+start: 0028 end: 0031
+start: 0031 end: 0032
+start: 0032 end: 0033
+start: 0033 end: 0033
+start: 0033 end: 0052
+start: 0052 end: 0052
+start: 0052 end: 0052
+start: 0052 end: 0060
+start: 0060 end: 0064
+start: 0064 end: 0229
+start: 0229 end: 0229
+start: 0229 end: 0229
+start: 0229 end: 0230
+start: 0230 end: 0234
+start: 0234 end: 0249
+start: 0249 end: 0249
+start: 0249 end: 0249
+start: 0249 end: 0255
+start: 0255 end: 0259
+start: 0259 end: 0304
+start: 0304 end: 0304
+start: 0304 end: 0304
+start: 0304 end: 0304
+start: 0304 end: 0305
+start: 0305 end: 0309
+start: 0309 end: 0324
+start: 0324 end: 0324
+start: 0324 end: 0324
+start: 0324 end: 0325
+start: 0325 end: 0326
   (func (;30;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32 i32)
     local.get 0
@@ -945,6 +1095,30 @@ Module: allium.wasm
     local.get 4
     local.get 2
     i32.sub)
+start: 0000 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0017
+start: 0017 end: 0026
+start: 0026 end: 0026
+start: 0026 end: 0026
+start: 0026 end: 0048
+start: 0048 end: 0052
+start: 0052 end: 0151
+start: 0151 end: 0151
+start: 0151 end: 0151
+start: 0151 end: 0152
+start: 0152 end: 0156
+start: 0156 end: 0165
+start: 0165 end: 0165
+start: 0165 end: 0165
+start: 0165 end: 0165
+start: 0165 end: 0166
+start: 0166 end: 0170
+start: 0170 end: 0179
+start: 0179 end: 0179
+start: 0179 end: 0179
+start: 0179 end: 0182
+start: 0182 end: 0183
   (func (;31;) (type 1) (param i32) (result i32)
     (local i32)
     local.get 0
@@ -994,10 +1168,24 @@ Module: allium.wasm
       end
     end
     local.get 1)
+start: 0000 end: 0018
+start: 0018 end: 0023
+start: 0023 end: 0024
+start: 0024 end: 0024
+start: 0024 end: 0032
+start: 0032 end: 0035
+start: 0035 end: 0042
+start: 0042 end: 0043
+start: 0043 end: 0043
+start: 0043 end: 0043
+start: 0043 end: 0044
+start: 0044 end: 0045
   (func (;32;) (type 0) (param i32 i32 i32) (result i32)
     i32.const 1
     call 6
     i32.const 0)
+start: 0000 end: 0003
+start: 0003 end: 0004
   (func (;33;) (type 3) (param i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32)
     local.get 0
@@ -2028,6 +2216,165 @@ Module: allium.wasm
     i32.const 0
     i32.const -1
     call 17)
+start: 0000 end: 0003
+start: 0003 end: 0003
+start: 0003 end: 0003
+start: 0003 end: 0027
+start: 0027 end: 0038
+start: 0038 end: 0038
+start: 0038 end: 0038
+start: 0038 end: 0045
+start: 0045 end: 0045
+start: 0045 end: 0045
+start: 0045 end: 0055
+start: 0055 end: 0068
+start: 0068 end: 0091
+start: 0091 end: 0092
+start: 0092 end: 0092
+start: 0092 end: 0100
+start: 0100 end: 0110
+start: 0110 end: 0131
+start: 0131 end: 0132
+start: 0132 end: 0134
+start: 0134 end: 0134
+start: 0134 end: 0146
+start: 0146 end: 0157
+start: 0157 end: 0166
+start: 0166 end: 0169
+start: 0169 end: 0169
+start: 0169 end: 0169
+start: 0169 end: 0170
+start: 0170 end: 0180
+start: 0180 end: 0189
+start: 0189 end: 0189
+start: 0189 end: 0194
+start: 0194 end: 0194
+start: 0194 end: 0194
+start: 0194 end: 0210
+start: 0210 end: 0211
+start: 0211 end: 0211
+start: 0211 end: 0213
+start: 0213 end: 0227
+start: 0227 end: 0234
+start: 0234 end: 0248
+start: 0248 end: 0248
+start: 0248 end: 0262
+start: 0262 end: 0265
+start: 0265 end: 0266
+start: 0266 end: 0273
+start: 0273 end: 0274
+start: 0274 end: 0275
+start: 0275 end: 0287
+start: 0287 end: 0295
+start: 0295 end: 0296
+start: 0296 end: 0301
+start: 0301 end: 0309
+start: 0309 end: 0310
+start: 0310 end: 0313
+start: 0313 end: 0314
+start: 0314 end: 0314
+start: 0314 end: 0314
+start: 0314 end: 0318
+start: 0318 end: 0318
+start: 0318 end: 0318
+start: 0318 end: 0329
+start: 0329 end: 0329
+start: 0329 end: 0329
+start: 0329 end: 0333
+start: 0333 end: 0360
+start: 0360 end: 0385
+start: 0385 end: 0385
+start: 0385 end: 0385
+start: 0385 end: 0393
+start: 0393 end: 0394
+start: 0394 end: 0394
+start: 0394 end: 0400
+start: 0400 end: 0425
+start: 0425 end: 0426
+start: 0426 end: 0426
+start: 0426 end: 0441
+start: 0441 end: 0451
+start: 0451 end: 0472
+start: 0472 end: 0473
+start: 0473 end: 0486
+start: 0486 end: 0497
+start: 0497 end: 0506
+start: 0506 end: 0509
+start: 0509 end: 0509
+start: 0509 end: 0509
+start: 0509 end: 0510
+start: 0510 end: 0520
+start: 0520 end: 0529
+start: 0529 end: 0529
+start: 0529 end: 0534
+start: 0534 end: 0534
+start: 0534 end: 0534
+start: 0534 end: 0550
+start: 0550 end: 0551
+start: 0551 end: 0551
+start: 0551 end: 0553
+start: 0553 end: 0567
+start: 0567 end: 0574
+start: 0574 end: 0587
+start: 0587 end: 0587
+start: 0587 end: 0601
+start: 0601 end: 0604
+start: 0604 end: 0605
+start: 0605 end: 0611
+start: 0611 end: 0611
+start: 0611 end: 0623
+start: 0623 end: 0631
+start: 0631 end: 0632
+start: 0632 end: 0637
+start: 0637 end: 0645
+start: 0645 end: 0646
+start: 0646 end: 0646
+start: 0646 end: 0646
+start: 0646 end: 0646
+start: 0646 end: 0664
+start: 0664 end: 0668
+start: 0668 end: 0669
+start: 0669 end: 0669
+start: 0669 end: 0669
+start: 0669 end: 0677
+start: 0677 end: 0693
+start: 0693 end: 0711
+start: 0711 end: 0712
+start: 0712 end: 0729
+start: 0729 end: 0730
+start: 0730 end: 0730
+start: 0730 end: 0735
+start: 0735 end: 0739
+start: 0739 end: 0792
+start: 0792 end: 0793
+start: 0793 end: 0795
+start: 0795 end: 0796
+start: 0796 end: 0825
+start: 0825 end: 0837
+start: 0837 end: 0850
+start: 0850 end: 0853
+start: 0853 end: 0854
+start: 0854 end: 0857
+start: 0857 end: 0871
+start: 0871 end: 0883
+start: 0883 end: 0886
+start: 0886 end: 0886
+start: 0886 end: 0886
+start: 0886 end: 0903
+start: 0903 end: 0903
+start: 0903 end: 0904
+start: 0904 end: 0905
+start: 0905 end: 0954
+start: 0954 end: 0955
+start: 0955 end: 0955
+start: 0955 end: 0966
+start: 0966 end: 0966
+start: 0966 end: 0966
+start: 0966 end: 0969
+start: 0969 end: 0978
+start: 0978 end: 0978
+start: 0978 end: 0982
+start: 0982 end: 0983
   (func (;34;) (type 1) (param i32) (result i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     block  ;; label = @1
@@ -5938,6 +6285,503 @@ Module: allium.wasm
     local.get 10
     global.set 5
     i32.const 0)
+start: 0000 end: 0014
+start: 0014 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0018
+start: 0018 end: 0019
+start: 0019 end: 0025
+start: 0025 end: 0039
+start: 0039 end: 0042
+start: 0042 end: 0043
+start: 0043 end: 0052
+start: 0052 end: 0080
+start: 0080 end: 0099
+start: 0099 end: 0100
+start: 0100 end: 0125
+start: 0125 end: 0126
+start: 0126 end: 0126
+start: 0126 end: 0133
+start: 0133 end: 0135
+start: 0135 end: 0226
+start: 0226 end: 0248
+start: 0248 end: 0249
+start: 0249 end: 0278
+start: 0278 end: 0298
+start: 0298 end: 0316
+start: 0316 end: 0317
+start: 0317 end: 0334
+start: 0334 end: 0335
+start: 0335 end: 0346
+start: 0346 end: 0347
+start: 0347 end: 0347
+start: 0347 end: 0352
+start: 0352 end: 0427
+start: 0427 end: 0433
+start: 0433 end: 0442
+start: 0442 end: 0442
+start: 0442 end: 0455
+start: 0455 end: 0457
+start: 0457 end: 0458
+start: 0458 end: 0460
+start: 0460 end: 0462
+start: 0462 end: 0463
+start: 0463 end: 0466
+start: 0466 end: 0466
+start: 0466 end: 0466
+start: 0466 end: 0473
+start: 0473 end: 0485
+start: 0485 end: 0494
+start: 0494 end: 0503
+start: 0503 end: 0506
+start: 0506 end: 0506
+start: 0506 end: 0506
+start: 0506 end: 0507
+start: 0507 end: 0517
+start: 0517 end: 0526
+start: 0526 end: 0526
+start: 0526 end: 0531
+start: 0531 end: 0531
+start: 0531 end: 0531
+start: 0531 end: 0547
+start: 0547 end: 0548
+start: 0548 end: 0548
+start: 0548 end: 0551
+start: 0551 end: 0565
+start: 0565 end: 0572
+start: 0572 end: 0583
+start: 0583 end: 0583
+start: 0583 end: 0597
+start: 0597 end: 0600
+start: 0600 end: 0601
+start: 0601 end: 0607
+start: 0607 end: 0607
+start: 0607 end: 0616
+start: 0616 end: 0624
+start: 0624 end: 0625
+start: 0625 end: 0630
+start: 0630 end: 0638
+start: 0638 end: 0639
+start: 0639 end: 0639
+start: 0639 end: 0639
+start: 0639 end: 0643
+start: 0643 end: 0686
+start: 0686 end: 0706
+start: 0706 end: 0724
+start: 0724 end: 0725
+start: 0725 end: 0742
+start: 0742 end: 0743
+start: 0743 end: 0751
+start: 0751 end: 0752
+start: 0752 end: 0757
+start: 0757 end: 0758
+start: 0758 end: 0758
+start: 0758 end: 0758
+start: 0758 end: 0758
+start: 0758 end: 0763
+start: 0763 end: 0778
+start: 0778 end: 0783
+start: 0783 end: 0787
+start: 0787 end: 0840
+start: 0840 end: 0841
+start: 0841 end: 0843
+start: 0843 end: 0844
+start: 0844 end: 0860
+start: 0860 end: 0873
+start: 0873 end: 0876
+start: 0876 end: 0877
+start: 0877 end: 0882
+start: 0882 end: 0893
+start: 0893 end: 0895
+start: 0895 end: 0904
+start: 0904 end: 0904
+start: 0904 end: 0905
+start: 0905 end: 0906
+start: 0906 end: 0928
+start: 0928 end: 0930
+start: 0930 end: 0931
+start: 0931 end: 0937
+start: 0937 end: 0937
+start: 0937 end: 0940
+start: 0940 end: 0941
+start: 0941 end: 0946
+start: 0946 end: 0961
+start: 0961 end: 1027
+start: 1027 end: 1028
+start: 1028 end: 1030
+start: 1030 end: 1033
+start: 1033 end: 1033
+start: 1033 end: 1038
+start: 1038 end: 1049
+start: 1049 end: 1053
+start: 1053 end: 1054
+start: 1054 end: 1055
+start: 1055 end: 1056
+start: 1056 end: 1066
+start: 1066 end: 1068
+start: 1068 end: 1069
+start: 1069 end: 1072
+start: 1072 end: 1074
+start: 1074 end: 1075
+start: 1075 end: 1077
+start: 1077 end: 1084
+start: 1084 end: 1088
+start: 1088 end: 1089
+start: 1089 end: 1090
+start: 1090 end: 1091
+start: 1091 end: 1091
+start: 1091 end: 1093
+start: 1093 end: 1101
+start: 1101 end: 1108
+start: 1108 end: 1120
+start: 1120 end: 1129
+start: 1129 end: 1138
+start: 1138 end: 1141
+start: 1141 end: 1141
+start: 1141 end: 1141
+start: 1141 end: 1142
+start: 1142 end: 1152
+start: 1152 end: 1161
+start: 1161 end: 1161
+start: 1161 end: 1166
+start: 1166 end: 1166
+start: 1166 end: 1166
+start: 1166 end: 1182
+start: 1182 end: 1183
+start: 1183 end: 1183
+start: 1183 end: 1186
+start: 1186 end: 1200
+start: 1200 end: 1207
+start: 1207 end: 1219
+start: 1219 end: 1219
+start: 1219 end: 1233
+start: 1233 end: 1236
+start: 1236 end: 1237
+start: 1237 end: 1243
+start: 1243 end: 1246
+start: 1246 end: 1246
+start: 1246 end: 1246
+start: 1246 end: 1255
+start: 1255 end: 1263
+start: 1263 end: 1264
+start: 1264 end: 1269
+start: 1269 end: 1277
+start: 1277 end: 1278
+start: 1278 end: 1278
+start: 1278 end: 1280
+start: 1280 end: 1281
+start: 1281 end: 1286
+start: 1286 end: 1335
+start: 1335 end: 1351
+start: 1351 end: 1369
+start: 1369 end: 1370
+start: 1370 end: 1388
+start: 1388 end: 1388
+start: 1388 end: 1393
+start: 1393 end: 1397
+start: 1397 end: 1450
+start: 1450 end: 1451
+start: 1451 end: 1453
+start: 1453 end: 1454
+start: 1454 end: 1483
+start: 1483 end: 1506
+start: 1506 end: 1506
+start: 1506 end: 1518
+start: 1518 end: 1531
+start: 1531 end: 1534
+start: 1534 end: 1535
+start: 1535 end: 1538
+start: 1538 end: 1552
+start: 1552 end: 1564
+start: 1564 end: 1567
+start: 1567 end: 1567
+start: 1567 end: 1567
+start: 1567 end: 1584
+start: 1584 end: 1584
+start: 1584 end: 1585
+start: 1585 end: 1586
+start: 1586 end: 1612
+start: 1612 end: 1613
+start: 1613 end: 1613
+start: 1613 end: 1618
+start: 1618 end: 1619
+start: 1619 end: 1619
+start: 1619 end: 1619
+start: 1619 end: 1619
+start: 1619 end: 1619
+start: 1619 end: 1619
+start: 1619 end: 1619
+start: 1619 end: 1619
+start: 1619 end: 1626
+start: 1626 end: 1637
+start: 1637 end: 1694
+start: 1694 end: 1695
+start: 1695 end: 1696
+start: 1696 end: 1696
+start: 1696 end: 1703
+start: 1703 end: 1711
+start: 1711 end: 1711
+start: 1711 end: 1715
+start: 1715 end: 1752
+start: 1752 end: 1753
+start: 1753 end: 1769
+start: 1769 end: 1770
+start: 1770 end: 1770
+start: 1770 end: 1775
+start: 1775 end: 1789
+start: 1789 end: 1790
+start: 1790 end: 1790
+start: 1790 end: 1790
+start: 1790 end: 1802
+start: 1802 end: 1814
+start: 1814 end: 1817
+start: 1817 end: 1825
+start: 1825 end: 1833
+start: 1833 end: 1833
+start: 1833 end: 1838
+start: 1838 end: 1839
+start: 1839 end: 1839
+start: 1839 end: 1839
+start: 1839 end: 1848
+start: 1848 end: 1860
+start: 1860 end: 1864
+start: 1864 end: 1866
+start: 1866 end: 1866
+start: 1866 end: 1869
+start: 1869 end: 1870
+start: 1870 end: 1871
+start: 1871 end: 1871
+start: 1871 end: 1877
+start: 1877 end: 1899
+start: 1899 end: 1902
+start: 1902 end: 1903
+start: 1903 end: 1920
+start: 1920 end: 1925
+start: 1925 end: 1933
+start: 1933 end: 1936
+start: 1936 end: 1936
+start: 1936 end: 1936
+start: 1936 end: 1942
+start: 1942 end: 1945
+start: 1945 end: 1947
+start: 1947 end: 1948
+start: 1948 end: 1948
+start: 1948 end: 1950
+start: 1950 end: 1950
+start: 1950 end: 1963
+start: 1963 end: 1967
+start: 1967 end: 1970
+start: 1970 end: 1972
+start: 1972 end: 1972
+start: 1972 end: 1972
+start: 1972 end: 1972
+start: 1972 end: 1988
+start: 1988 end: 1997
+start: 1997 end: 2007
+start: 2007 end: 2007
+start: 2007 end: 2008
+start: 2008 end: 2009
+start: 2009 end: 2017
+start: 2017 end: 2018
+start: 2018 end: 2022
+start: 2022 end: 2048
+start: 2048 end: 2050
+start: 2050 end: 2051
+start: 2051 end: 2064
+start: 2064 end: 2064
+start: 2064 end: 2065
+start: 2065 end: 2065
+start: 2065 end: 2080
+start: 2080 end: 2084
+start: 2084 end: 2085
+start: 2085 end: 2091
+start: 2091 end: 2096
+start: 2096 end: 2108
+start: 2108 end: 2113
+start: 2113 end: 2113
+start: 2113 end: 2114
+start: 2114 end: 2114
+start: 2114 end: 2125
+start: 2125 end: 2133
+start: 2133 end: 2161
+start: 2161 end: 2165
+start: 2165 end: 2166
+start: 2166 end: 2195
+start: 2195 end: 2195
+start: 2195 end: 2195
+start: 2195 end: 2195
+start: 2195 end: 2201
+start: 2201 end: 2205
+start: 2205 end: 2206
+start: 2206 end: 2215
+start: 2215 end: 2221
+start: 2221 end: 2226
+start: 2226 end: 2226
+start: 2226 end: 2227
+start: 2227 end: 2227
+start: 2227 end: 2234
+start: 2234 end: 2272
+start: 2272 end: 2275
+start: 2275 end: 2276
+start: 2276 end: 2286
+start: 2286 end: 2289
+start: 2289 end: 2290
+start: 2290 end: 2308
+start: 2308 end: 2334
+start: 2334 end: 2360
+start: 2360 end: 2360
+start: 2360 end: 2369
+start: 2369 end: 2382
+start: 2382 end: 2392
+start: 2392 end: 2413
+start: 2413 end: 2414
+start: 2414 end: 2427
+start: 2427 end: 2438
+start: 2438 end: 2447
+start: 2447 end: 2450
+start: 2450 end: 2450
+start: 2450 end: 2450
+start: 2450 end: 2451
+start: 2451 end: 2461
+start: 2461 end: 2470
+start: 2470 end: 2470
+start: 2470 end: 2475
+start: 2475 end: 2475
+start: 2475 end: 2475
+start: 2475 end: 2491
+start: 2491 end: 2492
+start: 2492 end: 2492
+start: 2492 end: 2495
+start: 2495 end: 2510
+start: 2510 end: 2516
+start: 2516 end: 2529
+start: 2529 end: 2543
+start: 2543 end: 2546
+start: 2546 end: 2547
+start: 2547 end: 2553
+start: 2553 end: 2553
+start: 2553 end: 2553
+start: 2553 end: 2565
+start: 2565 end: 2573
+start: 2573 end: 2574
+start: 2574 end: 2580
+start: 2580 end: 2588
+start: 2588 end: 2589
+start: 2589 end: 2589
+start: 2589 end: 2597
+start: 2597 end: 2598
+start: 2598 end: 2629
+start: 2629 end: 2645
+start: 2645 end: 2663
+start: 2663 end: 2664
+start: 2664 end: 2682
+start: 2682 end: 2682
+start: 2682 end: 2688
+start: 2688 end: 2693
+start: 2693 end: 2747
+start: 2747 end: 2748
+start: 2748 end: 2748
+start: 2748 end: 2780
+start: 2780 end: 2803
+start: 2803 end: 2803
+start: 2803 end: 2815
+start: 2815 end: 2828
+start: 2828 end: 2831
+start: 2831 end: 2832
+start: 2832 end: 2835
+start: 2835 end: 2849
+start: 2849 end: 2861
+start: 2861 end: 2864
+start: 2864 end: 2864
+start: 2864 end: 2864
+start: 2864 end: 2881
+start: 2881 end: 2881
+start: 2881 end: 2882
+start: 2882 end: 2883
+start: 2883 end: 2909
+start: 2909 end: 2910
+start: 2910 end: 2910
+start: 2910 end: 2915
+start: 2915 end: 2916
+start: 2916 end: 2916
+start: 2916 end: 2916
+start: 2916 end: 2919
+start: 2919 end: 2927
+start: 2927 end: 2936
+start: 2936 end: 2936
+start: 2936 end: 2941
+start: 2941 end: 2941
+start: 2941 end: 2941
+start: 2941 end: 2958
+start: 2958 end: 2961
+start: 2961 end: 2962
+start: 2962 end: 2970
+start: 2970 end: 2974
+start: 2974 end: 2975
+start: 2975 end: 3003
+start: 3003 end: 3007
+start: 3007 end: 3008
+start: 3008 end: 3072
+start: 3072 end: 3073
+start: 3073 end: 3075
+start: 3075 end: 3088
+start: 3088 end: 3091
+start: 3091 end: 3091
+start: 3091 end: 3091
+start: 3091 end: 3095
+start: 3095 end: 3124
+start: 3124 end: 3140
+start: 3140 end: 3158
+start: 3158 end: 3159
+start: 3159 end: 3177
+start: 3177 end: 3177
+start: 3177 end: 3182
+start: 3182 end: 3186
+start: 3186 end: 3239
+start: 3239 end: 3240
+start: 3240 end: 3242
+start: 3242 end: 3243
+start: 3243 end: 3272
+start: 3272 end: 3295
+start: 3295 end: 3295
+start: 3295 end: 3307
+start: 3307 end: 3320
+start: 3320 end: 3323
+start: 3323 end: 3324
+start: 3324 end: 3327
+start: 3327 end: 3341
+start: 3341 end: 3353
+start: 3353 end: 3356
+start: 3356 end: 3356
+start: 3356 end: 3356
+start: 3356 end: 3373
+start: 3373 end: 3373
+start: 3373 end: 3374
+start: 3374 end: 3375
+start: 3375 end: 3401
+start: 3401 end: 3402
+start: 3402 end: 3413
+start: 3413 end: 3417
+start: 3417 end: 3418
+start: 3418 end: 3716
+start: 3716 end: 3720
+start: 3720 end: 3721
+start: 3721 end: 3749
+start: 3749 end: 3750
+start: 3750 end: 3750
+start: 3750 end: 3757
+start: 3757 end: 3765
+start: 3765 end: 3765
+start: 3765 end: 3765
+start: 3765 end: 3770
+start: 3770 end: 3770
+start: 3770 end: 3792
+start: 3792 end: 3793
+start: 3793 end: 3798
+start: 3798 end: 3799
+start: 3799 end: 3799
+start: 3799 end: 3802
+start: 3802 end: 3803
   (func (;35;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     i32.const 64
@@ -13668,6 +14512,26 @@ Module: allium.wasm
     i32.const 0
     local.get 11
     call 17)
+start: 0000 end: 0012
+start: 0012 end: 0025
+start: 0025 end: 0026
+start: 0026 end: 0026
+start: 0026 end: 0126
+start: 0126 end: 0401
+start: 0401 end: 0412
+start: 0412 end: 0415
+start: 0415 end: 0416
+start: 0416 end: 0426
+start: 0426 end: 7646
+start: 7646 end: 7647
+start: 7647 end: 7656
+start: 7656 end: 7659
+start: 7659 end: 7659
+start: 7659 end: 7659
+start: 7659 end: 7664
+start: 7664 end: 7665
+start: 7665 end: 7725
+start: 7725 end: 7726
   (func (;36;) (type 3) (param i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
     local.get 0
@@ -14259,6 +15123,8 @@ Module: allium.wasm
     i64.shr_u
     i64.or
     call 18)
+start: 0000 end: 0589
+start: 0589 end: 0590
   (func (;37;) (type 5) (param i32 i32) (result i32)
     (local i32)
     local.get 0
@@ -14280,6 +15146,11 @@ Module: allium.wasm
     end
     local.get 2
     i32.load8_s)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0019
+start: 0019 end: 0020
   (func (;38;) (type 1) (param i32) (result i32)
     (local i32 i32 i32 i32 i32 i32)
     block (result i32)  ;; label = @1
@@ -14371,6 +15242,17 @@ Module: allium.wasm
       i32.const 0
     end
     local.tee 0)
+start: 0000 end: 0016
+start: 0016 end: 0032
+start: 0032 end: 0034
+start: 0034 end: 0034
+start: 0034 end: 0050
+start: 0050 end: 0064
+start: 0064 end: 0065
+start: 0065 end: 0086
+start: 0086 end: 0087
+start: 0087 end: 0088
+start: 0088 end: 0089
   (func (;39;) (type 3) (param i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
     local.get 0
@@ -20088,6 +20970,8 @@ Module: allium.wasm
     i64.shr_u
     i64.or
     call 18)
+start: 0000 end: 5715
+start: 5715 end: 5716
   (func (;40;) (type 1) (param i32) (result i32)
     (local i32 i32)
     block  ;; label = @1
@@ -20165,6 +21049,29 @@ Module: allium.wasm
       end
     end
     local.get 0)
+start: 0000 end: 0003
+start: 0003 end: 0009
+start: 0009 end: 0013
+start: 0013 end: 0013
+start: 0013 end: 0021
+start: 0021 end: 0027
+start: 0027 end: 0028
+start: 0028 end: 0036
+start: 0036 end: 0037
+start: 0037 end: 0043
+start: 0043 end: 0046
+start: 0046 end: 0047
+start: 0047 end: 0056
+start: 0056 end: 0061
+start: 0061 end: 0062
+start: 0062 end: 0067
+start: 0067 end: 0067
+start: 0067 end: 0067
+start: 0067 end: 0069
+start: 0069 end: 0070
+start: 0070 end: 0070
+start: 0070 end: 0071
+start: 0071 end: 0072
   (func (;41;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     global.get 5
@@ -20422,6 +21329,37 @@ Module: allium.wasm
     local.get 8
     global.set 5
     local.get 2)
+start: 0000 end: 0010
+start: 0010 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0081
+start: 0081 end: 0091
+start: 0091 end: 0092
+start: 0092 end: 0094
+start: 0094 end: 0101
+start: 0101 end: 0105
+start: 0105 end: 0121
+start: 0121 end: 0123
+start: 0123 end: 0124
+start: 0124 end: 0140
+start: 0140 end: 0143
+start: 0143 end: 0144
+start: 0144 end: 0181
+start: 0181 end: 0191
+start: 0191 end: 0192
+start: 0192 end: 0194
+start: 0194 end: 0195
+start: 0195 end: 0195
+start: 0195 end: 0195
+start: 0195 end: 0219
+start: 0219 end: 0226
+start: 0226 end: 0227
+start: 0227 end: 0229
+start: 0229 end: 0229
+start: 0229 end: 0248
+start: 0248 end: 0249
+start: 0249 end: 0252
+start: 0252 end: 0253
   (func (;42;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
     i32.const 136
@@ -26324,6 +27262,33 @@ Module: allium.wasm
     i32.const 0
     local.get 1
     call 17)
+start: 0000 end: 0012
+start: 0012 end: 0025
+start: 0025 end: 0026
+start: 0026 end: 0026
+start: 0026 end: 0203
+start: 0203 end: 0746
+start: 0746 end: 0757
+start: 0757 end: 0760
+start: 0760 end: 0761
+start: 0761 end: 0771
+start: 0771 end: 1730
+start: 1730 end: 5757
+start: 5757 end: 5764
+start: 5764 end: 5766
+start: 5766 end: 5767
+start: 5767 end: 5768
+start: 5768 end: 5769
+start: 5769 end: 5772
+start: 5772 end: 5773
+start: 5773 end: 5782
+start: 5782 end: 5787
+start: 5787 end: 5787
+start: 5787 end: 5787
+start: 5787 end: 5792
+start: 5792 end: 5793
+start: 5793 end: 5897
+start: 5897 end: 5898
   (func (;43;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
     global.get 5
@@ -30979,6 +31944,35 @@ Module: allium.wasm
     call 17
     local.get 6
     global.set 5)
+start: 0000 end: 0010
+start: 0010 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0025
+start: 0025 end: 0040
+start: 0040 end: 0041
+start: 0041 end: 0041
+start: 0041 end: 0101
+start: 0101 end: 0444
+start: 0444 end: 0455
+start: 0455 end: 0458
+start: 0458 end: 0459
+start: 0459 end: 0469
+start: 0469 end: 1015
+start: 1015 end: 2725
+start: 2725 end: 2725
+start: 2725 end: 2792
+start: 2792 end: 4471
+start: 4471 end: 4471
+start: 4471 end: 4577
+start: 4577 end: 4578
+start: 4578 end: 4587
+start: 4587 end: 4590
+start: 4590 end: 4590
+start: 4590 end: 4590
+start: 4590 end: 4593
+start: 4593 end: 4594
+start: 4594 end: 4648
+start: 4648 end: 4649
   (func (;44;) (type 10) (param i32 i32 i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     local.get 4
@@ -31542,6 +32536,13 @@ Module: allium.wasm
       i64.lt_u
       br_if 0 (;@1;)
     end)
+start: 0000 end: 0004
+start: 0004 end: 0004
+start: 0004 end: 0004
+start: 0004 end: 0060
+start: 0060 end: 0558
+start: 0558 end: 0558
+start: 0558 end: 0558
   (func (;45;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32 i64 i64 i64 i64 i64 i64)
     i32.const 6144
@@ -31883,9 +32884,53 @@ Module: allium.wasm
     local.get 3
     call 33
     i32.const 0)
+start: 0000 end: 0005
+start: 0005 end: 0006
+start: 0006 end: 0007
+start: 0007 end: 0007
+start: 0007 end: 0017
+start: 0017 end: 0018
+start: 0018 end: 0019
+start: 0019 end: 0019
+start: 0019 end: 0022
+start: 0022 end: 0042
+start: 0042 end: 0042
+start: 0042 end: 0124
+start: 0124 end: 0125
+start: 0125 end: 0126
+start: 0126 end: 0126
+start: 0126 end: 0131
+start: 0131 end: 0146
+start: 0146 end: 0149
+start: 0149 end: 0149
+start: 0149 end: 0149
+start: 0149 end: 0186
+start: 0186 end: 0192
+start: 0192 end: 0194
+start: 0194 end: 0195
+start: 0195 end: 0208
+start: 0208 end: 0210
+start: 0210 end: 0211
+start: 0211 end: 0250
+start: 0250 end: 0250
+start: 0250 end: 0253
+start: 0253 end: 0259
+start: 0259 end: 0262
+start: 0262 end: 0263
+start: 0263 end: 0267
+start: 0267 end: 0304
+start: 0304 end: 0304
+start: 0304 end: 0312
+start: 0312 end: 0315
+start: 0315 end: 0315
+start: 0315 end: 0315
+start: 0315 end: 0329
+start: 0329 end: 0330
   (func (;46;) (type 3) (param i32)
     local.get 0
     global.set 9)
+start: 0000 end: 0002
+start: 0002 end: 0003
   (func (;47;) (type 5) (param i32 i32) (result i32)
     (local i32)
     local.get 0
@@ -31913,15 +32958,27 @@ Module: allium.wasm
     end
     local.get 2
     i32.load16_s)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0021
+start: 0021 end: 0022
+start: 0022 end: 0023
+start: 0023 end: 0025
+start: 0025 end: 0026
   (func (;48;) (type 3) (param i32)
     global.get 4
     i32.const 0
     local.get 0
     call 17)
+start: 0000 end: 0004
+start: 0004 end: 0005
   (func (;49;) (type 1) (param i32) (result i32)
     i32.const 0
     call 7
     i32.const 0)
+start: 0000 end: 0003
+start: 0003 end: 0004
   (func (;50;) (type 6) (param i32 i32)
     global.get 7
     i32.eqz
@@ -31931,8 +32988,14 @@ Module: allium.wasm
       local.get 1
       global.set 8
     end)
+start: 0000 end: 0003
+start: 0003 end: 0007
+start: 0007 end: 0008
+start: 0008 end: 0008
   (func (;51;) (type 2) (result i32)
     i32.const 19424)
+start: 0000 end: 0001
+start: 0001 end: 0002
   (func (;52;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32)
     global.get 5
@@ -32007,6 +33070,17 @@ Module: allium.wasm
     local.get 3
     global.set 5
     local.get 4)
+start: 0000 end: 0010
+start: 0010 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0045
+start: 0045 end: 0054
+start: 0054 end: 0055
+start: 0055 end: 0058
+start: 0058 end: 0067
+start: 0067 end: 0068
+start: 0068 end: 0072
+start: 0072 end: 0073
   (func (;53;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32)
     global.get 5
@@ -32069,6 +33143,16 @@ Module: allium.wasm
     local.get 3
     global.set 5
     local.get 5)
+start: 0000 end: 0010
+start: 0010 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0028
+start: 0028 end: 0046
+start: 0046 end: 0050
+start: 0050 end: 0051
+start: 0051 end: 0051
+start: 0051 end: 0059
+start: 0059 end: 0060
   (func (;54;) (type 1) (param i32) (result i32)
     (local i32)
     global.get 5
@@ -32109,6 +33193,14 @@ Module: allium.wasm
     local.get 1
     global.set 5
     local.get 0)
+start: 0000 end: 0010
+start: 0010 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0026
+start: 0026 end: 0034
+start: 0034 end: 0035
+start: 0035 end: 0038
+start: 0038 end: 0039
   (func (;55;) (type 6) (param i32 i32)
     local.get 0
     local.get 1
@@ -32155,11 +33247,15 @@ Module: allium.wasm
     i32.const 0
     i32.const 0
     call 17)
+start: 0000 end: 0045
+start: 0045 end: 0046
   (func (;56;) (type 6) (param i32 i32)
     local.get 0
     global.set 5
     local.get 1
     global.set 6)
+start: 0000 end: 0004
+start: 0004 end: 0005
   (func (;57;) (type 3) (param i32)
     local.get 0
     i32.const 72
@@ -32203,6 +33299,8 @@ Module: allium.wasm
     i32.const 0
     i32.const 0
     call 17)
+start: 0000 end: 0042
+start: 0042 end: 0043
   (func (;58;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
     block (result i32)  ;; label = @1
@@ -37472,6 +38570,19 @@ Module: allium.wasm
       local.get 69
     end
     global.set 5)
+start: 0000 end: 0011
+start: 0011 end: 0013
+start: 0013 end: 0014
+start: 0014 end: 0327
+start: 0327 end: 4844
+start: 4844 end: 4882
+start: 4882 end: 4883
+start: 4883 end: 4890
+start: 4890 end: 4890
+start: 4890 end: 5264
+start: 5264 end: 5265
+start: 5265 end: 5266
+start: 5266 end: 5267
   (func (;59;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
     i32.const 64
@@ -42427,6 +43538,21 @@ Module: allium.wasm
     i32.const 0
     local.get 1
     call 17)
+start: 0000 end: 0012
+start: 0012 end: 0025
+start: 0025 end: 0026
+start: 0026 end: 0026
+start: 0026 end: 0351
+start: 0351 end: 0355
+start: 0355 end: 4881
+start: 4881 end: 4882
+start: 4882 end: 4891
+start: 4891 end: 4895
+start: 4895 end: 4896
+start: 4896 end: 4911
+start: 4911 end: 4911
+start: 4911 end: 4951
+start: 4951 end: 4952
   (func (;60;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64)
     global.get 5
@@ -42819,6 +43945,14 @@ Module: allium.wasm
     call 17
     local.get 2
     global.set 5)
+start: 0000 end: 0010
+start: 0010 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0023
+start: 0023 end: 0059
+start: 0059 end: 0060
+start: 0060 end: 0390
+start: 0390 end: 0391
   (func (;61;) (type 3) (param i32)
     (local i32)
     local.get 0
@@ -42863,6 +43997,8 @@ Module: allium.wasm
     i32.const 148
     i32.const 136
     call 17)
+start: 0000 end: 0042
+start: 0042 end: 0043
   (func (;62;) (type 3) (param i32)
     (local i32)
     local.get 0
@@ -42910,6 +44046,8 @@ Module: allium.wasm
     i32.const 136
     i64.const 0
     call 18)
+start: 0000 end: 0045
+start: 0045 end: 0046
   (func (;63;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
     global.get 5
@@ -45215,6 +46353,20 @@ Module: allium.wasm
     call 18
     local.get 5
     global.set 5)
+start: 0000 end: 0010
+start: 0010 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0042
+start: 0042 end: 0045
+start: 0045 end: 0046
+start: 0046 end: 0054
+start: 0054 end: 0057
+start: 0057 end: 0058
+start: 0058 end: 0268
+start: 0268 end: 1978
+start: 1978 end: 1978
+start: 1978 end: 2302
+start: 2302 end: 2303
   (func (;64;) (type 6) (param i32 i32)
     (local i32)
     local.get 0
@@ -45325,9 +46477,13 @@ Module: allium.wasm
     i32.const 32
     i32.const 0
     call 17)
+start: 0000 end: 0108
+start: 0108 end: 0109
   (func (;65;) (type 3) (param i32)
     local.get 0
     global.set 5)
+start: 0000 end: 0002
+start: 0002 end: 0003
   (func (;66;) (type 3) (param i32)
     (local i32)
     local.get 0
@@ -45435,6 +46591,8 @@ Module: allium.wasm
     i32.const 32
     i32.const 0
     call 17)
+start: 0000 end: 0105
+start: 0105 end: 0106
   (func (;67;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     local.get 0
@@ -52510,6 +53668,15 @@ Module: allium.wasm
       i32.ne
       br_if 0 (;@1;)
     end)
+start: 0000 end: 0421
+start: 0421 end: 6865
+start: 6865 end: 6874
+start: 6874 end: 6874
+start: 6874 end: 6874
+start: 6874 end: 7027
+start: 7027 end: 7070
+start: 7070 end: 7070
+start: 7070 end: 7070
   (func (;68;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     i32.const 32
@@ -59813,6 +60980,26 @@ Module: allium.wasm
     i32.const 0
     local.get 4
     call 17)
+start: 0000 end: 0012
+start: 0012 end: 0025
+start: 0025 end: 0026
+start: 0026 end: 0026
+start: 0026 end: 0252
+start: 0252 end: 0381
+start: 0381 end: 0392
+start: 0392 end: 0395
+start: 0395 end: 0396
+start: 0396 end: 0406
+start: 0406 end: 7145
+start: 7145 end: 7146
+start: 7146 end: 7155
+start: 7155 end: 7160
+start: 7160 end: 7160
+start: 7160 end: 7160
+start: 7160 end: 7165
+start: 7165 end: 7166
+start: 7166 end: 7298
+start: 7298 end: 7299
   (func (;69;) (type 6) (param i32 i32)
     local.get 0
     local.get 1
@@ -59865,6 +61052,8 @@ Module: allium.wasm
     i32.const 16
     i64.const 0
     call 22)
+start: 0000 end: 0051
+start: 0051 end: 0052
   (func (;70;) (type 3) (param i32)
     (local i32)
     local.get 0
@@ -59915,6 +61104,8 @@ Module: allium.wasm
     i32.const 16
     i64.const 0
     call 22)
+start: 0000 end: 0048
+start: 0048 end: 0049
   (func (;71;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     global.get 5
@@ -60229,6 +61420,23 @@ Module: allium.wasm
     end
     local.get 2
     global.set 5)
+start: 0000 end: 0010
+start: 0010 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0047
+start: 0047 end: 0053
+start: 0053 end: 0070
+start: 0070 end: 0071
+start: 0071 end: 0080
+start: 0080 end: 0081
+start: 0081 end: 0092
+start: 0092 end: 0262
+start: 0262 end: 0263
+start: 0263 end: 0266
+start: 0266 end: 0309
+start: 0309 end: 0309
+start: 0309 end: 0311
+start: 0311 end: 0312
   (func (;72;) (type 10) (param i32 i32 i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     local.get 4
@@ -60781,6 +61989,13 @@ Module: allium.wasm
       i64.lt_u
       br_if 0 (;@1;)
     end)
+start: 0000 end: 0004
+start: 0004 end: 0004
+start: 0004 end: 0004
+start: 0004 end: 0049
+start: 0049 end: 0547
+start: 0547 end: 0547
+start: 0547 end: 0547
   (func (;73;) (type 9) (param i32 i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     local.get 3
@@ -61139,8 +62354,17 @@ Module: allium.wasm
       i64.lt_u
       br_if 0 (;@1;)
     end)
+start: 0000 end: 0004
+start: 0004 end: 0004
+start: 0004 end: 0004
+start: 0004 end: 0060
+start: 0060 end: 0353
+start: 0353 end: 0353
+start: 0353 end: 0353
   (func (;74;) (type 2) (result i32)
     global.get 5)
+start: 0000 end: 0001
+start: 0001 end: 0002
   (func (;75;) (type 8) (param i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
     local.get 2
@@ -61296,6 +62520,13 @@ Module: allium.wasm
       i64.lt_u
       br_if 0 (;@1;)
     end)
+start: 0000 end: 0004
+start: 0004 end: 0004
+start: 0004 end: 0004
+start: 0004 end: 0062
+start: 0062 end: 0150
+start: 0150 end: 0150
+start: 0150 end: 0150
   (func (;76;) (type 6) (param i32 i32)
     (local i32)
     local.get 0
@@ -61401,6 +62632,8 @@ Module: allium.wasm
     call 18
     local.get 0
     call 39)
+start: 0000 end: 0103
+start: 0103 end: 0104
   (func (;77;) (type 6) (param i32 i32)
     (local i32)
     local.get 0
@@ -61560,6 +62793,8 @@ Module: allium.wasm
     call 18
     local.get 0
     call 39)
+start: 0000 end: 0157
+start: 0157 end: 0158
   (func (;78;) (type 7) (param i32 i32 i32)
     (local i32 i32)
     local.get 2
@@ -61681,6 +62916,15 @@ Module: allium.wasm
     i32.sub
     call 29
     drop)
+start: 0000 end: 0008
+start: 0008 end: 0017
+start: 0017 end: 0018
+start: 0018 end: 0018
+start: 0018 end: 0019
+start: 0019 end: 0108
+start: 0108 end: 0108
+start: 0108 end: 0117
+start: 0117 end: 0118
   (func (;79;) (type 3) (param i32)
     local.get 0
     i32.const 0
@@ -61748,6 +62992,8 @@ Module: allium.wasm
     i32.const 120
     i64.const 6620516959819538809
     call 18)
+start: 0000 end: 0066
+start: 0066 end: 0067
   (func (;80;) (type 6) (param i32 i32)
     (local i32 i32)
     global.get 5
@@ -61862,6 +63108,11 @@ Module: allium.wasm
     call 26
     local.get 2
     global.set 5)
+start: 0000 end: 0010
+start: 0010 end: 0012
+start: 0012 end: 0013
+start: 0013 end: 0112
+start: 0112 end: 0113
   (func (;81;) (type 7) (param i32 i32 i32)
     (local i32)
     local.get 0
@@ -61890,8 +63141,18 @@ Module: allium.wasm
     local.get 3
     local.get 2
     i32.store16)
+start: 0000 end: 0015
+start: 0015 end: 0016
+start: 0016 end: 0017
+start: 0017 end: 0021
+start: 0021 end: 0022
+start: 0022 end: 0023
+start: 0023 end: 0026
+start: 0026 end: 0027
   (func (;82;) (type 2) (result i32)
     global.get 9)
+start: 0000 end: 0001
+start: 0001 end: 0002
   (func (;83;) (type 1) (param i32) (result i32)
     (local i32 i32)
     global.get 5
@@ -61914,6 +63175,11 @@ Module: allium.wasm
       call 2
     end
     local.get 2)
+start: 0000 end: 0016
+start: 0016 end: 0018
+start: 0018 end: 0019
+start: 0019 end: 0020
+start: 0020 end: 0021
   (global (;4;) (mut i32) (global.get 1))
   (global (;5;) (mut i32) (global.get 2))
   (global (;6;) (mut i32) (global.get 3))
