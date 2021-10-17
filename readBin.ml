@@ -5,13 +5,15 @@ open Reduce
     - make eprintfs look at verbose flag 
     - add validation of indices (e.g. functions, types)*)
 
-let usage_msg = "readBin -verbose [-f n] <file1> <file2> ..."
+let usage_msg = "readBin -verbose [-f n] [-s] <file1> <file2> ..."
 let verbose = ref false
+let show_segments = ref false
 let fn_arg = ref (-1)
 let input_files = ref []
 let speclist =
     [("-verbose", Arg.Set verbose, "Output debug information");
-    ("-f", Arg.Set_int fn_arg, "Analyze function specified by argument")]
+    ("-f", Arg.Set_int fn_arg, "Analyze function specified by argument");
+    ("-s", Arg.Set show_segments, "Demarcate segments in functions")]
 let anon_fun filename =
        input_files := filename::!input_files
 
@@ -638,7 +640,7 @@ let processFile file =
    | true  -> printf "Success yes\n"
    | _     -> printf "Failed\n"
   );
-  Wasm_module.print w; 
+  Wasm_module.print w !show_segments; 
   print_reductions w !fn_arg
 
 

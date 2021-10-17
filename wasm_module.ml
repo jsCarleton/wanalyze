@@ -258,6 +258,7 @@ type func =
   locals:   local_type list;
   e:        expr;
 }
+
 type segment =
 {
           start_op:    int;         (* index into e of the first op in the expr *)
@@ -265,35 +266,58 @@ type segment =
   mutable succ1:       int option;  (* segment index for true side of a conditional or next segment for an unconditional *)
   mutable succ2:       int option;  (* false side of a conditional *)
 }
+let segment_sep show_segments = 
+  match show_segments with
+  | true -> "\n------------------------------"
+  | _ -> ""
 
 let rec get_segments'' (e: expr) (seg_acc: segment list) (current: segment)
     (get_segments': expr -> segment list -> int -> segment list): segment list =
 match (List.hd_exn e).opcode with
+  (* 1. each of these is a segment by itself *)
 | (* end *)         0x0b
-| (* unreachable *) 0x00
-| (* return *)      0x0f ->
-( match current.start_op = current.end_op with
-  | true  -> get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
-  | false -> get_segments' (List.tl_exn e) 
-                           (List.append seg_acc [current; {start_op=current.end_op; end_op=current.end_op+1; succ1=None; succ2=None}]) 
-                           (current.end_op+1)
-)
-
-| (* loop *)        0x03
-| (* if *)          0x04
-| (* br *)          0x0c
-| (* br_if *)       0x0d
-| (* br_table *)    0x0e ->
-  current.end_op <- current.end_op + 1;
-  get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
-| _ ->
-  current.end_op <- current.end_op + 1;
-  get_segments'' (List.tl_exn e) seg_acc current get_segments'
+| (* unreachable *) 0x00 ->
+    (* 1.1 is it the only opcode in the current segment? *)
+    ( match current.start_op = current.end_op - 1 with
+        (* 1.1.1 yes, add a segment that contains only it *)
+      | true  -> get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
+        (* 1.1.2 no, create a segment for everything before it and then a segment for it *)
+      | false -> current.end_op <- current.end_op - 1;
+                 get_segments' (List.tl_exn e) 
+                               (List.append seg_acc [current; {start_op=current.end_op; end_op=current.end_op+1; succ1=None; succ2=None}]) 
+                               (current.end_op+1)
+    )
+  (* 2. each of these causes the current segment to end *)
+  | (* if *)          0x04
+  | (* else *)        0x05
+  | (* br *)          0x0c
+  | (* br_if *)       0x0d
+  | (* br_table *)    0x0e
+  | (* return *)      0x0f ->
+    (* 2.1 end the segment, start a new one*)
+      get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
+  (* 3. the loop instruction causes us to start a new segment beginning with the loop *)
+  | (* loop *)      0x03 ->
+    (* 3.1 did we just end a segment ?*)
+    ( match current.start_op = current.end_op - 1 with
+        (* 3.1.1 yes, just add the loop instruction to the new segment *)
+      | true  ->  current.end_op <- current.end_op + 1;
+                  get_segments'' (List.tl_exn e) seg_acc current get_segments'
+      (* 3.1.2 no, close off the existing segment and create a new one beginning with the loop*)
+      | false ->  current.end_op <- current.end_op - 1;
+                  get_segments' (List.tl_exn e) 
+                                (List.append seg_acc [current]) 
+                                (current.end_op)
+    )
+  (* 4. all other opcodes get added to the current segment *)
+  | _ ->
+    current.end_op <- current.end_op + 1;
+    get_segments'' (List.tl_exn e) seg_acc current get_segments'
 
 let rec get_segments' (e: expr) (seg_acc: segment list) (start: int)=
 match e with
 | [] -> seg_acc
-| _  -> get_segments'' e seg_acc {start_op=start; end_op=start; succ1=None; succ2=None} get_segments'
+| _  -> get_segments'' e seg_acc {start_op=start; end_op=start+1; succ1=None; succ2=None} get_segments'
 
 let get_segments (e: expr) : segment list = get_segments' e [] 0
 
@@ -494,8 +518,8 @@ let string_of_arg a  =
   | 0 -> ""
   | _ -> String.concat [" " ; argstring]
 
-let string_of_opcode' op comment =
-String.concat ["\n" ; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
+let string_of_opcode' op idx comment =
+String.concat ["\n" ; sprintf "%4.4d" idx; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
 let string_of_opcode e idx =
   let op = List.nth e idx in
   match op with
@@ -505,40 +529,47 @@ let string_of_opcode e idx =
     | 0x02 (* block *)
     | 0x03 (* loop *)
     | 0x04 (* if *)
-        -> string_of_opcode' op (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)])
+        -> string_of_opcode' op idx (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)])
     | 0x0c (* br *)
     | 0x0d (* br_if *)
-        -> string_of_opcode' op (String.concat [" (;@" ; string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ; ";)"])
+        -> string_of_opcode' op idx (String.concat [" (;@" ; string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ; ";)"])
     | 0x0b (* end *) ->
       (match op.nesting with
       | -1 -> ""
-      | _ -> string_of_opcode' op ""
+      | _ -> string_of_opcode' op idx ""
       )
-    | _ -> string_of_opcode' op ""
+    | _ -> string_of_opcode' op idx ""
     )
   | _ -> "** unknown **"
 
-let rec string_of_expr' e idx acc =
+let rec string_of_expr' e segment_sep segments idx acc =
   match idx < (List.length e) with
+  | true -> 
+    (match segments with
+    | hd::tl ->
+      (match hd.start_op = idx with
+        | true  -> string_of_expr' e segment_sep tl (idx+1) (String.concat [acc ; segment_sep; (string_of_opcode e idx)])
+        | false -> string_of_expr' e segment_sep segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
+      )
+    | _ -> string_of_expr' e segment_sep segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
+    )
   | false -> acc
-  | true -> string_of_expr' e (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
+let string_of_expr e segment_sep = string_of_expr' e segment_sep (get_segments e) 0 ""
 
-let string_of_expr e = string_of_expr' e 0 ""
-
-let string_of_code w idx =
-  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr (List.nth_exn w.code_section idx).e)]
+let string_of_code w idx segment_sep =
+  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr (List.nth_exn w.code_section idx).e segment_sep)]
 
 let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
 let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
 let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
 let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
   
-let string_of_function w i idx = 
+let string_of_function w segment_sep i idx = 
   String.concat ["  (func (;" ; string_of_int (i + w.last_import_func) ; ";) (type " ; (string_of_int idx) ; ")" 
     ; (string_of_types "param" (get_type_sig w idx).rt1) ; (string_of_types "result" (get_type_sig w idx).rt2)
-    ; (string_of_code w i) ; ")\n" ; string_of_segments (get_segments (List.nth_exn w.code_section i).e)]
-let string_of_function_section w = 
-  String.concat ~sep:"" (List.mapi ~f:(string_of_function w) w.function_section)
+    ; (string_of_code w i segment_sep) ; ")\n" ; string_of_segments (get_segments (List.nth_exn w.code_section i).e)]
+let string_of_function_section w show_segments = 
+  String.concat ~sep:"" (List.mapi ~f:(string_of_function w (segment_sep show_segments)) w.function_section)
 
 (* Table section *) 
 let string_of_table i (t: tabletype) = String.concat [(string_of_tabletype t i) ; "\n"]
@@ -549,7 +580,7 @@ let string_of_memory i (m: memtype) = String.concat [(string_of_memtype m i) ; "
 let string_of_memory_section section = String.concat ~sep:"" (List.mapi ~f:string_of_memory section)
 
 (* Global section *)
-let string_of_inline_expr e = String.strip (string_of_expr e)
+let string_of_inline_expr e = String.strip (string_of_expr e "")
 let string_of_global (g: global) =
   String.concat ["  (global (;" ; string_of_int g.index ; ";) " ; "(" ; (string_of_mut g.gt.m) ; " " ; (string_of_valtype g.gt.t) 
   ; ") (" ; (string_of_inline_expr g.e) ; "))\n"]
@@ -617,12 +648,12 @@ let string_of_data d =
 let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_of_data section)
 
 (* Print the whole wasm module *)
-let print w =
+let print w show_segments =
   printf "Module: %s\n" w.module_name;
   printf "(module\n";
   printf "%s" (string_of_type_section w.type_section);
   printf "%s" (string_of_import_section w.import_section);
-  printf "%s" (string_of_function_section w);
+  printf "%s" (string_of_function_section w show_segments);
   printf "%s" (string_of_table_section w.table_section);
   printf "%s" (string_of_memory_section w.memory_section);
   printf "%s" (string_of_global_section w.global_section);
