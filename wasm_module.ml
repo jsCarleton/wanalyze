@@ -271,55 +271,41 @@ let segment_sep show_segments =
   | true -> "\n------------------------------"
   | _ -> ""
 
-let rec get_segments'' (e: expr) (seg_acc: segment list) (current: segment)
-    (get_segments': expr -> segment list -> int -> segment list): segment list =
-match (List.hd_exn e).opcode with
-  (* 1. each of these is a segment by itself *)
-| (* end *)         0x0b
-| (* unreachable *) 0x00 ->
-    (* 1.1 is it the only opcode in the current segment? *)
-    ( match current.start_op = current.end_op - 1 with
-        (* 1.1.1 yes, add a segment that contains only it *)
-      | true  -> get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
-        (* 1.1.2 no, create a segment for everything before it and then a segment for it *)
-      | false -> current.end_op <- current.end_op - 1;
-                 get_segments' (List.tl_exn e) 
-                               (List.append seg_acc [current; {start_op=current.end_op; end_op=current.end_op+1; succ1=None; succ2=None}]) 
-                               (current.end_op+1)
-    )
-  (* 2. each of these causes the current segment to end *)
-  | (* if *)          0x04
-  | (* else *)        0x05
-  | (* br *)          0x0c
-  | (* br_if *)       0x0d
-  | (* br_table *)    0x0e
-  | (* return *)      0x0f ->
-    (* 2.1 end the segment, start a new one*)
-      get_segments' (List.tl_exn e) (List.append seg_acc [current]) current.end_op
-  (* 3. the loop instruction causes us to start a new segment beginning with the loop *)
-  | (* loop *)      0x03 ->
-    (* 3.1 did we just end a segment ?*)
-    ( match current.start_op = current.end_op - 1 with
-        (* 3.1.1 yes, just add the loop instruction to the new segment *)
-      | true  ->  current.end_op <- current.end_op + 1;
-                  get_segments'' (List.tl_exn e) seg_acc current get_segments'
-      (* 3.1.2 no, close off the existing segment and create a new one beginning with the loop*)
-      | false ->  current.end_op <- current.end_op - 1;
-                  get_segments' (List.tl_exn e) 
-                                (List.append seg_acc [current]) 
-                                (current.end_op)
-    )
-  (* 4. all other opcodes get added to the current segment *)
-  | _ ->
-    current.end_op <- current.end_op + 1;
-    get_segments'' (List.tl_exn e) seg_acc current get_segments'
-
-let rec get_segments' (e: expr) (seg_acc: segment list) (start: int)=
+let rec get_segments' (e: expr) (seg_acc: segment list) (current: segment): segment list =
 match e with
 | [] -> seg_acc
-| _  -> get_segments'' e seg_acc {start_op=start; end_op=start+1; succ1=None; succ2=None} get_segments'
-
-let get_segments (e: expr) : segment list = get_segments' e [] 0
+| _  ->
+  match (List.hd_exn e).opcode with
+    (* 1. each of these causes the current segment to end *)
+    | (* unreachable *) 0x00
+    | (* if *)          0x04
+    | (* else *)        0x05
+    | (* end *)         0x0b
+    | (* br *)          0x0c
+    | (* br_if *)       0x0d
+    | (* br_table *)    0x0e
+    | (* return *)      0x0f ->
+      (* 1.1 end the segment, start a new one*)
+        get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
+                      {start_op=current.end_op; end_op=current.end_op+1; succ1=None; succ2=None}
+    (* 2. the loop instruction causes us to start a new segment beginning with the loop *)
+    | (* loop *)      0x03 ->
+      (* 2.1 did we just end a segment ?*)
+      ( match current.start_op = current.end_op - 1 with
+          (* 2.1.1 yes, just add the loop instruction to the new segment *)
+        | true  ->  current.end_op <- current.end_op + 1;
+                    get_segments' (List.tl_exn e) seg_acc current
+          (* 2.1.2 no, close off the existing segment and create a new one beginning with the loop*)
+        | false ->  current.end_op <- current.end_op - 1;
+                    get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
+                                  {start_op=current.end_op; end_op=current.end_op+2; succ1=None; succ2=None}
+      )
+    (* 3. all other opcodes get added to the current segment *)
+    | _ ->
+      current.end_op <- current.end_op + 1;
+      get_segments' (List.tl_exn e) seg_acc current
+let get_segments (e: expr) : segment list = 
+  get_segments' e [] {start_op=0; end_op=1; succ1=None; succ2=None}
 
 let string_of_segment (s: segment) : string = sprintf "start: %4.4d end: %4.4d\n" s.start_op s.end_op
 let string_of_segments (s: segment list) : string =
