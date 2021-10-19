@@ -156,7 +156,7 @@ let string_of_opcode e idx =
       )
     | _ -> string_of_opcode' op idx ""
     )
-  | _ -> "** unknown **"
+  | _ -> failwith "Missing opcode"
 
 let rec string_of_expr' e segment_sep segments idx acc =
   match idx < (List.length e) with
@@ -179,7 +179,33 @@ let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; "
 let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
 let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
 let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
-  
+
+type segment =
+{
+          start_op:    int;         (* index into e of the first op in the expr *)
+  mutable end_op:      int;         (* index+1 of the last op in the expr *)
+  mutable succ:        int list;    (* segment index for segments that can be directly reached from this segment *)
+  mutable segtype:	   int;         (* the control opcode that created this segment *)
+ }
+
+let string_of_segtype (segtype: int) : string =
+  match segtype with
+  | 0x00 -> "unreachable"
+  | 0x02 -> "block"
+  | 0x03 -> "loop"
+  | 0x04 -> "if"
+  | 0x05 -> "else"
+  | 0x0b -> "end"
+  | 0x0c -> "br"
+  | 0x0d -> "br_if"
+  | 0x0e -> "br_table"
+  | 0x0f -> "return"
+  | _ -> failwith (String.concat ["Invalid segtype: "; string_of_int segtype])
+
+let string_of_segment (s: Segments.segment) : string = sprintf "%5.5d %5.5d %-11s\n" s.start_op s.end_op (string_of_segtype s.segtype)
+let string_of_segments (s: Segments.segment list) : string =
+  String.concat["start end   type     succ\n"; String.concat (List.map ~f:string_of_segment s)]
+
 let string_of_function w segment_sep i idx = 
   String.concat ["  (func (;" ; string_of_int (i + w.last_import_func) ; ";) (type " ; (string_of_int idx) ; ")" 
     ; (string_of_types "param" (get_type_sig w idx).rt1) ; (string_of_types "result" (get_type_sig w idx).rt2)

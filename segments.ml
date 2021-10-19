@@ -1,6 +1,80 @@
 open Core
 open Wasm_module
 
+(* Notes on connecting segments
+----------------------------
+
+TODO: 
+- for every segment set the type and nesting
+- for every END and LOOP segment assign a label
+- for BR, BR_IF, BR_TABLE store the labels in the segment entry
+
+for i = 0; i < segments.length; i++
+	if segments[i].segtype == IF
+		segments[i].succ = [i + 1; end_else_segment(i, segments[i].nesting)]
+	if segments[i].segtype == ELSE
+		segments[i].succ = [end_segment(i, segments[i].nesting)]
+	if segments[i].segtype == BR
+		segments[i].succ = [br_target(segments, i, nesting, segments[i].labels[0])]
+	if segments[i].segtype == BR_IF
+		segments[i].succ = [br_target(segments, i, nesting, segments[i].labels[0]); i + 1]
+	if segments[i].segtype == BR_TABLE
+		segments[i].succ = []
+		for j = 0; j < segments[i].labels.length; j++
+			segments[i].succ = segments[i].succ ++ [br_target(segments, i, nesting, segments[i].labels[i])]
+	if segments[i].segtype == RETURN
+		segments[i].succ = [last_segment(segments)]
+	if segments[i].segtype == LOOP or BLOCK
+		segments[i].succ = [i + 1]
+	if segments[i].segtype == UNREACHABLE
+		segments[i].succ = []
+	if segments[i].segtype == END
+		segments[i].succ = []
+	if segments[i].segtype == LAST
+		segments[i].succ = []
+		
+function end_else_segment(segments, index, nesting): index
+	for (i = index+1; i < segments.length; i++)
+		if (segments[i].segtype == END or ELSE and segments[i].nesting == nesting)
+			return i+1;
+	failwith "No END or ELSE for IF found"
+
+function else_segment(segments, index, nesting): index
+	for (i = index+1; i < segments.length; i++)
+		if (segments[i].segtype == END and segments[i].nesting == nesting)
+			return i+1;
+	failwith "No END for ELSE found"
+	
+function br_target(segments, index, nesting, label)
+	// search backwards for LOOP that's the target of the BR
+	for (i = index-1; i >= 0; i--)
+		if segments[i].segtype == LOOP and segments[i].nesting < nesting and segments[i].label == label
+			return i+1;
+	// if we didn't find it search forwards for an END that's the target of the loops
+	for (i = index+1; i < segments.length; i++)
+		if segments[i].segtype == END and segments[i].nesting < nesting and segments[i].label == label
+			return i+1;
+	failwith "BR target not found"
+	
+function last_segment(segments)
+	return segments.length - 1
+
+label of IF, BLOCK assigned to matching END			
+label of LOOP assigned to following segment			
+
+type segment =
+{
+          start_op:    int;        (* index into e of the first op in the expr *)
+  mutable end_op:      int;        (* index+1 of the last op in the expr *)
+  mutable succ:        list int;   (* segment index for segments that can be directly reached from this segment *)
+  
+		  segtype:	   segment_type; -- could just be an opcode
+		  nesting:	   int;			(* the nesting level of the last opcode in the segment *)
+		  labels:	   list int;	(* the labels used in BR, BR_IF, BR_TABLE instructions *)
+		  label:	   int;			(* the label of the LOOP or END instruction *)
+}
+ *)
+
 type segment_type =
   UNR_SEG | IF_SEG | ELSE_SEG | END_SEG | BR_SEG | BRIF_SEG | BRT_SEG | RET_SEG | LOOP_SEG | LAST_SEG
 let segtype_of_opcode (opcode: int) : segment_type =
@@ -12,12 +86,12 @@ type segment =
 {
           start_op:    int;         (* index into e of the first op in the expr *)
   mutable end_op:      int;         (* index+1 of the last op in the expr *)
-  mutable succL:       int option;  (* segment index for true side of a conditional or next segment for an unconditional *)
-  mutable succR:       int option;  (* false side of a conditional *)
-}
+  mutable succ:        int list;    (* segment index for segments that can be directly reached from this segment *)
+  mutable segtype:	   int;         (* the control opcode that created this segment *)
+ }
 let segment_sep show_segments = 
   match show_segments with
-  | true -> "\n------------------------------"
+  | true -> "\n------------------------------------------------------------"
   | _ -> ""
 
 let rec get_segments' (e: expr) (seg_acc: segment list) (current: segment): segment list =
@@ -25,8 +99,10 @@ match e with
 | [] -> seg_acc
 | _  ->
   match (List.hd_exn e).opcode with
-    (* 1. each of these causes the current segment to end *)
+    (* 1. each of these control instructions cause the current segment to end *)
     | (* unreachable *) 0x00
+    | (* block *)       0x02
+    | (* loop *)        0x03
     | (* if *)          0x04
     | (* else *)        0x05
     | (* end *)         0x0b
@@ -35,27 +111,12 @@ match e with
     | (* br_table *)    0x0e
     | (* return *)      0x0f ->
       (* 1.1 end the segment, start a new one*)
+        current.segtype <- (List.hd_exn e).opcode;
         get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
-                      {start_op=current.end_op; end_op=current.end_op+1; succL=None; succR=None}
-    (* 2. the loop instruction causes us to start a new segment beginning with the loop *)
-    | (* loop *)      0x03 ->
-      (* 2.1 did we just end a segment ?*)
-      ( match current.start_op = current.end_op - 1 with
-          (* 2.1.1 yes, just add the loop instruction to the new segment *)
-        | true  ->  current.end_op <- current.end_op + 1;
-                    get_segments' (List.tl_exn e) seg_acc current
-          (* 2.1.2 no, close off the existing segment and create a new one beginning with the loop*)
-        | false ->  current.end_op <- current.end_op - 1;
-                    get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
-                                  {start_op=current.end_op; end_op=current.end_op+2; succL=None; succR=None}
-      )
-    (* 3. all other opcodes get added to the current segment *)
+                      {start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1}
+    (* 2. all other opcodes get added to the current segment *)
     | _ ->
       current.end_op <- current.end_op + 1;
       get_segments' (List.tl_exn e) seg_acc current
 let get_segments (e: expr) : segment list = 
-  get_segments' e [] {start_op=0; end_op=1; succL=None; succR=None}
-
-let string_of_segment (s: segment) : string = sprintf "start: %4.4d end: %4.4d\n" s.start_op s.end_op
-let string_of_segments (s: segment list) : string =
-  String.concat (List.map ~f:string_of_segment s)
+  get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1}
