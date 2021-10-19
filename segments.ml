@@ -84,15 +84,12 @@ let segtype_of_opcode (opcode: int) : segment_type =
 
 type segment =
 {
-          start_op:    int;         (* index into e of the first op in the expr *)
-  mutable end_op:      int;         (* index+1 of the last op in the expr *)
-  mutable succ:        int list;    (* segment index for segments that can be directly reached from this segment *)
-  mutable segtype:	   int;         (* the control opcode that created this segment *)
+          start_op:   int;      (* index into e of the first op in the expr *)
+  mutable end_op:     int;      (* index+1 of the last op in the expr *)
+  mutable succ:       int list; (* segment index for segments that can be directly reached from this segment *)
+  mutable segtype:	  int;      (* the control opcode that created this segment *)
+  mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
  }
-let segment_sep show_segments = 
-  match show_segments with
-  | true -> "\n------------------------------------------------------------"
-  | _ -> ""
 
 let rec get_segments' (e: expr) (seg_acc: segment list) (current: segment): segment list =
 match e with
@@ -112,11 +109,12 @@ match e with
     | (* return *)      0x0f ->
       (* 1.1 end the segment, start a new one*)
         current.segtype <- (List.hd_exn e).opcode;
+        current.nesting <- (List.hd_exn e).nesting;
         get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
-                      {start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1}
+                      {start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1; nesting = -2}
     (* 2. all other opcodes get added to the current segment *)
     | _ ->
       current.end_op <- current.end_op + 1;
       get_segments' (List.tl_exn e) seg_acc current
 let get_segments (e: expr) : segment list = 
-  get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1}
+  get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2}

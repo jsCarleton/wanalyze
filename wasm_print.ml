@@ -1,6 +1,5 @@
 open Core
 open Wasm_module
-open Segments
 
 (* Printable strings *)
 (* Type section *)
@@ -158,22 +157,22 @@ let string_of_opcode e idx =
     )
   | _ -> failwith "Missing opcode"
 
-let rec string_of_expr' e segment_sep segments idx acc =
+let rec string_of_expr' e seg_sep (segments: Segments.segment list) idx acc =
   match idx < (List.length e) with
   | true -> 
     (match segments with
     | hd::tl ->
       (match hd.start_op = idx with
-        | true  -> string_of_expr' e segment_sep tl (idx+1) (String.concat [acc ; segment_sep; (string_of_opcode e idx)])
-        | false -> string_of_expr' e segment_sep segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
+        | true  -> string_of_expr' e seg_sep tl (idx+1) (String.concat [acc ; seg_sep; (string_of_opcode e idx)])
+        | false -> string_of_expr' e seg_sep segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
       )
-    | _ -> string_of_expr' e segment_sep segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
+    | _ -> string_of_expr' e seg_sep segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
     )
   | false -> acc
-let string_of_expr e segment_sep = string_of_expr' e segment_sep (get_segments e) 0 ""
+let string_of_expr e seg_sep = string_of_expr' e seg_sep (Segments.get_segments e) 0 ""
 
-let string_of_code w idx segment_sep =
-  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr (List.nth_exn w.code_section idx).e segment_sep)]
+let string_of_code w idx seg_sep =
+  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr (List.nth_exn w.code_section idx).e seg_sep)]
 
 let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
 let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
@@ -202,14 +201,20 @@ let string_of_segtype (segtype: int) : string =
   | 0x0f -> "return"
   | _ -> failwith (String.concat ["Invalid segtype: "; string_of_int segtype])
 
-let string_of_segment (s: Segments.segment) : string = sprintf "%5.5d %5.5d %-11s\n" s.start_op s.end_op (string_of_segtype s.segtype)
+let string_of_segment (s: Segments.segment) : string = 
+  sprintf "%5d %5d %5d   %-11s *\n" s.start_op s.end_op s.nesting (string_of_segtype s.segtype)
 let string_of_segments (s: Segments.segment list) : string =
-  String.concat["start end   type     succ\n"; String.concat (List.map ~f:string_of_segment s)]
+  String.concat["start   end nesting type        succ\n"; String.concat (List.map ~f:string_of_segment s)]
 
-let string_of_function w segment_sep i idx = 
+let segment_sep show_segments = 
+  match show_segments with
+  | true -> "\n------------------------------------------------------------"
+  | _ -> ""
+
+let string_of_function w seg_sep i idx = 
   String.concat ["  (func (;" ; string_of_int (i + w.last_import_func) ; ";) (type " ; (string_of_int idx) ; ")" 
     ; (string_of_types "param" (get_type_sig w idx).rt1) ; (string_of_types "result" (get_type_sig w idx).rt2)
-    ; (string_of_code w i segment_sep) ; ")\n" ; string_of_segments (get_segments (List.nth_exn w.code_section i).e)]
+    ; (string_of_code w i seg_sep) ; ")\n" ; string_of_segments (Segments.get_segments (List.nth_exn w.code_section i).e)]
 let string_of_function_section w show_segments = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w (segment_sep show_segments)) w.function_section)
 
