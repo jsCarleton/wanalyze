@@ -67,12 +67,12 @@ Module: allium.wasm
 ------------------------------------------------------------
 0023    local.get 2
 0024    i64.load)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21     0   if          *
-   21    23     0   end         *
-   23    26    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21     0          if          *
+   21    23     0          end         *
+   23    26    -1          end         *
   (func (;17;) (type 7) (param i32 i32 i32)
     (local i32)
 ------------------------------------------------------------
@@ -106,12 +106,12 @@ start   end nesting type        succ
 0023    local.get 3
 0024    local.get 2
 0025    i32.store)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21     0   if          *
-   21    23     0   end         *
-   23    27    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21     0          if          *
+   21    23     0          end         *
+   23    27    -1          end         *
   (func (;18;) (type 8) (param i32 i32 i64)
     (local i32)
 ------------------------------------------------------------
@@ -145,12 +145,12 @@ start   end nesting type        succ
 0023    local.get 3
 0024    local.get 2
 0025    i64.store)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21     0   if          *
-   21    23     0   end         *
-   23    27    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21     0          if          *
+   21    23     0          end         *
+   23    27    -1          end         *
   (func (;19;) (type 5) (param i32 i32) (result i32)
     (local i32)
 ------------------------------------------------------------
@@ -175,10 +175,10 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0017    local.get 2
 0018    i32.load8_u)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    20    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    20    -1          end         *
   (func (;20;) (type 5) (param i32 i32) (result i32)
     (local i32)
 ------------------------------------------------------------
@@ -211,12 +211,12 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0023    local.get 2
 0024    i32.load)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21     0   if          *
-   21    23     0   end         *
-   23    26    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21     0          if          *
+   21    23     0          end         *
+   23    26    -1          end         *
   (func (;21;) (type 8) (param i32 i32 i64)
     (local i32)
 ------------------------------------------------------------
@@ -242,10 +242,10 @@ start   end nesting type        succ
 0017    local.get 3
 0018    local.get 2
 0019    i64.store8)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21    -1          end         *
   (func (;22;) (type 8) (param i32 i32 i64)
     (local i32)
 ------------------------------------------------------------
@@ -279,12 +279,12 @@ start   end nesting type        succ
 0023    local.get 3
 0024    local.get 2
 0025    i64.store align=4)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21     0   if          *
-   21    23     0   end         *
-   23    27    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21     0          if          *
+   21    23     0          end         *
+   23    27    -1          end         *
   (func (;23;) (type 11) (param i32 i32) (result i64)
     (local i32)
 ------------------------------------------------------------
@@ -317,12 +317,12 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0023    local.get 2
 0024    i64.load align=4)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21     0   if          *
-   21    23     0   end         *
-   23    26    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21     0          if          *
+   21    23     0          end         *
+   23    26    -1          end         *
   (func (;24;) (type 7) (param i32 i32 i32)
 ------------------------------------------------------------
 0000    local.get 0
@@ -391,22 +391,22 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0051    end
 ------------------------------------------------------------)
-start   end nesting type        succ
-    0     4     0   if          *
-    4     6     0   end         *
-    6    14     0   if          *
-   14    16     0   end         *
-   16    20     0   if          *
-   20    24     1   if          *
-   24    26     1   end         *
-   26    31     0   else        *
-   31    35     1   if          *
-   35    40     1   else        *
-   40    44     2   if          *
-   44    46     2   end         *
-   46    51     1   end         *
-   51    52     0   end         *
-   52    53    -1   end         *
+start   end nesting labels type        succ
+    0     4     0          if          *
+    4     6     0          end         *
+    6    14     0          if          *
+   14    16     0          end         *
+   16    20     0          if          *
+   20    24     1          if          *
+   24    26     1          end         *
+   26    31     0          else        *
+   31    35     1          if          *
+   35    40     1          else        *
+   40    44     2          if          *
+   44    46     2          end         *
+   46    51     1          end         *
+   51    52     0          end         *
+   52    53    -1          end         *
   (func (;25;) (type 7) (param i32 i32 i32)
     (local i32)
 ------------------------------------------------------------
@@ -432,10 +432,10 @@ start   end nesting type        succ
 0017    local.get 3
 0018    local.get 2
 0019    i32.store8)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21    -1          end         *
   (func (;26;) (type 8) (param i32 i32 i64)
     (local i32)
 ------------------------------------------------------------
@@ -461,10 +461,10 @@ start   end nesting type        succ
 0017    local.get 3
 0018    local.get 2
 0019    i64.store align=1)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21    -1          end         *
   (func (;27;) (type 5) (param i32 i32) (result i32)
 ------------------------------------------------------------
 0000    local.get 0
@@ -532,23 +532,23 @@ start   end nesting type        succ
 0047    local.get 0
 0048    i32.const 0
 0049    call 47)
-start   end nesting type        succ
-    0     4     0   if          *
-    4     6     0   end         *
-    6    14     0   if          *
-   14    16     0   end         *
-   16    20     0   if          *
-   20    24     1   if          *
-   24    26     1   end         *
-   26    30     1   return      *
-   30    31     0   else        *
-   31    35     1   if          *
-   35    39     2   return      *
-   39    40     1   end         *
-   40    41     0   end         *
-   41    45     0   if          *
-   45    47     0   end         *
-   47    51    -1   end         *
+start   end nesting labels type        succ
+    0     4     0          if          *
+    4     6     0          end         *
+    6    14     0          if          *
+   14    16     0          end         *
+   16    20     0          if          *
+   20    24     1          if          *
+   24    26     1          end         *
+   26    30     1          return      *
+   30    31     0          else        *
+   31    35     1          if          *
+   35    39     2          return      *
+   39    40     1          end         *
+   40    41     0          end         *
+   41    45     0          if          *
+   45    47     0          end         *
+   47    51    -1          end         *
   (func (;28;) (type 11) (param i32 i32) (result i64)
     (local i32)
 ------------------------------------------------------------
@@ -573,10 +573,10 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0017    local.get 2
 0018    i64.load align=1)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    20    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    20    -1          end         *
   (func (;29;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32)
 ------------------------------------------------------------
@@ -952,42 +952,42 @@ start   end nesting type        succ
 0336    end
 ------------------------------------------------------------
 0337    local.get 4)
-start   end nesting type        succ
-    0     4     0   if          *
-    4     9     1   return      *
-    9    10     0   end         *
-   10    24     0   if          *
-   24    25     1   loop        *
-   25    29     2   if          *
-   29    32     3   if          *
-   32    34     4   return      *
-   34    35     3   end         *
-   35    54     3   br          *
-   54    55     2   end         *
-   55    56     1   end         *
-   56    64     1   loop        *
-   64    68     2   if          *
-   68   233     3   br          *
-  233   234     2   end         *
-  234   235     1   end         *
-  235   236     1   loop        *
-  236   240     2   if          *
-  240   255     3   br          *
-  255   256     2   end         *
-  256   257     1   end         *
-  257   258     0   else        *
-  258   263     1   loop        *
-  263   267     2   if          *
-  267   312     3   br          *
-  312   313     2   end         *
-  313   314     1   end         *
-  314   315     0   end         *
-  315   316     0   loop        *
-  316   320     1   if          *
-  320   335     2   br          *
-  335   336     1   end         *
-  336   337     0   end         *
-  337   339    -1   end         *
+start   end nesting labels type        succ
+    0     4     0          if          *
+    4     9     1          return      *
+    9    10     0          end         *
+   10    24     0          if          *
+   24    25     1          loop        *
+   25    29     2          if          *
+   29    32     3          if          *
+   32    34     4          return      *
+   34    35     3          end         *
+   35    54     3        1 br          *
+   54    55     2          end         *
+   55    56     1          end         *
+   56    64     1          loop        *
+   64    68     2          if          *
+   68   233     3        1 br          *
+  233   234     2          end         *
+  234   235     1          end         *
+  235   236     1          loop        *
+  236   240     2          if          *
+  240   255     3        1 br          *
+  255   256     2          end         *
+  256   257     1          end         *
+  257   258     0          else        *
+  258   263     1          loop        *
+  263   267     2          if          *
+  267   312     3        1 br          *
+  312   313     2          end         *
+  313   314     1          end         *
+  314   315     0          end         *
+  315   316     0          loop        *
+  316   320     1          if          *
+  320   335     2        1 br          *
+  335   336     1          end         *
+  336   337     0          end         *
+  337   339    -1          end         *
   (func (;30;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -1204,30 +1204,30 @@ start   end nesting type        succ
 0188    local.get 4
 0189    local.get 2
 0190    i32.sub)
-start   end nesting type        succ
-    0    12     0   if          *
-   12    13     1   loop        *
-   13    17     2   if          *
-   17    26     3   br          *
-   26    27     2   end         *
-   27    28     1   end         *
-   28    50     1   loop        *
-   50    54     2   if          *
-   54   153     3   br          *
-  153   154     2   end         *
-  154   155     1   end         *
-  155   156     1   loop        *
-  156   160     2   if          *
-  160   169     3   br          *
-  169   170     2   end         *
-  170   171     1   end         *
-  171   172     0   end         *
-  172   173     0   loop        *
-  173   177     1   if          *
-  177   186     2   br          *
-  186   187     1   end         *
-  187   188     0   end         *
-  188   192    -1   end         *
+start   end nesting labels type        succ
+    0    12     0          if          *
+   12    13     1          loop        *
+   13    17     2          if          *
+   17    26     3        1 br          *
+   26    27     2          end         *
+   27    28     1          end         *
+   28    50     1          loop        *
+   50    54     2          if          *
+   54   153     3        1 br          *
+  153   154     2          end         *
+  154   155     1          end         *
+  155   156     1          loop        *
+  156   160     2          if          *
+  160   169     3        1 br          *
+  169   170     2          end         *
+  170   171     1          end         *
+  171   172     0          end         *
+  172   173     0          loop        *
+  173   177     1          if          *
+  177   186     2        1 br          *
+  186   187     1          end         *
+  187   188     0          end         *
+  188   192    -1          end         *
   (func (;31;) (type 1) (param i32) (result i32)
     (local i32)
 ------------------------------------------------------------
@@ -1286,23 +1286,23 @@ start   end nesting type        succ
 0045    end
 ------------------------------------------------------------
 0046    local.get 1)
-start   end nesting type        succ
-    0    18     0   if          *
-   18    24     1   return      *
-   24    25     0   end         *
-   25    33     0   if          *
-   33    36     1   if          *
-   36    44     2   return      *
-   44    45     1   end         *
-   45    46     0   end         *
-   46    48    -1   end         *
+start   end nesting labels type        succ
+    0    18     0          if          *
+   18    24     1          return      *
+   24    25     0          end         *
+   25    33     0          if          *
+   33    36     1          if          *
+   36    44     2          return      *
+   44    45     1          end         *
+   45    46     0          end         *
+   46    48    -1          end         *
   (func (;32;) (type 0) (param i32 i32 i32) (result i32)
 ------------------------------------------------------------
 0000    i32.const 1
 0001    call 6
 0002    i32.const 0)
-start   end nesting type        succ
-    0     4    -1   end         *
+start   end nesting labels type        succ
+    0     4    -1          end         *
   (func (;33;) (type 3) (param i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -2496,170 +2496,170 @@ start   end nesting type        succ
 1025    i32.const 0
 1026    i32.const -1
 1027    call 17)
-start   end nesting type        succ
-    0     3     0   if          *
-    3     4     1   return      *
-    4     5     0   end         *
-    5    25     0   block       *
-   25    29     1   if          *
-   29    31     1   else        *
-   31    40     2   if          *
-   40    41     3   return      *
-   41    42     2   end         *
-   42    49     2   if          *
-   49    50     3   return      *
-   50    51     2   end         *
-   51    61     2   if          *
-   61    74     3   br_if       *
-   74    98     3   return      *
-   98    99     2   end         *
-   99   107     2   if          *
-  107   117     3   if          *
-  117   130     3   else        *
-  130   139     3   end         *
-  139   141     3   br          *
-  141   142     2   end         *
-  142   147     2   block       *
-  147   154     3   if          *
-  154   165     4   if          *
-  165   168     4   else        *
-  168   174     5   if          *
-  174   177     6   br          *
-  177   178     5   end         *
-  178   179     4   end         *
-  179   180     4   loop        *
-  180   181     5   block       *
-  181   190     6   if          *
-  190   199     7   br_if       *
-  199   200     6   end         *
-  200   205     6   br          *
-  205   206     5   end         *
-  206   207     4   end         *
-  207   212     3   else        *
-  212   224     3   end         *
-  224   225     2   end         *
-  225   227     2   if          *
-  227   241     3   if          *
-  241   248     4   if          *
-  248   262     5   br          *
-  262   263     4   end         *
-  263   264     3   else        *
-  264   277     4   if          *
-  277   279     4   else        *
-  279   281     4   end         *
-  281   288     4   br_if       *
-  288   290     3   end         *
-  290   302     3   if          *
-  302   311     3   end         *
-  311   316     3   if          *
-  316   325     3   end         *
-  325   327     2   else        *
-  327   329     2   end         *
-  329   330     1   end         *
-  330   331     0   end         *
-  331   335     0   if          *
-  335   336     1   return      *
-  336   337     0   end         *
-  337   348     0   if          *
-  348   349     1   return      *
-  349   350     0   end         *
-  350   354     0   if          *
-  354   375     0   else        *
-  375   381     1   if          *
-  381   406     2   if          *
-  406   407     3   return      *
-  407   408     2   end         *
-  408   417     2   return      *
-  417   418     1   end         *
-  418   424     1   if          *
-  424   450     2   return      *
-  450   451     1   end         *
-  451   462     1   block       *
-  462   466     2   if          *
-  466   476     3   if          *
-  476   489     3   else        *
-  489   498     3   end         *
-  498   499     2   else        *
-  499   504     3   block       *
-  504   511     4   if          *
-  511   522     5   if          *
-  522   525     5   else        *
-  525   531     6   if          *
-  531   534     7   br          *
-  534   535     6   end         *
-  535   536     5   end         *
-  536   537     5   loop        *
-  537   538     6   block       *
-  538   547     7   if          *
-  547   556     8   br_if       *
-  556   557     7   end         *
-  557   562     7   br          *
-  562   563     6   end         *
-  563   564     5   end         *
-  564   569     4   else        *
-  569   581     4   end         *
-  581   582     3   end         *
-  582   584     3   if          *
-  584   598     4   if          *
-  598   605     5   if          *
-  605   618     6   br          *
-  618   619     5   end         *
-  619   620     4   else        *
-  620   633     5   if          *
-  633   635     5   else        *
-  635   637     5   end         *
-  637   643     5   br_if       *
-  643   644     4   end         *
-  644   656     4   if          *
-  656   665     4   end         *
-  665   670     4   if          *
-  670   679     4   end         *
-  679   680     3   end         *
-  680   681     2   end         *
-  681   682     1   end         *
-  682   700     1   if          *
-  700   705     2   return      *
-  705   706     1   end         *
-  706   707     0   end         *
-  707   715     0   if          *
-  715   731     1   if          *
-  731   738     1   else        *
-  738   750     1   end         *
-  750   768     1   return      *
-  768   769     0   end         *
-  769   774     0   if          *
-  774   778     1   if          *
-  778   780     1   else        *
-  780   832     1   end         *
-  832   833     0   else        *
-  833   835     0   end         *
-  835   854     0   block       *
-  854   864     1   if          *
-  864   865     2   block       *
-  865   876     3   if          *
-  876   878     3   else        *
-  878   889     4   if          *
-  889   891     4   else        *
-  891   893     4   end         *
-  893   896     4   loop        *
-  896   910     5   if          *
-  910   922     6   br_if       *
-  922   925     6   br          *
-  925   926     5   end         *
-  926   927     4   end         *
-  927   944     4   br          *
-  944   945     3   end         *
-  945   947     2   end         *
-  947   974     1   else        *
-  974   997     1   end         *
-  997   998     0   end         *
-  998  1009     0   if          *
- 1009  1010     1   return      *
- 1010  1011     0   end         *
- 1011  1014     0   loop        *
- 1014  1023     1   br_if       *
- 1023  1024     0   end         *
- 1024  1029    -1   end         *
+start   end nesting labels type        succ
+    0     3     0          if          *
+    3     4     1          return      *
+    4     5     0          end         *
+    5    25     0          block       *
+   25    29     1          if          *
+   29    31     1          else        *
+   31    40     2          if          *
+   40    41     3          return      *
+   41    42     2          end         *
+   42    49     2          if          *
+   49    50     3          return      *
+   50    51     2          end         *
+   51    61     2          if          *
+   61    74     3        2 br_if       *
+   74    98     3          return      *
+   98    99     2          end         *
+   99   107     2          if          *
+  107   117     3          if          *
+  117   130     3          else        *
+  130   139     3          end         *
+  139   141     3        2 br          *
+  141   142     2          end         *
+  142   147     2          block       *
+  147   154     3          if          *
+  154   165     4          if          *
+  165   168     4          else        *
+  168   174     5          if          *
+  174   177     6        3 br          *
+  177   178     5          end         *
+  178   179     4          end         *
+  179   180     4          loop        *
+  180   181     5          block       *
+  181   190     6          if          *
+  190   199     7        1 br_if       *
+  199   200     6          end         *
+  200   205     6        1 br          *
+  205   206     5          end         *
+  206   207     4          end         *
+  207   212     3          else        *
+  212   224     3          end         *
+  224   225     2          end         *
+  225   227     2          if          *
+  227   241     3          if          *
+  241   248     4          if          *
+  248   262     5        4 br          *
+  262   263     4          end         *
+  263   264     3          else        *
+  264   277     4          if          *
+  277   279     4          else        *
+  279   281     4          end         *
+  281   288     4        3 br_if       *
+  288   290     3          end         *
+  290   302     3          if          *
+  302   311     3          end         *
+  311   316     3          if          *
+  316   325     3          end         *
+  325   327     2          else        *
+  327   329     2          end         *
+  329   330     1          end         *
+  330   331     0          end         *
+  331   335     0          if          *
+  335   336     1          return      *
+  336   337     0          end         *
+  337   348     0          if          *
+  348   349     1          return      *
+  349   350     0          end         *
+  350   354     0          if          *
+  354   375     0          else        *
+  375   381     1          if          *
+  381   406     2          if          *
+  406   407     3          return      *
+  407   408     2          end         *
+  408   417     2          return      *
+  417   418     1          end         *
+  418   424     1          if          *
+  424   450     2          return      *
+  450   451     1          end         *
+  451   462     1          block       *
+  462   466     2          if          *
+  466   476     3          if          *
+  476   489     3          else        *
+  489   498     3          end         *
+  498   499     2          else        *
+  499   504     3          block       *
+  504   511     4          if          *
+  511   522     5          if          *
+  522   525     5          else        *
+  525   531     6          if          *
+  531   534     7        3 br          *
+  534   535     6          end         *
+  535   536     5          end         *
+  536   537     5          loop        *
+  537   538     6          block       *
+  538   547     7          if          *
+  547   556     8        1 br_if       *
+  556   557     7          end         *
+  557   562     7        1 br          *
+  562   563     6          end         *
+  563   564     5          end         *
+  564   569     4          else        *
+  569   581     4          end         *
+  581   582     3          end         *
+  582   584     3          if          *
+  584   598     4          if          *
+  598   605     5          if          *
+  605   618     6        4 br          *
+  618   619     5          end         *
+  619   620     4          else        *
+  620   633     5          if          *
+  633   635     5          else        *
+  635   637     5          end         *
+  637   643     5        3 br_if       *
+  643   644     4          end         *
+  644   656     4          if          *
+  656   665     4          end         *
+  665   670     4          if          *
+  670   679     4          end         *
+  679   680     3          end         *
+  680   681     2          end         *
+  681   682     1          end         *
+  682   700     1          if          *
+  700   705     2          return      *
+  705   706     1          end         *
+  706   707     0          end         *
+  707   715     0          if          *
+  715   731     1          if          *
+  731   738     1          else        *
+  738   750     1          end         *
+  750   768     1          return      *
+  768   769     0          end         *
+  769   774     0          if          *
+  774   778     1          if          *
+  778   780     1          else        *
+  780   832     1          end         *
+  832   833     0          else        *
+  833   835     0          end         *
+  835   854     0          block       *
+  854   864     1          if          *
+  864   865     2          block       *
+  865   876     3          if          *
+  876   878     3          else        *
+  878   889     4          if          *
+  889   891     4          else        *
+  891   893     4          end         *
+  893   896     4          loop        *
+  896   910     5          if          *
+  910   922     6        3 br_if       *
+  922   925     6        1 br          *
+  925   926     5          end         *
+  926   927     4          end         *
+  927   944     4        3 br          *
+  944   945     3          end         *
+  945   947     2          end         *
+  947   974     1          else        *
+  974   997     1          end         *
+  997   998     0          end         *
+  998  1009     0          if          *
+ 1009  1010     1          return      *
+ 1010  1011     0          end         *
+ 1011  1014     0          loop        *
+ 1014  1023     1        0 br_if       *
+ 1023  1024     0          end         *
+ 1024  1029    -1          end         *
   (func (;34;) (type 1) (param i32) (result i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -7082,519 +7082,519 @@ start   end nesting type        succ
 3905    local.get 10
 3906    global.set 5
 3907    i32.const 0)
-start   end nesting type        succ
-    0     1     0   block       *
-    1     2     1   block       *
-    2     3     2   block       *
-    3     4     3   block       *
-    4    14     4   if          *
-   14    17     4   end         *
-   17    19     3   end         *
-   19    21     3   block       *
-   21    25     4   if          *
-   25    39     5   if          *
-   39    41     5   else        *
-   41    43     5   end         *
-   43    52     5   if          *
-   52    80     6   if          *
-   80    91     6   else        *
-   91   100     6   end         *
-  100   126     6   return      *
-  126   127     5   end         *
-  127   134     5   if          *
-  134   136     6   if          *
-  136   227     7   if          *
-  227   239     7   else        *
-  239   250     7   end         *
-  250   279     7   if          *
-  279   299     8   if          *
-  299   306     8   else        *
-  306   318     8   end         *
-  318   336     7   end         *
-  336   348     7   return      *
-  348   349     6   end         *
-  349   354     6   if          *
-  354   429     7   loop        *
-  429   430     8   block       *
-  430   435     9   if          *
-  435   438     9   else        *
-  438   444    10   br_if       *
-  444   445     9   end         *
-  445   458     9   if          *
-  458   461     9   end         *
-  461   463     9   if          *
-  463   466     9   end         *
-  466   469     9   br          *
-  469   470     8   end         *
-  470   471     7   end         *
-  471   478     7   if          *
-  478   483     8   block       *
-  483   490     9   if          *
-  490   499    10   if          *
-  499   508    11   if          *
-  508   511    12   br          *
-  511   512    11   end         *
-  512   513    10   end         *
-  513   514    10   loop        *
-  514   515    11   block       *
-  515   524    12   if          *
-  524   533    13   br_if       *
-  533   534    12   end         *
-  534   539    12   br          *
-  539   540    11   end         *
-  540   541    10   end         *
-  541   546     9   else        *
-  546   558     9   end         *
-  558   559     8   end         *
-  559   560     8   block       *
-  560   562     9   if          *
-  562   576    10   if          *
-  576   583    11   if          *
-  583   594    12   br          *
-  594   595    11   end         *
-  595   596    10   else        *
-  596   609    11   if          *
-  609   611    11   else        *
-  611   613    11   end         *
-  613   619    11   br_if       *
-  619   620    10   end         *
-  620   629    10   if          *
-  629   638    10   end         *
-  638   643    10   if          *
-  643   652    10   end         *
-  652   653     9   end         *
-  653   654     8   end         *
-  654   658     8   if          *
-  658   681     8   else        *
-  681   701     9   if          *
-  701   721    10   if          *
-  721   728    10   else        *
-  728   740    10   end         *
-  740   758     9   end         *
-  758   767     8   end         *
-  767   773     8   return      *
-  773   774     7   end         *
-  774   775     6   end         *
-  775   776     5   end         *
-  776   777     4   else        *
-  777   781     5   if          *
-  781   784     5   else        *
-  784   796     6   if          *
-  796   801     7   if          *
-  801   805     8   if          *
-  805   807     8   else        *
-  807   859     8   end         *
-  859   860     7   else        *
-  860   862     7   end         *
-  862   868     7   block       *
-  868   869     8   block       *
-  869   878     9   if          *
-  878   891    10   if          *
-  891   893    10   else        *
-  893   895    10   end         *
-  895   900    10   loop        *
-  900   911    11   if          *
-  911   913    12   if          *
-  913   917    12   else        *
-  917   922    13   br          *
-  922   923    12   end         *
-  923   925    11   end         *
-  925   947    11   if          *
-  947   950    11   end         *
-  950   956    11   br_if       *
-  956   957    10   end         *
-  957   959     9   else        *
-  959   961     9   end         *
-  961   966     9   if          *
-  966   968     9   else        *
-  968   981    10   br_if       *
-  981  1048     9   end         *
- 1048  1050     9   br_if       *
- 1050  1053     9   br          *
- 1053  1054     8   end         *
- 1054  1059     8   loop        *
- 1059  1060     9   block       *
- 1060  1070    10   if          *
- 1070  1075    10   end         *
- 1075  1077     9   end         *
- 1077  1087     9   if          *
- 1087  1090     9   end         *
- 1090  1093     9   if          *
- 1093  1096     9   end         *
- 1096  1098     9   if          *
- 1098  1105    10   br          *
- 1105  1106     9   else        *
- 1106  1110     9   end         *
- 1110  1112     8   end         *
- 1112  1113     7   end         *
- 1113  1115     7   if          *
- 1115  1123     8   if          *
- 1123  1130     9   if          *
- 1130  1135    10   block       *
- 1135  1142    11   if          *
- 1142  1151    12   if          *
- 1151  1160    13   if          *
- 1160  1163    14   br          *
- 1163  1164    13   end         *
- 1164  1165    12   end         *
- 1165  1166    12   loop        *
- 1166  1167    13   block       *
- 1167  1176    14   if          *
- 1176  1185    15   br_if       *
- 1185  1186    14   end         *
- 1186  1191    14   br          *
- 1191  1192    13   end         *
- 1192  1193    12   end         *
- 1193  1198    11   else        *
- 1198  1210    11   end         *
- 1210  1211    10   end         *
- 1211  1212    10   block       *
- 1212  1214    11   if          *
- 1214  1228    12   if          *
- 1228  1235    13   if          *
- 1235  1247    14   br          *
- 1247  1248    13   end         *
- 1248  1249    12   else        *
- 1249  1262    13   if          *
- 1262  1264    13   else        *
- 1264  1266    13   end         *
- 1266  1272    13   if          *
- 1272  1275    14   br          *
- 1275  1276    13   end         *
- 1276  1277    12   end         *
- 1277  1286    12   if          *
- 1286  1295    12   end         *
- 1295  1300    12   if          *
- 1300  1309    12   end         *
- 1309  1310    11   end         *
- 1310  1313    10   end         *
- 1313  1314    10   block       *
- 1314  1318    11   if          *
- 1318  1341    11   else        *
- 1341  1367    12   if          *
- 1367  1383    13   if          *
- 1383  1390    13   else        *
- 1390  1402    13   end         *
- 1402  1420    13   br          *
- 1420  1421    12   end         *
- 1421  1426    12   if          *
- 1426  1430    13   if          *
- 1430  1432    13   else        *
- 1432  1484    13   end         *
- 1484  1485    12   else        *
- 1485  1487    12   end         *
- 1487  1516    12   if          *
- 1516  1539    13   br          *
- 1539  1540    12   end         *
- 1540  1541    12   block       *
- 1541  1552    13   if          *
- 1552  1554    13   else        *
- 1554  1565    14   if          *
- 1565  1567    14   else        *
- 1567  1569    14   end         *
- 1569  1572    14   loop        *
- 1572  1586    15   if          *
- 1586  1598    16   br_if       *
- 1598  1601    16   br          *
- 1601  1602    15   end         *
- 1602  1603    14   end         *
- 1603  1620    14   br          *
- 1620  1621    13   end         *
- 1621  1623    12   end         *
- 1623  1650    11   end         *
- 1650  1651    10   end         *
- 1651  1657    10   return      *
- 1657  1658     9   end         *
- 1658  1659     8   end         *
- 1659  1660     7   end         *
- 1660  1661     6   end         *
- 1661  1662     5   end         *
- 1662  1663     4   end         *
- 1663  1664     3   end         *
- 1664  1671     3   if          *
- 1671  1682     4   if          *
- 1682  1712     4   else        *
- 1712  1740     4   end         *
- 1740  1741     4   br          *
- 1741  1742     3   end         *
- 1742  1749     3   if          *
- 1749  1757     4   br          *
- 1757  1758     3   end         *
- 1758  1762     3   if          *
- 1762  1766     3   else        *
- 1766  1800     3   end         *
- 1800  1816     3   if          *
- 1816  1817     4   br          *
- 1817  1818     3   end         *
- 1818  1823     3   if          *
- 1823  1837     4   if          *
- 1837  1838     5   br          *
- 1838  1839     4   end         *
- 1839  1840     3   end         *
- 1840  1845     3   block       *
- 1845  1846     4   block       *
- 1846  1852     5   if          *
- 1852  1855     5   else        *
- 1855  1856     6   block       *
- 1856  1857     7   block       *
- 1857  1858     8   block       *
- 1858  1864     9   br_if       *
- 1864  1867     9   loop        *
- 1867  1868    10   block       *
- 1868  1875    11   if          *
- 1875  1883    12   br_if       *
- 1883  1884    11   end         *
- 1884  1889    11   br_if       *
- 1889  1890    11   br          *
- 1890  1891    10   end         *
- 1891  1892     9   end         *
- 1892  1901     9   if          *
- 1901  1913    10   if          *
- 1913  1917    11   br_if       *
- 1917  1918    10   else        *
- 1918  1919    11   br          *
- 1919  1920    10   end         *
- 1920  1921     9   else        *
- 1921  1924     9   end         *
- 1924  1925     9   br          *
- 1925  1926     8   end         *
- 1926  1932     8   if          *
- 1932  1934     8   else        *
- 1934  1954     9   if          *
- 1954  1956     9   else        *
- 1956  1958     9   end         *
- 1958  1975     9   if          *
- 1975  1980    10   if          *
- 1980  1988    11   if          *
- 1988  1991    12   br          *
- 1991  1992    11   end         *
- 1992  1993    10   end         *
- 1993  1999    10   br_if       *
- 1999  2002    10   br          *
- 2002  2003     9   else        *
- 2003  2005     9   end         *
- 2005  2006     8   end         *
- 2006  2008     8   br          *
- 2008  2009     7   end         *
- 2009  2022     7   if          *
- 2022  2026     8   if          *
- 2026  2029     9   br          *
- 2029  2030     8   else        *
- 2030  2031     9   br          *
- 2031  2032     8   end         *
- 2032  2033     8   unreachable *
- 2033  2034     7   end         *
- 2034  2050     7   br_if       *
- 2050  2059     7   if          *
- 2059  2064     7   else        *
- 2064  2069     8   br          *
- 2069  2070     7   end         *
- 2070  2072     6   end         *
- 2072  2081     5   end         *
- 2081  2085     5   if          *
- 2085  2111     6   if          *
- 2111  2114     6   end         *
- 2114  2127     6   br_if       *
- 2127  2128     5   end         *
- 2128  2129     5   br          *
- 2129  2130     4   end         *
- 2130  2145     4   if          *
- 2145  2150     4   end         *
- 2150  2151     4   block       *
- 2151  2156     5   if          *
- 2156  2159     6   block       *
- 2159  2160     7   block       *
- 2160  2161     8   loop        *
- 2161  2173     9   br_if       *
- 2173  2178     9   br_if       *
- 2178  2179     8   end         *
- 2179  2180     8   br          *
- 2180  2181     7   end         *
- 2181  2192     7   if          *
- 2192  2200     8   if          *
- 2200  2228     9   if          *
- 2228  2230     9   else        *
- 2230  2233     9   end         *
- 2233  2262     9   br          *
- 2262  2263     8   end         *
- 2263  2264     7   end         *
- 2264  2265     6   end         *
- 2265  2271     6   if          *
- 2271  2276     6   end         *
- 2276  2283     6   block       *
- 2283  2284     7   block       *
- 2284  2285     8   loop        *
- 2285  2291     9   br_if       *
- 2291  2296     9   br_if       *
- 2296  2297     8   end         *
- 2297  2298     8   br          *
- 2298  2299     7   end         *
- 2299  2306     7   if          *
- 2306  2344     8   if          *
- 2344  2346     8   else        *
- 2346  2348     8   end         *
- 2348  2358     8   if          *
- 2358  2360     8   else        *
- 2360  2362     8   end         *
- 2362  2376     8   block       *
- 2376  2380     9   if          *
- 2380  2400     9   else        *
- 2400  2406    10   if          *
- 2406  2432    11   br          *
- 2432  2433    10   end         *
- 2433  2442    10   if          *
- 2442  2451    11   block       *
- 2451  2455    12   if          *
- 2455  2465    13   if          *
- 2465  2478    13   else        *
- 2478  2487    13   end         *
- 2487  2488    12   else        *
- 2488  2493    13   block       *
- 2493  2500    14   if          *
- 2500  2511    15   if          *
- 2511  2514    15   else        *
- 2514  2520    16   if          *
- 2520  2523    17   br          *
- 2523  2524    16   end         *
- 2524  2525    15   end         *
- 2525  2526    15   loop        *
- 2526  2527    16   block       *
- 2527  2536    17   if          *
- 2536  2545    18   br_if       *
- 2545  2546    17   end         *
- 2546  2551    17   br          *
- 2551  2552    16   end         *
- 2552  2553    15   end         *
- 2553  2558    14   else        *
- 2558  2570    14   end         *
- 2570  2571    13   end         *
- 2571  2574    13   br_if       *
- 2574  2575    13   block       *
- 2575  2589    14   if          *
- 2589  2595    15   br_if       *
- 2595  2608    15   br          *
- 2608  2609    14   else        *
- 2609  2622    15   if          *
- 2622  2624    15   else        *
- 2624  2626    15   end         *
- 2626  2632    15   br_if       *
- 2632  2633    14   end         *
- 2633  2634    13   end         *
- 2634  2646    13   if          *
- 2646  2655    13   end         *
- 2655  2661    13   br_if       *
- 2661  2670    12   end         *
- 2670  2671    11   end         *
- 2671  2680    10   end         *
- 2680  2711    10   if          *
- 2711  2727    11   if          *
- 2727  2734    11   else        *
- 2734  2746    11   end         *
- 2746  2764    11   br          *
- 2764  2765    10   end         *
- 2765  2766    10   block       *
- 2766  2771    11   if          *
- 2771  2776    12   br_if       *
- 2776  2829    11   else        *
- 2829  2831    11   end         *
- 2831  2832    10   end         *
- 2832  2864    10   if          *
- 2864  2887    11   br          *
- 2887  2888    10   end         *
- 2888  2889    10   block       *
- 2889  2900    11   if          *
- 2900  2902    11   else        *
- 2902  2913    12   if          *
- 2913  2915    12   else        *
- 2915  2917    12   end         *
- 2917  2920    12   loop        *
- 2920  2934    13   if          *
- 2934  2946    14   br_if       *
- 2946  2949    14   br          *
- 2949  2950    13   end         *
- 2950  2951    12   end         *
- 2951  2968    12   br          *
- 2968  2969    11   end         *
- 2969  2971    10   end         *
- 2971  2998     9   end         *
- 2998  2999     8   end         *
- 2999  3005     8   return      *
- 3005  3006     7   end         *
- 3006  3007     6   end         *
- 3007  3010     6   loop        *
- 3010  3011     7   block       *
- 3011  3018     8   if          *
- 3018  3027     9   br_if       *
- 3027  3028     8   end         *
- 3028  3033     8   br          *
- 3033  3034     7   end         *
- 3034  3035     6   end         *
- 3035  3052     6   if          *
- 3052  3054     6   else        *
- 3054  3056     6   end         *
- 3056  3064     6   if          *
- 3064  3067     6   else        *
- 3067  3069     6   end         *
- 3069  3073     6   block       *
- 3073  3097     7   if          *
- 3097  3099     7   else        *
- 3099  3102     7   end         *
- 3102  3167     6   end         *
- 3167  3169     6   loop        *
- 3169  3182     7   if          *
- 3182  3185     8   br          *
- 3185  3186     7   end         *
- 3186  3187     6   end         *
- 3187  3191     6   if          *
- 3191  3220     7   if          *
- 3220  3236     8   if          *
- 3236  3243     8   else        *
- 3243  3255     8   end         *
- 3255  3273     8   br          *
- 3273  3274     7   end         *
- 3274  3279     7   if          *
- 3279  3283     8   if          *
- 3283  3285     8   else        *
- 3285  3337     8   end         *
- 3337  3338     7   else        *
- 3338  3340     7   end         *
- 3340  3369     7   if          *
- 3369  3392     8   br          *
- 3392  3393     7   end         *
- 3393  3394     7   block       *
- 3394  3405     8   if          *
- 3405  3407     8   else        *
- 3407  3418     9   if          *
- 3418  3420     9   else        *
- 3420  3422     9   end         *
- 3422  3425     9   loop        *
- 3425  3439    10   if          *
- 3439  3451    11   br_if       *
- 3451  3454    11   br          *
- 3454  3455    10   end         *
- 3455  3456     9   end         *
- 3456  3473     9   br          *
- 3473  3474     8   end         *
- 3474  3476     7   end         *
- 3476  3503     6   end         *
- 3503  3504     5   else        *
- 3504  3514     6   if          *
- 3514  3519     6   end         *
- 3519  3817     6   if          *
- 3817  3819     6   else        *
- 3819  3822     6   end         *
- 3822  3851     5   end         *
- 3851  3852     4   end         *
- 3852  3859     4   if          *
- 3859  3867     5   br          *
- 3867  3868     4   end         *
- 3868  3869     3   end         *
- 3869  3874     3   br          *
- 3874  3875     2   end         *
- 3875  3898     1   end         *
- 3898  3904     1   return      *
- 3904  3905     0   end         *
- 3905  3909    -1   end         *
+start   end nesting labels type        succ
+    0     1     0          block       *
+    1     2     1          block       *
+    2     3     2          block       *
+    3     4     3          block       *
+    4    14     4          if          *
+   14    17     4          end         *
+   17    19     3          end         *
+   19    21     3          block       *
+   21    25     4          if          *
+   25    39     5          if          *
+   39    41     5          else        *
+   41    43     5          end         *
+   43    52     5          if          *
+   52    80     6          if          *
+   80    91     6          else        *
+   91   100     6          end         *
+  100   126     6          return      *
+  126   127     5          end         *
+  127   134     5          if          *
+  134   136     6          if          *
+  136   227     7          if          *
+  227   239     7          else        *
+  239   250     7          end         *
+  250   279     7          if          *
+  279   299     8          if          *
+  299   306     8          else        *
+  306   318     8          end         *
+  318   336     7          end         *
+  336   348     7          return      *
+  348   349     6          end         *
+  349   354     6          if          *
+  354   429     7          loop        *
+  429   430     8          block       *
+  430   435     9          if          *
+  435   438     9          else        *
+  438   444    10        1 br_if       *
+  444   445     9          end         *
+  445   458     9          if          *
+  458   461     9          end         *
+  461   463     9          if          *
+  463   466     9          end         *
+  466   469     9        1 br          *
+  469   470     8          end         *
+  470   471     7          end         *
+  471   478     7          if          *
+  478   483     8          block       *
+  483   490     9          if          *
+  490   499    10          if          *
+  499   508    11          if          *
+  508   511    12        3 br          *
+  511   512    11          end         *
+  512   513    10          end         *
+  513   514    10          loop        *
+  514   515    11          block       *
+  515   524    12          if          *
+  524   533    13        1 br_if       *
+  533   534    12          end         *
+  534   539    12        1 br          *
+  539   540    11          end         *
+  540   541    10          end         *
+  541   546     9          else        *
+  546   558     9          end         *
+  558   559     8          end         *
+  559   560     8          block       *
+  560   562     9          if          *
+  562   576    10          if          *
+  576   583    11          if          *
+  583   594    12        3 br          *
+  594   595    11          end         *
+  595   596    10          else        *
+  596   609    11          if          *
+  609   611    11          else        *
+  611   613    11          end         *
+  613   619    11        2 br_if       *
+  619   620    10          end         *
+  620   629    10          if          *
+  629   638    10          end         *
+  638   643    10          if          *
+  643   652    10          end         *
+  652   653     9          end         *
+  653   654     8          end         *
+  654   658     8          if          *
+  658   681     8          else        *
+  681   701     9          if          *
+  701   721    10          if          *
+  721   728    10          else        *
+  728   740    10          end         *
+  740   758     9          end         *
+  758   767     8          end         *
+  767   773     8          return      *
+  773   774     7          end         *
+  774   775     6          end         *
+  775   776     5          end         *
+  776   777     4          else        *
+  777   781     5          if          *
+  781   784     5          else        *
+  784   796     6          if          *
+  796   801     7          if          *
+  801   805     8          if          *
+  805   807     8          else        *
+  807   859     8          end         *
+  859   860     7          else        *
+  860   862     7          end         *
+  862   868     7          block       *
+  868   869     8          block       *
+  869   878     9          if          *
+  878   891    10          if          *
+  891   893    10          else        *
+  893   895    10          end         *
+  895   900    10          loop        *
+  900   911    11          if          *
+  911   913    12          if          *
+  913   917    12          else        *
+  917   922    13        4 br          *
+  922   923    12          end         *
+  923   925    11          end         *
+  925   947    11          if          *
+  947   950    11          end         *
+  950   956    11        0 br_if       *
+  956   957    10          end         *
+  957   959     9          else        *
+  959   961     9          end         *
+  961   966     9          if          *
+  966   968     9          else        *
+  968   981    10        6 br_if       *
+  981  1048     9          end         *
+ 1048  1050     9        0 br_if       *
+ 1050  1053     9        1 br          *
+ 1053  1054     8          end         *
+ 1054  1059     8          loop        *
+ 1059  1060     9          block       *
+ 1060  1070    10          if          *
+ 1070  1075    10          end         *
+ 1075  1077     9          end         *
+ 1077  1087     9          if          *
+ 1087  1090     9          end         *
+ 1090  1093     9          if          *
+ 1093  1096     9          end         *
+ 1096  1098     9          if          *
+ 1098  1105    10        1 br          *
+ 1105  1106     9          else        *
+ 1106  1110     9          end         *
+ 1110  1112     8          end         *
+ 1112  1113     7          end         *
+ 1113  1115     7          if          *
+ 1115  1123     8          if          *
+ 1123  1130     9          if          *
+ 1130  1135    10          block       *
+ 1135  1142    11          if          *
+ 1142  1151    12          if          *
+ 1151  1160    13          if          *
+ 1160  1163    14        3 br          *
+ 1163  1164    13          end         *
+ 1164  1165    12          end         *
+ 1165  1166    12          loop        *
+ 1166  1167    13          block       *
+ 1167  1176    14          if          *
+ 1176  1185    15        1 br_if       *
+ 1185  1186    14          end         *
+ 1186  1191    14        1 br          *
+ 1191  1192    13          end         *
+ 1192  1193    12          end         *
+ 1193  1198    11          else        *
+ 1198  1210    11          end         *
+ 1210  1211    10          end         *
+ 1211  1212    10          block       *
+ 1212  1214    11          if          *
+ 1214  1228    12          if          *
+ 1228  1235    13          if          *
+ 1235  1247    14        3 br          *
+ 1247  1248    13          end         *
+ 1248  1249    12          else        *
+ 1249  1262    13          if          *
+ 1262  1264    13          else        *
+ 1264  1266    13          end         *
+ 1266  1272    13          if          *
+ 1272  1275    14        3 br          *
+ 1275  1276    13          end         *
+ 1276  1277    12          end         *
+ 1277  1286    12          if          *
+ 1286  1295    12          end         *
+ 1295  1300    12          if          *
+ 1300  1309    12          end         *
+ 1309  1310    11          end         *
+ 1310  1313    10          end         *
+ 1313  1314    10          block       *
+ 1314  1318    11          if          *
+ 1318  1341    11          else        *
+ 1341  1367    12          if          *
+ 1367  1383    13          if          *
+ 1383  1390    13          else        *
+ 1390  1402    13          end         *
+ 1402  1420    13        2 br          *
+ 1420  1421    12          end         *
+ 1421  1426    12          if          *
+ 1426  1430    13          if          *
+ 1430  1432    13          else        *
+ 1432  1484    13          end         *
+ 1484  1485    12          else        *
+ 1485  1487    12          end         *
+ 1487  1516    12          if          *
+ 1516  1539    13        2 br          *
+ 1539  1540    12          end         *
+ 1540  1541    12          block       *
+ 1541  1552    13          if          *
+ 1552  1554    13          else        *
+ 1554  1565    14          if          *
+ 1565  1567    14          else        *
+ 1567  1569    14          end         *
+ 1569  1572    14          loop        *
+ 1572  1586    15          if          *
+ 1586  1598    16        3 br_if       *
+ 1598  1601    16        1 br          *
+ 1601  1602    15          end         *
+ 1602  1603    14          end         *
+ 1603  1620    14        3 br          *
+ 1620  1621    13          end         *
+ 1621  1623    12          end         *
+ 1623  1650    11          end         *
+ 1650  1651    10          end         *
+ 1651  1657    10          return      *
+ 1657  1658     9          end         *
+ 1658  1659     8          end         *
+ 1659  1660     7          end         *
+ 1660  1661     6          end         *
+ 1661  1662     5          end         *
+ 1662  1663     4          end         *
+ 1663  1664     3          end         *
+ 1664  1671     3          if          *
+ 1671  1682     4          if          *
+ 1682  1712     4          else        *
+ 1712  1740     4          end         *
+ 1740  1741     4        2 br          *
+ 1741  1742     3          end         *
+ 1742  1749     3          if          *
+ 1749  1757     4        1 br          *
+ 1757  1758     3          end         *
+ 1758  1762     3          if          *
+ 1762  1766     3          else        *
+ 1766  1800     3          end         *
+ 1800  1816     3          if          *
+ 1816  1817     4        3 br          *
+ 1817  1818     3          end         *
+ 1818  1823     3          if          *
+ 1823  1837     4          if          *
+ 1837  1838     5        4 br          *
+ 1838  1839     4          end         *
+ 1839  1840     3          end         *
+ 1840  1845     3          block       *
+ 1845  1846     4          block       *
+ 1846  1852     5          if          *
+ 1852  1855     5          else        *
+ 1855  1856     6          block       *
+ 1856  1857     7          block       *
+ 1857  1858     8          block       *
+ 1858  1864     9        0 br_if       *
+ 1864  1867     9          loop        *
+ 1867  1868    10          block       *
+ 1868  1875    11          if          *
+ 1875  1883    12        1 br_if       *
+ 1883  1884    11          end         *
+ 1884  1889    11        1 br_if       *
+ 1889  1890    11        2 br          *
+ 1890  1891    10          end         *
+ 1891  1892     9          end         *
+ 1892  1901     9          if          *
+ 1901  1913    10          if          *
+ 1913  1917    11        6 br_if       *
+ 1917  1918    10          else        *
+ 1918  1919    11        3 br          *
+ 1919  1920    10          end         *
+ 1920  1921     9          else        *
+ 1921  1924     9          end         *
+ 1924  1925     9        2 br          *
+ 1925  1926     8          end         *
+ 1926  1932     8          if          *
+ 1932  1934     8          else        *
+ 1934  1954     9          if          *
+ 1954  1956     9          else        *
+ 1956  1958     9          end         *
+ 1958  1975     9          if          *
+ 1975  1980    10          if          *
+ 1980  1988    11          if          *
+ 1988  1991    12        5 br          *
+ 1991  1992    11          end         *
+ 1992  1993    10          end         *
+ 1993  1999    10        5 br_if       *
+ 1999  2002    10        2 br          *
+ 2002  2003     9          else        *
+ 2003  2005     9          end         *
+ 2005  2006     8          end         *
+ 2006  2008     8        1 br          *
+ 2008  2009     7          end         *
+ 2009  2022     7          if          *
+ 2022  2026     8          if          *
+ 2026  2029     9        2 br          *
+ 2029  2030     8          else        *
+ 2030  2031     9        4 br          *
+ 2031  2032     8          end         *
+ 2032  2033     8          unreachable *
+ 2033  2034     7          end         *
+ 2034  2050     7        2 br_if       *
+ 2050  2059     7          if          *
+ 2059  2064     7          else        *
+ 2064  2069     8        3 br          *
+ 2069  2070     7          end         *
+ 2070  2072     6          end         *
+ 2072  2081     5          end         *
+ 2081  2085     5          if          *
+ 2085  2111     6          if          *
+ 2111  2114     6          end         *
+ 2114  2127     6        1 br_if       *
+ 2127  2128     5          end         *
+ 2128  2129     5        1 br          *
+ 2129  2130     4          end         *
+ 2130  2145     4          if          *
+ 2145  2150     4          end         *
+ 2150  2151     4          block       *
+ 2151  2156     5          if          *
+ 2156  2159     6          block       *
+ 2159  2160     7          block       *
+ 2160  2161     8          loop        *
+ 2161  2173     9        1 br_if       *
+ 2173  2178     9        0 br_if       *
+ 2178  2179     8          end         *
+ 2179  2180     8        1 br          *
+ 2180  2181     7          end         *
+ 2181  2192     7          if          *
+ 2192  2200     8          if          *
+ 2200  2228     9          if          *
+ 2228  2230     9          else        *
+ 2230  2233     9          end         *
+ 2233  2262     9        4 br          *
+ 2262  2263     8          end         *
+ 2263  2264     7          end         *
+ 2264  2265     6          end         *
+ 2265  2271     6          if          *
+ 2271  2276     6          end         *
+ 2276  2283     6          block       *
+ 2283  2284     7          block       *
+ 2284  2285     8          loop        *
+ 2285  2291     9        1 br_if       *
+ 2291  2296     9        0 br_if       *
+ 2296  2297     8          end         *
+ 2297  2298     8        1 br          *
+ 2298  2299     7          end         *
+ 2299  2306     7          if          *
+ 2306  2344     8          if          *
+ 2344  2346     8          else        *
+ 2346  2348     8          end         *
+ 2348  2358     8          if          *
+ 2358  2360     8          else        *
+ 2360  2362     8          end         *
+ 2362  2376     8          block       *
+ 2376  2380     9          if          *
+ 2380  2400     9          else        *
+ 2400  2406    10          if          *
+ 2406  2432    11        2 br          *
+ 2432  2433    10          end         *
+ 2433  2442    10          if          *
+ 2442  2451    11          block       *
+ 2451  2455    12          if          *
+ 2455  2465    13          if          *
+ 2465  2478    13          else        *
+ 2478  2487    13          end         *
+ 2487  2488    12          else        *
+ 2488  2493    13          block       *
+ 2493  2500    14          if          *
+ 2500  2511    15          if          *
+ 2511  2514    15          else        *
+ 2514  2520    16          if          *
+ 2520  2523    17        3 br          *
+ 2523  2524    16          end         *
+ 2524  2525    15          end         *
+ 2525  2526    15          loop        *
+ 2526  2527    16          block       *
+ 2527  2536    17          if          *
+ 2536  2545    18        1 br_if       *
+ 2545  2546    17          end         *
+ 2546  2551    17        1 br          *
+ 2551  2552    16          end         *
+ 2552  2553    15          end         *
+ 2553  2558    14          else        *
+ 2558  2570    14          end         *
+ 2570  2571    13          end         *
+ 2571  2574    13        1 br_if       *
+ 2574  2575    13          block       *
+ 2575  2589    14          if          *
+ 2589  2595    15        1 br_if       *
+ 2595  2608    15        3 br          *
+ 2608  2609    14          else        *
+ 2609  2622    15          if          *
+ 2622  2624    15          else        *
+ 2624  2626    15          end         *
+ 2626  2632    15        3 br_if       *
+ 2632  2633    14          end         *
+ 2633  2634    13          end         *
+ 2634  2646    13          if          *
+ 2646  2655    13          end         *
+ 2655  2661    13        1 br_if       *
+ 2661  2670    12          end         *
+ 2670  2671    11          end         *
+ 2671  2680    10          end         *
+ 2680  2711    10          if          *
+ 2711  2727    11          if          *
+ 2727  2734    11          else        *
+ 2734  2746    11          end         *
+ 2746  2764    11        2 br          *
+ 2764  2765    10          end         *
+ 2765  2766    10          block       *
+ 2766  2771    11          if          *
+ 2771  2776    12        1 br_if       *
+ 2776  2829    11          else        *
+ 2829  2831    11          end         *
+ 2831  2832    10          end         *
+ 2832  2864    10          if          *
+ 2864  2887    11        2 br          *
+ 2887  2888    10          end         *
+ 2888  2889    10          block       *
+ 2889  2900    11          if          *
+ 2900  2902    11          else        *
+ 2902  2913    12          if          *
+ 2913  2915    12          else        *
+ 2915  2917    12          end         *
+ 2917  2920    12          loop        *
+ 2920  2934    13          if          *
+ 2934  2946    14        3 br_if       *
+ 2946  2949    14        1 br          *
+ 2949  2950    13          end         *
+ 2950  2951    12          end         *
+ 2951  2968    12        3 br          *
+ 2968  2969    11          end         *
+ 2969  2971    10          end         *
+ 2971  2998     9          end         *
+ 2998  2999     8          end         *
+ 2999  3005     8          return      *
+ 3005  3006     7          end         *
+ 3006  3007     6          end         *
+ 3007  3010     6          loop        *
+ 3010  3011     7          block       *
+ 3011  3018     8          if          *
+ 3018  3027     9        1 br_if       *
+ 3027  3028     8          end         *
+ 3028  3033     8        1 br          *
+ 3033  3034     7          end         *
+ 3034  3035     6          end         *
+ 3035  3052     6          if          *
+ 3052  3054     6          else        *
+ 3054  3056     6          end         *
+ 3056  3064     6          if          *
+ 3064  3067     6          else        *
+ 3067  3069     6          end         *
+ 3069  3073     6          block       *
+ 3073  3097     7          if          *
+ 3097  3099     7          else        *
+ 3099  3102     7          end         *
+ 3102  3167     6          end         *
+ 3167  3169     6          loop        *
+ 3169  3182     7          if          *
+ 3182  3185     8        1 br          *
+ 3185  3186     7          end         *
+ 3186  3187     6          end         *
+ 3187  3191     6          if          *
+ 3191  3220     7          if          *
+ 3220  3236     8          if          *
+ 3236  3243     8          else        *
+ 3243  3255     8          end         *
+ 3255  3273     8        3 br          *
+ 3273  3274     7          end         *
+ 3274  3279     7          if          *
+ 3279  3283     8          if          *
+ 3283  3285     8          else        *
+ 3285  3337     8          end         *
+ 3337  3338     7          else        *
+ 3338  3340     7          end         *
+ 3340  3369     7          if          *
+ 3369  3392     8        3 br          *
+ 3392  3393     7          end         *
+ 3393  3394     7          block       *
+ 3394  3405     8          if          *
+ 3405  3407     8          else        *
+ 3407  3418     9          if          *
+ 3418  3420     9          else        *
+ 3420  3422     9          end         *
+ 3422  3425     9          loop        *
+ 3425  3439    10          if          *
+ 3439  3451    11        3 br_if       *
+ 3451  3454    11        1 br          *
+ 3454  3455    10          end         *
+ 3455  3456     9          end         *
+ 3456  3473     9        4 br          *
+ 3473  3474     8          end         *
+ 3474  3476     7          end         *
+ 3476  3503     6          end         *
+ 3503  3504     5          else        *
+ 3504  3514     6          if          *
+ 3514  3519     6          end         *
+ 3519  3817     6          if          *
+ 3817  3819     6          else        *
+ 3819  3822     6          end         *
+ 3822  3851     5          end         *
+ 3851  3852     4          end         *
+ 3852  3859     4          if          *
+ 3859  3867     5        2 br          *
+ 3867  3868     4          end         *
+ 3868  3869     3          end         *
+ 3869  3874     3        2 br          *
+ 3874  3875     2          end         *
+ 3875  3898     1          end         *
+ 3898  3904     1          return      *
+ 3904  3905     0          end         *
+ 3905  3909    -1          end         *
   (func (;35;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -15343,25 +15343,25 @@ start   end nesting type        succ
 7725    i32.const 0
 7726    local.get 11
 7727    call 17)
-start   end nesting type        succ
-    0    12     0   if          *
-   12    26     1   return      *
-   26    27     0   end         *
-   27   127     0   if          *
-  127   402     1   loop        *
-  402   413     2   if          *
-  413   415     2   else        *
-  415   417     2   end         *
-  417   427     2   if          *
-  427  7645     2   else        *
- 7645  7648     2   end         *
- 7648  7657     2   if          *
- 7657  7660     3   br          *
- 7660  7661     2   end         *
- 7661  7662     1   end         *
- 7662  7663     0   else        *
- 7663  7668     0   end         *
- 7668  7729    -1   end         *
+start   end nesting labels type        succ
+    0    12     0          if          *
+   12    26     1          return      *
+   26    27     0          end         *
+   27   127     0          if          *
+  127   402     1          loop        *
+  402   413     2          if          *
+  413   415     2          else        *
+  415   417     2          end         *
+  417   427     2          if          *
+  427  7645     2          else        *
+ 7645  7648     2          end         *
+ 7648  7657     2          if          *
+ 7657  7660     3        1 br          *
+ 7660  7661     2          end         *
+ 7661  7662     1          end         *
+ 7662  7663     0          else        *
+ 7663  7668     0          end         *
+ 7668  7729    -1          end         *
   (func (;36;) (type 3) (param i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 ------------------------------------------------------------
@@ -15954,8 +15954,8 @@ start   end nesting type        succ
 0586    i64.shr_u
 0587    i64.or
 0588    call 18)
-start   end nesting type        succ
-    0   590    -1   end         *
+start   end nesting labels type        succ
+    0   590    -1          end         *
   (func (;37;) (type 5) (param i32 i32) (result i32)
     (local i32)
 ------------------------------------------------------------
@@ -15980,10 +15980,10 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0017    local.get 2
 0018    i32.load8_s)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    20    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    20    -1          end         *
   (func (;38;) (type 1) (param i32) (result i32)
     (local i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -16085,17 +16085,17 @@ start   end nesting type        succ
 0087    end
 ------------------------------------------------------------
 0088    local.tee 0)
-start   end nesting type        succ
-    0     1     0   block       *
-    1     2     1   block       *
-    2    16     2   br_if       *
-   16    32     2   br_if       *
-   32    34     2   br          *
-   34    35     1   end         *
-   35    51     1   if          *
-   51    66     1   end         *
-   66    88     0   end         *
-   88    90    -1   end         *
+start   end nesting labels type        succ
+    0     1     0          block       *
+    1     2     1          block       *
+    2    16     2        0 br_if       *
+   16    32     2        0 br_if       *
+   32    34     2        1 br          *
+   34    35     1          end         *
+   35    51     1          if          *
+   51    66     1          end         *
+   66    88     0          end         *
+   88    90    -1          end         *
   (func (;39;) (type 3) (param i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 ------------------------------------------------------------
@@ -21814,8 +21814,8 @@ start   end nesting type        succ
 5712    i64.shr_u
 5713    i64.or
 5714    call 18)
-start   end nesting type        succ
-    0  5716    -1   end         *
+start   end nesting labels type        succ
+    0  5716    -1          end         *
   (func (;40;) (type 1) (param i32) (result i32)
     (local i32 i32)
 ------------------------------------------------------------
@@ -21915,29 +21915,29 @@ start   end nesting type        succ
 0073    end
 ------------------------------------------------------------
 0074    local.get 0)
-start   end nesting type        succ
-    0     1     0   block       *
-    1     3     1   if          *
-    3     9     2   if          *
-    9    13     3   br          *
-   13    14     2   end         *
-   14    18     1   else        *
-   18    22     2   if          *
-   22    27     2   else        *
-   27    29     2   end         *
-   29    37     2   if          *
-   37    38     3   loop        *
-   38    44     4   if          *
-   44    46     4   else        *
-   46    48     4   end         *
-   48    57     4   if          *
-   57    63     4   end         *
-   63    68     4   br_if       *
-   68    69     3   end         *
-   69    70     2   end         *
-   70    73     1   end         *
-   73    74     0   end         *
-   74    76    -1   end         *
+start   end nesting labels type        succ
+    0     1     0          block       *
+    1     3     1          if          *
+    3     9     2          if          *
+    9    13     3        2 br          *
+   13    14     2          end         *
+   14    18     1          else        *
+   18    22     2          if          *
+   22    27     2          else        *
+   27    29     2          end         *
+   29    37     2          if          *
+   37    38     3          loop        *
+   38    44     4          if          *
+   44    46     4          else        *
+   46    48     4          end         *
+   48    57     4          if          *
+   57    63     4          end         *
+   63    68     4        0 br_if       *
+   68    69     3          end         *
+   69    70     2          end         *
+   70    73     1          end         *
+   73    74     0          end         *
+   74    76    -1          end         *
   (func (;41;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -22224,36 +22224,36 @@ start   end nesting type        succ
 0252    local.get 8
 0253    global.set 5
 0254    local.get 2)
-start   end nesting type        succ
-    0    10     0   if          *
-   10    13     0   end         *
-   13    69     0   block       *
-   69    70     1   block       *
-   70    81     2   if          *
-   81    90     2   else        *
-   90    92     2   end         *
-   92    94     2   br_if       *
-   94   101     2   loop        *
-  101   105     3   if          *
-  105   121     4   if          *
-  121   124     4   end         *
-  124   140     4   if          *
-  140   142     4   else        *
-  142   144     4   end         *
-  144   181     4   if          *
-  181   190     4   else        *
-  190   192     4   end         *
-  192   194     4   br_if       *
-  194   195     4   br          *
-  195   196     3   end         *
-  196   197     2   end         *
-  197   221     2   if          *
-  221   223     2   else        *
-  223   229     2   end         *
-  229   231     2   br          *
-  231   232     1   end         *
-  232   252     0   end         *
-  252   256    -1   end         *
+start   end nesting labels type        succ
+    0    10     0          if          *
+   10    13     0          end         *
+   13    69     0          block       *
+   69    70     1          block       *
+   70    81     2          if          *
+   81    90     2          else        *
+   90    92     2          end         *
+   92    94     2        0 br_if       *
+   94   101     2          loop        *
+  101   105     3          if          *
+  105   121     4          if          *
+  121   124     4          end         *
+  124   140     4          if          *
+  140   142     4          else        *
+  142   144     4          end         *
+  144   181     4          if          *
+  181   190     4          else        *
+  190   192     4          end         *
+  192   194     4        2 br_if       *
+  194   195     4        1 br          *
+  195   196     3          end         *
+  196   197     2          end         *
+  197   221     2          if          *
+  221   223     2          else        *
+  223   229     2          end         *
+  229   231     2        1 br          *
+  231   232     1          end         *
+  232   252     0          end         *
+  252   256    -1          end         *
   (func (;42;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 ------------------------------------------------------------
@@ -28180,31 +28180,31 @@ start   end nesting type        succ
 5897    i32.const 0
 5898    local.get 1
 5899    call 17)
-start   end nesting type        succ
-    0    12     0   if          *
-   12    26     1   return      *
-   26    27     0   end         *
-   27   204     0   if          *
-  204   747     1   loop        *
-  747   758     2   if          *
-  758   760     2   else        *
-  760   762     2   end         *
-  762   772     2   if          *
-  772  1731     3   loop        *
- 1731  5758     4   if          *
- 5758  5765     5   br          *
- 5765  5766     4   else        *
- 5766  5768     4   end         *
- 5768  5770     3   end         *
- 5770  5771     2   else        *
- 5771  5774     2   end         *
- 5774  5783     2   if          *
- 5783  5788     3   br          *
- 5788  5789     2   end         *
- 5789  5790     1   end         *
- 5790  5791     0   else        *
- 5791  5796     0   end         *
- 5796  5901    -1   end         *
+start   end nesting labels type        succ
+    0    12     0          if          *
+   12    26     1          return      *
+   26    27     0          end         *
+   27   204     0          if          *
+  204   747     1          loop        *
+  747   758     2          if          *
+  758   760     2          else        *
+  760   762     2          end         *
+  762   772     2          if          *
+  772  1731     3          loop        *
+ 1731  5758     4          if          *
+ 5758  5765     5        1 br          *
+ 5765  5766     4          else        *
+ 5766  5768     4          end         *
+ 5768  5770     3          end         *
+ 5770  5771     2          else        *
+ 5771  5774     2          end         *
+ 5774  5783     2          if          *
+ 5783  5788     3        1 br          *
+ 5788  5789     2          end         *
+ 5789  5790     1          end         *
+ 5790  5791     0          else        *
+ 5791  5796     0          end         *
+ 5796  5901    -1          end         *
   (func (;43;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 ------------------------------------------------------------
@@ -32885,32 +32885,32 @@ start   end nesting type        succ
 4650    call 17
 4651    local.get 6
 4652    global.set 5)
-start   end nesting type        succ
-    0    10     0   if          *
-   10    13     0   end         *
-   13    25     0   if          *
-   25    41     1   return      *
-   41    42     0   end         *
-   42   102     0   if          *
-  102   445     1   loop        *
-  445   456     2   if          *
-  456   458     2   else        *
-  458   460     2   end         *
-  460   470     2   if          *
-  470  1016     3   loop        *
- 1016  2726     4   br_if       *
- 2726  2727     3   end         *
- 2727  2794     3   loop        *
- 2794  4473     4   br_if       *
- 4473  4474     3   end         *
- 4474  4581     2   end         *
- 4581  4590     2   if          *
- 4590  4593     3   br          *
- 4593  4594     2   end         *
- 4594  4595     1   end         *
- 4595  4596     0   else        *
- 4596  4599     0   end         *
- 4599  4654    -1   end         *
+start   end nesting labels type        succ
+    0    10     0          if          *
+   10    13     0          end         *
+   13    25     0          if          *
+   25    41     1          return      *
+   41    42     0          end         *
+   42   102     0          if          *
+  102   445     1          loop        *
+  445   456     2          if          *
+  456   458     2          else        *
+  458   460     2          end         *
+  460   470     2          if          *
+  470  1016     3          loop        *
+ 1016  2726     4        0 br_if       *
+ 2726  2727     3          end         *
+ 2727  2794     3          loop        *
+ 2794  4473     4        0 br_if       *
+ 4473  4474     3          end         *
+ 4474  4581     2          end         *
+ 4581  4590     2          if          *
+ 4590  4593     3        1 br          *
+ 4593  4594     2          end         *
+ 4594  4595     1          end         *
+ 4595  4596     0          else        *
+ 4596  4599     0          end         *
+ 4599  4654    -1          end         *
   (func (;44;) (type 10) (param i32 i32 i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -33481,14 +33481,14 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0560    end
 ------------------------------------------------------------)
-start   end nesting type        succ
-    0     4     0   if          *
-    4     5     1   return      *
-    5     6     0   end         *
-    6    62     0   loop        *
-   62   560     1   br_if       *
-  560   561     0   end         *
-  561   562    -1   end         *
+start   end nesting labels type        succ
+    0     4     0          if          *
+    4     5     1          return      *
+    5     6     0          end         *
+    6    62     0          loop        *
+   62   560     1        0 br_if       *
+  560   561     0          end         *
+  561   562    -1          end         *
   (func (;45;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32 i64 i64 i64 i64 i64 i64)
 ------------------------------------------------------------
@@ -33866,49 +33866,49 @@ start   end nesting type        succ
 0336    local.get 3
 0337    call 33
 0338    i32.const 0)
-start   end nesting type        succ
-    0     5     0   if          *
-    5     7     1   return      *
-    7     8     0   end         *
-    8    18     0   if          *
-   18    20     1   return      *
-   20    21     0   end         *
-   21    24     0   loop        *
-   24    44     1   br_if       *
-   44    45     0   end         *
-   45   127     0   if          *
-  127   129     1   return      *
-  129   130     0   end         *
-  130   135     0   loop        *
-  135   150     1   if          *
-  150   153     2   br          *
-  153   154     1   end         *
-  154   155     0   end         *
-  155   192     0   loop        *
-  192   198     1   if          *
-  198   201     1   end         *
-  201   214     1   if          *
-  214   217     1   end         *
-  217   256     1   br_if       *
-  256   257     0   end         *
-  257   260     0   loop        *
-  260   266     1   if          *
-  266   268     1   else        *
-  268   270     1   end         *
-  270   274     1   loop        *
-  274   311     2   br_if       *
-  311   312     1   end         *
-  312   320     1   if          *
-  320   323     2   br          *
-  323   324     1   end         *
-  324   325     0   end         *
-  325   340    -1   end         *
+start   end nesting labels type        succ
+    0     5     0          if          *
+    5     7     1          return      *
+    7     8     0          end         *
+    8    18     0          if          *
+   18    20     1          return      *
+   20    21     0          end         *
+   21    24     0          loop        *
+   24    44     1        0 br_if       *
+   44    45     0          end         *
+   45   127     0          if          *
+  127   129     1          return      *
+  129   130     0          end         *
+  130   135     0          loop        *
+  135   150     1          if          *
+  150   153     2        1 br          *
+  153   154     1          end         *
+  154   155     0          end         *
+  155   192     0          loop        *
+  192   198     1          if          *
+  198   201     1          end         *
+  201   214     1          if          *
+  214   217     1          end         *
+  217   256     1        0 br_if       *
+  256   257     0          end         *
+  257   260     0          loop        *
+  260   266     1          if          *
+  266   268     1          else        *
+  268   270     1          end         *
+  270   274     1          loop        *
+  274   311     2        0 br_if       *
+  311   312     1          end         *
+  312   320     1          if          *
+  320   323     2        1 br          *
+  323   324     1          end         *
+  324   325     0          end         *
+  325   340    -1          end         *
   (func (;46;) (type 3) (param i32)
 ------------------------------------------------------------
 0000    local.get 0
 0001    global.set 9)
-start   end nesting type        succ
-    0     3    -1   end         *
+start   end nesting labels type        succ
+    0     3    -1          end         *
   (func (;47;) (type 5) (param i32 i32) (result i32)
     (local i32)
 ------------------------------------------------------------
@@ -33941,27 +33941,27 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0023    local.get 2
 0024    i32.load16_s)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21     0   if          *
-   21    23     0   end         *
-   23    26    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21     0          if          *
+   21    23     0          end         *
+   23    26    -1          end         *
   (func (;48;) (type 3) (param i32)
 ------------------------------------------------------------
 0000    global.get 4
 0001    i32.const 0
 0002    local.get 0
 0003    call 17)
-start   end nesting type        succ
-    0     5    -1   end         *
+start   end nesting labels type        succ
+    0     5    -1          end         *
   (func (;49;) (type 1) (param i32) (result i32)
 ------------------------------------------------------------
 0000    i32.const 0
 0001    call 7
 0002    i32.const 0)
-start   end nesting type        succ
-    0     4    -1   end         *
+start   end nesting labels type        succ
+    0     4    -1          end         *
   (func (;50;) (type 6) (param i32 i32)
 ------------------------------------------------------------
 0000    global.get 7
@@ -33974,15 +33974,15 @@ start   end nesting type        succ
 0006      global.set 8
 0007    end
 ------------------------------------------------------------)
-start   end nesting type        succ
-    0     3     0   if          *
-    3     8     0   end         *
-    8     9    -1   end         *
+start   end nesting labels type        succ
+    0     3     0          if          *
+    3     8     0          end         *
+    8     9    -1          end         *
   (func (;51;) (type 2) (result i32)
 ------------------------------------------------------------
 0000    i32.const 19424)
-start   end nesting type        succ
-    0     2    -1   end         *
+start   end nesting labels type        succ
+    0     2    -1          end         *
   (func (;52;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32)
 ------------------------------------------------------------
@@ -34066,16 +34066,16 @@ start   end nesting type        succ
 0069    local.get 3
 0070    global.set 5
 0071    local.get 4)
-start   end nesting type        succ
-    0    10     0   if          *
-   10    13     0   end         *
-   13    45     0   if          *
-   45    53     0   else        *
-   53    55     0   end         *
-   55    58     0   if          *
-   58    64     0   else        *
-   64    68     0   end         *
-   68    73    -1   end         *
+start   end nesting labels type        succ
+    0    10     0          if          *
+   10    13     0          end         *
+   13    45     0          if          *
+   45    53     0          else        *
+   53    55     0          end         *
+   55    58     0          if          *
+   58    64     0          else        *
+   64    68     0          end         *
+   68    73    -1          end         *
   (func (;53;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32)
 ------------------------------------------------------------
@@ -34145,14 +34145,14 @@ start   end nesting type        succ
 0057    local.get 3
 0058    global.set 5
 0059    local.get 5)
-start   end nesting type        succ
-    0    10     0   if          *
-   10    13     0   end         *
-   13    28     0   if          *
-   28    46     1   if          *
-   46    51     1   end         *
-   51    52     0   end         *
-   52    61    -1   end         *
+start   end nesting labels type        succ
+    0    10     0          if          *
+   10    13     0          end         *
+   13    28     0          if          *
+   28    46     1          if          *
+   46    51     1          end         *
+   51    52     0          end         *
+   52    61    -1          end         *
   (func (;54;) (type 1) (param i32) (result i32)
     (local i32)
 ------------------------------------------------------------
@@ -34198,12 +34198,12 @@ start   end nesting type        succ
 0035    local.get 1
 0036    global.set 5
 0037    local.get 0)
-start   end nesting type        succ
-    0    10     0   if          *
-   10    13     0   end         *
-   13    26     0   if          *
-   26    35     0   end         *
-   35    39    -1   end         *
+start   end nesting labels type        succ
+    0    10     0          if          *
+   10    13     0          end         *
+   13    26     0          if          *
+   26    35     0          end         *
+   35    39    -1          end         *
   (func (;55;) (type 6) (param i32 i32)
 ------------------------------------------------------------
 0000    local.get 0
@@ -34251,16 +34251,16 @@ start   end nesting type        succ
 0042    i32.const 0
 0043    i32.const 0
 0044    call 17)
-start   end nesting type        succ
-    0    46    -1   end         *
+start   end nesting labels type        succ
+    0    46    -1          end         *
   (func (;56;) (type 6) (param i32 i32)
 ------------------------------------------------------------
 0000    local.get 0
 0001    global.set 5
 0002    local.get 1
 0003    global.set 6)
-start   end nesting type        succ
-    0     5    -1   end         *
+start   end nesting labels type        succ
+    0     5    -1          end         *
   (func (;57;) (type 3) (param i32)
 ------------------------------------------------------------
 0000    local.get 0
@@ -34305,8 +34305,8 @@ start   end nesting type        succ
 0039    i32.const 0
 0040    i32.const 0
 0041    call 17)
-start   end nesting type        succ
-    0    43    -1   end         *
+start   end nesting labels type        succ
+    0    43    -1          end         *
   (func (;58;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 ------------------------------------------------------------
@@ -39586,17 +39586,17 @@ start   end nesting type        succ
 5265    end
 ------------------------------------------------------------
 5266    global.set 5)
-start   end nesting type        succ
-    0     1     0   block       *
-    1    11     1   if          *
-   11    14     1   end         *
-   14   327     1   loop        *
-  327  4844     2   if          *
- 4844  4883     2   end         *
- 4883  4890     2   br_if       *
- 4890  4891     1   end         *
- 4891  5266     0   end         *
- 5266  5268    -1   end         *
+start   end nesting labels type        succ
+    0     1     0          block       *
+    1    11     1          if          *
+   11    14     1          end         *
+   14   327     1          loop        *
+  327  4844     2          if          *
+ 4844  4883     2          end         *
+ 4883  4890     2        0 br_if       *
+ 4890  4891     1          end         *
+ 4891  5266     0          end         *
+ 5266  5268    -1          end         *
   (func (;59;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 ------------------------------------------------------------
@@ -44565,20 +44565,20 @@ start   end nesting type        succ
 4950    i32.const 0
 4951    local.get 1
 4952    call 17)
-start   end nesting type        succ
-    0    12     0   if          *
-   12    26     1   return      *
-   26    27     0   end         *
-   27   352     0   loop        *
-  352   356     1   if          *
-  356  4879     1   else        *
- 4879  4883     1   end         *
- 4883  4892     1   if          *
- 4892  4895     1   else        *
- 4895  4897     1   end         *
- 4897  4912     1   br_if       *
- 4912  4913     0   end         *
- 4913  4954    -1   end         *
+start   end nesting labels type        succ
+    0    12     0          if          *
+   12    26     1          return      *
+   26    27     0          end         *
+   27   352     0          loop        *
+  352   356     1          if          *
+  356  4879     1          else        *
+ 4879  4883     1          end         *
+ 4883  4892     1          if          *
+ 4892  4895     1          else        *
+ 4895  4897     1          end         *
+ 4897  4912     1        0 br_if       *
+ 4912  4913     0          end         *
+ 4913  4954    -1          end         *
   (func (;60;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64)
 ------------------------------------------------------------
@@ -44977,13 +44977,13 @@ start   end nesting type        succ
 0387    call 17
 0388    local.get 2
 0389    global.set 5)
-start   end nesting type        succ
-    0    10     0   if          *
-   10    13     0   end         *
-   13    23     0   if          *
-   23    34     0   else        *
-   34    60     0   end         *
-   60   391    -1   end         *
+start   end nesting labels type        succ
+    0    10     0          if          *
+   10    13     0          end         *
+   13    23     0          if          *
+   23    34     0          else        *
+   34    60     0          end         *
+   60   391    -1          end         *
   (func (;61;) (type 3) (param i32)
     (local i32)
 ------------------------------------------------------------
@@ -45029,8 +45029,8 @@ start   end nesting type        succ
 0039    i32.const 148
 0040    i32.const 136
 0041    call 17)
-start   end nesting type        succ
-    0    43    -1   end         *
+start   end nesting labels type        succ
+    0    43    -1          end         *
   (func (;62;) (type 3) (param i32)
     (local i32)
 ------------------------------------------------------------
@@ -45079,8 +45079,8 @@ start   end nesting type        succ
 0042    i32.const 136
 0043    i64.const 0
 0044    call 18)
-start   end nesting type        succ
-    0    46    -1   end         *
+start   end nesting labels type        succ
+    0    46    -1          end         *
   (func (;63;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 ------------------------------------------------------------
@@ -47398,19 +47398,19 @@ start   end nesting type        succ
 2300    call 18
 2301    local.get 5
 2302    global.set 5)
-start   end nesting type        succ
-    0    10     0   if          *
-   10    13     0   end         *
-   13    42     0   if          *
-   42    44     0   else        *
-   44    46     0   end         *
-   46    54     0   if          *
-   54    56     0   else        *
-   56    58     0   end         *
-   58   268     0   loop        *
-  268  1978     1   br_if       *
- 1978  1979     0   end         *
- 1979  2304    -1   end         *
+start   end nesting labels type        succ
+    0    10     0          if          *
+   10    13     0          end         *
+   13    42     0          if          *
+   42    44     0          else        *
+   44    46     0          end         *
+   46    54     0          if          *
+   54    56     0          else        *
+   56    58     0          end         *
+   58   268     0          loop        *
+  268  1978     1        0 br_if       *
+ 1978  1979     0          end         *
+ 1979  2304    -1          end         *
   (func (;64;) (type 6) (param i32 i32)
     (local i32)
 ------------------------------------------------------------
@@ -47522,14 +47522,14 @@ start   end nesting type        succ
 0105    i32.const 32
 0106    i32.const 0
 0107    call 17)
-start   end nesting type        succ
-    0   109    -1   end         *
+start   end nesting labels type        succ
+    0   109    -1          end         *
   (func (;65;) (type 3) (param i32)
 ------------------------------------------------------------
 0000    local.get 0
 0001    global.set 5)
-start   end nesting type        succ
-    0     3    -1   end         *
+start   end nesting labels type        succ
+    0     3    -1          end         *
   (func (;66;) (type 3) (param i32)
     (local i32)
 ------------------------------------------------------------
@@ -47638,8 +47638,8 @@ start   end nesting type        succ
 0102    i32.const 32
 0103    i32.const 0
 0104    call 17)
-start   end nesting type        succ
-    0   106    -1   end         *
+start   end nesting labels type        succ
+    0   106    -1          end         *
   (func (;67;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -54724,16 +54724,16 @@ start   end nesting type        succ
 ------------------------------------------------------------
 7072    end
 ------------------------------------------------------------)
-start   end nesting type        succ
-    0   421     0   loop        *
-  421  6865     1   if          *
- 6865  6874     2   br          *
- 6874  6875     1   end         *
- 6875  6876     0   end         *
- 6876  7029     0   loop        *
- 7029  7072     1   br_if       *
- 7072  7073     0   end         *
- 7073  7074    -1   end         *
+start   end nesting labels type        succ
+    0   421     0          loop        *
+  421  6865     1          if          *
+ 6865  6874     2        1 br          *
+ 6874  6875     1          end         *
+ 6875  6876     0          end         *
+ 6876  7029     0          loop        *
+ 7029  7072     1        0 br_if       *
+ 7072  7073     0          end         *
+ 7073  7074    -1          end         *
   (func (;68;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -62055,25 +62055,25 @@ start   end nesting type        succ
 7298    i32.const 0
 7299    local.get 4
 7300    call 17)
-start   end nesting type        succ
-    0    12     0   if          *
-   12    26     1   return      *
-   26    27     0   end         *
-   27   253     0   if          *
-  253   382     1   loop        *
-  382   393     2   if          *
-  393   395     2   else        *
-  395   397     2   end         *
-  397   407     2   if          *
-  407  7142     2   else        *
- 7142  7147     2   end         *
- 7147  7156     2   if          *
- 7156  7161     3   br          *
- 7161  7162     2   end         *
- 7162  7163     1   end         *
- 7163  7164     0   else        *
- 7164  7169     0   end         *
- 7169  7302    -1   end         *
+start   end nesting labels type        succ
+    0    12     0          if          *
+   12    26     1          return      *
+   26    27     0          end         *
+   27   253     0          if          *
+  253   382     1          loop        *
+  382   393     2          if          *
+  393   395     2          else        *
+  395   397     2          end         *
+  397   407     2          if          *
+  407  7142     2          else        *
+ 7142  7147     2          end         *
+ 7147  7156     2          if          *
+ 7156  7161     3        1 br          *
+ 7161  7162     2          end         *
+ 7162  7163     1          end         *
+ 7163  7164     0          else        *
+ 7164  7169     0          end         *
+ 7169  7302    -1          end         *
   (func (;69;) (type 6) (param i32 i32)
 ------------------------------------------------------------
 0000    local.get 0
@@ -62127,8 +62127,8 @@ start   end nesting type        succ
 0048    i32.const 16
 0049    i64.const 0
 0050    call 22)
-start   end nesting type        succ
-    0    52    -1   end         *
+start   end nesting labels type        succ
+    0    52    -1          end         *
   (func (;70;) (type 3) (param i32)
     (local i32)
 ------------------------------------------------------------
@@ -62180,8 +62180,8 @@ start   end nesting type        succ
 0045    i32.const 16
 0046    i64.const 0
 0047    call 22)
-start   end nesting type        succ
-    0    49    -1   end         *
+start   end nesting labels type        succ
+    0    49    -1          end         *
   (func (;71;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -62511,22 +62511,22 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0310    local.get 2
 0311    global.set 5)
-start   end nesting type        succ
-    0    10     0   if          *
-   10    13     0   end         *
-   13    47     0   if          *
-   47    53     1   if          *
-   53    60     1   else        *
-   60    71     1   end         *
-   71    72     0   else        *
-   72    81     0   end         *
-   81    92     0   if          *
-   92   161     0   else        *
-  161   263     0   end         *
-  263   266     0   loop        *
-  266   309     1   br_if       *
-  309   310     0   end         *
-  310   313    -1   end         *
+start   end nesting labels type        succ
+    0    10     0          if          *
+   10    13     0          end         *
+   13    47     0          if          *
+   47    53     1          if          *
+   53    60     1          else        *
+   60    71     1          end         *
+   71    72     0          else        *
+   72    81     0          end         *
+   81    92     0          if          *
+   92   161     0          else        *
+  161   263     0          end         *
+  263   266     0          loop        *
+  266   309     1        0 br_if       *
+  309   310     0          end         *
+  310   313    -1          end         *
   (func (;72;) (type 10) (param i32 i32 i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -63086,14 +63086,14 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0549    end
 ------------------------------------------------------------)
-start   end nesting type        succ
-    0     4     0   if          *
-    4     5     1   return      *
-    5     6     0   end         *
-    6    51     0   loop        *
-   51   549     1   br_if       *
-  549   550     0   end         *
-  550   551    -1   end         *
+start   end nesting labels type        succ
+    0     4     0          if          *
+    4     5     1          return      *
+    5     6     0          end         *
+    6    51     0          loop        *
+   51   549     1        0 br_if       *
+  549   550     0          end         *
+  550   551    -1          end         *
   (func (;73;) (type 9) (param i32 i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -63459,19 +63459,19 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0355    end
 ------------------------------------------------------------)
-start   end nesting type        succ
-    0     4     0   if          *
-    4     5     1   return      *
-    5     6     0   end         *
-    6    62     0   loop        *
-   62   355     1   br_if       *
-  355   356     0   end         *
-  356   357    -1   end         *
+start   end nesting labels type        succ
+    0     4     0          if          *
+    4     5     1          return      *
+    5     6     0          end         *
+    6    62     0          loop        *
+   62   355     1        0 br_if       *
+  355   356     0          end         *
+  356   357    -1          end         *
   (func (;74;) (type 2) (result i32)
 ------------------------------------------------------------
 0000    global.get 5)
-start   end nesting type        succ
-    0     2    -1   end         *
+start   end nesting labels type        succ
+    0     2    -1          end         *
   (func (;75;) (type 8) (param i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 ------------------------------------------------------------
@@ -63634,14 +63634,14 @@ start   end nesting type        succ
 ------------------------------------------------------------
 0152    end
 ------------------------------------------------------------)
-start   end nesting type        succ
-    0     4     0   if          *
-    4     5     1   return      *
-    5     6     0   end         *
-    6    64     0   loop        *
-   64   152     1   br_if       *
-  152   153     0   end         *
-  153   154    -1   end         *
+start   end nesting labels type        succ
+    0     4     0          if          *
+    4     5     1          return      *
+    5     6     0          end         *
+    6    64     0          loop        *
+   64   152     1        0 br_if       *
+  152   153     0          end         *
+  153   154    -1          end         *
   (func (;76;) (type 6) (param i32 i32)
     (local i32)
 ------------------------------------------------------------
@@ -63748,8 +63748,8 @@ start   end nesting type        succ
 0100    call 18
 0101    local.get 0
 0102    call 39)
-start   end nesting type        succ
-    0   104    -1   end         *
+start   end nesting labels type        succ
+    0   104    -1          end         *
   (func (;77;) (type 6) (param i32 i32)
     (local i32)
 ------------------------------------------------------------
@@ -63910,8 +63910,8 @@ start   end nesting type        succ
 0154    call 18
 0155    local.get 0
 0156    call 39)
-start   end nesting type        succ
-    0   158    -1   end         *
+start   end nesting labels type        succ
+    0   158    -1          end         *
   (func (;78;) (type 7) (param i32 i32 i32)
     (local i32 i32)
 ------------------------------------------------------------
@@ -64040,14 +64040,14 @@ start   end nesting type        succ
 0116    i32.sub
 0117    call 29
 0118    drop)
-start   end nesting type        succ
-    0     8     0   if          *
-    8    18     1   return      *
-   18    19     0   end         *
-   19    20     0   loop        *
-   20   109     1   br_if       *
-  109   110     0   end         *
-  110   120    -1   end         *
+start   end nesting labels type        succ
+    0     8     0          if          *
+    8    18     1          return      *
+   18    19     0          end         *
+   19    20     0          loop        *
+   20   109     1        0 br_if       *
+  109   110     0          end         *
+  110   120    -1          end         *
   (func (;79;) (type 3) (param i32)
 ------------------------------------------------------------
 0000    local.get 0
@@ -64116,8 +64116,8 @@ start   end nesting type        succ
 0063    i32.const 120
 0064    i64.const 6620516959819538809
 0065    call 18)
-start   end nesting type        succ
-    0    67    -1   end         *
+start   end nesting labels type        succ
+    0    67    -1          end         *
   (func (;80;) (type 6) (param i32 i32)
     (local i32 i32)
 ------------------------------------------------------------
@@ -64235,10 +64235,10 @@ start   end nesting type        succ
 0109    call 26
 0110    local.get 2
 0111    global.set 5)
-start   end nesting type        succ
-    0    10     0   if          *
-   10    13     0   end         *
-   13   113    -1   end         *
+start   end nesting labels type        succ
+    0    10     0          if          *
+   10    13     0          end         *
+   13   113    -1          end         *
   (func (;81;) (type 7) (param i32 i32 i32)
     (local i32)
 ------------------------------------------------------------
@@ -64272,17 +64272,17 @@ start   end nesting type        succ
 0023    local.get 3
 0024    local.get 2
 0025    i32.store16)
-start   end nesting type        succ
-    0    15     0   if          *
-   15    17     0   end         *
-   17    21     0   if          *
-   21    23     0   end         *
-   23    27    -1   end         *
+start   end nesting labels type        succ
+    0    15     0          if          *
+   15    17     0          end         *
+   17    21     0          if          *
+   21    23     0          end         *
+   23    27    -1          end         *
   (func (;82;) (type 2) (result i32)
 ------------------------------------------------------------
 0000    global.get 9)
-start   end nesting type        succ
-    0     2    -1   end         *
+start   end nesting labels type        succ
+    0     2    -1          end         *
   (func (;83;) (type 1) (param i32) (result i32)
     (local i32 i32)
 ------------------------------------------------------------
@@ -64308,10 +64308,10 @@ start   end nesting type        succ
 0018    end
 ------------------------------------------------------------
 0019    local.get 2)
-start   end nesting type        succ
-    0    16     0   if          *
-   16    19     0   end         *
-   19    21    -1   end         *
+start   end nesting labels type        succ
+    0    16     0          if          *
+   16    19     0          end         *
+   19    21    -1          end         *
   (global (;4;) (mut i32) (0000    global.get 1))
   (global (;5;) (mut i32) (0000    global.get 2))
   (global (;6;) (mut i32) (0000    global.get 3))

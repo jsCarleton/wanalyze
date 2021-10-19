@@ -201,10 +201,12 @@ let string_of_segtype (segtype: int) : string =
   | 0x0f -> "return"
   | _ -> failwith (String.concat ["Invalid segtype: "; string_of_int segtype])
 
+let string_of_labels (labels: int list): string =
+    String.concat ~sep:" " (List.map ~f:string_of_int labels)
 let string_of_segment (s: Segments.segment) : string = 
-  sprintf "%5d %5d %5d   %-11s *\n" s.start_op s.end_op s.nesting (string_of_segtype s.segtype)
+  sprintf "%5d %5d %5d   %6s %-11s *\n" s.start_op s.end_op s.nesting (string_of_labels s.labels) (string_of_segtype s.segtype)
 let string_of_segments (s: Segments.segment list) : string =
-  String.concat["start   end nesting type        succ\n"; String.concat (List.map ~f:string_of_segment s)]
+  String.concat["start   end nesting labels type        succ\n"; String.concat (List.map ~f:string_of_segment s)]
 
 let segment_sep show_segments = 
   match show_segments with

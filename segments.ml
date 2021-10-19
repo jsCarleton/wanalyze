@@ -5,8 +5,7 @@ open Wasm_module
 ----------------------------
 
 TODO: 
-- for every segment set the type and nesting
-- for every END and LOOP segment assign a label
+- for every END, BLOCK and LOOP segment assign a label
 - for BR, BR_IF, BR_TABLE store the labels in the segment entry
 
 for i = 0; i < segments.length; i++
@@ -70,7 +69,6 @@ type segment =
   
 		  segtype:	   segment_type; -- could just be an opcode
 		  nesting:	   int;			(* the nesting level of the last opcode in the segment *)
-		  labels:	   list int;	(* the labels used in BR, BR_IF, BR_TABLE instructions *)
 		  label:	   int;			(* the label of the LOOP or END instruction *)
 }
  *)
@@ -89,7 +87,8 @@ type segment =
   mutable succ:       int list; (* segment index for segments that can be directly reached from this segment *)
   mutable segtype:	  int;      (* the control opcode that created this segment *)
   mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
- }
+  mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
+  }
 
 let rec get_segments' (e: expr) (seg_acc: segment list) (current: segment): segment list =
 match e with
@@ -107,14 +106,20 @@ match e with
     | (* br_if *)       0x0d
     | (* br_table *)    0x0e
     | (* return *)      0x0f ->
-      (* 1.1 end the segment, start a new one*)
-        current.segtype <- (List.hd_exn e).opcode;
-        current.nesting <- (List.hd_exn e).nesting;
-        get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
-                      {start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1; nesting = -2}
+      (* 1.1 if we have a branch instruction we remember the labels *)
+      (match (List.hd_exn e).arg with
+      | Labelidx labelidx  -> current.labels <- [labelidx]
+      | BrTable br_table   -> current.labels <- br_table.table
+      | _ -> ()
+      );
+      (* 1.2 end the segment, start a new one*)
+      current.segtype <- (List.hd_exn e).opcode;
+      current.nesting <- (List.hd_exn e).nesting;
+      get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
+                    {start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1; nesting = -2; labels=[]}
     (* 2. all other opcodes get added to the current segment *)
     | _ ->
       current.end_op <- current.end_op + 1;
       get_segments' (List.tl_exn e) seg_acc current
 let get_segments (e: expr) : segment list = 
-  get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2}
+  get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2; labels=[]}
