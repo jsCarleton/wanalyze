@@ -1,62 +1,11 @@
 open Core
 open Wasm_module
 
-(* Notes on connecting segments
+(* Design notes on connecting segments
 ----------------------------
 
 TODO: 
 - for every END, BLOCK and LOOP segment assign a label
-- for BR, BR_IF, BR_TABLE store the labels in the segment entry
-
-for i = 0; i < segments.length; i++
-	if segments[i].segtype == IF
-		segments[i].succ = [i + 1; end_else_segment(i, segments[i].nesting)]
-	if segments[i].segtype == ELSE
-		segments[i].succ = [end_segment(i, segments[i].nesting)]
-	if segments[i].segtype == BR
-		segments[i].succ = [br_target(segments, i, nesting, segments[i].labels[0])]
-	if segments[i].segtype == BR_IF
-		segments[i].succ = [br_target(segments, i, nesting, segments[i].labels[0]); i + 1]
-	if segments[i].segtype == BR_TABLE
-		segments[i].succ = []
-		for j = 0; j < segments[i].labels.length; j++
-			segments[i].succ = segments[i].succ ++ [br_target(segments, i, nesting, segments[i].labels[i])]
-	if segments[i].segtype == RETURN
-		segments[i].succ = [last_segment(segments)]
-	if segments[i].segtype == LOOP or BLOCK
-		segments[i].succ = [i + 1]
-	if segments[i].segtype == UNREACHABLE
-		segments[i].succ = []
-	if segments[i].segtype == END
-		segments[i].succ = []
-	if segments[i].segtype == LAST
-		segments[i].succ = []
-		
-function end_else_segment(segments, index, nesting): index
-	for (i = index+1; i < segments.length; i++)
-		if (segments[i].segtype == END or ELSE and segments[i].nesting == nesting)
-			return i+1;
-	failwith "No END or ELSE for IF found"
-
-function end_segment(segments, index, nesting): index
-	for (i = index+1; i < segments.length; i++)
-		if (segments[i].segtype == END and segments[i].nesting == nesting)
-			return i+1;
-	failwith "No END for ELSE found"
-	
-function br_target(segments, index, nesting, label)
-	// search backwards for LOOP that's the target of the BR
-	for (i = index-1; i >= 0; i--)
-		if segments[i].segtype == LOOP and segments[i].nesting < nesting and segments[i].label == label
-			return i+1;
-	// if we didn't find it search forwards for an END that's the target of the loops
-	for (i = index+1; i < segments.length; i++)
-		if segments[i].segtype == END and segments[i].nesting < nesting and segments[i].label == label
-			return i+1;
-	failwith "BR target not found"
-	
-function last_segment(segments)
-	return segments.length - 1
 
 label of IF, BLOCK assigned to matching END			
 label of LOOP assigned to following segment			
@@ -123,9 +72,6 @@ match e with
       current.end_op <- current.end_op + 1;
       get_segments' (List.tl_exn e) seg_acc current
 
-let get_segments (e: expr) : segment list = 
-  get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2; labels=[]; label= -1}
-
 let rec get_end_else_segment (segments: segment list) (index: int) (nesting: int): int =
   match (List.nth_exn segments index).segtype with
   | 0x05 when (List.nth_exn segments index).nesting = nesting -> index+1
@@ -155,7 +101,7 @@ let rec get_target_end (segments: segment list) (index: int) (nesting: int) (lab
     | 0x0b when s.nesting < nesting && s.label = label -> index + 1
     | _ -> get_target_end segments (index+1) nesting label
     )
-  | false -> failwith "Unable to find branch target"
+  | false -> -1 (* failwith "Unable to find branch target" *)
     
 let br_target (segments: segment list) (index: int) (nesting: int) (label: int): int =
   match get_target_loop segments (index-1) nesting label with 
@@ -185,8 +131,26 @@ let set_successor (segments: segment list) (index: int) =
         s.succ <- [last_segment segments]
     | _ -> failwith (String.concat ["Unknown segtype: "; string_of_int s.segtype])
  
- let rec set_successors (segments: segment list) (index: int ) =
-  match segments with
-    | [] -> ()
-    | _::tl ->  set_successor segments index;
-                set_successors tl (index+1)
+let rec set_successors (segments: segment list) (index: int) =
+match index < List.length segments with
+  | true -> set_successor segments index;
+            set_successors segments (index+1)
+  | _ -> ()
+
+let rec set_label (segments: segment list) (index: int) =
+match index < List.length segments with
+| false -> ()
+| true ->
+    (let s = List.nth_exn segments index in
+    match s.segtype with
+      | 0x03        -> s.label <- index + 1 (* loop *)
+      | 0x04 | 0x02 -> s.label <- get_end_segment segments index s.nesting (* if, block *)
+      | _ -> ()
+    );
+  set_label segments (index+1)
+
+let get_segments (e: expr) : segment list =
+  let segments = get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2; labels=[]; label= -1} in
+  set_label segments 0;
+  set_successors segments 0;
+  segments              
