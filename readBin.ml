@@ -1,6 +1,8 @@
 open Core
 open Wasm_module
 open Reduce
+open Wasm_print
+
 (* TODO: 
     - make eprintfs look at verbose flag 
     - add validation of indices (e.g. functions, types)*)
@@ -640,7 +642,7 @@ let processFile file =
    | true  -> printf "Success yes\n"
    | _     -> printf "Failed\n"
   );
-  Wasm_module.print w !show_segments; 
+  Wasm_print.print w !show_segments; 
   print_reductions w !fn_arg
 
 

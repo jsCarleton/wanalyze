@@ -1,5 +1,7 @@
 open Core
 open Wasm_module
+open Wasm_print
+open Segments
 
 (* Program state types *)
 type program_state =
