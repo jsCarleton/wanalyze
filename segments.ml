@@ -38,7 +38,7 @@ function end_else_segment(segments, index, nesting): index
 			return i+1;
 	failwith "No END or ELSE for IF found"
 
-function else_segment(segments, index, nesting): index
+function end_segment(segments, index, nesting): index
 	for (i = index+1; i < segments.length; i++)
 		if (segments[i].segtype == END and segments[i].nesting == nesting)
 			return i+1;
@@ -88,6 +88,7 @@ type segment =
   mutable segtype:	  int;      (* the control opcode that created this segment *)
   mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
   mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
+  mutable label:	    int;			(* the label of the LOOP or END instruction *)
   }
 
 let rec get_segments' (e: expr) (seg_acc: segment list) (current: segment): segment list =
@@ -116,10 +117,76 @@ match e with
       current.segtype <- (List.hd_exn e).opcode;
       current.nesting <- (List.hd_exn e).nesting;
       get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
-                    {start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1; nesting = -2; labels=[]}
+                    {start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1; nesting = -2; labels=[]; label= -1}
     (* 2. all other opcodes get added to the current segment *)
     | _ ->
       current.end_op <- current.end_op + 1;
       get_segments' (List.tl_exn e) seg_acc current
+
 let get_segments (e: expr) : segment list = 
-  get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2; labels=[]}
+  get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2; labels=[]; label= -1}
+
+let rec get_end_else_segment (segments: segment list) (index: int) (nesting: int): int =
+  match (List.nth_exn segments index).segtype with
+  | 0x05 when (List.nth_exn segments index).nesting = nesting -> index+1
+  | 0x0b when (List.nth_exn segments index).nesting = nesting -> index+1
+  | _ -> get_end_else_segment segments (index+1) nesting
+
+let rec get_end_segment (segments: segment list) (index: int) (nesting: int): int =
+  match (List.nth_exn segments index).segtype with
+  | 0x0b when (List.nth_exn segments index).nesting = nesting -> index+1
+  | _ -> get_end_segment segments (index+1) nesting
+
+let rec get_target_loop (segments: segment list) (index: int) (nesting: int) (label: int): int =
+  match index >= 0 with
+  | true ->
+    (let s = List.nth_exn segments index in
+    match s.segtype with
+    | 0x03 when s.nesting < nesting && s.label = label -> index + 1
+    | _ -> get_target_loop segments (index-1) nesting label
+    )
+  | false -> -1
+  
+let rec get_target_end (segments: segment list) (index: int) (nesting: int) (label: int): int =
+  match index < List.length segments with
+  | true ->
+    (let s = List.nth_exn segments index in
+    match s.segtype with
+    | 0x0b when s.nesting < nesting && s.label = label -> index + 1
+    | _ -> get_target_end segments (index+1) nesting label
+    )
+  | false -> failwith "Unable to find branch target"
+    
+let br_target (segments: segment list) (index: int) (nesting: int) (label: int): int =
+  match get_target_loop segments (index-1) nesting label with 
+  | -1 -> get_target_end segments (index-1) nesting label
+  | i  -> i
+
+let last_segment (segments: segment list): int =
+  List.length segments
+
+let set_successor (segments: segment list) (index: int) =
+  let s = List.nth_exn segments index in
+  match s.segtype with
+    | (* unreachable *) 0x00
+    | (* end *)         0x0b  -> ()
+    | (* block *)       0x02
+    | (* loop *)        0x03  ->
+        s.succ <- [index+1]
+    | (* if *)          0x04  ->
+        s.succ <- [index+1; get_end_else_segment segments index s.nesting]
+    | (* else *)        0x05  ->
+        s.succ <- [index+1; get_end_segment segments index s.nesting]
+    | (* br *)          0x0c
+    | (* br_if *)       0x0d
+    | (* br_table *)    0x0e ->
+        s.succ <- List.map ~f:(br_target segments index s.nesting) s.labels
+    | (* return *)      0x0f ->
+        s.succ <- [last_segment segments]
+    | _ -> failwith (String.concat ["Unknown segtype: "; string_of_int s.segtype])
+ 
+ let rec set_successors (segments: segment list) (index: int ) =
+  match segments with
+    | [] -> ()
+    | _::tl ->  set_successor segments index;
+                set_successors tl (index+1)
