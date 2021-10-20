@@ -31,13 +31,14 @@ let segtype_of_opcode (opcode: int) : segment_type =
 
 type segment =
 {
+          index:      int;      (* the index of this segment in the list of segments, makes things easier to have this *)
           start_op:   int;      (* index into e of the first op in the expr *)
   mutable end_op:     int;      (* index+1 of the last op in the expr *)
   mutable succ:       int list; (* segment index for segments that can be directly reached from this segment *)
   mutable segtype:	  int;      (* the control opcode that created this segment *)
   mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
   mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
-  mutable label:	    int;			(* the label of the LOOP or END instruction *)
+  mutable br_dest:	  int;			(* for LOOP, BLOCK and IF instructions the segment that's the target of a branch for this instruction  *)
   }
 
 let rec get_segments' (e: expr) (seg_acc: segment list) (current: segment): segment list =
@@ -66,7 +67,7 @@ match e with
       current.segtype <- (List.hd_exn e).opcode;
       current.nesting <- (List.hd_exn e).nesting;
       get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
-                    {start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1; nesting = -2; labels=[]; label= -1}
+                    {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1; nesting = -2; labels=[]; br_dest= -1}
     (* 2. all other opcodes get added to the current segment *)
     | _ ->
       current.end_op <- current.end_op + 1;
@@ -88,7 +89,9 @@ let rec get_target_loop (segments: segment list) (index: int) (nesting: int) (la
   | true ->
     (let s = List.nth_exn segments index in
     match s.segtype with
-    | 0x03 when s.nesting < nesting && s.label = label -> index + 1
+    | 0x02 when s.nesting = nesting - label - 1 -> s.br_dest
+    | 0x03 when s.nesting = nesting - label - 1 -> s.br_dest
+    | 0x04 when s.nesting = nesting - label - 1 -> s.br_dest
     | _ -> get_target_loop segments (index-1) nesting label
     )
   | false -> -1
@@ -98,7 +101,8 @@ let rec get_target_end (segments: segment list) (index: int) (nesting: int) (lab
   | true ->
     (let s = List.nth_exn segments index in
     match s.segtype with
-    | 0x0b when s.nesting < nesting && s.label = label -> index + 1
+    | 0x02 when nesting = s.nesting - label -> s.br_dest + 1
+    | 0x04 when nesting = s.nesting - label -> s.br_dest + 1
     | _ -> get_target_end segments (index+1) nesting label
     )
   | false -> -1 (* failwith "Unable to find branch target" *)
@@ -114,17 +118,18 @@ let last_segment (segments: segment list): int =
 let set_successor (segments: segment list) (index: int) =
   let s = List.nth_exn segments index in
   match s.segtype with
-    | (* unreachable *) 0x00
-    | (* end *)         0x0b  -> ()
+    | (* unreachable *) 0x00  -> ()
+    | (* end *)         0x0b
     | (* block *)       0x02
     | (* loop *)        0x03  ->
         s.succ <- [index+1]
     | (* if *)          0x04  ->
         s.succ <- [index+1; get_end_else_segment segments index s.nesting]
     | (* else *)        0x05  ->
-        s.succ <- [index+1; get_end_segment segments index s.nesting]
+        s.succ <- [get_end_segment segments index s.nesting]
+    | (* br_if *)       0x0d ->
+        s.succ <- List.cons (s.index+1) (List.map ~f:(br_target segments index s.nesting) s.labels)
     | (* br *)          0x0c
-    | (* br_if *)       0x0d
     | (* br_table *)    0x0e ->
         s.succ <- List.map ~f:(br_target segments index s.nesting) s.labels
     | (* return *)      0x0f ->
@@ -137,20 +142,20 @@ match index < List.length segments with
             set_successors segments (index+1)
   | _ -> ()
 
-let rec set_label (segments: segment list) (index: int) =
+let rec set_br_dest (segments: segment list) (index: int) =
 match index < List.length segments with
 | false -> ()
 | true ->
     (let s = List.nth_exn segments index in
     match s.segtype with
-      | 0x03        -> s.label <- index + 1 (* loop *)
-      | 0x04 | 0x02 -> s.label <- get_end_segment segments index s.nesting (* if, block *)
+      | 0x03        -> s.br_dest <- index + 1 (* loop *)
+      | 0x04 | 0x02 -> s.br_dest <- get_end_segment segments index s.nesting (* if, block *)
       | _ -> ()
     );
-  set_label segments (index+1)
+  set_br_dest segments (index+1)
 
 let get_segments (e: expr) : segment list =
-  let segments = get_segments' e [] {start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2; labels=[]; label= -1} in
-  set_label segments 0;
+  let segments = get_segments' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2; labels=[]; br_dest= -1} in
+  set_br_dest segments 0;
   set_successors segments 0;
   segments              
