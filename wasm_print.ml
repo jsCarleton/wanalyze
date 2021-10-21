@@ -174,7 +174,8 @@ let rec string_of_expr' e show_segments (segments: Segments.segment list) idx ac
     | _ -> string_of_expr' e show_segments segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
     )
   | false -> acc
-let string_of_expr e show_segments = string_of_expr' e show_segments (Segments.get_segments e) 0 ""
+let string_of_expr e show_segments = 
+  string_of_expr' e show_segments (match show_segments with | true -> (Segments.get_segments e) | _ -> []) 0 ""
 
 let string_of_code w idx show_segments =
   String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr (List.nth_exn w.code_section idx).e show_segments)]

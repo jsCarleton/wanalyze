@@ -27,7 +27,7 @@ let string_of_value_stack (stack: string list) = String.concat ["stack: [" ; (St
 let string_of_local_values (locals: string array) = String.concat ["locals: [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]"]
 let string_of_state (state: program_state): string =
   String.concat [string_of_instr_count state.instr_count ;  string_of_value_stack state.value_stack ; string_of_local_values state.local_values]
-let string_of_ps (_: program_states): string = "" (*String.concat ~sep:"\n" (List.map ~f:string_of_state ps)*)
+let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:string_of_state ps)
 
 (* Updating the state of the program *)
 let pop_value (state: program_state) =
@@ -58,23 +58,23 @@ let push_retval (state: program_state) (retval: string) =
   state.value_stack <- List.cons retval state.value_stack
 
 (* call op handling *)
-let update_state_callop _ (param_count: int) (retval_count: int) (state: program_state) =
-(*   printf "Calling %d, nparams: %d, nrets: %d\n" fidx param_count retval_count;
- *)  state.value_stack <- List.drop state.value_stack param_count;
+let update_state_callop fidx (param_count: int) (retval_count: int) (state: program_state) =
+   printf "Calling %d, nparams: %d, nrets: %d\n" fidx param_count retval_count;
+   state.value_stack <- List.drop state.value_stack param_count;
   List.iter ~f:(push_retval state) (List.init retval_count ~f:(fun i -> String.concat ["R" ; string_of_int i]))
 let update_states_callop (param_counts: int list) (retval_counts: int list) (op: op_type) (s: states) =
   (match op.arg with
   | Funcidx fidx -> 
-(*       printf "Calling %d\n" fidx;
- *)      List.iter ~f:(update_state_callop fidx (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx)) s.active;
+       printf "Calling %d\n" fidx;
+       List.iter ~f:(update_state_callop fidx (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx)) s.active;
   | _ -> failwith "Invalid call argument")
 
 (* call indirect handling*)
 let update_states_callindop (types: functype list) (op: op_type) (s: states) =
   (match op.arg with
   | CallIndirect c -> 
-(*       printf "Calling %d\n" fidx;
- *)      List.iter ~f:(update_state_callop 1 (List.length (List.nth_exn types c.y).rt1) (List.length (List.nth_exn types c.y).rt2)) s.active;
+(*        printf "Calling %d\n" fidx;
+ *)       List.iter ~f:(update_state_callop 1 (List.length (List.nth_exn types c.y).rt1) (List.length (List.nth_exn types c.y).rt2)) s.active;
   | _ -> failwith "Invalid call indirect argument")
 
 (* de-duplication of states WIP *)
@@ -223,8 +223,8 @@ let update_instr_count (state: program_state) =
 
 (* given an instruction, update states *)
 let update_s (s: states) (param_counts: int list) (retval_counts: int list) (types: functype list) (op: op_type) =
-(*   printf "States: %d " (List.length s.final);
- *)  List.iter ~f:update_instr_count s.active;
+   printf "States: %d " (List.length s.final);
+   List.iter ~f:update_instr_count s.active;
   match op.instrtype with
   | Control -> eprintf "type: Control\n";update_states_controlop param_counts retval_counts types op s
   | Reference -> failwith "Unimplemented reference"

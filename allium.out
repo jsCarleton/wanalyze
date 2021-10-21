@@ -64417,28 +64417,117 @@ index start   end nesting dest  labels type        succ
   (data (;13;) (0000    i32.const 17884) "`E")
 )
 
-Starting state for function 16:, 2 parameters 1 locals Active states: 10000    local.get 0
-Active states: 10000    local.get 1
-Active states: 10000    i32.add
-starting update_state_binop 2
+Starting state for function 40:, 1 parameters 2 locals Active states: 10000    block  ;; label = @1
+States: 0 Active states: 10000      local.get 0
+States: 0 Active states: 10000      if  ;; label = @2
+States: 0 Active states: 10000        local.get 0
+States: 0 Active states: 10000        i32.const 76
+States: 0 Active states: 10000        call 20
+States: 0 Calling 20
+Calling 20, nparams: 2, nrets: 1
+Active states: 10000        i32.const -1
+States: 0 Active states: 10000        i32.le_s
+States: 0 starting update_state_binop 2
 ending update_state_binop
-Active states: 10000    local.set 2
-Active states: 10000    local.get 2
-Active states: 10000    i32.const 0
-Active states: 10000    i32.eq
-starting update_state_binop 2
+Active states: 10000        if  ;; label = @3
+States: 0 Active states: 10000          local.get 0
+States: 0 Active states: 10000          call 38
+States: 0 Calling 38
+Calling 38, nparams: 1, nrets: 1
+Active states: 10000          local.set 0
+States: 0 Active states: 10000          br 2 (;@1;)
+States: 0 Active states: 10000        end
+States: 0 Active states: 10000        local.get 0
+States: 0 Active states: 10000        call 38
+States: 0 Calling 38
+Calling 38, nparams: 1, nrets: 1
+Active states: 10000        local.set 0
+States: 0 Active states: 10000      else
+States: 0 Active states: 10000        i32.const 17884
+States: 0 Active states: 10000        i32.const 0
+States: 0 Active states: 10000        call 20
+States: 0 Calling 20
+Calling 20, nparams: 2, nrets: 1
+Active states: 10000        if (result i32)  ;; label = @3
+States: 0 Active states: 10000          i32.const 17884
+States: 0 Active states: 10000          i32.const 0
+States: 0 Active states: 10000          call 20
+States: 0 Calling 20
+Calling 20, nparams: 2, nrets: 1
+Active states: 10000          call 40
+States: 0 Calling 40
+Calling 40, nparams: 1, nrets: 1
+Active states: 10000        else
+States: 0 Active states: 10000          i32.const 0
+States: 0 Active states: 10000        end
+States: 0 Active states: 10000        local.set 0
+States: 0 Active states: 10000        i32.const 19428
+States: 0 Active states: 10000        call 5
+States: 0 Calling 5
+Calling 5, nparams: 1, nrets: 0
+Active states: 10000        i32.const 19436
+States: 0 Active states: 10000        i32.const 0
+States: 0 Active states: 10000        call 20
+States: 0 Calling 20
+Calling 20, nparams: 2, nrets: 1
+Active states: 10000        local.tee 1
+States: 0 Active states: 10000        if  ;; label = @3
+States: 0 Active states: 10000          loop  ;; label = @4
+States: 0 Active states: 10000            local.get 1
+States: 0 Active states: 10000            i32.const 76
+States: 0 Active states: 10000            call 20
+States: 0 Calling 20
+Calling 20, nparams: 2, nrets: 1
+Active states: 10000            i32.const -1
+States: 0 Active states: 10000            i32.gt_s
+States: 0 starting update_state_binop 2
 ending update_state_binop
-Active states: 10000    local.get 2
-Active states: 10000    i32.const 8
-Active states: 10000    i32.add
-starting update_state_binop 3
+Active states: 10000            if (result i32)  ;; label = @5
+States: 0 Active states: 10000              i32.const 1
+States: 0 Active states: 10000            else
+States: 0 Active states: 10000              i32.const 0
+States: 0 Active states: 10000            end
+States: 0 Active states: 10000            local.set 2
+States: 0 Active states: 10000            local.get 1
+States: 0 Active states: 10000            i32.const 20
+States: 0 Active states: 10000            call 20
+States: 0 Calling 20
+Calling 20, nparams: 2, nrets: 1
+Active states: 10000            local.get 1
+States: 0 Active states: 10000            i32.const 28
+States: 0 Active states: 10000            call 20
+States: 0 Calling 20
+Calling 20, nparams: 2, nrets: 1
+Active states: 10000            i32.gt_u
+States: 0 starting update_state_binop 2
 ending update_state_binop
-Active states: 10000    global.get 1
-Active states: 10000    i32.load
-Active states: 10000    i32.gt_u
-starting update_state_binop 3
+Active states: 10000            if  ;; label = @5
+States: 0 Active states: 10000              local.get 1
+States: 0 Active states: 10000              call 38
+States: 0 Calling 38
+Calling 38, nparams: 1, nrets: 1
+Active states: 10000              local.get 0
+States: 0 Active states: 10000              i32.or
+States: 0 starting update_state_binop 2
 ending update_state_binop
-Active states: 10000    i32.or
-starting update_state_binop 2
-ending update_state_binop
-Active states: 1
+Active states: 10000              local.set 0
+States: 0 Active states: 10000            end
+States: 0 Active states: 10000            local.get 1
+States: 0 Active states: 10000            i32.const 56
+States: 0 Active states: 10000            call 20
+States: 0 Calling 20
+Calling 20, nparams: 2, nrets: 1
+Active states: 10000            local.tee 1
+States: 0 Active states: 10000            br_if 0 (;@4;)
+States: 0 Active states: 10000          end
+States: 0 Active states: 10000        end
+States: 0 Active states: 10000        i32.const 19428
+States: 0 Active states: 10000        call 10
+States: 0 Calling 10
+Calling 10, nparams: 1, nrets: 0
+Active states: 10000      end
+States: 0 Active states: 10000    end
+States: 0 Active states: 10000    local.get 0
+States: 0 Active states: 1
+States: 0 Final states:
+  steps: 54; stack: [(0 || R0)]; locals: [(0 || R0), R0, 0]
