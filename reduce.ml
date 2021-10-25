@@ -253,7 +253,7 @@ let local_value n i =
 let reduce_fn'' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
   for index = 0 to (List.length e) -1 do
     printf "Active states: %d%!" (List.length s.active);
-    (* printf "%s\n%!" (string_of_ps s.active) ;*)
+    printf "%s\n%!" (string_of_ps s.active) ;
     printf "%s\n%!" (string_of_inline_expr [List.nth_exn e index]);
     update_s s param_counts retval_counts types (List.nth_exn e index)
   done;
@@ -263,7 +263,7 @@ let rec reduce_fn' (e: expr) (param_counts: int list) (retval_counts: int list) 
     match e with
     | []     -> s
     | hd::tl -> 
-      (* printf "%s%!" (string_of_ps s.active); *)
+      printf "%s%!" (string_of_ps s.active);
       printf "Active states: %d%!" (List.length s.active);
       printf " %s\n%!" (string_of_inline_expr [List.nth_exn e 0]);
       update_s s param_counts retval_counts types hd;
