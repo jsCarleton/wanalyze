@@ -218,12 +218,14 @@ let string_of_segments (s: Segments.segment list) : string =
                  String.concat (List.map ~f:string_of_segment s)]
 
 let string_of_function w show_segments i idx = 
+  let segments = (Segments.get_segments (List.nth_exn w.code_section i).e) in
   String.concat [
     "  (func (;" ; string_of_int (i + w.last_import_func) ; ";) (type " ; string_of_int idx ; ")" 
     ; string_of_types "param" (get_type_sig w idx).rt1
     ; string_of_types "result" (get_type_sig w idx).rt2
     ; string_of_code w i show_segments ; ")\n" 
-    ; string_of_segments (Segments.get_segments (List.nth_exn w.code_section i).e)]
+    ; string_of_segments segments
+    ; Segments.graph_segments segments]
 let string_of_function_section w show_segments = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w show_segments) w.function_section)
 

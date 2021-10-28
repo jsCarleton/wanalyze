@@ -74,6 +74,17 @@ index start   end nesting dest  labels type        succ
     2    17    21     0   4            if          3 4                 
     3    21    23     0                end         4                   
     4    23    26    -1                end         5                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 5;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+}
   (func (;17;) (type 7) (param i32 i32 i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -114,6 +125,17 @@ index start   end nesting dest  labels type        succ
     2    17    21     0   4            if          3 4                 
     3    21    23     0                end         4                   
     4    23    27    -1                end         5                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 5;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+}
   (func (;18;) (type 8) (param i32 i32 i64)
     (local i32)
 0 ------------------------------------------------------------
@@ -154,6 +176,17 @@ index start   end nesting dest  labels type        succ
     2    17    21     0   4            if          3 4                 
     3    21    23     0                end         4                   
     4    23    27    -1                end         5                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 5;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+}
   (func (;19;) (type 5) (param i32 i32) (result i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -183,6 +216,14 @@ index start   end nesting dest  labels type        succ
     0     0    15     0   2            if          1 2                 
     1    15    17     0                end         2                   
     2    17    20    -1                end         3                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 3;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "end"];
+}
   (func (;20;) (type 5) (param i32 i32) (result i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -222,6 +263,17 @@ index start   end nesting dest  labels type        succ
     2    17    21     0   4            if          3 4                 
     3    21    23     0                end         4                   
     4    23    26    -1                end         5                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 5;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+}
   (func (;21;) (type 8) (param i32 i32 i64)
     (local i32)
 0 ------------------------------------------------------------
@@ -252,6 +304,14 @@ index start   end nesting dest  labels type        succ
     0     0    15     0   2            if          1 2                 
     1    15    17     0                end         2                   
     2    17    21    -1                end         3                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 3;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "end"];
+}
   (func (;22;) (type 8) (param i32 i32 i64)
     (local i32)
 0 ------------------------------------------------------------
@@ -292,6 +352,17 @@ index start   end nesting dest  labels type        succ
     2    17    21     0   4            if          3 4                 
     3    21    23     0                end         4                   
     4    23    27    -1                end         5                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 5;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+}
   (func (;23;) (type 11) (param i32 i32) (result i64)
     (local i32)
 0 ------------------------------------------------------------
@@ -331,6 +402,17 @@ index start   end nesting dest  labels type        succ
     2    17    21     0   4            if          3 4                 
     3    21    23     0                end         4                   
     4    23    26    -1                end         5                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 5;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+}
   (func (;24;) (type 7) (param i32 i32 i32)
 0 ------------------------------------------------------------
 0000    local.get 0
@@ -416,6 +498,31 @@ index start   end nesting dest  labels type        succ
    12    46    51     1                end         13                  
    13    51    52     0                end         14                  
    14    52    53    -1                end         15                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 15;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "if"];
+    4 -> 8[label = "~if"];
+    5 -> 6[label = "if"];
+    5 -> 7[label = "~if"];
+    6 -> 7[label = "end"];
+    7 -> 14[label = "else"];
+    8 -> 9[label = "if"];
+    8 -> 10[label = "~if"];
+    9 -> 13[label = "else"];
+    10 -> 11[label = "if"];
+    10 -> 12[label = "~if"];
+    11 -> 12[label = "end"];
+    12 -> 13[label = "end"];
+    13 -> 14[label = "end"];
+    14 -> 15[label = "end"];
+}
   (func (;25;) (type 7) (param i32 i32 i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -446,6 +553,14 @@ index start   end nesting dest  labels type        succ
     0     0    15     0   2            if          1 2                 
     1    15    17     0                end         2                   
     2    17    21    -1                end         3                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 3;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "end"];
+}
   (func (;26;) (type 8) (param i32 i32 i64)
     (local i32)
 0 ------------------------------------------------------------
@@ -476,6 +591,14 @@ index start   end nesting dest  labels type        succ
     0     0    15     0   2            if          1 2                 
     1    15    17     0                end         2                   
     2    17    21    -1                end         3                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 3;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "end"];
+}
   (func (;27;) (type 5) (param i32 i32) (result i32)
 0 ------------------------------------------------------------
 0000    local.get 0
@@ -561,6 +684,32 @@ index start   end nesting dest  labels type        succ
    13    41    45     0   15           if          14 15               
    14    45    47     0                end         15                  
    15    47    51    -1                end         16                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 16;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "if"];
+    4 -> 9[label = "~if"];
+    5 -> 6[label = "if"];
+    5 -> 7[label = "~if"];
+    6 -> 7[label = "end"];
+    7 -> 16[label = "return"];
+    8 -> 13[label = "else"];
+    9 -> 10[label = "if"];
+    9 -> 12[label = "~if"];
+    10 -> 16[label = "return"];
+    11 -> 12[label = "end"];
+    12 -> 13[label = "end"];
+    13 -> 14[label = "if"];
+    13 -> 15[label = "~if"];
+    14 -> 15[label = "end"];
+    15 -> 16[label = "end"];
+}
   (func (;28;) (type 11) (param i32 i32) (result i64)
     (local i32)
 0 ------------------------------------------------------------
@@ -590,6 +739,14 @@ index start   end nesting dest  labels type        succ
     0     0    15     0   2            if          1 2                 
     1    15    17     0                end         2                   
     2    17    20    -1                end         3                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 3;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "end"];
+}
   (func (;29;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32)
 0 ------------------------------------------------------------
@@ -1002,6 +1159,53 @@ index start   end nesting dest  labels type        succ
    32   335   336     1                end         33                  
    33   336   337     0                end         34                  
    34   337   339    -1                end         35                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 35;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 35[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "if"];
+    3 -> 23[label = "~if"];
+    4 -> 5[label = "loop"];
+    5 -> 6[label = "if"];
+    5 -> 11[label = "~if"];
+    6 -> 7[label = "if"];
+    6 -> 9[label = "~if"];
+    7 -> 35[label = "return"];
+    8 -> 9[label = "end"];
+    9 -> 5[color="red" label = "br"];
+    10 -> 11[label = "end"];
+    11 -> 12[label = "end"];
+    12 -> 13[label = "loop"];
+    13 -> 14[label = "if"];
+    13 -> 16[label = "~if"];
+    14 -> 13[color="red" label = "br"];
+    15 -> 16[label = "end"];
+    16 -> 17[label = "end"];
+    17 -> 18[label = "loop"];
+    18 -> 19[label = "if"];
+    18 -> 21[label = "~if"];
+    19 -> 18[color="red" label = "br"];
+    20 -> 21[label = "end"];
+    21 -> 22[label = "end"];
+    22 -> 29[label = "else"];
+    23 -> 24[label = "loop"];
+    24 -> 25[label = "if"];
+    24 -> 27[label = "~if"];
+    25 -> 24[color="red" label = "br"];
+    26 -> 27[label = "end"];
+    27 -> 28[label = "end"];
+    28 -> 29[label = "end"];
+    29 -> 30[label = "loop"];
+    30 -> 31[label = "if"];
+    30 -> 33[label = "~if"];
+    31 -> 30[color="red" label = "br"];
+    32 -> 33[label = "end"];
+    33 -> 34[label = "end"];
+    34 -> 35[label = "end"];
+}
   (func (;30;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -1243,6 +1447,38 @@ index start   end nesting dest  labels type        succ
    20   186   187     1                end         21                  
    21   187   188     0                end         22                  
    22   188   192    -1                end         23                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 23;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 17[label = "~if"];
+    1 -> 2[label = "loop"];
+    2 -> 3[label = "if"];
+    2 -> 5[label = "~if"];
+    3 -> 2[color="red" label = "br"];
+    4 -> 5[label = "end"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "loop"];
+    7 -> 8[label = "if"];
+    7 -> 10[label = "~if"];
+    8 -> 7[color="red" label = "br"];
+    9 -> 10[label = "end"];
+    10 -> 11[label = "end"];
+    11 -> 12[label = "loop"];
+    12 -> 13[label = "if"];
+    12 -> 15[label = "~if"];
+    13 -> 12[color="red" label = "br"];
+    14 -> 15[label = "end"];
+    15 -> 16[label = "end"];
+    16 -> 17[label = "end"];
+    17 -> 18[label = "loop"];
+    18 -> 19[label = "if"];
+    18 -> 21[label = "~if"];
+    19 -> 18[color="red" label = "br"];
+    20 -> 21[label = "end"];
+    21 -> 22[label = "end"];
+    22 -> 23[label = "end"];
+}
   (func (;31;) (type 1) (param i32) (result i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -1312,6 +1548,22 @@ index start   end nesting dest  labels type        succ
     6    44    45     1                end         7                   
     7    45    46     0                end         8                   
     8    46    48    -1                end         9                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 9;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 9[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "if"];
+    3 -> 8[label = "~if"];
+    4 -> 5[label = "if"];
+    4 -> 7[label = "~if"];
+    5 -> 9[label = "return"];
+    6 -> 7[label = "end"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "end"];
+}
   (func (;32;) (type 0) (param i32 i32 i32) (result i32)
 0 ------------------------------------------------------------
 0000    i32.const 1
@@ -1320,6 +1572,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0     4    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;33;) (type 3) (param i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -2678,6 +2935,225 @@ index start   end nesting dest  labels type        succ
   160  1014  1023     1              0 br_if       161 160             
   161  1023  1024     0                end         162                 
   162  1024  1029    -1                end         163                 
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 163;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 163[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "block"];
+    4 -> 5[label = "if"];
+    4 -> 6[label = "~if"];
+    5 -> 59[label = "else"];
+    6 -> 7[label = "if"];
+    6 -> 9[label = "~if"];
+    7 -> 163[label = "return"];
+    8 -> 9[label = "end"];
+    9 -> 10[label = "if"];
+    9 -> 12[label = "~if"];
+    10 -> 163[label = "return"];
+    11 -> 12[label = "end"];
+    12 -> 13[label = "if"];
+    12 -> 16[label = "~if"];
+    13 -> 14[label = "~br_if"];
+    13 -> 60[label = "br_if"];
+    14 -> 163[label = "return"];
+    15 -> 16[label = "end"];
+    16 -> 17[label = "if"];
+    16 -> 22[label = "~if"];
+    17 -> 18[label = "if"];
+    17 -> 19[label = "~if"];
+    18 -> 20[label = "else"];
+    19 -> 20[label = "end"];
+    20 -> 60[label = "br"];
+    21 -> 22[label = "end"];
+    22 -> 23[label = "block"];
+    23 -> 24[label = "if"];
+    23 -> 39[label = "~if"];
+    24 -> 25[label = "if"];
+    24 -> 26[label = "~if"];
+    25 -> 30[label = "else"];
+    26 -> 27[label = "if"];
+    26 -> 29[label = "~if"];
+    27 -> 41[label = "br"];
+    28 -> 29[label = "end"];
+    29 -> 30[label = "end"];
+    30 -> 31[label = "loop"];
+    31 -> 32[label = "block"];
+    32 -> 33[label = "if"];
+    32 -> 35[label = "~if"];
+    33 -> 34[label = "~br_if"];
+    33 -> 37[label = "br_if"];
+    34 -> 35[label = "end"];
+    35 -> 31[color="red" label = "br"];
+    36 -> 37[label = "end"];
+    37 -> 38[label = "end"];
+    38 -> 40[label = "else"];
+    39 -> 40[label = "end"];
+    40 -> 41[label = "end"];
+    41 -> 42[label = "if"];
+    41 -> 57[label = "~if"];
+    42 -> 43[label = "if"];
+    42 -> 47[label = "~if"];
+    43 -> 44[label = "if"];
+    43 -> 46[label = "~if"];
+    44 -> 60[label = "br"];
+    45 -> 46[label = "end"];
+    46 -> 52[label = "else"];
+    47 -> 48[label = "if"];
+    47 -> 49[label = "~if"];
+    48 -> 50[label = "else"];
+    49 -> 50[label = "end"];
+    50 -> 51[label = "~br_if"];
+    50 -> 60[label = "br_if"];
+    51 -> 52[label = "end"];
+    52 -> 53[label = "if"];
+    52 -> 54[label = "~if"];
+    53 -> 54[label = "end"];
+    54 -> 55[label = "if"];
+    54 -> 56[label = "~if"];
+    55 -> 56[label = "end"];
+    56 -> 58[label = "else"];
+    57 -> 58[label = "end"];
+    58 -> 59[label = "end"];
+    59 -> 60[label = "end"];
+    60 -> 61[label = "if"];
+    60 -> 63[label = "~if"];
+    61 -> 163[label = "return"];
+    62 -> 63[label = "end"];
+    63 -> 64[label = "if"];
+    63 -> 66[label = "~if"];
+    64 -> 163[label = "return"];
+    65 -> 66[label = "end"];
+    66 -> 67[label = "if"];
+    66 -> 68[label = "~if"];
+    67 -> 124[label = "else"];
+    68 -> 69[label = "if"];
+    68 -> 74[label = "~if"];
+    69 -> 70[label = "if"];
+    69 -> 72[label = "~if"];
+    70 -> 163[label = "return"];
+    71 -> 72[label = "end"];
+    72 -> 163[label = "return"];
+    73 -> 74[label = "end"];
+    74 -> 75[label = "if"];
+    74 -> 77[label = "~if"];
+    75 -> 163[label = "return"];
+    76 -> 77[label = "end"];
+    77 -> 78[label = "block"];
+    78 -> 79[label = "if"];
+    78 -> 83[label = "~if"];
+    79 -> 80[label = "if"];
+    79 -> 81[label = "~if"];
+    80 -> 82[label = "else"];
+    81 -> 82[label = "end"];
+    82 -> 119[label = "else"];
+    83 -> 84[label = "block"];
+    84 -> 85[label = "if"];
+    84 -> 100[label = "~if"];
+    85 -> 86[label = "if"];
+    85 -> 87[label = "~if"];
+    86 -> 91[label = "else"];
+    87 -> 88[label = "if"];
+    87 -> 90[label = "~if"];
+    88 -> 102[label = "br"];
+    89 -> 90[label = "end"];
+    90 -> 91[label = "end"];
+    91 -> 92[label = "loop"];
+    92 -> 93[label = "block"];
+    93 -> 94[label = "if"];
+    93 -> 96[label = "~if"];
+    94 -> 95[label = "~br_if"];
+    94 -> 98[label = "br_if"];
+    95 -> 96[label = "end"];
+    96 -> 92[color="red" label = "br"];
+    97 -> 98[label = "end"];
+    98 -> 99[label = "end"];
+    99 -> 101[label = "else"];
+    100 -> 101[label = "end"];
+    101 -> 102[label = "end"];
+    102 -> 103[label = "if"];
+    102 -> 118[label = "~if"];
+    103 -> 104[label = "if"];
+    103 -> 108[label = "~if"];
+    104 -> 105[label = "if"];
+    104 -> 107[label = "~if"];
+    105 -> 120[label = "br"];
+    106 -> 107[label = "end"];
+    107 -> 113[label = "else"];
+    108 -> 109[label = "if"];
+    108 -> 110[label = "~if"];
+    109 -> 111[label = "else"];
+    110 -> 111[label = "end"];
+    111 -> 112[label = "~br_if"];
+    111 -> 120[label = "br_if"];
+    112 -> 113[label = "end"];
+    113 -> 114[label = "if"];
+    113 -> 115[label = "~if"];
+    114 -> 115[label = "end"];
+    115 -> 116[label = "if"];
+    115 -> 117[label = "~if"];
+    116 -> 117[label = "end"];
+    117 -> 118[label = "end"];
+    118 -> 119[label = "end"];
+    119 -> 120[label = "end"];
+    120 -> 121[label = "if"];
+    120 -> 123[label = "~if"];
+    121 -> 163[label = "return"];
+    122 -> 123[label = "end"];
+    123 -> 124[label = "end"];
+    124 -> 125[label = "if"];
+    124 -> 130[label = "~if"];
+    125 -> 126[label = "if"];
+    125 -> 127[label = "~if"];
+    126 -> 128[label = "else"];
+    127 -> 128[label = "end"];
+    128 -> 163[label = "return"];
+    129 -> 130[label = "end"];
+    130 -> 131[label = "if"];
+    130 -> 135[label = "~if"];
+    131 -> 132[label = "if"];
+    131 -> 133[label = "~if"];
+    132 -> 134[label = "else"];
+    133 -> 134[label = "end"];
+    134 -> 136[label = "else"];
+    135 -> 136[label = "end"];
+    136 -> 137[label = "block"];
+    137 -> 138[label = "if"];
+    137 -> 154[label = "~if"];
+    138 -> 139[label = "block"];
+    139 -> 140[label = "if"];
+    139 -> 141[label = "~if"];
+    140 -> 152[label = "else"];
+    141 -> 142[label = "if"];
+    141 -> 143[label = "~if"];
+    142 -> 144[label = "else"];
+    143 -> 144[label = "end"];
+    144 -> 145[label = "loop"];
+    145 -> 146[label = "if"];
+    145 -> 149[label = "~if"];
+    146 -> 147[label = "~br_if"];
+    146 -> 153[label = "br_if"];
+    147 -> 145[color="red" label = "br"];
+    148 -> 149[label = "end"];
+    149 -> 150[label = "end"];
+    150 -> 156[label = "br"];
+    151 -> 152[label = "end"];
+    152 -> 153[label = "end"];
+    153 -> 155[label = "else"];
+    154 -> 155[label = "end"];
+    155 -> 156[label = "end"];
+    156 -> 157[label = "if"];
+    156 -> 159[label = "~if"];
+    157 -> 163[label = "return"];
+    158 -> 159[label = "end"];
+    159 -> 160[label = "loop"];
+    160 -> 161[label = "~br_if"];
+    160 -> 160[label = "br_if"];
+    161 -> 162[label = "end"];
+    162 -> 163[label = "end"];
+}
   (func (;34;) (type 1) (param i32) (result i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -7614,6 +8090,680 @@ index start   end nesting dest  labels type        succ
   509  3898  3904     1                return      512                 
   510  3904  3905     0                end         511                 
   511  3905  3909    -1                end         512                 
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 512;
+    node [shape = circle];
+    0 -> 1[label = "block"];
+    1 -> 2[label = "block"];
+    2 -> 3[label = "block"];
+    3 -> 4[label = "block"];
+    4 -> 5[label = "if"];
+    4 -> 6[label = "~if"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "end"];
+    7 -> 8[label = "block"];
+    8 -> 9[label = "if"];
+    8 -> 94[label = "~if"];
+    9 -> 10[label = "if"];
+    9 -> 11[label = "~if"];
+    10 -> 12[label = "else"];
+    11 -> 12[label = "end"];
+    12 -> 13[label = "if"];
+    12 -> 18[label = "~if"];
+    13 -> 14[label = "if"];
+    13 -> 15[label = "~if"];
+    14 -> 16[label = "else"];
+    15 -> 16[label = "end"];
+    16 -> 512[label = "return"];
+    17 -> 18[label = "end"];
+    18 -> 19[label = "if"];
+    18 -> 93[label = "~if"];
+    19 -> 20[label = "if"];
+    19 -> 30[label = "~if"];
+    20 -> 21[label = "if"];
+    20 -> 22[label = "~if"];
+    21 -> 23[label = "else"];
+    22 -> 23[label = "end"];
+    23 -> 24[label = "if"];
+    23 -> 28[label = "~if"];
+    24 -> 25[label = "if"];
+    24 -> 26[label = "~if"];
+    25 -> 27[label = "else"];
+    26 -> 27[label = "end"];
+    27 -> 28[label = "end"];
+    28 -> 512[label = "return"];
+    29 -> 30[label = "end"];
+    30 -> 31[label = "if"];
+    30 -> 92[label = "~if"];
+    31 -> 32[label = "loop"];
+    32 -> 33[label = "block"];
+    33 -> 34[label = "if"];
+    33 -> 35[label = "~if"];
+    34 -> 37[label = "else"];
+    35 -> 36[label = "~br_if"];
+    35 -> 43[label = "br_if"];
+    36 -> 37[label = "end"];
+    37 -> 38[label = "if"];
+    37 -> 39[label = "~if"];
+    38 -> 39[label = "end"];
+    39 -> 40[label = "if"];
+    39 -> 41[label = "~if"];
+    40 -> 41[label = "end"];
+    41 -> 32[color="red" label = "br"];
+    42 -> 43[label = "end"];
+    43 -> 44[label = "end"];
+    44 -> 45[label = "if"];
+    44 -> 91[label = "~if"];
+    45 -> 46[label = "block"];
+    46 -> 47[label = "if"];
+    46 -> 61[label = "~if"];
+    47 -> 48[label = "if"];
+    47 -> 52[label = "~if"];
+    48 -> 49[label = "if"];
+    48 -> 51[label = "~if"];
+    49 -> 63[label = "br"];
+    50 -> 51[label = "end"];
+    51 -> 52[label = "end"];
+    52 -> 53[label = "loop"];
+    53 -> 54[label = "block"];
+    54 -> 55[label = "if"];
+    54 -> 57[label = "~if"];
+    55 -> 56[label = "~br_if"];
+    55 -> 59[label = "br_if"];
+    56 -> 57[label = "end"];
+    57 -> 53[color="red" label = "br"];
+    58 -> 59[label = "end"];
+    59 -> 60[label = "end"];
+    60 -> 62[label = "else"];
+    61 -> 62[label = "end"];
+    62 -> 63[label = "end"];
+    63 -> 64[label = "block"];
+    64 -> 65[label = "if"];
+    64 -> 80[label = "~if"];
+    65 -> 66[label = "if"];
+    65 -> 70[label = "~if"];
+    66 -> 67[label = "if"];
+    66 -> 69[label = "~if"];
+    67 -> 81[label = "br"];
+    68 -> 69[label = "end"];
+    69 -> 75[label = "else"];
+    70 -> 71[label = "if"];
+    70 -> 72[label = "~if"];
+    71 -> 73[label = "else"];
+    72 -> 73[label = "end"];
+    73 -> 74[label = "~br_if"];
+    73 -> 81[label = "br_if"];
+    74 -> 75[label = "end"];
+    75 -> 76[label = "if"];
+    75 -> 77[label = "~if"];
+    76 -> 77[label = "end"];
+    77 -> 78[label = "if"];
+    77 -> 79[label = "~if"];
+    78 -> 79[label = "end"];
+    79 -> 80[label = "end"];
+    80 -> 81[label = "end"];
+    81 -> 82[label = "if"];
+    81 -> 83[label = "~if"];
+    82 -> 89[label = "else"];
+    83 -> 84[label = "if"];
+    83 -> 88[label = "~if"];
+    84 -> 85[label = "if"];
+    84 -> 86[label = "~if"];
+    85 -> 87[label = "else"];
+    86 -> 87[label = "end"];
+    87 -> 88[label = "end"];
+    88 -> 89[label = "end"];
+    89 -> 512[label = "return"];
+    90 -> 91[label = "end"];
+    91 -> 92[label = "end"];
+    92 -> 93[label = "end"];
+    93 -> 227[label = "else"];
+    94 -> 95[label = "if"];
+    94 -> 96[label = "~if"];
+    95 -> 226[label = "else"];
+    96 -> 97[label = "if"];
+    96 -> 225[label = "~if"];
+    97 -> 98[label = "if"];
+    97 -> 102[label = "~if"];
+    98 -> 99[label = "if"];
+    98 -> 100[label = "~if"];
+    99 -> 101[label = "else"];
+    100 -> 101[label = "end"];
+    101 -> 103[label = "else"];
+    102 -> 103[label = "end"];
+    103 -> 104[label = "block"];
+    104 -> 105[label = "block"];
+    105 -> 106[label = "if"];
+    105 -> 121[label = "~if"];
+    106 -> 107[label = "if"];
+    106 -> 108[label = "~if"];
+    107 -> 109[label = "else"];
+    108 -> 109[label = "end"];
+    109 -> 110[label = "loop"];
+    110 -> 111[label = "if"];
+    110 -> 116[label = "~if"];
+    111 -> 112[label = "if"];
+    111 -> 113[label = "~if"];
+    112 -> 115[label = "else"];
+    113 -> 129[label = "br"];
+    114 -> 115[label = "end"];
+    115 -> 116[label = "end"];
+    116 -> 117[label = "if"];
+    116 -> 118[label = "~if"];
+    117 -> 118[label = "end"];
+    118 -> 119[label = "~br_if"];
+    118 -> 110[color="red" label = "br_if"];
+    119 -> 120[label = "end"];
+    120 -> 122[label = "else"];
+    121 -> 122[label = "end"];
+    122 -> 123[label = "if"];
+    122 -> 124[label = "~if"];
+    123 -> 126[label = "else"];
+    124 -> 125[label = "~br_if"];
+    124 -> 228[label = "br_if"];
+    125 -> 126[label = "end"];
+    126 -> 127[label = "~br_if"];
+    126 -> 129[label = "br_if"];
+    127 -> 144[label = "br"];
+    128 -> 129[label = "end"];
+    129 -> 130[label = "loop"];
+    130 -> 131[label = "block"];
+    131 -> 132[label = "if"];
+    131 -> 133[label = "~if"];
+    132 -> 133[label = "end"];
+    133 -> 134[label = "end"];
+    134 -> 135[label = "if"];
+    134 -> 136[label = "~if"];
+    135 -> 136[label = "end"];
+    136 -> 137[label = "if"];
+    136 -> 138[label = "~if"];
+    137 -> 138[label = "end"];
+    138 -> 139[label = "if"];
+    138 -> 141[label = "~if"];
+    139 -> 130[color="red" label = "br"];
+    140 -> 142[label = "else"];
+    141 -> 142[label = "end"];
+    142 -> 143[label = "end"];
+    143 -> 144[label = "end"];
+    144 -> 145[label = "if"];
+    144 -> 224[label = "~if"];
+    145 -> 146[label = "if"];
+    145 -> 223[label = "~if"];
+    146 -> 147[label = "if"];
+    146 -> 222[label = "~if"];
+    147 -> 148[label = "block"];
+    148 -> 149[label = "if"];
+    148 -> 163[label = "~if"];
+    149 -> 150[label = "if"];
+    149 -> 154[label = "~if"];
+    150 -> 151[label = "if"];
+    150 -> 153[label = "~if"];
+    151 -> 165[label = "br"];
+    152 -> 153[label = "end"];
+    153 -> 154[label = "end"];
+    154 -> 155[label = "loop"];
+    155 -> 156[label = "block"];
+    156 -> 157[label = "if"];
+    156 -> 159[label = "~if"];
+    157 -> 158[label = "~br_if"];
+    157 -> 161[label = "br_if"];
+    158 -> 159[label = "end"];
+    159 -> 155[color="red" label = "br"];
+    160 -> 161[label = "end"];
+    161 -> 162[label = "end"];
+    162 -> 164[label = "else"];
+    163 -> 164[label = "end"];
+    164 -> 165[label = "end"];
+    165 -> 166[label = "block"];
+    166 -> 167[label = "if"];
+    166 -> 184[label = "~if"];
+    167 -> 168[label = "if"];
+    167 -> 172[label = "~if"];
+    168 -> 169[label = "if"];
+    168 -> 171[label = "~if"];
+    169 -> 185[label = "br"];
+    170 -> 171[label = "end"];
+    171 -> 179[label = "else"];
+    172 -> 173[label = "if"];
+    172 -> 174[label = "~if"];
+    173 -> 175[label = "else"];
+    174 -> 175[label = "end"];
+    175 -> 176[label = "if"];
+    175 -> 178[label = "~if"];
+    176 -> 185[label = "br"];
+    177 -> 178[label = "end"];
+    178 -> 179[label = "end"];
+    179 -> 180[label = "if"];
+    179 -> 181[label = "~if"];
+    180 -> 181[label = "end"];
+    181 -> 182[label = "if"];
+    181 -> 183[label = "~if"];
+    182 -> 183[label = "end"];
+    183 -> 184[label = "end"];
+    184 -> 185[label = "end"];
+    185 -> 186[label = "block"];
+    186 -> 187[label = "if"];
+    186 -> 188[label = "~if"];
+    187 -> 219[label = "else"];
+    188 -> 189[label = "if"];
+    188 -> 194[label = "~if"];
+    189 -> 190[label = "if"];
+    189 -> 191[label = "~if"];
+    190 -> 192[label = "else"];
+    191 -> 192[label = "end"];
+    192 -> 220[label = "br"];
+    193 -> 194[label = "end"];
+    194 -> 195[label = "if"];
+    194 -> 199[label = "~if"];
+    195 -> 196[label = "if"];
+    195 -> 197[label = "~if"];
+    196 -> 198[label = "else"];
+    197 -> 198[label = "end"];
+    198 -> 200[label = "else"];
+    199 -> 200[label = "end"];
+    200 -> 201[label = "if"];
+    200 -> 203[label = "~if"];
+    201 -> 220[label = "br"];
+    202 -> 203[label = "end"];
+    203 -> 204[label = "block"];
+    204 -> 205[label = "if"];
+    204 -> 206[label = "~if"];
+    205 -> 217[label = "else"];
+    206 -> 207[label = "if"];
+    206 -> 208[label = "~if"];
+    207 -> 209[label = "else"];
+    208 -> 209[label = "end"];
+    209 -> 210[label = "loop"];
+    210 -> 211[label = "if"];
+    210 -> 214[label = "~if"];
+    211 -> 212[label = "~br_if"];
+    211 -> 218[label = "br_if"];
+    212 -> 210[color="red" label = "br"];
+    213 -> 214[label = "end"];
+    214 -> 215[label = "end"];
+    215 -> 220[label = "br"];
+    216 -> 217[label = "end"];
+    217 -> 218[label = "end"];
+    218 -> 219[label = "end"];
+    219 -> 220[label = "end"];
+    220 -> 512[label = "return"];
+    221 -> 222[label = "end"];
+    222 -> 223[label = "end"];
+    223 -> 224[label = "end"];
+    224 -> 225[label = "end"];
+    225 -> 226[label = "end"];
+    226 -> 227[label = "end"];
+    227 -> 228[label = "end"];
+    228 -> 229[label = "if"];
+    228 -> 234[label = "~if"];
+    229 -> 230[label = "if"];
+    229 -> 231[label = "~if"];
+    230 -> 232[label = "else"];
+    231 -> 232[label = "end"];
+    232 -> 509[label = "br"];
+    233 -> 234[label = "end"];
+    234 -> 235[label = "if"];
+    234 -> 237[label = "~if"];
+    235 -> 508[label = "br"];
+    236 -> 237[label = "end"];
+    237 -> 238[label = "if"];
+    237 -> 239[label = "~if"];
+    238 -> 240[label = "else"];
+    239 -> 240[label = "end"];
+    240 -> 241[label = "if"];
+    240 -> 243[label = "~if"];
+    241 -> 511[label = "br"];
+    242 -> 243[label = "end"];
+    243 -> 244[label = "if"];
+    243 -> 248[label = "~if"];
+    244 -> 245[label = "if"];
+    244 -> 247[label = "~if"];
+    245 -> 511[label = "br"];
+    246 -> 247[label = "end"];
+    247 -> 248[label = "end"];
+    248 -> 249[label = "block"];
+    249 -> 250[label = "block"];
+    250 -> 251[label = "if"];
+    250 -> 252[label = "~if"];
+    251 -> 308[label = "else"];
+    252 -> 253[label = "block"];
+    253 -> 254[label = "block"];
+    254 -> 255[label = "block"];
+    255 -> 256[label = "~br_if"];
+    255 -> 275[label = "br_if"];
+    256 -> 257[label = "loop"];
+    257 -> 258[label = "block"];
+    258 -> 259[label = "if"];
+    258 -> 261[label = "~if"];
+    259 -> 260[label = "~br_if"];
+    259 -> 264[label = "br_if"];
+    260 -> 261[label = "end"];
+    261 -> 262[label = "~br_if"];
+    261 -> 257[color="red" label = "br_if"];
+    262 -> 275[label = "br"];
+    263 -> 264[label = "end"];
+    264 -> 265[label = "end"];
+    265 -> 266[label = "if"];
+    265 -> 272[label = "~if"];
+    266 -> 267[label = "if"];
+    266 -> 269[label = "~if"];
+    267 -> 268[label = "~br_if"];
+    267 -> 315[label = "br_if"];
+    268 -> 271[label = "else"];
+    269 -> 293[label = "br"];
+    270 -> 271[label = "end"];
+    271 -> 273[label = "else"];
+    272 -> 273[label = "end"];
+    273 -> 307[label = "br"];
+    274 -> 275[label = "end"];
+    275 -> 276[label = "if"];
+    275 -> 277[label = "~if"];
+    276 -> 291[label = "else"];
+    277 -> 278[label = "if"];
+    277 -> 279[label = "~if"];
+    278 -> 280[label = "else"];
+    279 -> 280[label = "end"];
+    280 -> 281[label = "if"];
+    280 -> 289[label = "~if"];
+    281 -> 282[label = "if"];
+    281 -> 286[label = "~if"];
+    282 -> 283[label = "if"];
+    282 -> 285[label = "~if"];
+    283 -> 307[label = "br"];
+    284 -> 285[label = "end"];
+    285 -> 286[label = "end"];
+    286 -> 287[label = "~br_if"];
+    286 -> 315[label = "br_if"];
+    287 -> 293[label = "br"];
+    288 -> 290[label = "else"];
+    289 -> 290[label = "end"];
+    290 -> 291[label = "end"];
+    291 -> 307[label = "br"];
+    292 -> 293[label = "end"];
+    293 -> 294[label = "if"];
+    293 -> 301[label = "~if"];
+    294 -> 295[label = "if"];
+    294 -> 297[label = "~if"];
+    295 -> 307[label = "br"];
+    296 -> 299[label = "else"];
+    297 -> 315[label = "br"];
+    298 -> 299[label = "end"];
+    300 -> 301[label = "end"];
+    301 -> 302[label = "~br_if"];
+    301 -> 315[label = "br_if"];
+    302 -> 303[label = "if"];
+    302 -> 304[label = "~if"];
+    303 -> 306[label = "else"];
+    304 -> 315[label = "br"];
+    305 -> 306[label = "end"];
+    306 -> 307[label = "end"];
+    307 -> 308[label = "end"];
+    308 -> 309[label = "if"];
+    308 -> 313[label = "~if"];
+    309 -> 310[label = "if"];
+    309 -> 311[label = "~if"];
+    310 -> 311[label = "end"];
+    311 -> 312[label = "~br_if"];
+    311 -> 315[label = "br_if"];
+    312 -> 313[label = "end"];
+    313 -> 506[label = "br"];
+    314 -> 315[label = "end"];
+    315 -> 316[label = "if"];
+    315 -> 317[label = "~if"];
+    316 -> 317[label = "end"];
+    317 -> 318[label = "block"];
+    318 -> 319[label = "if"];
+    318 -> 495[label = "~if"];
+    319 -> 320[label = "block"];
+    320 -> 321[label = "block"];
+    321 -> 322[label = "loop"];
+    322 -> 323[label = "~br_if"];
+    322 -> 327[label = "br_if"];
+    323 -> 324[label = "~br_if"];
+    323 -> 322[color="red" label = "br_if"];
+    324 -> 325[label = "end"];
+    325 -> 336[label = "br"];
+    326 -> 327[label = "end"];
+    327 -> 328[label = "if"];
+    327 -> 335[label = "~if"];
+    328 -> 329[label = "if"];
+    328 -> 334[label = "~if"];
+    329 -> 330[label = "if"];
+    329 -> 331[label = "~if"];
+    330 -> 332[label = "else"];
+    331 -> 332[label = "end"];
+    332 -> 502[label = "br"];
+    333 -> 334[label = "end"];
+    334 -> 335[label = "end"];
+    335 -> 336[label = "end"];
+    336 -> 337[label = "if"];
+    336 -> 338[label = "~if"];
+    337 -> 338[label = "end"];
+    338 -> 339[label = "block"];
+    339 -> 340[label = "block"];
+    340 -> 341[label = "loop"];
+    341 -> 342[label = "~br_if"];
+    341 -> 346[label = "br_if"];
+    342 -> 343[label = "~br_if"];
+    342 -> 341[color="red" label = "br_if"];
+    343 -> 344[label = "end"];
+    344 -> 438[label = "br"];
+    345 -> 346[label = "end"];
+    346 -> 347[label = "if"];
+    346 -> 437[label = "~if"];
+    347 -> 348[label = "if"];
+    347 -> 349[label = "~if"];
+    348 -> 350[label = "else"];
+    349 -> 350[label = "end"];
+    350 -> 351[label = "if"];
+    350 -> 352[label = "~if"];
+    351 -> 353[label = "else"];
+    352 -> 353[label = "end"];
+    353 -> 354[label = "block"];
+    354 -> 355[label = "if"];
+    354 -> 356[label = "~if"];
+    355 -> 434[label = "else"];
+    356 -> 357[label = "if"];
+    356 -> 359[label = "~if"];
+    357 -> 435[label = "br"];
+    358 -> 359[label = "end"];
+    359 -> 360[label = "if"];
+    359 -> 403[label = "~if"];
+    360 -> 361[label = "block"];
+    361 -> 362[label = "if"];
+    361 -> 366[label = "~if"];
+    362 -> 363[label = "if"];
+    362 -> 364[label = "~if"];
+    363 -> 365[label = "else"];
+    364 -> 365[label = "end"];
+    365 -> 401[label = "else"];
+    366 -> 367[label = "block"];
+    367 -> 368[label = "if"];
+    367 -> 383[label = "~if"];
+    368 -> 369[label = "if"];
+    368 -> 370[label = "~if"];
+    369 -> 374[label = "else"];
+    370 -> 371[label = "if"];
+    370 -> 373[label = "~if"];
+    371 -> 385[label = "br"];
+    372 -> 373[label = "end"];
+    373 -> 374[label = "end"];
+    374 -> 375[label = "loop"];
+    375 -> 376[label = "block"];
+    376 -> 377[label = "if"];
+    376 -> 379[label = "~if"];
+    377 -> 378[label = "~br_if"];
+    377 -> 381[label = "br_if"];
+    378 -> 379[label = "end"];
+    379 -> 375[color="red" label = "br"];
+    380 -> 381[label = "end"];
+    381 -> 382[label = "end"];
+    382 -> 384[label = "else"];
+    383 -> 384[label = "end"];
+    384 -> 385[label = "end"];
+    385 -> 386[label = "~br_if"];
+    385 -> 402[label = "br_if"];
+    386 -> 387[label = "block"];
+    387 -> 388[label = "if"];
+    387 -> 391[label = "~if"];
+    388 -> 389[label = "~br_if"];
+    388 -> 397[label = "br_if"];
+    389 -> 402[label = "br"];
+    390 -> 396[label = "else"];
+    391 -> 392[label = "if"];
+    391 -> 393[label = "~if"];
+    392 -> 394[label = "else"];
+    393 -> 394[label = "end"];
+    394 -> 395[label = "~br_if"];
+    394 -> 402[label = "br_if"];
+    395 -> 396[label = "end"];
+    396 -> 397[label = "end"];
+    397 -> 398[label = "if"];
+    397 -> 399[label = "~if"];
+    398 -> 399[label = "end"];
+    399 -> 400[label = "~br_if"];
+    399 -> 402[label = "br_if"];
+    400 -> 401[label = "end"];
+    401 -> 402[label = "end"];
+    402 -> 403[label = "end"];
+    403 -> 404[label = "if"];
+    403 -> 409[label = "~if"];
+    404 -> 405[label = "if"];
+    404 -> 406[label = "~if"];
+    405 -> 407[label = "else"];
+    406 -> 407[label = "end"];
+    407 -> 435[label = "br"];
+    408 -> 409[label = "end"];
+    409 -> 410[label = "block"];
+    410 -> 411[label = "if"];
+    410 -> 413[label = "~if"];
+    411 -> 412[label = "~br_if"];
+    411 -> 415[label = "br_if"];
+    412 -> 414[label = "else"];
+    413 -> 414[label = "end"];
+    414 -> 415[label = "end"];
+    415 -> 416[label = "if"];
+    415 -> 418[label = "~if"];
+    416 -> 435[label = "br"];
+    417 -> 418[label = "end"];
+    418 -> 419[label = "block"];
+    419 -> 420[label = "if"];
+    419 -> 421[label = "~if"];
+    420 -> 432[label = "else"];
+    421 -> 422[label = "if"];
+    421 -> 423[label = "~if"];
+    422 -> 424[label = "else"];
+    423 -> 424[label = "end"];
+    424 -> 425[label = "loop"];
+    425 -> 426[label = "if"];
+    425 -> 429[label = "~if"];
+    426 -> 427[label = "~br_if"];
+    426 -> 433[label = "br_if"];
+    427 -> 425[color="red" label = "br"];
+    428 -> 429[label = "end"];
+    429 -> 430[label = "end"];
+    430 -> 435[label = "br"];
+    431 -> 432[label = "end"];
+    432 -> 433[label = "end"];
+    433 -> 434[label = "end"];
+    434 -> 435[label = "end"];
+    435 -> 512[label = "return"];
+    436 -> 437[label = "end"];
+    437 -> 438[label = "end"];
+    438 -> 439[label = "loop"];
+    439 -> 440[label = "block"];
+    440 -> 441[label = "if"];
+    440 -> 443[label = "~if"];
+    441 -> 442[label = "~br_if"];
+    441 -> 445[label = "br_if"];
+    442 -> 443[label = "end"];
+    443 -> 439[color="red" label = "br"];
+    444 -> 445[label = "end"];
+    445 -> 446[label = "end"];
+    446 -> 447[label = "if"];
+    446 -> 448[label = "~if"];
+    447 -> 449[label = "else"];
+    448 -> 449[label = "end"];
+    449 -> 450[label = "if"];
+    449 -> 451[label = "~if"];
+    450 -> 452[label = "else"];
+    451 -> 452[label = "end"];
+    452 -> 453[label = "block"];
+    453 -> 454[label = "if"];
+    453 -> 455[label = "~if"];
+    454 -> 456[label = "else"];
+    455 -> 456[label = "end"];
+    456 -> 457[label = "end"];
+    457 -> 458[label = "loop"];
+    458 -> 459[label = "if"];
+    458 -> 461[label = "~if"];
+    459 -> 458[color="red" label = "br"];
+    460 -> 461[label = "end"];
+    461 -> 462[label = "end"];
+    462 -> 463[label = "if"];
+    462 -> 494[label = "~if"];
+    463 -> 464[label = "if"];
+    463 -> 469[label = "~if"];
+    464 -> 465[label = "if"];
+    464 -> 466[label = "~if"];
+    465 -> 467[label = "else"];
+    466 -> 467[label = "end"];
+    467 -> 502[label = "br"];
+    468 -> 469[label = "end"];
+    469 -> 470[label = "if"];
+    469 -> 474[label = "~if"];
+    470 -> 471[label = "if"];
+    470 -> 472[label = "~if"];
+    471 -> 473[label = "else"];
+    472 -> 473[label = "end"];
+    473 -> 475[label = "else"];
+    474 -> 475[label = "end"];
+    475 -> 476[label = "if"];
+    475 -> 478[label = "~if"];
+    476 -> 502[label = "br"];
+    477 -> 478[label = "end"];
+    478 -> 479[label = "block"];
+    479 -> 480[label = "if"];
+    479 -> 481[label = "~if"];
+    480 -> 492[label = "else"];
+    481 -> 482[label = "if"];
+    481 -> 483[label = "~if"];
+    482 -> 484[label = "else"];
+    483 -> 484[label = "end"];
+    484 -> 485[label = "loop"];
+    485 -> 486[label = "if"];
+    485 -> 489[label = "~if"];
+    486 -> 487[label = "~br_if"];
+    486 -> 493[label = "br_if"];
+    487 -> 485[color="red" label = "br"];
+    488 -> 489[label = "end"];
+    489 -> 490[label = "end"];
+    490 -> 502[label = "br"];
+    491 -> 492[label = "end"];
+    492 -> 493[label = "end"];
+    493 -> 494[label = "end"];
+    494 -> 501[label = "else"];
+    495 -> 496[label = "if"];
+    495 -> 497[label = "~if"];
+    496 -> 497[label = "end"];
+    497 -> 498[label = "if"];
+    497 -> 499[label = "~if"];
+    498 -> 500[label = "else"];
+    499 -> 500[label = "end"];
+    500 -> 501[label = "end"];
+    501 -> 502[label = "end"];
+    502 -> 503[label = "if"];
+    502 -> 505[label = "~if"];
+    503 -> 508[label = "br"];
+    504 -> 505[label = "end"];
+    505 -> 506[label = "end"];
+    506 -> 511[label = "br"];
+    507 -> 508[label = "end"];
+    508 -> 509[label = "end"];
+    509 -> 512[label = "return"];
+    510 -> 511[label = "end"];
+    511 -> 512[label = "end"];
+}
   (func (;35;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -15382,6 +16532,33 @@ index start   end nesting dest  labels type        succ
    15  7662  7663     0                else        17                  
    16  7663  7668     0                end         17                  
    17  7668  7729    -1                end         18                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 18;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 18[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "if"];
+    3 -> 16[label = "~if"];
+    4 -> 5[label = "loop"];
+    5 -> 6[label = "if"];
+    5 -> 7[label = "~if"];
+    6 -> 8[label = "else"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "if"];
+    8 -> 10[label = "~if"];
+    9 -> 11[label = "else"];
+    10 -> 11[label = "end"];
+    11 -> 12[label = "if"];
+    11 -> 14[label = "~if"];
+    12 -> 5[color="red" label = "br"];
+    13 -> 14[label = "end"];
+    14 -> 15[label = "end"];
+    15 -> 17[label = "else"];
+    16 -> 17[label = "end"];
+    17 -> 18[label = "end"];
+}
   (func (;36;) (type 3) (param i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 0 ------------------------------------------------------------
@@ -15977,6 +17154,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0   590    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;37;) (type 5) (param i32 i32) (result i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -16006,6 +17188,14 @@ index start   end nesting dest  labels type        succ
     0     0    15     0   2            if          1 2                 
     1    15    17     0                end         2                   
     2    17    20    -1                end         3                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 3;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "end"];
+}
   (func (;38;) (type 1) (param i32) (result i32)
     (local i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -16119,6 +17309,23 @@ index start   end nesting dest  labels type        succ
     7    51    66     1                end         8                   
     8    66    88     0                end         9                   
     9    88    90    -1                end         10                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 10;
+    node [shape = circle];
+    0 -> 1[label = "block"];
+    1 -> 2[label = "block"];
+    2 -> 3[label = "~br_if"];
+    2 -> 6[label = "br_if"];
+    3 -> 4[label = "~br_if"];
+    3 -> 6[label = "br_if"];
+    4 -> 9[label = "br"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "if"];
+    6 -> 8[label = "~if"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "end"];
+    9 -> 10[label = "end"];
+}
   (func (;39;) (type 3) (param i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 0 ------------------------------------------------------------
@@ -21840,6 +23047,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0  5716    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;40;) (type 1) (param i32) (result i32)
     (local i32 i32)
 0 ------------------------------------------------------------
@@ -21963,6 +23175,39 @@ index start   end nesting dest  labels type        succ
    19    70    73     1                end         20                  
    20    73    74     0                end         21                  
    21    74    76    -1                end         22                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 22;
+    node [shape = circle];
+    0 -> 1[label = "block"];
+    1 -> 2[label = "if"];
+    1 -> 6[label = "~if"];
+    2 -> 3[label = "if"];
+    2 -> 5[label = "~if"];
+    3 -> 21[label = "br"];
+    4 -> 5[label = "end"];
+    5 -> 20[label = "else"];
+    6 -> 7[label = "if"];
+    6 -> 8[label = "~if"];
+    7 -> 9[label = "else"];
+    8 -> 9[label = "end"];
+    9 -> 10[label = "if"];
+    9 -> 19[label = "~if"];
+    10 -> 11[label = "loop"];
+    11 -> 12[label = "if"];
+    11 -> 13[label = "~if"];
+    12 -> 14[label = "else"];
+    13 -> 14[label = "end"];
+    14 -> 15[label = "if"];
+    14 -> 16[label = "~if"];
+    15 -> 16[label = "end"];
+    16 -> 17[label = "~br_if"];
+    16 -> 11[color="red" label = "br_if"];
+    17 -> 18[label = "end"];
+    18 -> 19[label = "end"];
+    19 -> 20[label = "end"];
+    20 -> 21[label = "end"];
+    21 -> 22[label = "end"];
+}
   (func (;41;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -22280,6 +23525,48 @@ index start   end nesting dest  labels type        succ
    26   231   232     1                end         27                  
    27   232   252     0                end         28                  
    28   252   256    -1                end         29                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 29;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "block"];
+    3 -> 4[label = "block"];
+    4 -> 5[label = "if"];
+    4 -> 6[label = "~if"];
+    5 -> 7[label = "else"];
+    6 -> 7[label = "end"];
+    7 -> 8[label = "~br_if"];
+    7 -> 27[label = "br_if"];
+    8 -> 9[label = "loop"];
+    9 -> 10[label = "if"];
+    9 -> 21[label = "~if"];
+    10 -> 11[label = "if"];
+    10 -> 12[label = "~if"];
+    11 -> 12[label = "end"];
+    12 -> 13[label = "if"];
+    12 -> 14[label = "~if"];
+    13 -> 15[label = "else"];
+    14 -> 15[label = "end"];
+    15 -> 16[label = "if"];
+    15 -> 17[label = "~if"];
+    16 -> 18[label = "else"];
+    17 -> 18[label = "end"];
+    18 -> 19[label = "~br_if"];
+    18 -> 27[label = "br_if"];
+    19 -> 9[color="red" label = "br"];
+    20 -> 21[label = "end"];
+    21 -> 22[label = "end"];
+    22 -> 23[label = "if"];
+    22 -> 24[label = "~if"];
+    23 -> 25[label = "else"];
+    24 -> 25[label = "end"];
+    25 -> 28[label = "br"];
+    26 -> 27[label = "end"];
+    27 -> 28[label = "end"];
+    28 -> 29[label = "end"];
+}
   (func (;42;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 0 ------------------------------------------------------------
@@ -28232,6 +29519,40 @@ index start   end nesting dest  labels type        succ
    21  5790  5791     0                else        23                  
    22  5791  5796     0                end         23                  
    23  5796  5901    -1                end         24                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 24;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 24[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "if"];
+    3 -> 22[label = "~if"];
+    4 -> 5[label = "loop"];
+    5 -> 6[label = "if"];
+    5 -> 7[label = "~if"];
+    6 -> 8[label = "else"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "if"];
+    8 -> 16[label = "~if"];
+    9 -> 10[label = "loop"];
+    10 -> 11[label = "if"];
+    10 -> 13[label = "~if"];
+    11 -> 10[color="red" label = "br"];
+    12 -> 14[label = "else"];
+    13 -> 14[label = "end"];
+    14 -> 15[label = "end"];
+    15 -> 17[label = "else"];
+    16 -> 17[label = "end"];
+    17 -> 18[label = "if"];
+    17 -> 20[label = "~if"];
+    18 -> 5[color="red" label = "br"];
+    19 -> 20[label = "end"];
+    20 -> 21[label = "end"];
+    21 -> 23[label = "else"];
+    22 -> 23[label = "end"];
+    23 -> 24[label = "end"];
+}
   (func (;43;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 0 ------------------------------------------------------------
@@ -32939,6 +34260,43 @@ index start   end nesting dest  labels type        succ
    22  4595  4596     0                else        24                  
    23  4596  4599     0                end         24                  
    24  4599  4654    -1                end         25                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 25;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 5[label = "~if"];
+    3 -> 25[label = "return"];
+    4 -> 5[label = "end"];
+    5 -> 6[label = "if"];
+    5 -> 23[label = "~if"];
+    6 -> 7[label = "loop"];
+    7 -> 8[label = "if"];
+    7 -> 9[label = "~if"];
+    8 -> 10[label = "else"];
+    9 -> 10[label = "end"];
+    10 -> 11[label = "if"];
+    10 -> 18[label = "~if"];
+    11 -> 12[label = "loop"];
+    12 -> 13[label = "~br_if"];
+    12 -> 12[label = "br_if"];
+    13 -> 14[label = "end"];
+    14 -> 15[label = "loop"];
+    15 -> 16[label = "~br_if"];
+    15 -> 15[label = "br_if"];
+    16 -> 17[label = "end"];
+    17 -> 18[label = "end"];
+    18 -> 19[label = "if"];
+    18 -> 21[label = "~if"];
+    19 -> 7[color="red" label = "br"];
+    20 -> 21[label = "end"];
+    21 -> 22[label = "end"];
+    22 -> 24[label = "else"];
+    23 -> 24[label = "end"];
+    24 -> 25[label = "end"];
+}
   (func (;44;) (type 10) (param i32 i32 i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -33518,6 +34876,19 @@ index start   end nesting dest  labels type        succ
     4    62   560     1              0 br_if       5 4                 
     5   560   561     0                end         6                   
     6   561   562    -1                end         7                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 7;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 7[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "loop"];
+    4 -> 5[label = "~br_if"];
+    4 -> 4[label = "br_if"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "end"];
+}
   (func (;45;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32 i64 i64 i64 i64 i64 i64)
 0 ------------------------------------------------------------
@@ -33933,6 +35304,57 @@ index start   end nesting dest  labels type        succ
    33   323   324     1                end         34                  
    34   324   325     0                end         35                  
    35   325   340    -1                end         36                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 36;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 36[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "if"];
+    3 -> 6[label = "~if"];
+    4 -> 36[label = "return"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "loop"];
+    7 -> 8[label = "~br_if"];
+    7 -> 7[label = "br_if"];
+    8 -> 9[label = "end"];
+    9 -> 10[label = "if"];
+    9 -> 12[label = "~if"];
+    10 -> 36[label = "return"];
+    11 -> 12[label = "end"];
+    12 -> 13[label = "loop"];
+    13 -> 14[label = "if"];
+    13 -> 16[label = "~if"];
+    14 -> 13[color="red" label = "br"];
+    15 -> 16[label = "end"];
+    16 -> 17[label = "end"];
+    17 -> 18[label = "loop"];
+    18 -> 19[label = "if"];
+    18 -> 20[label = "~if"];
+    19 -> 20[label = "end"];
+    20 -> 21[label = "if"];
+    20 -> 22[label = "~if"];
+    21 -> 22[label = "end"];
+    22 -> 23[label = "~br_if"];
+    22 -> 18[color="red" label = "br_if"];
+    23 -> 24[label = "end"];
+    24 -> 25[label = "loop"];
+    25 -> 26[label = "if"];
+    25 -> 27[label = "~if"];
+    26 -> 28[label = "else"];
+    27 -> 28[label = "end"];
+    28 -> 29[label = "loop"];
+    29 -> 30[label = "~br_if"];
+    29 -> 29[label = "br_if"];
+    30 -> 31[label = "end"];
+    31 -> 32[label = "if"];
+    31 -> 34[label = "~if"];
+    32 -> 25[color="red" label = "br"];
+    33 -> 34[label = "end"];
+    34 -> 35[label = "end"];
+    35 -> 36[label = "end"];
+}
   (func (;46;) (type 3) (param i32)
 0 ------------------------------------------------------------
 0000    local.get 0
@@ -33940,6 +35362,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0     3    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;47;) (type 5) (param i32 i32) (result i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -33979,6 +35406,17 @@ index start   end nesting dest  labels type        succ
     2    17    21     0   4            if          3 4                 
     3    21    23     0                end         4                   
     4    23    26    -1                end         5                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 5;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+}
   (func (;48;) (type 3) (param i32)
 0 ------------------------------------------------------------
 0000    global.get 4
@@ -33988,6 +35426,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0     5    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;49;) (type 1) (param i32) (result i32)
 0 ------------------------------------------------------------
 0000    i32.const 0
@@ -33996,6 +35439,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0     4    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;50;) (type 6) (param i32 i32)
 0 ------------------------------------------------------------
 0000    global.get 7
@@ -34013,12 +35461,25 @@ index start   end nesting dest  labels type        succ
     0     0     3     0   2            if          1 2                 
     1     3     8     0                end         2                   
     2     8     9    -1                end         3                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 3;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "end"];
+}
   (func (;51;) (type 2) (result i32)
 0 ------------------------------------------------------------
 0000    i32.const 19424)
                           br    target
 index start   end nesting dest  labels type        succ
     0     0     2    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;52;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32)
 0 ------------------------------------------------------------
@@ -34113,6 +35574,22 @@ index start   end nesting dest  labels type        succ
     6    58    64     0                else        8                   
     7    64    68     0                end         8                   
     8    68    73    -1                end         9                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 9;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 5[label = "else"];
+    4 -> 5[label = "end"];
+    5 -> 6[label = "if"];
+    5 -> 7[label = "~if"];
+    6 -> 8[label = "else"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "end"];
+}
   (func (;53;) (type 0) (param i32 i32 i32) (result i32)
     (local i32 i32 i32)
 0 ------------------------------------------------------------
@@ -34191,6 +35668,20 @@ index start   end nesting dest  labels type        succ
     4    46    51     1                end         5                   
     5    51    52     0                end         6                   
     6    52    61    -1                end         7                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 7;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 6[label = "~if"];
+    3 -> 4[label = "if"];
+    3 -> 5[label = "~if"];
+    4 -> 5[label = "end"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "end"];
+}
   (func (;54;) (type 1) (param i32) (result i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -34243,6 +35734,17 @@ index start   end nesting dest  labels type        succ
     2    13    26     0   4            if          3 4                 
     3    26    35     0                end         4                   
     4    35    39    -1                end         5                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 5;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+}
   (func (;55;) (type 6) (param i32 i32)
 0 ------------------------------------------------------------
 0000    local.get 0
@@ -34293,6 +35795,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0    46    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;56;) (type 6) (param i32 i32)
 0 ------------------------------------------------------------
 0000    local.get 0
@@ -34302,6 +35809,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0     5    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;57;) (type 3) (param i32)
 0 ------------------------------------------------------------
 0000    local.get 0
@@ -34349,6 +35861,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0    43    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;58;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 0 ------------------------------------------------------------
@@ -39640,6 +41157,23 @@ index start   end nesting dest  labels type        succ
     7  4890  4891     1                end         8                   
     8  4891  5266     0                end         9                   
     9  5266  5268    -1                end         10                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 10;
+    node [shape = circle];
+    0 -> 1[label = "block"];
+    1 -> 2[label = "if"];
+    1 -> 3[label = "~if"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "loop"];
+    4 -> 5[label = "if"];
+    4 -> 6[label = "~if"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "~br_if"];
+    6 -> 4[color="red" label = "br_if"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "end"];
+    9 -> 10[label = "end"];
+}
   (func (;59;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 0 ------------------------------------------------------------
@@ -44623,6 +46157,27 @@ index start   end nesting dest  labels type        succ
    10  4897  4912     1              0 br_if       11 4                
    11  4912  4913     0                end         12                  
    12  4913  4954    -1                end         13                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 13;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 13[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "loop"];
+    4 -> 5[label = "if"];
+    4 -> 6[label = "~if"];
+    5 -> 7[label = "else"];
+    6 -> 7[label = "end"];
+    7 -> 8[label = "if"];
+    7 -> 9[label = "~if"];
+    8 -> 10[label = "else"];
+    9 -> 10[label = "end"];
+    10 -> 11[label = "~br_if"];
+    10 -> 4[color="red" label = "br_if"];
+    11 -> 12[label = "end"];
+    12 -> 13[label = "end"];
+}
   (func (;60;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64)
 0 ------------------------------------------------------------
@@ -45029,6 +46584,18 @@ index start   end nesting dest  labels type        succ
     3    23    34     0                else        5                   
     4    34    60     0                end         5                   
     5    60   391    -1                end         6                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 6;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 5[label = "else"];
+    4 -> 5[label = "end"];
+    5 -> 6[label = "end"];
+}
   (func (;61;) (type 3) (param i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -45077,6 +46644,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0    43    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;62;) (type 3) (param i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -45128,6 +46700,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0    46    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;63;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
 0 ------------------------------------------------------------
@@ -47459,6 +49036,26 @@ index start   end nesting dest  labels type        succ
     9   268  1978     1              0 br_if       10 9                
    10  1978  1979     0                end         11                  
    11  1979  2304    -1                end         12                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 12;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 5[label = "else"];
+    4 -> 5[label = "end"];
+    5 -> 6[label = "if"];
+    5 -> 7[label = "~if"];
+    6 -> 8[label = "else"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "loop"];
+    9 -> 10[label = "~br_if"];
+    9 -> 9[label = "br_if"];
+    10 -> 11[label = "end"];
+    11 -> 12[label = "end"];
+}
   (func (;64;) (type 6) (param i32 i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -47573,6 +49170,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0   109    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;65;) (type 3) (param i32)
 0 ------------------------------------------------------------
 0000    local.get 0
@@ -47580,6 +49182,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0     3    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;66;) (type 3) (param i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -47691,6 +49298,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0   106    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;67;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -54786,6 +56398,21 @@ index start   end nesting dest  labels type        succ
     6  7029  7072     1              0 br_if       7 6                 
     7  7072  7073     0                end         8                   
     8  7073  7074    -1                end         9                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 9;
+    node [shape = circle];
+    0 -> 1[label = "loop"];
+    1 -> 2[label = "if"];
+    1 -> 4[label = "~if"];
+    2 -> 1[color="red" label = "br"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+    5 -> 6[label = "loop"];
+    6 -> 7[label = "~br_if"];
+    6 -> 6[label = "br_if"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "end"];
+}
   (func (;68;) (type 7) (param i32 i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -62127,6 +63754,33 @@ index start   end nesting dest  labels type        succ
    15  7163  7164     0                else        17                  
    16  7164  7169     0                end         17                  
    17  7169  7302    -1                end         18                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 18;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 18[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "if"];
+    3 -> 16[label = "~if"];
+    4 -> 5[label = "loop"];
+    5 -> 6[label = "if"];
+    5 -> 7[label = "~if"];
+    6 -> 8[label = "else"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "if"];
+    8 -> 10[label = "~if"];
+    9 -> 11[label = "else"];
+    10 -> 11[label = "end"];
+    11 -> 12[label = "if"];
+    11 -> 14[label = "~if"];
+    12 -> 5[color="red" label = "br"];
+    13 -> 14[label = "end"];
+    14 -> 15[label = "end"];
+    15 -> 17[label = "else"];
+    16 -> 17[label = "end"];
+    17 -> 18[label = "end"];
+}
   (func (;69;) (type 6) (param i32 i32)
 0 ------------------------------------------------------------
 0000    local.get 0
@@ -62183,6 +63837,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0    52    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;70;) (type 3) (param i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -62237,6 +63896,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0    49    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;71;) (type 6) (param i32 i32)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -62583,6 +64247,30 @@ index start   end nesting dest  labels type        succ
    12   266   309     1              0 br_if       13 12               
    13   309   310     0                end         14                  
    14   310   313    -1                end         15                  
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 15;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 7[label = "~if"];
+    3 -> 4[label = "if"];
+    3 -> 5[label = "~if"];
+    4 -> 6[label = "else"];
+    5 -> 6[label = "end"];
+    6 -> 8[label = "else"];
+    7 -> 8[label = "end"];
+    8 -> 9[label = "if"];
+    8 -> 10[label = "~if"];
+    9 -> 11[label = "else"];
+    10 -> 11[label = "end"];
+    11 -> 12[label = "loop"];
+    12 -> 13[label = "~br_if"];
+    12 -> 12[label = "br_if"];
+    13 -> 14[label = "end"];
+    14 -> 15[label = "end"];
+}
   (func (;72;) (type 10) (param i32 i32 i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -63151,6 +64839,19 @@ index start   end nesting dest  labels type        succ
     4    51   549     1              0 br_if       5 4                 
     5   549   550     0                end         6                   
     6   550   551    -1                end         7                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 7;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 7[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "loop"];
+    4 -> 5[label = "~br_if"];
+    4 -> 4[label = "br_if"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "end"];
+}
   (func (;73;) (type 9) (param i32 i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -63525,12 +65226,30 @@ index start   end nesting dest  labels type        succ
     4    62   355     1              0 br_if       5 4                 
     5   355   356     0                end         6                   
     6   356   357    -1                end         7                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 7;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 7[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "loop"];
+    4 -> 5[label = "~br_if"];
+    4 -> 4[label = "br_if"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "end"];
+}
   (func (;74;) (type 2) (result i32)
 0 ------------------------------------------------------------
 0000    global.get 5)
                           br    target
 index start   end nesting dest  labels type        succ
     0     0     2    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;75;) (type 8) (param i32 i32 i64)
     (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
 0 ------------------------------------------------------------
@@ -63702,6 +65421,19 @@ index start   end nesting dest  labels type        succ
     4    64   152     1              0 br_if       5 4                 
     5   152   153     0                end         6                   
     6   153   154    -1                end         7                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 7;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 7[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "loop"];
+    4 -> 5[label = "~br_if"];
+    4 -> 4[label = "br_if"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "end"];
+}
   (func (;76;) (type 6) (param i32 i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -63811,6 +65543,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0   104    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;77;) (type 6) (param i32 i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -63974,6 +65711,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0   158    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;78;) (type 7) (param i32 i32 i32)
     (local i32 i32)
 0 ------------------------------------------------------------
@@ -64111,6 +65853,19 @@ index start   end nesting dest  labels type        succ
     4    20   109     1              0 br_if       5 4                 
     5   109   110     0                end         6                   
     6   110   120    -1                end         7                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 7;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 7[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "loop"];
+    4 -> 5[label = "~br_if"];
+    4 -> 4[label = "br_if"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "end"];
+}
   (func (;79;) (type 3) (param i32)
 0 ------------------------------------------------------------
 0000    local.get 0
@@ -64182,6 +65937,11 @@ index start   end nesting dest  labels type        succ
                           br    target
 index start   end nesting dest  labels type        succ
     0     0    67    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;80;) (type 6) (param i32 i32)
     (local i32 i32)
 0 ------------------------------------------------------------
@@ -64304,6 +66064,14 @@ index start   end nesting dest  labels type        succ
     0     0    10     0   2            if          1 2                 
     1    10    13     0                end         2                   
     2    13   113    -1                end         3                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 3;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "end"];
+}
   (func (;81;) (type 7) (param i32 i32 i32)
     (local i32)
 0 ------------------------------------------------------------
@@ -64344,12 +66112,28 @@ index start   end nesting dest  labels type        succ
     2    17    21     0   4            if          3 4                 
     3    21    23     0                end         4                   
     4    23    27    -1                end         5                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 5;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 4[label = "~if"];
+    3 -> 4[label = "end"];
+    4 -> 5[label = "end"];
+}
   (func (;82;) (type 2) (result i32)
 0 ------------------------------------------------------------
 0000    global.get 9)
                           br    target
 index start   end nesting dest  labels type        succ
     0     0     2    -1                end         1                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 1;
+    node [shape = circle];
+    0 -> 1[label = "end"];
+}
   (func (;83;) (type 1) (param i32) (result i32)
     (local i32 i32)
 0 ------------------------------------------------------------
@@ -64380,6 +66164,14 @@ index start   end nesting dest  labels type        succ
     0     0    16     0   2            if          1 2                 
     1    16    19     0                end         2                   
     2    19    21    -1                end         3                   
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 3;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "end"];
+}
   (global (;4;) (mut i32) (0000    global.get 1))
   (global (;5;) (mut i32) (0000    global.get 2))
   (global (;6;) (mut i32) (0000    global.get 3))

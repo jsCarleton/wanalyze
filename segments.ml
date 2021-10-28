@@ -158,4 +158,45 @@ let get_segments (e: expr) : segment list =
   let segments = get_segments' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2; labels=[]; br_dest= -1} in
   set_br_dest segments 0;
   set_successors segments 0;
-  segments              
+  segments
+
+let graph_node (src: int) (dest: int) (label: string): string =
+  match src > dest with
+  | true  -> 
+      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[color=\"red\" label = \""; label; "\"];\n"]
+  | false -> 
+      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label = \""; label; "\"];\n"]
+
+let graph_segment (index: int) (segtype: int) (succ: int list) (last: int): string =
+  match segtype with
+  | (* unreachable *) 0x00 -> ""
+  | (* end *)         0x0b -> graph_node index (List.nth_exn succ 0) "end"
+  | (* block *)       0x02 -> graph_node index (List.nth_exn succ 0) "block"
+  | (* loop *)        0x03 -> graph_node index (List.nth_exn succ 0) "loop"
+  | (* if *)          0x04 ->
+      String.concat [
+        graph_node index (List.nth_exn succ 0) "if";
+        graph_node index (List.nth_exn succ 1) "~if";
+      ]
+  | (* else *)        0x05 -> graph_node index (List.nth_exn succ 0) "else"
+  | (* br_if *)       0x0d ->
+      String.concat [
+        graph_node index (List.nth_exn succ 0) "~br_if";
+        graph_node index (List.nth_exn succ 1) "br_if";
+      ]
+  | (* br *)          0x0c -> graph_node index (List.nth_exn succ 0) "br"
+  | (* br_table *)    0x0e -> "TODO\n"
+  | (* return *)      0x0f -> graph_node index last "return"
+  | _ -> failwith (String.concat ["Unknown segtype to graph: "; string_of_int segtype])
+
+let graph_prefix (last: int) =
+  String.concat["digraph finite_state_machine {\n    node [shape = doublecircle]; 0 ";
+    string_of_int last; ";\n    node [shape = circle];\n"]
+let graph_suffix = "}\n"
+let rec graph_segments' (segments: segment list) (last: int) (acc: string): string =
+  match segments with
+  | [] -> acc
+  | hd::tl -> graph_segments' tl last (String.concat [acc; graph_segment hd.index hd.segtype hd.succ last])
+let graph_segments (segments: segment list): string =
+  let last = (List.length segments) in
+  String.concat [graph_prefix last; graph_segments' segments (List.length segments) ""; graph_suffix]
