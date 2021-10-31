@@ -1,0 +1,75 @@
+Notes on connecting segments
+----------------------------
+do I need a BLOCK segment? Yes
+
+TODO: 
+- make it so that loops end a segment??
+- for every segment set the type and nesting
+- for every END and LOOP segment assign a label
+- for BR, BR_IF, BR_TABLE store the labels in the segment entry
+
+for i = 0; i < segments.length; i++
+	if segments[i].segtype == IF
+		segments[i].succ = [i + 1; end_else_segment(i, segments[i].nesting)]
+	if segments[i].segtype == ELSE
+		segments[i].succ = [end_segment(i, segments[i].nesting)]
+	if segments[i].segtype == BR
+		segments[i].succ = [br_target(segments, i, nesting, segments[i].labels[0])]
+	if segments[i].segtype == BR_IF
+		segments[i].succ = [br_target(segments, i, nesting, segments[i].labels[0]); i + 1]
+	if segments[i].segtype == BR_TABLE
+		segments[i].succ = []
+		for j = 0; j < segments[i].labels.length; j++
+			segments[i].succ = segments[i].succ ++ [br_target(segments, i, nesting, segments[i].labels[i])]
+	if segments[i].segtype == RETURN
+		segments[i].succ = [last_segment(segments)]
+	if segments[i].segtype == LOOP
+		segments[i].succ = [i + 1]
+	if segments[i].segtype == UNREACHABLE
+		segments[i].succ = []
+	if segments[i].segtype == END
+		segments[i].succ = []
+	if segments[i].segtype == LAST
+		segments[i].succ = []
+		
+function end_else_segment(segments, index, nesting): index
+	for (i = index+1; i < segments.length; i++)
+		if (segments[i].segtype == END or ELSE and segments[i].nesting == nesting)
+			return i+1;
+	failwith "No END or ELSE for IF found"
+
+function else_segment(segments, index, nesting): index
+	for (i = index+1; i < segments.length; i++)
+		if (segments[i].segtype == END and segments[i].nesting == nesting)
+			return i+1;
+	failwith "No END for ELSE found"
+	
+function br_target(segments, index, nesting, label)
+	// search backwards for LOOP that's the target of the BR
+	for (i = index-1; i >= 0; i--)
+		if segments[i].segtype == LOOP and segments[i].nesting < nesting and segments[i].label == label
+			return i+1;
+	// if we didn't find it search forwards for an END that's the target of the loops
+	for (i = index+1; i < segments.length; i++)
+		if segments[i].segtype == END and segments[i].nesting < nesting and segments[i].label == label
+			return i+1;
+	failwith "BR target not found"
+	
+function last_segment(segments)
+	return segments.length - 1
+
+label of IF, BLOCK assigned to matching END			
+label of LOOP assigned to following segment			
+
+type segment =
+{
+          start_op:    int;        (* index into e of the first op in the expr *)
+  mutable end_op:      int;        (* index+1 of the last op in the expr *)
+  mutable succ:        list int;   (* segment index for segments that can be directly reached from this segment *)
+  
+		  segtype:	   segment_type; -- could just be an opcode
+		  nesting:	   int;			(* the nesting level of the last opcode in the segment *)
+		  labels:	   list int;	(* the labels used in BR, BR_IF, BR_TABLE instructions *)
+		  label:	   int;			(* the label of the LOOP or END instruction *)
+}
+

@@ -38,21 +38,6 @@ type elemidx = int
 type dataidx = int
 type memidx = int
 
-let string_of_numtype nt =
-  match nt with
-  | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64"
-
-let string_of_reftype rt =
-  match rt with  
-  | Funcref -> "funcref" | Externref -> "externref"
-
-let string_of_resulttype rt =
-  match rt with
-  | Numtype x -> string_of_numtype x
-  | Reftype x -> string_of_reftype x
-
-let string_of_valtype vt = string_of_resulttype vt
-  
 type functype =
 {
   rt1:    resulttype list;
@@ -76,11 +61,6 @@ type memtype = limits
 type mut =
 | Const
 | Var
-
-let string_of_mut m =
-match m with
-| Const -> ""
-| Var -> "mut"
 
 type globaltype = 
 {
@@ -250,27 +230,6 @@ type element =
 
 (* Code, including segments *)
 
-(* Design notes on connecting segments
-----------------------------
-
-TODO: 
-- for every END, BLOCK and LOOP segment assign a label
-
-label of IF, BLOCK assigned to matching END			
-label of LOOP assigned to following segment			
-
-type segment =
-{
-          start_op:    int;        (* index into e of the first op in the expr *)
-  mutable end_op:      int;        (* index+1 of the last op in the expr *)
-  mutable succ:        list int;   (* segment index for segments that can be directly reached from this segment *)
-  
-		  segtype:	   segment_type; -- could just be an opcode
-		  nesting:	   int;			(* the nesting level of the last opcode in the segment *)
-		  label:	   int;			(* the label of the LOOP or END instruction *)
-}
- *)
-
 type segment_type =
   UNR_SEG | IF_SEG | ELSE_SEG | END_SEG | BR_SEG | BRIF_SEG | BRT_SEG | RET_SEG | LOOP_SEG | LAST_SEG
 let segtype_of_opcode (opcode: int) : segment_type =
@@ -296,17 +255,12 @@ type states =
   mutable final:    program_states;
 }
 
-type initial_state =
+type segment_state =
 {
-  pred:       int;           (* the index of the predecessor segment *)
-  pred_state: program_state; (* the state after the predecessor segment was executed *)
-}
-  
-type final_state =
-{
-          succ:       int;           (* the index of the predecessor segment *)
-   (* mutable succ_state: Reduce.program_state; *) (* the state after the predecessor segment was executed *)
-   mutable succ_cond:  string;        (* the expression that must be true in order for this successor state to be entered *)
+  pred:          int;           (* the index of the predecessor segment *)
+  initial_state: program_state; (* the state after the predecessor segment was executed *)
+  final_state:   program_state; (* the state after the predecessor segment was executed *)
+  succ_cond:     string;        (* the expression that must be true in order for the first successor state to be entered *) 
 }
   
 type segment =
@@ -319,8 +273,7 @@ type segment =
   mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
   mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
   mutable br_dest:	  int;			(* for LOOP, BLOCK and IF instructions the segment that's the target of a branch for this instruction  *)
-  mutable initial_states: initial_state list;  (* the possible initial states for this segment *)
-  mutable final_states:   final_state list;    (* the possible final states for this segment *)
+  mutable seg_states: segment_state list;  (* the state info for this segment *)
 }
 
 let rec segments_of_expr' (e: expr) (seg_acc: segment list) (current: segment): segment list =
@@ -350,7 +303,7 @@ match e with
       current.nesting <- (List.hd_exn e).nesting;
       segments_of_expr' (List.tl_exn e) (List.append seg_acc [current]) 
                     {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1;
-                     nesting = -2; labels=[]; br_dest= -1; initial_states = []; final_states = []}
+                     nesting = -2; labels=[]; br_dest= -1; seg_states = []}
     (* 2. all other opcodes get added to the current segment *)
     | _ ->
       current.end_op <- current.end_op + 1;
@@ -436,10 +389,273 @@ match index < List.length segments with
       | _ -> ()
     );
   set_br_dest segments (index+1)
+  
+(* printing the state *)
+let string_of_instr_count (count: int) = String.concat ["  steps: " ; string_of_int count ; "; "]
+let string_of_value_stack (stack: string list) = String.concat ["stack: [" ; (String.concat ~sep:", " stack) ; "]; "]
+let string_of_local_values (locals: string array) = String.concat ["locals: [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]"]
+let string_of_state (state: program_state): string =
+  String.concat [string_of_instr_count state.instr_count ;  string_of_value_stack state.value_stack ; string_of_local_values state.local_values]
+let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:string_of_state ps)
 
+(* Updating the state of the program *)
+let pop_value (state: program_state) =
+  state.value_stack <- List.tl_exn state.value_stack
+
+(* Parametric operators *)
+let update_states_parametricop (op: op_type) (s: states) = 
+  match op.opcode with
+  | 0x1a -> (* drop *)      List.iter ~f:pop_value s.active
+  | 0x1b -> (* select *)    List.iter ~f:pop_value s.active; List.iter ~f:pop_value s.active (* TODO *)
+  | 0x1c -> (* select t* *) List.iter ~f:pop_value s.active; List.iter ~f:pop_value s.active (* TODO *)
+  | _ -> failwith (sprintf "Invalid parametric %x " op.opcode)  
+
+(* Control operators *)
+let state_copy (s: program_state): program_state =
+  {instr_count=s.instr_count; value_stack=s.value_stack; local_values=s.local_values; global_values=s.global_values}
+let states_copy (states: program_states): program_states =
+  List.map ~f:state_copy states
+let push_pending_states (dest: pending_states) (src: program_states option): pending_states =
+  match src with
+  | Some s ->  List.cons (Some (states_copy s)) dest
+  | _ -> List.cons None dest
+let pop_pending_states (src: pending_states): program_states =
+  match List.hd_exn src with
+  | Some s -> s
+  | _ -> failwith "Invalid pending states"
+let push_retval (state: program_state) (retval: string) =
+  state.value_stack <- List.cons retval state.value_stack
+
+(* call op handling *)
+let update_state_callop fidx (param_count: int) (retval_count: int) (state: program_state) =
+   printf "Calling %d, nparams: %d, nrets: %d\n" fidx param_count retval_count;
+   state.value_stack <- List.drop state.value_stack param_count;
+  List.iter ~f:(push_retval state) (List.init retval_count ~f:(fun i -> String.concat ["R" ; string_of_int i]))
+let update_states_callop (param_counts: int list) (retval_counts: int list) (op: op_type) (s: states) =
+  (match op.arg with
+  | Funcidx fidx -> 
+       printf "Calling %d\n" fidx;
+       List.iter ~f:(update_state_callop fidx (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx)) s.active;
+  | _ -> failwith "Invalid call argument")
+
+(* call indirect handling*)
+let update_states_callindop (types: functype list) (op: op_type) (s: states) =
+  (match op.arg with
+  | CallIndirect c -> 
+(*        printf "Calling %d\n" fidx;
+ *)       List.iter ~f:(update_state_callop 1 (List.length (List.nth_exn types c.y).rt1) (List.length (List.nth_exn types c.y).rt2)) s.active;
+  | _ -> failwith "Invalid call indirect argument")
+
+(* de-duplication of states WIP *)
+let states_equal (s1: program_state) (s2: program_state): bool =
+  (List.length s1.value_stack) = (List.length s2.value_stack)
+
+let rec filter_unique (dest: program_states) (src: program_state): bool =
+  match dest with
+  | [] -> true
+  | hd::_ when (states_equal hd src) -> false
+  | _::tl -> filter_unique tl src
+let unique_states (dest: program_states) (src: program_states): program_states =
+  List.append dest (List.filter ~f:(filter_unique dest) src)
+
+let update_states_controlop (param_counts: int list) (retval_counts: int list) (types: functype list) (op: op_type) (s: states) = 
+  match op.opcode with
+  (* unreachable, nop - nothing to do *)
+  | 0x00 | 0x01 -> ()
+  (* block *)
+  | 0x02 -> (* TODO *)
+      s.pending <- push_pending_states s.pending None
+  (* loop *)
+  | 0x03 -> (* TODO *)
+      s.pending <- push_pending_states s.pending None
+  (* if - make a copy of our current states on the pending stack *)
+    | 0x04 ->
+        List.iter ~f:pop_value s.active;
+        s.pending <- push_pending_states s.pending (Some s.active)
+  (* else - swap the top of the pending stack and our current states *)
+  | 0x05 ->
+    let current = s.active in
+      s.active <- pop_pending_states s.pending;
+      s.pending <- List.cons (Some current) (List.tl_exn s.pending)
+  (* end - pop states from the pending stack and append to the current states,
+          unless it's the end of the program in which case we append the current
+          states to the final states *)
+  | 0x0b ->
+    (match op.nesting with
+    | -1 -> 
+        s.final <- unique_states s.final (states_copy s.active)
+    |  _ ->
+        (match List.hd_exn s.pending with
+        | Some states -> s.active <- unique_states s.active states
+        | _ -> ());
+        s.pending <- List.tl_exn s.pending
+    )
+  (* br *)
+  | 0x0c -> () (* TODO *)
+  (* br_if *)
+  | 0x0d -> 
+      List.iter ~f:pop_value s.active (* TODO *)
+  (* br_table *)
+  | 0x0e -> List.iter ~f:pop_value s.active (* TODO *)
+  (* return - remember our current states as final states, clear any current states *)
+  | 0x0f -> 
+      s.final <- unique_states s.final (states_copy s.active);
+      s.active <- []
+  (* call *)
+  | 0x10 -> 
+      update_states_callop param_counts retval_counts op s
+  (* call_indirect *)
+  | 0x11 ->
+      update_states_callindop types op s
+  (* all other op codes *)
+  | _ -> failwith "Invalid control op"
+
+(* Variable operators *)
+let int_of_get_argL arg =
+  match arg with
+  | Localidx i -> i
+  | _ -> failwith "Invalid local index"
+let int_of_get_argG arg =
+    match arg with
+    | Globalidx i -> i
+    | _ -> failwith "Invalid global index"
+let update_state_varGLop (op: op_type) (state: program_state) = (* get local *)
+  state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack
+let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
+  let value = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
+  Array.set state.local_values (int_of_get_argL op.arg) value
+let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
+  let value = List.hd_exn state.value_stack in
+  Array.set state.local_values (int_of_get_argL op.arg) value
+let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
+  state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack
+let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
+  let value = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
+  Array.set state.global_values (int_of_get_argG op.arg) value
+
+(* memory operator *)
+let update_state_memloadop (op: op_type) (state: program_state) = 
+  let addr = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
+  state.value_stack <- List.cons (String.concat [op.opname ; "@(" ; addr ; ")"]) state.value_stack
+let update_state_memstoreop (state: program_state) = 
+  state.value_stack <- List.tl_exn state.value_stack
+
+(* constant operators *)
+let string_of_const_arg arg =
+  match arg with
+  | I32value i -> string_of_int i
+  | I64value i -> sprintf "%Ld" i
+  | F32value f -> string_of_float f
+  | F64value f -> string_of_float f
+  | _-> failwith "Invalid const argument"
+let update_state_constop (op: op_type) (state: program_state) =
+  state.value_stack <- List.cons (string_of_const_arg op.arg) state.value_stack
+
+(* unary operators *)
+let update_state_unop (op: op_type) (state: program_state) = 
+  state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
+
+(* binary operators *)
+let update_state_binop (f: string) (state: program_state) =
+  printf "starting update_state_binop %d\n%!" (List.length state.value_stack);
+  state.value_stack <- 
+    List.cons (String.concat ["(" ; (List.nth_exn state.value_stack 0) ; " " ; f ; " " ; (List.nth_exn state.value_stack 1) ; ")"])
+              (List.tl_exn (List.tl_exn state.value_stack));
+  (printf "ending update_state_binop\n%!")
+
+(* test operators *)
+let update_state_testop (op: op_type) (state: program_state) = 
+  state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
+  
+(* rel operators *)
+let update_state_relop (f: string) (state: program_state) =
+  let arg1 = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
+  let arg2 = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
+  state.value_stack <- List.cons (String.concat ["(" ; arg1 ; " " ; f ; " " ; arg2 ; ")"]) state.value_stack
+
+(* cvt operators *)
+let update_state_cvtop (op: op_type) (state: program_state) =
+  match op.opcode with
+  | 0xfc ->
+      state.value_stack <- List.cons (String.concat ["TODO (" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
+  | _ ->
+      state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
+
+(* instruction counter*)
+let update_instr_count (state: program_state) =
+  state.instr_count <- state.instr_count + 1
+
+(* given an instruction, update states *)
+let update_s (s: states) (param_counts: int list) (retval_counts: int list) (types: functype list) (op: op_type) =
+   printf "States: %d " (List.length s.final);
+   List.iter ~f:update_instr_count s.active;
+  match op.instrtype with
+  | Control -> eprintf "type: Control\n";update_states_controlop param_counts retval_counts types op s
+  | Reference -> failwith "Unimplemented reference"
+  | Parametric -> eprintf "type: Parametric\n";update_states_parametricop op s
+  | VariableGL -> eprintf "type: VariableGL\n";List.iter ~f:(update_state_varGLop op) s.active
+  | VariableSL -> eprintf "type: VariableSL\n";List.iter ~f:(update_state_varSLop op) s.active
+  | VariableTL -> eprintf "type: VariableTL\n";List.iter ~f:(update_state_varTLop op) s.active
+  | VariableGG -> eprintf "type: VariableGG\n";List.iter ~f:(update_state_varGGop op) s.active
+  | VariableSG -> eprintf "type: VariableSG\n";List.iter ~f:(update_state_varSGop op) s.active
+  | Table -> failwith "Unimplemented table"
+  | MemoryL -> eprintf "type: MemoryL\n";List.iter ~f:(update_state_memloadop op) s.active
+  | MemoryS -> eprintf "type: MemoryS\n";List.iter ~f:update_state_memstoreop s.active
+  | MemoryM -> eprintf "type: MemoryM\n"; () (* nothing to do in this case *)
+  | Constop -> eprintf "type: Constop\n";List.iter ~f:(update_state_constop op) s.active
+  | Unop -> eprintf "type: Unop\n";List.iter ~f:(update_state_unop op) s.active
+  | Binop f -> eprintf "type: Binop\n";List.iter ~f:(update_state_binop f) s.active
+  | Testop -> eprintf "type: Testop\n";List.iter ~f:(update_state_testop op) s.active
+  | Relop f -> eprintf "type: Relop\n";List.iter ~f:(update_state_binop f) s.active
+  | Cvtop -> eprintf "type: Cvtop\n";List.iter ~f:(update_state_cvtop op) s.active
+
+let local_value n i = 
+  match i >= n with
+  | true -> "??"
+  | _    -> String.concat ["N" ; string_of_int i]
+
+let reduce_fn'' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
+  for index = 0 to (List.length e) -1 do
+(*     printf "Active states: %d%!" (List.length s.active);
+    printf "%s\n%!" (string_of_ps s.active) ;
+    printf "%s\n%!" (string_of_inline_expr [List.nth_exn e index]);
+ *)    update_s s param_counts retval_counts types (List.nth_exn e index)
+  done;
+  s
+
+let rec reduce_fn' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
+    match e with
+    | []     -> s
+    | hd::tl -> 
+(*       printf "%s%!" (string_of_ps s.active);
+      printf "Active states: %d%!" (List.length s.active);
+      printf " %s\n%!" (string_of_inline_expr [List.nth_exn e 0]);
+ *)      update_s s param_counts retval_counts types hd;
+      reduce_fn' tl param_counts retval_counts types s
+
+let param_count  (func_sigs: functype list) (func_idx: int): int =
+    List.length (List.nth_exn func_sigs func_idx).rt1
+let retval_count (func_sigs: functype list) (func_idx: int): int =
+    List.length (List.nth_exn func_sigs func_idx).rt2
+
+let filter_import_fn (imp: import): bool =
+  match imp.description with
+  | Functype _ -> true
+  | _ -> false
+
+let get_import_typeidx (imp: import): typeidx =
+  match imp.description with
+    | Functype idx -> idx
+    | _ -> failwith "Not an import function"
+  
 let segments_of_expr (e: expr) : segment list =
   let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2;
-                                     labels=[]; br_dest= -1; initial_states = []; final_states = []} in
+                                     labels=[]; br_dest= -1; seg_states = []} in
   set_br_dest segments 0;
   set_successors segments 0;
   segments
@@ -497,6 +713,24 @@ type func =
   segments: segment list;
 }
 
+let reduce_fn (f: func) (param_counts: int list) (retval_counts: int list) (types: functype list) (nparams: int) (nlocals: int): states =
+  reduce_fn''
+    f.e param_counts retval_counts types
+    {active=[{instr_count=0;
+                value_stack=[]; 
+                local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
+                global_values=Array.create ~len:2 "abc"}];
+     pending=[];
+     final=[]}
+
+let sum_nlocals acc (l: local_type) = acc + l.n
+let print_reduction (param_counts: int list) (retval_counts: int list) (last_import_idx: funcidx) 
+    (types: functype list) (func_idx: funcidx) (f: func) =
+  let nparams = List.nth_exn param_counts (func_idx+last_import_idx) in
+  let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
+  printf "\n\nStarting state for function %d:, %d parameters %d locals " (func_idx+last_import_idx) nparams nlocals;
+  printf "Final states:\n%s" (string_of_ps (reduce_fn f param_counts retval_counts types nparams nlocals).final)
+     
 (* Globals *)
 type global =
 {
@@ -558,7 +792,16 @@ let create name =
     element_section = []; code_section = []; data_section = [];
     last_import_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
 
+let print_reductions (w: wasm_module) (fn_arg: int) =
+  Gc.set {(Gc.get ()) with verbose = 0x01};
+  let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
+  let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
+  let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
+  match fn_arg with
+  | -1 -> List.iteri ~f:(print_reduction param_counts retval_counts w.last_import_func w.type_section) w.code_section
+  | _ -> print_reduction param_counts retval_counts w.last_import_func w.type_section fn_arg (List.nth_exn w.code_section fn_arg)
 
+    
 (* Section updating *)
 (* type section *)
 let update_type_section w (rt1, rt2) =

@@ -463,7 +463,7 @@ let read_valtype ic = valtype_of_int (read_byte ic)
 let read_local ic = (fun _ ->
   let n = uLEB ic 32 in
   let v = read_valtype ic in
-  eprintf "local count: %d type: %s\n" n (string_of_valtype v); 
+  eprintf "local count: %d type: %s\n" n (Wasm_print.string_of_valtype v); 
   {n; v})
 
 let rec read_expr' ic (nesting: int) (acc_instr: op_type list) : op_type list =
@@ -641,7 +641,7 @@ let processFile file =
    | _     -> printf "Failed\n"
   );
   Wasm_print.print w !show_segments; 
-  Reduce.print_reductions w !fn_arg
+  print_reductions w !fn_arg
 
 let () =
   Arg.parse speclist anon_fun usage_msg;

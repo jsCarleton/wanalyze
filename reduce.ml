@@ -1,15 +1,7 @@
 open Core
 open Wasm_module
 
-(* printing the state *)
-let string_of_instr_count (count: int) = String.concat ["  steps: " ; string_of_int count ; "; "]
-let string_of_value_stack (stack: string list) = String.concat ["stack: [" ; (String.concat ~sep:", " stack) ; "]; "]
-let string_of_local_values (locals: string array) = String.concat ["locals: [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]"]
-let string_of_state (state: program_state): string =
-  String.concat [string_of_instr_count state.instr_count ;  string_of_value_stack state.value_stack ; string_of_local_values state.local_values]
-let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:string_of_state ps)
-
-(* Updating the state of the program *)
+(* (* Updating the state of the program *)
 let pop_value (state: program_state) =
   state.value_stack <- List.tl_exn state.value_stack
 
@@ -233,7 +225,7 @@ let local_value n i =
 let reduce_fn'' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
   for index = 0 to (List.length e) -1 do
     printf "Active states: %d%!" (List.length s.active);
-    printf "%s\n%!" (string_of_ps s.active) ;
+    printf "%s\n%!" (Wasm_print.string_of_ps s.active) ;
     printf "%s\n%!" (Wasm_print.string_of_inline_expr [List.nth_exn e index]);
     update_s s param_counts retval_counts types (List.nth_exn e index)
   done;
@@ -243,7 +235,7 @@ let rec reduce_fn' (e: expr) (param_counts: int list) (retval_counts: int list) 
     match e with
     | []     -> s
     | hd::tl -> 
-      printf "%s%!" (string_of_ps s.active);
+      printf "%s%!" (Wasm_print.string_of_ps s.active);
       printf "Active states: %d%!" (List.length s.active);
       printf " %s\n%!" (Wasm_print.string_of_inline_expr [List.nth_exn e 0]);
       update_s s param_counts retval_counts types hd;
@@ -264,7 +256,7 @@ let print_reduction (param_counts: int list) (retval_counts: int list) (last_imp
   let nparams = List.nth_exn param_counts (func_idx+last_import_idx) in
   let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
   printf "\n\nStarting state for function %d:, %d parameters %d locals " (func_idx+last_import_idx) nparams nlocals;
-  printf "Final states:\n%s" (string_of_ps (reduce_fn f param_counts retval_counts types nparams nlocals).final)
+  printf "Final states:\n%s" (Wasm_print.string_of_ps (reduce_fn f param_counts retval_counts types nparams nlocals).final)
  
 let param_count  (func_sigs: functype list) (func_idx: int): int =
     List.length (List.nth_exn func_sigs func_idx).rt1
@@ -288,4 +280,4 @@ let print_reductions (w: wasm_module) (fn_arg: int) =
   let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
   match fn_arg with
   | -1 -> List.iteri ~f:(print_reduction param_counts retval_counts w.last_import_func w.type_section) w.code_section
-  | _ -> print_reduction param_counts retval_counts w.last_import_func w.type_section fn_arg (List.nth_exn w.code_section fn_arg)
+  | _ -> print_reduction param_counts retval_counts w.last_import_func w.type_section fn_arg (List.nth_exn w.code_section fn_arg) *)
