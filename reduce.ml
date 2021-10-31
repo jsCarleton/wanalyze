@@ -1,25 +1,5 @@
 open Core
 open Wasm_module
-open Wasm_print
-open Segments
-
-(* Program state types *)
-type program_state =
-{
-  mutable instr_count:    int;
-  mutable value_stack:    string list;
-  mutable local_values:   string array;
-  mutable global_values:  string array;
-}
-type program_states = program_state list
-type pending_states = program_states option list
-
-type states =
-{
-  mutable active:   program_states;
-  mutable pending:  pending_states;
-  mutable final:    program_states;
-}
 
 (* printing the state *)
 let string_of_instr_count (count: int) = String.concat ["  steps: " ; string_of_int count ; "; "]
@@ -36,8 +16,8 @@ let pop_value (state: program_state) =
 (* Parametric operators *)
 let update_states_parametricop (op: op_type) (s: states) = 
   match op.opcode with
-  | 0x1a -> (* drop *) List.iter ~f:pop_value s.active
-  | 0x1b -> (* select *) List.iter ~f:pop_value s.active; List.iter ~f:pop_value s.active (* TODO *)
+  | 0x1a -> (* drop *)      List.iter ~f:pop_value s.active
+  | 0x1b -> (* select *)    List.iter ~f:pop_value s.active; List.iter ~f:pop_value s.active (* TODO *)
   | 0x1c -> (* select t* *) List.iter ~f:pop_value s.active; List.iter ~f:pop_value s.active (* TODO *)
   | _ -> failwith (sprintf "Invalid parametric %x " op.opcode)  
 
@@ -213,7 +193,7 @@ let update_state_relop (f: string) (state: program_state) =
 let update_state_cvtop (op: op_type) (state: program_state) =
   match op.opcode with
   | 0xfc ->
-      state.value_stack <- List.cons (String.concat [(string_of_arg op.arg) ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
+      state.value_stack <- List.cons (String.concat [(Wasm_print.string_of_arg op.arg) ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
   | _ ->
       state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
 
@@ -254,7 +234,7 @@ let reduce_fn'' (e: expr) (param_counts: int list) (retval_counts: int list) (ty
   for index = 0 to (List.length e) -1 do
     printf "Active states: %d%!" (List.length s.active);
     printf "%s\n%!" (string_of_ps s.active) ;
-    printf "%s\n%!" (string_of_inline_expr [List.nth_exn e index]);
+    printf "%s\n%!" (Wasm_print.string_of_inline_expr [List.nth_exn e index]);
     update_s s param_counts retval_counts types (List.nth_exn e index)
   done;
   s
@@ -265,7 +245,7 @@ let rec reduce_fn' (e: expr) (param_counts: int list) (retval_counts: int list) 
     | hd::tl -> 
       printf "%s%!" (string_of_ps s.active);
       printf "Active states: %d%!" (List.length s.active);
-      printf " %s\n%!" (string_of_inline_expr [List.nth_exn e 0]);
+      printf " %s\n%!" (Wasm_print.string_of_inline_expr [List.nth_exn e 0]);
       update_s s param_counts retval_counts types hd;
       reduce_fn' tl param_counts retval_counts types s
 let reduce_fn (f: func) (param_counts: int list) (retval_counts: int list) (types: functype list) (nparams: int) (nlocals: int): states =
@@ -278,15 +258,18 @@ let reduce_fn (f: func) (param_counts: int list) (retval_counts: int list) (type
      pending=[];
      final=[]}
 
-let sum_nlocals acc l = acc + l.n
-let print_reduction (param_counts: int list) (retval_counts: int list) (last_import_idx: funcidx) (types: functype list) (func_idx: funcidx) (f: func) =
+let sum_nlocals acc (l: local_type) = acc + l.n
+let print_reduction (param_counts: int list) (retval_counts: int list) (last_import_idx: funcidx) 
+    (types: functype list) (func_idx: funcidx) (f: func) =
   let nparams = List.nth_exn param_counts (func_idx+last_import_idx) in
   let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
   printf "\n\nStarting state for function %d:, %d parameters %d locals " (func_idx+last_import_idx) nparams nlocals;
   printf "Final states:\n%s" (string_of_ps (reduce_fn f param_counts retval_counts types nparams nlocals).final)
  
-let param_count  (func_sigs: functype list) (func_idx: int): int = List.length (List.nth_exn func_sigs func_idx).rt1
-let retval_count (func_sigs: functype list) (func_idx: int): int = List.length (List.nth_exn func_sigs func_idx).rt2
+let param_count  (func_sigs: functype list) (func_idx: int): int =
+    List.length (List.nth_exn func_sigs func_idx).rt1
+let retval_count (func_sigs: functype list) (func_idx: int): int =
+    List.length (List.nth_exn func_sigs func_idx).rt2
 
 let filter_import_fn (imp: import): bool =
   match imp.description with
@@ -298,7 +281,8 @@ let get_import_typeidx (imp: import): typeidx =
     | Functype idx -> idx
     | _ -> failwith "Not an import function"
   
-let print_reductions (w: wasm_module) (fn_arg: int) = Gc.set {(Gc.get ()) with verbose = 0x01};
+let print_reductions (w: wasm_module) (fn_arg: int) =
+  Gc.set {(Gc.get ()) with verbose = 0x01};
   let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
   let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
   let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in

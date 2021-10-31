@@ -1,0 +1,14 @@
+Design notes on analyzing the wasm module once the in-memory data structures representing it have been created.
+
+This is about analyzing functions.
+- rename get_segments to segments_of_expr
+- update the func definition to contain the segment definitions
+type func =
+{
+  locals:   local_type list;
+  e:        expr;
+  (* new *)
+  segments: list Segments.segment;
+}
+- change update_code_section to call segments_of_expr
+- when printing a function use the segments from the func

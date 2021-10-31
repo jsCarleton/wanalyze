@@ -1,0 +1,39 @@
+Design Notes for reducing a segment
+
+- add a fn reduce_segment that takes a segment and an initial_state
+  and produces the final_state that's created by the code of the segment
+- add a fn that traverses a segment graph and determines the updated state for each successor segment
+  for now, run 2 passes through the graph: one to determine the update state for downstream segments
+  and a second to do it for upstream segments;
+- update the segment record as follows (to keep track of program states and the conditions for execution):
+
+(* new types *)
+type initial_state =
+{
+  pred:       int;              (* the index of the predecessor segment *)
+  pred_state: program_state     (* the state after the predecessor segment was executed *)
+}
+type final_state =
+{
+          succ:       int;          (* the index of the predecessor segment *)
+  mutable succ_state: program_state (* the state after the predecessor segment was executed *)
+  mutable succ_cond:  string        (* the expression that must be true in order for this successor state to be entered *)
+}
+type segment =
+{
+          index:      int;      (* the index of this segment in the list of segments, makes things easier to have this *)
+          start_op:   int;      (* index into e of the first op in the expr *)
+  mutable end_op:     int;      (* index+1 of the last op in the expr *)
+  (* move succ into final_states
+  mutable succ:       int list; (* segment index for segments that can be directly reached from this segment *)
+  *)
+  mutable segtype:	  int;      (* the control opcode that created this segment *)
+  mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
+  mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
+  mutable br_dest:	  int;		(* for LOOP, BLOCK and IF instructions the segment that's the target of a branch for this instruction  *)
+  (* new fields *)
+  mutable initial_states: initial_state list;  (* the possible initial states for this segment *)
+  mutable final_states:   final_state list;  (* the possible final states for this segment *)
+}
+
+- when printing a segment print state and condition info

@@ -1,7 +1,5 @@
 open Core
 open Wasm_module
-open Reduce
-open Wasm_print
 
 (* TODO: 
     - make eprintfs look at verbose flag 
@@ -576,7 +574,7 @@ let read_code ic w =
   (* func *)
   let locals = read_vec ic (read_local ic) in
   let e = read_expr ic in
-  eprintf "locals %s\n" (string_of_locals locals);
+  eprintf "locals %s\n" (Wasm_print.string_of_locals locals);
   update_code_section w locals e;
   true
 
@@ -643,8 +641,7 @@ let processFile file =
    | _     -> printf "Failed\n"
   );
   Wasm_print.print w !show_segments; 
-  print_reductions w !fn_arg
-
+  Reduce.print_reductions w !fn_arg
 
 let () =
   Arg.parse speclist anon_fun usage_msg;

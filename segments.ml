@@ -1,5 +1,4 @@
 open Core
-open Wasm_module
 
 (* Design notes on connecting segments
 ----------------------------
@@ -21,7 +20,7 @@ type segment =
 		  label:	   int;			(* the label of the LOOP or END instruction *)
 }
  *)
-
+(* 
 type segment_type =
   UNR_SEG | IF_SEG | ELSE_SEG | END_SEG | BR_SEG | BRIF_SEG | BRT_SEG | RET_SEG | LOOP_SEG | LAST_SEG
 let segtype_of_opcode (opcode: int) : segment_type =
@@ -29,6 +28,19 @@ let segtype_of_opcode (opcode: int) : segment_type =
   | 0x00 -> UNR_SEG | 0x03 -> LOOP_SEG | 0x04 -> IF_SEG | 0x05 -> ELSE_SEG | 0x0b -> END_SEG | 0x0c -> BR_SEG | 0x0d -> BRIF_SEG
   | 0x0e -> BRT_SEG | 0x0f -> RET_SEG  | _ -> failwith (String.concat ["Invalid segment type: "; string_of_int opcode])
 
+type initial_state =
+{
+  pred:       int;           (* the index of the predecessor segment *)
+  (* pred_state: Reduce.program_state; *) (* the state after the predecessor segment was executed *)
+}
+  
+type final_state =
+{
+          succ:       int;           (* the index of the predecessor segment *)
+   (* mutable succ_state: Reduce.program_state; *) (* the state after the predecessor segment was executed *)
+   mutable succ_cond:  string;        (* the expression that must be true in order for this successor state to be entered *)
+}
+  
 type segment =
 {
           index:      int;      (* the index of this segment in the list of segments, makes things easier to have this *)
@@ -39,9 +51,11 @@ type segment =
   mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
   mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
   mutable br_dest:	  int;			(* for LOOP, BLOCK and IF instructions the segment that's the target of a branch for this instruction  *)
-  }
+  mutable initial_states: initial_state list;  (* the possible initial states for this segment *)
+  mutable final_states:   final_state list;    (* the possible final states for this segment *)
+}
 
-let rec get_segments' (e: expr) (seg_acc: segment list) (current: segment): segment list =
+let rec get_segments (e: Wasm_module.expr) (seg_acc: segment list) (current: segment): segment list =
 match e with
 | [] -> seg_acc
 | _  ->
@@ -66,12 +80,13 @@ match e with
       (* 1.2 end the segment, start a new one*)
       current.segtype <- (List.hd_exn e).opcode;
       current.nesting <- (List.hd_exn e).nesting;
-      get_segments' (List.tl_exn e) (List.append seg_acc [current]) 
-                    {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1; nesting = -2; labels=[]; br_dest= -1}
+      get_segments (List.tl_exn e) (List.append seg_acc [current]) 
+                    {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1;
+                     nesting = -2; labels=[]; br_dest= -1; initial_states = []; final_states = []}
     (* 2. all other opcodes get added to the current segment *)
     | _ ->
       current.end_op <- current.end_op + 1;
-      get_segments' (List.tl_exn e) seg_acc current
+      get_segments (List.tl_exn e) seg_acc current
 
 let rec get_end_else_segment (segments: segment list) (index: int) (nesting: int): int =
   match (List.nth_exn segments index).segtype with
@@ -154,8 +169,9 @@ match index < List.length segments with
     );
   set_br_dest segments (index+1)
 
-let get_segments (e: expr) : segment list =
-  let segments = get_segments' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2; labels=[]; br_dest= -1} in
+let segments_of_expr (e: Wasm_module.expr) : segment list =
+  let segments = get_segments e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2;
+                                     labels=[]; br_dest= -1; initial_states = []; final_states = []} in
   set_br_dest segments 0;
   set_successors segments 0;
   segments
@@ -199,4 +215,4 @@ let rec graph_segments' (segments: segment list) (last: int) (acc: string): stri
   | hd::tl -> graph_segments' tl last (String.concat [acc; graph_segment hd.index hd.segtype hd.succ last])
 let graph_segments (segments: segment list): string =
   let last = (List.length segments) in
-  String.concat [graph_prefix last; graph_segments' segments (List.length segments) ""; graph_suffix]
+  String.concat [graph_prefix last; graph_segments' segments (List.length segments) ""; graph_suffix] *)

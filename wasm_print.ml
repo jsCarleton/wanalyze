@@ -133,9 +133,9 @@ let string_of_arg a  =
   | 0 -> ""
   | _ -> String.concat [" " ; argstring]
 
-let string_of_opcode' op idx comment =
-String.concat ["\n" ; sprintf "%4.4d" idx; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
-let string_of_opcode e idx =
+let string_of_opcode' (op: op_type) idx comment =
+  String.concat ["\n" ; sprintf "%4.4d" idx; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
+let string_of_opcode (e: expr) (idx: int) =
   let op = List.nth e idx in
   match op with
   | Some op -> 
@@ -162,7 +162,7 @@ let segment_sep show_segments index =
   | true -> String.concat ["\n"; string_of_int index; " ------------------------------------------------------------"]
   | _ -> ""
 
-let rec string_of_expr' e show_segments (segments: Segments.segment list) idx acc =
+let rec string_of_expr' e show_segments (segments: segment list) idx acc =
   match idx < (List.length e) with
   | true -> 
     (match segments with
@@ -174,24 +174,17 @@ let rec string_of_expr' e show_segments (segments: Segments.segment list) idx ac
     | _ -> string_of_expr' e show_segments segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
     )
   | false -> acc
-let string_of_expr e show_segments = 
-  string_of_expr' e show_segments (match show_segments with | true -> (Segments.get_segments e) | _ -> []) 0 ""
+let string_of_expr e segments show_segments = 
+  string_of_expr' e show_segments (match show_segments with | true -> segments | _ -> []) 0 ""
 
 let string_of_code w idx show_segments =
-  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr (List.nth_exn w.code_section idx).e show_segments)]
+  let f = List.nth_exn w.code_section idx in
+  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr f.e f.segments show_segments)]
 
 let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
 let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
 let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
 let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
-
-type segment =
-{
-          start_op:    int;         (* index into e of the first op in the expr *)
-  mutable end_op:      int;         (* index+1 of the last op in the expr *)
-  mutable succ:        int list;    (* segment index for segments that can be directly reached from this segment *)
-  mutable segtype:	   int;         (* the control opcode that created this segment *)
- }
 
 let string_of_segtype (segtype: int) : string =
   match segtype with
@@ -210,22 +203,22 @@ let string_of_segtype (segtype: int) : string =
 let string_of_segindex (i: int) : string = match i with | -1 -> "" | _ -> string_of_int i
 let string_of_ints (ints: int list): string =
     String.concat ~sep:" " (List.map ~f:string_of_int ints)
-let string_of_segment (s: Segments.segment) : string = 
+let string_of_segment (s: segment) : string = 
   sprintf "%5d %5d %5d %5d   %-5s %6s %-11s %-20s\n" 
     s.index s.start_op s.end_op s.nesting (string_of_segindex s.br_dest) (string_of_ints s.labels) (string_of_segtype s.segtype) (string_of_ints s.succ)
-let string_of_segments (s: Segments.segment list) : string =
+let string_of_segments (s: segment list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ\n";
                  String.concat (List.map ~f:string_of_segment s)]
 
 let string_of_function w show_segments i idx = 
-  let segments = (Segments.get_segments (List.nth_exn w.code_section i).e) in
+  let segments = (List.nth_exn w.code_section i).segments in
   String.concat [
     "  (func (;" ; string_of_int (i + w.last_import_func) ; ";) (type " ; string_of_int idx ; ")" 
     ; string_of_types "param" (get_type_sig w idx).rt1
     ; string_of_types "result" (get_type_sig w idx).rt2
     ; string_of_code w i show_segments ; ")\n" 
     ; string_of_segments segments
-    ; Segments.graph_segments segments]
+    ; graph_segments segments]
 let string_of_function_section w show_segments = 
   String.concat ~sep:"" (List.mapi ~f:(string_of_function w show_segments) w.function_section)
 
@@ -238,7 +231,7 @@ let string_of_memory i (m: memtype) = String.concat [(string_of_memtype m i) ; "
 let string_of_memory_section section = String.concat ~sep:"" (List.mapi ~f:string_of_memory section)
 
 (* Global section *)
-let string_of_inline_expr e = String.strip (string_of_expr e false)
+let string_of_inline_expr e = String.strip (string_of_expr e [] false)
 let string_of_global (g: global) =
   String.concat ["  (global (;" ; string_of_int g.index ; ";) " ; "(" ; (string_of_mut g.gt.m) ; " " ; (string_of_valtype g.gt.t) 
   ; ") (" ; (string_of_inline_expr g.e) ; "))\n"]
