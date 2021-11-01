@@ -257,10 +257,10 @@ type states =
 
 type segment_state =
 {
-  pred:          int;           (* the index of the predecessor segment *)
-  initial_state: program_state; (* the state after the predecessor segment was executed *)
-  final_state:   program_state; (* the state after the predecessor segment was executed *)
-  succ_cond:     string;        (* the expression that must be true in order for the first successor state to be entered *) 
+  pred:       int;            (* the index of the predecessor segment *)
+  initial:    program_state;  (* the state after the predecessor segment was executed *)
+  final:      program_state;  (* the state after the predecessor segment was executed *)
+  succ_cond:  string;         (* the expression that must be true in order for the first successor state to be entered *) 
 }
   
 type segment =
@@ -399,8 +399,7 @@ let string_of_state (state: program_state): string =
 let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:string_of_state ps)
 
 (* Updating the state of the program *)
-let pop_value (state: program_state) =
-  state.value_stack <- List.tl_exn state.value_stack
+let pop_value (state: program_state) = state.value_stack <- List.tl_exn state.value_stack
 
 (* Parametric operators *)
 let update_state_parametricop (op: op_type) (s: program_state) = 
@@ -587,8 +586,7 @@ let update_state_cvtop (op: op_type) (state: program_state) =
       state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
 
 (* instruction counter*)
-let update_instr_count (state: program_state) =
-  state.instr_count <- state.instr_count + 1
+let update_instr_count (state: program_state) = state.instr_count <- state.instr_count + 1
 
 (* given an instruction, update states *)
 let update_s (s: states) (param_counts: int list) (retval_counts: int list) (types: functype list) (op: op_type) =
@@ -653,37 +651,54 @@ let get_import_typeidx (imp: import): typeidx =
     | Functype idx -> idx
     | _ -> failwith "Not an import function"
 
-let reduce_op (s: program_state) (op: op_type): program_state =
-(match op.instrtype with
-  | Control -> () (* nothing to do *)
-  | Reference -> failwith "Unimplemented reference"
-  | Parametric -> update_state_parametricop op s
-  | VariableGL -> update_state_varGLop op s
-  | VariableSL -> update_state_varSLop op s
-  | VariableTL -> update_state_varTLop op s
-  | VariableGG -> update_state_varGGop op s
-  | VariableSG -> update_state_varSGop op s
-  | Table -> failwith "Unimplemented table"
-  | MemoryL -> update_state_memloadop op s
-  | MemoryS -> update_state_memstoreop s
-  | MemoryM -> () (* nothing to do in this case *)
-  | Constop -> update_state_constop op s
-  | Unop -> update_state_unop op s
-  | Binop f -> update_state_binop f s
-  | Testop -> update_state_testop op s
-  | Relop f -> update_state_binop f s
-  | Cvtop -> update_state_cvtop op s
-); s
+let update_state_controlop (op: op_type) (s: program_state): string = 
+  match op.opcode with
+  (* unreachable, nop, block, loop, else, end, br, return - nothing to do *)
+  | 0x00 | 0x01 | 0x02 | 0x03 | 0x05 | 0x0b | 0x0c | 0x0f -> ""
+  (* if, br_if, br_table - get the condition from the top of the stack *) (* TODO fix br_table *)
+  | 0x04 | 0x0d | 0x0e ->
+      let succ_cond = (List.hd_exn s.value_stack) in
+      s.value_stack <- (List.tl_exn s.value_stack);
+      succ_cond
+  (* call *)
+  | 0x10 -> "" (* TODO *)
+  (* call_indirect *)
+  | 0x11 -> "" (* TODO *)
+  (* all other op codes *)
+  | _ -> failwith "Invalid control op"
+    
+let reduce_op (s: program_state) (op: op_type): string =
+  match op.instrtype with
+    | Control -> update_state_controlop op s
+    | Reference -> failwith "Unimplemented reference"
+    | Parametric -> update_state_parametricop op s; ""
+    | VariableGL -> update_state_varGLop op s; ""
+    | VariableSL -> update_state_varSLop op s; ""
+    | VariableTL -> update_state_varTLop op s; ""
+    | VariableGG -> update_state_varGGop op s; ""
+    | VariableSG -> update_state_varSGop op s; ""
+    | Table -> failwith "Unimplemented table"
+    | MemoryL -> update_state_memloadop op s; ""
+    | MemoryS -> update_state_memstoreop s; ""
+    | MemoryM -> "" (* nothing to do in this case *)
+    | Constop -> update_state_constop op s; ""
+    | Unop -> update_state_unop op s; ""
+    | Binop f -> update_state_binop f s; ""
+    | Testop -> update_state_testop op s; ""
+    | Relop f -> update_state_binop f s; ""
+    | Cvtop -> update_state_cvtop op s; ""
  
-let rec reduce_segment' (s: program_state) (e: expr) : program_state =
+let rec reduce_segment' (s: program_state) (succ_cond: string) (e: expr) : string =
   match e with
-  | []      -> s
-  | hd::tl  -> reduce_segment' (reduce_op s hd) tl
+  | []      -> succ_cond
+  | hd::tl  -> reduce_segment' s (reduce_op s hd) tl
 
-let reduce_segment (e: expr) (i: program_state): program_state =
-  reduce_segment'
-     {instr_count = 0; value_stack=i.value_stack; local_values=i.local_values; global_values=i.global_values}
-     e
+let reduce_segment (e: expr) (i: program_state): program_state*string =
+  let f = {instr_count = 0; value_stack=i.value_stack; local_values=i.local_values; global_values=i.global_values} in
+  f, reduce_segment' f "" e
+
+let reduce_segments (_: segment list) = () (* TODO *)
+  (* forward pass to reduce all successor *)
 
 let segments_of_expr (e: expr) : segment list =
   let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2;
@@ -691,7 +706,6 @@ let segments_of_expr (e: expr) : segment list =
   set_br_dest segments 0;
   set_successors segments 0;
   segments
-
 
 let graph_node (src: int) (dest: int) (label: string): string =
   match src > dest with

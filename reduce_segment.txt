@@ -2,6 +2,7 @@ Design Notes for reducing a segment
 
 - add a fn reduce_segment that takes a segment and an initial_state
   and produces the final_state that's created by the code of the segment
+  also update succ_cond if the segment ends in a branch condition
 - add a fn that traverses a segment graph and determines the updated state for each successor segment
   for now, run 2 passes through the graph: one to determine the update state for downstream segments
   and a second to do it for upstream segments;
