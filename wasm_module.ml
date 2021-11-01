@@ -651,7 +651,7 @@ let get_import_typeidx (imp: import): typeidx =
     | Functype idx -> idx
     | _ -> failwith "Not an import function"
 
-let update_state_controlop (op: op_type) (s: program_state): string = 
+let update_state_controlop (op: op_type) (s: program_state) (param_counts: int list) (retval_counts: int list): string = 
   match op.opcode with
   (* unreachable, nop, block, loop, else, end, br, return - nothing to do *)
   | 0x00 | 0x01 | 0x02 | 0x03 | 0x05 | 0x0b | 0x0c | 0x0f -> ""
@@ -661,41 +661,51 @@ let update_state_controlop (op: op_type) (s: program_state): string =
       s.value_stack <- (List.tl_exn s.value_stack);
       succ_cond
   (* call *)
-  | 0x10 -> "" (* TODO *)
+  | 0x10 ->
+    (match op.arg with
+    | Funcidx fidx -> 
+        update_state_callop fidx (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx) s
+    | _ -> failwith "Invalid call argument"); ""
   (* call_indirect *)
   | 0x11 -> "" (* TODO *)
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
     
-let reduce_op (s: program_state) (op: op_type): string =
+let reduce_op (s: program_state) (op: op_type) (param_counts: int list) (retval_counts: int list): string =
   match op.instrtype with
-    | Control -> update_state_controlop op s
-    | Reference -> failwith "Unimplemented reference"
-    | Parametric -> update_state_parametricop op s; ""
-    | VariableGL -> update_state_varGLop op s; ""
-    | VariableSL -> update_state_varSLop op s; ""
-    | VariableTL -> update_state_varTLop op s; ""
-    | VariableGG -> update_state_varGGop op s; ""
-    | VariableSG -> update_state_varSGop op s; ""
-    | Table -> failwith "Unimplemented table"
-    | MemoryL -> update_state_memloadop op s; ""
-    | MemoryS -> update_state_memstoreop s; ""
-    | MemoryM -> "" (* nothing to do in this case *)
-    | Constop -> update_state_constop op s; ""
-    | Unop -> update_state_unop op s; ""
-    | Binop f -> update_state_binop f s; ""
-    | Testop -> update_state_testop op s; ""
-    | Relop f -> update_state_binop f s; ""
-    | Cvtop -> update_state_cvtop op s; ""
+    | Control -> update_state_controlop op s param_counts retval_counts
+    | _ ->
+      (match op.instrtype with
+      | Reference ->  failwith "Unimplemented reference"
+      | Parametric -> update_state_parametricop op s
+      | VariableGL -> update_state_varGLop op s
+      | VariableSL -> update_state_varSLop op s
+      | VariableTL -> update_state_varTLop op s
+      | VariableGG -> update_state_varGGop op s
+      | VariableSG -> update_state_varSGop op s
+      | Table ->      failwith "Unimplemented table"
+      | MemoryL ->    update_state_memloadop op s
+      | MemoryS ->    update_state_memstoreop s
+      | MemoryM ->    () (* nothing to do in this case *)
+      | Constop ->    update_state_constop op s
+      | Unop ->       update_state_unop op s
+      | Binop f ->    update_state_binop f s
+      | Testop ->     update_state_testop op s
+      | Relop f ->    update_state_binop f s
+      | Cvtop ->      update_state_cvtop op s
+      | Control ->    failwith "Can't happen."
+      ); ""
  
-let rec reduce_segment' (s: program_state) (succ_cond: string) (e: expr) : string =
+let rec reduce_segment' (s: program_state) (e: expr) (succ_cond: string) (param_counts: int list) (retval_counts: int list):
+      string =
   match e with
   | []      -> succ_cond
-  | hd::tl  -> reduce_segment' s (reduce_op s hd) tl
+  | hd::tl  -> reduce_segment' s tl (reduce_op s hd param_counts retval_counts) param_counts retval_counts
 
-let reduce_segment (e: expr) (i: program_state): program_state*string =
+let reduce_segment (e: expr) (i: program_state) (param_counts: int list) (retval_counts: int list):
+      program_state*string =
   let f = {instr_count = 0; value_stack=i.value_stack; local_values=i.local_values; global_values=i.global_values} in
-  f, reduce_segment' f "" e
+  f, reduce_segment' f e "" param_counts retval_counts
 
 let reduce_segments (_: segment list) = () (* TODO *)
   (* forward pass to reduce all successor *)
@@ -832,6 +842,7 @@ type wasm_module =
   mutable next_table:       int;
   mutable next_data:        int;
 }
+
 let create name =
   { module_name = name; data_count = 0;
     type_section = []; import_section = []; function_section = []; table_section = []; 
