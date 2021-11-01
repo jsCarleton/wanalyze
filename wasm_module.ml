@@ -403,11 +403,11 @@ let pop_value (state: program_state) =
   state.value_stack <- List.tl_exn state.value_stack
 
 (* Parametric operators *)
-let update_states_parametricop (op: op_type) (s: states) = 
+let update_state_parametricop (op: op_type) (s: program_state) = 
   match op.opcode with
-  | 0x1a -> (* drop *)      List.iter ~f:pop_value s.active
-  | 0x1b -> (* select *)    List.iter ~f:pop_value s.active; List.iter ~f:pop_value s.active (* TODO *)
-  | 0x1c -> (* select t* *) List.iter ~f:pop_value s.active; List.iter ~f:pop_value s.active (* TODO *)
+  | 0x1a -> (* drop *)      pop_value s
+  | 0x1b -> (* select *)    pop_value s; pop_value s (* TODO *)
+  | 0x1c -> (* select t* *) pop_value s; pop_value s (* TODO *)
   | _ -> failwith (sprintf "Invalid parametric %x " op.opcode)  
 
 (* Control operators *)
@@ -595,9 +595,9 @@ let update_s (s: states) (param_counts: int list) (retval_counts: int list) (typ
    printf "States: %d " (List.length s.final);
    List.iter ~f:update_instr_count s.active;
   match op.instrtype with
-  | Control -> eprintf "type: Control\n";update_states_controlop param_counts retval_counts types op s
+  | Control -> (eprintf "type: Control\n";update_states_controlop param_counts retval_counts types op s)
   | Reference -> failwith "Unimplemented reference"
-  | Parametric -> eprintf "type: Parametric\n";update_states_parametricop op s
+  | Parametric -> eprintf "type: Parametric\n";List.iter ~f:(update_state_parametricop op) s.active
   | VariableGL -> eprintf "type: VariableGL\n";List.iter ~f:(update_state_varGLop op) s.active
   | VariableSL -> eprintf "type: VariableSL\n";List.iter ~f:(update_state_varSLop op) s.active
   | VariableTL -> eprintf "type: VariableTL\n";List.iter ~f:(update_state_varTLop op) s.active
@@ -652,13 +652,46 @@ let get_import_typeidx (imp: import): typeidx =
   match imp.description with
     | Functype idx -> idx
     | _ -> failwith "Not an import function"
-  
+
+let reduce_op (s: program_state) (op: op_type): program_state =
+(match op.instrtype with
+  | Control -> () (* nothing to do *)
+  | Reference -> failwith "Unimplemented reference"
+  | Parametric -> update_state_parametricop op s
+  | VariableGL -> update_state_varGLop op s
+  | VariableSL -> update_state_varSLop op s
+  | VariableTL -> update_state_varTLop op s
+  | VariableGG -> update_state_varGGop op s
+  | VariableSG -> update_state_varSGop op s
+  | Table -> failwith "Unimplemented table"
+  | MemoryL -> update_state_memloadop op s
+  | MemoryS -> update_state_memstoreop s
+  | MemoryM -> () (* nothing to do in this case *)
+  | Constop -> update_state_constop op s
+  | Unop -> update_state_unop op s
+  | Binop f -> update_state_binop f s
+  | Testop -> update_state_testop op s
+  | Relop f -> update_state_binop f s
+  | Cvtop -> update_state_cvtop op s
+); s
+ 
+let rec reduce_segment' (s: program_state) (e: expr) : program_state =
+  match e with
+  | []      -> s
+  | hd::tl  -> reduce_segment' (reduce_op s hd) tl
+
+let reduce_segment (e: expr) (i: program_state): program_state =
+  reduce_segment'
+     {instr_count = 0; value_stack=i.value_stack; local_values=i.local_values; global_values=i.global_values}
+     e
+
 let segments_of_expr (e: expr) : segment list =
   let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2;
                                      labels=[]; br_dest= -1; seg_states = []} in
   set_br_dest segments 0;
   set_successors segments 0;
   segments
+
 
 let graph_node (src: int) (dest: int) (label: string): string =
   match src > dest with
