@@ -726,16 +726,6 @@ let execute_segments' (segments: segment list) (e: expr) (ex_acc: execution list
                                         initial param_counts retval_counts) in
       List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
       
-let execute_segments (segments: segment list) (e: expr): execution list =
-  execute_segments'
-      segments
-      e
-      []
-      0
-      {instr_count=0; value_stack=[]; local_values=Array.create ~len:0 ""; global_values=Array.create ~len:0 ""}
-      []
-      []
-      
 let segments_of_expr (e: expr) : segment list =
   let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2;
                                      labels=[]; br_dest= -1} in
@@ -868,6 +858,17 @@ type wasm_module =
   mutable next_table:       int;
   mutable next_data:        int;
 }
+
+let execute_segments (w: wasm_module) (segments: segment list) (e: expr): execution list =
+  let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
+  execute_segments'
+      segments
+      e
+      []
+      0
+      {instr_count=0; value_stack=[]; local_values=Array.create ~len:0 ""; global_values=Array.create ~len:0 ""}
+      (List.map ~f:(param_count  w.type_section) all_fn_sigs)
+      (List.map ~f:(retval_count w.type_section) all_fn_sigs)
 
 let create name =
   { module_name = name; data_count = 0;
