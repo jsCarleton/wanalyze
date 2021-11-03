@@ -6,7 +6,7 @@ Design Notes for reducing a segment
 - add a fn that traverses a segment graph and determines the updated state for each successor segment
   for now, run 2 passes through the graph: one to determine the update state for downstream segments
   and a second to do it for upstream segments;
-- update the segment record as follows (to keep track of program states and the conditions for execution):
+- add the new execution record that keeps track of program states and the conditions for execution:
 
 (* new types *)
 type segment_states =
@@ -27,8 +27,15 @@ type segment =
   mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
   mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
   mutable br_dest:	  int;		(* for LOOP, BLOCK and IF instructions the segment that's the target of a branch for this instruction  *)
-  (* new fields *)
-  mutable seg_states: segment_state list;  (* the state info for this segment *)
 }
 
+type execution =
+{
+  index:              int;              (* the index of the segment being executed *)
+  pred_index:         int;
+  succ_index:         int;
+  initial:            program_state;    (* the program state before the first instruction of the segment is executed *)
+  mutable final:      program_state;    (* the program state after the last instruction of the segment is executed *)
+  mutable succ_cond:  string;           (* the expression that must be true in order for the first successor state to be entered *) 
+}
 - when printing a segment print state and condition info

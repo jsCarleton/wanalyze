@@ -273,7 +273,16 @@ type segment =
   mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
   mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
   mutable br_dest:	  int;			(* for LOOP, BLOCK and IF instructions the segment that's the target of a branch for this instruction  *)
-  mutable seg_states: segment_state list;  (* the state info for this segment *)
+}
+
+type execution =
+{
+  index:              int;              (* the index of the segment being executed *)
+  pred_index:         int;
+  succ_index:         int;
+  initial:            program_state;    (* the program state before the first instruction of the segment is executed *)
+  mutable final:      program_state;    (* the program state after the last instruction of the segment is executed *)
+  mutable succ_cond:  string;           (* the expression that must be true in order for the first successor state to be entered *) 
 }
 
 let rec segments_of_expr' (e: expr) (seg_acc: segment list) (current: segment): segment list =
@@ -303,7 +312,7 @@ match e with
       current.nesting <- (List.hd_exn e).nesting;
       segments_of_expr' (List.tl_exn e) (List.append seg_acc [current]) 
                     {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1;
-                     nesting = -2; labels=[]; br_dest= -1; seg_states = []}
+                     nesting = -2; labels=[]; br_dest= -1}
     (* 2. all other opcodes get added to the current segment *)
     | _ ->
       current.end_op <- current.end_op + 1;
@@ -707,12 +716,29 @@ let reduce_segment (e: expr) (i: program_state) (param_counts: int list) (retval
   let f = {instr_count = 0; value_stack=i.value_stack; local_values=i.local_values; global_values=i.global_values} in
   f, reduce_segment' f e "" param_counts retval_counts
 
-let reduce_segments (_: segment list) = () (* TODO *)
-  (* forward pass to reduce all successor *)
-
+let execute_segments' (segments: segment list) (e: expr) (ex_acc: execution list) (index: int) (initial: program_state)
+        (param_counts: int list) (retval_counts: int list): execution list =
+  match index < List.length segments with
+  | false -> ex_acc (* done *)
+  | _ ->
+    let s = List.nth_exn segments index in
+    let final, succ_cond = (reduce_segment  (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) 
+                                        initial param_counts retval_counts) in
+      List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
+      
+let execute_segments (segments: segment list) (e: expr): execution list =
+  execute_segments'
+      segments
+      e
+      []
+      0
+      {instr_count=0; value_stack=[]; local_values=Array.create ~len:0 ""; global_values=Array.create ~len:0 ""}
+      []
+      []
+      
 let segments_of_expr (e: expr) : segment list =
   let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2;
-                                     labels=[]; br_dest= -1; seg_states = []} in
+                                     labels=[]; br_dest= -1} in
   set_br_dest segments 0;
   set_successors segments 0;
   segments
