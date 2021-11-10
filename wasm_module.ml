@@ -867,19 +867,35 @@ type wasm_module =
   mutable next_data:        int;
 }
 
-let execute_segments (w: wasm_module) (segments: segment list) (e: expr): execution list =
+let get_size (m: memtype): int =
+match m with
+| Noupper min         -> min
+| Lowerupper (_,max)  -> max
+
+let rec get_memory_size (i:import list): int =
+  match (List.hd_exn i).description with
+  | Memtype m -> (get_size m)
+  | _ -> get_memory_size (List.tl_exn i)
+
+let execute_segments (w: wasm_module) (segments: segment list) (fidx: int) (e: expr): execution list =
   let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
+  let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
+  let retval_counts = List.map ~f:(retval_count w.type_section) all_fn_sigs in
+  let nparams = List.nth_exn param_counts fidx in
+  let nlocals = List.nth_exn retval_counts fidx in
   execute_segments'
       segments    (* sgemnts to execute *)
       [0]         (* index of the segment to start with *)
       e           (* code of those segments *)
       []          (* results of the execution so far *)
-      (* TODO: the state of the program *)
-      {instr_count=0; value_stack=[]; local_values=Array.create ~len:0 ""; global_values=Array.create ~len:0 ""}
+      (* the state of the program *)
+      {instr_count=0; value_stack=[]; 
+        local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
+        global_values=Array.create ~len:(get_memory_size w.import_section) "??"}
       (* parameter count for each function *)
-      (List.map ~f:(param_count  w.type_section) all_fn_sigs)
+      param_counts
       (* return value count for each function *)
-      (List.map ~f:(retval_count w.type_section) all_fn_sigs)
+      retval_counts
 
 let create name =
   { module_name = name; data_count = 0;
