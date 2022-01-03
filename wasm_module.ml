@@ -716,7 +716,7 @@ let reduce_segment (e: expr) (i: program_state) (param_counts: int list) (retval
   let f = {instr_count = 0; value_stack=i.value_stack; local_values=i.local_values; global_values=i.global_values} in
   f, reduce_segment' f e "" param_counts retval_counts
 
-let execute_segments' (segments: segment list) (e: expr) (ex_acc: execution list) (index: int) (initial: program_state)
+let execute_segments'' (segments: segment list) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state)
         (param_counts: int list) (retval_counts: int list): execution list =
   match index < List.length segments with
   | false -> ex_acc (* done *)
@@ -724,7 +724,15 @@ let execute_segments' (segments: segment list) (e: expr) (ex_acc: execution list
     let s = List.nth_exn segments index in
     let final, succ_cond = (reduce_segment  (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) 
                                         initial param_counts retval_counts) in
+      (* TODO call execute_segments'' recursively *)
       List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
+
+let execute_segments' (segments: segment list) (indices: int list) (e: expr) (ex_acc: execution list) (initial: program_state)
+        (param_counts: int list) (retval_counts: int list): execution list =
+  match indices with
+  | [] -> ex_acc
+  (* TODO call execute_segments' recursively *)
+  | hd::_ -> execute_segments'' segments hd e ex_acc initial param_counts retval_counts
       
 let segments_of_expr (e: expr) : segment list =
   let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2;
@@ -859,16 +867,35 @@ type wasm_module =
   mutable next_data:        int;
 }
 
-let execute_segments (w: wasm_module) (segments: segment list) (e: expr): execution list =
+let get_size (m: memtype): int =
+match m with
+| Noupper min         -> min
+| Lowerupper (_,max)  -> max
+
+let rec get_memory_size (i:import list): int =
+  match (List.hd_exn i).description with
+  | Memtype m -> (get_size m)
+  | _ -> get_memory_size (List.tl_exn i)
+
+let execute_segments (w: wasm_module) (segments: segment list) (fidx: int) (e: expr): execution list =
   let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
+  let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
+  let retval_counts = List.map ~f:(retval_count w.type_section) all_fn_sigs in
+  let nparams = List.nth_exn param_counts fidx in
+  let nlocals = List.nth_exn retval_counts fidx in
   execute_segments'
-      segments
-      e
-      []
-      0
-      {instr_count=0; value_stack=[]; local_values=Array.create ~len:0 ""; global_values=Array.create ~len:0 ""}
-      (List.map ~f:(param_count  w.type_section) all_fn_sigs)
-      (List.map ~f:(retval_count w.type_section) all_fn_sigs)
+      segments    (* sgemnts to execute *)
+      [0]         (* index of the segment to start with *)
+      e           (* code of those segments *)
+      []          (* results of the execution so far *)
+      (* the state of the program *)
+      {instr_count=0; value_stack=[]; 
+        local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
+        global_values=Array.create ~len:(get_memory_size w.import_section) "??"}
+      (* parameter count for each function *)
+      param_counts
+      (* return value count for each function *)
+      retval_counts
 
 let create name =
   { module_name = name; data_count = 0;
