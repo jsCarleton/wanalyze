@@ -537,6 +537,7 @@ let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
   let value = List.hd_exn state.value_stack in
   Array.set state.local_values (int_of_get_argL op.arg) value
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
+  (* TODO getting index out of bounds error here *)
   state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
   let value = List.hd_exn state.value_stack in

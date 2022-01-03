@@ -1,9 +1,13 @@
 open Core
+open Easy_logging
 open Wasm_module
 
 (* TODO: 
-    - make eprintfs look at verbose flag 
+    - make logger#info s look at verbose flag 
     - add validation of indices (e.g. functions, types)*)
+
+(* create our logger *)
+let logger = Logging.make_logger "readBin" Debug [ RotatingFile ("readBinLog", Debug, 65536, 2) ]
 
 let usage_msg = "readBin -verbose [-f n] [-s] <file1> <file2> ..."
 let verbose = ref false
@@ -23,18 +27,18 @@ let read_byte ic : int =
     | None -> -1
     | Some x -> 
       match !verbose with
-      | true -> eprintf "!%X!\n" x; x
+      | true -> logger#info  "!%X!" x; x
       | _ -> x
 
 let read_4bytes ic =
   (read_byte ic) lor ((read_byte ic) lsl 8) lor ((read_byte ic) lsl 16) lor ((read_byte ic) lsl 24)
 let read_magic ic = 
   let magic =  read_4bytes ic in
-  eprintf "Magic:   %8.8x\n" magic;
+  logger#info "Magic:   %8.8x" magic;
   magic = 0x0061736d
 let read_version ic = 
   let version = (read_byte ic) lor ((read_byte ic) lsl 8) lor ((read_byte ic) lsl 16) lor ((read_byte ic) lsl 24) in
-  eprintf "Version: %8.8x\n" version;
+  logger#info "Version: %8.8x" version;
   version =0x01000000
 
 let rec skip_bytes ic n =
@@ -106,7 +110,7 @@ let read_vec ic reader = read_vec' ic (read_vec_len ic) reader []
 
 (* Sections consisting of vectors of entries *)
 let rec read_entries ic n w entry_handler =
-   eprintf "%s - section has %d entries left\n" (Time.to_sec_string ~zone:Time.Zone.utc (Time.now ())) n;
+   logger#info  "%s - section has %d entries left" (Time.to_sec_string ~zone:Time.Zone.utc (Time.now ())) n;
   match n with
   | 0 -> true
   | _ ->
@@ -115,20 +119,20 @@ let rec read_entries ic n w entry_handler =
 
 let read_section_length ic = uLEB ic 32
 let read_section ic section entry_handler =
-  eprintf "reading section: \n";  
+  logger#info  "reading section: ";  
   read_section_length ic >= 0 (* discard the section size *)
   && read_entries ic (read_vec_len ic) section entry_handler
 
 (* Type section *)
 let read_valtype ic =
   match read_byte ic with
-  | 0 -> eprintf "None "; 0
-  | 0x7f -> eprintf "i32 "; 0x7f
-  | 0x7e -> eprintf "i64 "; 0x7e
-  | 0x7d -> eprintf "f32 "; 0x7d
-  | 0x7c -> eprintf "f64 "; 0x7c
-  | 0x70 -> eprintf "funcref "; 0x70
-  | 0x6f -> eprintf "externref "; 0x6f
+  | 0 -> logger#info  "None "; 0
+  | 0x7f -> logger#info  "i32 "; 0x7f
+  | 0x7e -> logger#info  "i64 "; 0x7e
+  | 0x7d -> logger#info  "f32 "; 0x7d
+  | 0x7c -> logger#info  "f64 "; 0x7c
+  | 0x70 -> logger#info  "funcref "; 0x70
+  | 0x6f -> logger#info  "externref "; 0x6f
   | x -> printf "invalid valtype %x" x; -1
   
 let read_functype ic =
@@ -144,8 +148,8 @@ let read_type ic w = (read_byte ic = 0x60) && update_type_section w (read_functy
 let read_limits ic = 
   let limit_type = read_byte ic in
   match limit_type with
-  | 0x00 -> eprintf "lower limit"; Noupper (uLEB ic 32)
-  | 0x01 -> eprintf "lower, upper"; Lowerupper ((uLEB ic 32), (uLEB ic 32))
+  | 0x00 -> logger#info  "lower limit"; Noupper (uLEB ic 32)
+  | 0x01 -> logger#info  "lower, upper"; Lowerupper ((uLEB ic 32), (uLEB ic 32))
   | _ -> failwith (String.concat ["Invalid limit type: " ; string_of_int limit_type])
 
 let read_mem_type ic = read_limits ic
@@ -153,8 +157,8 @@ let read_mem_type ic = read_limits ic
 let read_reftype ic =
   let x = read_byte ic in
   match x with
-  | 0x70 -> eprintf "funcref"; Funcref
-  | 0x6F -> eprintf "externref"; Externref
+  | 0x70 -> logger#info  "funcref"; Funcref
+  | 0x6F -> logger#info  "externref"; Externref
   | x -> printf "Invalid reftype %x!" x; Funcref
 
 let read_tabletype ic = 
@@ -165,9 +169,9 @@ let read_tabletype ic =
 let read_mut ic =
   let mut_type = read_byte ic in
   match mut_type with
-  | 0x00 -> eprintf "const "; Const
-  | 0x01 -> eprintf "var "; Var
-  | _ -> eprintf "Invalid mut %x!" mut_type; Const
+  | 0x00 -> logger#info  "const "; Const
+  | 0x01 -> logger#info  "var "; Var
+  | _ -> logger#info  "Invalid mut %x!" mut_type; Const
 
 let read_valtype ic =
   let valtype = read_byte ic in
@@ -190,10 +194,10 @@ let read_idx ic = uLEB ic 32
 let read_importdesc ic =
   let importdesc_type = read_byte ic in
   match importdesc_type with
-  | 0x00 -> eprintf "func ";    Some (Functype (read_idx ic))
-  | 0x01 -> eprintf "table ";   Some (Tabletype (read_tabletype ic))
-  | 0x02 -> eprintf "mem ";     Some (Memtype (read_mem_type ic))
-  | 0x03 -> eprintf "global ";  Some (Globaltype (read_globaltype ic))
+  | 0x00 -> logger#info  "func ";    Some (Functype (read_idx ic))
+  | 0x01 -> logger#info  "table ";   Some (Tabletype (read_tabletype ic))
+  | 0x02 -> logger#info  "mem ";     Some (Memtype (read_mem_type ic))
+  | 0x03 -> logger#info  "global ";  Some (Globaltype (read_globaltype ic))
   | _ -> printf("Invalid importdesc %x!") importdesc_type; None
 
 let rec read_string' ic len acc =
@@ -208,7 +212,7 @@ let read_string ic len =
 
 let read_name ic =
   let name = read_string ic (read_byte ic) in
-  eprintf("name = %s ") name; name
+  logger#info ("name = %s ") name; name
 
 let read_import ic w =
   let module_name = read_name ic in
@@ -463,7 +467,7 @@ let read_valtype ic = valtype_of_int (read_byte ic)
 let read_local ic = (fun _ ->
   let n = uLEB ic 32 in
   let v = read_valtype ic in
-  eprintf "local count: %d type: %s\n" n (Wasm_print.string_of_valtype v); 
+  logger#info  "local count: %d type: %s" n (Wasm_print.string_of_valtype v); 
   {n; v})
 
 let rec read_expr' ic (nesting: int) (acc_instr: op_type list) : op_type list =
@@ -499,10 +503,10 @@ let read_global ic w =
 let read_exportdesc ic =
   let exportdesc_type = read_byte ic in
   match exportdesc_type with
-  | 0x00 -> eprintf "func"; Func (read_idx ic)
-  | 0x01 -> eprintf "table"; Table (read_idx ic)
-  | 0x02 -> eprintf "mem "; Mem (read_idx ic)
-  | 0x03 -> eprintf "global "; Global (read_idx ic)
+  | 0x00 -> logger#info  "func"; Func (read_idx ic)
+  | 0x01 -> logger#info  "table"; Table (read_idx ic)
+  | 0x02 -> logger#info  "mem "; Mem (read_idx ic)
+  | 0x03 -> logger#info  "global "; Global (read_idx ic)
   | _ -> printf("Invalid exportdesc %x!") exportdesc_type; Func (read_idx ic)
 
 let read_export ic w = 
@@ -523,8 +527,8 @@ let read_elemkind ic: int =
 
 let read_idx ic =
   match uLEB ic 32 with
-  | -1 -> eprintf "idx error!\n"; 0
-  | i -> eprintf "Index: %d " i; i
+  | -1 -> logger#info  "idx error!"; 0
+  | i -> logger#info  "Index: %d " i; i
 
 let read_element ic w =
   let element_type = read_byte ic in
@@ -574,7 +578,7 @@ let read_code ic w =
   (* func *)
   let locals = read_vec ic (read_local ic) in
   let e = read_expr ic in
-  eprintf "locals %s\n" (Wasm_print.string_of_locals locals);
+  logger#info  "locals %s" (String.strip (Wasm_print.string_of_locals locals));
   update_code_section w locals e;
   true
 
@@ -604,24 +608,24 @@ let read_data_count ic w =
 (* Section reader *)
 let read_section_body ic w id =
   match id with
-  | 0 -> eprintf "Custom section - unimplemented, skipping\n"; skip_bytes ic (read_section_length ic); true
-  | 1 -> eprintf "Type section\n";      read_section ic w read_type
-  | 2 -> eprintf "Import section\n";    read_section ic w read_import
-  | 3 -> eprintf "Function section\n";  read_section ic w read_function
-  | 4 -> eprintf "Table section\n";     read_section ic w read_table
-  | 5 -> eprintf "Memory section";      read_section ic w read_memory
-  | 6 -> eprintf "Global section\n";    read_section ic w read_global
-  | 7 -> eprintf "Export section\n";    read_section ic w read_export
-  | 8 -> eprintf "Start section\n";     read_start ic w
-  | 9 -> eprintf "Element section\n";   read_section ic w read_element
-  | 10 -> eprintf "Code section\n";     read_section ic w read_code
-  | 11 -> eprintf "Data section\n";     read_section ic w read_data
-  | 12 -> eprintf "Data count\n"; read_data_count ic w
-  | _ -> eprintf "Unknown section, skipping\n"; skip_bytes ic (read_section_length ic); true
+  | 0 -> logger#info  "Custom section - unimplemented, skipping"; skip_bytes ic (read_section_length ic); true
+  | 1 -> logger#info  "Type section";      read_section ic w read_type
+  | 2 -> logger#info  "Import section";    read_section ic w read_import
+  | 3 -> logger#info  "Function section";  read_section ic w read_function
+  | 4 -> logger#info  "Table section";     read_section ic w read_table
+  | 5 -> logger#info  "Memory section";    read_section ic w read_memory
+  | 6 -> logger#info  "Global section";    read_section ic w read_global
+  | 7 -> logger#info  "Export section";    read_section ic w read_export
+  | 8 -> logger#info  "Start section";     read_start ic w
+  | 9 -> logger#info  "Element section";   read_section ic w read_element
+  | 10 -> logger#info  "Code section";     read_section ic w read_code
+  | 11 -> logger#info  "Data section";     read_section ic w read_data
+  | 12 -> logger#info  "Data count";       read_data_count ic w
+  | _ -> logger#info  "Unknown section, skipping"; skip_bytes ic (read_section_length ic); true
 
 let read_section_id ic =
   match read_byte ic with
-  | id -> eprintf "\n\nSection type: %d\n" id; id
+  | id -> logger#info  "Section type: %d" id; id
 
 (* wasm Module reader *)
 let rec read_sections ic w =
@@ -633,7 +637,7 @@ let parse_wasm ic w =
   read_magic ic && read_version ic && read_sections ic w
 
 let processFile file =
-  eprintf "**** New file: %s\n" file;
+  logger#info  "**** New file: %s" file;
   let ic = In_channel.create file in
   let w  = Wasm_module.create file in
   (match parse_wasm ic w with
