@@ -1,4 +1,5 @@
 open Core
+open Easy_logging
 open Wasm_module
 
 (* Printable strings *)
@@ -78,7 +79,7 @@ let string_of_start idx =
 let get_type_sig w idx =
   match List.nth w.type_section idx with
   | Some x -> x
-  | _ -> eprintf "Invalid index: %d" idx; {rt1 = []; rt2 = []}
+  | _ -> (Logging.get_logger "wanalyze")#info  "Invalid index: %d" idx; {rt1 = []; rt2 = []}
 
 let rec string_repeat' s sep n acc =
   match n with

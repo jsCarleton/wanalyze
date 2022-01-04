@@ -1,518 +1,624 @@
-0.019  Info       readBin              **** New file: allium.wasm
-0.020  Info       readBin              Magic:   0061736d
-0.020  Info       readBin              Version: 01000000
-0.020  Info       readBin              Section type: 1
-0.020  Info       readBin              Type section
-0.020  Info       readBin              reading section: 
-0.020  Info       readBin              2022-01-03 21:56:10 - section has 12 entries left
-0.020  Info       readBin              i32 
-0.020  Info       readBin              i32 
-0.020  Info       readBin              i32 
-0.020  Info       readBin              i32 
-0.020  Info       readBin              2022-01-03 21:56:10 - section has 11 entries left
-0.020  Info       readBin              i32 
-0.020  Info       readBin              i32 
-0.020  Info       readBin              2022-01-03 21:56:10 - section has 10 entries left
-0.020  Info       readBin              i32 
-0.020  Info       readBin              2022-01-03 21:56:10 - section has 9 entries left
-0.020  Info       readBin              i32 
-0.020  Info       readBin              2022-01-03 21:56:10 - section has 8 entries left
-0.020  Info       readBin              2022-01-03 21:56:10 - section has 7 entries left
-0.020  Info       readBin              i32 
-0.020  Info       readBin              i32 
-0.020  Info       readBin              i32 
-0.020  Info       readBin              2022-01-03 21:56:10 - section has 6 entries left
-0.020  Info       readBin              i32 
-0.020  Info       readBin              i32 
-0.021  Info       readBin              2022-01-03 21:56:10 - section has 5 entries left
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i32 
-0.021  Info       readBin              2022-01-03 21:56:10 - section has 4 entries left
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i64 
-0.021  Info       readBin              2022-01-03 21:56:10 - section has 3 entries left
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i64 
-0.021  Info       readBin              2022-01-03 21:56:10 - section has 2 entries left
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i64 
-0.021  Info       readBin              2022-01-03 21:56:10 - section has 1 entries left
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i32 
-0.021  Info       readBin              i64 
-0.021  Info       readBin              2022-01-03 21:56:10 - section has 0 entries left
-0.021  Info       readBin              Section type: 2
-0.022  Info       readBin              Import section
-0.022  Info       readBin              reading section: 
-0.022  Info       readBin              2022-01-03 21:56:10 - section has 22 entries left
-0.022  Info       readBin              name = env 
-0.022  Info       readBin              name = segfault 
-0.022  Info       readBin              func 
-0.022  Info       readBin              2022-01-03 21:56:10 - section has 21 entries left
-0.022  Info       readBin              name = env 
-0.022  Info       readBin              name = alignfault 
-0.022  Info       readBin              func 
-0.022  Info       readBin              2022-01-03 21:56:10 - section has 20 entries left
-0.022  Info       readBin              name = env 
-0.022  Info       readBin              name = abortStackOverflow 
-0.022  Info       readBin              func 
-0.022  Info       readBin              2022-01-03 21:56:10 - section has 19 entries left
-0.022  Info       readBin              name = env 
-0.022  Info       readBin              name = ___setErrNo 
-0.022  Info       readBin              func 
-0.022  Info       readBin              2022-01-03 21:56:10 - section has 18 entries left
-0.022  Info       readBin              name = env 
-0.022  Info       readBin              name = ___syscall146 
-0.022  Info       readBin              func 
-0.022  Info       readBin              2022-01-03 21:56:10 - section has 17 entries left
-0.023  Info       readBin              name = env 
-0.023  Info       readBin              name = ___lock 
-0.023  Info       readBin              func 
-0.023  Info       readBin              2022-01-03 21:56:10 - section has 16 entries left
-0.023  Info       readBin              name = env 
-0.023  Info       readBin              name = nullFunc_iiii 
-0.023  Info       readBin              func 
-0.023  Info       readBin              2022-01-03 21:56:10 - section has 15 entries left
-0.023  Info       readBin              name = env 
-0.023  Info       readBin              name = nullFunc_ii 
-0.023  Info       readBin              func 
-0.023  Info       readBin              2022-01-03 21:56:10 - section has 14 entries left
-0.023  Info       readBin              name = env 
-0.023  Info       readBin              name = abortOnCannotGrowMemory 
-0.023  Info       readBin              func 
-0.023  Info       readBin              2022-01-03 21:56:10 - section has 13 entries left
-0.023  Info       readBin              name = env 
-0.023  Info       readBin              name = _emscripten_memcpy_big 
-0.023  Info       readBin              func 
-0.023  Info       readBin              2022-01-03 21:56:10 - section has 12 entries left
-0.023  Info       readBin              name = env 
-0.023  Info       readBin              name = ___unlock 
-0.023  Info       readBin              func 
-0.024  Info       readBin              2022-01-03 21:56:10 - section has 11 entries left
-0.024  Info       readBin              name = env 
-0.024  Info       readBin              name = ___syscall6 
-0.024  Info       readBin              func 
-0.024  Info       readBin              2022-01-03 21:56:10 - section has 10 entries left
-0.024  Info       readBin              name = env 
-0.024  Info       readBin              name = ___syscall54 
-0.024  Info       readBin              func 
-0.024  Info       readBin              2022-01-03 21:56:10 - section has 9 entries left
-0.024  Info       readBin              name = env 
-0.024  Info       readBin              name = ___syscall140 
-0.024  Info       readBin              func 
-0.024  Info       readBin              2022-01-03 21:56:10 - section has 8 entries left
-0.024  Info       readBin              name = env 
-0.024  Info       readBin              name = getTotalMemory 
-0.024  Info       readBin              func 
-0.024  Info       readBin              2022-01-03 21:56:10 - section has 7 entries left
-0.024  Info       readBin              name = env 
-0.024  Info       readBin              name = enlargeMemory 
-0.024  Info       readBin              func 
-0.024  Info       readBin              2022-01-03 21:56:10 - section has 6 entries left
-0.024  Info       readBin              name = env 
-0.024  Info       readBin              name = tableBase 
-0.024  Info       readBin              global 
-0.024  Info       readBin              const 
-0.024  Info       readBin              2022-01-03 21:56:10 - section has 5 entries left
-0.024  Info       readBin              name = env 
-0.024  Info       readBin              name = DYNAMICTOP_PTR 
-0.024  Info       readBin              global 
-0.024  Info       readBin              const 
-0.024  Info       readBin              2022-01-03 21:56:10 - section has 4 entries left
-0.024  Info       readBin              name = env 
-0.025  Info       readBin              name = STACKTOP 
-0.025  Info       readBin              global 
-0.025  Info       readBin              const 
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 3 entries left
-0.025  Info       readBin              name = env 
-0.025  Info       readBin              name = STACK_MAX 
-0.025  Info       readBin              global 
-0.025  Info       readBin              const 
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 2 entries left
-0.025  Info       readBin              name = env 
-0.025  Info       readBin              name = memory 
-0.025  Info       readBin              mem 
-0.025  Info       readBin              lower limit
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 1 entries left
-0.025  Info       readBin              name = env 
-0.025  Info       readBin              name = table 
-0.025  Info       readBin              table 
-0.025  Info       readBin              funcref
-0.025  Info       readBin              lower, upper
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 0 entries left
-0.025  Info       readBin              Section type: 3
-0.025  Info       readBin              Function section
-0.025  Info       readBin              reading section: 
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 68 entries left
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 67 entries left
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 66 entries left
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 65 entries left
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 64 entries left
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 63 entries left
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 62 entries left
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 61 entries left
-0.025  Info       readBin              2022-01-03 21:56:10 - section has 60 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 59 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 58 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 57 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 56 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 55 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 54 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 53 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 52 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 51 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 50 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 49 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 48 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 47 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 46 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 45 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 44 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 43 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 42 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 41 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 40 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 39 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 38 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 37 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 36 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 35 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 34 entries left
-0.026  Info       readBin              2022-01-03 21:56:10 - section has 33 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 32 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 31 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 30 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 29 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 28 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 27 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 26 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 25 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 24 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 23 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 22 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 21 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 20 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 19 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 18 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 17 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 16 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 15 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 14 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 13 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 12 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 11 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 10 entries left
-0.027  Info       readBin              2022-01-03 21:56:10 - section has 9 entries left
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 8 entries left
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 7 entries left
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 6 entries left
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 5 entries left
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 4 entries left
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 3 entries left
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 2 entries left
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 1 entries left
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 0 entries left
-0.028  Info       readBin              Section type: 6
-0.028  Info       readBin              Global section
-0.028  Info       readBin              reading section: 
-0.028  Info       readBin              2022-01-03 21:56:10 - section has 6 entries left
-0.032  Info       readBin              var 
-0.032  Info       readBin              2022-01-03 21:56:10 - section has 5 entries left
-0.032  Info       readBin              var 
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 4 entries left
-0.033  Info       readBin              var 
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 3 entries left
-0.033  Info       readBin              var 
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 2 entries left
-0.033  Info       readBin              var 
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 1 entries left
-0.033  Info       readBin              var 
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 0 entries left
-0.033  Info       readBin              Section type: 7
-0.033  Info       readBin              Export section
-0.033  Info       readBin              reading section: 
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 14 entries left
-0.033  Info       readBin              name = ___errno_location 
-0.033  Info       readBin              func
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 13 entries left
-0.033  Info       readBin              name = _allium_hash 
-0.033  Info       readBin              func
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 12 entries left
-0.033  Info       readBin              name = _fflush 
-0.033  Info       readBin              func
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 11 entries left
-0.033  Info       readBin              name = _free 
-0.033  Info       readBin              func
-0.033  Info       readBin              2022-01-03 21:56:10 - section has 10 entries left
-0.033  Info       readBin              name = _malloc 
-0.033  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 9 entries left
-0.034  Info       readBin              name = _sbrk 
-0.034  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 8 entries left
-0.034  Info       readBin              name = establishStackSpace 
-0.034  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 7 entries left
-0.034  Info       readBin              name = getTempRet0 
-0.034  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 6 entries left
-0.034  Info       readBin              name = setDynamicTop 
-0.034  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 5 entries left
-0.034  Info       readBin              name = setTempRet0 
-0.034  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 4 entries left
-0.034  Info       readBin              name = setThrew 
-0.034  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 3 entries left
-0.034  Info       readBin              name = stackAlloc 
-0.034  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 2 entries left
-0.034  Info       readBin              name = stackRestore 
-0.034  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 1 entries left
-0.034  Info       readBin              name = stackSave 
-0.034  Info       readBin              func
-0.034  Info       readBin              2022-01-03 21:56:10 - section has 0 entries left
-0.034  Info       readBin              Section type: 9
-0.034  Info       readBin              Element section
-0.035  Info       readBin              reading section: 
-0.035  Info       readBin              2022-01-03 21:56:10 - section has 1 entries left
-0.035  Info       readBin              Index: 49 
-0.035  Info       readBin              Index: 54 
-0.035  Info       readBin              Index: 32 
-0.035  Info       readBin              Index: 32 
-0.035  Info       readBin              Index: 53 
-0.035  Info       readBin              Index: 52 
-0.035  Info       readBin              Index: 41 
-0.035  Info       readBin              Index: 32 
-0.035  Info       readBin              Index: 32 
-0.035  Info       readBin              Index: 32 
-0.035  Info       readBin              2022-01-03 21:56:10 - section has 0 entries left
-0.035  Info       readBin              Section type: 10
-0.035  Info       readBin              Code section
-0.035  Info       readBin              reading section: 
-0.035  Info       readBin              2022-01-03 21:56:10 - section has 68 entries left
-0.035  Info       readBin              local count: 1 type: i32
-0.035  Info       readBin              locals (local i32)
-0.035  Info       readBin              2022-01-03 21:56:10 - section has 67 entries left
-0.035  Info       readBin              local count: 1 type: i32
-0.035  Info       readBin              locals (local i32)
-0.035  Info       readBin              2022-01-03 21:56:10 - section has 66 entries left
-0.035  Info       readBin              local count: 1 type: i32
-0.035  Info       readBin              locals (local i32)
-0.036  Info       readBin              2022-01-03 21:56:10 - section has 65 entries left
-0.036  Info       readBin              local count: 1 type: i32
-0.036  Info       readBin              locals (local i32)
-0.036  Info       readBin              2022-01-03 21:56:10 - section has 64 entries left
-0.036  Info       readBin              local count: 1 type: i32
-0.036  Info       readBin              locals (local i32)
-0.036  Info       readBin              2022-01-03 21:56:10 - section has 63 entries left
-0.036  Info       readBin              local count: 1 type: i32
-0.036  Info       readBin              locals (local i32)
-0.036  Info       readBin              2022-01-03 21:56:10 - section has 62 entries left
-0.036  Info       readBin              local count: 1 type: i32
-0.036  Info       readBin              locals (local i32)
-0.036  Info       readBin              2022-01-03 21:56:10 - section has 61 entries left
-0.036  Info       readBin              local count: 1 type: i32
-0.036  Info       readBin              locals (local i32)
-0.036  Info       readBin              2022-01-03 21:56:10 - section has 60 entries left
-0.036  Info       readBin              locals 
-0.036  Info       readBin              2022-01-03 21:56:10 - section has 59 entries left
-0.036  Info       readBin              local count: 1 type: i32
-0.036  Info       readBin              locals (local i32)
-0.036  Info       readBin              2022-01-03 21:56:10 - section has 58 entries left
-0.036  Info       readBin              local count: 1 type: i32
-0.036  Info       readBin              locals (local i32)
-0.036  Info       readBin              2022-01-03 21:56:10 - section has 57 entries left
-0.037  Info       readBin              locals 
-0.037  Info       readBin              2022-01-03 21:56:10 - section has 56 entries left
-0.037  Info       readBin              local count: 1 type: i32
-0.037  Info       readBin              locals (local i32)
-0.037  Info       readBin              2022-01-03 21:56:10 - section has 55 entries left
-0.037  Info       readBin              local count: 3 type: i32
-0.039  Info       readBin              locals (local i32 i32 i32)
-0.039  Info       readBin              2022-01-03 21:56:10 - section has 54 entries left
-0.039  Info       readBin              local count: 4 type: i32
-0.039  Info       readBin              locals (local i32 i32 i32 i32)
-0.039  Info       readBin              2022-01-03 21:56:10 - section has 53 entries left
-0.039  Info       readBin              local count: 1 type: i32
-0.039  Info       readBin              locals (local i32)
-0.039  Info       readBin              2022-01-03 21:56:10 - section has 52 entries left
-0.039  Info       readBin              locals 
-0.039  Info       readBin              2022-01-03 21:56:10 - section has 51 entries left
-0.039  Info       readBin              local count: 8 type: i32
-0.044  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32)
-0.046  Info       readBin              2022-01-03 21:56:10 - section has 50 entries left
-0.046  Info       readBin              local count: 15 type: i32
-0.191  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-0.226  Info       readBin              2022-01-03 21:56:10 - section has 49 entries left
-0.226  Info       readBin              local count: 195 type: i32
-1.182  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-1.182  Info       readBin              2022-01-03 21:56:11 - section has 48 entries left
-1.182  Info       readBin              local count: 15 type: i32
-1.182  Info       readBin              local count: 16 type: i64
-1.186  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
-1.186  Info       readBin              2022-01-03 21:56:11 - section has 47 entries left
-1.186  Info       readBin              local count: 1 type: i32
-1.186  Info       readBin              locals (local i32)
-1.186  Info       readBin              2022-01-03 21:56:11 - section has 46 entries left
-1.186  Info       readBin              local count: 6 type: i32
-1.187  Info       readBin              locals (local i32 i32 i32 i32 i32 i32)
-1.187  Info       readBin              2022-01-03 21:56:11 - section has 45 entries left
-1.187  Info       readBin              local count: 15 type: i32
-1.187  Info       readBin              local count: 18 type: i64
-1.581  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
-1.582  Info       readBin              2022-01-03 21:56:11 - section has 44 entries left
-1.582  Info       readBin              local count: 2 type: i32
-1.582  Info       readBin              locals (local i32 i32)
-1.582  Info       readBin              2022-01-03 21:56:11 - section has 43 entries left
-1.582  Info       readBin              local count: 11 type: i32
-1.584  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-1.585  Info       readBin              2022-01-03 21:56:11 - section has 42 entries left
-1.585  Info       readBin              local count: 164 type: i32
-1.585  Info       readBin              local count: 44 type: i64
-2.046  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
-2.046  Info       readBin              2022-01-03 21:56:12 - section has 41 entries left
-2.046  Info       readBin              local count: 93 type: i32
-2.046  Info       readBin              local count: 16 type: i64
-2.279  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
-2.280  Info       readBin              2022-01-03 21:56:12 - section has 40 entries left
-2.280  Info       readBin              local count: 34 type: i32
-2.282  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-2.282  Info       readBin              2022-01-03 21:56:12 - section has 39 entries left
-2.282  Info       readBin              local count: 3 type: i32
-2.282  Info       readBin              local count: 6 type: i64
-2.283  Info       readBin              locals (local i32 i32 i32 i64 i64 i64 i64 i64 i64)
-2.283  Info       readBin              2022-01-03 21:56:12 - section has 38 entries left
-2.283  Info       readBin              locals 
-2.283  Info       readBin              2022-01-03 21:56:12 - section has 37 entries left
-2.283  Info       readBin              local count: 1 type: i32
-2.283  Info       readBin              locals (local i32)
-2.283  Info       readBin              2022-01-03 21:56:12 - section has 36 entries left
-2.283  Info       readBin              locals 
-2.283  Info       readBin              2022-01-03 21:56:12 - section has 35 entries left
-2.283  Info       readBin              locals 
-2.283  Info       readBin              2022-01-03 21:56:12 - section has 34 entries left
-2.283  Info       readBin              locals 
-2.283  Info       readBin              2022-01-03 21:56:12 - section has 33 entries left
-2.283  Info       readBin              locals 
-2.283  Info       readBin              2022-01-03 21:56:12 - section has 32 entries left
-2.283  Info       readBin              local count: 2 type: i32
-2.283  Info       readBin              locals (local i32 i32)
-2.284  Info       readBin              2022-01-03 21:56:12 - section has 31 entries left
-2.284  Info       readBin              local count: 3 type: i32
-2.284  Info       readBin              locals (local i32 i32 i32)
-2.284  Info       readBin              2022-01-03 21:56:12 - section has 30 entries left
-2.284  Info       readBin              local count: 1 type: i32
-2.284  Info       readBin              locals (local i32)
-2.284  Info       readBin              2022-01-03 21:56:12 - section has 29 entries left
-2.284  Info       readBin              locals 
-2.284  Info       readBin              2022-01-03 21:56:12 - section has 28 entries left
-2.284  Info       readBin              locals 
-2.284  Info       readBin              2022-01-03 21:56:12 - section has 27 entries left
-2.284  Info       readBin              locals 
-2.284  Info       readBin              2022-01-03 21:56:12 - section has 26 entries left
-2.284  Info       readBin              local count: 68 type: i32
-2.284  Info       readBin              local count: 38 type: i64
-2.624  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
-2.625  Info       readBin              2022-01-03 21:56:12 - section has 25 entries left
-2.625  Info       readBin              local count: 76 type: i32
-2.625  Info       readBin              local count: 38 type: i64
-2.885  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
-2.885  Info       readBin              2022-01-03 21:56:12 - section has 24 entries left
-2.886  Info       readBin              local count: 9 type: i32
-2.886  Info       readBin              local count: 3 type: i64
-2.888  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64)
-2.888  Info       readBin              2022-01-03 21:56:12 - section has 23 entries left
-2.888  Info       readBin              local count: 1 type: i32
-2.888  Info       readBin              locals (local i32)
-2.888  Info       readBin              2022-01-03 21:56:12 - section has 22 entries left
-2.889  Info       readBin              local count: 1 type: i32
-2.889  Info       readBin              locals (local i32)
-2.889  Info       readBin              2022-01-03 21:56:12 - section has 21 entries left
-2.889  Info       readBin              local count: 8 type: i32
-2.889  Info       readBin              local count: 15 type: i64
-2.918  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
-2.918  Info       readBin              2022-01-03 21:56:13 - section has 20 entries left
-2.918  Info       readBin              local count: 1 type: i32
-2.918  Info       readBin              locals (local i32)
-2.918  Info       readBin              2022-01-03 21:56:13 - section has 19 entries left
-2.918  Info       readBin              locals 
-2.918  Info       readBin              2022-01-03 21:56:13 - section has 18 entries left
-2.918  Info       readBin              local count: 1 type: i32
-2.918  Info       readBin              locals (local i32)
-2.919  Info       readBin              2022-01-03 21:56:13 - section has 17 entries left
-2.919  Info       readBin              local count: 83 type: i32
-3.699  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-3.699  Info       readBin              2022-01-03 21:56:13 - section has 16 entries left
-3.699  Info       readBin              local count: 115 type: i32
-4.534  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-4.534  Info       readBin              2022-01-03 21:56:14 - section has 15 entries left
-4.534  Info       readBin              locals 
-4.534  Info       readBin              2022-01-03 21:56:14 - section has 14 entries left
-4.534  Info       readBin              local count: 1 type: i32
-4.534  Info       readBin              locals (local i32)
-4.534  Info       readBin              2022-01-03 21:56:14 - section has 13 entries left
-4.534  Info       readBin              local count: 10 type: i32
-4.537  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-4.537  Info       readBin              2022-01-03 21:56:14 - section has 12 entries left
-4.537  Info       readBin              local count: 24 type: i32
-4.539  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-4.539  Info       readBin              2022-01-03 21:56:14 - section has 11 entries left
-4.539  Info       readBin              local count: 23 type: i32
-4.540  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-4.540  Info       readBin              2022-01-03 21:56:14 - section has 10 entries left
-4.540  Info       readBin              locals 
-4.540  Info       readBin              2022-01-03 21:56:14 - section has 9 entries left
-4.540  Info       readBin              local count: 12 type: i32
-4.540  Info       readBin              locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
-4.540  Info       readBin              2022-01-03 21:56:14 - section has 8 entries left
-4.540  Info       readBin              local count: 1 type: i32
-4.540  Info       readBin              locals (local i32)
-4.540  Info       readBin              2022-01-03 21:56:14 - section has 7 entries left
-4.540  Info       readBin              local count: 1 type: i32
-4.541  Info       readBin              locals (local i32)
-4.541  Info       readBin              2022-01-03 21:56:14 - section has 6 entries left
-4.541  Info       readBin              local count: 2 type: i32
-4.541  Info       readBin              locals (local i32 i32)
-4.541  Info       readBin              2022-01-03 21:56:14 - section has 5 entries left
-4.541  Info       readBin              locals 
-4.541  Info       readBin              2022-01-03 21:56:14 - section has 4 entries left
-4.541  Info       readBin              local count: 2 type: i32
-4.541  Info       readBin              locals (local i32 i32)
-4.541  Info       readBin              2022-01-03 21:56:14 - section has 3 entries left
-4.541  Info       readBin              local count: 1 type: i32
-4.541  Info       readBin              locals (local i32)
-4.541  Info       readBin              2022-01-03 21:56:14 - section has 2 entries left
-4.541  Info       readBin              locals 
-4.542  Info       readBin              2022-01-03 21:56:14 - section has 1 entries left
-4.542  Info       readBin              local count: 2 type: i32
-4.542  Info       readBin              locals (local i32 i32)
-4.542  Info       readBin              2022-01-03 21:56:14 - section has 0 entries left
-4.542  Info       readBin              Section type: 11
-4.542  Info       readBin              Data section
-4.542  Info       readBin              reading section: 
-4.542  Info       readBin              2022-01-03 21:56:14 - section has 14 entries left
-4.542  Info       readBin              2022-01-03 21:56:14 - section has 13 entries left
-4.543  Info       readBin              2022-01-03 21:56:14 - section has 12 entries left
-4.543  Info       readBin              2022-01-03 21:56:14 - section has 11 entries left
-4.543  Info       readBin              2022-01-03 21:56:14 - section has 10 entries left
-4.545  Info       readBin              2022-01-03 21:56:14 - section has 9 entries left
-4.545  Info       readBin              2022-01-03 21:56:14 - section has 8 entries left
-4.546  Info       readBin              2022-01-03 21:56:14 - section has 7 entries left
-4.546  Info       readBin              2022-01-03 21:56:14 - section has 6 entries left
-4.546  Info       readBin              2022-01-03 21:56:14 - section has 5 entries left
-4.546  Info       readBin              2022-01-03 21:56:14 - section has 4 entries left
-4.547  Info       readBin              2022-01-03 21:56:14 - section has 3 entries left
-4.547  Info       readBin              2022-01-03 21:56:14 - section has 2 entries left
-4.547  Info       readBin              2022-01-03 21:56:14 - section has 1 entries left
-4.547  Info       readBin              2022-01-03 21:56:14 - section has 0 entries left
-4.547  Info       readBin              Section type: -1
+0.020  Info       wanalyze             **** New file: allium.wasm
+0.020  Info       wanalyze             Magic:   0061736d
+0.020  Info       wanalyze             Version: 01000000
+0.020  Info       wanalyze             Section type: 1
+0.020  Info       wanalyze             Type section
+0.020  Info       wanalyze             reading section: 
+0.020  Info       wanalyze             2022-01-04 00:17:00 - section has 12 entries left
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             2022-01-04 00:17:00 - section has 11 entries left
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             2022-01-04 00:17:00 - section has 10 entries left
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             2022-01-04 00:17:00 - section has 9 entries left
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             2022-01-04 00:17:00 - section has 8 entries left
+0.020  Info       wanalyze             2022-01-04 00:17:00 - section has 7 entries left
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             i32 
+0.020  Info       wanalyze             2022-01-04 00:17:00 - section has 6 entries left
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             2022-01-04 00:17:00 - section has 5 entries left
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             2022-01-04 00:17:00 - section has 4 entries left
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i64 
+0.021  Info       wanalyze             2022-01-04 00:17:00 - section has 3 entries left
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i64 
+0.021  Info       wanalyze             2022-01-04 00:17:00 - section has 2 entries left
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i64 
+0.021  Info       wanalyze             2022-01-04 00:17:00 - section has 1 entries left
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i32 
+0.021  Info       wanalyze             i64 
+0.021  Info       wanalyze             2022-01-04 00:17:00 - section has 0 entries left
+0.021  Info       wanalyze             Section type: 2
+0.021  Info       wanalyze             Import section
+0.021  Info       wanalyze             reading section: 
+0.021  Info       wanalyze             2022-01-04 00:17:00 - section has 22 entries left
+0.021  Info       wanalyze             name = env 
+0.022  Info       wanalyze             name = segfault 
+0.022  Info       wanalyze             func 
+0.022  Info       wanalyze             2022-01-04 00:17:00 - section has 21 entries left
+0.022  Info       wanalyze             name = env 
+0.022  Info       wanalyze             name = alignfault 
+0.022  Info       wanalyze             func 
+0.022  Info       wanalyze             2022-01-04 00:17:00 - section has 20 entries left
+0.022  Info       wanalyze             name = env 
+0.022  Info       wanalyze             name = abortStackOverflow 
+0.022  Info       wanalyze             func 
+0.022  Info       wanalyze             2022-01-04 00:17:00 - section has 19 entries left
+0.022  Info       wanalyze             name = env 
+0.022  Info       wanalyze             name = ___setErrNo 
+0.022  Info       wanalyze             func 
+0.022  Info       wanalyze             2022-01-04 00:17:00 - section has 18 entries left
+0.022  Info       wanalyze             name = env 
+0.022  Info       wanalyze             name = ___syscall146 
+0.022  Info       wanalyze             func 
+0.022  Info       wanalyze             2022-01-04 00:17:00 - section has 17 entries left
+0.022  Info       wanalyze             name = env 
+0.022  Info       wanalyze             name = ___lock 
+0.022  Info       wanalyze             func 
+0.022  Info       wanalyze             2022-01-04 00:17:00 - section has 16 entries left
+0.022  Info       wanalyze             name = env 
+0.022  Info       wanalyze             name = nullFunc_iiii 
+0.022  Info       wanalyze             func 
+0.022  Info       wanalyze             2022-01-04 00:17:00 - section has 15 entries left
+0.022  Info       wanalyze             name = env 
+0.023  Info       wanalyze             name = nullFunc_ii 
+0.023  Info       wanalyze             func 
+0.023  Info       wanalyze             2022-01-04 00:17:00 - section has 14 entries left
+0.023  Info       wanalyze             name = env 
+0.023  Info       wanalyze             name = abortOnCannotGrowMemory 
+0.023  Info       wanalyze             func 
+0.023  Info       wanalyze             2022-01-04 00:17:00 - section has 13 entries left
+0.023  Info       wanalyze             name = env 
+0.023  Info       wanalyze             name = _emscripten_memcpy_big 
+0.023  Info       wanalyze             func 
+0.023  Info       wanalyze             2022-01-04 00:17:00 - section has 12 entries left
+0.023  Info       wanalyze             name = env 
+0.023  Info       wanalyze             name = ___unlock 
+0.023  Info       wanalyze             func 
+0.023  Info       wanalyze             2022-01-04 00:17:00 - section has 11 entries left
+0.023  Info       wanalyze             name = env 
+0.023  Info       wanalyze             name = ___syscall6 
+0.023  Info       wanalyze             func 
+0.023  Info       wanalyze             2022-01-04 00:17:00 - section has 10 entries left
+0.023  Info       wanalyze             name = env 
+0.023  Info       wanalyze             name = ___syscall54 
+0.023  Info       wanalyze             func 
+0.023  Info       wanalyze             2022-01-04 00:17:00 - section has 9 entries left
+0.023  Info       wanalyze             name = env 
+0.023  Info       wanalyze             name = ___syscall140 
+0.023  Info       wanalyze             func 
+0.023  Info       wanalyze             2022-01-04 00:17:00 - section has 8 entries left
+0.024  Info       wanalyze             name = env 
+0.024  Info       wanalyze             name = getTotalMemory 
+0.024  Info       wanalyze             func 
+0.024  Info       wanalyze             2022-01-04 00:17:00 - section has 7 entries left
+0.024  Info       wanalyze             name = env 
+0.024  Info       wanalyze             name = enlargeMemory 
+0.024  Info       wanalyze             func 
+0.024  Info       wanalyze             2022-01-04 00:17:00 - section has 6 entries left
+0.024  Info       wanalyze             name = env 
+0.024  Info       wanalyze             name = tableBase 
+0.024  Info       wanalyze             global 
+0.024  Info       wanalyze             const 
+0.024  Info       wanalyze             2022-01-04 00:17:00 - section has 5 entries left
+0.024  Info       wanalyze             name = env 
+0.024  Info       wanalyze             name = DYNAMICTOP_PTR 
+0.024  Info       wanalyze             global 
+0.024  Info       wanalyze             const 
+0.024  Info       wanalyze             2022-01-04 00:17:00 - section has 4 entries left
+0.024  Info       wanalyze             name = env 
+0.024  Info       wanalyze             name = STACKTOP 
+0.024  Info       wanalyze             global 
+0.024  Info       wanalyze             const 
+0.024  Info       wanalyze             2022-01-04 00:17:00 - section has 3 entries left
+0.024  Info       wanalyze             name = env 
+0.024  Info       wanalyze             name = STACK_MAX 
+0.024  Info       wanalyze             global 
+0.024  Info       wanalyze             const 
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 2 entries left
+0.025  Info       wanalyze             name = env 
+0.025  Info       wanalyze             name = memory 
+0.025  Info       wanalyze             mem 
+0.025  Info       wanalyze             lower limit
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 1 entries left
+0.025  Info       wanalyze             name = env 
+0.025  Info       wanalyze             name = table 
+0.025  Info       wanalyze             table 
+0.025  Info       wanalyze             funcref
+0.025  Info       wanalyze             lower, upper
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 0 entries left
+0.025  Info       wanalyze             Section type: 3
+0.025  Info       wanalyze             Function section
+0.025  Info       wanalyze             reading section: 
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 68 entries left
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 67 entries left
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 66 entries left
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 65 entries left
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 64 entries left
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 63 entries left
+0.025  Info       wanalyze             2022-01-04 00:17:00 - section has 62 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 61 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 60 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 59 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 58 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 57 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 56 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 55 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 54 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 53 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 52 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 51 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 50 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 49 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 48 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 47 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 46 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 45 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 44 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 43 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 42 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 41 entries left
+0.026  Info       wanalyze             2022-01-04 00:17:00 - section has 40 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 39 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 38 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 37 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 36 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 35 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 34 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 33 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 32 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 31 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 30 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 29 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 28 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 27 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 26 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 25 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 24 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 23 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 22 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 21 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 20 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 19 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 18 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 17 entries left
+0.027  Info       wanalyze             2022-01-04 00:17:00 - section has 16 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 15 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 14 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 13 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 12 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 11 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 10 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 9 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 8 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 7 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 6 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 5 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 4 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 3 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 2 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 1 entries left
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 0 entries left
+0.028  Info       wanalyze             Section type: 6
+0.028  Info       wanalyze             Global section
+0.028  Info       wanalyze             reading section: 
+0.028  Info       wanalyze             2022-01-04 00:17:00 - section has 6 entries left
+0.033  Info       wanalyze             var 
+0.033  Info       wanalyze             2022-01-04 00:17:00 - section has 5 entries left
+0.033  Info       wanalyze             var 
+0.033  Info       wanalyze             2022-01-04 00:17:00 - section has 4 entries left
+0.033  Info       wanalyze             var 
+0.033  Info       wanalyze             2022-01-04 00:17:00 - section has 3 entries left
+0.033  Info       wanalyze             var 
+0.033  Info       wanalyze             2022-01-04 00:17:00 - section has 2 entries left
+0.033  Info       wanalyze             var 
+0.033  Info       wanalyze             2022-01-04 00:17:00 - section has 1 entries left
+0.033  Info       wanalyze             var 
+0.033  Info       wanalyze             2022-01-04 00:17:00 - section has 0 entries left
+0.033  Info       wanalyze             Section type: 7
+0.033  Info       wanalyze             Export section
+0.033  Info       wanalyze             reading section: 
+0.033  Info       wanalyze             2022-01-04 00:17:00 - section has 14 entries left
+0.033  Info       wanalyze             name = ___errno_location 
+0.033  Info       wanalyze             func
+0.033  Info       wanalyze             2022-01-04 00:17:00 - section has 13 entries left
+0.033  Info       wanalyze             name = _allium_hash 
+0.034  Info       wanalyze             func
+0.034  Info       wanalyze             2022-01-04 00:17:00 - section has 12 entries left
+0.034  Info       wanalyze             name = _fflush 
+0.034  Info       wanalyze             func
+0.034  Info       wanalyze             2022-01-04 00:17:00 - section has 11 entries left
+0.034  Info       wanalyze             name = _free 
+0.034  Info       wanalyze             func
+0.034  Info       wanalyze             2022-01-04 00:17:00 - section has 10 entries left
+0.034  Info       wanalyze             name = _malloc 
+0.034  Info       wanalyze             func
+0.034  Info       wanalyze             2022-01-04 00:17:00 - section has 9 entries left
+0.034  Info       wanalyze             name = _sbrk 
+0.034  Info       wanalyze             func
+0.034  Info       wanalyze             2022-01-04 00:17:00 - section has 8 entries left
+0.034  Info       wanalyze             name = establishStackSpace 
+0.034  Info       wanalyze             func
+0.034  Info       wanalyze             2022-01-04 00:17:00 - section has 7 entries left
+0.034  Info       wanalyze             name = getTempRet0 
+0.034  Info       wanalyze             func
+0.034  Info       wanalyze             2022-01-04 00:17:00 - section has 6 entries left
+0.034  Info       wanalyze             name = setDynamicTop 
+0.034  Info       wanalyze             func
+0.034  Info       wanalyze             2022-01-04 00:17:00 - section has 5 entries left
+0.034  Info       wanalyze             name = setTempRet0 
+0.035  Info       wanalyze             func
+0.035  Info       wanalyze             2022-01-04 00:17:00 - section has 4 entries left
+0.035  Info       wanalyze             name = setThrew 
+0.035  Info       wanalyze             func
+0.035  Info       wanalyze             2022-01-04 00:17:00 - section has 3 entries left
+0.035  Info       wanalyze             name = stackAlloc 
+0.035  Info       wanalyze             func
+0.035  Info       wanalyze             2022-01-04 00:17:00 - section has 2 entries left
+0.035  Info       wanalyze             name = stackRestore 
+0.035  Info       wanalyze             func
+0.035  Info       wanalyze             2022-01-04 00:17:00 - section has 1 entries left
+0.035  Info       wanalyze             name = stackSave 
+0.035  Info       wanalyze             func
+0.035  Info       wanalyze             2022-01-04 00:17:00 - section has 0 entries left
+0.035  Info       wanalyze             Section type: 9
+0.035  Info       wanalyze             Element section
+0.035  Info       wanalyze             reading section: 
+0.035  Info       wanalyze             2022-01-04 00:17:00 - section has 1 entries left
+0.035  Info       wanalyze             Index: 49 
+0.035  Info       wanalyze             Index: 54 
+0.036  Info       wanalyze             Index: 32 
+0.036  Info       wanalyze             Index: 32 
+0.036  Info       wanalyze             Index: 53 
+0.036  Info       wanalyze             Index: 52 
+0.036  Info       wanalyze             Index: 41 
+0.036  Info       wanalyze             Index: 32 
+0.036  Info       wanalyze             Index: 32 
+0.036  Info       wanalyze             Index: 32 
+0.036  Info       wanalyze             2022-01-04 00:17:00 - section has 0 entries left
+0.036  Info       wanalyze             Section type: 10
+0.036  Info       wanalyze             Code section
+0.036  Info       wanalyze             reading section: 
+0.036  Info       wanalyze             2022-01-04 00:17:00 - section has 68 entries left
+0.036  Info       wanalyze             local count: 1 type: i32
+0.036  Info       wanalyze             locals (local i32)
+0.036  Info       wanalyze             2022-01-04 00:17:00 - section has 67 entries left
+0.036  Info       wanalyze             local count: 1 type: i32
+0.036  Info       wanalyze             locals (local i32)
+0.036  Info       wanalyze             2022-01-04 00:17:00 - section has 66 entries left
+0.036  Info       wanalyze             local count: 1 type: i32
+0.036  Info       wanalyze             locals (local i32)
+0.037  Info       wanalyze             2022-01-04 00:17:00 - section has 65 entries left
+0.037  Info       wanalyze             local count: 1 type: i32
+0.037  Info       wanalyze             locals (local i32)
+0.037  Info       wanalyze             2022-01-04 00:17:00 - section has 64 entries left
+0.037  Info       wanalyze             local count: 1 type: i32
+0.037  Info       wanalyze             locals (local i32)
+0.037  Info       wanalyze             2022-01-04 00:17:00 - section has 63 entries left
+0.037  Info       wanalyze             local count: 1 type: i32
+0.037  Info       wanalyze             locals (local i32)
+0.037  Info       wanalyze             2022-01-04 00:17:00 - section has 62 entries left
+0.037  Info       wanalyze             local count: 1 type: i32
+0.037  Info       wanalyze             locals (local i32)
+0.037  Info       wanalyze             2022-01-04 00:17:00 - section has 61 entries left
+0.037  Info       wanalyze             local count: 1 type: i32
+0.037  Info       wanalyze             locals (local i32)
+0.037  Info       wanalyze             2022-01-04 00:17:00 - section has 60 entries left
+0.037  Info       wanalyze             locals 
+0.038  Info       wanalyze             2022-01-04 00:17:00 - section has 59 entries left
+0.038  Info       wanalyze             local count: 1 type: i32
+0.038  Info       wanalyze             locals (local i32)
+0.038  Info       wanalyze             2022-01-04 00:17:00 - section has 58 entries left
+0.038  Info       wanalyze             local count: 1 type: i32
+0.038  Info       wanalyze             locals (local i32)
+0.038  Info       wanalyze             2022-01-04 00:17:00 - section has 57 entries left
+0.038  Info       wanalyze             locals 
+0.038  Info       wanalyze             2022-01-04 00:17:00 - section has 56 entries left
+0.038  Info       wanalyze             local count: 1 type: i32
+0.038  Info       wanalyze             locals (local i32)
+0.038  Info       wanalyze             2022-01-04 00:17:00 - section has 55 entries left
+0.038  Info       wanalyze             local count: 3 type: i32
+0.040  Info       wanalyze             locals (local i32 i32 i32)
+0.040  Info       wanalyze             2022-01-04 00:17:00 - section has 54 entries left
+0.040  Info       wanalyze             local count: 4 type: i32
+0.041  Info       wanalyze             locals (local i32 i32 i32 i32)
+0.041  Info       wanalyze             2022-01-04 00:17:00 - section has 53 entries left
+0.041  Info       wanalyze             local count: 1 type: i32
+0.041  Info       wanalyze             locals (local i32)
+0.041  Info       wanalyze             2022-01-04 00:17:00 - section has 52 entries left
+0.041  Info       wanalyze             locals 
+0.041  Info       wanalyze             2022-01-04 00:17:00 - section has 51 entries left
+0.041  Info       wanalyze             local count: 8 type: i32
+0.046  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32)
+0.048  Info       wanalyze             2022-01-04 00:17:00 - section has 50 entries left
+0.048  Info       wanalyze             local count: 15 type: i32
+0.182  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+0.222  Info       wanalyze             2022-01-04 00:17:00 - section has 49 entries left
+0.222  Info       wanalyze             local count: 195 type: i32
+1.226  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+1.227  Info       wanalyze             2022-01-04 00:17:01 - section has 48 entries left
+1.227  Info       wanalyze             local count: 15 type: i32
+1.227  Info       wanalyze             local count: 16 type: i64
+1.230  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+1.230  Info       wanalyze             2022-01-04 00:17:01 - section has 47 entries left
+1.230  Info       wanalyze             local count: 1 type: i32
+1.230  Info       wanalyze             locals (local i32)
+1.230  Info       wanalyze             2022-01-04 00:17:01 - section has 46 entries left
+1.231  Info       wanalyze             local count: 6 type: i32
+1.231  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32)
+1.231  Info       wanalyze             2022-01-04 00:17:01 - section has 45 entries left
+1.231  Info       wanalyze             local count: 15 type: i32
+1.231  Info       wanalyze             local count: 18 type: i64
+1.618  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+1.618  Info       wanalyze             2022-01-04 00:17:02 - section has 44 entries left
+1.618  Info       wanalyze             local count: 2 type: i32
+1.618  Info       wanalyze             locals (local i32 i32)
+1.618  Info       wanalyze             2022-01-04 00:17:02 - section has 43 entries left
+1.618  Info       wanalyze             local count: 11 type: i32
+1.621  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+1.621  Info       wanalyze             2022-01-04 00:17:02 - section has 42 entries left
+1.621  Info       wanalyze             local count: 164 type: i32
+1.621  Info       wanalyze             local count: 44 type: i64
+2.085  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+2.085  Info       wanalyze             2022-01-04 00:17:02 - section has 41 entries left
+2.085  Info       wanalyze             local count: 93 type: i32
+2.085  Info       wanalyze             local count: 16 type: i64
+2.335  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+2.335  Info       wanalyze             2022-01-04 00:17:02 - section has 40 entries left
+2.336  Info       wanalyze             local count: 34 type: i32
+2.338  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+2.338  Info       wanalyze             2022-01-04 00:17:02 - section has 39 entries left
+2.339  Info       wanalyze             local count: 3 type: i32
+2.339  Info       wanalyze             local count: 6 type: i64
+2.339  Info       wanalyze             locals (local i32 i32 i32 i64 i64 i64 i64 i64 i64)
+2.340  Info       wanalyze             2022-01-04 00:17:02 - section has 38 entries left
+2.340  Info       wanalyze             locals 
+2.340  Info       wanalyze             2022-01-04 00:17:02 - section has 37 entries left
+2.340  Info       wanalyze             local count: 1 type: i32
+2.340  Info       wanalyze             locals (local i32)
+2.340  Info       wanalyze             2022-01-04 00:17:02 - section has 36 entries left
+2.340  Info       wanalyze             locals 
+2.340  Info       wanalyze             2022-01-04 00:17:02 - section has 35 entries left
+2.340  Info       wanalyze             locals 
+2.340  Info       wanalyze             2022-01-04 00:17:02 - section has 34 entries left
+2.340  Info       wanalyze             locals 
+2.340  Info       wanalyze             2022-01-04 00:17:02 - section has 33 entries left
+2.340  Info       wanalyze             locals 
+2.340  Info       wanalyze             2022-01-04 00:17:02 - section has 32 entries left
+2.340  Info       wanalyze             local count: 2 type: i32
+2.340  Info       wanalyze             locals (local i32 i32)
+2.340  Info       wanalyze             2022-01-04 00:17:02 - section has 31 entries left
+2.340  Info       wanalyze             local count: 3 type: i32
+2.341  Info       wanalyze             locals (local i32 i32 i32)
+2.341  Info       wanalyze             2022-01-04 00:17:02 - section has 30 entries left
+2.341  Info       wanalyze             local count: 1 type: i32
+2.341  Info       wanalyze             locals (local i32)
+2.341  Info       wanalyze             2022-01-04 00:17:02 - section has 29 entries left
+2.341  Info       wanalyze             locals 
+2.341  Info       wanalyze             2022-01-04 00:17:02 - section has 28 entries left
+2.341  Info       wanalyze             locals 
+2.341  Info       wanalyze             2022-01-04 00:17:02 - section has 27 entries left
+2.341  Info       wanalyze             locals 
+2.341  Info       wanalyze             2022-01-04 00:17:02 - section has 26 entries left
+2.341  Info       wanalyze             local count: 68 type: i32
+2.341  Info       wanalyze             local count: 38 type: i64
+2.653  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+2.653  Info       wanalyze             2022-01-04 00:17:03 - section has 25 entries left
+2.653  Info       wanalyze             local count: 76 type: i32
+2.653  Info       wanalyze             local count: 38 type: i64
+2.925  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+2.925  Info       wanalyze             2022-01-04 00:17:03 - section has 24 entries left
+2.926  Info       wanalyze             local count: 9 type: i32
+2.926  Info       wanalyze             local count: 3 type: i64
+2.929  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64)
+2.929  Info       wanalyze             2022-01-04 00:17:03 - section has 23 entries left
+2.929  Info       wanalyze             local count: 1 type: i32
+2.929  Info       wanalyze             locals (local i32)
+2.929  Info       wanalyze             2022-01-04 00:17:03 - section has 22 entries left
+2.929  Info       wanalyze             local count: 1 type: i32
+2.929  Info       wanalyze             locals (local i32)
+2.929  Info       wanalyze             2022-01-04 00:17:03 - section has 21 entries left
+2.929  Info       wanalyze             local count: 8 type: i32
+2.929  Info       wanalyze             local count: 15 type: i64
+2.963  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+2.963  Info       wanalyze             2022-01-04 00:17:03 - section has 20 entries left
+2.963  Info       wanalyze             local count: 1 type: i32
+2.963  Info       wanalyze             locals (local i32)
+2.963  Info       wanalyze             2022-01-04 00:17:03 - section has 19 entries left
+2.963  Info       wanalyze             locals 
+2.963  Info       wanalyze             2022-01-04 00:17:03 - section has 18 entries left
+2.963  Info       wanalyze             local count: 1 type: i32
+2.963  Info       wanalyze             locals (local i32)
+2.963  Info       wanalyze             2022-01-04 00:17:03 - section has 17 entries left
+2.963  Info       wanalyze             local count: 83 type: i32
+3.733  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+3.733  Info       wanalyze             2022-01-04 00:17:04 - section has 16 entries left
+3.733  Info       wanalyze             local count: 115 type: i32
+4.552  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.552  Info       wanalyze             2022-01-04 00:17:05 - section has 15 entries left
+4.552  Info       wanalyze             locals 
+4.552  Info       wanalyze             2022-01-04 00:17:05 - section has 14 entries left
+4.552  Info       wanalyze             local count: 1 type: i32
+4.552  Info       wanalyze             locals (local i32)
+4.552  Info       wanalyze             2022-01-04 00:17:05 - section has 13 entries left
+4.553  Info       wanalyze             local count: 10 type: i32
+4.555  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.555  Info       wanalyze             2022-01-04 00:17:05 - section has 12 entries left
+4.555  Info       wanalyze             local count: 24 type: i32
+4.557  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.557  Info       wanalyze             2022-01-04 00:17:05 - section has 11 entries left
+4.557  Info       wanalyze             local count: 23 type: i32
+4.558  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.558  Info       wanalyze             2022-01-04 00:17:05 - section has 10 entries left
+4.558  Info       wanalyze             locals 
+4.558  Info       wanalyze             2022-01-04 00:17:05 - section has 9 entries left
+4.558  Info       wanalyze             local count: 12 type: i32
+4.558  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.558  Info       wanalyze             2022-01-04 00:17:05 - section has 8 entries left
+4.558  Info       wanalyze             local count: 1 type: i32
+4.558  Info       wanalyze             locals (local i32)
+4.558  Info       wanalyze             2022-01-04 00:17:05 - section has 7 entries left
+4.558  Info       wanalyze             local count: 1 type: i32
+4.559  Info       wanalyze             locals (local i32)
+4.559  Info       wanalyze             2022-01-04 00:17:05 - section has 6 entries left
+4.559  Info       wanalyze             local count: 2 type: i32
+4.559  Info       wanalyze             locals (local i32 i32)
+4.559  Info       wanalyze             2022-01-04 00:17:05 - section has 5 entries left
+4.559  Info       wanalyze             locals 
+4.559  Info       wanalyze             2022-01-04 00:17:05 - section has 4 entries left
+4.559  Info       wanalyze             local count: 2 type: i32
+4.559  Info       wanalyze             locals (local i32 i32)
+4.560  Info       wanalyze             2022-01-04 00:17:05 - section has 3 entries left
+4.560  Info       wanalyze             local count: 1 type: i32
+4.560  Info       wanalyze             locals (local i32)
+4.560  Info       wanalyze             2022-01-04 00:17:05 - section has 2 entries left
+4.560  Info       wanalyze             locals 
+4.560  Info       wanalyze             2022-01-04 00:17:05 - section has 1 entries left
+4.560  Info       wanalyze             local count: 2 type: i32
+4.560  Info       wanalyze             locals (local i32 i32)
+4.560  Info       wanalyze             2022-01-04 00:17:05 - section has 0 entries left
+4.560  Info       wanalyze             Section type: 11
+4.560  Info       wanalyze             Data section
+4.560  Info       wanalyze             reading section: 
+4.560  Info       wanalyze             2022-01-04 00:17:05 - section has 14 entries left
+4.560  Info       wanalyze             2022-01-04 00:17:05 - section has 13 entries left
+4.561  Info       wanalyze             2022-01-04 00:17:05 - section has 12 entries left
+4.561  Info       wanalyze             2022-01-04 00:17:05 - section has 11 entries left
+4.562  Info       wanalyze             2022-01-04 00:17:05 - section has 10 entries left
+4.563  Info       wanalyze             2022-01-04 00:17:05 - section has 9 entries left
+4.563  Info       wanalyze             2022-01-04 00:17:05 - section has 8 entries left
+4.564  Info       wanalyze             2022-01-04 00:17:05 - section has 7 entries left
+4.564  Info       wanalyze             2022-01-04 00:17:05 - section has 6 entries left
+4.564  Info       wanalyze             2022-01-04 00:17:05 - section has 5 entries left
+4.564  Info       wanalyze             2022-01-04 00:17:05 - section has 4 entries left
+4.565  Info       wanalyze             2022-01-04 00:17:05 - section has 3 entries left
+4.565  Info       wanalyze             2022-01-04 00:17:05 - section has 2 entries left
+4.565  Info       wanalyze             2022-01-04 00:17:05 - section has 1 entries left
+4.565  Info       wanalyze             2022-01-04 00:17:05 - section has 0 entries left
+4.565  Info       wanalyze             Section type: -1
+16.349 Info       wanalyze             type: Control
+
+16.349 Info       wanalyze             type: Control
+
+16.349 Info       wanalyze             type: Control
+
+16.349 Info       wanalyze             type: Control
+
+16.349 Info       wanalyze             type: Control
+
+16.349 Info       wanalyze             type: Control
+
+16.349 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.350 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.351 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.352 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+
+16.353 Info       wanalyze             type: Control
+

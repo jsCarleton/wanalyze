@@ -1,4 +1,5 @@
 open Core
+open Easy_logging
 
 (* Types *)
 type numtype =
@@ -603,24 +604,24 @@ let update_s (s: states) (param_counts: int list) (retval_counts: int list) (typ
    printf "States: %d " (List.length s.final);
    List.iter ~f:update_instr_count s.active;
   match op.instrtype with
-  | Control -> (eprintf "type: Control\n";update_states_controlop param_counts retval_counts types op s)
+  | Control -> ((Logging.get_logger "wanalyze")#info "type: Control";update_states_controlop param_counts retval_counts types op s)
   | Reference -> failwith "Unimplemented reference"
-  | Parametric -> eprintf "type: Parametric\n";List.iter ~f:(update_state_parametricop op) s.active
-  | VariableGL -> eprintf "type: VariableGL\n";List.iter ~f:(update_state_varGLop op) s.active
-  | VariableSL -> eprintf "type: VariableSL\n";List.iter ~f:(update_state_varSLop op) s.active
-  | VariableTL -> eprintf "type: VariableTL\n";List.iter ~f:(update_state_varTLop op) s.active
-  | VariableGG -> eprintf "type: VariableGG\n";List.iter ~f:(update_state_varGGop op) s.active
-  | VariableSG -> eprintf "type: VariableSG\n";List.iter ~f:(update_state_varSGop op) s.active
+  | Parametric -> (Logging.get_logger "wanalyze")#info  "type: Parametric";List.iter ~f:(update_state_parametricop op) s.active
+  | VariableGL -> (Logging.get_logger "wanalyze")#info  "type: VariableGL";List.iter ~f:(update_state_varGLop op) s.active
+  | VariableSL -> (Logging.get_logger "wanalyze")#info  "type: VariableSL";List.iter ~f:(update_state_varSLop op) s.active
+  | VariableTL -> (Logging.get_logger "wanalyze")#info  "type: VariableTL";List.iter ~f:(update_state_varTLop op) s.active
+  | VariableGG -> (Logging.get_logger "wanalyze")#info  "type: VariableGG";List.iter ~f:(update_state_varGGop op) s.active
+  | VariableSG -> (Logging.get_logger "wanalyze")#info  "type: VariableSG";List.iter ~f:(update_state_varSGop op) s.active
   | Table -> failwith "Unimplemented table"
-  | MemoryL -> eprintf "type: MemoryL\n";List.iter ~f:(update_state_memloadop op) s.active
-  | MemoryS -> eprintf "type: MemoryS\n";List.iter ~f:update_state_memstoreop s.active
-  | MemoryM -> eprintf "type: MemoryM\n"; () (* nothing to do in this case *)
-  | Constop -> eprintf "type: Constop\n";List.iter ~f:(update_state_constop op) s.active
-  | Unop -> eprintf "type: Unop\n";List.iter ~f:(update_state_unop op) s.active
-  | Binop f -> eprintf "type: Binop\n";List.iter ~f:(update_state_binop f) s.active
-  | Testop -> eprintf "type: Testop\n";List.iter ~f:(update_state_testop op) s.active
-  | Relop f -> eprintf "type: Relop\n";List.iter ~f:(update_state_binop f) s.active
-  | Cvtop -> eprintf "type: Cvtop\n";List.iter ~f:(update_state_cvtop op) s.active
+  | MemoryL -> (Logging.get_logger "wanalyze")#info  "type: MemoryL";List.iter ~f:(update_state_memloadop op) s.active
+  | MemoryS -> (Logging.get_logger "wanalyze")#info  "type: MemoryS";List.iter ~f:update_state_memstoreop s.active
+  | MemoryM -> (Logging.get_logger "wanalyze")#info  "type: MemoryM"; () (* nothing to do in this case *)
+  | Constop -> (Logging.get_logger "wanalyze")#info  "type: Constop";List.iter ~f:(update_state_constop op) s.active
+  | Unop -> (Logging.get_logger "wanalyze")#info  "type: Unop";List.iter ~f:(update_state_unop op) s.active
+  | Binop f -> (Logging.get_logger "wanalyze")#info  "type: Binop";List.iter ~f:(update_state_binop f) s.active
+  | Testop -> (Logging.get_logger "wanalyze")#info  "type: Testop";List.iter ~f:(update_state_testop op) s.active
+  | Relop f -> (Logging.get_logger "wanalyze")#info  "type: Relop";List.iter ~f:(update_state_binop f) s.active
+  | Cvtop -> (Logging.get_logger "wanalyze")#info  "type: Cvtop";List.iter ~f:(update_state_cvtop op) s.active
 
 let local_value n i = 
   match i >= n with

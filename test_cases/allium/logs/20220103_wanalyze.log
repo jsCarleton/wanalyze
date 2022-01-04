@@ -1,0 +1,728 @@
+0.016  Info       wanalyze             **** New file: allium.wasm
+0.016  Info       wanalyze             Magic:   0061736d
+0.016  Info       wanalyze             Version: 01000000
+0.016  Info       wanalyze             Section type: 1
+0.016  Info       wanalyze             Type section
+0.016  Info       wanalyze             reading section: 
+0.016  Info       wanalyze             2022-01-04 00:24:38 - section has 12 entries left
+0.016  Info       wanalyze             i32 
+0.016  Info       wanalyze             i32 
+0.016  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 11 entries left
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 10 entries left
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 9 entries left
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 8 entries left
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 7 entries left
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 6 entries left
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 5 entries left
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 4 entries left
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i64 
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 3 entries left
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i64 
+0.017  Info       wanalyze             2022-01-04 00:24:38 - section has 2 entries left
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.017  Info       wanalyze             i32 
+0.018  Info       wanalyze             i64 
+0.018  Info       wanalyze             2022-01-04 00:24:38 - section has 1 entries left
+0.018  Info       wanalyze             i32 
+0.018  Info       wanalyze             i32 
+0.018  Info       wanalyze             i64 
+0.018  Info       wanalyze             2022-01-04 00:24:38 - section has 0 entries left
+0.018  Info       wanalyze             Section type: 2
+0.018  Info       wanalyze             Import section
+0.018  Info       wanalyze             reading section: 
+0.018  Info       wanalyze             2022-01-04 00:24:38 - section has 22 entries left
+0.018  Info       wanalyze             name = env 
+0.018  Info       wanalyze             name = segfault 
+0.018  Info       wanalyze             func 
+0.018  Info       wanalyze             2022-01-04 00:24:38 - section has 21 entries left
+0.018  Info       wanalyze             name = env 
+0.018  Info       wanalyze             name = alignfault 
+0.018  Info       wanalyze             func 
+0.018  Info       wanalyze             2022-01-04 00:24:38 - section has 20 entries left
+0.018  Info       wanalyze             name = env 
+0.018  Info       wanalyze             name = abortStackOverflow 
+0.018  Info       wanalyze             func 
+0.018  Info       wanalyze             2022-01-04 00:24:38 - section has 19 entries left
+0.018  Info       wanalyze             name = env 
+0.018  Info       wanalyze             name = ___setErrNo 
+0.018  Info       wanalyze             func 
+0.018  Info       wanalyze             2022-01-04 00:24:38 - section has 18 entries left
+0.018  Info       wanalyze             name = env 
+0.019  Info       wanalyze             name = ___syscall146 
+0.019  Info       wanalyze             func 
+0.019  Info       wanalyze             2022-01-04 00:24:38 - section has 17 entries left
+0.019  Info       wanalyze             name = env 
+0.019  Info       wanalyze             name = ___lock 
+0.019  Info       wanalyze             func 
+0.019  Info       wanalyze             2022-01-04 00:24:38 - section has 16 entries left
+0.019  Info       wanalyze             name = env 
+0.019  Info       wanalyze             name = nullFunc_iiii 
+0.019  Info       wanalyze             func 
+0.019  Info       wanalyze             2022-01-04 00:24:38 - section has 15 entries left
+0.019  Info       wanalyze             name = env 
+0.019  Info       wanalyze             name = nullFunc_ii 
+0.019  Info       wanalyze             func 
+0.019  Info       wanalyze             2022-01-04 00:24:38 - section has 14 entries left
+0.019  Info       wanalyze             name = env 
+0.019  Info       wanalyze             name = abortOnCannotGrowMemory 
+0.019  Info       wanalyze             func 
+0.019  Info       wanalyze             2022-01-04 00:24:38 - section has 13 entries left
+0.019  Info       wanalyze             name = env 
+0.019  Info       wanalyze             name = _emscripten_memcpy_big 
+0.019  Info       wanalyze             func 
+0.019  Info       wanalyze             2022-01-04 00:24:38 - section has 12 entries left
+0.019  Info       wanalyze             name = env 
+0.019  Info       wanalyze             name = ___unlock 
+0.019  Info       wanalyze             func 
+0.020  Info       wanalyze             2022-01-04 00:24:38 - section has 11 entries left
+0.020  Info       wanalyze             name = env 
+0.020  Info       wanalyze             name = ___syscall6 
+0.020  Info       wanalyze             func 
+0.020  Info       wanalyze             2022-01-04 00:24:38 - section has 10 entries left
+0.020  Info       wanalyze             name = env 
+0.020  Info       wanalyze             name = ___syscall54 
+0.020  Info       wanalyze             func 
+0.020  Info       wanalyze             2022-01-04 00:24:38 - section has 9 entries left
+0.020  Info       wanalyze             name = env 
+0.020  Info       wanalyze             name = ___syscall140 
+0.020  Info       wanalyze             func 
+0.020  Info       wanalyze             2022-01-04 00:24:38 - section has 8 entries left
+0.020  Info       wanalyze             name = env 
+0.020  Info       wanalyze             name = getTotalMemory 
+0.020  Info       wanalyze             func 
+0.020  Info       wanalyze             2022-01-04 00:24:38 - section has 7 entries left
+0.020  Info       wanalyze             name = env 
+0.020  Info       wanalyze             name = enlargeMemory 
+0.020  Info       wanalyze             func 
+0.020  Info       wanalyze             2022-01-04 00:24:38 - section has 6 entries left
+0.020  Info       wanalyze             name = env 
+0.020  Info       wanalyze             name = tableBase 
+0.020  Info       wanalyze             global 
+0.020  Info       wanalyze             const 
+0.020  Info       wanalyze             2022-01-04 00:24:38 - section has 5 entries left
+0.021  Info       wanalyze             name = env 
+0.021  Info       wanalyze             name = DYNAMICTOP_PTR 
+0.021  Info       wanalyze             global 
+0.021  Info       wanalyze             const 
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 4 entries left
+0.021  Info       wanalyze             name = env 
+0.021  Info       wanalyze             name = STACKTOP 
+0.021  Info       wanalyze             global 
+0.021  Info       wanalyze             const 
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 3 entries left
+0.021  Info       wanalyze             name = env 
+0.021  Info       wanalyze             name = STACK_MAX 
+0.021  Info       wanalyze             global 
+0.021  Info       wanalyze             const 
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 2 entries left
+0.021  Info       wanalyze             name = env 
+0.021  Info       wanalyze             name = memory 
+0.021  Info       wanalyze             mem 
+0.021  Info       wanalyze             lower limit
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 1 entries left
+0.021  Info       wanalyze             name = env 
+0.021  Info       wanalyze             name = table 
+0.021  Info       wanalyze             table 
+0.021  Info       wanalyze             funcref
+0.021  Info       wanalyze             lower, upper
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 0 entries left
+0.021  Info       wanalyze             Section type: 3
+0.021  Info       wanalyze             Function section
+0.021  Info       wanalyze             reading section: 
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 68 entries left
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 67 entries left
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 66 entries left
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 65 entries left
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 64 entries left
+0.021  Info       wanalyze             2022-01-04 00:24:38 - section has 63 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 62 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 61 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 60 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 59 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 58 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 57 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 56 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 55 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 54 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 53 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 52 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 51 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 50 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 49 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 48 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 47 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 46 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 45 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 44 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 43 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 42 entries left
+0.022  Info       wanalyze             2022-01-04 00:24:38 - section has 41 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 40 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 39 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 38 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 37 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 36 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 35 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 34 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 33 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 32 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 31 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 30 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 29 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 28 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 27 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 26 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 25 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 24 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 23 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 22 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 21 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 20 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 19 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 18 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 17 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 16 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 15 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 14 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 13 entries left
+0.023  Info       wanalyze             2022-01-04 00:24:38 - section has 12 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 11 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 10 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 9 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 8 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 7 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 6 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 5 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 4 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 3 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 2 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 1 entries left
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 0 entries left
+0.024  Info       wanalyze             Section type: 6
+0.024  Info       wanalyze             Global section
+0.024  Info       wanalyze             reading section: 
+0.024  Info       wanalyze             2022-01-04 00:24:38 - section has 6 entries left
+0.029  Info       wanalyze             var 
+0.029  Info       wanalyze             2022-01-04 00:24:38 - section has 5 entries left
+0.029  Info       wanalyze             var 
+0.029  Info       wanalyze             2022-01-04 00:24:38 - section has 4 entries left
+0.029  Info       wanalyze             var 
+0.029  Info       wanalyze             2022-01-04 00:24:38 - section has 3 entries left
+0.029  Info       wanalyze             var 
+0.030  Info       wanalyze             2022-01-04 00:24:38 - section has 2 entries left
+0.030  Info       wanalyze             var 
+0.030  Info       wanalyze             2022-01-04 00:24:38 - section has 1 entries left
+0.030  Info       wanalyze             var 
+0.030  Info       wanalyze             2022-01-04 00:24:38 - section has 0 entries left
+0.030  Info       wanalyze             Section type: 7
+0.030  Info       wanalyze             Export section
+0.030  Info       wanalyze             reading section: 
+0.030  Info       wanalyze             2022-01-04 00:24:38 - section has 14 entries left
+0.030  Info       wanalyze             name = ___errno_location 
+0.030  Info       wanalyze             func
+0.030  Info       wanalyze             2022-01-04 00:24:38 - section has 13 entries left
+0.030  Info       wanalyze             name = _allium_hash 
+0.030  Info       wanalyze             func
+0.030  Info       wanalyze             2022-01-04 00:24:38 - section has 12 entries left
+0.030  Info       wanalyze             name = _fflush 
+0.030  Info       wanalyze             func
+0.030  Info       wanalyze             2022-01-04 00:24:38 - section has 11 entries left
+0.031  Info       wanalyze             name = _free 
+0.031  Info       wanalyze             func
+0.031  Info       wanalyze             2022-01-04 00:24:38 - section has 10 entries left
+0.031  Info       wanalyze             name = _malloc 
+0.031  Info       wanalyze             func
+0.031  Info       wanalyze             2022-01-04 00:24:38 - section has 9 entries left
+0.031  Info       wanalyze             name = _sbrk 
+0.031  Info       wanalyze             func
+0.031  Info       wanalyze             2022-01-04 00:24:38 - section has 8 entries left
+0.031  Info       wanalyze             name = establishStackSpace 
+0.031  Info       wanalyze             func
+0.031  Info       wanalyze             2022-01-04 00:24:38 - section has 7 entries left
+0.031  Info       wanalyze             name = getTempRet0 
+0.031  Info       wanalyze             func
+0.031  Info       wanalyze             2022-01-04 00:24:38 - section has 6 entries left
+0.031  Info       wanalyze             name = setDynamicTop 
+0.031  Info       wanalyze             func
+0.031  Info       wanalyze             2022-01-04 00:24:38 - section has 5 entries left
+0.031  Info       wanalyze             name = setTempRet0 
+0.031  Info       wanalyze             func
+0.031  Info       wanalyze             2022-01-04 00:24:38 - section has 4 entries left
+0.031  Info       wanalyze             name = setThrew 
+0.031  Info       wanalyze             func
+0.031  Info       wanalyze             2022-01-04 00:24:38 - section has 3 entries left
+0.031  Info       wanalyze             name = stackAlloc 
+0.031  Info       wanalyze             func
+0.031  Info       wanalyze             2022-01-04 00:24:38 - section has 2 entries left
+0.031  Info       wanalyze             name = stackRestore 
+0.032  Info       wanalyze             func
+0.032  Info       wanalyze             2022-01-04 00:24:38 - section has 1 entries left
+0.032  Info       wanalyze             name = stackSave 
+0.032  Info       wanalyze             func
+0.032  Info       wanalyze             2022-01-04 00:24:38 - section has 0 entries left
+0.032  Info       wanalyze             Section type: 9
+0.032  Info       wanalyze             Element section
+0.032  Info       wanalyze             reading section: 
+0.032  Info       wanalyze             2022-01-04 00:24:38 - section has 1 entries left
+0.032  Info       wanalyze             Index: 49 
+0.032  Info       wanalyze             Index: 54 
+0.032  Info       wanalyze             Index: 32 
+0.032  Info       wanalyze             Index: 32 
+0.032  Info       wanalyze             Index: 53 
+0.032  Info       wanalyze             Index: 52 
+0.032  Info       wanalyze             Index: 41 
+0.032  Info       wanalyze             Index: 32 
+0.032  Info       wanalyze             Index: 32 
+0.032  Info       wanalyze             Index: 32 
+0.032  Info       wanalyze             2022-01-04 00:24:38 - section has 0 entries left
+0.032  Info       wanalyze             Section type: 10
+0.032  Info       wanalyze             Code section
+0.032  Info       wanalyze             reading section: 
+0.032  Info       wanalyze             2022-01-04 00:24:38 - section has 68 entries left
+0.032  Info       wanalyze             local count: 1 type: i32
+0.032  Info       wanalyze             locals (local i32)
+0.032  Info       wanalyze             2022-01-04 00:24:38 - section has 67 entries left
+0.032  Info       wanalyze             local count: 1 type: i32
+0.032  Info       wanalyze             locals (local i32)
+0.032  Info       wanalyze             2022-01-04 00:24:38 - section has 66 entries left
+0.032  Info       wanalyze             local count: 1 type: i32
+0.032  Info       wanalyze             locals (local i32)
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 65 entries left
+0.033  Info       wanalyze             local count: 1 type: i32
+0.033  Info       wanalyze             locals (local i32)
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 64 entries left
+0.033  Info       wanalyze             local count: 1 type: i32
+0.033  Info       wanalyze             locals (local i32)
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 63 entries left
+0.033  Info       wanalyze             local count: 1 type: i32
+0.033  Info       wanalyze             locals (local i32)
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 62 entries left
+0.033  Info       wanalyze             local count: 1 type: i32
+0.033  Info       wanalyze             locals (local i32)
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 61 entries left
+0.033  Info       wanalyze             local count: 1 type: i32
+0.033  Info       wanalyze             locals (local i32)
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 60 entries left
+0.033  Info       wanalyze             locals 
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 59 entries left
+0.033  Info       wanalyze             local count: 1 type: i32
+0.033  Info       wanalyze             locals (local i32)
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 58 entries left
+0.033  Info       wanalyze             local count: 1 type: i32
+0.033  Info       wanalyze             locals (local i32)
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 57 entries left
+0.033  Info       wanalyze             locals 
+0.033  Info       wanalyze             2022-01-04 00:24:38 - section has 56 entries left
+0.034  Info       wanalyze             local count: 1 type: i32
+0.034  Info       wanalyze             locals (local i32)
+0.034  Info       wanalyze             2022-01-04 00:24:38 - section has 55 entries left
+0.034  Info       wanalyze             local count: 3 type: i32
+0.036  Info       wanalyze             locals (local i32 i32 i32)
+0.036  Info       wanalyze             2022-01-04 00:24:38 - section has 54 entries left
+0.036  Info       wanalyze             local count: 4 type: i32
+0.036  Info       wanalyze             locals (local i32 i32 i32 i32)
+0.036  Info       wanalyze             2022-01-04 00:24:38 - section has 53 entries left
+0.036  Info       wanalyze             local count: 1 type: i32
+0.036  Info       wanalyze             locals (local i32)
+0.037  Info       wanalyze             2022-01-04 00:24:38 - section has 52 entries left
+0.037  Info       wanalyze             locals 
+0.037  Info       wanalyze             2022-01-04 00:24:38 - section has 51 entries left
+0.037  Info       wanalyze             local count: 8 type: i32
+0.043  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32)
+0.045  Info       wanalyze             2022-01-04 00:24:38 - section has 50 entries left
+0.045  Info       wanalyze             local count: 15 type: i32
+0.185  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+0.220  Info       wanalyze             2022-01-04 00:24:38 - section has 49 entries left
+0.220  Info       wanalyze             local count: 195 type: i32
+1.172  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+1.172  Info       wanalyze             2022-01-04 00:24:39 - section has 48 entries left
+1.172  Info       wanalyze             local count: 15 type: i32
+1.172  Info       wanalyze             local count: 16 type: i64
+1.176  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+1.176  Info       wanalyze             2022-01-04 00:24:39 - section has 47 entries left
+1.176  Info       wanalyze             local count: 1 type: i32
+1.176  Info       wanalyze             locals (local i32)
+1.176  Info       wanalyze             2022-01-04 00:24:39 - section has 46 entries left
+1.176  Info       wanalyze             local count: 6 type: i32
+1.176  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32)
+1.176  Info       wanalyze             2022-01-04 00:24:39 - section has 45 entries left
+1.176  Info       wanalyze             local count: 15 type: i32
+1.176  Info       wanalyze             local count: 18 type: i64
+1.555  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+1.555  Info       wanalyze             2022-01-04 00:24:40 - section has 44 entries left
+1.555  Info       wanalyze             local count: 2 type: i32
+1.555  Info       wanalyze             locals (local i32 i32)
+1.555  Info       wanalyze             2022-01-04 00:24:40 - section has 43 entries left
+1.555  Info       wanalyze             local count: 11 type: i32
+1.556  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+1.556  Info       wanalyze             2022-01-04 00:24:40 - section has 42 entries left
+1.556  Info       wanalyze             local count: 164 type: i32
+1.556  Info       wanalyze             local count: 44 type: i64
+1.971  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+1.971  Info       wanalyze             2022-01-04 00:24:40 - section has 41 entries left
+1.971  Info       wanalyze             local count: 93 type: i32
+1.971  Info       wanalyze             local count: 16 type: i64
+2.192  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+2.192  Info       wanalyze             2022-01-04 00:24:40 - section has 40 entries left
+2.192  Info       wanalyze             local count: 34 type: i32
+2.194  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+2.194  Info       wanalyze             2022-01-04 00:24:40 - section has 39 entries left
+2.194  Info       wanalyze             local count: 3 type: i32
+2.194  Info       wanalyze             local count: 6 type: i64
+2.195  Info       wanalyze             locals (local i32 i32 i32 i64 i64 i64 i64 i64 i64)
+2.195  Info       wanalyze             2022-01-04 00:24:40 - section has 38 entries left
+2.195  Info       wanalyze             locals 
+2.195  Info       wanalyze             2022-01-04 00:24:40 - section has 37 entries left
+2.195  Info       wanalyze             local count: 1 type: i32
+2.195  Info       wanalyze             locals (local i32)
+2.195  Info       wanalyze             2022-01-04 00:24:40 - section has 36 entries left
+2.195  Info       wanalyze             locals 
+2.195  Info       wanalyze             2022-01-04 00:24:40 - section has 35 entries left
+2.195  Info       wanalyze             locals 
+2.195  Info       wanalyze             2022-01-04 00:24:40 - section has 34 entries left
+2.195  Info       wanalyze             locals 
+2.196  Info       wanalyze             2022-01-04 00:24:40 - section has 33 entries left
+2.196  Info       wanalyze             locals 
+2.196  Info       wanalyze             2022-01-04 00:24:40 - section has 32 entries left
+2.196  Info       wanalyze             local count: 2 type: i32
+2.196  Info       wanalyze             locals (local i32 i32)
+2.196  Info       wanalyze             2022-01-04 00:24:40 - section has 31 entries left
+2.196  Info       wanalyze             local count: 3 type: i32
+2.196  Info       wanalyze             locals (local i32 i32 i32)
+2.196  Info       wanalyze             2022-01-04 00:24:40 - section has 30 entries left
+2.196  Info       wanalyze             local count: 1 type: i32
+2.196  Info       wanalyze             locals (local i32)
+2.196  Info       wanalyze             2022-01-04 00:24:40 - section has 29 entries left
+2.196  Info       wanalyze             locals 
+2.196  Info       wanalyze             2022-01-04 00:24:40 - section has 28 entries left
+2.196  Info       wanalyze             locals 
+2.196  Info       wanalyze             2022-01-04 00:24:40 - section has 27 entries left
+2.196  Info       wanalyze             locals 
+2.196  Info       wanalyze             2022-01-04 00:24:40 - section has 26 entries left
+2.196  Info       wanalyze             local count: 68 type: i32
+2.196  Info       wanalyze             local count: 38 type: i64
+2.500  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+2.501  Info       wanalyze             2022-01-04 00:24:41 - section has 25 entries left
+2.501  Info       wanalyze             local count: 76 type: i32
+2.501  Info       wanalyze             local count: 38 type: i64
+2.762  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+2.763  Info       wanalyze             2022-01-04 00:24:41 - section has 24 entries left
+2.763  Info       wanalyze             local count: 9 type: i32
+2.763  Info       wanalyze             local count: 3 type: i64
+2.765  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64)
+2.765  Info       wanalyze             2022-01-04 00:24:41 - section has 23 entries left
+2.765  Info       wanalyze             local count: 1 type: i32
+2.765  Info       wanalyze             locals (local i32)
+2.765  Info       wanalyze             2022-01-04 00:24:41 - section has 22 entries left
+2.765  Info       wanalyze             local count: 1 type: i32
+2.765  Info       wanalyze             locals (local i32)
+2.765  Info       wanalyze             2022-01-04 00:24:41 - section has 21 entries left
+2.765  Info       wanalyze             local count: 8 type: i32
+2.765  Info       wanalyze             local count: 15 type: i64
+2.803  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64 i64)
+2.803  Info       wanalyze             2022-01-04 00:24:41 - section has 20 entries left
+2.804  Info       wanalyze             local count: 1 type: i32
+2.804  Info       wanalyze             locals (local i32)
+2.804  Info       wanalyze             2022-01-04 00:24:41 - section has 19 entries left
+2.804  Info       wanalyze             locals 
+2.804  Info       wanalyze             2022-01-04 00:24:41 - section has 18 entries left
+2.804  Info       wanalyze             local count: 1 type: i32
+2.804  Info       wanalyze             locals (local i32)
+2.804  Info       wanalyze             2022-01-04 00:24:41 - section has 17 entries left
+2.804  Info       wanalyze             local count: 83 type: i32
+3.548  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+3.548  Info       wanalyze             2022-01-04 00:24:42 - section has 16 entries left
+3.548  Info       wanalyze             local count: 115 type: i32
+4.364  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.365  Info       wanalyze             2022-01-04 00:24:43 - section has 15 entries left
+4.365  Info       wanalyze             locals 
+4.365  Info       wanalyze             2022-01-04 00:24:43 - section has 14 entries left
+4.365  Info       wanalyze             local count: 1 type: i32
+4.365  Info       wanalyze             locals (local i32)
+4.365  Info       wanalyze             2022-01-04 00:24:43 - section has 13 entries left
+4.365  Info       wanalyze             local count: 10 type: i32
+4.369  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.369  Info       wanalyze             2022-01-04 00:24:43 - section has 12 entries left
+4.369  Info       wanalyze             local count: 24 type: i32
+4.373  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.374  Info       wanalyze             2022-01-04 00:24:43 - section has 11 entries left
+4.374  Info       wanalyze             local count: 23 type: i32
+4.375  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.375  Info       wanalyze             2022-01-04 00:24:43 - section has 10 entries left
+4.375  Info       wanalyze             locals 
+4.375  Info       wanalyze             2022-01-04 00:24:43 - section has 9 entries left
+4.375  Info       wanalyze             local count: 12 type: i32
+4.375  Info       wanalyze             locals (local i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)
+4.375  Info       wanalyze             2022-01-04 00:24:43 - section has 8 entries left
+4.375  Info       wanalyze             local count: 1 type: i32
+4.376  Info       wanalyze             locals (local i32)
+4.376  Info       wanalyze             2022-01-04 00:24:43 - section has 7 entries left
+4.376  Info       wanalyze             local count: 1 type: i32
+4.376  Info       wanalyze             locals (local i32)
+4.376  Info       wanalyze             2022-01-04 00:24:43 - section has 6 entries left
+4.376  Info       wanalyze             local count: 2 type: i32
+4.376  Info       wanalyze             locals (local i32 i32)
+4.376  Info       wanalyze             2022-01-04 00:24:43 - section has 5 entries left
+4.376  Info       wanalyze             locals 
+4.376  Info       wanalyze             2022-01-04 00:24:43 - section has 4 entries left
+4.376  Info       wanalyze             local count: 2 type: i32
+4.376  Info       wanalyze             locals (local i32 i32)
+4.377  Info       wanalyze             2022-01-04 00:24:43 - section has 3 entries left
+4.377  Info       wanalyze             local count: 1 type: i32
+4.377  Info       wanalyze             locals (local i32)
+4.377  Info       wanalyze             2022-01-04 00:24:43 - section has 2 entries left
+4.377  Info       wanalyze             locals 
+4.377  Info       wanalyze             2022-01-04 00:24:43 - section has 1 entries left
+4.377  Info       wanalyze             local count: 2 type: i32
+4.377  Info       wanalyze             locals (local i32 i32)
+4.377  Info       wanalyze             2022-01-04 00:24:43 - section has 0 entries left
+4.377  Info       wanalyze             Section type: 11
+4.377  Info       wanalyze             Data section
+4.377  Info       wanalyze             reading section: 
+4.377  Info       wanalyze             2022-01-04 00:24:43 - section has 14 entries left
+4.377  Info       wanalyze             2022-01-04 00:24:43 - section has 13 entries left
+4.378  Info       wanalyze             2022-01-04 00:24:43 - section has 12 entries left
+4.378  Info       wanalyze             2022-01-04 00:24:43 - section has 11 entries left
+4.379  Info       wanalyze             2022-01-04 00:24:43 - section has 10 entries left
+4.380  Info       wanalyze             2022-01-04 00:24:43 - section has 9 entries left
+4.381  Info       wanalyze             2022-01-04 00:24:43 - section has 8 entries left
+4.381  Info       wanalyze             2022-01-04 00:24:43 - section has 7 entries left
+4.382  Info       wanalyze             2022-01-04 00:24:43 - section has 6 entries left
+4.382  Info       wanalyze             2022-01-04 00:24:43 - section has 5 entries left
+4.383  Info       wanalyze             2022-01-04 00:24:43 - section has 4 entries left
+4.383  Info       wanalyze             2022-01-04 00:24:43 - section has 3 entries left
+4.383  Info       wanalyze             2022-01-04 00:24:43 - section has 2 entries left
+4.383  Info       wanalyze             2022-01-04 00:24:43 - section has 1 entries left
+4.383  Info       wanalyze             2022-01-04 00:24:43 - section has 0 entries left
+4.383  Info       wanalyze             Section type: -1
+15.981 Info       wanalyze             type: VariableGL
+15.981 Info       wanalyze             type: VariableGL
+15.981 Info       wanalyze             type: Binop
+15.981 Info       wanalyze             type: VariableSL
+15.981 Info       wanalyze             type: VariableGL
+15.981 Info       wanalyze             type: Constop
+15.981 Info       wanalyze             type: Relop
+15.981 Info       wanalyze             type: VariableGL
+15.982 Info       wanalyze             type: Constop
+15.982 Info       wanalyze             type: Binop
+15.982 Info       wanalyze             type: VariableGG
+15.982 Info       wanalyze             type: MemoryL
+15.982 Info       wanalyze             type: Relop
+15.982 Info       wanalyze             type: Binop
+15.982 Info       wanalyze             type: Control
+15.982 Info       wanalyze             type: Control
+15.982 Info       wanalyze             type: Control
+15.982 Info       wanalyze             type: VariableGL
+15.982 Info       wanalyze             type: Constop
+15.982 Info       wanalyze             type: Binop
+15.982 Info       wanalyze             type: Control
+15.982 Info       wanalyze             type: Control
+15.982 Info       wanalyze             type: Control
+15.982 Info       wanalyze             type: VariableGL
+15.982 Info       wanalyze             type: MemoryL
+15.982 Info       wanalyze             type: Control
+15.982 Info       wanalyze             type: VariableGL
+15.982 Info       wanalyze             type: VariableGL
+15.982 Info       wanalyze             type: Binop
+15.983 Info       wanalyze             type: VariableSL
+15.983 Info       wanalyze             type: VariableGL
+15.983 Info       wanalyze             type: Constop
+15.983 Info       wanalyze             type: Relop
+15.983 Info       wanalyze             type: VariableGL
+15.983 Info       wanalyze             type: Constop
+15.983 Info       wanalyze             type: Binop
+15.983 Info       wanalyze             type: VariableGG
+15.983 Info       wanalyze             type: MemoryL
+15.983 Info       wanalyze             type: Relop
+15.983 Info       wanalyze             type: Binop
+15.983 Info       wanalyze             type: Control
+15.983 Info       wanalyze             type: Control
+15.983 Info       wanalyze             type: Control
+15.983 Info       wanalyze             type: VariableGL
+15.983 Info       wanalyze             type: Constop
+15.983 Info       wanalyze             type: Binop
+15.983 Info       wanalyze             type: Control
+15.983 Info       wanalyze             type: Control
+15.983 Info       wanalyze             type: Control
+15.983 Info       wanalyze             type: VariableGL
+15.984 Info       wanalyze             type: VariableGL
+15.984 Info       wanalyze             type: MemoryS
+15.984 Info       wanalyze             type: Control
+15.984 Info       wanalyze             type: VariableGL
+15.984 Info       wanalyze             type: VariableGL
+15.984 Info       wanalyze             type: Binop
+15.984 Info       wanalyze             type: VariableSL
+15.984 Info       wanalyze             type: VariableGL
+15.984 Info       wanalyze             type: Constop
+15.984 Info       wanalyze             type: Relop
+15.984 Info       wanalyze             type: VariableGL
+15.984 Info       wanalyze             type: Constop
+15.984 Info       wanalyze             type: Binop
+15.984 Info       wanalyze             type: VariableGG
+15.984 Info       wanalyze             type: MemoryL
+15.984 Info       wanalyze             type: Relop
+15.984 Info       wanalyze             type: Binop
+15.984 Info       wanalyze             type: Control
+15.984 Info       wanalyze             type: Control
+15.984 Info       wanalyze             type: Control
+15.984 Info       wanalyze             type: VariableGL
+15.984 Info       wanalyze             type: Constop
+15.984 Info       wanalyze             type: Binop
+15.984 Info       wanalyze             type: Control
+15.984 Info       wanalyze             type: Control
+15.984 Info       wanalyze             type: Control
+15.984 Info       wanalyze             type: VariableGL
+15.984 Info       wanalyze             type: VariableGL
+15.984 Info       wanalyze             type: MemoryS
+15.984 Info       wanalyze             type: Control
+15.985 Info       wanalyze             type: VariableGL
+15.985 Info       wanalyze             type: VariableGL
+15.985 Info       wanalyze             type: Binop
+15.985 Info       wanalyze             type: VariableSL
+15.985 Info       wanalyze             type: VariableGL
+15.985 Info       wanalyze             type: Constop
+15.985 Info       wanalyze             type: Relop
+15.985 Info       wanalyze             type: VariableGL
+15.985 Info       wanalyze             type: Constop
+15.985 Info       wanalyze             type: Binop
+15.985 Info       wanalyze             type: VariableGG
+15.985 Info       wanalyze             type: MemoryL
+15.985 Info       wanalyze             type: Relop
+15.985 Info       wanalyze             type: Binop
+15.985 Info       wanalyze             type: Control
+15.985 Info       wanalyze             type: Control
+15.985 Info       wanalyze             type: Control
+15.985 Info       wanalyze             type: VariableGL
+15.985 Info       wanalyze             type: MemoryL
+15.985 Info       wanalyze             type: Control
+15.985 Info       wanalyze             type: VariableGL
+15.985 Info       wanalyze             type: VariableGL
+15.985 Info       wanalyze             type: Binop
+15.986 Info       wanalyze             type: VariableSL
+15.986 Info       wanalyze             type: VariableGL
+15.986 Info       wanalyze             type: Constop
+15.986 Info       wanalyze             type: Relop
+15.986 Info       wanalyze             type: VariableGL
+15.986 Info       wanalyze             type: Constop
+15.986 Info       wanalyze             type: Binop
+15.986 Info       wanalyze             type: VariableGG
+15.986 Info       wanalyze             type: MemoryL
+15.986 Info       wanalyze             type: Relop
+15.986 Info       wanalyze             type: Binop
+15.986 Info       wanalyze             type: Control
+15.986 Info       wanalyze             type: Control
+15.986 Info       wanalyze             type: Control
+15.986 Info       wanalyze             type: VariableGL
+15.986 Info       wanalyze             type: Constop
+15.986 Info       wanalyze             type: Binop
+15.986 Info       wanalyze             type: Control
+15.986 Info       wanalyze             type: Control
+15.986 Info       wanalyze             type: Control
+15.986 Info       wanalyze             type: VariableGL
+15.986 Info       wanalyze             type: MemoryL
+15.986 Info       wanalyze             type: Control
+15.986 Info       wanalyze             type: VariableGL
+15.986 Info       wanalyze             type: VariableGL
+15.986 Info       wanalyze             type: Binop
+15.986 Info       wanalyze             type: VariableSL
+15.986 Info       wanalyze             type: VariableGL
+15.987 Info       wanalyze             type: Constop
+15.987 Info       wanalyze             type: Relop
+15.987 Info       wanalyze             type: VariableGL
+15.987 Info       wanalyze             type: Constop
+15.987 Info       wanalyze             type: Binop
+15.987 Info       wanalyze             type: VariableGG
+15.987 Info       wanalyze             type: MemoryL
+15.987 Info       wanalyze             type: Relop
+15.987 Info       wanalyze             type: Binop
+15.987 Info       wanalyze             type: Control
+15.987 Info       wanalyze             type: Control
+15.987 Info       wanalyze             type: Control
+15.987 Info       wanalyze             type: VariableGL
+15.987 Info       wanalyze             type: VariableGL
+15.987 Info       wanalyze             type: MemoryS
+15.987 Info       wanalyze             type: Control
+15.987 Info       wanalyze             type: VariableGL
+15.987 Info       wanalyze             type: VariableGL
+15.987 Info       wanalyze             type: Binop
+15.987 Info       wanalyze             type: VariableSL
+15.987 Info       wanalyze             type: VariableGL
+15.987 Info       wanalyze             type: Constop
+15.987 Info       wanalyze             type: Relop
+15.987 Info       wanalyze             type: VariableGL
+15.987 Info       wanalyze             type: Constop
+15.987 Info       wanalyze             type: Binop
+15.987 Info       wanalyze             type: VariableGG
+15.987 Info       wanalyze             type: MemoryL
+15.987 Info       wanalyze             type: Relop
+15.987 Info       wanalyze             type: Binop
+15.987 Info       wanalyze             type: Control
+15.987 Info       wanalyze             type: Control
+15.988 Info       wanalyze             type: Control
+15.988 Info       wanalyze             type: VariableGL
+15.988 Info       wanalyze             type: Constop
+15.988 Info       wanalyze             type: Binop
+15.988 Info       wanalyze             type: Control
+15.988 Info       wanalyze             type: Control
+15.988 Info       wanalyze             type: Control
+15.988 Info       wanalyze             type: VariableGL
+15.988 Info       wanalyze             type: VariableGL
+15.988 Info       wanalyze             type: MemoryS
+15.988 Info       wanalyze             type: Control
+15.988 Info       wanalyze             type: VariableGL
+15.988 Info       wanalyze             type: VariableGL
+15.988 Info       wanalyze             type: Binop
+15.988 Info       wanalyze             type: VariableSL
+15.988 Info       wanalyze             type: VariableGL
+15.988 Info       wanalyze             type: Constop
+15.988 Info       wanalyze             type: Relop
+15.988 Info       wanalyze             type: VariableGL
+15.988 Info       wanalyze             type: Constop
+15.988 Info       wanalyze             type: Binop
+15.988 Info       wanalyze             type: VariableGG
+15.988 Info       wanalyze             type: MemoryL
+15.988 Info       wanalyze             type: Relop
+15.988 Info       wanalyze             type: Binop
+15.988 Info       wanalyze             type: Control
+15.988 Info       wanalyze             type: Control
+15.988 Info       wanalyze             type: Control
+15.988 Info       wanalyze             type: VariableGL
+15.988 Info       wanalyze             type: Constop
+15.988 Info       wanalyze             type: Binop
+15.989 Info       wanalyze             type: Control
+15.989 Info       wanalyze             type: Control
+15.989 Info       wanalyze             type: Control
+15.989 Info       wanalyze             type: VariableGL
+15.989 Info       wanalyze             type: MemoryL
+15.989 Info       wanalyze             type: Control
+15.989 Info       wanalyze             type: VariableGL
+15.989 Info       wanalyze             type: Constop
+15.989 Info       wanalyze             type: Relop
+15.989 Info       wanalyze             type: Control
+15.989 Info       wanalyze             type: Control
+15.989 Info       wanalyze             type: Control
+15.989 Info       wanalyze             type: VariableGL
+15.989 Info       wanalyze             type: VariableGL
+15.989 Info       wanalyze             type: Binop
+15.989 Info       wanalyze             type: VariableGG

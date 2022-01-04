@@ -7,7 +7,7 @@ open Wasm_module
     - add validation of indices (e.g. functions, types)*)
 
 (* create our logger *)
-let logger = Logging.make_logger "readBin" Debug [ RotatingFile ("readBinLog", Debug, 65536, 2) ]
+let logger = Logging.make_logger "wanalyze" Debug [ RotatingFile ("wanalyze", Debug, 65536, 2) ]
 
 let usage_msg = "readBin -verbose [-f n] [-s] <file1> <file2> ..."
 let verbose = ref false
