@@ -322,7 +322,7 @@ let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_o
 
 (* Print the whole wasm module *)
 let print w show_segments =
-  printf "Module: %s\n" w.module_name;
+  (Logging.get_logger "wanalyze")#info "Module: %s\n" w.module_name;
   printf "(module\n";
   printf "%s" (string_of_type_section w.type_section);
   printf "%s" (string_of_import_section w.import_section);

@@ -437,13 +437,13 @@ let push_retval (state: program_state) (retval: string) =
 
 (* call op handling *)
 let update_state_callop fidx (param_count: int) (retval_count: int) (state: program_state) =
-   printf "Calling %d, nparams: %d, nrets: %d\n" fidx param_count retval_count;
+  (Logging.get_logger "wanalyze")#info "Calling %d, nparams: %d, nrets: %d\n" fidx param_count retval_count;
    state.value_stack <- List.drop state.value_stack param_count;
   List.iter ~f:(push_retval state) (List.init retval_count ~f:(fun i -> String.concat ["R" ; string_of_int i]))
 let update_states_callop (param_counts: int list) (retval_counts: int list) (op: op_type) (s: states) =
   (match op.arg with
   | Funcidx fidx -> 
-       printf "Calling %d\n" fidx;
+       (Logging.get_logger "wanalyze")#info "Calling %d\n" fidx;
        List.iter ~f:(update_state_callop fidx (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx)) s.active;
   | _ -> failwith "Invalid call argument")
 
@@ -451,7 +451,7 @@ let update_states_callop (param_counts: int list) (retval_counts: int list) (op:
 let update_states_callindop (types: functype list) (op: op_type) (s: states) =
   (match op.arg with
   | CallIndirect c -> 
-(*        printf "Calling %d\n" fidx;
+(*        (Logging.get_logger "wanalyze")#info "Calling %d\n" fidx;
  *)       List.iter ~f:(update_state_callop 1 (List.length (List.nth_exn types c.y).rt1) (List.length (List.nth_exn types c.y).rt2)) s.active;
   | _ -> failwith "Invalid call indirect argument")
 
@@ -570,11 +570,11 @@ let update_state_unop (op: op_type) (state: program_state) =
 
 (* binary operators *)
 let update_state_binop (f: string) (state: program_state) =
-  printf "starting update_state_binop %d\n%!" (List.length state.value_stack);
+  (Logging.get_logger "wanalyze")#info "starting update_state_binop %d\n%!" (List.length state.value_stack);
   state.value_stack <- 
     List.cons (String.concat ["(" ; (List.nth_exn state.value_stack 0) ; " " ; f ; " " ; (List.nth_exn state.value_stack 1) ; ")"])
               (List.tl_exn (List.tl_exn state.value_stack));
-  (printf "ending update_state_binop\n%!")
+  ((Logging.get_logger "wanalyze")#info "ending update_state_binop\n%!")
 
 (* test operators *)
 let update_state_testop (op: op_type) (state: program_state) = 
@@ -601,7 +601,7 @@ let update_instr_count (state: program_state) = state.instr_count <- state.instr
 
 (* given an instruction, update states *)
 let update_s (s: states) (param_counts: int list) (retval_counts: int list) (types: functype list) (op: op_type) =
-   printf "States: %d " (List.length s.final);
+  (Logging.get_logger "wanalyze")#info "States: %d " (List.length s.final);
    List.iter ~f:update_instr_count s.active;
   match op.instrtype with
   | Control -> ((Logging.get_logger "wanalyze")#info "type: Control";update_states_controlop param_counts retval_counts types op s)
@@ -630,9 +630,9 @@ let local_value n i =
 
 let reduce_fn'' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
   for index = 0 to (List.length e) -1 do
-(*     printf "Active states: %d%!" (List.length s.active);
-    printf "%s\n%!" (string_of_ps s.active) ;
-    printf "%s\n%!" (string_of_inline_expr [List.nth_exn e index]);
+(*     (Logging.get_logger "wanalyze")#info "Active states: %d%!" (List.length s.active);
+    (Logging.get_logger "wanalyze")#info "%s\n%!" (string_of_ps s.active) ;
+    (Logging.get_logger "wanalyze")#info "%s\n%!" (string_of_inline_expr [List.nth_exn e index]);
  *)    update_s s param_counts retval_counts types (List.nth_exn e index)
   done;
   s
@@ -641,9 +641,9 @@ let rec reduce_fn' (e: expr) (param_counts: int list) (retval_counts: int list) 
     match e with
     | []     -> s
     | hd::tl -> 
-(*       printf "%s%!" (string_of_ps s.active);
-      printf "Active states: %d%!" (List.length s.active);
-      printf " %s\n%!" (string_of_inline_expr [List.nth_exn e 0]);
+(*       (Logging.get_logger "wanalyze")#info "%s%!" (string_of_ps s.active);
+      (Logging.get_logger "wanalyze")#info "Active states: %d%!" (List.length s.active);
+      (Logging.get_logger "wanalyze")#info " %s\n%!" (string_of_inline_expr [List.nth_exn e 0]);
  *)      update_s s param_counts retval_counts types hd;
       reduce_fn' tl param_counts retval_counts types s
 
@@ -811,8 +811,8 @@ let print_reduction (param_counts: int list) (retval_counts: int list) (last_imp
     (types: functype list) (func_idx: funcidx) (f: func) =
   let nparams = List.nth_exn param_counts (func_idx+last_import_idx) in
   let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
-  printf "\n\nStarting state for function %d:, %d parameters %d locals " (func_idx+last_import_idx) nparams nlocals;
-  printf "Final states:\n%s" (string_of_ps (reduce_fn f param_counts retval_counts types nparams nlocals).final)
+  (Logging.get_logger "wanalyze")#info "\n\nStarting state for function %d:, %d parameters %d locals " (func_idx+last_import_idx) nparams nlocals;
+  (Logging.get_logger "wanalyze")#info "Final states:\n%s" (string_of_ps (reduce_fn f param_counts retval_counts types nparams nlocals).final)
      
 (* Globals *)
 type global =

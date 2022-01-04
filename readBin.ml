@@ -69,7 +69,7 @@ let rec sLEB' ic size acc shift b: int64 =
                     (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (shift+7) (of_int (read_byte ic))
   | 0x00L ->         i64lor (i64lsl (i64land b 0x7FL) shift) acc
   | 0x40L -> i64lor (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (i64lsl 0xffffffffffffff80L shift)
-  | _ -> printf "invalid byte in LEB: %Lx\n" b; 0L
+  | _ -> logger#info "invalid byte in LEB: %Lx\n" b; 0L
 
 let sLEB ic size : int64 = sLEB' ic size 0L 0 (of_int (read_byte ic))
 
@@ -133,7 +133,7 @@ let read_valtype ic =
   | 0x7c -> logger#info  "f64 "; 0x7c
   | 0x70 -> logger#info  "funcref "; 0x70
   | 0x6f -> logger#info  "externref "; 0x6f
-  | x -> printf "invalid valtype %x" x; -1
+  | x -> logger#info "invalid valtype %x" x; -1
   
 let read_functype ic =
   (* it seems we need to write it like this to ensure that the order of
@@ -159,7 +159,7 @@ let read_reftype ic =
   match x with
   | 0x70 -> logger#info  "funcref"; Funcref
   | 0x6F -> logger#info  "externref"; Externref
-  | x -> printf "Invalid reftype %x!" x; Funcref
+  | x -> logger#info "Invalid reftype %x!" x; Funcref
 
 let read_tabletype ic = 
   let et = read_reftype ic in
@@ -182,7 +182,7 @@ let read_valtype ic =
   | 0x7c -> Numtype F64
   | 0x70 -> Reftype Funcref
   | 0x6f -> Reftype Externref
-  | _ -> printf "Invalid valtype %x" valtype; Numtype I32
+  | _ -> logger#info "Invalid valtype %x" valtype; Numtype I32
 
 let read_globaltype ic = 
   let t = read_valtype ic in
@@ -198,7 +198,7 @@ let read_importdesc ic =
   | 0x01 -> logger#info  "table ";   Some (Tabletype (read_tabletype ic))
   | 0x02 -> logger#info  "mem ";     Some (Memtype (read_mem_type ic))
   | 0x03 -> logger#info  "global ";  Some (Globaltype (read_globaltype ic))
-  | _ -> printf("Invalid importdesc %x!") importdesc_type; None
+  | _ -> logger#info ("Invalid importdesc %x!") importdesc_type; None
 
 let rec read_string' ic len acc =
   match len with
@@ -507,7 +507,7 @@ let read_exportdesc ic =
   | 0x01 -> logger#info  "table"; Table (read_idx ic)
   | 0x02 -> logger#info  "mem "; Mem (read_idx ic)
   | 0x03 -> logger#info  "global "; Global (read_idx ic)
-  | _ -> printf("Invalid exportdesc %x!") exportdesc_type; Func (read_idx ic)
+  | _ -> logger#info ("Invalid exportdesc %x!") exportdesc_type; Func (read_idx ic)
 
 let read_export ic w = 
   let name = read_name ic in
@@ -523,7 +523,7 @@ let read_elemkind ic: int =
   let k = read_byte ic in
   match k with
   | 0x00 -> k
-  | _ -> printf "Invalid elemkind %x" k; k
+  | _ -> logger#info "Invalid elemkind %x" k; k
 
 let read_idx ic =
   match uLEB ic 32 with
@@ -641,8 +641,8 @@ let processFile file =
   let ic = In_channel.create file in
   let w  = Wasm_module.create file in
   (match parse_wasm ic w with
-   | true  -> printf "Success yes\n"
-   | _     -> printf "Failed\n"
+   | true  -> logger#info "Success yes\n"
+   | _     -> logger#info "Failed\n"
   );
   Wasm_print.print w !show_segments; 
   print_reductions w !fn_arg
