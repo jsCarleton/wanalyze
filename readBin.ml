@@ -11,11 +11,9 @@ let logger = Logging.make_logger "wanalyze" Debug [ RotatingFile ("wanalyze", De
 
 let usage_msg = "readBin -verbose [-f n] [-s] <file1> <file2> ..."
 let verbose = ref false
-let fn_arg = ref (-1)
 let input_files = ref []
 let speclist =
-    [("-verbose", Arg.Set verbose, "Output debug information");
-    ("-f", Arg.Set_int fn_arg, "Analyze function specified by argument")]
+    [("-verbose", Arg.Set verbose, "Output debug information")]
 let anon_fun filename =
        input_files := filename::!input_files
 
@@ -643,7 +641,7 @@ let processFile file =
    | _     -> logger#info "Failed\n"
   );
   Wasm_print.print w; 
-  print_reductions w !fn_arg
+  print_reductions w
 
 let () =
   Arg.parse speclist anon_fun usage_msg;

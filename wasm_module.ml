@@ -806,14 +806,6 @@ let reduce_fn (f: func) (param_counts: int list) (retval_counts: int list) (type
      pending=[];
      final=[]}
 
-let sum_nlocals acc (l: local_type) = acc + l.n
-let print_reduction (param_counts: int list) (retval_counts: int list) (last_import_idx: funcidx) 
-    (types: functype list) (func_idx: funcidx) (f: func) =
-  let nparams = List.nth_exn param_counts (func_idx+last_import_idx) in
-  let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
-  (Logging.get_logger "wanalyze")#info "Starting state for function %d:, %d parameters %d locals " (func_idx+last_import_idx) nparams nlocals;
-  (Logging.get_logger "wanalyze")#info "Final states:%s" (string_of_ps (reduce_fn f param_counts retval_counts types nparams nlocals).final)
-     
 (* Globals *)
 type global =
 {
@@ -906,15 +898,24 @@ let create name =
     element_section = []; code_section = []; data_section = [];
     last_import_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
 
-let print_reductions (w: wasm_module) (fn_arg: int) =
+let sum_nlocals acc (l: local_type) = acc + l.n
+let print_reduction (param_counts: int list) (retval_counts: int list) (w: wasm_module) (func_idx: funcidx) (f: func) =
+  let nparams = List.nth_exn param_counts (func_idx + w.last_import_func) in
+  let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
+  let fname = String.concat["funcs/"; (Filename.chop_extension w.module_name); "-func"; string_of_int (func_idx + w.last_import_func); ".trace"] in
+  let oc = Out_channel.create fname in
+    Out_channel.output_string oc (sprintf "Start state: %s\n" (string_of_ps [{instr_count = 0; value_stack = []; 
+                                                                local_values = Array.init (nparams + nlocals) ~f:(local_value nparams); 
+                                                                global_values = Array.create ~len:(get_memory_size w.import_section) "??"}]));
+    Out_channel.output_string oc (sprintf "Final states:%s\n" (string_of_ps (reduce_fn f param_counts retval_counts w.type_section nparams nlocals).final));
+    Out_channel.close oc
+
+let print_reductions (w: wasm_module) =
   Gc.set {(Gc.get ()) with verbose = 0x01};
   let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
   let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
   let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
-  match fn_arg with
-  | -1 -> List.iteri ~f:(print_reduction param_counts retval_counts w.last_import_func w.type_section) w.code_section
-  | _ -> print_reduction param_counts retval_counts w.last_import_func w.type_section fn_arg (List.nth_exn w.code_section fn_arg)
-
+  List.iteri ~f:(print_reduction param_counts retval_counts w) w.code_section
     
 (* Section updating *)
 (* type section *)
