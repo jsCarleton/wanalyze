@@ -155,9 +155,11 @@ let string_of_arg a  =
   | 0 -> ""
   | _ -> String.concat [" " ; argstring]
 
-let string_of_opcode' (op: op_type) idx comment =
-  String.concat ["\n" ; sprintf "%4.4d" idx; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
-let string_of_opcode (e: expr) (idx: int) =
+let string_of_line_number (idx: int) (annotate: bool) =
+  match annotate with | true -> sprintf "%4.4d" idx | _ -> ""
+let string_of_opcode' (op: op_type) idx comment (annotate:bool) =
+  String.concat ["\n" ; string_of_line_number idx annotate; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
+let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
   let op = List.nth e idx in
   match op with
   | Some op -> 
@@ -166,42 +168,42 @@ let string_of_opcode (e: expr) (idx: int) =
     | 0x02 (* block *)
     | 0x03 (* loop *)
     | 0x04 (* if *)
-        -> string_of_opcode' op idx (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)])
+        -> string_of_opcode' op idx (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)]) annotate
     | 0x0c (* br *)
     | 0x0d (* br_if *)
-        -> string_of_opcode' op idx (String.concat [" (;@" ; string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ; ";)"])
+        -> string_of_opcode' op idx (String.concat [" (;@" ; string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ; ";)"]) annotate
     | 0x0b (* end *) ->
       (match op.nesting with
       | -1 -> ""
-      | _ -> string_of_opcode' op idx ""
+      | _ -> string_of_opcode' op idx "" annotate
       )
-    | _ -> string_of_opcode' op idx ""
+    | _ -> string_of_opcode' op idx "" annotate
     )
   | _ -> failwith "Missing opcode"
 
-let segment_sep show_segments index = 
-  match show_segments with
+let segment_sep annotate index = 
+  match annotate with
   | true -> String.concat ["\n"; string_of_int index; " ------------------------------------------------------------"]
   | _ -> ""
 
-let rec string_of_expr' e show_segments (segments: segment list) idx acc =
+let rec string_of_expr' e annotate (segments: segment list) idx acc =
   match idx < (List.length e) with
   | true -> 
     (match segments with
     | hd::tl ->
       (match hd.start_op = idx with
-        | true  -> string_of_expr' e show_segments tl (idx+1) (String.concat [acc ; (segment_sep show_segments hd.index); (string_of_opcode e idx)])
-        | false -> string_of_expr' e show_segments segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
+        | true  -> string_of_expr' e annotate tl (idx+1) (String.concat [acc ; (segment_sep annotate hd.index); (string_of_opcode e idx annotate)])
+        | false -> string_of_expr' e annotate segments (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
       )
-    | _ -> string_of_expr' e show_segments segments (idx+1) (String.concat [acc ; (string_of_opcode e idx)])
+    | _ -> string_of_expr' e annotate segments (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
     )
   | false -> acc
-let string_of_expr e segments show_segments = 
-  string_of_expr' e show_segments (match show_segments with | true -> segments | _ -> []) 0 ""
+let string_of_expr e segments annotate = 
+  string_of_expr' e annotate (match annotate with | true -> segments | _ -> []) 0 ""
 
-let string_of_code w idx show_segments =
+let string_of_code w idx annotate =
   let f = List.nth_exn w.code_section idx in
-  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr f.e f.segments show_segments)]
+  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr f.e f.segments annotate)]
 
 let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
 let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
@@ -232,17 +234,14 @@ let string_of_segments (s: segment list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ\n";
                  String.concat (List.map ~f:string_of_segment s)]
 
-let string_of_function w show_segments i idx = 
-  let segments = (List.nth_exn w.code_section i).segments in
+let string_of_function w annotate i idx = 
   String.concat [
     "  (func (;" ; string_of_int (i + w.last_import_func) ; ";) (type " ; string_of_int idx ; ")" 
     ; string_of_types "param" (get_type_sig w idx).rt1
     ; string_of_types "result" (get_type_sig w idx).rt2
-    ; string_of_code w i show_segments ; ")\n" 
-    ; string_of_segments segments
-    ; graph_segments segments]
-let string_of_function_section w show_segments = 
-  String.concat ~sep:"" (List.mapi ~f:(string_of_function w show_segments) w.function_section)
+    ; string_of_code w i annotate ; ")\n"]
+let string_of_function_section w = 
+  String.concat ~sep:"" (List.mapi ~f:(string_of_function w false) w.function_section)
 
 (* Table section *) 
 let string_of_table i (t: tabletype) = String.concat [(string_of_tabletype t i) ; "\n"]
@@ -320,18 +319,37 @@ let string_of_data d =
           ; ") "  ; hexstring_of_bytes meb.b ; ")\n"]
 let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_of_data section)
 
+(* print the functions one by one along with our analysis *)
+let print_function w dir prefix i idx =
+  let fname = String.concat[dir; prefix; string_of_int (i + w.last_import_func)] in
+  let oc = Out_channel.create (String.concat[fname; ".wat"]) in
+    Out_channel.output_string oc (string_of_function w true i idx);
+    Out_channel.close oc;
+  let segments = (List.nth_exn w.code_section i).segments in
+  let oc = Out_channel.create (String.concat[fname; ".segments"]) in
+    Out_channel.output_string oc (string_of_segments segments);
+    Out_channel.close oc;
+  let oc = Out_channel.create (String.concat[fname; ".dot"]) in
+    Out_channel.output_string oc (graph_segments segments);
+    Out_channel.close oc
+let print_functions w =
+  List.iteri ~f:(print_function w "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"])) w.function_section
+
 (* Print the whole wasm module *)
-let print w show_segments =
-  (Logging.get_logger "wanalyze")#info "Module: %s\n" w.module_name;
-  printf "(module\n";
-  printf "%s" (string_of_type_section w.type_section);
-  printf "%s" (string_of_import_section w.import_section);
-  printf "%s" (string_of_function_section w show_segments);
-  printf "%s" (string_of_table_section w.table_section);
-  printf "%s" (string_of_memory_section w.memory_section);
-  printf "%s" (string_of_global_section w.global_section);
-  printf "%s" (string_of_export_section w.export_section);
-  printf "%s" (string_of_start w.start_section);
-  printf "%s" (string_of_element_section w.element_section);
-  printf "%s" (string_of_data_section w.data_section);
-  printf ")"; ()
+let print w =
+  let oc = Out_channel.create (String.concat[Filename.chop_extension w.module_name; "-wanalyze.wat"]) in
+    (Logging.get_logger "wanalyze")#info "Module: %s" w.module_name;
+    Out_channel.output_string oc "(module\n";
+    Out_channel.output_string oc (string_of_type_section w.type_section);
+    Out_channel.output_string oc (string_of_import_section w.import_section);
+    Out_channel.output_string oc (string_of_function_section w);
+    Out_channel.output_string oc (string_of_table_section w.table_section);
+    Out_channel.output_string oc (string_of_memory_section w.memory_section);
+    Out_channel.output_string oc (string_of_global_section w.global_section);
+    Out_channel.output_string oc (string_of_export_section w.export_section);
+    Out_channel.output_string oc (string_of_start w.start_section);
+    Out_channel.output_string oc (string_of_element_section w.element_section);
+    Out_channel.output_string oc (string_of_data_section w.data_section);
+    Out_channel.output_string oc ")";
+    Out_channel.close oc;
+    print_functions w

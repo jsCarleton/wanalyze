@@ -1,0 +1,18 @@
+                          br    target
+index start   end nesting dest  labels type        succ
+    0     0     4     0   2            if          1 2                 
+    1     4     6     0                end         2                   
+    2     6    14     0   4            if          3 4                 
+    3    14    16     0                end         4                   
+    4    16    20     0   13           if          5 9                 
+    5    20    24     1   7            if          6 7                 
+    6    24    26     1                end         7                   
+    7    26    30     1                return      16                  
+    8    30    31     0                else        13                  
+    9    31    35     1   12           if          10 12               
+   10    35    39     2                return      16                  
+   11    39    40     1                end         12                  
+   12    40    41     0                end         13                  
+   13    41    45     0   15           if          14 15               
+   14    45    47     0                end         15                  
+   15    47    51    -1                end         16                  

@@ -1,0 +1,14 @@
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 7;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 2[label = "~if"];
+    1 -> 2[label = "end"];
+    2 -> 3[label = "if"];
+    2 -> 6[label = "~if"];
+    3 -> 4[label = "if"];
+    3 -> 5[label = "~if"];
+    4 -> 5[label = "end"];
+    5 -> 6[label = "end"];
+    6 -> 7[label = "end"];
+}

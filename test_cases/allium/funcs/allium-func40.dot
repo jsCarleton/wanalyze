@@ -1,0 +1,33 @@
+digraph finite_state_machine {
+    node [shape = doublecircle]; 0 22;
+    node [shape = circle];
+    0 -> 1[label = "block"];
+    1 -> 2[label = "if"];
+    1 -> 6[label = "~if"];
+    2 -> 3[label = "if"];
+    2 -> 5[label = "~if"];
+    3 -> 21[label = "br"];
+    4 -> 5[label = "end"];
+    5 -> 20[label = "else"];
+    6 -> 7[label = "if"];
+    6 -> 8[label = "~if"];
+    7 -> 9[label = "else"];
+    8 -> 9[label = "end"];
+    9 -> 10[label = "if"];
+    9 -> 19[label = "~if"];
+    10 -> 11[label = "loop"];
+    11 -> 12[label = "if"];
+    11 -> 13[label = "~if"];
+    12 -> 14[label = "else"];
+    13 -> 14[label = "end"];
+    14 -> 15[label = "if"];
+    14 -> 16[label = "~if"];
+    15 -> 16[label = "end"];
+    16 -> 17[label = "~br_if"];
+    16 -> 11[color="red" label = "br_if"];
+    17 -> 18[label = "end"];
+    18 -> 19[label = "end"];
+    19 -> 20[label = "end"];
+    20 -> 21[label = "end"];
+    21 -> 22[label = "end"];
+}
