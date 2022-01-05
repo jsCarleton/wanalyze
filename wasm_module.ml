@@ -403,9 +403,13 @@ match index < List.length segments with
 (* printing the state *)
 let string_of_instr_count (count: int) = String.concat ["  steps: " ; string_of_int count ; "; "]
 let string_of_value_stack (stack: string list) = String.concat ["stack: [" ; (String.concat ~sep:", " stack) ; "]; "]
-let string_of_local_values (locals: string array) = String.concat ["locals: [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]"]
+let string_of_local_values (locals: string array) = String.concat ["locals: [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]; "]
+let string_of_global_values (globals: string array) = String.concat ["globals: [" ; (String.concat ~sep:", " (Array.to_list globals)) ; "]"]
 let string_of_state (state: program_state): string =
-  String.concat [string_of_instr_count state.instr_count ;  string_of_value_stack state.value_stack ; string_of_local_values state.local_values]
+  String.concat [ string_of_instr_count state.instr_count;
+                  string_of_value_stack state.value_stack;
+                  string_of_local_values state.local_values;
+                  string_of_global_values state.global_values]
 let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:string_of_state ps)
 
 (* Updating the state of the program *)
@@ -539,6 +543,7 @@ let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
   Array.set state.local_values (int_of_get_argL op.arg) value
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
   (* TODO getting index out of bounds error here *)
+  (Logging.get_logger "wanalyze")#info "update_state_varGGop: %d %d" (int_of_get_argG op.arg) (Array.length state.global_values);
   state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
   let value = List.hd_exn state.value_stack in
@@ -802,7 +807,7 @@ let reduce_fn (f: func) (param_counts: int list) (retval_counts: int list) (type
     {active=[{instr_count=0;
                 value_stack=[]; 
                 local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
-                global_values=Array.create ~len:2 "abc"}];
+                global_values=Array.create ~len:10 "abc"}];
      pending=[];
      final=[]}
 
@@ -885,7 +890,7 @@ let execute_segments (w: wasm_module) (segments: segment list) (fidx: int) (e: e
       (* the state of the program *)
       {instr_count=0; value_stack=[]; 
         local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
-        global_values=Array.create ~len:(get_memory_size w.import_section) "??"}
+        global_values=Array.create ~len:10 "abc"}
       (* parameter count for each function *)
       param_counts
       (* return value count for each function *)
@@ -906,7 +911,7 @@ let print_reduction (param_counts: int list) (retval_counts: int list) (w: wasm_
   let oc = Out_channel.create fname in
     Out_channel.output_string oc (sprintf "Start state: %s\n" (string_of_ps [{instr_count = 0; value_stack = []; 
                                                                 local_values = Array.init (nparams + nlocals) ~f:(local_value nparams); 
-                                                                global_values = Array.create ~len:(get_memory_size w.import_section) "??"}]));
+                                                                global_values = Array.create ~len:10 "abc"}]));
     Out_channel.output_string oc (sprintf "Final states:%s\n" (string_of_ps (reduce_fn f param_counts retval_counts w.type_section nparams nlocals).final));
     Out_channel.close oc
 
