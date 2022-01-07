@@ -640,8 +640,8 @@ let processFile file =
    | true  -> logger#info "Success yes\n"
    | _     -> logger#info "Failed\n"
   );
-  Wasm_print.print w; 
-  print_reductions w
+  Wasm_print.print w
+  (* TODO print segment by segment trace *)
 
 let () =
   Arg.parse speclist anon_fun usage_msg;

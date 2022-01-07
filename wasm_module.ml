@@ -256,6 +256,7 @@ type states =
   mutable final:    program_states;
 }
 
+(*
 type segment_state =
 {
   pred:       int;            (* the index of the predecessor segment *)
@@ -263,6 +264,7 @@ type segment_state =
   final:      program_state;  (* the state after the predecessor segment was executed *)
   succ_cond:  string;         (* the expression that must be true in order for the first successor state to be entered *) 
 }
+*)
   
 type segment =
 {
@@ -533,17 +535,18 @@ let int_of_get_argG arg =
     | Globalidx i -> i
     | _ -> failwith "Invalid global index"
 let update_state_varGLop (op: op_type) (state: program_state) = (* get local *)
-  state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack
+  (Logging.get_logger "wanalyze")#info "update_state_varGLop: %d %d" (Array.length state.local_values) (int_of_get_argL op.arg);
+  state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack;
+  (Logging.get_logger "wanalyze")#info "update_state_varGLop: %s" (string_of_state state)
 let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
   let value = List.hd_exn state.value_stack in
   state.value_stack <- List.tl_exn state.value_stack;
+  (Logging.get_logger "wanalyze")#info "update_state_varSLop: %d %d" (Array.length state.local_values) (int_of_get_argL op.arg);
   Array.set state.local_values (int_of_get_argL op.arg) value
 let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
   let value = List.hd_exn state.value_stack in
   Array.set state.local_values (int_of_get_argL op.arg) value
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
-  (* TODO getting index out of bounds error here *)
-  (Logging.get_logger "wanalyze")#info "update_state_varGGop: %d %d" (int_of_get_argG op.arg) (Array.length state.global_values);
   state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
   let value = List.hd_exn state.value_stack in
@@ -633,15 +636,18 @@ let local_value n i =
   | true -> "??"
   | _    -> String.concat ["N" ; string_of_int i]
 
+(* TODO is this needed? *)
 let reduce_fn'' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
   for index = 0 to (List.length e) -1 do
-(*     (Logging.get_logger "wanalyze")#info "Active states: %d%!" (List.length s.active);
+    (Logging.get_logger "wanalyze")#info "Instruction: %d" index;
+    (*     (Logging.get_logger "wanalyze")#info "Active states: %d%!" (List.length s.active);
     (Logging.get_logger "wanalyze")#info "%s%!" (string_of_ps s.active) ;
     (Logging.get_logger "wanalyze")#info "%s%!" (string_of_inline_expr [List.nth_exn e index]);
  *)    update_s s param_counts retval_counts types (List.nth_exn e index)
   done;
   s
 
+(* TODO is this needed? *)
 let rec reduce_fn' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
     match e with
     | []     -> s
@@ -712,6 +718,7 @@ let reduce_op (s: program_state) (op: op_type) (param_counts: int list) (retval_
       | Control ->    failwith "Can't happen."
       ); ""
  
+
 let rec reduce_segment' (s: program_state) (e: expr) (succ_cond: string) (param_counts: int list) (retval_counts: int list):
       string =
   match e with
@@ -720,26 +727,28 @@ let rec reduce_segment' (s: program_state) (e: expr) (succ_cond: string) (param_
 
 let reduce_segment (e: expr) (i: program_state) (param_counts: int list) (retval_counts: int list):
       program_state*string =
-  let f = {instr_count = 0; value_stack=i.value_stack; local_values=i.local_values; global_values=i.global_values} in
-  f, reduce_segment' f e "" param_counts retval_counts
+  let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values=(Array.copy i.local_values);
+              global_values=(Array.copy i.global_values)} in
+  let s = reduce_segment' f e "" param_counts retval_counts in
+  f,s
 
-let execute_segments'' (segments: segment list) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state)
+let execute_segment (s: segment) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state)
         (param_counts: int list) (retval_counts: int list): execution list =
-  match index < List.length segments with
-  | false -> ex_acc (* done *)
-  | _ ->
-    let s = List.nth_exn segments index in
-    let final, succ_cond = (reduce_segment  (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) 
-                                        initial param_counts retval_counts) in
-      (* TODO call execute_segments'' recursively *)
-      List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
+  (Logging.get_logger "wanalyze")#info "in execute_segments\'\'%s" (string_of_state initial);
+  let final, succ_cond = (reduce_segment  (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) 
+                                      initial param_counts retval_counts) in
+    (* TODO call execute_segments'' recursively *)
+    (Logging.get_logger "wanalyze")#info "in execute_segment initial - %s" (string_of_state initial);
+    (Logging.get_logger "wanalyze")#info "in execute_segment final   - %s" (string_of_state final);
+    List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
 
 let execute_segments' (segments: segment list) (indices: int list) (e: expr) (ex_acc: execution list) (initial: program_state)
         (param_counts: int list) (retval_counts: int list): execution list =
   match indices with
   | [] -> ex_acc
   (* TODO call execute_segments' recursively *)
-  | hd::_ -> execute_segments'' segments hd e ex_acc initial param_counts retval_counts
+  | hd::_ ->
+      execute_segment (List.nth_exn segments hd) hd e ex_acc initial param_counts retval_counts
       
 let segments_of_expr (e: expr) : segment list =
   let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2;
@@ -801,6 +810,7 @@ type func =
   segments: segment list;
 }
 
+(* TODO: delete this? *)
 let reduce_fn (f: func) (param_counts: int list) (retval_counts: int list) (types: functype list) (nparams: int) (nlocals: int): states =
   reduce_fn''
     f.e param_counts retval_counts types
@@ -876,21 +886,23 @@ let rec get_memory_size (i:import list): int =
   | Memtype m -> (get_size m)
   | _ -> get_memory_size (List.tl_exn i)
 
+let sum_nlocals acc (l: local_type) = acc + l.n
+
 let execute_segments (w: wasm_module) (segments: segment list) (fidx: int) (e: expr): execution list =
   let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
   let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
-  let retval_counts = List.map ~f:(retval_count w.type_section) all_fn_sigs in
+  let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
   let nparams = List.nth_exn param_counts fidx in
-  let nlocals = List.nth_exn retval_counts fidx in
+  let nlocals = List.fold_left ~f:sum_nlocals ~init:0 (List.nth_exn w.code_section (fidx - w.last_import_func)).locals in
+  (Logging.get_logger "wanalyze")#info "execute_segments fidx: %d nparams: %d nlocals: %d" fidx nparams nlocals;
   execute_segments'
-      segments    (* sgemnts to execute *)
+      segments    (* segments to execute *)
       [0]         (* index of the segment to start with *)
       e           (* code of those segments *)
       []          (* results of the execution so far *)
-      (* the state of the program *)
-      {instr_count=0; value_stack=[]; 
-        local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
-        global_values=Array.create ~len:10 "abc"}
+      (* the initial state of the program *)
+      {instr_count=0; value_stack=[]; local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
+          global_values=Array.create ~len:10 "abc"}
       (* parameter count for each function *)
       param_counts
       (* return value count for each function *)
@@ -903,7 +915,7 @@ let create name =
     element_section = []; code_section = []; data_section = [];
     last_import_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
 
-let sum_nlocals acc (l: local_type) = acc + l.n
+(* TODO this doesn't really make sense as written *)
 let print_reduction (param_counts: int list) (retval_counts: int list) (w: wasm_module) (func_idx: funcidx) (f: func) =
   let nparams = List.nth_exn param_counts (func_idx + w.last_import_func) in
   let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
