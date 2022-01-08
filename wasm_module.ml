@@ -407,12 +407,12 @@ let string_of_instr_count (count: int) = String.concat ["  steps: " ; string_of_
 let string_of_value_stack (stack: string list) = String.concat ["stack: [" ; (String.concat ~sep:", " stack) ; "]; "]
 let string_of_local_values (locals: string array) = String.concat ["locals: [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]; "]
 let string_of_global_values (globals: string array) = String.concat ["globals: [" ; (String.concat ~sep:", " (Array.to_list globals)) ; "]"]
-let string_of_state (state: program_state): string =
+let string_of_state (print_locals: bool) (state: program_state): string =
   String.concat [ string_of_instr_count state.instr_count;
                   string_of_value_stack state.value_stack;
-                  string_of_local_values state.local_values;
+                  (match print_locals with | true -> string_of_local_values state.local_values | false -> "");
                   string_of_global_values state.global_values]
-let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:string_of_state ps)
+let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:(string_of_state true) ps)
 
 (* Updating the state of the program *)
 let pop_value (state: program_state) = state.value_stack <- List.tl_exn state.value_stack
@@ -537,7 +537,7 @@ let int_of_get_argG arg =
 let update_state_varGLop (op: op_type) (state: program_state) = (* get local *)
   (Logging.get_logger "wanalyze")#info "update_state_varGLop: %d %d" (Array.length state.local_values) (int_of_get_argL op.arg);
   state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack;
-  (Logging.get_logger "wanalyze")#info "update_state_varGLop: %s" (string_of_state state)
+  (Logging.get_logger "wanalyze")#info "update_state_varGLop: %s" (string_of_state true state)
 let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
   let value = List.hd_exn state.value_stack in
   state.value_stack <- List.tl_exn state.value_stack;
@@ -580,7 +580,7 @@ let update_state_unop (op: op_type) (state: program_state) =
 let update_state_binop (f: string) (state: program_state) =
   (Logging.get_logger "wanalyze")#info "starting update_state_binop %d%!" (List.length state.value_stack);
   state.value_stack <- 
-    List.cons (String.concat ["(" ; (List.nth_exn state.value_stack 0) ; " " ; f ; " " ; (List.nth_exn state.value_stack 1) ; ")"])
+    List.cons (String.concat ["(" ; (List.nth_exn state.value_stack 1) ; " " ; f ; " " ; (List.nth_exn state.value_stack 0) ; ")"])
               (List.tl_exn (List.tl_exn state.value_stack));
   ((Logging.get_logger "wanalyze")#info "ending update_state_binop%!")
 
@@ -734,12 +734,12 @@ let reduce_segment (e: expr) (i: program_state) (param_counts: int list) (retval
 
 let execute_segment (s: segment) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state)
         (param_counts: int list) (retval_counts: int list): execution list =
-  (Logging.get_logger "wanalyze")#info "in execute_segments\'\'%s" (string_of_state initial);
+  (Logging.get_logger "wanalyze")#info "in execute_segments\'\'%s" (string_of_state true initial);
   let final, succ_cond = (reduce_segment  (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) 
                                       initial param_counts retval_counts) in
     (* TODO call execute_segments'' recursively *)
-    (Logging.get_logger "wanalyze")#info "in execute_segment initial - %s" (string_of_state initial);
-    (Logging.get_logger "wanalyze")#info "in execute_segment final   - %s" (string_of_state final);
+    (Logging.get_logger "wanalyze")#info "in execute_segment initial - %s" (string_of_state true initial);
+    (Logging.get_logger "wanalyze")#info "in execute_segment final   - %s" (string_of_state true final);
     List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
 
 let execute_segments' (segments: segment list) (indices: int list) (e: expr) (ex_acc: execution list) (initial: program_state)

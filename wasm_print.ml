@@ -319,13 +319,16 @@ let string_of_data d =
           ; ") "  ; hexstring_of_bytes meb.b ; ")\n"]
 let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_of_data section)
 
+let has_successors (segments: segment list) (seg_index: int ): bool =
+  let succ = (List.nth_exn segments seg_index).succ in
+    (List.length succ > 0) && (List.hd_exn succ < List.length segments)
 
-let string_of_execution (ex: execution): string =
+let string_of_execution (segments: segment list) (ex: execution): string =
   sprintf "segment %d from %d\ninitial state: %s\nfinal   state: %s\n" 
-      ex.index ex.pred_index (string_of_state ex.initial) (string_of_state ex.final)
-let string_of_executions (executions: execution list): string = 
+      ex.index ex.pred_index (string_of_state true ex.initial) (string_of_state (has_successors segments ex.index) ex.final)
+let string_of_executions (executions: execution list) (segments: segment list): string = 
   (Logging.get_logger "wanalyze")#info "executions: %d" (List.length executions);
-  String.concat (List.map ~f:string_of_execution executions)
+  String.concat (List.map ~f:(string_of_execution segments) executions)
 
 (* print the functions one by one along with our analysis *)
 let print_function w dir prefix i idx =
@@ -342,7 +345,7 @@ let print_function w dir prefix i idx =
     Out_channel.output_string oc (graph_segments segments);
     Out_channel.close oc;
   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
-    Out_channel.output_string oc (string_of_executions (execute_segments w segments (i + w.last_import_func) code.e));
+    Out_channel.output_string oc (string_of_executions (execute_segments w segments (i + w.last_import_func) code.e) segments);
     Out_channel.close oc
 let print_functions w =
   List.iteri ~f:(print_function w "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"])) w.function_section

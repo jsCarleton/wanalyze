@@ -32,7 +32,7 @@
     local.set 6
     local.get 5
     local.get 6
-    i32.add
+    i32.sub
     local.set 7
     local.get 7
     return)
