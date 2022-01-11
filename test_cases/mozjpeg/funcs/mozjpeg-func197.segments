@@ -1,0 +1,7 @@
+                          br    target
+index start   end nesting dest  labels type        succ
+    0     0     4     0   4            if          1 4                 
+    1     4     9     1   3            if          2 3                 
+    2     9    19     1                end         3                   
+    3    19    32     0                end         4                   
+    4    32    33    -1                end         5                   

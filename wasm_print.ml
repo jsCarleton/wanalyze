@@ -342,7 +342,7 @@ let print_function w dir prefix i idx =
     Out_channel.output_string oc (string_of_segments segments);
     Out_channel.close oc;
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
-    Out_channel.output_string oc (graph_segments segments);
+    Out_channel.output_string oc (graph_segments w.module_name (i + w.last_import_func) segments);
     Out_channel.close oc;
   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
     Out_channel.output_string oc (string_of_executions (execute_segments w segments (i + w.last_import_func) code.e) segments);

@@ -1,0 +1,3 @@
+segment 0 from -1
+initial state:   steps: 0; stack: []; locals: [N0, ??]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+final   state:   steps: 23; stack: [(((((32 - i32.clz((N0 || 1))) * 1233) shr_u 12) - (i32.load@((( shl 2) + 156032)) > N0)) + 1)]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]

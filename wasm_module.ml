@@ -535,17 +535,12 @@ let int_of_get_argG arg =
     | Globalidx i -> i
     | _ -> failwith "Invalid global index"
 let update_state_varGLop (op: op_type) (state: program_state) = (* get local *)
-  (Logging.get_logger "wanalyze")#info "update_state_varGLop: %d %d" (Array.length state.local_values) (int_of_get_argL op.arg);
-  state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack;
-  (Logging.get_logger "wanalyze")#info "update_state_varGLop: %s" (string_of_state true state)
+  state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack
 let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
-  let value = List.hd_exn state.value_stack in
-  state.value_stack <- List.tl_exn state.value_stack;
-  (Logging.get_logger "wanalyze")#info "update_state_varSLop: %d %d" (Array.length state.local_values) (int_of_get_argL op.arg);
-  Array.set state.local_values (int_of_get_argL op.arg) value
+  Array.set state.local_values (int_of_get_argL op.arg) (List.hd_exn state.value_stack);
+  state.value_stack <- List.tl_exn state.value_stack
 let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
-  let value = List.hd_exn state.value_stack in
-  Array.set state.local_values (int_of_get_argL op.arg) value
+  Array.set state.local_values (int_of_get_argL op.arg) "" (*(List.hd_exn state.value_stack)*)
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
   state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
@@ -578,11 +573,8 @@ let update_state_unop (op: op_type) (state: program_state) =
 
 (* binary operators *)
 let update_state_binop (f: string) (state: program_state) =
-  (Logging.get_logger "wanalyze")#info "starting update_state_binop %d%!" (List.length state.value_stack);
-  state.value_stack <- 
-    List.cons (String.concat ["(" ; (List.nth_exn state.value_stack 1) ; " " ; f ; " " ; (List.nth_exn state.value_stack 0) ; ")"])
-              (List.tl_exn (List.tl_exn state.value_stack));
-  ((Logging.get_logger "wanalyze")#info "ending update_state_binop%!")
+  let result = String.concat ["(" ; (List.nth_exn state.value_stack 1) ; " " ; f ; " " ; (List.nth_exn state.value_stack 0) ; ")"] in
+  state.value_stack <- List.cons result (List.tl_exn (List.tl_exn state.value_stack))
 
 (* test operators *)
 let update_state_testop (op: op_type) (state: program_state) = 
@@ -694,7 +686,8 @@ let update_state_controlop (op: op_type) (s: program_state) (param_counts: int l
   | _ -> failwith "Invalid control op"
     
 let reduce_op (s: program_state) (op: op_type) (param_counts: int list) (retval_counts: int list): string =
-  match op.instrtype with
+    update_instr_count s;
+    match op.instrtype with
     | Control -> update_state_controlop op s param_counts retval_counts
     | _ ->
       (match op.instrtype with
@@ -723,7 +716,12 @@ let rec reduce_segment' (s: program_state) (e: expr) (succ_cond: string) (param_
       string =
   match e with
   | []      -> succ_cond
-  | hd::tl  -> reduce_segment' s tl (reduce_op s hd param_counts retval_counts) param_counts retval_counts
+  | hd::tl  -> 
+    (Logging.get_logger "wanalyze")#info "in reduce_segment\' %d %d %d" 
+        (s.instr_count) 
+        (List.length s.value_stack)
+        (Array.fold ~f:(fun x y -> x + String.length y) ~init:0 s.local_values);
+    reduce_segment' s tl (reduce_op s hd param_counts retval_counts) param_counts retval_counts
 
 let reduce_segment (e: expr) (i: program_state) (param_counts: int list) (retval_counts: int list):
       program_state*string =
@@ -738,8 +736,6 @@ let execute_segment (s: segment) (index: int) (e: expr) (ex_acc: execution list)
   let final, succ_cond = (reduce_segment  (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) 
                                       initial param_counts retval_counts) in
     (* TODO call execute_segments'' recursively *)
-    (Logging.get_logger "wanalyze")#info "in execute_segment initial - %s" (string_of_state true initial);
-    (Logging.get_logger "wanalyze")#info "in execute_segment final   - %s" (string_of_state true final);
     List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
 
 let execute_segments' (segments: segment list) (indices: int list) (e: expr) (ex_acc: execution list) (initial: program_state)
@@ -758,7 +754,7 @@ let segments_of_expr (e: expr) : segment list =
   segments
 
 let graph_node (src: int) (dest: int) (label: string): string =
-  match src > dest with
+  match src >= dest with
   | true  -> 
       String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[color=\"red\" label = \""; label; "\"];\n"]
   | false -> 
@@ -786,17 +782,26 @@ let graph_segment (index: int) (segtype: int) (succ: int list) (last: int): stri
   | (* return *)      0x0f -> graph_node index last "return"
   | _ -> failwith (String.concat ["Unknown segtype to graph: "; string_of_int segtype])
 
-let graph_prefix (last: int) =
-  String.concat["digraph finite_state_machine {\n    node [shape = doublecircle]; 0 ";
-    string_of_int last; ";\n    node [shape = circle];\n"]
+let graph_prefix (module_name: string) (func_idx: int) (last: int): string =
+  String.concat[
+          "digraph finite_state_machine {\n";
+          "    label = \""; module_name; " - function "; string_of_int func_idx; "\"\n";
+          "    labelloc =  t\n";
+          "    labelfontsize = 16\n";
+          "    labelfontcolor = black\n";
+          "    labelfontname = \"Helvetica\"\n";
+          "    node [shape = doublecircle]; 0 "; string_of_int last; ";\n";
+          "    node [shape = circle];\n"]
 let graph_suffix = "}\n"
 let rec graph_segments' (segments: segment list) (last: int) (acc: string): string =
   match segments with
   | [] -> acc
   | hd::tl -> graph_segments' tl last (String.concat [acc; graph_segment hd.index hd.segtype hd.succ last])
-let graph_segments (segments: segment list): string =
+let graph_segments (module_name: string) (func_idx: int) (segments: segment list): string =
   let last = (List.length segments) in
-  String.concat [graph_prefix last; graph_segments' segments (List.length segments) ""; graph_suffix]
+  String.concat [ graph_prefix module_name func_idx last; 
+                  graph_segments' segments (List.length segments) "";
+                  graph_suffix]
 
 type local_type =
 {

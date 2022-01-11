@@ -1,0 +1,48 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 128"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; 0 28;
+    node [shape = circle];
+    0 -> 1[label = "block"];
+    1 -> 2[label = "block"];
+    2 -> 3[label = "block"];
+    3 -> 4[label = "~br_if"];
+    3 -> 10[label = "br_if"];
+    4 -> 5[label = "loop"];
+    5 -> 6[label = "~br_if"];
+    5 -> 20[label = "br_if"];
+    6 -> 7[label = "~br_if"];
+    6 -> 10[label = "br_if"];
+    7 -> 8[label = "~br_if"];
+    7 -> 5[color="red" label = "br_if"];
+    8 -> 9[label = "end"];
+    9 -> 10[label = "end"];
+    10 -> 11[label = "~br_if"];
+    10 -> 27[label = "br_if"];
+    11 -> 12[label = "block"];
+    12 -> 13[label = "~br_if"];
+    12 -> 18[label = "br_if"];
+    13 -> 14[label = "loop"];
+    14 -> 15[label = "~br_if"];
+    14 -> 18[label = "br_if"];
+    15 -> 16[label = "~br_if"];
+    15 -> 14[color="red" label = "br_if"];
+    16 -> 17[label = "end"];
+    17 -> 18[label = "end"];
+    18 -> 19[label = "~br_if"];
+    18 -> 27[label = "br_if"];
+    19 -> 20[label = "end"];
+    20 -> 21[label = "loop"];
+    21 -> 22[label = "if"];
+    21 -> 24[label = "~if"];
+    22 -> 28[label = "return"];
+    23 -> 24[label = "end"];
+    24 -> 25[label = "~br_if"];
+    24 -> 21[color="red" label = "br_if"];
+    25 -> 26[label = "end"];
+    26 -> 27[label = "end"];
+    27 -> 28[label = "end"];
+}

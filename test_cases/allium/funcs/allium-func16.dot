@@ -1,4 +1,9 @@
 digraph finite_state_machine {
+    labelloc =  t
+    labelfontsize = 30
+    labelfontcolor = black
+    labelfontname = "Courier:italic"
+    label = "allium.wasm - function 16"
     node [shape = doublecircle]; 0 5;
     node [shape = circle];
     0 -> 1[label = "if"];

@@ -1,0 +1,14 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 358"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; 0 4;
+    node [shape = circle];
+    0 -> 1[label = "loop"];
+    1 -> 2[label = "~br_if"];
+    1 -> 1[color="red" label = "br_if"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "end"];
+}

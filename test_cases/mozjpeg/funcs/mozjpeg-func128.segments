@@ -1,0 +1,30 @@
+                          br    target
+index start   end nesting dest  labels type        succ
+    0     0     5     0   27           block       1                   
+    1     5     6     1   20           block       2                   
+    2     6     7     2   10           block       3                   
+    3     7    15     3              0 br_if       4 10                
+    4    15    16     3   5            loop        5                   
+    5    16    20     4              2 br_if       6 20                
+    6    20    34     4              1 br_if       7 10                
+    7    34    38     4              0 br_if       8 5                 
+    8    38    39     3                end         9                   
+    9    39    40     2                end         10                  
+   10    40    43     2              1 br_if       11 27               
+   11    43    44     2   18           block       12                  
+   12    44    52     3              0 br_if       13 18               
+   13    52    53     3   14           loop        14                  
+   14    53    65     4              1 br_if       15 18               
+   15    65    76     4              0 br_if       16 14               
+   16    76    77     3                end         17                  
+   17    77    78     2                end         18                  
+   18    78    81     2              1 br_if       19 27               
+   19    81    82     1                end         20                  
+   20    82    83     1   21           loop        21                  
+   21    83    87     2   24           if          22 24               
+   22    87    89     3                return      28                  
+   23    89    90     2                end         24                  
+   24    90    99     2              0 br_if       25 21               
+   25    99   100     1                end         26                  
+   26   100   101     0                end         27                  
+   27   101   103    -1                end         28                  

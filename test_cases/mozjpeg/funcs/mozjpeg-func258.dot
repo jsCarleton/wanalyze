@@ -1,0 +1,29 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 258"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; 0 15;
+    node [shape = circle];
+    0 -> 1[label = "if"];
+    0 -> 3[label = "~if"];
+    1 -> 15[label = "return"];
+    2 -> 3[label = "end"];
+    3 -> 4[label = "block"];
+    4 -> 5[label = "~br_if"];
+    4 -> 14[label = "br_if"];
+    5 -> 6[label = "loop"];
+    6 -> 7[label = "block"];
+    7 -> 8[label = "~br_if"];
+    7 -> 12[label = "br_if"];
+    8 -> 9[label = "~br_if"];
+    8 -> 12[label = "br_if"];
+    9 -> 10[label = "~br_if"];
+    9 -> 6[color="red" label = "br_if"];
+    10 -> 14[label = "br"];
+    11 -> 12[label = "end"];
+    12 -> 13[label = "end"];
+    13 -> 14[label = "end"];
+    14 -> 15[label = "end"];
+}

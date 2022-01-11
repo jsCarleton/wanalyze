@@ -1,0 +1,1 @@
+for FILE in "$1"/funcs/*.dot; do dot -Tsvg "$FILE" >"${FILE%%.*}.svg"; done

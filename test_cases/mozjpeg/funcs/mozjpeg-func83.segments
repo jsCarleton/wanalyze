@@ -1,0 +1,26 @@
+                          br    target
+index start   end nesting dest  labels type        succ
+    0     0     1     0   21           block       1                   
+    1     1     7     1   4            if          2 4                 
+    2     7    42     2              1 br          21                  
+    3    42    43     1                end         4                   
+    4    43    49     1   6            if          5 6                 
+    5    49    67     1                end         6                   
+    6    67    95     1              0 br_if       7 21                
+    7    95    96     1   8            loop        8                   
+    8    96   149     2   10           if          9 10                
+    9   149   159     2                end         10                  
+   10   159   163     2   15           if          11 15               
+   11   163   164     3   12           loop        12                  
+   12   164   188     4              0 br_if       13 12               
+   13   188   189     3                end         14                  
+   14   189   190     2                end         15                  
+   15   190   198     2              1 br_if       16 21               
+   16   198   202     2              0 br          8                   
+   17   202   203     2                unreachable                     
+   18   203   204     1                end         19                  
+   19   204   205     1                unreachable                     
+   20   205   206     0                end         21                  
+   21   206   212     0   23           if          22 23               
+   22   212   225     0                end         23                  
+   23   225   226    -1                end         24                  

@@ -1,0 +1,79 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 72"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; 0 54;
+    node [shape = circle];
+    0 -> 1[label = "loop"];
+    1 -> 2[label = "~br_if"];
+    1 -> 1[color="red" label = "br_if"];
+    2 -> 3[label = "loop"];
+    3 -> 4[label = "~br_if"];
+    3 -> 3[color="red" label = "br_if"];
+    4 -> 5[label = "end"];
+    5 -> 6[label = "if"];
+    5 -> 40[label = "~if"];
+    6 -> 7[label = "loop"];
+    7 -> 8[label = "if"];
+    7 -> 11[label = "~if"];
+    8 -> 9[label = "if"];
+    8 -> 10[label = "~if"];
+    9 -> 10[label = "end"];
+    10 -> 11[label = "end"];
+    11 -> 12[label = "~br_if"];
+    11 -> 7[color="red" label = "br_if"];
+    12 -> 13[label = "end"];
+    13 -> 14[label = "loop"];
+    14 -> 15[label = "block"];
+    15 -> 16[label = "if"];
+    15 -> 18[label = "~if"];
+    16 -> 25[label = "br"];
+    17 -> 18[label = "end"];
+    18 -> 19[label = "loop"];
+    19 -> 20[label = "loop"];
+    20 -> 21[label = "~br_if"];
+    20 -> 20[color="red" label = "br_if"];
+    21 -> 22[label = "end"];
+    22 -> 23[label = "~br_if"];
+    22 -> 19[color="red" label = "br_if"];
+    23 -> 24[label = "end"];
+    24 -> 25[label = "end"];
+    25 -> 26[label = "~br_if"];
+    25 -> 14[color="red" label = "br_if"];
+    26 -> 27[label = "end"];
+    27 -> 28[label = "loop"];
+    28 -> 29[label = "~br_if"];
+    28 -> 28[color="red" label = "br_if"];
+    29 -> 30[label = "end"];
+    30 -> 31[label = "loop"];
+    31 -> 32[label = "loop"];
+    32 -> 33[label = "if"];
+    32 -> 34[label = "~if"];
+    33 -> 34[label = "end"];
+    34 -> 35[label = "~br_if"];
+    34 -> 32[color="red" label = "br_if"];
+    35 -> 36[label = "end"];
+    36 -> 37[label = "~br_if"];
+    36 -> 31[color="red" label = "br_if"];
+    37 -> 38[label = "end"];
+    38 -> 54[label = "return"];
+    39 -> 40[label = "end"];
+    40 -> 41[label = "if"];
+    40 -> 45[label = "~if"];
+    41 -> 42[label = "loop"];
+    42 -> 43[label = "~br_if"];
+    42 -> 42[color="red" label = "br_if"];
+    43 -> 44[label = "end"];
+    44 -> 45[label = "end"];
+    45 -> 46[label = "~br_if"];
+    45 -> 1[color="red" label = "br_if"];
+    46 -> 47[label = "loop"];
+    47 -> 48[label = "~br_if"];
+    47 -> 47[color="red" label = "br_if"];
+    48 -> 49[label = "end"];
+    49 -> 1[color="red" label = "br"];
+    51 -> 52[label = "end"];
+    53 -> 54[label = "end"];
+}

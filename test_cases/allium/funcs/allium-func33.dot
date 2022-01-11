@@ -1,4 +1,9 @@
 digraph finite_state_machine {
+    label = "allium.wasm - function 33"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
     node [shape = doublecircle]; 0 163;
     node [shape = circle];
     0 -> 1[label = "if"];
@@ -213,7 +218,7 @@ digraph finite_state_machine {
     158 -> 159[label = "end"];
     159 -> 160[label = "loop"];
     160 -> 161[label = "~br_if"];
-    160 -> 160[label = "br_if"];
+    160 -> 160[color="red" label = "br_if"];
     161 -> 162[label = "end"];
     162 -> 163[label = "end"];
 }

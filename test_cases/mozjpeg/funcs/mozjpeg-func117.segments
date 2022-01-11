@@ -1,0 +1,19 @@
+                          br    target
+index start   end nesting dest  labels type        succ
+    0     0    11     0   15           if          1 15                
+    1    11    17     1   5            block       2                   
+    2    17    21     2   4            if          3 4                 
+    3    21    51     2                end         4                   
+    4    51    53     1                end         5                   
+    5    53    57     1   7            if          6 7                 
+    6    57    63     1                end         7                   
+    7    63    65     1   9            if          8 9                 
+    8    65    73     1                end         9                   
+    9    73    78     1   11           if          10 11               
+   10    78    90     1                end         11                  
+   11    90    94     1   13           if          12 13               
+   12    94    97     1                end         13                  
+   13    97   119     1                return      17                  
+   14   119   120     0                end         15                  
+   15   120   122     0                unreachable                     
+   16   122   123    -1                end         17                  

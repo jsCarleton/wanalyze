@@ -1,0 +1,33 @@
+                          br    target
+index start   end nesting dest  labels type        succ
+    0     0     1     0   30           block       1                   
+    1     1     5     1              0 br_if       2 30                
+    2     5     6     1   29           block       3                   
+    3     6     7     2   27           block       4                   
+    4     7     8     3   25           block       5                   
+    5     8     9     4   23           block       6                   
+    6     9    10     5   21           block       7                   
+    7    10    11     6   19           block       8                   
+    8    11    12     7   17           block       9                   
+    9    12    13     8   15           block       10                  
+   10    13    14     9   13           block       11                  
+   11    14    18    10         8 7 6 5 4 3 2 1 0 br_table    29 27 25 23 21 19 17 15 13
+   12    18    19     9                end         13                  
+   13    19    31     9                return      31                  
+   14    31    32     8                end         15                  
+   15    32    44     8                return      31                  
+   16    44    45     7                end         17                  
+   17    45    57     7                return      31                  
+   18    57    58     6                end         19                  
+   19    58    74     6                return      31                  
+   20    74    75     5                end         21                  
+   21    75    87     5                return      31                  
+   22    87    88     4                end         23                  
+   23    88   100     4                return      31                  
+   24   100   101     3                end         25                  
+   25   101   113     3                return      31                  
+   26   113   114     2                end         27                  
+   27   114   126     2                return      31                  
+   28   126   127     1                end         29                  
+   29   127   143     0                end         30                  
+   30   143   144    -1                end         31                  
