@@ -756,9 +756,9 @@ let segments_of_expr (e: expr) : segment list =
 let graph_node (src: int) (label: string) (dest: int): string =
   match src >= dest with
   | true  -> 
-      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[color=\"red\" label = \""; label; "\"];\n"]
+      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
   | false -> 
-      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label = \""; label; "\"];\n"]
+      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label=\""; label; "\"];\n"]
 
 let graph_segment (index: int) (segtype: int) (succ: int list) (last: int): string =
   match segtype with
