@@ -225,7 +225,9 @@ digraph finite_state_machine {
     144 -> 145[label = "block"];
     145 -> 146[label = "block"];
     146 -> 147[label = "block"];
-TODO
+    147 -> 153[label = "br_table"];
+    147 -> 157[label = "br_table"];
+    147 -> 149[label = "br_table"];
     148 -> 149[label = "end"];
     149 -> 150[label = "~br_if"];
     149 -> 160[label = "br_if"];

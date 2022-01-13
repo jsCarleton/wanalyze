@@ -18,7 +18,9 @@ digraph finite_state_machine {
     7 -> 8[label = "end"];
     8 -> 9[label = "block"];
     9 -> 10[label = "block"];
-TODO
+    10 -> 12[label = "br_table"];
+    10 -> 16[label = "br_table"];
+    10 -> 12[label = "br_table"];
     11 -> 12[label = "end"];
     12 -> 13[label = "if"];
     12 -> 15[label = "~if"];

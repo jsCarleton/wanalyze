@@ -11,7 +11,9 @@ digraph finite_state_machine {
     2 -> 3[label = "block"];
     3 -> 4[label = "block"];
     4 -> 5[label = "block"];
-TODO
+    5 -> 11[label = "br_table"];
+    5 -> 9[label = "br_table"];
+    5 -> 7[label = "br_table"];
     6 -> 7[label = "end"];
     7 -> 14[label = "br"];
     8 -> 9[label = "end"];
@@ -24,7 +26,9 @@ TODO
     15 -> 16[label = "block"];
     16 -> 17[label = "block"];
     17 -> 18[label = "block"];
-TODO
+    18 -> 22[label = "br_table"];
+    18 -> 20[label = "br_table"];
+    18 -> 20[label = "br_table"];
     19 -> 20[label = "end"];
     20 -> 25[label = "br"];
     21 -> 22[label = "end"];

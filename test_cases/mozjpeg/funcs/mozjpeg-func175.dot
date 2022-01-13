@@ -12,7 +12,21 @@ digraph finite_state_machine {
     3 -> 4[label = "block"];
     4 -> 5[label = "block"];
     5 -> 6[label = "block"];
-TODO
+    6 -> 11[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 17[label = "br_table"];
+    6 -> 17[label = "br_table"];
+    6 -> 14[label = "br_table"];
+    6 -> 11[label = "br_table"];
+    6 -> 8[label = "br_table"];
     7 -> 8[label = "end"];
     8 -> 9[label = "~br_if"];
     8 -> 22[label = "br_if"];
@@ -42,7 +56,11 @@ TODO
     28 -> 29[label = "block"];
     29 -> 30[label = "block"];
     30 -> 31[label = "block"];
-TODO
+    31 -> 74[label = "br_table"];
+    31 -> 69[label = "br_table"];
+    31 -> 58[label = "br_table"];
+    31 -> 50[label = "br_table"];
+    31 -> 33[label = "br_table"];
     32 -> 33[label = "end"];
     33 -> 34[label = "if"];
     33 -> 35[label = "~if"];
@@ -53,7 +71,9 @@ TODO
     38 -> 39[label = "~br_if"];
     38 -> 44[label = "br_if"];
     39 -> 40[label = "block"];
-TODO
+    40 -> 46[label = "br_table"];
+    40 -> 44[label = "br_table"];
+    40 -> 42[label = "br_table"];
     41 -> 42[label = "end"];
     42 -> 96[label = "return"];
     43 -> 44[label = "end"];
@@ -81,7 +101,8 @@ TODO
     61 -> 62[label = "block"];
     62 -> 63[label = "~br_if"];
     62 -> 65[label = "br_if"];
-TODO
+    63 -> 95[label = "br_table"];
+    63 -> 65[label = "br_table"];
     64 -> 65[label = "end"];
     65 -> 91[label = "br"];
     66 -> 67[label = "end"];
@@ -99,7 +120,8 @@ TODO
     75 -> 76[label = "end"];
     76 -> 77[label = "block"];
     77 -> 78[label = "block"];
-TODO
+    78 -> 95[label = "br_table"];
+    78 -> 80[label = "br_table"];
     79 -> 80[label = "end"];
     80 -> 91[label = "br"];
     81 -> 82[label = "end"];

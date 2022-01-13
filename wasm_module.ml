@@ -753,7 +753,7 @@ let segments_of_expr (e: expr) : segment list =
   set_successors segments 0;
   segments
 
-let graph_node (src: int) (dest: int) (label: string): string =
+let graph_node (src: int) (label: string) (dest: int): string =
   match src >= dest with
   | true  -> 
       String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[color=\"red\" label = \""; label; "\"];\n"]
@@ -763,23 +763,23 @@ let graph_node (src: int) (dest: int) (label: string): string =
 let graph_segment (index: int) (segtype: int) (succ: int list) (last: int): string =
   match segtype with
   | (* unreachable *) 0x00 -> ""
-  | (* end *)         0x0b -> graph_node index (List.nth_exn succ 0) "end"
-  | (* block *)       0x02 -> graph_node index (List.nth_exn succ 0) "block"
-  | (* loop *)        0x03 -> graph_node index (List.nth_exn succ 0) "loop"
+  | (* end *)         0x0b -> graph_node index "end" (List.nth_exn succ 0)
+  | (* block *)       0x02 -> graph_node index "block" (List.nth_exn succ 0)
+  | (* loop *)        0x03 -> graph_node index "loop" (List.nth_exn succ 0)
   | (* if *)          0x04 ->
       String.concat [
-        graph_node index (List.nth_exn succ 0) "if";
-        graph_node index (List.nth_exn succ 1) "~if";
+        graph_node index "if" (List.nth_exn succ 0);
+        graph_node index "~if" (List.nth_exn succ 1);
       ]
-  | (* else *)        0x05 -> graph_node index (List.nth_exn succ 0) "else"
+  | (* else *)        0x05 -> graph_node index "else" (List.nth_exn succ 0)
   | (* br_if *)       0x0d ->
       String.concat [
-        graph_node index (List.nth_exn succ 0) "~br_if";
-        graph_node index (List.nth_exn succ 1) "br_if";
+        graph_node index "~br_if" (List.nth_exn succ 0);
+        graph_node index "br_if" (List.nth_exn succ 1);
       ]
-  | (* br *)          0x0c -> graph_node index (List.nth_exn succ 0) "br"
-  | (* br_table *)    0x0e -> "TODO\n"
-  | (* return *)      0x0f -> graph_node index last "return"
+  | (* br *)          0x0c -> graph_node index "br" (List.nth_exn succ 0)
+  | (* br_table *)    0x0e -> String.concat (List.map ~f:(graph_node index  "br_table") succ)
+  | (* return *)      0x0f -> graph_node index "return" last
   | _ -> failwith (String.concat ["Unknown segtype to graph: "; string_of_int segtype])
 
 let graph_prefix (module_name: string) (func_idx: int) (last: int): string =
