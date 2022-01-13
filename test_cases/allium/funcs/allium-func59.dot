@@ -9,7 +9,6 @@ digraph finite_state_machine {
     0 -> 1[label="if"];
     0 -> 3[label="~if"];
     1 -> 13[label="return"];
-    2 -> 3[label="end"];
     3 -> 4[label="loop"];
     4 -> 5[label="if"];
     4 -> 6[label="~if"];

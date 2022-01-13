@@ -6,5 +6,5 @@ digraph finite_state_machine {
     labelfontname = "Helvetica"
     node [shape = doublecircle]; 0 1;
     node [shape = circle];
-    0 -> 1[label = "end"];
+    0 -> 1[label="end"];
 }

@@ -1,15 +1,15 @@
                           br    target
-index start   end nesting dest  labels type        succ
-    0     0    14     0   2            if          1 2                 
-    1    14    24     0                end         2                   
-    2    24    42     0   12           if          3 12                
-    3    42    47     1   4            loop        4                   
-    4    47    65     2   9            if          5 9                 
-    5    65    68     3   6            loop        6                   
-    6    68    88     4              0 br_if       7 6                 
-    7    88    89     3                end         8                   
-    8    89    90     2                end         9                   
-    9    90    94     2              0 br_if       10 4                
-   10    94    95     1                end         11                  
-   11    95    96     0                end         12                  
-   12    96    98    -1                end         13                  
+index start   end nesting dest  labels type        succ/pred
+    0     0    14     0   2            if          s=[1 2] p=[]
+    1    14    24     0                end         s=[2] p=[0]
+    2    24    42     0   12           if          s=[3 12] p=[1 0]
+    3    42    47     1   4            loop        s=[4] p=[2]
+    4    47    65     2   9            if          s=[5 9] p=[9 3]
+    5    65    68     3   6            loop        s=[6] p=[4]
+    6    68    88     4              0 br_if       s=[7 6] p=[6 5]
+    7    88    89     3                end         s=[8] p=[6]
+    8    89    90     2                end         s=[9] p=[7]
+    9    90    94     2              0 br_if       s=[10 4] p=[8 4]
+   10    94    95     1                end         s=[11] p=[9]
+   11    95    96     0                end         s=[12] p=[10]
+   12    96    98    -1                end         s=[13] p=[11 2]

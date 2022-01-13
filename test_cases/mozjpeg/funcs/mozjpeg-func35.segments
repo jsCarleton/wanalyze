@@ -1,17 +1,17 @@
                           br    target
-index start   end nesting dest  labels type        succ
-    0     0    28     0   7            if          1 7                 
-    1    28    46     1   6            if          2 6                 
-    2    46    47     2   3            loop        3                   
-    3    47    81     3              0 br_if       4 3                 
-    4    81    82     2                end         5                   
-    5    82    83     1                end         6                   
-    6    83   121     0                end         7                   
-    7   121   132     0   14           if          8 14                
-    8   132   133     1   9            loop        9                   
-    9   133   162     2   11           if          10 11               
-   10   162   172     2                end         11                  
-   11   172   187     2              0 br_if       12 9                
-   12   187   188     1                end         13                  
-   13   188   189     0                end         14                  
-   14   189   213    -1                end         15                  
+index start   end nesting dest  labels type        succ/pred
+    0     0    28     0   7            if          s=[1 7] p=[]
+    1    28    46     1   6            if          s=[2 6] p=[0]
+    2    46    47     2   3            loop        s=[3] p=[1]
+    3    47    81     3              0 br_if       s=[4 3] p=[3 2]
+    4    81    82     2                end         s=[5] p=[3]
+    5    82    83     1                end         s=[6] p=[4]
+    6    83   121     0                end         s=[7] p=[5 1]
+    7   121   132     0   14           if          s=[8 14] p=[6 0]
+    8   132   133     1   9            loop        s=[9] p=[7]
+    9   133   162     2   11           if          s=[10 11] p=[11 8]
+   10   162   172     2                end         s=[11] p=[9]
+   11   172   187     2              0 br_if       s=[12 9] p=[10 9]
+   12   187   188     1                end         s=[13] p=[11]
+   13   188   189     0                end         s=[14] p=[12]
+   14   189   213    -1                end         s=[15] p=[13 7]

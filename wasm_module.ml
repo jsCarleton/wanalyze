@@ -271,7 +271,8 @@ type segment =
           index:      int;      (* the index of this segment in the list of segments, makes things easier to have this *)
           start_op:   int;      (* index into e of the first op in the expr *)
   mutable end_op:     int;      (* index+1 of the last op in the expr *)
-  mutable succ:       int list; (* segment index for segments that can be directly reached from this segment *)
+  mutable succ:       int list; (* segment indexes of segments that can be directly reached from this segment *)
+  mutable pred:       int list; (* segment indexes of segments that can directly reach this segment *)
   mutable segtype:	  int;      (* the control opcode that created this segment *)
   mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
   mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
@@ -314,7 +315,7 @@ match e with
       current.segtype <- (List.hd_exn e).opcode;
       current.nesting <- (List.hd_exn e).nesting;
       segments_of_expr' (List.tl_exn e) (List.append seg_acc [current]) 
-                    {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; segtype= -1;
+                    {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; pred=[]; segtype= -1;
                      nesting = -2; labels=[]; br_dest= -1}
     (* 2. all other opcodes get added to the current segment *)
     | _ ->
@@ -396,8 +397,8 @@ match index < List.length segments with
 | true ->
     (let s = List.nth_exn segments index in
     match s.segtype with
-      | 0x03        -> s.br_dest <- index + 1 (* loop *)
-      | 0x04 | 0x02 -> s.br_dest <- get_end_segment segments index s.nesting (* if, block *)
+      | (* loop *)      0x03        -> s.br_dest <- index + 1
+      | (* if, block *) 0x04 | 0x02 -> s.br_dest <- get_end_segment segments index s.nesting 
       | _ -> ()
     );
   set_br_dest segments (index+1)
@@ -745,12 +746,20 @@ let execute_segments' (segments: segment list) (indices: int list) (e: expr) (ex
   (* TODO call execute_segments' recursively *)
   | hd::_ ->
       execute_segment (List.nth_exn segments hd) hd e ex_acc initial param_counts retval_counts
-      
+
+let set_pred' (segments: segment list) (src: int) (dest: int) =
+  match dest < List.length segments with 
+  | true -> (List.nth_exn segments dest).pred <- List.cons src (List.nth_exn segments dest).pred
+  | _ -> ()
+let set_pred (segments: segment list) (s: segment) =
+  List.iter ~f:(set_pred' segments s.index) s.succ
+
 let segments_of_expr (e: expr) : segment list =
-  let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; segtype= -1; nesting = -2;
+  let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; pred=[]; segtype= -1; nesting = -2;
                                      labels=[]; br_dest= -1} in
   set_br_dest segments 0;
   set_successors segments 0;
+  List.iter ~f:(set_pred segments) segments;
   segments
 
 let graph_node (src: int) (label: string) (dest: int): string =
@@ -760,27 +769,30 @@ let graph_node (src: int) (label: string) (dest: int): string =
   | false -> 
       String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label=\""; label; "\"];\n"]
 
-let graph_segment (index: int) (segtype: int) (succ: int list) (last: int): string =
-  match segtype with
-  | (* unreachable *) 0x00 -> ""
-  | (* end *)         0x0b -> graph_node index "end" (List.nth_exn succ 0)
-  | (* block *)       0x02 -> graph_node index "block" (List.nth_exn succ 0)
-  | (* loop *)        0x03 -> graph_node index "loop" (List.nth_exn succ 0)
-  | (* if *)          0x04 ->
-      String.concat [
-        graph_node index "if" (List.nth_exn succ 0);
-        graph_node index "~if" (List.nth_exn succ 1);
-      ]
-  | (* else *)        0x05 -> graph_node index "else" (List.nth_exn succ 0)
-  | (* br_if *)       0x0d ->
-      String.concat [
-        graph_node index "~br_if" (List.nth_exn succ 0);
-        graph_node index "br_if" (List.nth_exn succ 1);
-      ]
-  | (* br *)          0x0c -> graph_node index "br" (List.nth_exn succ 0)
-  | (* br_table *)    0x0e -> String.concat (List.map ~f:(graph_node index  "br_table") succ)
-  | (* return *)      0x0f -> graph_node index "return" last
-  | _ -> failwith (String.concat ["Unknown segtype to graph: "; string_of_int segtype])
+let graph_segment (index: int) (segtype: int) (succ: int list) (pred: int list) (last: int): string =
+  match List.length pred > 0 || index = 0 with
+  | true ->
+    (match segtype with
+    | (* unreachable *) 0x00 -> ""
+    | (* end *)         0x0b -> graph_node index "end" (List.nth_exn succ 0)
+    | (* block *)       0x02 -> graph_node index "block" (List.nth_exn succ 0)
+    | (* loop *)        0x03 -> graph_node index "loop" (List.nth_exn succ 0)
+    | (* if *)          0x04 ->
+        String.concat [
+          graph_node index "if" (List.nth_exn succ 0);
+          graph_node index "~if" (List.nth_exn succ 1);
+        ]
+    | (* else *)        0x05 -> graph_node index "else" (List.nth_exn succ 0)
+    | (* br_if *)       0x0d ->
+        String.concat [
+          graph_node index "~br_if" (List.nth_exn succ 0);
+          graph_node index "br_if" (List.nth_exn succ 1);
+        ]
+    | (* br *)          0x0c -> graph_node index "br" (List.nth_exn succ 0)
+    | (* br_table *)    0x0e -> String.concat (List.map ~f:(graph_node index  "br_table") succ)
+    | (* return *)      0x0f -> graph_node index "return" last
+    | _ -> failwith (String.concat ["Unknown segtype to graph: "; string_of_int segtype]))
+  | _ -> ""
 
 let graph_prefix (module_name: string) (func_idx: int) (last: int): string =
   String.concat[
@@ -796,7 +808,7 @@ let graph_suffix = "}\n"
 let rec graph_segments' (segments: segment list) (last: int) (acc: string): string =
   match segments with
   | [] -> acc
-  | hd::tl -> graph_segments' tl last (String.concat [acc; graph_segment hd.index hd.segtype hd.succ last])
+  | hd::tl -> graph_segments' tl last (String.concat [acc; graph_segment hd.index hd.segtype hd.succ hd.pred last])
 let graph_segments (module_name: string) (func_idx: int) (segments: segment list): string =
   let last = (List.length segments) in
   String.concat [ graph_prefix module_name func_idx last; 

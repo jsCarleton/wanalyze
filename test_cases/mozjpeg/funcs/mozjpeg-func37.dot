@@ -6,13 +6,11 @@ digraph finite_state_machine {
     labelfontname = "Helvetica"
     node [shape = doublecircle]; 0 7;
     node [shape = circle];
-    0 -> 1[label = "if"];
-    0 -> 3[label = "~if"];
-    1 -> 7[label = "return"];
-    2 -> 3[label = "end"];
-    3 -> 4[label = "if"];
-    3 -> 6[label = "~if"];
-    4 -> 7[label = "return"];
-    5 -> 6[label = "end"];
-    6 -> 7[label = "end"];
+    0 -> 1[label="if"];
+    0 -> 3[label="~if"];
+    1 -> 7[label="return"];
+    3 -> 4[label="if"];
+    3 -> 6[label="~if"];
+    4 -> 7[label="return"];
+    6 -> 7[label="end"];
 }

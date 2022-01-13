@@ -12,7 +12,6 @@ digraph finite_state_machine {
     2 -> 3[label="if"];
     2 -> 5[label="~if"];
     3 -> 21[label="br"];
-    4 -> 5[label="end"];
     5 -> 20[label="else"];
     6 -> 7[label="if"];
     6 -> 8[label="~if"];

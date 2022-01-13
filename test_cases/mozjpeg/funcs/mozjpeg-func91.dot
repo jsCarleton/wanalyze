@@ -6,9 +6,8 @@ digraph finite_state_machine {
     labelfontname = "Helvetica"
     node [shape = doublecircle]; 0 6;
     node [shape = circle];
-    0 -> 1[label = "block"];
-    1 -> 2[label = "block"];
-    2 -> 3[label = "end"];
-    3 -> 4[label = "end"];
-    5 -> 6[label = "end"];
+    0 -> 1[label="block"];
+    1 -> 2[label="block"];
+    2 -> 3[label="end"];
+    3 -> 4[label="end"];
 }

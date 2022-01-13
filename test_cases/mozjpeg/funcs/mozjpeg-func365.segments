@@ -1,4 +1,4 @@
                           br    target
-index start   end nesting dest  labels type        succ
-    0     0    10     0                unreachable                     
-    1    10    11    -1                end         2                   
+index start   end nesting dest  labels type        succ/pred
+    0     0    10     0                unreachable s=[] p=[]
+    1    10    11    -1                end         s=[2] p=[]

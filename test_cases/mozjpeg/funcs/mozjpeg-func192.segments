@@ -1,21 +1,21 @@
                           br    target
-index start   end nesting dest  labels type        succ
-    0     0     4     0   2            if          1 2                 
-    1     4    14     0                end         2                   
-    2    14    34     0   6            block       3                   
-    3    34    36     1              0 br_if       4 6                 
-    4    36    41     1              0 br_if       5 6                 
-    5    41    51     0                end         6                   
-    6    51    71     0   10           block       7                   
-    7    71    73     1              0 br_if       8 10                
-    8    73    78     1              0 br_if       9 10                
-    9    78    88     0                end         10                  
-   10    88   113     0   14           block       11                  
-   11   113   115     1              0 br_if       12 14               
-   12   115   120     1              0 br_if       13 14               
-   13   120   130     0                end         14                  
-   14   130   150     0   18           block       15                  
-   15   150   152     1              0 br_if       16 18               
-   16   152   157     1              0 br_if       17 18               
-   17   157   167     0                end         18                  
-   18   167   168    -1                end         19                  
+index start   end nesting dest  labels type        succ/pred
+    0     0     4     0   2            if          s=[1 2] p=[]
+    1     4    14     0                end         s=[2] p=[0]
+    2    14    34     0   6            block       s=[3] p=[1 0]
+    3    34    36     1              0 br_if       s=[4 6] p=[2]
+    4    36    41     1              0 br_if       s=[5 6] p=[3]
+    5    41    51     0                end         s=[6] p=[4]
+    6    51    71     0   10           block       s=[7] p=[5 4 3]
+    7    71    73     1              0 br_if       s=[8 10] p=[6]
+    8    73    78     1              0 br_if       s=[9 10] p=[7]
+    9    78    88     0                end         s=[10] p=[8]
+   10    88   113     0   14           block       s=[11] p=[9 8 7]
+   11   113   115     1              0 br_if       s=[12 14] p=[10]
+   12   115   120     1              0 br_if       s=[13 14] p=[11]
+   13   120   130     0                end         s=[14] p=[12]
+   14   130   150     0   18           block       s=[15] p=[13 12 11]
+   15   150   152     1              0 br_if       s=[16 18] p=[14]
+   16   152   157     1              0 br_if       s=[17 18] p=[15]
+   17   157   167     0                end         s=[18] p=[16]
+   18   167   168    -1                end         s=[19] p=[17 16 15]

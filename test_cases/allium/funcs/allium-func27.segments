@@ -1,18 +1,18 @@
                           br    target
-index start   end nesting dest  labels type        succ
-    0     0     4     0   2            if          1 2                 
-    1     4     6     0                end         2                   
-    2     6    14     0   4            if          3 4                 
-    3    14    16     0                end         4                   
-    4    16    20     0   13           if          5 9                 
-    5    20    24     1   7            if          6 7                 
-    6    24    26     1                end         7                   
-    7    26    30     1                return      16                  
-    8    30    31     0                else        13                  
-    9    31    35     1   12           if          10 12               
-   10    35    39     2                return      16                  
-   11    39    40     1                end         12                  
-   12    40    41     0                end         13                  
-   13    41    45     0   15           if          14 15               
-   14    45    47     0                end         15                  
-   15    47    51    -1                end         16                  
+index start   end nesting dest  labels type        succ/pred
+    0     0     4     0   2            if          s=[1 2] p=[]
+    1     4     6     0                end         s=[2] p=[0]
+    2     6    14     0   4            if          s=[3 4] p=[1 0]
+    3    14    16     0                end         s=[4] p=[2]
+    4    16    20     0   13           if          s=[5 9] p=[3 2]
+    5    20    24     1   7            if          s=[6 7] p=[4]
+    6    24    26     1                end         s=[7] p=[5]
+    7    26    30     1                return      s=[16] p=[6 5]
+    8    30    31     0                else        s=[13] p=[]
+    9    31    35     1   12           if          s=[10 12] p=[4]
+   10    35    39     2                return      s=[16] p=[9]
+   11    39    40     1                end         s=[12] p=[]
+   12    40    41     0                end         s=[13] p=[11 9]
+   13    41    45     0   15           if          s=[14 15] p=[12 8]
+   14    45    47     0                end         s=[15] p=[13]
+   15    47    51    -1                end         s=[16] p=[14 13]

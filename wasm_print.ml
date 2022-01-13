@@ -228,10 +228,10 @@ let string_of_segindex (i: int) : string = match i with | -1 -> "" | _ -> string
 let string_of_ints (ints: int list): string =
     String.concat ~sep:" " (List.map ~f:string_of_int ints)
 let string_of_segment (s: segment) : string = 
-  sprintf "%5d %5d %5d %5d   %-5s %6s %-11s %-20s\n" 
-    s.index s.start_op s.end_op s.nesting (string_of_segindex s.br_dest) (string_of_ints s.labels) (string_of_segtype s.segtype) (string_of_ints s.succ)
+  sprintf "%5d %5d %5d %5d   %-5s %6s %-11s s=[%s] p=[%s]\n" 
+    s.index s.start_op s.end_op s.nesting (string_of_segindex s.br_dest) (string_of_ints s.labels) (string_of_segtype s.segtype) (string_of_ints s.succ) (string_of_ints s.pred)
 let string_of_segments (s: segment list) : string =
-  String.concat["                          br    target\nindex start   end nesting dest  labels type        succ\n";
+  String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_segment s)]
 
 let string_of_function w annotate i idx = 
