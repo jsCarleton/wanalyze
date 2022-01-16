@@ -330,6 +330,32 @@ let string_of_executions (executions: execution list) (segments: segment list): 
   (Logging.get_logger "wanalyze")#info "executions: %d" (List.length executions);
   String.concat (List.map ~f:(string_of_execution segments) executions)
 
+let has_loop (s: segment): bool = 
+  match s.segtype with
+  | 0x03 (* loop *) -> true
+  | _               -> false
+
+let rec has_loops (segments: segment list): bool =
+  match segments with
+  | hd::tl ->
+    (match has_loop hd with
+    | true -> true
+    | _     -> has_loops tl)
+  | _ ->  false
+
+let segments_with_loops (segments: segment list): int list =
+  List.filter_map ~f:(fun s -> match has_loop s with | true -> Some s.index | _ -> None) segments
+let loop_info_header = "Loops found in these segments:"
+let segment_of_loop (s: segment): string =
+  match has_loop s with
+  | true  -> String.concat[" "; (string_of_int s.index)]
+  | _     -> ""
+let loop_infos (segments: segment list): string =
+  String.concat (List.map ~f:segment_of_loop segments)
+let loop_info_trailer = ".\n"
+let loop_info (segments: segment list): string =
+  String.concat[loop_info_header; loop_infos segments; loop_info_trailer]
+
 (* print the functions one by one along with our analysis *)
 let print_function w dir prefix i idx =
   let fname = String.concat[dir; prefix; string_of_int (i + w.last_import_func)] in
@@ -346,7 +372,14 @@ let print_function w dir prefix i idx =
     Out_channel.close oc;
   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
     Out_channel.output_string oc (string_of_executions (execute_segments w segments (i + w.last_import_func) code.e) segments);
-    Out_channel.close oc
+    Out_channel.close oc;
+  match has_loops segments with
+  | true ->
+      let oc = Out_channel.create (String.concat[fname; ".loops"]) in
+        Out_channel.output_string oc (loop_info segments);
+        Out_channel.output_string oc (string_of_ints (segments_with_loops segments));
+        Out_channel.close oc
+  | false -> ()
 let print_functions w =
   List.iteri ~f:(print_function w "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"])) w.function_section
 
