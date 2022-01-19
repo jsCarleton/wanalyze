@@ -344,18 +344,19 @@ let rec has_loops (segments: segment list): bool =
   | _ ->  false
 
 let segments_with_loops (segments: segment list): int list =
-  List.filter_map ~f:(fun s -> match has_loop s with | true -> Some s.index | _ -> None) segments
-let loop_info_header = "Loops found in these segments:"
-let segment_of_loop (s: segment): string =
-  match has_loop s with
-  | true  -> String.concat[" "; (string_of_int s.index)]
-  | _     -> ""
-let loop_infos (segments: segment list): string =
-  String.concat (List.map ~f:segment_of_loop segments)
-let loop_info_trailer = ".\n"
-let loop_info (segments: segment list): string =
-  String.concat[loop_info_header; loop_infos segments; loop_info_trailer]
+  List.filter_map ~f:(fun s -> match has_loop s with | true -> Some (s.index+1) | _ -> None) segments
 
+let simple_brif_loop (segments: segment list) (s: segment): int option =
+  match    List.length segments - s.index >= 3
+        &&  s.segtype = 0x03 (* loop *)
+        &&  (List.nth_exn segments (s.index+1)).segtype = 0x0d (* brif *)
+        &&  (List.nth_exn segments (s.index+2)).segtype = 0x0b (* end *) with
+    | true  -> Some (s.index+1)
+    | false -> None
+        
+let segments_with_simple_brif_loops (segments: segment list): int list =
+    List.filter_map ~f:(simple_brif_loop segments) segments
+  
 (* print the functions one by one along with our analysis *)
 let print_function w dir prefix i idx =
   let fname = String.concat[dir; prefix; string_of_int (i + w.last_import_func)] in
@@ -376,8 +377,14 @@ let print_function w dir prefix i idx =
   match has_loops segments with
   | true ->
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
-        Out_channel.output_string oc (loop_info segments);
-        Out_channel.output_string oc (string_of_ints (segments_with_loops segments));
+        Out_channel.output_string oc
+          (String.concat["Loops found in these segments: ";
+                        (string_of_ints (segments_with_loops segments));
+                        ".\n"]);
+        Out_channel.output_string oc
+          (String.concat["Simple br_if loops found in these segments: ";
+                        (string_of_ints (segments_with_simple_brif_loops segments));
+                        ".\n"]);
         Out_channel.close oc
   | false -> ()
 let print_functions w =
