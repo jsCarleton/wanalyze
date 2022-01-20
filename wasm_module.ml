@@ -246,6 +246,15 @@ type program_state =
   mutable local_values:   string array;
   mutable global_values:  string array;
 }
+(* TODO handle type of parameters *)
+let local_value n i = 
+  match i >= n with | true -> "??" | _ -> String.concat ["N" ; string_of_int i]
+
+let empty_program_state (nparams: int) (nlocals: int): program_state =
+    {instr_count=0; value_stack=[]; 
+        local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
+        global_values=Array.create ~len:10 "abc"}
+
 type program_states = program_state list
 type pending_states = program_states option list
 
@@ -531,7 +540,7 @@ let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
   Array.set state.local_values (int_of_get_argL op.arg) (List.hd_exn state.value_stack);
   state.value_stack <- List.tl_exn state.value_stack
 let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
-  Array.set state.local_values (int_of_get_argL op.arg) "" (*(List.hd_exn state.value_stack)*)
+  Array.set state.local_values (int_of_get_argL op.arg) (List.hd_exn state.value_stack)
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
   state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
@@ -613,11 +622,6 @@ let update_s (s: states) (param_counts: int list) (retval_counts: int list) (typ
   | Testop -> (Logging.get_logger "wanalyze")#info  "type: Testop";List.iter ~f:(update_state_testop op) s.active
   | Relop f -> (Logging.get_logger "wanalyze")#info  "type: Relop";List.iter ~f:(update_state_binop f) s.active
   | Cvtop -> (Logging.get_logger "wanalyze")#info  "type: Cvtop";List.iter ~f:(update_state_cvtop op) s.active
-
-let local_value n i = 
-  match i >= n with
-  | true -> "??"
-  | _    -> String.concat ["N" ; string_of_int i]
 
 (* TODO is this needed? *)
 let reduce_fn'' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
@@ -701,21 +705,46 @@ let reduce_op (s: program_state) (op: op_type) (param_counts: int list) (retval_
       | Cvtop ->      update_state_cvtop op s
       | Control ->    failwith "Can't happen."
       ); ""
- 
 
+(**
+  reduce_segment' symbolically executes the code in an expr.
+  Parameters:
+  s             the starting program_state, as a side-effect of symbolic execution this state is updated
+  e             expr containing the code to be executed
+  succ_cond     the success condition for the last br_if or if instruction, if any, in the code
+  param_counts  a list of the paramater counts for each function in the module
+  retval_counts a list of the retval counts for each function in the module
+  The last two parameters are required to be able to symbolically a call instruction
+  Returns:
+  the succ_cond value
+ *)
 let rec reduce_segment' (s: program_state) (e: expr) (succ_cond: string) (param_counts: int list) (retval_counts: int list):
       string =
+  (Logging.get_logger "wanalyze")#info "value_stack before: %s" (String.concat ~sep:": " s.value_stack);
   match e with
   | []      -> succ_cond
   | hd::tl  -> 
-    (Logging.get_logger "wanalyze")#info "in reduce_segment\' %d %d %d" 
+    (Logging.get_logger "wanalyze")#info "in reduce_segment\' %s %d %d %d"
+        hd.opname
         (s.instr_count) 
         (List.length s.value_stack)
         (Array.fold ~f:(fun x y -> x + String.length y) ~init:0 s.local_values);
     reduce_segment' s tl (reduce_op s hd param_counts retval_counts) param_counts retval_counts
 
+(**
+  reduce_segment from an initial program state, symbolically executes the code in an expr.
+  Parameters:
+  e             expr containing the code to be executed
+  i             the initial program state
+  param_counts  a list of the paramater counts for each function in the module
+  retval_counts a list of the retval counts for each function in the module
+  The last two parameters are required to be able to symbolically a call instruction
+  Returns:
+  a pair containing the final program_state and the succ_cond value of the code
+ *)
 let reduce_segment (e: expr) (i: program_state) (param_counts: int list) (retval_counts: int list):
       program_state*string =
+  (Logging.get_logger "wanalyze")#info "reducing segment";
   let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values=(Array.copy i.local_values);
               global_values=(Array.copy i.global_values)} in
   let s = reduce_segment' f e "" param_counts retval_counts in
@@ -821,10 +850,7 @@ type func =
 let reduce_fn (f: func) (param_counts: int list) (retval_counts: int list) (types: functype list) (nparams: int) (nlocals: int): states =
   reduce_fn''
     f.e param_counts retval_counts types
-    {active=[{instr_count=0;
-                value_stack=[]; 
-                local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
-                global_values=Array.create ~len:10 "abc"}];
+    {active=[empty_program_state nparams nlocals];
      pending=[];
      final=[]}
 
@@ -908,8 +934,7 @@ let execute_segments (w: wasm_module) (segments: segment list) (fidx: int) (e: e
       e           (* code of those segments *)
       []          (* results of the execution so far *)
       (* the initial state of the program *)
-      {instr_count=0; value_stack=[]; local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
-          global_values=Array.create ~len:10 "abc"}
+      (empty_program_state nparams nlocals)
       (* parameter count for each function *)
       param_counts
       (* return value count for each function *)
@@ -928,9 +953,7 @@ let print_reduction (param_counts: int list) (retval_counts: int list) (w: wasm_
   let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
   let fname = String.concat["funcs/"; (Filename.chop_extension w.module_name); "-func"; string_of_int (func_idx + w.last_import_func); ".trace"] in
   let oc = Out_channel.create fname in
-    Out_channel.output_string oc (sprintf "Start state: %s\n" (string_of_ps [{instr_count = 0; value_stack = []; 
-                                                                local_values = Array.init (nparams + nlocals) ~f:(local_value nparams); 
-                                                                global_values = Array.create ~len:10 "abc"}]));
+    Out_channel.output_string oc (sprintf "Start state: %s\n" (string_of_ps [empty_program_state nparams nlocals]));
     Out_channel.output_string oc (sprintf "Final states:%s\n" (string_of_ps (reduce_fn f param_counts retval_counts w.type_section nparams nlocals).final));
     Out_channel.close oc
 

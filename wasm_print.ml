@@ -330,21 +330,21 @@ let string_of_executions (executions: execution list) (segments: segment list): 
   (Logging.get_logger "wanalyze")#info "executions: %d" (List.length executions);
   String.concat (List.map ~f:(string_of_execution segments) executions)
 
-let has_loop (s: segment): bool = 
+let has_loop' (s: segment): bool = 
   match s.segtype with
   | 0x03 (* loop *) -> true
   | _               -> false
 
-let rec has_loops (segments: segment list): bool =
+let rec has_loop (segments: segment list): bool =
   match segments with
   | hd::tl ->
-    (match has_loop hd with
+    (match has_loop' hd with
     | true -> true
-    | _     -> has_loops tl)
+    | _     -> has_loop tl)
   | _ ->  false
 
-let segments_with_loops (segments: segment list): int list =
-  List.filter_map ~f:(fun s -> match has_loop s with | true -> Some (s.index+1) | _ -> None) segments
+let ids_with_loops (segments: segment list): int list =
+  List.filter_map ~f:(fun s -> match has_loop' s with | true -> Some (s.index+1) | _ -> None) segments
 
 let simple_brif_loop (segments: segment list) (s: segment): int option =
   match    List.length segments - s.index >= 3
@@ -354,66 +354,77 @@ let simple_brif_loop (segments: segment list) (s: segment): int option =
     | true  -> Some (s.index+1)
     | false -> None
         
-let segments_with_simple_brif_loops (segments: segment list): int list =
+let ids_with_simple_brif_loops (segments: segment list): int list =
     List.filter_map ~f:(simple_brif_loop segments) segments
 
-let condition_of_simple_loop' (e: expr) (op_index: int) (s: program_state) (locals: local_type list): string =
-  match (List.nth_exn op_index).op_type with
-  | 0x03  (* br_if *) -> s.stack
-  | op                -> reduce_op s op param_counts retval_counts
+let segments_with_simple_brif_loops (segments: segment list): segment list =
+    List.map ~f:(fun i -> List.nth_exn segments i) (ids_with_simple_brif_loops segments)
 
-let condition_of_simple_loop (e: expr) (locals: local_type list) (segments: segment list) (loop: int): string = 
+let condition_of_simple_loop' (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list): string =
+  let _,s = reduce_segment e (empty_program_state nparams nlocals) param_counts retval_counts in
+    s
+
+let condition_of_simple_loop (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (s: segment): string = 
+  (Logging.get_logger "wanalyze")#info  "Simple loop in segment: %d" s.index;
   String.concat [ "Loop condition in segment ";
-                  string_of_int loop;
+                  string_of_int s.index;
                   ":\n";
-                  condition_of_simple_loop' e (List.nth_exn segments loop).start_op locals;
+                  condition_of_simple_loop' (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) nparams nlocals param_counts retval_counts;
                   "\n"]     
-let conditions_of_simple_loops (e: expr) (locals: local_type list) (segments: segment list) (loops: int list): string =
-  String.concat (List.map ~f:(condition_of_simple_loop e locals segments) loops)
+let conditions_of_simple_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (loop_segments: segment list): string =
+  String.concat (List.map ~f:(condition_of_simple_loop e nparams nlocals param_counts retval_counts) loop_segments)
 
-
-  type func =
-  {
-    locals:   local_type list;
-    e:        expr;
-    segments: segment list;
-  }
-                    
-let analyze_simple_brif_loops (e: expr) (locals: local_type list) (segments: segment list): string =
-  let simple_loops = (segments_with_simple_brif_loops segments) in
-    String.concat[  "Simple br_if loops found in these segments: ";
-                    (string_of_ints (segments_with_simple_brif_loops segments));
-                    ".\n";
-                    conditions_of_simple_loops e locals segments simple_loops]
+(** analyze_simple_brif_loops given a list of segments that are simple brif loops, analyzes the loop to
+  determine the branch condition
+  Parameters:
+  segments  list of brif loop segments found in the same functiob
+  e         code of the function that the segments are from
+  locals    type of locals in the function
+  Returns:
+  formatted string containing the conditions of the brif instructions at the end of each segment 
+*)
+(* TODO separate the execution from the output formatting *)                    
+let analyze_simple_brif_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (segments: segment list): string =
+  String.concat[  "Simple br_if loops found in these segments: ";
+                  (string_of_ints (ids_with_simple_brif_loops segments));
+                  ".\n";
+                  conditions_of_simple_loops e nparams nlocals param_counts retval_counts (segments_with_simple_brif_loops segments)]
   
 (* print the functions one by one along with our analysis *)
-let print_function w dir prefix i idx =
-  let fname = String.concat[dir; prefix; string_of_int (i + w.last_import_func)] in
+let print_function w dir prefix fidx type_idx =
+  let fname = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
-    Out_channel.output_string oc (string_of_function w true i idx);
+    Out_channel.output_string oc (string_of_function w true fidx type_idx);
     Out_channel.close oc;
-  let code = (List.nth_exn w.code_section i) in
+  let code = (List.nth_exn w.code_section fidx) in
   let segments = code.segments in
   let oc = Out_channel.create (String.concat[fname; ".segments"]) in
     Out_channel.output_string oc (string_of_segments segments);
     Out_channel.close oc;
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
-    Out_channel.output_string oc (graph_segments w.module_name (i + w.last_import_func) segments);
+    Out_channel.output_string oc (graph_segments w.module_name (fidx + w.last_import_func) segments);
     Out_channel.close oc;
-  let oc = Out_channel.create (String.concat[fname; ".trace"]) in
-    Out_channel.output_string oc (string_of_executions (execute_segments w segments (i + w.last_import_func) code.e) segments);
+(*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
+    Out_channel.output_string oc (string_of_executions (execute_segments w segments (fidx + w.last_import_func) code.e) segments);
     Out_channel.close oc;
-  match has_loops segments with
+ *)  match has_loop segments with
   | true ->
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
         Out_channel.output_string oc
           (String.concat["Loops found in these segments: ";
-                        (string_of_ints (segments_with_loops segments));
+                        (string_of_ints (ids_with_loops segments));
                         ".\n"]);
         Out_channel.output_string oc
           (String.concat["Simple br_if loops found in these segments: ";
-                        (string_of_ints (segments_with_simple_brif_loops segments));
+                        (string_of_ints (ids_with_simple_brif_loops segments));
                         ".\n"]);
+      let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
+      let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
+      let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
+      let nparams = List.nth_exn param_counts fidx in
+      let nlocals = List.fold_left ~f:sum_nlocals ~init:0 (List.nth_exn w.code_section fidx).locals in
+        Out_channel.output_string oc
+          (analyze_simple_brif_loops code.e nparams nlocals param_counts retval_counts segments);
         Out_channel.close oc
   | false -> ()
 let print_functions w =
