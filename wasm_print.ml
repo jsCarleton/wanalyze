@@ -356,6 +356,35 @@ let simple_brif_loop (segments: segment list) (s: segment): int option =
         
 let segments_with_simple_brif_loops (segments: segment list): int list =
     List.filter_map ~f:(simple_brif_loop segments) segments
+
+let condition_of_simple_loop' (e: expr) (op_index: int) (s: program_state) (locals: local_type list): string =
+  match (List.nth_exn op_index).op_type with
+  | 0x03  (* br_if *) -> s.stack
+  | op                -> reduce_op s op param_counts retval_counts
+
+let condition_of_simple_loop (e: expr) (locals: local_type list) (segments: segment list) (loop: int): string = 
+  String.concat [ "Loop condition in segment ";
+                  string_of_int loop;
+                  ":\n";
+                  condition_of_simple_loop' e (List.nth_exn segments loop).start_op locals;
+                  "\n"]     
+let conditions_of_simple_loops (e: expr) (locals: local_type list) (segments: segment list) (loops: int list): string =
+  String.concat (List.map ~f:(condition_of_simple_loop e locals segments) loops)
+
+
+  type func =
+  {
+    locals:   local_type list;
+    e:        expr;
+    segments: segment list;
+  }
+                    
+let analyze_simple_brif_loops (e: expr) (locals: local_type list) (segments: segment list): string =
+  let simple_loops = (segments_with_simple_brif_loops segments) in
+    String.concat[  "Simple br_if loops found in these segments: ";
+                    (string_of_ints (segments_with_simple_brif_loops segments));
+                    ".\n";
+                    conditions_of_simple_loops e locals segments simple_loops]
   
 (* print the functions one by one along with our analysis *)
 let print_function w dir prefix i idx =

@@ -256,16 +256,6 @@ type states =
   mutable final:    program_states;
 }
 
-(*
-type segment_state =
-{
-  pred:       int;            (* the index of the predecessor segment *)
-  initial:    program_state;  (* the state after the predecessor segment was executed *)
-  final:      program_state;  (* the state after the predecessor segment was executed *)
-  succ_cond:  string;         (* the expression that must be true in order for the first successor state to be entered *) 
-}
-*)
-  
 type segment =
 {
           index:      int;      (* the index of this segment in the list of segments, makes things easier to have this *)
