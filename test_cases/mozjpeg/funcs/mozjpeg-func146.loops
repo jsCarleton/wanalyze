@@ -1,0 +1,5 @@
+Loops found in function 119 in these segments: 7 13 19.
+Simple br_if loops found in these segments: 13 19.
+Simple br_if loops found in these segments: 13 19.
+Loop condition in segment 13:i32.eqz((((i32.load@(??) xor -1) && (i32.load@(??) + -16843009)) && -2139062144))
+Loop condition in segment 19:i32.load8_u@(??)

@@ -1,0 +1,6 @@
+Loops found in function 140 in these segments: 5 6 13 19.
+Simple br_if loops found in these segments: 6 13 19.
+Simple br_if loops found in these segments: 6 13 19.
+Loop condition in segment 6:((?? + 1) != ??)
+Loop condition in segment 13:((?? + 1) < i32.load@(N0))
+Loop condition in segment 19:((?? + 1) < i32.load@(N0))

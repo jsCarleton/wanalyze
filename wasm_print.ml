@@ -365,10 +365,10 @@ let condition_of_simple_loop' (e: expr) (nparams: int) (nlocals: int) (param_cou
     s
 
 let condition_of_simple_loop (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (s: segment): string = 
-  (Logging.get_logger "wanalyze")#info  "Simple loop in segment: %d" s.index;
+  (Logging.get_logger "wanalyze")#info  "Simple loop in segment: %d params: %d locals %d" s.index nparams nlocals;
   String.concat [ "Loop condition in segment ";
                   string_of_int s.index;
-                  ":\n";
+                  ":";
                   condition_of_simple_loop' (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) nparams nlocals param_counts retval_counts;
                   "\n"]     
 let conditions_of_simple_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (loop_segments: segment list): string =
@@ -411,18 +411,16 @@ let print_function w dir prefix fidx type_idx =
   | true ->
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
         Out_channel.output_string oc
-          (String.concat["Loops found in these segments: ";
-                        (string_of_ints (ids_with_loops segments));
-                        ".\n"]);
-        Out_channel.output_string oc
-          (String.concat["Simple br_if loops found in these segments: ";
-                        (string_of_ints (ids_with_simple_brif_loops segments));
-                        ".\n"]);
-      let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
-      let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
-      let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
-      let nparams = List.nth_exn param_counts fidx in
-      let nlocals = List.fold_left ~f:sum_nlocals ~init:0 (List.nth_exn w.code_section fidx).locals in
+          (sprintf 
+            "Loops found in function %d in these segments: %s.\nSimple br_if loops found in these segments: %s.\n"
+            fidx
+            (string_of_ints (ids_with_loops segments))
+            (string_of_ints (ids_with_simple_brif_loops segments)));
+        let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
+        let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
+        let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
+        let nparams = List.nth_exn param_counts (fidx + w.last_import_func) in
+        let nlocals = List.fold_left ~f:sum_nlocals ~init:0 (List.nth_exn w.code_section fidx).locals in
         Out_channel.output_string oc
           (analyze_simple_brif_loops code.e nparams nlocals param_counts retval_counts segments);
         Out_channel.close oc

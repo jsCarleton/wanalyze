@@ -1,0 +1,15 @@
+Loops found in function 75 in these segments: 4 10 17 18 27 32 42 49 65 73 81 85 96 101 122 131 133 142 143 150 154 158.
+Simple br_if loops found in these segments: 10 18 42 49 81 96 101 133 143 150 154 158.
+Simple br_if loops found in these segments: 10 18 42 49 81 96 101 133 143 150 154 158.
+Loop condition in segment 10:((?? + 1) != 64)
+Loop condition in segment 18:((?? + 1) != 64)
+Loop condition in segment 42:(?? shr_s 1)
+Loop condition in segment 49:(?? shr_s 1)
+Loop condition in segment 81:((?? + 1) != ??)
+Loop condition in segment 96:(?? shr_s 1)
+Loop condition in segment 101:(?? shr_s 1)
+Loop condition in segment 133:((?? + -1) > ??)
+Loop condition in segment 143:((?? + 1) != 64)
+Loop condition in segment 150:((N1 + 1) != ??)
+Loop condition in segment 154:(N1 > 0)
+Loop condition in segment 158:((?? + 1) != ??)
