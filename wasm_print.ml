@@ -368,7 +368,7 @@ let condition_of_simple_loop (e: expr) (nparams: int) (nlocals: int) (param_coun
   (Logging.get_logger "wanalyze")#info  "Simple loop in segment: %d params: %d locals %d" s.index nparams nlocals;
   String.concat [ "Loop condition in segment ";
                   string_of_int s.index;
-                  ":";
+                  ":\t";
                   condition_of_simple_loop' (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) nparams nlocals param_counts retval_counts;
                   "\n"]     
 let conditions_of_simple_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (loop_segments: segment list): string =

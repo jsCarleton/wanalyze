@@ -1,7 +1,7 @@
 Loops found in function 7 in these segments: 13 21 26 37 42.
 Simple br_if loops found in these segments: 21 26 37 42.
 Simple br_if loops found in these segments: 21 26 37 42.
-Loop condition in segment 21:((N2 - -64) <= ??)
-Loop condition in segment 26:((N2 + 4) < ??)
-Loop condition in segment 37:((N2 + 4) <= ??)
-Loop condition in segment 42:((N2 + 1) != ??)
+Loop condition in segment 21:	((N2 - -64) <= L2)
+Loop condition in segment 26:	((N2 + 4) < L1)
+Loop condition in segment 37:	((N2 + 4) <= L1)
+Loop condition in segment 42:	((N2 + 1) != L0)

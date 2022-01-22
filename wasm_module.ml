@@ -247,8 +247,10 @@ type program_state =
   mutable global_values:  string array;
 }
 (* TODO handle type of parameters *)
-let local_value n i = 
-  match i >= n with | true -> "??" | _ -> String.concat ["N" ; string_of_int i]
+let local_value nLocals i = 
+  match i >= nLocals with 
+  | true -> String.concat ["L"; string_of_int (i-nLocals)] 
+  | _ ->    String.concat ["N"; string_of_int i]
 
 let empty_program_state (nparams: int) (nlocals: int): program_state =
     {instr_count=0; value_stack=[]; 

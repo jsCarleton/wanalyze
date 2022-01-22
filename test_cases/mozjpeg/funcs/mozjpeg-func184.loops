@@ -1,7 +1,7 @@
 Loops found in function 157 in these segments: 22 66 116 128 133 140 153 163 173 183.
 Simple br_if loops found in these segments: 22 66 116 128.
 Simple br_if loops found in these segments: 22 66 116 128.
-Loop condition in segment 22:((?? + 1) != ??)
-Loop condition in segment 66:((?? + 1) != ??)
-Loop condition in segment 116:((?? + -1) > ??)
-Loop condition in segment 128:((?? + -1) > ??)
+Loop condition in segment 22:	((L3 + 1) != L6)
+Loop condition in segment 66:	((L3 + 1) != L10)
+Loop condition in segment 116:	((L0 + -1) > L3)
+Loop condition in segment 128:	((L0 + -1) > L3)

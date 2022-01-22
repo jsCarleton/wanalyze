@@ -1,5 +1,5 @@
 Loops found in function 59 in these segments: 2 8 10 12 16 17.
 Simple br_if loops found in these segments: 2 17.
 Simple br_if loops found in these segments: 2 17.
-Loop condition in segment 2:((N1 + 1) < i32.load@(N0))
-Loop condition in segment 17:((N1 + 1) != ??)
+Loop condition in segment 2:	((N1 + 1) < i32.load@(N0))
+Loop condition in segment 17:	((N1 + 1) != L0)

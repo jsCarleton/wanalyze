@@ -1,5 +1,5 @@
 Loops found in function 29 in these segments: 7 13 18 25 29.
 Simple br_if loops found in these segments: 7 29.
 Simple br_if loops found in these segments: 7 29.
-Loop condition in segment 7:((?? + 1) < 8)
-Loop condition in segment 29:(((?? + ??) rem_u 8) != 0)
+Loop condition in segment 7:	((L5 + 1) < 8)
+Loop condition in segment 29:	(((L3 + L5) rem_u 8) != 0)

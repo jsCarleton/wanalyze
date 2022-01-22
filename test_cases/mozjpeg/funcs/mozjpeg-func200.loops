@@ -1,6 +1,6 @@
 Loops found in function 173 in these segments: 2 22 32 41 52 55 62 64 75.
 Simple br_if loops found in these segments: 41 64 75.
 Simple br_if loops found in these segments: 41 64 75.
-Loop condition in segment 41:((?? + 1) != ??)
-Loop condition in segment 64:((?? + 1) != ??)
-Loop condition in segment 75:((?? + 1) < i32.load@(??))
+Loop condition in segment 41:	((L0 + 1) != L11)
+Loop condition in segment 64:	((L0 + 1) != L9)
+Loop condition in segment 75:	((L4 + 1) < i32.load@(L3))

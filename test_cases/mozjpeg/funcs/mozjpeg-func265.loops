@@ -1,5 +1,5 @@
 Loops found in function 238 in these segments: 8 25 35 71 90.
 Simple br_if loops found in these segments: 71 90.
 Simple br_if loops found in these segments: 71 90.
-Loop condition in segment 71:((?? + 1) != 8)
-Loop condition in segment 90:(((?? shl 1) || (R0 > -1)) > -1)
+Loop condition in segment 71:	((L9 + 1) != 8)
+Loop condition in segment 90:	(((L2 shl 1) || (R0 > -1)) > -1)
