@@ -1,7 +1,7 @@
 Loops found in function 174 in these segments: 2 11 12 19 27 29 30 40.
-Simple br_if loops found in these segments: 12 19 30 40.
-Simple br_if loops found in these segments: 12 19 30 40.
-Loop condition in segment 12:	((L0 + 1) != L5)
-Loop condition in segment 19:	((L0 + 1) != L3)
-Loop condition in segment 30:	((L0 + 1) != L6)
-Loop condition in segment 40:	((L3 + 1) < i32.load@(L1))
+Simple br_if conditions in: 12 19 30 40.
+Simple br conditions in: .
+Simple brif loop condition in segment 12:	((L0 + 1) != L5)
+Simple brif loop condition in segment 19:	((L0 + 1) != L3)
+Simple brif loop condition in segment 30:	((L0 + 1) != L6)
+Simple brif loop condition in segment 40:	((L3 + 1) < i32.load@(L1))

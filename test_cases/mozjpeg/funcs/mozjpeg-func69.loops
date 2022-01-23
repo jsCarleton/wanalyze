@@ -1,6 +1,6 @@
 Loops found in function 42 in these segments: 2 17 38.
-Simple br_if loops found in these segments: 2 17 38.
-Simple br_if loops found in these segments: 2 17 38.
-Loop condition in segment 2:	(L1 shr_s 1)
-Loop condition in segment 17:	(L0 + -1)
-Loop condition in segment 38:	((L1 + 1) < i32.load@(N1))
+Simple br_if conditions in: 2 17 38.
+Simple br conditions in: .
+Simple brif loop condition in segment 2:	(L1 shr_s 1)
+Simple brif loop condition in segment 17:	(L0 + -1)
+Simple brif loop condition in segment 38:	((L1 + 1) < i32.load@(N1))

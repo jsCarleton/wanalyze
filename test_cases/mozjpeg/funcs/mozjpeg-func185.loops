@@ -1,5 +1,5 @@
 Loops found in function 158 in these segments: 20 29 51 59 72 96 101 108 116 129 141 148 157 169 178 189 200 208.
-Simple br_if loops found in these segments: 51 178.
-Simple br_if loops found in these segments: 51 178.
-Loop condition in segment 51:	((L5 + 1) < i32.load@(N0))
-Loop condition in segment 178:	(L0 != L5)
+Simple br_if conditions in: 51 178.
+Simple br conditions in: 30.
+Simple brif loop condition in segment 51:	((L5 + 1) < i32.load@(N0))
+Simple brif loop condition in segment 178:	(L0 != L5)

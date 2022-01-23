@@ -1,0 +1,6 @@
+Determine the paths through the code graph from the root to a terminal node.
+Terminal nodes are
+    - entry into a node whose id is <= the current node
+    - return node
+    - unreachable node
+    - node with no predecessors

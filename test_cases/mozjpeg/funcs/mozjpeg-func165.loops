@@ -1,5 +1,5 @@
 Loops found in function 138 in these segments: 3 11 13 25 27.
-Simple br_if loops found in these segments: 13 27.
-Simple br_if loops found in these segments: 13 27.
-Loop condition in segment 13:	(L0 < i32.load@(N0))
-Loop condition in segment 27:	((L0 + 1) != L2)
+Simple br_if conditions in: 13 27.
+Simple br conditions in: .
+Simple brif loop condition in segment 13:	(L0 < i32.load@(N0))
+Simple brif loop condition in segment 27:	((L0 + 1) != L2)

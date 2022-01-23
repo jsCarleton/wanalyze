@@ -19,4 +19,5 @@ digraph finite_state_machine {
     8 -> 7[color="red" fontcolor="red" label="br"];
     10 -> 11[label="end"];
     11 -> 15[label="return"];
+    13 -> 15[label="unreachable"];
 }

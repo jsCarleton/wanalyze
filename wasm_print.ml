@@ -346,6 +346,16 @@ let rec has_loop (segments: segment list): bool =
 let ids_with_loops (segments: segment list): int list =
   List.filter_map ~f:(fun s -> match has_loop' s with | true -> Some (s.index+1) | _ -> None) segments
 
+let simple_br_loop (segments: segment list) (s: segment): int option =
+  match   List.length segments - s.index >= 5
+        && s.segtype = 0x03 (* loop *)
+        &&  (List.nth_exn segments (s.index+1)).segtype = 0x04 (* if *)
+        &&  (List.nth_exn segments (s.index+2)).segtype = 0x0c (* br *)
+        &&  (List.nth_exn segments (s.index+3)).segtype = 0x0b (* end *)
+        &&  (List.nth_exn segments (s.index+4)).segtype = 0x0b (* end *) with
+    | true  -> Some (s.index+2)
+    | false -> None
+  
 let simple_brif_loop (segments: segment list) (s: segment): int option =
   match    List.length segments - s.index >= 3
         &&  s.segtype = 0x03 (* loop *)
@@ -353,7 +363,10 @@ let simple_brif_loop (segments: segment list) (s: segment): int option =
         &&  (List.nth_exn segments (s.index+2)).segtype = 0x0b (* end *) with
     | true  -> Some (s.index+1)
     | false -> None
-        
+
+let ids_with_simple_br_loops (segments: segment list): int list =
+  List.filter_map ~f:(simple_br_loop segments) segments
+  
 let ids_with_simple_brif_loops (segments: segment list): int list =
     List.filter_map ~f:(simple_brif_loop segments) segments
 
@@ -366,7 +379,7 @@ let condition_of_simple_loop' (e: expr) (nparams: int) (nlocals: int) (param_cou
 
 let condition_of_simple_loop (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (s: segment): string = 
   (Logging.get_logger "wanalyze")#info  "Simple loop in segment: %d params: %d locals %d" s.index nparams nlocals;
-  String.concat [ "Loop condition in segment ";
+  String.concat [ "Simple brif loop condition in segment ";
                   string_of_int s.index;
                   ":\t";
                   condition_of_simple_loop' (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) nparams nlocals param_counts retval_counts;
@@ -385,11 +398,8 @@ let conditions_of_simple_loops (e: expr) (nparams: int) (nlocals: int) (param_co
 *)
 (* TODO separate the execution from the output formatting *)                    
 let analyze_simple_brif_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (segments: segment list): string =
-  String.concat[  "Simple br_if loops found in these segments: ";
-                  (string_of_ints (ids_with_simple_brif_loops segments));
-                  ".\n";
-                  conditions_of_simple_loops e nparams nlocals param_counts retval_counts (segments_with_simple_brif_loops segments)]
-  
+  conditions_of_simple_loops e nparams nlocals param_counts retval_counts (segments_with_simple_brif_loops segments)
+
 (* print the functions one by one along with our analysis *)
 let print_function w dir prefix fidx type_idx =
   let fname = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
@@ -412,10 +422,11 @@ let print_function w dir prefix fidx type_idx =
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
         Out_channel.output_string oc
           (sprintf 
-            "Loops found in function %d in these segments: %s.\nSimple br_if loops found in these segments: %s.\n"
+            "Loops found in function %d in these segments: %s.\nSimple br_if conditions in: %s.\nSimple br conditions in: %s.\n"
             fidx
             (string_of_ints (ids_with_loops segments))
-            (string_of_ints (ids_with_simple_brif_loops segments)));
+            (string_of_ints (ids_with_simple_brif_loops segments))
+            (string_of_ints (ids_with_simple_br_loops segments)));
         let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
         let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
         let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in

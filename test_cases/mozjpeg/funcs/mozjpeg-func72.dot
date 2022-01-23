@@ -72,4 +72,5 @@ digraph finite_state_machine {
     47 -> 47[color="red" fontcolor="red" label="br_if"];
     48 -> 49[label="end"];
     49 -> 1[color="red" fontcolor="red" label="br"];
+    52 -> 54[label="unreachable"];
 }

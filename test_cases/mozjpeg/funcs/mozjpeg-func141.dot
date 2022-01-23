@@ -34,4 +34,5 @@ digraph finite_state_machine {
     18 -> 21[label="br"];
     20 -> 21[label="end"];
     21 -> 1[color="red" fontcolor="red" label="br"];
+    24 -> 26[label="unreachable"];
 }

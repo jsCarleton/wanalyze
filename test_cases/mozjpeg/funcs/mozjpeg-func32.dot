@@ -176,6 +176,7 @@ digraph finite_state_machine {
     134 -> 131[color="red" fontcolor="red" label="br_if"];
     135 -> 136[label="end"];
     136 -> 137[label="end"];
+    137 -> 440[label="unreachable"];
     139 -> 140[label="~br_if"];
     139 -> 143[label="br_if"];
     140 -> 141[label="~br_if"];
@@ -197,6 +198,7 @@ digraph finite_state_machine {
     151 -> 152[label="block"];
     152 -> 153[label="~br_if"];
     152 -> 159[label="br_if"];
+    153 -> 440[label="unreachable"];
     155 -> 156[label="~br_if"];
     155 -> 159[label="br_if"];
     156 -> 157[label="end"];
@@ -209,6 +211,7 @@ digraph finite_state_machine {
     163 -> 205[label="br_if"];
     164 -> 165[label="~br_if"];
     164 -> 177[label="br_if"];
+    165 -> 440[label="unreachable"];
     167 -> 168[label="~br_if"];
     167 -> 177[label="br_if"];
     168 -> 169[label="end"];
@@ -228,6 +231,7 @@ digraph finite_state_machine {
     182 -> 183[label="block"];
     183 -> 184[label="if"];
     183 -> 188[label="~if"];
+    184 -> 440[label="unreachable"];
     186 -> 187[label="~br_if"];
     186 -> 190[label="br_if"];
     187 -> 188[label="end"];
@@ -241,6 +245,7 @@ digraph finite_state_machine {
     196 -> 197[label="block"];
     197 -> 198[label="~br_if"];
     197 -> 204[label="br_if"];
+    198 -> 440[label="unreachable"];
     200 -> 201[label="~br_if"];
     200 -> 204[label="br_if"];
     201 -> 202[label="end"];
@@ -253,11 +258,13 @@ digraph finite_state_machine {
     208 -> 209[label="block"];
     209 -> 210[label="~br_if"];
     209 -> 216[label="br_if"];
+    210 -> 440[label="unreachable"];
     212 -> 213[label="~br_if"];
     212 -> 216[label="br_if"];
     213 -> 214[label="end"];
     214 -> 217[label="br"];
     216 -> 217[label="end"];
+    217 -> 440[label="unreachable"];
     219 -> 220[label="~br_if"];
     219 -> 223[label="br_if"];
     220 -> 221[label="~br_if"];
@@ -320,6 +327,7 @@ digraph finite_state_machine {
     266 -> 337[label="br_if"];
     267 -> 268[label="end"];
     268 -> 265[color="red" fontcolor="red" label="br"];
+    271 -> 440[label="unreachable"];
     273 -> 274[label="if"];
     273 -> 276[label="~if"];
     274 -> 363[label="br"];

@@ -6,4 +6,5 @@ digraph finite_state_machine {
     labelfontname = "Helvetica"
     node [shape = doublecircle]; 0 2;
     node [shape = circle];
+    0 -> 2[label="unreachable"];
 }

@@ -27,6 +27,7 @@ digraph finite_state_machine {
     12 -> 13[label="~br_if"];
     12 -> 4[color="red" fontcolor="red" label="br_if"];
     13 -> 22[label="br"];
+    16 -> 23[label="unreachable"];
     18 -> 19[label="loop"];
     19 -> 20[label="~br_if"];
     19 -> 19[color="red" fontcolor="red" label="br_if"];

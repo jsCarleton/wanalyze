@@ -279,6 +279,7 @@ digraph finite_state_machine {
     163 -> 164[label="end"];
     164 -> 165[label="end"];
     165 -> 149[color="red" fontcolor="red" label="br"];
+    168 -> 288[label="unreachable"];
     170 -> 175[label="br"];
     172 -> 175[label="br"];
     174 -> 175[label="end"];
@@ -361,6 +362,8 @@ digraph finite_state_machine {
     240 -> 243[label="~if"];
     241 -> 235[color="red" fontcolor="red" label="br"];
     243 -> 259[label="br"];
+    245 -> 288[label="unreachable"];
+    248 -> 288[label="unreachable"];
     250 -> 251[label="loop"];
     251 -> 252[label="block"];
     252 -> 253[label="if"];

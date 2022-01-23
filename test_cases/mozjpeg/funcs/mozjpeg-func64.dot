@@ -64,6 +64,7 @@ digraph finite_state_machine {
     37 -> 38[label="~br_if"];
     37 -> 29[color="red" fontcolor="red" label="br_if"];
     38 -> 51[label="br"];
+    41 -> 53[label="unreachable"];
     43 -> 44[label="loop"];
     44 -> 45[label="block"];
     45 -> 46[label="~br_if"];

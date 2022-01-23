@@ -1,12 +1,12 @@
 Loops found in function 77 in these segments: 11 17 24 25 34 47 58 64 68 74 89 94 96 105 119 125 127 128 140 141 148 152 156.
-Simple br_if loops found in these segments: 17 25 64 96 128 141 148 152 156.
-Simple br_if loops found in these segments: 17 25 64 96 128 141 148 152 156.
-Loop condition in segment 17:	((L0 + 1) != 64)
-Loop condition in segment 25:	((L0 + 1) != 64)
-Loop condition in segment 64:	((L0 + 1) != L9)
-Loop condition in segment 96:	((L0 + -1) > L1)
-Loop condition in segment 128:	(N6 != L0)
-Loop condition in segment 141:	((L0 + 1) != 64)
-Loop condition in segment 148:	((L1 + 1) != L17)
-Loop condition in segment 152:	(L1 > 0)
-Loop condition in segment 156:	((N2 + 1) != L17)
+Simple br_if conditions in: 17 25 64 96 128 141 148 152 156.
+Simple br conditions in: .
+Simple brif loop condition in segment 17:	((L0 + 1) != 64)
+Simple brif loop condition in segment 25:	((L0 + 1) != 64)
+Simple brif loop condition in segment 64:	((L0 + 1) != L9)
+Simple brif loop condition in segment 96:	((L0 + -1) > L1)
+Simple brif loop condition in segment 128:	(N6 != L0)
+Simple brif loop condition in segment 141:	((L0 + 1) != 64)
+Simple brif loop condition in segment 148:	((L1 + 1) != L17)
+Simple brif loop condition in segment 152:	(L1 > 0)
+Simple brif loop condition in segment 156:	((N2 + 1) != L17)

@@ -368,7 +368,6 @@ let last_segment (segments: segment list): int =
 let set_successor (segments: segment list) (index: int) =
   let s = List.nth_exn segments index in
   match s.segtype with
-    | (* unreachable *) 0x00  -> ()
     | (* end *)         0x0b
     | (* block *)       0x02
     | (* loop *)        0x03  ->
@@ -382,6 +381,7 @@ let set_successor (segments: segment list) (index: int) =
     | (* br *)          0x0c
     | (* br_table *)    0x0e ->
         s.succ <- List.map ~f:(br_target segments index s.nesting) s.labels
+    | (* unreachable *) 0x00
     | (* return *)      0x0f ->
         s.succ <- [last_segment segments]
     | _ -> failwith (String.concat ["Unknown segtype: "; string_of_int s.segtype])
@@ -794,7 +794,7 @@ let graph_segment (index: int) (segtype: int) (succ: int list) (pred: int list) 
   match List.length pred > 0 || index = 0 with
   | true ->
     (match segtype with
-    | (* unreachable *) 0x00 -> ""
+    | (* unreachable *) 0x00 -> graph_node index "unreachable" last
     | (* end *)         0x0b -> graph_node index "end" (List.nth_exn succ 0)
     | (* block *)       0x02 -> graph_node index "block" (List.nth_exn succ 0)
     | (* loop *)        0x03 -> graph_node index "loop" (List.nth_exn succ 0)

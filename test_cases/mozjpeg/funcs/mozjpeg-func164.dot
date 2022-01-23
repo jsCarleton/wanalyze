@@ -56,6 +56,7 @@ digraph finite_state_machine {
     36 -> 37[label="~br_if"];
     36 -> 42[label="br_if"];
     37 -> 31[color="red" fontcolor="red" label="br"];
+    40 -> 48[label="unreachable"];
     42 -> 48[label="return"];
     44 -> 45[label="~br_if"];
     44 -> 3[color="red" fontcolor="red" label="br_if"];

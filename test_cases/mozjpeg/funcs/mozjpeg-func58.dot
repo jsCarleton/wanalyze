@@ -9,5 +9,6 @@ digraph finite_state_machine {
     0 -> 1[label="block"];
     1 -> 2[label="~br_if"];
     1 -> 4[label="br_if"];
+    2 -> 5[label="unreachable"];
     4 -> 5[label="end"];
 }

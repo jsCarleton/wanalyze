@@ -15,5 +15,5 @@ index start   end nesting dest  labels type        succ/pred
    12    94    97     1                end         s=[13] p=[11]
    13    97   119     1                return      s=[17] p=[12 11]
    14   119   120     0                end         s=[15] p=[]
-   15   120   122     0                unreachable s=[] p=[14 0]
+   15   120   122     0                unreachable s=[17] p=[14 0]
    16   122   123    -1                end         s=[17] p=[]

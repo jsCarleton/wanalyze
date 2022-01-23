@@ -1,5 +1,5 @@
 Loops found in function 27 in these segments: 7 11 18 20 30.
-Simple br_if loops found in these segments: 11 20.
-Simple br_if loops found in these segments: 11 20.
-Loop condition in segment 11:	(N2 + -1)
-Loop condition in segment 20:	(L1 == i32.load8_s@(((L0 + 1) + (L2 + 1040))))
+Simple br_if conditions in: 11 20.
+Simple br conditions in: .
+Simple brif loop condition in segment 11:	(N2 + -1)
+Simple brif loop condition in segment 20:	(L1 == i32.load8_s@(((L0 + 1) + (L2 + 1040))))

@@ -370,6 +370,7 @@ digraph finite_state_machine {
     294 -> 297[label="~if"];
     295 -> 307[label="br"];
     297 -> 315[label="br"];
+    299 -> 512[label="unreachable"];
     301 -> 302[label="~br_if"];
     301 -> 315[label="br_if"];
     302 -> 303[label="if"];

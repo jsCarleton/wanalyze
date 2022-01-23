@@ -299,7 +299,7 @@ index start   end nesting dest  labels type        succ/pred
   296  2029  2030     8                else        s=[299] p=[]
   297  2030  2031     9              4 br          s=[315] p=[294]
   298  2031  2032     8                end         s=[299] p=[]
-  299  2032  2033     8                unreachable s=[] p=[298 296]
+  299  2032  2033     8                unreachable s=[512] p=[298 296]
   300  2033  2034     7                end         s=[301] p=[]
   301  2034  2050     7              2 br_if       s=[302 315] p=[300 293]
   302  2050  2059     7   306          if          s=[303 304] p=[301]

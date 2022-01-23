@@ -1,5 +1,5 @@
 Loops found in function 161 in these segments: 10 13 31 46 54 65 83 99.
-Simple br_if loops found in these segments: 13 83.
-Simple br_if loops found in these segments: 13 83.
-Loop condition in segment 13:	((L0 + 1) != 64)
-Loop condition in segment 83:	((L0 + 1) < i32.load@(N0))
+Simple br_if conditions in: 13 83.
+Simple br conditions in: .
+Simple brif loop condition in segment 13:	((L0 + 1) != 64)
+Simple brif loop condition in segment 83:	((L0 + 1) < i32.load@(N0))
