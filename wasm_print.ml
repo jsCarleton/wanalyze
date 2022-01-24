@@ -400,24 +400,31 @@ let conditions_of_simple_loops (e: expr) (nparams: int) (nlocals: int) (param_co
 let analyze_simple_brif_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (segments: segment list): string =
   conditions_of_simple_loops e nparams nlocals param_counts retval_counts (segments_with_simple_brif_loops segments)
 
+let execution_paths (segments: segment list) : int list list =
+  [List.map ~f:(fun s -> s.index) segments]
+
+let string_of_list_of_list_of_ints (ll: int list list) =
+  String.concat ~sep:"\n" (List.map ~f:string_of_ints ll)
+
 (* print the functions one by one along with our analysis *)
 let print_function w dir prefix fidx type_idx =
   let fname = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
+  (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     Out_channel.output_string oc (string_of_function w true fidx type_idx);
     Out_channel.close oc;
   let code = (List.nth_exn w.code_section fidx) in
   let segments = code.segments in
+  (* segments in function *)
   let oc = Out_channel.create (String.concat[fname; ".segments"]) in
     Out_channel.output_string oc (string_of_segments segments);
     Out_channel.close oc;
+  (* graphviz command file for function flow graph *)
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
     Out_channel.output_string oc (graph_segments w.module_name (fidx + w.last_import_func) segments);
     Out_channel.close oc;
-(*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
-    Out_channel.output_string oc (string_of_executions (execute_segments w segments (fidx + w.last_import_func) code.e) segments);
-    Out_channel.close oc;
- *)  match has_loop segments with
+  (* loop analysis *)
+  match has_loop segments with
   | true ->
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
         Out_channel.output_string oc
@@ -434,8 +441,17 @@ let print_function w dir prefix fidx type_idx =
         let nlocals = List.fold_left ~f:sum_nlocals ~init:0 (List.nth_exn w.code_section fidx).locals in
         Out_channel.output_string oc
           (analyze_simple_brif_loops code.e nparams nlocals param_counts retval_counts segments);
-        Out_channel.close oc
-  | false -> ()
+        Out_channel.close oc;
+  | false -> ();
+  (* execution paths *)
+  let oc = Out_channel.create (String.concat[fname; ".paths"]) in
+    Out_channel.output_string oc (string_of_list_of_list_of_ints (execution_paths segments));
+    Out_channel.close oc
+  (* execution trace of the function *)
+(*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
+    Out_channel.output_string oc (string_of_executions (execute_segments w segments (fidx + w.last_import_func) code.e) segments);
+    Out_channel.close oc; *)
+
 let print_functions w =
   List.iteri ~f:(print_function w "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"])) w.function_section
 
