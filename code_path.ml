@@ -7,7 +7,7 @@ type code_path = int list
 (*
     succ_of_cp
     Takes a list of segments and a code path and returns the list of segments that
-    are successors of the code path
+    are immediate successors to the code path
 *)
 let succ_of_cp (segments: segment list) (cp: code_path): int list =
     (List.nth_exn segments (List.hd_exn cp)).succ
