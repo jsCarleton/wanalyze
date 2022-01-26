@@ -1,6 +1,7 @@
 open Core
 open Easy_logging
 open Wasm_module
+open Code_path
 
 (* Printable strings *)
 
@@ -424,7 +425,7 @@ let print_function w dir prefix fidx type_idx =
     Out_channel.output_string oc (graph_segments w.module_name (fidx + w.last_import_func) segments);
     Out_channel.close oc;
   (* loop analysis *)
-  match has_loop segments with
+  (match has_loop segments with
   | true ->
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
         Out_channel.output_string oc
@@ -441,11 +442,14 @@ let print_function w dir prefix fidx type_idx =
         let nlocals = List.fold_left ~f:sum_nlocals ~init:0 (List.nth_exn w.code_section fidx).locals in
         Out_channel.output_string oc
           (analyze_simple_brif_loops code.e nparams nlocals param_counts retval_counts segments);
-        Out_channel.close oc;
-  | false -> ();
+        Out_channel.close oc
+  | false -> ());
   (* execution paths *)
   let oc = Out_channel.create (String.concat[fname; ".paths"]) in
-    Out_channel.output_string oc (string_of_list_of_list_of_ints (execution_paths segments));
+  let t = code_paths_of_segments segments [[0]] [] in
+    (Logging.get_logger "wanalyze")#info "print_function: fidx %d segments length %d term length %d"
+      fidx (List.length segments) (List.length t);
+    Out_channel.output_string oc (string_of_list_of_list_of_ints t);
     Out_channel.close oc
   (* execution trace of the function *)
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in

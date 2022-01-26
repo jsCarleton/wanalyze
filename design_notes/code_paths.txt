@@ -1,6 +1,64 @@
 Determine the paths through the code graph from the root to a terminal node.
 Terminal nodes are
-    - entry into a node whose id is <= the current node
-    - return node
-    - unreachable node
-    - node with no predecessors
+    - nodes with predecessors whose id is <= the id of the current node
+    - "return" nodes
+    - "unreachable" nodes
+    - nodes with no predecessors
+
+start with
+    get_code_paths segments [[0]] []
+
+code-path is a list of segment-ids in **reverse** order of execution
+
+get_code_paths
+	Takes a list of segments, a list of non-terminal code-paths and a list of terminal code-paths
+    Returns the terminal code-paths
+rec get_code_paths: segments (nterm: code-paths list) (term: code-paths list) -> code-paths list
+    match nterm with
+    [] -> term
+    hd::tl -> 
+        let n,t = process_code_path segments hd
+        get_code_paths segments (List.append n tl) (List.append t term)  (* note that this is not tail recursive *)
+
+process_code_path
+    Takes list of segments and a code-path
+    Returns a pair of lists of code-paths that's the resulting non-terminal and terminal paths respectively
+process_code_path: segments (cp: code-path) -> code-paths list, code-paths list
+    match is_term segments cp with
+    true -> [], [cp]
+    _ -> (get_nterm cp), (get_term cp)
+
+is_term
+    takes a code-path and returns true if it has reached a terminal state, false otherwise
+is_term segments (cp: code-path): bool
+    (last_seg segments cp).segtype is return or unreachable
+    or (last_seg cp) has no successors
+
+get_nterm
+    Takes a path and returns the list of non-terminal code-paths from that path that include one immediate successor segment
+get_nterm segments (cp: code-path) -> code-path list
+    List.filter_map ~f:(nterm_segs segments cp) (succs_of_last_seg segments cp)
+
+get_term
+    Takes a path and returns the list of terminal code-paths from that path that include an immediate successor
+get_term segments (cp: code-path)  -> code-path list
+    List.filter_map ~f:(term_segs segments cp) (succs_of_last_seg segments cp)
+
+succs_of_last_seg segments (cp: code-path): seg-ids list
+    (last_seg segments cp).succ
+
+term_segs segments (cp: code-path) (succ: int) -> option code-path
+    match (id_of_last_seg segments cp) >= (id_of_seg segments succ)
+    true -> Some cp
+    _ -> None
+
+nterm_segs segments (cp: code-path) (succ: int) -> option code-path
+    match (id_of_last_seg segments cp) < (id_of_seg segments succ)
+    true -> Some (List.cons cp succ)
+    _ -> None
+
+id_of_last_seg segments cp: int
+    (last_seg segments cp).index
+
+last_seg segments cp: segment
+    List.nth_exn (List.hd_exn cp) segments
