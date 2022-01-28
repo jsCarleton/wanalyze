@@ -1,5 +1,5 @@
-Loops found in function 5 in these segments: 39 55 71 85 102 131 233 241 257 265 299 331 338 356 404.
+Loops found in function 5 in these bblocks: 39 55 71 85 102 131 233 241 257 265 299 331 338 356 404.
 Simple br_if conditions in: 241 338.
 Simple br conditions in: .
-Simple brif loop condition in segment 241:	((N0 + 1) != 32)
-Simple brif loop condition in segment 338:	(L3 > (N0 + 8))
+Simple brif loop condition in bblock 241:	((N0 + 1) != 32)
+Simple brif loop condition in bblock 338:	(L3 > (N0 + 8))

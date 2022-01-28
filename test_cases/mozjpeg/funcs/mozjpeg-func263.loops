@@ -1,6 +1,6 @@
-Loops found in function 236 in these segments: 8 12 15 59 92 149 161 194 218 219 235 251.
+Loops found in function 236 in these bblocks: 8 12 15 59 92 149 161 194 218 219 235 251.
 Simple br_if conditions in: 12 59 161.
 Simple br conditions in: .
-Simple brif loop condition in segment 12:	R0
-Simple brif loop condition in segment 59:	R0
-Simple brif loop condition in segment 161:	((L0 + 1) < i32.load8_u@(L1))
+Simple brif loop condition in bblock 12:	R0
+Simple brif loop condition in bblock 59:	R0
+Simple brif loop condition in bblock 161:	((L0 + 1) < i32.load8_u@(L1))

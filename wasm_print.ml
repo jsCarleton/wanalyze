@@ -182,29 +182,29 @@ let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
     )
   | _ -> failwith "Missing opcode"
 
-let segment_sep annotate index = 
+let bblock_sep annotate index = 
   match annotate with
   | true -> String.concat ["\n"; string_of_int index; " ------------------------------------------------------------"]
   | _ -> ""
 
-let rec string_of_expr' e annotate (segments: segment list) idx acc =
+let rec string_of_expr' e annotate (bblocks: bblock list) idx acc =
   match idx < (List.length e) with
   | true -> 
-    (match segments with
+    (match bblocks with
     | hd::tl ->
       (match hd.start_op = idx with
-        | true  -> string_of_expr' e annotate tl (idx+1) (String.concat [acc ; (segment_sep annotate hd.index); (string_of_opcode e idx annotate)])
-        | false -> string_of_expr' e annotate segments (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
+        | true  -> string_of_expr' e annotate tl (idx+1) (String.concat [acc ; (bblock_sep annotate hd.index); (string_of_opcode e idx annotate)])
+        | false -> string_of_expr' e annotate bblocks (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
       )
-    | _ -> string_of_expr' e annotate segments (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
+    | _ -> string_of_expr' e annotate bblocks (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
     )
   | false -> acc
-let string_of_expr e segments annotate = 
-  string_of_expr' e annotate (match annotate with | true -> segments | _ -> []) 0 ""
+let string_of_expr e bblocks annotate = 
+  string_of_expr' e annotate (match annotate with | true -> bblocks | _ -> []) 0 ""
 
 let string_of_code w idx annotate =
   let f = List.nth_exn w.code_section idx in
-  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr f.e f.segments annotate)]
+  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr f.e f.bblocks annotate)]
 
 let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
 let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
@@ -228,12 +228,12 @@ let string_of_segtype (segtype: int) : string =
 let string_of_segindex (i: int) : string = match i with | -1 -> "" | _ -> string_of_int i
 let string_of_ints (ints: int list): string =
     String.concat ~sep:" " (List.map ~f:string_of_int ints)
-let string_of_segment (s: segment) : string = 
+let string_of_bblock (s: bblock) : string = 
   sprintf "%5d %5d %5d %5d   %-5s %6s %-11s s=[%s] p=[%s]\n" 
     s.index s.start_op s.end_op s.nesting (string_of_segindex s.br_dest) (string_of_ints s.labels) (string_of_segtype s.segtype) (string_of_ints s.succ) (string_of_ints s.pred)
-let string_of_segments (s: segment list) : string =
+let string_of_bblocks (s: bblock list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
-                 String.concat (List.map ~f:string_of_segment s)]
+                 String.concat (List.map ~f:string_of_bblock s)]
 
 let string_of_function w annotate i idx = 
   String.concat [
@@ -320,89 +320,89 @@ let string_of_data d =
           ; ") "  ; hexstring_of_bytes meb.b ; ")\n"]
 let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_of_data section)
 
-let has_successors (segments: segment list) (seg_index: int ): bool =
-  let succ = (List.nth_exn segments seg_index).succ in
-    (List.length succ > 0) && (List.hd_exn succ < List.length segments)
+let has_successors (bblocks: bblock list) (seg_index: int ): bool =
+  let succ = (List.nth_exn bblocks seg_index).succ in
+    (List.length succ > 0) && (List.hd_exn succ < List.length bblocks)
 
-let string_of_execution (segments: segment list) (ex: execution): string =
-  sprintf "segment %d from %d\ninitial state: %s\nfinal   state: %s\n" 
-      ex.index ex.pred_index (string_of_state true ex.initial) (string_of_state (has_successors segments ex.index) ex.final)
-let string_of_executions (executions: execution list) (segments: segment list): string = 
+let string_of_execution (bblocks: bblock list) (ex: execution): string =
+  sprintf "bblock %d from %d\ninitial state: %s\nfinal   state: %s\n" 
+      ex.index ex.pred_index (string_of_state true ex.initial) (string_of_state (has_successors bblocks ex.index) ex.final)
+let string_of_executions (executions: execution list) (bblocks: bblock list): string = 
   (Logging.get_logger "wanalyze")#info "executions: %d" (List.length executions);
-  String.concat (List.map ~f:(string_of_execution segments) executions)
+  String.concat (List.map ~f:(string_of_execution bblocks) executions)
 
-let has_loop' (s: segment): bool = 
+let has_loop' (s: bblock): bool = 
   match s.segtype with
   | 0x03 (* loop *) -> true
   | _               -> false
 
-let rec has_loop (segments: segment list): bool =
-  match segments with
+let rec has_loop (bblocks: bblock list): bool =
+  match bblocks with
   | hd::tl ->
     (match has_loop' hd with
     | true -> true
     | _     -> has_loop tl)
   | _ ->  false
 
-let ids_with_loops (segments: segment list): int list =
-  List.filter_map ~f:(fun s -> match has_loop' s with | true -> Some (s.index+1) | _ -> None) segments
+let ids_with_loops (bblocks: bblock list): int list =
+  List.filter_map ~f:(fun s -> match has_loop' s with | true -> Some (s.index+1) | _ -> None) bblocks
 
-let simple_br_loop (segments: segment list) (s: segment): int option =
-  match   List.length segments - s.index >= 5
+let simple_br_loop (bblocks: bblock list) (s: bblock): int option =
+  match   List.length bblocks - s.index >= 5
         && s.segtype = 0x03 (* loop *)
-        &&  (List.nth_exn segments (s.index+1)).segtype = 0x04 (* if *)
-        &&  (List.nth_exn segments (s.index+2)).segtype = 0x0c (* br *)
-        &&  (List.nth_exn segments (s.index+3)).segtype = 0x0b (* end *)
-        &&  (List.nth_exn segments (s.index+4)).segtype = 0x0b (* end *) with
+        &&  (List.nth_exn bblocks (s.index+1)).segtype = 0x04 (* if *)
+        &&  (List.nth_exn bblocks (s.index+2)).segtype = 0x0c (* br *)
+        &&  (List.nth_exn bblocks (s.index+3)).segtype = 0x0b (* end *)
+        &&  (List.nth_exn bblocks (s.index+4)).segtype = 0x0b (* end *) with
     | true  -> Some (s.index+2)
     | false -> None
   
-let simple_brif_loop (segments: segment list) (s: segment): int option =
-  match    List.length segments - s.index >= 3
+let simple_brif_loop (bblocks: bblock list) (s: bblock): int option =
+  match    List.length bblocks - s.index >= 3
         &&  s.segtype = 0x03 (* loop *)
-        &&  (List.nth_exn segments (s.index+1)).segtype = 0x0d (* brif *)
-        &&  (List.nth_exn segments (s.index+2)).segtype = 0x0b (* end *) with
+        &&  (List.nth_exn bblocks (s.index+1)).segtype = 0x0d (* brif *)
+        &&  (List.nth_exn bblocks (s.index+2)).segtype = 0x0b (* end *) with
     | true  -> Some (s.index+1)
     | false -> None
 
-let ids_with_simple_br_loops (segments: segment list): int list =
-  List.filter_map ~f:(simple_br_loop segments) segments
+let ids_with_simple_br_loops (bblocks: bblock list): int list =
+  List.filter_map ~f:(simple_br_loop bblocks) bblocks
   
-let ids_with_simple_brif_loops (segments: segment list): int list =
-    List.filter_map ~f:(simple_brif_loop segments) segments
+let ids_with_simple_brif_loops (bblocks: bblock list): int list =
+    List.filter_map ~f:(simple_brif_loop bblocks) bblocks
 
-let segments_with_simple_brif_loops (segments: segment list): segment list =
-    List.map ~f:(fun i -> List.nth_exn segments i) (ids_with_simple_brif_loops segments)
+let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
+    List.map ~f:(fun i -> List.nth_exn bblocks i) (ids_with_simple_brif_loops bblocks)
 
 let condition_of_simple_loop' (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list): string =
-  let _,s = reduce_segment e (empty_program_state nparams nlocals) param_counts retval_counts in
+  let _,s = reduce_bblock e (empty_program_state nparams nlocals) param_counts retval_counts in
     s
 
-let condition_of_simple_loop (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (s: segment): string = 
-  (Logging.get_logger "wanalyze")#info  "Simple loop in segment: %d params: %d locals %d" s.index nparams nlocals;
-  String.concat [ "Simple brif loop condition in segment ";
+let condition_of_simple_loop (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (s: bblock): string = 
+  (Logging.get_logger "wanalyze")#info  "Simple loop in bblock: %d params: %d locals %d" s.index nparams nlocals;
+  String.concat [ "Simple brif loop condition in bblock ";
                   string_of_int s.index;
                   ":\t";
                   condition_of_simple_loop' (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) nparams nlocals param_counts retval_counts;
                   "\n"]     
-let conditions_of_simple_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (loop_segments: segment list): string =
-  String.concat (List.map ~f:(condition_of_simple_loop e nparams nlocals param_counts retval_counts) loop_segments)
+let conditions_of_simple_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (loop_bblocks: bblock list): string =
+  String.concat (List.map ~f:(condition_of_simple_loop e nparams nlocals param_counts retval_counts) loop_bblocks)
 
-(** analyze_simple_brif_loops given a list of segments that are simple brif loops, analyzes the loop to
+(** analyze_simple_brif_loops given a list of bblocks that are simple brif loops, analyzes the loop to
   determine the branch condition
   Parameters:
-  segments  list of brif loop segments found in the same functiob
-  e         code of the function that the segments are from
+  bblocks  list of brif loop bblocks found in the same functiob
+  e         code of the function that the bblocks are from
   locals    type of locals in the function
   Returns:
-  formatted string containing the conditions of the brif instructions at the end of each segment 
+  formatted string containing the conditions of the brif instructions at the end of each bblock 
 *)
 (* TODO separate the execution from the output formatting *)                    
-let analyze_simple_brif_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (segments: segment list): string =
-  conditions_of_simple_loops e nparams nlocals param_counts retval_counts (segments_with_simple_brif_loops segments)
+let analyze_simple_brif_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (bblocks: bblock list): string =
+  conditions_of_simple_loops e nparams nlocals param_counts retval_counts (bblocks_with_simple_brif_loops bblocks)
 
-let execution_paths (segments: segment list) : int list list =
-  [List.map ~f:(fun s -> s.index) segments]
+let execution_paths (bblocks: bblock list) : int list list =
+  [List.map ~f:(fun s -> s.index) bblocks]
 
 let string_of_list_of_list_of_ints (ll: int list list) =
   String.concat ~sep:"\n" (List.map ~f:string_of_ints ll)
@@ -411,7 +411,7 @@ let string_of_list_of_list_of_ints (ll: int list list) =
 let print_function w dir prefix fidx type_idx =
   let fname = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
   let code = (List.nth_exn w.code_section fidx) in
-  let segments = code.segments in
+  let bblocks = code.bblocks in
   let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
   let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
   let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
@@ -421,42 +421,42 @@ let print_function w dir prefix fidx type_idx =
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     Out_channel.output_string oc (string_of_function w true fidx type_idx);
     Out_channel.close oc;
-  (* segments in function *)
-  let oc = Out_channel.create (String.concat[fname; ".segments"]) in
-    Out_channel.output_string oc (string_of_segments segments);
+  (* bblocks in function *)
+  let oc = Out_channel.create (String.concat[fname; ".bblocks"]) in
+    Out_channel.output_string oc (string_of_bblocks bblocks);
     Out_channel.close oc;
   (* graphviz command file for function flow graph *)
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
-    Out_channel.output_string oc (graph_segments w.module_name (fidx + w.last_import_func) segments);
+    Out_channel.output_string oc (graph_bblocks w.module_name (fidx + w.last_import_func) bblocks);
     Out_channel.close oc;
   (* loop analysis *)
-  (match has_loop segments with
+  (match has_loop bblocks with
   | true ->
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
         Out_channel.output_string oc
           (sprintf 
-            "Loops found in function %d in these segments: %s.\nSimple br_if conditions in: %s.\nSimple br conditions in: %s.\n"
+            "Loops found in function %d in these bblocks: %s.\nSimple br_if conditions in: %s.\nSimple br conditions in: %s.\n"
             fidx
-            (string_of_ints (ids_with_loops segments))
-            (string_of_ints (ids_with_simple_brif_loops segments))
-            (string_of_ints (ids_with_simple_br_loops segments)));
+            (string_of_ints (ids_with_loops bblocks))
+            (string_of_ints (ids_with_simple_brif_loops bblocks))
+            (string_of_ints (ids_with_simple_br_loops bblocks)));
         Out_channel.output_string oc
-          (analyze_simple_brif_loops code.e nparams nlocals param_counts retval_counts segments);
+          (analyze_simple_brif_loops code.e nparams nlocals param_counts retval_counts bblocks);
         Out_channel.close oc
   | false -> ());
   (* execution paths *)
   match fidx with
   | 51 ->
     let oc = Out_channel.create (String.concat[fname; ".paths"]) in
-    let t = code_paths_of_segments segments [[0]] [] in
-      (Logging.get_logger "wanalyze")#info "print_function: fidx %d segments length %d term length %d"
-        fidx (List.length segments) (List.length t);
+    let t = code_paths_of_bblocks bblocks [[0]] [] in
+      (Logging.get_logger "wanalyze")#info "print_function: fidx %d bblocks length %d term length %d"
+        fidx (List.length bblocks) (List.length t);
       Out_channel.output_string oc (string_of_list_of_list_of_ints t);
       Out_channel.close oc
   | _ -> ()
   (* execution trace of the function *)
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
-    Out_channel.output_string oc (string_of_executions (execute_segments w segments (fidx + w.last_import_func) code.e) segments);
+    Out_channel.output_string oc (string_of_executions (execute_bblocks w bblocks (fidx + w.last_import_func) code.e) bblocks);
     Out_channel.close oc; *)
 
 let print_functions w =

@@ -1,7 +1,7 @@
-Loops found in function 175 in these segments: 2 4 8 10 16 23 36 38 46 52.
+Loops found in function 175 in these bblocks: 2 4 8 10 16 23 36 38 46 52.
 Simple br_if conditions in: 16 23 46 52.
 Simple br conditions in: .
-Simple brif loop condition in segment 16:	((L0 + 1) != L10)
-Simple brif loop condition in segment 23:	((L0 + 1) < L9)
-Simple brif loop condition in segment 46:	((L0 + 1) < L5)
-Simple brif loop condition in segment 52:	((L0 + 1) != L5)
+Simple brif loop condition in bblock 16:	((L0 + 1) != L10)
+Simple brif loop condition in bblock 23:	((L0 + 1) < L9)
+Simple brif loop condition in bblock 46:	((L0 + 1) < L5)
+Simple brif loop condition in bblock 52:	((L0 + 1) != L5)

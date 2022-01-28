@@ -1,6 +1,6 @@
-Loops found in function 237 in these segments: 3 18 34 84 108 114 115 122 123 125 127 136 146 181.
+Loops found in function 237 in these bblocks: 3 18 34 84 108 114 115 122 123 125 127 136 146 181.
 Simple br_if conditions in: 84 108 146.
 Simple br conditions in: .
-Simple brif loop condition in segment 84:	((L5 + 1) != 9)
-Simple brif loop condition in segment 108:	((N1 + 1) != L1)
-Simple brif loop condition in segment 146:	(((L3 + 1) && 2047) != L1)
+Simple brif loop condition in bblock 84:	((L5 + 1) != 9)
+Simple brif loop condition in bblock 108:	((N1 + 1) != L1)
+Simple brif loop condition in bblock 146:	(((L3 + 1) && 2047) != L1)

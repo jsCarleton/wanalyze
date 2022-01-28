@@ -229,14 +229,14 @@ type element =
 | TableExprRefExpr of table_expr_ref_expr
 | RefExprD of ref_expr
 
-(* Code, including segments *)
+(* Code, including bblocks *)
 
-type segment_type =
+type bblock_type =
   UNR_SEG | IF_SEG | ELSE_SEG | END_SEG | BR_SEG | BRIF_SEG | BRT_SEG | RET_SEG | LOOP_SEG | LAST_SEG
-let segtype_of_opcode (opcode: int) : segment_type =
+let segtype_of_opcode (opcode: int) : bblock_type =
   match opcode with
   | 0x00 -> UNR_SEG | 0x03 -> LOOP_SEG | 0x04 -> IF_SEG | 0x05 -> ELSE_SEG | 0x0b -> END_SEG | 0x0c -> BR_SEG | 0x0d -> BRIF_SEG
-  | 0x0e -> BRT_SEG | 0x0f -> RET_SEG  | _ -> failwith (String.concat ["Invalid segment type: "; string_of_int opcode])
+  | 0x0e -> BRT_SEG | 0x0f -> RET_SEG  | _ -> failwith (String.concat ["Invalid bblock type: "; string_of_int opcode])
 
 (* Program state types *)
 type program_state =
@@ -267,35 +267,35 @@ type states =
   mutable final:    program_states;
 }
 
-type segment =
+type bblock =
 {
-          index:      int;      (* the index of this segment in the list of segments, makes things easier to have this *)
+          index:      int;      (* the index of this bblock in the list of bblocks, makes things easier to have this *)
           start_op:   int;      (* index into e of the first op in the expr *)
   mutable end_op:     int;      (* index+1 of the last op in the expr *)
-  mutable succ:       int list; (* segment indexes of segments that can be directly reached from this segment *)
-  mutable pred:       int list; (* segment indexes of segments that can directly reach this segment *)
-  mutable segtype:	  int;      (* the control opcode that created this segment *)
-  mutable nesting:    int;      (* the nesting level of the last opcode in the segment *)
+  mutable succ:       int list; (* bblock indexes of bblocks that can be directly reached from this bblock *)
+  mutable pred:       int list; (* bblock indexes of bblocks that can directly reach this bblock *)
+  mutable segtype:	  int;      (* the control opcode that created this bblock *)
+  mutable nesting:    int;      (* the nesting level of the last opcode in the bblock *)
   mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
-  mutable br_dest:	  int;			(* for LOOP, BLOCK and IF instructions the segment that's the target of a branch for this instruction  *)
+  mutable br_dest:	  int;			(* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)
 }
 
 type execution =
 {
-  index:              int;              (* the index of the segment being executed *)
+  index:              int;              (* the index of the bblock being executed *)
   pred_index:         int;
   succ_index:         int;
-  initial:            program_state;    (* the program state before the first instruction of the segment is executed *)
-  mutable final:      program_state;    (* the program state after the last instruction of the segment is executed *)
+  initial:            program_state;    (* the program state before the first instruction of the bblock is executed *)
+  mutable final:      program_state;    (* the program state after the last instruction of the bblock is executed *)
   mutable succ_cond:  string;           (* the expression that must be true in order for the first successor state to be entered *) 
 }
 
-let rec segments_of_expr' (e: expr) (seg_acc: segment list) (current: segment): segment list =
+let rec bblocks_of_expr' (e: expr) (seg_acc: bblock list) (current: bblock): bblock list =
 match e with
 | [] -> seg_acc
 | _  ->
   match (List.hd_exn e).opcode with
-    (* 1. each of these control instructions cause the current segment to end *)
+    (* 1. each of these control instructions cause the current bblock to end *)
     | (* unreachable *) 0x00
     | (* block *)       0x02
     | (* loop *)        0x03
@@ -312,97 +312,97 @@ match e with
       | BrTable br_table   -> current.labels <- br_table.table
       | _ -> ()
       );
-      (* 1.2 end the segment, start a new one*)
+      (* 1.2 end the bblock, start a new one*)
       current.segtype <- (List.hd_exn e).opcode;
       current.nesting <- (List.hd_exn e).nesting;
-      segments_of_expr' (List.tl_exn e) (List.append seg_acc [current]) 
+      bblocks_of_expr' (List.tl_exn e) (List.append seg_acc [current]) 
                     {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; pred=[]; segtype= -1;
                      nesting = -2; labels=[]; br_dest= -1}
-    (* 2. all other opcodes get added to the current segment *)
+    (* 2. all other opcodes get added to the current bblock *)
     | _ ->
       current.end_op <- current.end_op + 1;
-      segments_of_expr' (List.tl_exn e) seg_acc current
+      bblocks_of_expr' (List.tl_exn e) seg_acc current
 
-let rec get_end_else_segment (segments: segment list) (index: int) (nesting: int): int =
-  match (List.nth_exn segments index).segtype with
-  | 0x05 when (List.nth_exn segments index).nesting = nesting -> index+1
-  | 0x0b when (List.nth_exn segments index).nesting = nesting -> index+1
-  | _ -> get_end_else_segment segments (index+1) nesting
+let rec get_end_else_bblock (bblocks: bblock list) (index: int) (nesting: int): int =
+  match (List.nth_exn bblocks index).segtype with
+  | 0x05 when (List.nth_exn bblocks index).nesting = nesting -> index+1
+  | 0x0b when (List.nth_exn bblocks index).nesting = nesting -> index+1
+  | _ -> get_end_else_bblock bblocks (index+1) nesting
 
-let rec get_end_segment (segments: segment list) (index: int) (nesting: int): int =
-  match (List.nth_exn segments index).segtype with
-  | 0x0b when (List.nth_exn segments index).nesting = nesting -> index+1
-  | _ -> get_end_segment segments (index+1) nesting
+let rec get_end_bblock (bblocks: bblock list) (index: int) (nesting: int): int =
+  match (List.nth_exn bblocks index).segtype with
+  | 0x0b when (List.nth_exn bblocks index).nesting = nesting -> index+1
+  | _ -> get_end_bblock bblocks (index+1) nesting
 
-let rec get_target_loop (segments: segment list) (index: int) (nesting: int) (label: int): int =
+let rec get_target_loop (bblocks: bblock list) (index: int) (nesting: int) (label: int): int =
   match index >= 0 with
   | true ->
-    (let s = List.nth_exn segments index in
+    (let s = List.nth_exn bblocks index in
     match s.segtype with
     | 0x02 when s.nesting = nesting - label - 1 -> s.br_dest
     | 0x03 when s.nesting = nesting - label - 1 -> s.br_dest
     | 0x04 when s.nesting = nesting - label - 1 -> s.br_dest
-    | _ -> get_target_loop segments (index-1) nesting label
+    | _ -> get_target_loop bblocks (index-1) nesting label
     )
   | false -> -1
   
-let rec get_target_end (segments: segment list) (index: int) (nesting: int) (label: int): int =
-  match index < List.length segments with
+let rec get_target_end (bblocks: bblock list) (index: int) (nesting: int) (label: int): int =
+  match index < List.length bblocks with
   | true ->
-    (let s = List.nth_exn segments index in
+    (let s = List.nth_exn bblocks index in
     match s.segtype with
     | 0x02 when nesting = s.nesting - label -> s.br_dest + 1
     | 0x04 when nesting = s.nesting - label -> s.br_dest + 1
-    | _ -> get_target_end segments (index+1) nesting label
+    | _ -> get_target_end bblocks (index+1) nesting label
     )
   | false -> -1 (* failwith "Unable to find branch target" *)
     
-let br_target (segments: segment list) (index: int) (nesting: int) (label: int): int =
-  match get_target_loop segments (index-1) nesting label with 
-  | -1 -> get_target_end segments (index-1) nesting label
+let br_target (bblocks: bblock list) (index: int) (nesting: int) (label: int): int =
+  match get_target_loop bblocks (index-1) nesting label with 
+  | -1 -> get_target_end bblocks (index-1) nesting label
   | i  -> i
 
-let last_segment (segments: segment list): int =
-  List.length segments
+let last_bblock (bblocks: bblock list): int =
+  List.length bblocks
 
-let set_successor (segments: segment list) (index: int) =
-  let s = List.nth_exn segments index in
+let set_successor (bblocks: bblock list) (index: int) =
+  let s = List.nth_exn bblocks index in
   match s.segtype with
     | (* end *)         0x0b
     | (* block *)       0x02
     | (* loop *)        0x03  ->
         s.succ <- [index+1]
     | (* if *)          0x04  ->
-        s.succ <- [index+1; get_end_else_segment segments index s.nesting]
+        s.succ <- [index+1; get_end_else_bblock bblocks index s.nesting]
     | (* else *)        0x05  ->
-        s.succ <- [get_end_segment segments index s.nesting]
+        s.succ <- [get_end_bblock bblocks index s.nesting]
     | (* br_if *)       0x0d ->
-        s.succ <- List.cons (s.index+1) (List.map ~f:(br_target segments index s.nesting) s.labels)
+        s.succ <- List.cons (s.index+1) (List.map ~f:(br_target bblocks index s.nesting) s.labels)
     | (* br *)          0x0c
     | (* br_table *)    0x0e ->
-        s.succ <- List.map ~f:(br_target segments index s.nesting) s.labels
+        s.succ <- List.map ~f:(br_target bblocks index s.nesting) s.labels
     | (* unreachable *) 0x00
     | (* return *)      0x0f ->
-        s.succ <- [last_segment segments]
+        s.succ <- [last_bblock bblocks]
     | _ -> failwith (String.concat ["Unknown segtype: "; string_of_int s.segtype])
  
-let rec set_successors (segments: segment list) (index: int) =
-match index < List.length segments with
-  | true -> set_successor segments index;
-            set_successors segments (index+1)
+let rec set_successors (bblocks: bblock list) (index: int) =
+match index < List.length bblocks with
+  | true -> set_successor bblocks index;
+            set_successors bblocks (index+1)
   | _ -> ()
 
-let rec set_br_dest (segments: segment list) (index: int) =
-match index < List.length segments with
+let rec set_br_dest (bblocks: bblock list) (index: int) =
+match index < List.length bblocks with
 | false -> ()
 | true ->
-    (let s = List.nth_exn segments index in
+    (let s = List.nth_exn bblocks index in
     match s.segtype with
       | (* loop *)      0x03        -> s.br_dest <- index + 1
-      | (* if, block *) 0x04 | 0x02 -> s.br_dest <- get_end_segment segments index s.nesting 
+      | (* if, block *) 0x04 | 0x02 -> s.br_dest <- get_end_bblock bblocks index s.nesting 
       | _ -> ()
     );
-  set_br_dest segments (index+1)
+  set_br_dest bblocks (index+1)
   
 (* printing the state *)
 let string_of_instr_count (count: int) = String.concat ["  steps: " ; string_of_int count ; "; "]
@@ -709,7 +709,7 @@ let reduce_op (s: program_state) (op: op_type) (param_counts: int list) (retval_
       ); ""
 
 (**
-  reduce_segment' symbolically executes the code in an expr.
+  reduce_bblock' symbolically executes the code in an expr.
   Parameters:
   s             the starting program_state, as a side-effect of symbolic execution this state is updated
   e             expr containing the code to be executed
@@ -720,21 +720,21 @@ let reduce_op (s: program_state) (op: op_type) (param_counts: int list) (retval_
   Returns:
   the succ_cond value
  *)
-let rec reduce_segment' (s: program_state) (e: expr) (succ_cond: string) (param_counts: int list) (retval_counts: int list):
+let rec reduce_bblock' (s: program_state) (e: expr) (succ_cond: string) (param_counts: int list) (retval_counts: int list):
       string =
   (Logging.get_logger "wanalyze")#info "value_stack before: %s" (String.concat ~sep:": " s.value_stack);
   match e with
   | []      -> succ_cond
   | hd::tl  -> 
-    (Logging.get_logger "wanalyze")#info "in reduce_segment\' %s %d %d %d"
+    (Logging.get_logger "wanalyze")#info "in reduce_bblock\' %s %d %d %d"
         hd.opname
         (s.instr_count) 
         (List.length s.value_stack)
         (Array.fold ~f:(fun x y -> x + String.length y) ~init:0 s.local_values);
-    reduce_segment' s tl (reduce_op s hd param_counts retval_counts) param_counts retval_counts
+    reduce_bblock' s tl (reduce_op s hd param_counts retval_counts) param_counts retval_counts
 
 (**
-  reduce_segment from an initial program state, symbolically executes the code in an expr.
+  reduce_bblock from an initial program state, symbolically executes the code in an expr.
   Parameters:
   e             expr containing the code to be executed
   i             the initial program state
@@ -744,44 +744,44 @@ let rec reduce_segment' (s: program_state) (e: expr) (succ_cond: string) (param_
   Returns:
   a pair containing the final program_state and the succ_cond value of the code
  *)
-let reduce_segment (e: expr) (i: program_state) (param_counts: int list) (retval_counts: int list):
+let reduce_bblock (e: expr) (i: program_state) (param_counts: int list) (retval_counts: int list):
       program_state*string =
-  (Logging.get_logger "wanalyze")#info "reducing segment";
+  (Logging.get_logger "wanalyze")#info "reducing bblock";
   let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values=(Array.copy i.local_values);
               global_values=(Array.copy i.global_values)} in
-  let s = reduce_segment' f e "" param_counts retval_counts in
+  let s = reduce_bblock' f e "" param_counts retval_counts in
   f,s
 
-let execute_segment (s: segment) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state)
+let execute_bblock (s: bblock) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state)
         (param_counts: int list) (retval_counts: int list): execution list =
-  (Logging.get_logger "wanalyze")#info "in execute_segments\'\'%s" (string_of_state true initial);
-  let final, succ_cond = (reduce_segment  (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) 
+  (Logging.get_logger "wanalyze")#info "in execute_bblocks\'\'%s" (string_of_state true initial);
+  let final, succ_cond = (reduce_bblock  (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) 
                                       initial param_counts retval_counts) in
-    (* TODO call execute_segments'' recursively *)
+    (* TODO call execute_bblocks'' recursively *)
     List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
 
-let execute_segments' (segments: segment list) (indices: int list) (e: expr) (ex_acc: execution list) (initial: program_state)
+let execute_bblocks' (bblocks: bblock list) (indices: int list) (e: expr) (ex_acc: execution list) (initial: program_state)
         (param_counts: int list) (retval_counts: int list): execution list =
   match indices with
   | [] -> ex_acc
-  (* TODO call execute_segments' recursively *)
+  (* TODO call execute_bblocks' recursively *)
   | hd::_ ->
-      execute_segment (List.nth_exn segments hd) hd e ex_acc initial param_counts retval_counts
+      execute_bblock (List.nth_exn bblocks hd) hd e ex_acc initial param_counts retval_counts
 
-let set_pred' (segments: segment list) (src: int) (dest: int) =
-  match dest < List.length segments with 
-  | true -> (List.nth_exn segments dest).pred <- List.cons src (List.nth_exn segments dest).pred
+let set_pred' (bblocks: bblock list) (src: int) (dest: int) =
+  match dest < List.length bblocks with 
+  | true -> (List.nth_exn bblocks dest).pred <- List.cons src (List.nth_exn bblocks dest).pred
   | _ -> ()
-let set_pred (segments: segment list) (s: segment) =
-  List.iter ~f:(set_pred' segments s.index) s.succ
+let set_pred (bblocks: bblock list) (s: bblock) =
+  List.iter ~f:(set_pred' bblocks s.index) s.succ
 
-let segments_of_expr (e: expr) : segment list =
-  let segments = segments_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; pred=[]; segtype= -1; nesting = -2;
+let bblocks_of_expr (e: expr) : bblock list =
+  let bblocks = bblocks_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; pred=[]; segtype= -1; nesting = -2;
                                      labels=[]; br_dest= -1} in
-  set_br_dest segments 0;
-  set_successors segments 0;
-  List.iter ~f:(set_pred segments) segments;
-  segments
+  set_br_dest bblocks 0;
+  set_successors bblocks 0;
+  List.iter ~f:(set_pred bblocks) bblocks;
+  bblocks
 
 let graph_node (src: int) (label: string) (dest: int): string =
   match src >= dest with
@@ -790,7 +790,7 @@ let graph_node (src: int) (label: string) (dest: int): string =
   | false -> 
       String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label=\""; label; "\"];\n"]
 
-let graph_segment (index: int) (segtype: int) (succ: int list) (pred: int list) (last: int): string =
+let graph_bblock (index: int) (segtype: int) (succ: int list) (pred: int list) (last: int): string =
   match List.length pred > 0 || index = 0 with
   | true ->
     (match segtype with
@@ -826,14 +826,14 @@ let graph_prefix (module_name: string) (func_idx: int) (last: int): string =
           "    node [shape = doublecircle]; 0 "; string_of_int last; ";\n";
           "    node [shape = circle];\n"]
 let graph_suffix = "}\n"
-let rec graph_segments' (segments: segment list) (last: int) (acc: string): string =
-  match segments with
+let rec graph_bblocks' (bblocks: bblock list) (last: int) (acc: string): string =
+  match bblocks with
   | [] -> acc
-  | hd::tl -> graph_segments' tl last (String.concat [acc; graph_segment hd.index hd.segtype hd.succ hd.pred last])
-let graph_segments (module_name: string) (func_idx: int) (segments: segment list): string =
-  let last = (List.length segments) in
+  | hd::tl -> graph_bblocks' tl last (String.concat [acc; graph_bblock hd.index hd.segtype hd.succ hd.pred last])
+let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): string =
+  let last = (List.length bblocks) in
   String.concat [ graph_prefix module_name func_idx last; 
-                  graph_segments' segments (List.length segments) "";
+                  graph_bblocks' bblocks (List.length bblocks) "";
                   graph_suffix]
 
 type local_type =
@@ -845,7 +845,7 @@ type func =
 {
   locals:   local_type list;
   e:        expr;
-  segments: segment list;
+  bblocks: bblock list;
 }
 
 (* TODO: delete this? *)
@@ -923,17 +923,17 @@ let rec get_memory_size (i:import list): int =
 
 let sum_nlocals acc (l: local_type) = acc + l.n
 
-let execute_segments (w: wasm_module) (segments: segment list) (fidx: int) (e: expr): execution list =
+let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fidx: int) (e: expr): execution list =
   let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
   let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
   let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
   let nparams = List.nth_exn param_counts fidx in
   let nlocals = List.fold_left ~f:sum_nlocals ~init:0 (List.nth_exn w.code_section (fidx - w.last_import_func)).locals in
-  (Logging.get_logger "wanalyze")#info "execute_segments fidx: %d nparams: %d nlocals: %d" fidx nparams nlocals;
-  execute_segments'
-      segments    (* segments to execute *)
-      [0]         (* index of the segment to start with *)
-      e           (* code of those segments *)
+  (Logging.get_logger "wanalyze")#info "execute_bblocks fidx: %d nparams: %d nlocals: %d" fidx nparams nlocals;
+  execute_bblocks'
+      bblocks    (* bblocks to execute *)
+      [0]         (* index of the bblock to start with *)
+      e           (* code of those bblocks *)
       []          (* results of the execution so far *)
       (* the initial state of the program *)
       (empty_program_state nparams nlocals)
@@ -1019,7 +1019,7 @@ let update_element_section w elem =
 
 (* code section *)
 let update_code_section w locals e =
-  w.code_section <- List.append w.code_section [{locals; e; segments=segments_of_expr e}]
+  w.code_section <- List.append w.code_section [{locals; e; bblocks=bblocks_of_expr e}]
 
 (* data section *)
 let index_of_data w =

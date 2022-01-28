@@ -1,6 +1,6 @@
-Loops found in function 140 in these segments: 5 6 13 19.
+Loops found in function 140 in these bblocks: 5 6 13 19.
 Simple br_if conditions in: 6 13 19.
 Simple br conditions in: .
-Simple brif loop condition in segment 6:	((L2 + 1) != L3)
-Simple brif loop condition in segment 13:	((L5 + 1) < i32.load@(N0))
-Simple brif loop condition in segment 19:	((L0 + 1) < i32.load@(N0))
+Simple brif loop condition in bblock 6:	((L2 + 1) != L3)
+Simple brif loop condition in bblock 13:	((L5 + 1) < i32.load@(N0))
+Simple brif loop condition in bblock 19:	((L0 + 1) < i32.load@(N0))

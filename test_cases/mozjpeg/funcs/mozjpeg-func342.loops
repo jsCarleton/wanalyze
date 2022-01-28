@@ -1,8 +1,8 @@
-Loops found in function 315 in these segments: 6 16 27 33 40 42 52 57.
+Loops found in function 315 in these bblocks: 6 16 27 33 40 42 52 57.
 Simple br_if conditions in: 16 27 42 52 57.
 Simple br conditions in: .
-Simple brif loop condition in segment 16:	(L2 shr_s 1)
-Simple brif loop condition in segment 27:	(L0 shr_s 1)
-Simple brif loop condition in segment 42:	i32.eqz(i32.load16_u@((L11 + (i32.load@((((L1 + 1) shl 2) + 142864)) shl 1))))
-Simple brif loop condition in segment 52:	(L6 shr_s 1)
-Simple brif loop condition in segment 57:	(L0 shr_s 1)
+Simple brif loop condition in bblock 16:	(L2 shr_s 1)
+Simple brif loop condition in bblock 27:	(L0 shr_s 1)
+Simple brif loop condition in bblock 42:	i32.eqz(i32.load16_u@((L11 + (i32.load@((((L1 + 1) shl 2) + 142864)) shl 1))))
+Simple brif loop condition in bblock 52:	(L6 shr_s 1)
+Simple brif loop condition in bblock 57:	(L0 shr_s 1)

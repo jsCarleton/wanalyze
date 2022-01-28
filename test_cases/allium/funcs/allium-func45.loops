@@ -1,5 +1,5 @@
-Loops found in function 29 in these segments: 7 13 18 25 29.
+Loops found in function 29 in these bblocks: 7 13 18 25 29.
 Simple br_if conditions in: 7 29.
 Simple br conditions in: 14.
-Simple brif loop condition in segment 7:	((L5 + 1) < 8)
-Simple brif loop condition in segment 29:	(((L3 + L5) rem_u 8) != 0)
+Simple brif loop condition in bblock 7:	((L5 + 1) < 8)
+Simple brif loop condition in bblock 29:	(((L3 + L5) rem_u 8) != 0)
