@@ -21,7 +21,9 @@ let succ_of_cp (segments: segment list) (cp: code_path): int list =
 let term_of_cp_seg (segments: segment list) (cp: code_path) (succ: int): code_path option =
     match       (succ >= List.length segments) 
             ||  (List.nth_exn segments (List.hd_exn cp)).index >= (List.nth_exn segments succ).index with
-    | true  -> Some cp
+    | true  -> 
+        (Logging.get_logger "wanalyze")#info "term_of_cp_seg: succ %d cp %s" succ (String.concat ~sep:" " (List.map ~f:string_of_int cp));
+        Some cp
     |  _    -> None
     
 (*
@@ -83,10 +85,8 @@ let step_code_path (segments: segment list) (cp: code_path): (code_path list)*(c
         Returns the terminal code paths
 *)
 let rec code_paths_of_segments (segments: segment list) (nterm: code_path list) (term: code_path list): code_path list =
-    (Logging.get_logger "wanalyze")#info "code_paths_of_segments: nterm length %d term length %d"
-      (List.length nterm) (List.length term);
     match nterm with
     | []        -> term
     | hd::tl    ->
         let n,t = step_code_path segments hd in
-            code_paths_of_segments segments (List.append n tl) [] (*(List.append t term)*)
+            code_paths_of_segments segments (List.append n tl) (List.append t term)
