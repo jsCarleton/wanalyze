@@ -407,6 +407,9 @@ let execution_paths (bblocks: bblock list) : int list list =
 let string_of_list_of_list_of_ints (ll: int list list) =
   String.concat ~sep:"\n" (List.map ~f:string_of_ints ll)
 
+let mult_succ_count (bblocks: bblock list): int =
+  List.fold bblocks ~init:0 ~f:(fun a x -> match x.succ with |[] | [_] -> a | _ -> a+1)
+
 (* print the functions one by one along with our analysis *)
 let print_function w dir prefix fidx type_idx =
   let fname = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
@@ -445,8 +448,8 @@ let print_function w dir prefix fidx type_idx =
         Out_channel.close oc
   | false -> ());
   (* execution paths *)
-  match fidx with
-  | 51 ->
+  match (mult_succ_count bblocks) < 30 with
+  | true ->
     let oc = Out_channel.create (String.concat[fname; ".paths"]) in
     let t = code_paths_of_bblocks bblocks [[0]] [] in
       (Logging.get_logger "wanalyze")#info "print_function: fidx %d bblocks length %d term length %d"
