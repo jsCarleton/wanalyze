@@ -231,13 +231,6 @@ type element =
 
 (* Code, including bblocks *)
 
-type bblock_type =
-  UNR_SEG | IF_SEG | ELSE_SEG | END_SEG | BR_SEG | BRIF_SEG | BRT_SEG | RET_SEG | LOOP_SEG | LAST_SEG
-let segtype_of_opcode (opcode: int) : bblock_type =
-  match opcode with
-  | 0x00 -> UNR_SEG | 0x03 -> LOOP_SEG | 0x04 -> IF_SEG | 0x05 -> ELSE_SEG | 0x0b -> END_SEG | 0x0c -> BR_SEG | 0x0d -> BRIF_SEG
-  | 0x0e -> BRT_SEG | 0x0f -> RET_SEG  | _ -> failwith (String.concat ["Invalid bblock type: "; string_of_int opcode])
-
 (* Program state types *)
 type program_state =
 {
@@ -267,17 +260,50 @@ type states =
   mutable final:    program_states;
 }
 
+(* basic blocks have a type that's determined by the control instruction that terminates the bblock *)
+type bb_type =
+  BB_unknown |
+  BB_unreachable | BB_block | BB_loop | BB_if | BB_else | BB_end | BB_br | BB_br_if | BB_br_table | BB_return
+
+let bb_type_of_opcode (op: int): bb_type =
+  match op with
+  | (* unreachable *) 0x00 -> BB_unreachable
+  | (* block *)       0x02 -> BB_block
+  | (* loop *)        0x03 -> BB_loop
+  | (* if *)          0x04 -> BB_if
+  | (* else *)        0x05 -> BB_else
+  | (* end *)         0x0b -> BB_end
+  | (* br *)          0x0c -> BB_br
+  | (* br_if *)       0x0d -> BB_br_if
+  | (* br_table *)    0x0e -> BB_br_table   
+  | (* return *)      0x0f -> BB_return
+  | _                      -> failwith (sprintf "Invalid opcode for bb %x" op)
+
+let string_of_bbtype (bbtype: bb_type) : string =
+  match bbtype with
+  | BB_unknown      -> "unknown"
+  | BB_unreachable  -> "unreachable"
+  | BB_block        -> "block"
+  | BB_loop         -> "loop"
+  | BB_if           -> "if"
+  | BB_else         -> "else"
+  | BB_end          -> "end"
+  | BB_br           -> "br"
+  | BB_br_if        -> "br_if"
+  | BB_br_table     -> "br_table"
+  | BB_return       -> "return"
+
 type bblock =
 {
-          index:      int;      (* the index of this bblock in the list of bblocks, makes things easier to have this *)
-          start_op:   int;      (* index into e of the first op in the expr *)
-  mutable end_op:     int;      (* index+1 of the last op in the expr *)
-  mutable succ:       int list; (* bblock indexes of bblocks that can be directly reached from this bblock *)
-  mutable pred:       int list; (* bblock indexes of bblocks that can directly reach this bblock *)
-  mutable segtype:	  int;      (* the control opcode that created this bblock *)
-  mutable nesting:    int;      (* the nesting level of the last opcode in the bblock *)
-  mutable labels:     int list; (* the destination labels used in BR, BR_IF, BR_TABLE instructions *)
-  mutable br_dest:	  int;			(* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)
+          index:    int;      (* the index of this bblock in the list of bblocks, makes things easier to have this *)
+          start_op: int;      (* index into e of the first op in the expr *)
+  mutable end_op:   int;      (* index+1 of the last op in the expr *)
+  mutable succ:     int list; (* bblock indexes of bblocks that can be directly reached from this bblock *)
+  mutable pred:     int list; (* bblock indexes of bblocks that can directly reach this bblock *)
+  mutable bbtype:	  bb_type;  (* effectively the control opcode that created this bblock *)
+  mutable nesting:  int;      (* nesting level of the last opcode in the bblock *)
+  mutable labels:   int list; (* destination labels used in BR, BR_IF, BR_TABLE instructions *)
+  mutable br_dest:	int;			(* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)
 }
 
 type execution =
@@ -290,9 +316,12 @@ type execution =
   mutable succ_cond:  string;           (* the expression that must be true in order for the first successor state to be entered *) 
 }
 
-let rec bblocks_of_expr' (e: expr) (seg_acc: bblock list) (current: bblock): bblock list =
+let mult_succ_count (bblocks: bblock list): int =
+  List.fold bblocks ~init:0 ~f:(fun a x -> match x.succ with |[] | [_] -> a | _ -> a+1)
+
+let rec bblocks_of_expr' (e: expr) (bb_acc: bblock list) (current: bblock): bblock list =
 match e with
-| [] -> seg_acc
+| [] -> bb_acc
 | _  ->
   match (List.hd_exn e).opcode with
     (* 1. each of these control instructions cause the current bblock to end *)
@@ -313,35 +342,36 @@ match e with
       | _ -> ()
       );
       (* 1.2 end the bblock, start a new one*)
-      current.segtype <- (List.hd_exn e).opcode;
+      current.bbtype <- bb_type_of_opcode (List.hd_exn e).opcode;
       current.nesting <- (List.hd_exn e).nesting;
-      bblocks_of_expr' (List.tl_exn e) (List.append seg_acc [current]) 
-                    {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; pred=[]; segtype= -1;
+      (* the new block doesn't have a correct type until we discover what it is*)
+      bblocks_of_expr' (List.tl_exn e) (List.append bb_acc [current]) 
+                    {index=current.index+1; start_op=current.end_op; end_op=current.end_op+1; succ=[]; pred=[]; bbtype= BB_unknown;
                      nesting = -2; labels=[]; br_dest= -1}
     (* 2. all other opcodes get added to the current bblock *)
     | _ ->
       current.end_op <- current.end_op + 1;
-      bblocks_of_expr' (List.tl_exn e) seg_acc current
+      bblocks_of_expr' (List.tl_exn e) bb_acc current
 
 let rec get_end_else_bblock (bblocks: bblock list) (index: int) (nesting: int): int =
-  match (List.nth_exn bblocks index).segtype with
-  | 0x05 when (List.nth_exn bblocks index).nesting = nesting -> index+1
-  | 0x0b when (List.nth_exn bblocks index).nesting = nesting -> index+1
+  match (List.nth_exn bblocks index).bbtype with
+  | BB_else when (List.nth_exn bblocks index).nesting = nesting -> index+1
+  | BB_end  when (List.nth_exn bblocks index).nesting = nesting -> index+1
   | _ -> get_end_else_bblock bblocks (index+1) nesting
 
 let rec get_end_bblock (bblocks: bblock list) (index: int) (nesting: int): int =
-  match (List.nth_exn bblocks index).segtype with
-  | 0x0b when (List.nth_exn bblocks index).nesting = nesting -> index+1
+  match (List.nth_exn bblocks index).bbtype with
+  | BB_end when (List.nth_exn bblocks index).nesting = nesting -> index+1
   | _ -> get_end_bblock bblocks (index+1) nesting
 
 let rec get_target_loop (bblocks: bblock list) (index: int) (nesting: int) (label: int): int =
   match index >= 0 with
   | true ->
     (let s = List.nth_exn bblocks index in
-    match s.segtype with
-    | 0x02 when s.nesting = nesting - label - 1 -> s.br_dest
-    | 0x03 when s.nesting = nesting - label - 1 -> s.br_dest
-    | 0x04 when s.nesting = nesting - label - 1 -> s.br_dest
+    match s.bbtype with
+    | BB_block  when s.nesting = nesting - label - 1 -> s.br_dest
+    | BB_loop   when s.nesting = nesting - label - 1 -> s.br_dest
+    | BB_if     when s.nesting = nesting - label - 1 -> s.br_dest
     | _ -> get_target_loop bblocks (index-1) nesting label
     )
   | false -> -1
@@ -350,9 +380,9 @@ let rec get_target_end (bblocks: bblock list) (index: int) (nesting: int) (label
   match index < List.length bblocks with
   | true ->
     (let s = List.nth_exn bblocks index in
-    match s.segtype with
-    | 0x02 when nesting = s.nesting - label -> s.br_dest + 1
-    | 0x04 when nesting = s.nesting - label -> s.br_dest + 1
+    match s.bbtype with
+    | BB_block  when nesting = s.nesting - label -> s.br_dest + 1
+    | BB_if     when nesting = s.nesting - label -> s.br_dest + 1
     | _ -> get_target_end bblocks (index+1) nesting label
     )
   | false -> -1 (* failwith "Unable to find branch target" *)
@@ -367,24 +397,25 @@ let last_bblock (bblocks: bblock list): int =
 
 let set_successor (bblocks: bblock list) (index: int) =
   let s = List.nth_exn bblocks index in
-  match s.segtype with
-    | (* end *)         0x0b
-    | (* block *)       0x02
-    | (* loop *)        0x03  ->
+  match s.bbtype with
+    | BB_end
+    | BB_block
+    | BB_loop ->
         s.succ <- [index+1]
-    | (* if *)          0x04  ->
+    | BB_if ->
         s.succ <- [index+1; get_end_else_bblock bblocks index s.nesting]
-    | (* else *)        0x05  ->
+    | BB_else ->
         s.succ <- [get_end_bblock bblocks index s.nesting]
-    | (* br_if *)       0x0d ->
+    | BB_br_if ->
         s.succ <- List.cons (s.index+1) (List.map ~f:(br_target bblocks index s.nesting) s.labels)
-    | (* br *)          0x0c
-    | (* br_table *)    0x0e ->
+    | BB_br
+    | BB_br_table ->
         s.succ <- List.map ~f:(br_target bblocks index s.nesting) s.labels
-    | (* unreachable *) 0x00
-    | (* return *)      0x0f ->
+    | BB_unreachable
+    | BB_return ->
         s.succ <- [last_bblock bblocks]
-    | _ -> failwith (String.concat ["Unknown segtype: "; string_of_int s.segtype])
+    | BB_unknown ->
+        failwith "Unknown bb block type in set_successor"
  
 let rec set_successors (bblocks: bblock list) (index: int) =
 match index < List.length bblocks with
@@ -397,9 +428,9 @@ match index < List.length bblocks with
 | false -> ()
 | true ->
     (let s = List.nth_exn bblocks index in
-    match s.segtype with
-      | (* loop *)      0x03        -> s.br_dest <- index + 1
-      | (* if, block *) 0x04 | 0x02 -> s.br_dest <- get_end_bblock bblocks index s.nesting 
+    match s.bbtype with
+      | BB_loop           -> s.br_dest <- index + 1
+      | BB_if | BB_block  -> s.br_dest <- get_end_bblock bblocks index s.nesting 
       | _ -> ()
     );
   set_br_dest bblocks (index+1)
@@ -776,7 +807,7 @@ let set_pred (bblocks: bblock list) (s: bblock) =
   List.iter ~f:(set_pred' bblocks s.index) s.succ
 
 let bblocks_of_expr (e: expr) : bblock list =
-  let bblocks = bblocks_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; pred=[]; segtype= -1; nesting = -2;
+  let bblocks = bblocks_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;
                                      labels=[]; br_dest= -1} in
   set_br_dest bblocks 0;
   set_successors bblocks 0;
@@ -790,29 +821,29 @@ let graph_node (src: int) (label: string) (dest: int): string =
   | false -> 
       String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label=\""; label; "\"];\n"]
 
-let graph_bblock (index: int) (segtype: int) (succ: int list) (pred: int list) (last: int): string =
+let graph_bblock (index: int) (bbtype: bb_type) (succ: int list) (pred: int list) (last: int): string =
   match List.length pred > 0 || index = 0 with
   | true ->
-    (match segtype with
-    | (* unreachable *) 0x00 -> graph_node index "unreachable" last
-    | (* end *)         0x0b -> graph_node index "end" (List.nth_exn succ 0)
-    | (* block *)       0x02 -> graph_node index "block" (List.nth_exn succ 0)
-    | (* loop *)        0x03 -> graph_node index "loop" (List.nth_exn succ 0)
-    | (* if *)          0x04 ->
+    (match bbtype with
+    | BB_unreachable  -> graph_node index "unreachable" last
+    | BB_end          -> graph_node index "end" (List.nth_exn succ 0)
+    | BB_block        -> graph_node index "block" (List.nth_exn succ 0)
+    | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0)
+    | BB_if           ->
         String.concat [
           graph_node index "if" (List.nth_exn succ 0);
           graph_node index "~if" (List.nth_exn succ 1);
         ]
-    | (* else *)        0x05 -> graph_node index "else" (List.nth_exn succ 0)
-    | (* br_if *)       0x0d ->
+    | BB_else         -> graph_node index "else" (List.nth_exn succ 0)
+    | BB_br_if        ->
         String.concat [
           graph_node index "~br_if" (List.nth_exn succ 0);
           graph_node index "br_if" (List.nth_exn succ 1);
         ]
-    | (* br *)          0x0c -> graph_node index "br" (List.nth_exn succ 0)
-    | (* br_table *)    0x0e -> String.concat (List.map ~f:(graph_node index  "br_table") succ)
-    | (* return *)      0x0f -> graph_node index "return" last
-    | _ -> failwith (String.concat ["Unknown segtype to graph: "; string_of_int segtype]))
+    | BB_br           -> graph_node index "br" (List.nth_exn succ 0)
+    | BB_br_table     -> String.concat (List.map ~f:(graph_node index  "br_table") succ)
+    | BB_return       -> graph_node index "return" last
+    | BB_unknown      -> failwith "Unknown bb type in graph_bblock")
   | _ -> ""
 
 let graph_prefix (module_name: string) (func_idx: int) (last: int): string =
@@ -829,7 +860,7 @@ let graph_suffix = "}\n"
 let rec graph_bblocks' (bblocks: bblock list) (last: int) (acc: string): string =
   match bblocks with
   | [] -> acc
-  | hd::tl -> graph_bblocks' tl last (String.concat [acc; graph_bblock hd.index hd.segtype hd.succ hd.pred last])
+  | hd::tl -> graph_bblocks' tl last (String.concat [acc; graph_bblock hd.index hd.bbtype hd.succ hd.pred last])
 let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): string =
   let last = (List.length bblocks) in
   String.concat [ graph_prefix module_name func_idx last; 
@@ -841,11 +872,109 @@ type local_type =
   n:  int;
   v:  valtype;
 }
+
+(********************************************************************************)
+type code_path = int list
+
+(*
+    succ_of_cp
+    Takes a list of bblocks and a code path and returns the list of bblocks that
+    are immediate successors to the code path
+*)
+let succ_of_cp (bblocks: bblock list) (cp: code_path): int list =
+    (List.nth_exn bblocks (List.hd_exn cp)).succ
+(*
+    term_of_cp_bb
+        Takes a code path and a successor bblock id
+        Returns the code path if the successor bblock has index greater than the
+        index of the last bblock in the given code path.
+        None otherwise
+*)
+let term_of_cp_bb(bblocks: bblock list) (cp: code_path) (succ: int): code_path option =
+    match       (succ >= List.length bblocks) 
+            ||  (List.nth_exn bblocks (List.hd_exn cp)).index >= (List.nth_exn bblocks succ).index with
+    | true  -> 
+        (Logging.get_logger "wanalyze")#info "term_of_cp_bb: succ %d cp %s" succ (String.concat ~sep:" " (List.map ~f:string_of_int cp));
+        Some cp
+    |  _    -> None
+    
+(*
+    terms_of_cp
+        Takes a code path and returns a list containing the terminal code paths that are terminated
+        by the next bblock one bblock longer than the given code path
+*)
+let terms_of_cp (bblocks: bblock list) (cp: code_path): code_path list =
+    List.filter_map ~f:(term_of_cp_bb bblocks cp) (succ_of_cp bblocks cp)
+
+(*
+    nterm_of_cp_bb
+    Takes a code path and a successor bblock id
+    Returns an updated code path if the successor bblock has index greater than the
+    index of the last bblock in the given code path.
+    None otherwise
+*)
+let nterm_of_cp_bb (bblocks: bblock list) (cp: code_path) (succ: int): code_path option =
+    match       (succ < List.length bblocks) 
+            &&  (List.nth_exn bblocks (List.hd_exn cp)).index < (List.nth_exn bblocks succ).index with
+    | true    -> Some (List.cons succ cp)
+    | _       -> None
+
+(*
+    nterms_of_cp
+        Takes a code path and returns a list containing the non-terminal code paths that are one bblock longer
+        than the given code path
+*)
+let nterms_of_cp (bblocks: bblock list) (cp: code_path): code_path list =
+    List.filter_map ~f:(nterm_of_cp_bb bblocks cp) (succ_of_cp bblocks cp)
+
+(*
+    is_term
+        Takes a code path and returns true if it has reached a terminal state, false otherwise
+*)
+let is_term (bblocks: bblock list) (cp: code_path): bool =
+    match (List.nth_exn bblocks (List.hd_exn cp)).bbtype with
+    | BB_return
+    | BB_unreachable -> true
+    | _ ->
+        (match succ_of_cp bblocks cp with
+        | []    -> true
+        | _     -> false)
+
+(*
+    step_code_path
+        Takes list of bblocks and a code path
+        Returns a pair of lists of code-paths that's the resulting non-terminal and terminal paths respectively
+*)
+let step_code_path (bblocks: bblock list) (cp: code_path): (code_path list)*(code_path list) =
+    match is_term bblocks cp with
+    | true  -> [], [cp]
+    | _     -> (nterms_of_cp bblocks cp), (terms_of_cp bblocks cp)
+
+(* 
+    code_paths_of_bblocks
+        Takes a list of bblocks, a list of non-terminal code paths and a list of terminal code paths
+        Returns the terminal code paths *unless* we think there are too many code paths. In that case
+        we return []
+*)
+let rec code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
+  match (mult_succ_count bblocks) < 30 with   (* hack to prevent this code from running for a very long time *)
+  | true ->
+    (match nterm with
+    | []        -> term
+    | hd::tl    ->
+        let n,t = step_code_path bblocks hd in
+            code_paths_of_bblocks bblocks (List.append n tl) (List.append t term))
+  | _ -> []
+
+(********************************************************************************)
+
+(* type that describes a function that's implement in a wasm module *)
 type func =
 {
-  locals:   local_type list;
-  e:        expr;
-  bblocks: bblock list;
+  locals:     local_type list;    (* local variable types of the function *)
+  e:          expr;               (* code of the function *)
+  bblocks:    bblock list;        (* basic blocks *)
+  code_paths: code_path list;     (* code paths *)
 }
 
 (* TODO: delete this? *)
@@ -1019,7 +1148,12 @@ let update_element_section w elem =
 
 (* code section *)
 let update_code_section w locals e =
-  w.code_section <- List.append w.code_section [{locals; e; bblocks=bblocks_of_expr e}]
+  let bblocks = bblocks_of_expr e in
+  w.code_section <- List.append w.code_section
+    [{  locals; 
+        e; 
+        bblocks;
+        code_paths = code_paths_of_bblocks bblocks [[0]] []}]
 
 (* data section *)
 let index_of_data w =

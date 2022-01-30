@@ -1,7 +1,6 @@
 open Core
 open Easy_logging
 open Wasm_module
-open Code_path
 
 (* Printable strings *)
 
@@ -211,26 +210,12 @@ let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; 
 let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
 let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
 
-let string_of_segtype (segtype: int) : string =
-  match segtype with
-  | 0x00 -> "unreachable"
-  | 0x02 -> "block"
-  | 0x03 -> "loop"
-  | 0x04 -> "if"
-  | 0x05 -> "else"
-  | 0x0b -> "end"
-  | 0x0c -> "br"
-  | 0x0d -> "br_if"
-  | 0x0e -> "br_table"
-  | 0x0f -> "return"
-  | _ -> failwith (String.concat ["Invalid segtype: "; string_of_int segtype])
-
-let string_of_segindex (i: int) : string = match i with | -1 -> "" | _ -> string_of_int i
+let string_of_bbindex (i: int) : string = match i with | -1 -> "" | _ -> string_of_int i
 let string_of_ints (ints: int list): string =
     String.concat ~sep:" " (List.map ~f:string_of_int ints)
 let string_of_bblock (s: bblock) : string = 
   sprintf "%5d %5d %5d %5d   %-5s %6s %-11s s=[%s] p=[%s]\n" 
-    s.index s.start_op s.end_op s.nesting (string_of_segindex s.br_dest) (string_of_ints s.labels) (string_of_segtype s.segtype) (string_of_ints s.succ) (string_of_ints s.pred)
+    s.index s.start_op s.end_op s.nesting (string_of_bbindex s.br_dest) (string_of_ints s.labels) (string_of_bbtype s.bbtype) (string_of_ints s.succ) (string_of_ints s.pred)
 let string_of_bblocks (s: bblock list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_bblock s)]
@@ -320,8 +305,8 @@ let string_of_data d =
           ; ") "  ; hexstring_of_bytes meb.b ; ")\n"]
 let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_of_data section)
 
-let has_successors (bblocks: bblock list) (seg_index: int ): bool =
-  let succ = (List.nth_exn bblocks seg_index).succ in
+let has_successors (bblocks: bblock list) (bb_index: int ): bool =
+  let succ = (List.nth_exn bblocks bb_index).succ in
     (List.length succ > 0) && (List.hd_exn succ < List.length bblocks)
 
 let string_of_execution (bblocks: bblock list) (ex: execution): string =
@@ -332,15 +317,15 @@ let string_of_executions (executions: execution list) (bblocks: bblock list): st
   String.concat (List.map ~f:(string_of_execution bblocks) executions)
 
 let has_loop' (s: bblock): bool = 
-  match s.segtype with
-  | 0x03 (* loop *) -> true
-  | _               -> false
+  match s.bbtype with
+  | BB_loop -> true
+  | _       -> false
 
 let rec has_loop (bblocks: bblock list): bool =
   match bblocks with
   | hd::tl ->
     (match has_loop' hd with
-    | true -> true
+    | true  -> true
     | _     -> has_loop tl)
   | _ ->  false
 
@@ -348,21 +333,23 @@ let ids_with_loops (bblocks: bblock list): int list =
   List.filter_map ~f:(fun s -> match has_loop' s with | true -> Some (s.index+1) | _ -> None) bblocks
 
 let simple_br_loop (bblocks: bblock list) (s: bblock): int option =
-  match   List.length bblocks - s.index >= 5
-        && s.segtype = 0x03 (* loop *)
-        &&  (List.nth_exn bblocks (s.index+1)).segtype = 0x04 (* if *)
-        &&  (List.nth_exn bblocks (s.index+2)).segtype = 0x0c (* br *)
-        &&  (List.nth_exn bblocks (s.index+3)).segtype = 0x0b (* end *)
-        &&  (List.nth_exn bblocks (s.index+4)).segtype = 0x0b (* end *) with
-    | true  -> Some (s.index+2)
+  match List.length bblocks - s.index >= 5 with
+    | true -> (match s.bbtype,
+                  (List.nth_exn bblocks (s.index+1)).bbtype,
+                  (List.nth_exn bblocks (s.index+2)).bbtype,
+                  (List.nth_exn bblocks (s.index+3)).bbtype,
+                  (List.nth_exn bblocks (s.index+4)).bbtype with
+              | BB_loop, BB_if, BB_br, BB_end,BB_end -> Some (s.index+2)
+              | _ -> None)
     | false -> None
-  
+
 let simple_brif_loop (bblocks: bblock list) (s: bblock): int option =
-  match    List.length bblocks - s.index >= 3
-        &&  s.segtype = 0x03 (* loop *)
-        &&  (List.nth_exn bblocks (s.index+1)).segtype = 0x0d (* brif *)
-        &&  (List.nth_exn bblocks (s.index+2)).segtype = 0x0b (* end *) with
-    | true  -> Some (s.index+1)
+  match List.length bblocks - s.index >= 3 with
+    | true -> (match s.bbtype,
+                  (List.nth_exn bblocks (s.index+1)).bbtype,
+                  (List.nth_exn bblocks (s.index+2)).bbtype with
+                | BB_loop, BB_br_if, BB_end -> Some (s.index+1)
+                | _ -> None)
     | false -> None
 
 let ids_with_simple_br_loops (bblocks: bblock list): int list =
@@ -407,14 +394,11 @@ let execution_paths (bblocks: bblock list) : int list list =
 let string_of_list_of_list_of_ints (ll: int list list) =
   String.concat ~sep:"\n" (List.map ~f:string_of_ints ll)
 
-let mult_succ_count (bblocks: bblock list): int =
-  List.fold bblocks ~init:0 ~f:(fun a x -> match x.succ with |[] | [_] -> a | _ -> a+1)
-
 (* print the functions one by one along with our analysis *)
 let print_function w dir prefix fidx type_idx =
   let fname = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
-  let code = (List.nth_exn w.code_section fidx) in
-  let bblocks = code.bblocks in
+  let fn = (List.nth_exn w.code_section fidx) in
+  let bblocks = fn.bblocks in
   let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
   let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
   let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
@@ -444,17 +428,16 @@ let print_function w dir prefix fidx type_idx =
             (string_of_ints (ids_with_simple_brif_loops bblocks))
             (string_of_ints (ids_with_simple_br_loops bblocks)));
         Out_channel.output_string oc
-          (analyze_simple_brif_loops code.e nparams nlocals param_counts retval_counts bblocks);
+          (analyze_simple_brif_loops fn.e nparams nlocals param_counts retval_counts bblocks);
         Out_channel.close oc
   | false -> ());
   (* execution paths *)
   match (mult_succ_count bblocks) < 30 with
   | true ->
     let oc = Out_channel.create (String.concat[fname; ".paths"]) in
-    let t = code_paths_of_bblocks bblocks [[0]] [] in
       (Logging.get_logger "wanalyze")#info "print_function: fidx %d bblocks length %d term length %d"
-        fidx (List.length bblocks) (List.length t);
-      Out_channel.output_string oc (string_of_list_of_list_of_ints t);
+        fidx (List.length bblocks) (List.length fn.code_paths);
+      Out_channel.output_string oc (string_of_list_of_list_of_ints fn.code_paths);
       Out_channel.close oc
   | _ -> ()
   (* execution trace of the function *)
