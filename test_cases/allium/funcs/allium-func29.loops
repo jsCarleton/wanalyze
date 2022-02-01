@@ -1,3 +1,14 @@
 Loops found in function 13 in these bblocks: 5 13 18 24 30.
 Simple br_if conditions in: .
 Simple br conditions in: 14 19 25 31.
+Function has 10 code paths to consider
+[34 33 30 29 28 27 24 23 3 0]  steps: 37; stack: [L1]; locals: [N0, N1, (L0 - 4), (N0 + (L0 - 4)), N0, L2]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[31 30 29 28 27 24 23 3 0]  steps: 49; stack: []; locals: [(N0 + 1), (N1 + 1), (L0 - 4), ((N0 + 1) + (L0 - 4)), (N0 + 1), L2]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[25 24 23 3 0]  steps: 72; stack: []; locals: [(N0 + 4), (N1 + 4), (L0 - 4), ((N0 + 4) + (L0 - 4)), (N0 + 4), L2]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[34 33 30 29 22 21 18 17 16 13 12 11 5 4 3 0]  steps: 52; stack: [L1]; locals: [N0, N1, (L0 && -4), (N0 + (L0 && -4)), N0, ((L0 && -4) + -64)]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[31 30 29 22 21 18 17 16 13 12 11 5 4 3 0]  steps: 64; stack: []; locals: [(N0 + 1), (N1 + 1), (L0 && -4), ((N0 + 1) + (L0 && -4)), (N0 + 1), ((L0 && -4) + -64)]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[19 18 17 16 13 12 11 5 4 3 0]  steps: 57; stack: []; locals: [(N0 + 4), (N1 + 4), (L0 && -4), ((N0 + 4) + (L0 && -4)), (N0 + 4), ((L0 && -4) + -64)]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[14 13 12 11 5 4 3 0]  steps: 201; stack: []; locals: [(N0 - -64), (N1 - -64), (L0 && -4), ((N0 - -64) + (L0 && -4)), (N0 - -64), ((L0 && -4) + -64)]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[9 6 5 4 3 0]  steps: 45; stack: []; locals: [(N0 + 1), (N1 + 1), (N2 - 1), ((N0 + 1) + (N2 - 1)), (N0 + 1), L2]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[7 6 5 4 3 0]  steps: 28; stack: [L1]; locals: [N0, N1, N2, (N0 + N2), N0, L2]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+

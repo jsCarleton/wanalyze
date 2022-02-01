@@ -783,10 +783,10 @@ let reduce_bblock (e: expr) (i: program_state) (param_counts: int list) (retval_
   let s = reduce_bblock' f e "" param_counts retval_counts in
   f,s
 
-let execute_bblock (s: bblock) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state)
+let execute_bblock (bb: bblock) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state)
         (param_counts: int list) (retval_counts: int list): execution list =
   (Logging.get_logger "wanalyze")#info "in execute_bblocks\'\'%s" (string_of_state true initial);
-  let final, succ_cond = (reduce_bblock  (List.sub e ~pos:s.start_op ~len:(s.end_op - s.start_op)) 
+  let final, succ_cond = (reduce_bblock (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op)) 
                                       initial param_counts retval_counts) in
     (* TODO call execute_bblocks'' recursively *)
     List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
@@ -803,8 +803,8 @@ let set_pred' (bblocks: bblock list) (src: int) (dest: int) =
   match dest < List.length bblocks with 
   | true -> (List.nth_exn bblocks dest).pred <- List.cons src (List.nth_exn bblocks dest).pred
   | _ -> ()
-let set_pred (bblocks: bblock list) (s: bblock) =
-  List.iter ~f:(set_pred' bblocks s.index) s.succ
+let set_pred (bblocks: bblock list) (bb: bblock) =
+  List.iter ~f:(set_pred' bblocks bb.index) bb.succ
 
 let bblocks_of_expr (e: expr) : bblock list =
   let bblocks = bblocks_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;

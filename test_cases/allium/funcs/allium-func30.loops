@@ -1,3 +1,11 @@
 Loops found in function 14 in these bblocks: 2 7 12 18.
 Simple br_if conditions in: .
 Simple br conditions in: 3 8 13 19.
+Function has 7 code paths to consider
+[22 21 18 17 0]  steps: 22; stack: [(L1 - N2)]; locals: [N0, (N1 && 255), N2, L0, (N0 + N2), L2, L3]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[19 18 17 0]  steps: 26; stack: []; locals: [(N0 + 1), (N1 && 255), N2, L0, ((N0 + 1) + N2), L2, L3]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[22 21 18 17 16 15 12 11 10 7 6 5 2 1 0]  steps: 62; stack: [(L1 - N2)]; locals: [N0, (N1 && 255), N2, (((N1 || (N1 shl 8)) || (N1 shl 16)) || (N1 shl 24)), (N0 + N2), (L1 && -4), ((L1 && -4) + -64)]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[19 18 17 16 15 12 11 10 7 6 5 2 1 0]  steps: 66; stack: []; locals: [(N0 + 1), (N1 && 255), N2, (((N1 || (N1 shl 8)) || (N1 shl 16)) || (N1 shl 24)), ((N0 + 1) + N2), (L1 && -4), ((L1 && -4) + -64)]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[13 12 11 10 7 6 5 2 1 0]  steps: 59; stack: []; locals: [(N0 + 4), (N1 && 255), N2, (((N1 || (N1 shl 8)) || (N1 shl 16)) || (N1 shl 24)), ((N0 + 4) + N2), (L1 && -4), ((L1 && -4) + -64)]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[8 7 6 5 2 1 0]  steps: 143; stack: []; locals: [(N0 - -64), (N1 && 255), N2, (((N1 || (N1 shl 8)) || (N1 shl 16)) || (N1 shl 24)), ((N0 - -64) + N2), (L1 && -4), ((L1 && -4) + -64)]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+[3 2 1 0]  steps: 26; stack: []; locals: [(N0 + 1), (N1 && 255), N2, L0, ((N0 + 1) + N2), L2, L3]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]

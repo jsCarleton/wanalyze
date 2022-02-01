@@ -316,8 +316,8 @@ let string_of_executions (executions: execution list) (bblocks: bblock list): st
   (Logging.get_logger "wanalyze")#info "executions: %d" (List.length executions);
   String.concat (List.map ~f:(string_of_execution bblocks) executions)
 
-let has_loop' (s: bblock): bool = 
-  match s.bbtype with
+let has_loop' (bb: bblock): bool = 
+  match bb.bbtype with
   | BB_loop -> true
   | _       -> false
 
@@ -385,8 +385,9 @@ let conditions_of_simple_loops (e: expr) (nparams: int) (nlocals: int) (param_co
   formatted string containing the conditions of the brif instructions at the end of each bblock 
 *)
 (* TODO separate the execution from the output formatting *)                    
-let analyze_simple_brif_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list) (retval_counts: int list) (bblocks: bblock list): string =
-  conditions_of_simple_loops e nparams nlocals param_counts retval_counts (bblocks_with_simple_brif_loops bblocks)
+let analyze_simple_brif_loops (e: expr) (nparams: int) (nlocals: int) (param_counts: int list)
+    (retval_counts: int list) (bblocks: bblock list): string =
+  conditions_of_simple_loops e nparams nlocals param_counts retval_counts bblocks
 
 let execution_paths (bblocks: bblock list) : int list list =
   [List.map ~f:(fun s -> s.index) bblocks]
@@ -394,11 +395,38 @@ let execution_paths (bblocks: bblock list) : int list list =
 let string_of_list_of_list_of_ints (ll: int list list) =
   String.concat ~sep:"\n" (List.map ~f:string_of_ints ll)
 
+let execute_bblock (e: expr) (bblocks: bblock list) (state: program_state) (param_counts: int list)
+    (retval_counts: int list) (bb_id: int) =
+  let bb = List.nth_exn bblocks bb_id in
+    let (_: string) = reduce_bblock' state (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op)) "" param_counts retval_counts in
+      ()
+
+let execute_code_path (e: expr) (bblocks: bblock list) (nparams: int) (nlocals: int) (param_counts: int list)
+    (retval_counts: int list) (cp: code_path): string = 
+  let state = empty_program_state nparams nlocals in
+    List.iter ~f:(execute_bblock e bblocks state param_counts retval_counts) cp;
+    string_of_state true state
+
+let rec code_path_has_loop (cp: code_path) (bblocks: bblock list) =
+  match cp with
+  | hd::tl -> (match (List.nth_exn bblocks hd).bbtype with | BB_loop -> true | _ -> code_path_has_loop tl bblocks)
+  | _ -> false
+
+let string_of_code_path (cp: code_path): string =
+  String.concat ["["; string_of_ints cp; "]"]
+
+let loop_entry_state (e: expr) (bblocks: bblock list) (nparams: int) (nlocals: int) (param_counts: int list)
+    (retval_counts: int list) (cp: code_path): string = 
+  match code_path_has_loop cp bblocks with
+    | true -> String.concat [string_of_code_path cp; execute_code_path e bblocks nparams nlocals param_counts retval_counts cp]
+    | _ -> "\n"
+
 (* print the functions one by one along with our analysis *)
 let print_function w dir prefix fidx type_idx =
   let fname = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
   let fn = (List.nth_exn w.code_section fidx) in
   let bblocks = fn.bblocks in
+  let cps = fn.code_paths in
   let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
   let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
   let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
@@ -416,6 +444,13 @@ let print_function w dir prefix fidx type_idx =
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
     Out_channel.output_string oc (graph_bblocks w.module_name (fidx + w.last_import_func) bblocks);
     Out_channel.close oc;
+  (* execution paths *)
+  let oc = Out_channel.create (String.concat[fname; ".paths"]) in
+    (Logging.get_logger "wanalyze")#info "print_function: fidx %d bblocks length %d term length %d"
+      fidx (List.length bblocks) (List.length cps);
+    Out_channel.output_string oc (string_of_list_of_list_of_ints cps);
+    Out_channel.output_string oc "\n";
+    Out_channel.close oc;
   (* loop analysis *)
   (match has_loop bblocks with
   | true ->
@@ -427,19 +462,15 @@ let print_function w dir prefix fidx type_idx =
             (string_of_ints (ids_with_loops bblocks))
             (string_of_ints (ids_with_simple_brif_loops bblocks))
             (string_of_ints (ids_with_simple_br_loops bblocks)));
+        Out_channel.output_string oc (sprintf "Function has %d code paths to consider\n" (List.length cps));
         Out_channel.output_string oc
-          (analyze_simple_brif_loops fn.e nparams nlocals param_counts retval_counts bblocks);
+          (String.concat ~sep:"\n"
+            (List.map ~f:(loop_entry_state fn.e bblocks nparams nlocals param_counts retval_counts) cps));
+        Out_channel.output_string oc
+          (analyze_simple_brif_loops fn.e nparams nlocals param_counts retval_counts 
+              (bblocks_with_simple_brif_loops bblocks));
         Out_channel.close oc
-  | false -> ());
-  (* execution paths *)
-  match (mult_succ_count bblocks) < 30 with
-  | true ->
-    let oc = Out_channel.create (String.concat[fname; ".paths"]) in
-      (Logging.get_logger "wanalyze")#info "print_function: fidx %d bblocks length %d term length %d"
-        fidx (List.length bblocks) (List.length fn.code_paths);
-      Out_channel.output_string oc (string_of_list_of_list_of_ints fn.code_paths);
-      Out_channel.close oc
-  | _ -> ()
+  | false -> ())
   (* execution trace of the function *)
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
     Out_channel.output_string oc (string_of_executions (execute_bblocks w bblocks (fidx + w.last_import_func) code.e) bblocks);
