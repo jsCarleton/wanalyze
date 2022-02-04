@@ -6,7 +6,7 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    18; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
-locals:  [R0, R0, R0, lN6, lN7, lN8, lN9, lN10, lN11]; 
+locals:  [rn0, rn0, rn0, lN6, lN7, lN8, lN9, lN10, lN11]; 
 globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
 
 Simple brif loop condition in bblock 7:	((lN8 + 1) < 8)

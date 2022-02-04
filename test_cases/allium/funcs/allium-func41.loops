@@ -6,27 +6,27 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    99; 
 stack:   []; 
 params:  [pn0, abc, pn2]; 
-locals:  [-1, -1, ((R0 - R0) + pn2), (abc + 32), 2, abc, (pn0 + 28), (pn0 + 20), ln11, (pn0 + 60), ln13]; 
+locals:  [-1, -1, ((rn0 - rn0) + pn2), (abc + 32), 2, abc, (pn0 + 28), (pn0 + 20), ln11, (pn0 + 60), ln13]; 
 globals: [abc, abc, abc, abc, abc, (abc + 48), abc, abc, abc, abc]
 
 [0 1 2 3 4 6 7 8]
 cost:    92; 
 stack:   []; 
 params:  [pn0, abc, pn2]; 
-locals:  [R0, R0, ((R0 - R0) + pn2), (abc + 32), 2, abc, (pn0 + 28), (pn0 + 20), ln11, (pn0 + 60), ln13]; 
+locals:  [rn0, rn0, ((rn0 - rn0) + pn2), (abc + 32), 2, abc, (pn0 + 28), (pn0 + 20), ln11, (pn0 + 60), ln13]; 
 globals: [abc, abc, abc, abc, abc, (abc + 48), abc, abc, abc, abc]
 
 [0 2 3 4 5 7 8]
 cost:    96; 
 stack:   []; 
 params:  [pn0, abc, pn2]; 
-locals:  [-1, -1, ((R0 - R0) + pn2), (abc + 32), 2, abc, (pn0 + 28), (pn0 + 20), ln11, (pn0 + 60), ln13]; 
+locals:  [-1, -1, ((rn0 - rn0) + pn2), (abc + 32), 2, abc, (pn0 + 28), (pn0 + 20), ln11, (pn0 + 60), ln13]; 
 globals: [abc, abc, abc, abc, abc, (abc + 48), abc, abc, abc, abc]
 
 [0 2 3 4 6 7 8]
 cost:    89; 
 stack:   []; 
 params:  [pn0, abc, pn2]; 
-locals:  [R0, R0, ((R0 - R0) + pn2), (abc + 32), 2, abc, (pn0 + 28), (pn0 + 20), ln11, (pn0 + 60), ln13]; 
+locals:  [rn0, rn0, ((rn0 - rn0) + pn2), (abc + 32), 2, abc, (pn0 + 28), (pn0 + 20), ln11, (pn0 + 60), ln13]; 
 globals: [abc, abc, abc, abc, abc, (abc + 48), abc, abc, abc, abc]
 

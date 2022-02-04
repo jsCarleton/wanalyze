@@ -6,56 +6,56 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    264; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (64 - R0)), (abc - -64), (pn0 - -64), (pn0 + 136), R0, R0, R0, R0, R0, R0, R0, R0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (64 - rn0)), (abc - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
 globals: [abc, abc, abc, abc, abc, (abc + 208), abc, abc, abc, abc]
 
 [0 1 2 3 5 7 8]
 cost:    264; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (128 - R0)), (abc - -64), (pn0 - -64), (pn0 + 136), R0, R0, R0, R0, R0, R0, R0, R0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (128 - rn0)), (abc - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
 globals: [abc, abc, abc, abc, abc, (abc + 208), abc, abc, abc, abc]
 
 [0 1 2 4 5 6 8]
 cost:    264; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (64 - R0)), (abc - -64), (pn0 - -64), (pn0 + 136), R0, R0, R0, R0, R0, R0, R0, R0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (64 - rn0)), (abc - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
 globals: [abc, abc, abc, abc, abc, (abc + 208), abc, abc, abc, abc]
 
 [0 1 2 4 5 7 8]
 cost:    264; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (128 - R0)), (abc - -64), (pn0 - -64), (pn0 + 136), R0, R0, R0, R0, R0, R0, R0, R0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (128 - rn0)), (abc - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
 globals: [abc, abc, abc, abc, abc, (abc + 208), abc, abc, abc, abc]
 
 [0 2 3 5 6 8]
 cost:    261; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (64 - R0)), (abc - -64), (pn0 - -64), (pn0 + 136), R0, R0, R0, R0, R0, R0, R0, R0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (64 - rn0)), (abc - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
 globals: [abc, abc, abc, abc, abc, (abc + 208), abc, abc, abc, abc]
 
 [0 2 3 5 7 8]
 cost:    261; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (128 - R0)), (abc - -64), (pn0 - -64), (pn0 + 136), R0, R0, R0, R0, R0, R0, R0, R0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (128 - rn0)), (abc - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
 globals: [abc, abc, abc, abc, abc, (abc + 208), abc, abc, abc, abc]
 
 [0 2 4 5 6 8]
 cost:    261; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (64 - R0)), (abc - -64), (pn0 - -64), (pn0 + 136), R0, R0, R0, R0, R0, R0, R0, R0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (64 - rn0)), (abc - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
 globals: [abc, abc, abc, abc, abc, (abc + 208), abc, abc, abc, abc]
 
 [0 2 4 5 7 8]
 cost:    261; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (128 - R0)), (abc - -64), (pn0 - -64), (pn0 + 136), R0, R0, R0, R0, R0, R0, R0, R0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+locals:  [(abc + 128), 0, (pn0 + 72), abc, ((abc + 128) + (128 - rn0)), (abc - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
 globals: [abc, abc, abc, abc, abc, (abc + 208), abc, abc, abc, abc]
 
 Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)

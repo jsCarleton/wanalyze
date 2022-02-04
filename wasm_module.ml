@@ -505,24 +505,31 @@ let pop_pending_states (src: pending_states): program_states =
 let push_retval (state: program_state) (retval: string) =
   state.value_stack <- List.cons retval state.value_stack
 
-(* call op handling *) (* TODO handle the type of the return value correctly *)
-let update_state_callop (param_count: int) (retval_count: int) (state: program_state) =
-  (Logging.get_logger "wanalyze")#info  "update_state_callop: param_count: %d retval_count: %d" param_count retval_count;
+let string_of_retval (index: int) (rt: resulttype): string =
+  String.concat ["r"; (string_of_resulttype rt); (string_of_int index)]
+
+(* call op handling *)
+let update_state_callop (param_count: int) (retval_types: resulttype list) (state: program_state) =
   state.value_stack <- List.drop state.value_stack param_count;
-  List.iter ~f:(push_retval state) (List.init retval_count ~f:(fun i -> String.concat ["R" ; string_of_int i]))
-let update_states_callop (param_counts: int list) (retval_counts: int list) (op: op_type) (s: states) =
+  List.iter ~f:(push_retval state) 
+    (List.init (List.length retval_types) ~f:(fun i -> (string_of_retval i (List.nth_exn retval_types i))))
+
+let update_states_callop (param_counts: int list) (func_types: typeidx list) (types_list: functype list)
+      (op: op_type) (s: states) =
   (match op.arg with
   | Funcidx fidx -> 
-       (Logging.get_logger "wanalyze")#info "Calling %d" fidx;
-       List.iter ~f:(update_state_callop (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx)) s.active;
+       List.iter  ~f:(update_state_callop (List.nth_exn param_counts fidx) 
+                                          (List.nth_exn types_list (List.nth_exn func_types fidx)).rt2)
+                  s.active;
   | _ -> failwith "Invalid call argument")
 
 (* call indirect handling*)
-let update_states_callindop (types: functype list) (op: op_type) (s: states) =
+let update_states_callindop (types_list: functype list) (op: op_type) (s: states) =
   (match op.arg with
   | CallIndirect c -> 
-(*        (Logging.get_logger "wanalyze")#info "Calling %d" fidx;
- *)       List.iter ~f:(update_state_callop (List.length (List.nth_exn types c.y).rt1) (List.length (List.nth_exn types c.y).rt2)) s.active;
+       List.iter  ~f:(update_state_callop (List.length (List.nth_exn types_list c.y).rt1)
+                                          (List.nth_exn types_list c.y).rt2)
+                  s.active;
   | _ -> failwith "Invalid call indirect argument")
 
 (* de-duplication of states WIP *)
@@ -537,7 +544,8 @@ let rec filter_unique (dest: program_states) (src: program_state): bool =
 let unique_states (dest: program_states) (src: program_states): program_states =
   List.append dest (List.filter ~f:(filter_unique dest) src)
 
-let update_states_controlop (param_counts: int list) (retval_counts: int list) (types: functype list) (op: op_type) (s: states) = 
+let update_states_controlop (param_counts: int list) (func_types: typeidx list) (types_list: functype list)
+      (op: op_type) (s: states) = 
   match op.opcode with
   (* unreachable, nop - nothing to do *)
   | 0x00 | 0x01 -> ()
@@ -582,10 +590,10 @@ let update_states_controlop (param_counts: int list) (retval_counts: int list) (
       s.active <- []
   (* call *)
   | 0x10 -> 
-      update_states_callop param_counts retval_counts op s
+      update_states_callop param_counts func_types types_list op s
   (* call_indirect *)
   | 0x11 ->
-      update_states_callindop types op s
+      update_states_callindop types_list op s
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
 
@@ -665,28 +673,28 @@ let update_state_cvtop (op: op_type) (state: program_state) =
 let update_instr_count (state: program_state) = state.instr_count <- state.instr_count + 1
 
 (* given an instruction, update states *)
-let update_s (s: states) (param_counts: int list) (retval_counts: int list) (types: functype list) (op: op_type) =
+let update_s (s: states) (param_counts: int list) (func_types: typeidx list) (types_list: functype list) (op: op_type) =
   (Logging.get_logger "wanalyze")#info "States: %d " (List.length s.final);
    List.iter ~f:update_instr_count s.active;
   match op.instrtype with
-  | Control -> ((Logging.get_logger "wanalyze")#info "type: Control";update_states_controlop param_counts retval_counts types op s)
-  | Reference -> failwith "Unimplemented reference"
+  | Control ->    ((Logging.get_logger "wanalyze")#info "type: Control";update_states_controlop param_counts func_types types_list op s)
+  | Reference ->  failwith "Unimplemented reference"
   | Parametric -> (Logging.get_logger "wanalyze")#info  "type: Parametric";List.iter ~f:(update_state_parametricop op) s.active
   | VariableGL -> (Logging.get_logger "wanalyze")#info  "type: VariableGL";List.iter ~f:(update_state_varGLop op) s.active
   | VariableSL -> (Logging.get_logger "wanalyze")#info  "type: VariableSL";List.iter ~f:(update_state_varSLop op) s.active
   | VariableTL -> (Logging.get_logger "wanalyze")#info  "type: VariableTL";List.iter ~f:(update_state_varTLop op) s.active
   | VariableGG -> (Logging.get_logger "wanalyze")#info  "type: VariableGG";List.iter ~f:(update_state_varGGop op) s.active
   | VariableSG -> (Logging.get_logger "wanalyze")#info  "type: VariableSG";List.iter ~f:(update_state_varSGop op) s.active
-  | Table -> failwith "Unimplemented table"
-  | MemoryL -> (Logging.get_logger "wanalyze")#info  "type: MemoryL";List.iter ~f:(update_state_memloadop op) s.active
-  | MemoryS -> (Logging.get_logger "wanalyze")#info  "type: MemoryS";List.iter ~f:update_state_memstoreop s.active
-  | MemoryM -> (Logging.get_logger "wanalyze")#info  "type: MemoryM"; () (* nothing to do in this case *)
-  | Constop -> (Logging.get_logger "wanalyze")#info  "type: Constop";List.iter ~f:(update_state_constop op) s.active
-  | Unop -> (Logging.get_logger "wanalyze")#info  "type: Unop";List.iter ~f:(update_state_unop op) s.active
-  | Binop f -> (Logging.get_logger "wanalyze")#info  "type: Binop";List.iter ~f:(update_state_binop f) s.active
-  | Testop -> (Logging.get_logger "wanalyze")#info  "type: Testop";List.iter ~f:(update_state_testop op) s.active
-  | Relop f -> (Logging.get_logger "wanalyze")#info  "type: Relop";List.iter ~f:(update_state_binop f) s.active
-  | Cvtop -> (Logging.get_logger "wanalyze")#info  "type: Cvtop";List.iter ~f:(update_state_cvtop op) s.active
+  | Table ->      failwith "Unimplemented table"
+  | MemoryL ->    (Logging.get_logger "wanalyze")#info  "type: MemoryL";List.iter ~f:(update_state_memloadop op) s.active
+  | MemoryS ->    (Logging.get_logger "wanalyze")#info  "type: MemoryS";List.iter ~f:update_state_memstoreop s.active
+  | MemoryM ->    (Logging.get_logger "wanalyze")#info  "type: MemoryM"; () (* nothing to do in this case *)
+  | Constop ->    (Logging.get_logger "wanalyze")#info  "type: Constop";List.iter ~f:(update_state_constop op) s.active
+  | Unop ->       (Logging.get_logger "wanalyze")#info  "type: Unop";List.iter ~f:(update_state_unop op) s.active
+  | Binop f ->    (Logging.get_logger "wanalyze")#info  "type: Binop";List.iter ~f:(update_state_binop f) s.active
+  | Testop ->     (Logging.get_logger "wanalyze")#info  "type: Testop";List.iter ~f:(update_state_testop op) s.active
+  | Relop f ->    (Logging.get_logger "wanalyze")#info  "type: Relop";List.iter ~f:(update_state_binop f) s.active
+  | Cvtop ->      (Logging.get_logger "wanalyze")#info  "type: Cvtop";List.iter ~f:(update_state_cvtop op) s.active
 
 let param_count  (func_sigs: functype list) (func_idx: int): int =
     List.length (List.nth_exn func_sigs func_idx).rt1
@@ -704,11 +712,9 @@ let get_import_typeidx (imp: import): typeidx =
     | _ -> failwith "Not an import function"
 
 let nparams (fidx: int) (func_types: typeidx list) (types_list: functype list) =
-  (Logging.get_logger "wanalyze")#info  "nparams: fidx: %d func_type: %d" fidx (List.nth_exn func_types fidx);
   List.length (List.nth_exn types_list (List.nth_exn func_types fidx)).rt1
       
 let nretvals (fidx: int) (func_types: typeidx list) (types_list: functype list) =
-  (Logging.get_logger "wanalyze")#info  "nretvals: fidx: %d func_type: %d" fidx (List.nth_exn func_types fidx);
   List.length (List.nth_exn types_list (List.nth_exn func_types fidx)).rt2
         
 let update_state_controlop (op: op_type) (s: program_state) (func_types: typeidx list) (types_list: functype list): string = 
@@ -724,7 +730,9 @@ let update_state_controlop (op: op_type) (s: program_state) (func_types: typeidx
   | 0x10 ->
     (match op.arg with
     | Funcidx fidx -> 
-        update_state_callop (nparams fidx func_types types_list) (nretvals fidx func_types types_list) s
+        update_state_callop (nparams fidx func_types types_list) 
+                            (List.nth_exn types_list (List.nth_exn func_types fidx)).rt2
+                            s
     | _ -> failwith "Invalid call argument"); ""
   (* call_indirect *)
   | 0x11 -> "" (* TODO *)
@@ -781,8 +789,8 @@ let rec reduce_bblock' (s: program_state) (e: expr) (succ_cond: string) (func_ty
   Parameters:
   e             expr containing the code to be executed
   i             the initial program state
-  param_counts  a list of the paramater counts for each function in the module
-  retval_counts a list of the retval counts for each function in the module
+  func_types    list of type indexes by function
+  types_list    list of function type signatures by type index
   The last two parameters are required to be able to symbolically a call instruction
   Returns:
   a pair containing the final program_state and the succ_cond value of the code
