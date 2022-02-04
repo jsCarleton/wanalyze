@@ -1,0 +1,13 @@
+Loops found in function 45 in these bblocks: 7 13 18 25 29.
+Simple br_if conditions in: 7 29.
+Simple br conditions in: 14.
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 3 6]
+cost:    18; 
+stack:   []; 
+params:  [pn0, pn1, pn2]; 
+locals:  [R0, R0, R0, lN6, lN7, lN8, lN9, lN10, lN11]; 
+globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+
+Simple brif loop condition in bblock 7:	((lN8 + 1) < 8)
+Simple brif loop condition in bblock 29:	(((lN6 + lN8) rem_u 8) != 0)

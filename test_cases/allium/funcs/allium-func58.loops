@@ -1,0 +1,18 @@
+Loops found in function 58 in these bblocks: 4.
+Simple br_if conditions in: .
+Simple br conditions in: .
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 3]
+cost:    327; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [0, R0, (pn0 + 1), (pn0 + 2), (pn0 + 3), (pn0 + 4), (pn0 + 5), (pn0 + 6), (pn0 + 7), (pn0 + 8), (pn0 + 9), (pn0 + 10), (pn0 + 11), (pn0 + 12), (pn0 + 13), (pn0 + 14), (pn0 + 15), (pn0 + 16), (pn0 + 17), (pn0 + 18), (pn0 + 19), (pn0 + 20), (pn0 + 21), (pn0 + 22), (pn0 + 23), (pn0 + 24), (pn0 + 25), (pn0 + 26), (pn0 + 27), (pn0 + 28), (pn0 + 29), (pn0 + 30), (pn0 + 31), (pn0 + 32), (pn0 + 33), (pn0 + 34), (pn0 + 35), (pn0 + 36), (pn0 + 37), (pn0 + 38), (pn0 + 39), (pn0 + 40), (pn0 + 41), (pn0 + 42), (pn0 + 43), (pn0 + 44), (pn0 + 45), (pn0 + 46), (pn0 + 47), (pn0 + 48), (pn0 + 49), (pn0 + 50), (pn0 + 51), (pn0 + 52), (pn0 + 53), (pn0 + 54), (pn0 + 55), (pn0 + 56), (pn0 + 57), (pn0 + 58), (pn0 + 59), (pn0 + 60), (pn0 + 61), (pn0 + 62), (pn0 + 63), (((R0 == 0) shl 7) || 352), ln68, abc, lN70, lN71, lN72, lN73, lN74, lN75, lN76, lN77, lN78, lN79, lN80, lN81, lN82, R0, lN84, lN85, R0, lN87, R0, R0, R0, R0, R0, R0, lN94, lN95, lN96, R0, lN98, lN99, lN100, lN101, lN102, lN103, lN104, lN105, lN106, lN107]; 
+globals: [abc, abc, abc, abc, abc, (abc + 16), abc, abc, abc, abc]
+
+[0 1 3]
+cost:    324; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [0, R0, (pn0 + 1), (pn0 + 2), (pn0 + 3), (pn0 + 4), (pn0 + 5), (pn0 + 6), (pn0 + 7), (pn0 + 8), (pn0 + 9), (pn0 + 10), (pn0 + 11), (pn0 + 12), (pn0 + 13), (pn0 + 14), (pn0 + 15), (pn0 + 16), (pn0 + 17), (pn0 + 18), (pn0 + 19), (pn0 + 20), (pn0 + 21), (pn0 + 22), (pn0 + 23), (pn0 + 24), (pn0 + 25), (pn0 + 26), (pn0 + 27), (pn0 + 28), (pn0 + 29), (pn0 + 30), (pn0 + 31), (pn0 + 32), (pn0 + 33), (pn0 + 34), (pn0 + 35), (pn0 + 36), (pn0 + 37), (pn0 + 38), (pn0 + 39), (pn0 + 40), (pn0 + 41), (pn0 + 42), (pn0 + 43), (pn0 + 44), (pn0 + 45), (pn0 + 46), (pn0 + 47), (pn0 + 48), (pn0 + 49), (pn0 + 50), (pn0 + 51), (pn0 + 52), (pn0 + 53), (pn0 + 54), (pn0 + 55), (pn0 + 56), (pn0 + 57), (pn0 + 58), (pn0 + 59), (pn0 + 60), (pn0 + 61), (pn0 + 62), (pn0 + 63), (((R0 == 0) shl 7) || 352), ln68, abc, lN70, lN71, lN72, lN73, lN74, lN75, lN76, lN77, lN78, lN79, lN80, lN81, lN82, R0, lN84, lN85, R0, lN87, R0, R0, R0, R0, R0, R0, lN94, lN95, lN96, R0, lN98, lN99, lN100, lN101, lN102, lN103, lN104, lN105, lN106, lN107]; 
+globals: [abc, abc, abc, abc, abc, (abc + 16), abc, abc, abc, abc]
+

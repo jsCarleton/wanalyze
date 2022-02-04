@@ -239,16 +239,43 @@ type program_state =
   mutable local_values:   string array;
   mutable global_values:  string array;
 }
-(* TODO handle type of parameters *)
-let local_value nLocals i = 
-  match i >= nLocals with 
-  | true -> String.concat ["L"; string_of_int (i-nLocals)] 
-  | _ ->    String.concat ["N"; string_of_int i]
 
-let empty_program_state (nparams: int) (nlocals: int): program_state =
-    {instr_count=0; value_stack=[]; 
-        local_values=Array.init (nparams + nlocals) ~f:(local_value nparams); 
-        global_values=Array.create ~len:10 "abc"}
+type local_type =
+{
+  n:  int;
+  v:  valtype;
+}
+
+let sum_nlocals acc (l: local_type) = acc + l.n
+
+let string_of_resulttype (t: resulttype): string =
+  match t with
+  | Numtype nt ->
+      (match nt with
+        | I32 -> "n"
+        | I64 -> "N"
+        | F32 -> "f"
+        | F64 -> "F")
+  | _ -> "?"
+
+let rec local_type_of_index (local_types: local_type list) (index: int) (types_index: int) (types_count: int): valtype =
+  match index < types_count + (List.nth_exn local_types types_index).n with
+  | true  -> (List.nth_exn local_types types_index).v
+  | _     -> local_type_of_index local_types index (types_index+1) (types_count + (List.nth_exn local_types types_index).n)
+
+let local_value (param_types: resulttype list) (local_types: local_type list) (i: int) =
+  let nparams = List.length param_types in
+  match i < nparams with 
+  | true  -> String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i] 
+  | _     -> String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
+
+let empty_program_state (param_types: resulttype list) (local_types: local_type list): program_state =
+  { instr_count     = 0;
+    value_stack     = []; 
+    local_values    = Array.init 
+                        ((List.length param_types) + (List.fold_left ~f:sum_nlocals ~init:0 local_types))
+                      ~f:(local_value param_types local_types); 
+      global_values  = Array.create ~len:10 "abc"}
 
 type program_states = program_state list
 type pending_states = program_states option list
@@ -436,16 +463,20 @@ match index < List.length bblocks with
   set_br_dest bblocks (index+1)
   
 (* printing the state *)
-let string_of_instr_count (count: int) = String.concat ["  steps: " ; string_of_int count ; "; "]
-let string_of_value_stack (stack: string list) = String.concat ["stack: [" ; (String.concat ~sep:", " stack) ; "]; "]
-let string_of_local_values (locals: string array) = String.concat ["locals: [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]; "]
+let string_of_instr_count (count: int) = String.concat ["\ncost:    " ; string_of_int count ; "; "]
+let string_of_value_stack (stack: string list) = String.concat ["stack:   [" ; (String.concat ~sep:", " stack) ; "]; "]
+let string_of_param_values (locals: string array) = String.concat ["params:  [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]; "]
+let string_of_local_values (params: string array) = String.concat ["locals:  [" ; (String.concat ~sep:", " (Array.to_list params)) ; "]; "]
 let string_of_global_values (globals: string array) = String.concat ["globals: [" ; (String.concat ~sep:", " (Array.to_list globals)) ; "]"]
-let string_of_state (print_locals: bool) (state: program_state): string =
-  String.concat [ string_of_instr_count state.instr_count;
-                  string_of_value_stack state.value_stack;
-                  (match print_locals with | true -> string_of_local_values state.local_values | false -> "");
-                  string_of_global_values state.global_values]
-let string_of_ps (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:(string_of_state true) ps)
+let string_of_state (print_locals: bool) (nparams: int) (state: program_state): string =
+  String.concat [ string_of_instr_count state.instr_count; "\n";
+                  string_of_value_stack state.value_stack; "\n";
+                  string_of_param_values (Array.sub state.local_values ~pos:0 ~len:nparams); "\n";
+                  (match print_locals with 
+                    | true -> string_of_local_values (Array.sub state.local_values ~pos:nparams ~len:((Array.length state.local_values) - nparams)) 
+                    | false -> ""); "\n";
+                  string_of_global_values state.global_values; "\n"]
+let string_of_ps (nparams: int) (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:(string_of_state true nparams) ps)
 
 (* Updating the state of the program *)
 let pop_value (state: program_state) = state.value_stack <- List.tl_exn state.value_stack
@@ -474,16 +505,16 @@ let pop_pending_states (src: pending_states): program_states =
 let push_retval (state: program_state) (retval: string) =
   state.value_stack <- List.cons retval state.value_stack
 
-(* call op handling *)
-let update_state_callop fidx (param_count: int) (retval_count: int) (state: program_state) =
-  (Logging.get_logger "wanalyze")#info "Calling %d, nparams: %d, nrets: %d" fidx param_count retval_count;
-   state.value_stack <- List.drop state.value_stack param_count;
+(* call op handling *) (* TODO handle the type of the return value correctly *)
+let update_state_callop (param_count: int) (retval_count: int) (state: program_state) =
+  (Logging.get_logger "wanalyze")#info  "update_state_callop: param_count: %d retval_count: %d" param_count retval_count;
+  state.value_stack <- List.drop state.value_stack param_count;
   List.iter ~f:(push_retval state) (List.init retval_count ~f:(fun i -> String.concat ["R" ; string_of_int i]))
 let update_states_callop (param_counts: int list) (retval_counts: int list) (op: op_type) (s: states) =
   (match op.arg with
   | Funcidx fidx -> 
        (Logging.get_logger "wanalyze")#info "Calling %d" fidx;
-       List.iter ~f:(update_state_callop fidx (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx)) s.active;
+       List.iter ~f:(update_state_callop (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx)) s.active;
   | _ -> failwith "Invalid call argument")
 
 (* call indirect handling*)
@@ -491,7 +522,7 @@ let update_states_callindop (types: functype list) (op: op_type) (s: states) =
   (match op.arg with
   | CallIndirect c -> 
 (*        (Logging.get_logger "wanalyze")#info "Calling %d" fidx;
- *)       List.iter ~f:(update_state_callop 1 (List.length (List.nth_exn types c.y).rt1) (List.length (List.nth_exn types c.y).rt2)) s.active;
+ *)       List.iter ~f:(update_state_callop (List.length (List.nth_exn types c.y).rt1) (List.length (List.nth_exn types c.y).rt2)) s.active;
   | _ -> failwith "Invalid call indirect argument")
 
 (* de-duplication of states WIP *)
@@ -612,12 +643,13 @@ let update_state_binop (f: string) (state: program_state) =
 (* test operators *)
 let update_state_testop (op: op_type) (state: program_state) = 
   state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
-  
+ 
+(* TODO this does the same thing as update_state_binop *)
 (* rel operators *)
 let update_state_relop (f: string) (state: program_state) =
-  let arg1 = List.hd_exn state.value_stack in
-  state.value_stack <- List.tl_exn state.value_stack;
   let arg2 = List.hd_exn state.value_stack in
+  state.value_stack <- List.tl_exn state.value_stack;
+  let arg1 = List.hd_exn state.value_stack in
   state.value_stack <- List.tl_exn state.value_stack;
   state.value_stack <- List.cons (String.concat ["(" ; arg1 ; " " ; f ; " " ; arg2 ; ")"]) state.value_stack
 
@@ -656,28 +688,6 @@ let update_s (s: states) (param_counts: int list) (retval_counts: int list) (typ
   | Relop f -> (Logging.get_logger "wanalyze")#info  "type: Relop";List.iter ~f:(update_state_binop f) s.active
   | Cvtop -> (Logging.get_logger "wanalyze")#info  "type: Cvtop";List.iter ~f:(update_state_cvtop op) s.active
 
-(* TODO is this needed? *)
-let reduce_fn'' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
-  for index = 0 to (List.length e) -1 do
-    (Logging.get_logger "wanalyze")#info "Instruction: %d" index;
-    (*     (Logging.get_logger "wanalyze")#info "Active states: %d%!" (List.length s.active);
-    (Logging.get_logger "wanalyze")#info "%s%!" (string_of_ps s.active) ;
-    (Logging.get_logger "wanalyze")#info "%s%!" (string_of_inline_expr [List.nth_exn e index]);
- *)    update_s s param_counts retval_counts types (List.nth_exn e index)
-  done;
-  s
-
-(* TODO is this needed? *)
-let rec reduce_fn' (e: expr) (param_counts: int list) (retval_counts: int list) (types: functype list) (s: states): states =
-    match e with
-    | []     -> s
-    | hd::tl -> 
-(*       (Logging.get_logger "wanalyze")#info "%s%!" (string_of_ps s.active);
-      (Logging.get_logger "wanalyze")#info "Active states: %d%!" (List.length s.active);
-      (Logging.get_logger "wanalyze")#info " %s%!" (string_of_inline_expr [List.nth_exn e 0]);
- *)      update_s s param_counts retval_counts types hd;
-      reduce_fn' tl param_counts retval_counts types s
-
 let param_count  (func_sigs: functype list) (func_idx: int): int =
     List.length (List.nth_exn func_sigs func_idx).rt1
 let retval_count (func_sigs: functype list) (func_idx: int): int =
@@ -693,7 +703,15 @@ let get_import_typeidx (imp: import): typeidx =
     | Functype idx -> idx
     | _ -> failwith "Not an import function"
 
-let update_state_controlop (op: op_type) (s: program_state) (param_counts: int list) (retval_counts: int list): string = 
+let nparams (fidx: int) (func_types: typeidx list) (types_list: functype list) =
+  (Logging.get_logger "wanalyze")#info  "nparams: fidx: %d func_type: %d" fidx (List.nth_exn func_types fidx);
+  List.length (List.nth_exn types_list (List.nth_exn func_types fidx)).rt1
+      
+let nretvals (fidx: int) (func_types: typeidx list) (types_list: functype list) =
+  (Logging.get_logger "wanalyze")#info  "nretvals: fidx: %d func_type: %d" fidx (List.nth_exn func_types fidx);
+  List.length (List.nth_exn types_list (List.nth_exn func_types fidx)).rt2
+        
+let update_state_controlop (op: op_type) (s: program_state) (func_types: typeidx list) (types_list: functype list): string = 
   match op.opcode with
   (* unreachable, nop, block, loop, else, end, br, return - nothing to do *)
   | 0x00 | 0x01 | 0x02 | 0x03 | 0x05 | 0x0b | 0x0c | 0x0f -> ""
@@ -706,17 +724,17 @@ let update_state_controlop (op: op_type) (s: program_state) (param_counts: int l
   | 0x10 ->
     (match op.arg with
     | Funcidx fidx -> 
-        update_state_callop fidx (List.nth_exn param_counts fidx) (List.nth_exn retval_counts fidx) s
+        update_state_callop (nparams fidx func_types types_list) (nretvals fidx func_types types_list) s
     | _ -> failwith "Invalid call argument"); ""
   (* call_indirect *)
   | 0x11 -> "" (* TODO *)
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
     
-let reduce_op (s: program_state) (op: op_type) (param_counts: int list) (retval_counts: int list): string =
+let reduce_op (s: program_state) (op: op_type) (func_types: typeidx list) (types_list: functype list): string =
     update_instr_count s;
     match op.instrtype with
-    | Control -> update_state_controlop op s param_counts retval_counts
+    | Control -> update_state_controlop op s func_types types_list
     | _ ->
       (match op.instrtype with
       | Reference ->  failwith "Unimplemented reference"
@@ -744,25 +762,19 @@ let reduce_op (s: program_state) (op: op_type) (param_counts: int list) (retval_
   Parameters:
   s             the starting program_state, as a side-effect of symbolic execution this state is updated
   e             expr containing the code to be executed
-  succ_cond     the success condition for the last br_if or if instruction, if any, in the code
-  param_counts  a list of the paramater counts for each function in the module
-  retval_counts a list of the retval counts for each function in the module
+  succ_cond     success condition for the last br_if or if instruction, if any, in the code
+  func_types    list of the type signature index for each function in the module
+  type_list     list of the type signatures for each function in the module
   The last two parameters are required to be able to symbolically a call instruction
   Returns:
   the succ_cond value
  *)
-let rec reduce_bblock' (s: program_state) (e: expr) (succ_cond: string) (param_counts: int list) (retval_counts: int list):
+let rec reduce_bblock' (s: program_state) (e: expr) (succ_cond: string) (func_types: typeidx list) (types_list: functype list):
       string =
-  (Logging.get_logger "wanalyze")#info "value_stack before: %s" (String.concat ~sep:": " s.value_stack);
   match e with
   | []      -> succ_cond
   | hd::tl  -> 
-    (Logging.get_logger "wanalyze")#info "in reduce_bblock\' %s %d %d %d"
-        hd.opname
-        (s.instr_count) 
-        (List.length s.value_stack)
-        (Array.fold ~f:(fun x y -> x + String.length y) ~init:0 s.local_values);
-    reduce_bblock' s tl (reduce_op s hd param_counts retval_counts) param_counts retval_counts
+      reduce_bblock' s tl (reduce_op s hd func_types types_list) func_types types_list
 
 (**
   reduce_bblock from an initial program state, symbolically executes the code in an expr.
@@ -775,29 +787,28 @@ let rec reduce_bblock' (s: program_state) (e: expr) (succ_cond: string) (param_c
   Returns:
   a pair containing the final program_state and the succ_cond value of the code
  *)
-let reduce_bblock (e: expr) (i: program_state) (param_counts: int list) (retval_counts: int list):
+let reduce_bblock (e: expr) (i: program_state) (func_types: typeidx list) (types_list: functype list):
       program_state*string =
   (Logging.get_logger "wanalyze")#info "reducing bblock";
   let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values=(Array.copy i.local_values);
               global_values=(Array.copy i.global_values)} in
-  let s = reduce_bblock' f e "" param_counts retval_counts in
+  let s = reduce_bblock' f e "" func_types types_list in
   f,s
 
 let execute_bblock (bb: bblock) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state)
-        (param_counts: int list) (retval_counts: int list): execution list =
-  (Logging.get_logger "wanalyze")#info "in execute_bblocks\'\'%s" (string_of_state true initial);
+      (func_types: typeidx list) (types_list: functype list): execution list =
   let final, succ_cond = (reduce_bblock (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op)) 
-                                      initial param_counts retval_counts) in
+                                      initial func_types types_list) in
     (* TODO call execute_bblocks'' recursively *)
     List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
 
 let execute_bblocks' (bblocks: bblock list) (indices: int list) (e: expr) (ex_acc: execution list) (initial: program_state)
-        (param_counts: int list) (retval_counts: int list): execution list =
+      (func_types: typeidx list) (types_list: functype list): execution list =
   match indices with
   | [] -> ex_acc
   (* TODO call execute_bblocks' recursively *)
   | hd::_ ->
-      execute_bblock (List.nth_exn bblocks hd) hd e ex_acc initial param_counts retval_counts
+      execute_bblock (List.nth_exn bblocks hd) hd e ex_acc initial func_types types_list
 
 let set_pred' (bblocks: bblock list) (src: int) (dest: int) =
   match dest < List.length bblocks with 
@@ -867,12 +878,6 @@ let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): 
                   graph_bblocks' bblocks (List.length bblocks) "";
                   graph_suffix]
 
-type local_type =
-{
-  n:  int;
-  v:  valtype;
-}
-
 (********************************************************************************)
 type code_path = int list
 
@@ -883,6 +888,7 @@ type code_path = int list
 *)
 let succ_of_cp (bblocks: bblock list) (cp: code_path): int list =
     (List.nth_exn bblocks (List.hd_exn cp)).succ
+
 (*
     term_of_cp_bb
         Takes a code path and a successor bblock id
@@ -893,9 +899,7 @@ let succ_of_cp (bblocks: bblock list) (cp: code_path): int list =
 let term_of_cp_bb(bblocks: bblock list) (cp: code_path) (succ: int): code_path option =
     match       (succ >= List.length bblocks) 
             ||  (List.nth_exn bblocks (List.hd_exn cp)).index >= (List.nth_exn bblocks succ).index with
-    | true  -> 
-        (Logging.get_logger "wanalyze")#info "term_of_cp_bb: succ %d cp %s" succ (String.concat ~sep:" " (List.map ~f:string_of_int cp));
-        Some cp
+    | true  -> Some cp
     |  _    -> None
     
 (*
@@ -951,20 +955,27 @@ let step_code_path (bblocks: bblock list) (cp: code_path): (code_path list)*(cod
     | _     -> (nterms_of_cp bblocks cp), (terms_of_cp bblocks cp)
 
 (* 
-    code_paths_of_bblocks
+    code_paths_of_bblocks'
         Takes a list of bblocks, a list of non-terminal code paths and a list of terminal code paths
         Returns the terminal code paths *unless* we think there are too many code paths. In that case
         we return []
 *)
-let rec code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
+let rec code_paths_of_bblocks' (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
   match (mult_succ_count bblocks) < 30 with   (* hack to prevent this code from running for a very long time *)
   | true ->
     (match nterm with
     | []        -> term
     | hd::tl    ->
         let n,t = step_code_path bblocks hd in
-            code_paths_of_bblocks bblocks (List.append n tl) (List.append t term))
+            code_paths_of_bblocks' bblocks (List.append n tl) (List.append t term))
   | _ -> []
+
+(*
+    For convenience we build each code path in reverse order. Here we reverse that since
+    we actually need them in flow graph order for execution purposes
+*)
+let code_paths_of_bblocks  (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
+  List.map ~f:List.rev (code_paths_of_bblocks' bblocks nterm term)
 
 (********************************************************************************)
 
@@ -976,14 +987,6 @@ type func =
   bblocks:    bblock list;        (* basic blocks *)
   code_paths: code_path list;     (* code paths *)
 }
-
-(* TODO: delete this? *)
-let reduce_fn (f: func) (param_counts: int list) (retval_counts: int list) (types: functype list) (nparams: int) (nlocals: int): states =
-  reduce_fn''
-    f.e param_counts retval_counts types
-    {active=[empty_program_state nparams nlocals];
-     pending=[];
-     final=[]}
 
 (* Globals *)
 type global =
@@ -1050,26 +1053,22 @@ let rec get_memory_size (i:import list): int =
   | Memtype m -> (get_size m)
   | _ -> get_memory_size (List.tl_exn i)
 
-let sum_nlocals acc (l: local_type) = acc + l.n
-
-let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fidx: int) (e: expr): execution list =
-  let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
-  let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
-  let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
-  let nparams = List.nth_exn param_counts fidx in
-  let nlocals = List.fold_left ~f:sum_nlocals ~init:0 (List.nth_exn w.code_section (fidx - w.last_import_func)).locals in
-  (Logging.get_logger "wanalyze")#info "execute_bblocks fidx: %d nparams: %d nlocals: %d" fidx nparams nlocals;
+let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fnum: int) (e: expr): execution list =
+  let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
+  let local_types   = (List.nth_exn w.code_section (fnum - w.last_import_func)).locals in 
+  let func_types    = w.function_section in
+  let types_list    = w.type_section in
   execute_bblocks'
-      bblocks    (* bblocks to execute *)
+      bblocks     (* bblocks to execute *)
       [0]         (* index of the bblock to start with *)
       e           (* code of those bblocks *)
       []          (* results of the execution so far *)
       (* the initial state of the program *)
-      (empty_program_state nparams nlocals)
-      (* parameter count for each function *)
-      param_counts
-      (* return value count for each function *)
-      retval_counts
+      (empty_program_state param_types local_types)
+      (* type index for each function *)
+      func_types
+      (* type signatures for each index *)
+      types_list
 
 let create name =
   { module_name = name; data_count = 0;
@@ -1077,24 +1076,7 @@ let create name =
     memory_section = []; global_section = []; export_section = []; start_section = None; 
     element_section = []; code_section = []; data_section = [];
     last_import_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
-
-(* TODO this doesn't really make sense as written *)
-let print_reduction (param_counts: int list) (retval_counts: int list) (w: wasm_module) (func_idx: funcidx) (f: func) =
-  let nparams = List.nth_exn param_counts (func_idx + w.last_import_func) in
-  let nlocals = List.fold_left ~f:sum_nlocals ~init:0 f.locals in
-  let fname = String.concat["funcs/"; (Filename.chop_extension w.module_name); "-func"; string_of_int (func_idx + w.last_import_func); ".trace"] in
-  let oc = Out_channel.create fname in
-    Out_channel.output_string oc (sprintf "Start state: %s\n" (string_of_ps [empty_program_state nparams nlocals]));
-    Out_channel.output_string oc (sprintf "Final states:%s\n" (string_of_ps (reduce_fn f param_counts retval_counts w.type_section nparams nlocals).final));
-    Out_channel.close oc
-
-let print_reductions (w: wasm_module) =
-  Gc.set {(Gc.get ()) with verbose = 0x01};
-  let all_fn_sigs = List.append (List.map ~f:get_import_typeidx (List.filter w.import_section ~f:filter_import_fn)) w.function_section in
-  let param_counts = List.map ~f:(param_count  w.type_section) all_fn_sigs in
-  let retval_counts= List.map ~f:(retval_count w.type_section) all_fn_sigs in
-  List.iteri ~f:(print_reduction param_counts retval_counts w) w.code_section
-    
+  
 (* Section updating *)
 (* type section *)
 let update_type_section w (rt1, rt2) =
@@ -1115,6 +1097,10 @@ let update_import_section w module_name import_name description =
   | Some desc ->
       w.import_section 
           <- List.append w.import_section [{module_name; import_name; description=desc; index = index_of w desc}];
+      (match desc with
+      | Functype i ->
+          w.function_section <- List.append w.function_section [i]
+      | _ -> ());
       true
 
 (* function section *)

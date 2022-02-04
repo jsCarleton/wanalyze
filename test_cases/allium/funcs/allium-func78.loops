@@ -1,0 +1,12 @@
+Loops found in function 78 in these bblocks: 4.
+Simple br_if conditions in: 4.
+Simple br conditions in: .
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 3]
+cost:    9; 
+stack:   []; 
+params:  [pn0, pn1, pn2]; 
+locals:  [(pn2 /u 96), ln4]; 
+globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+
+Simple brif loop condition in bblock 4:	((ln4 + 1) < ln3)

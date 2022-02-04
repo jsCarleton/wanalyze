@@ -1,0 +1,89 @@
+Loops found in function 71 in these bblocks: 12.
+Simple br_if conditions in: 12.
+Simple br conditions in: .
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 3 4 6 8 9 11]
+cost:    144; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 1 2 3 4 6 8 10 11]
+cost:    177; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 1 2 3 5 6 8 9 11]
+cost:    148; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 1 2 3 5 6 8 10 11]
+cost:    181; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 1 2 7 8 9 11]
+cost:    139; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 1 2 7 8 10 11]
+cost:    172; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 2 3 4 6 8 9 11]
+cost:    141; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 2 3 4 6 8 10 11]
+cost:    174; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 2 3 5 6 8 9 11]
+cost:    145; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 2 3 5 6 8 10 11]
+cost:    178; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 2 7 8 9 11]
+cost:    136; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+[0 2 7 8 10 11]
+cost:    169; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [abc, 0, R0, (R0 + (R0 shl 3)), R0, R0, (abc + R0), (pn0 + 116), (R0 shl 3), (pn0 + 120)]; 
+globals: [abc, abc, abc, abc, abc, (abc - -64), abc, abc, abc, abc]
+
+Simple brif loop condition in bblock 12:	((ln3 + 1) != 8)
