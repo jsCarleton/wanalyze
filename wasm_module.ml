@@ -269,13 +269,34 @@ let local_value (param_types: resulttype list) (local_types: local_type list) (i
   | true  -> String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i] 
   | _     -> String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
 
-let empty_program_state (param_types: resulttype list) (local_types: local_type list): program_state =
+let rec nglobals (imports: import list) (acc: int): int =
+  match imports with
+  | []      -> acc
+  | hd::tl  ->
+    (match hd.description with 
+      | Globaltype _ -> nglobals tl (acc+1)
+      | _            -> nglobals tl acc)
+
+let string_of_global (import_name: string) (index: int) (t: valtype):  string =
+  String.concat ["g"; string_of_resulttype t; string_of_int index; " ("; import_name; ")"]
+
+let rec create_globals (globals: string array) (imports: import list) (next: int): string array =
+  match imports with
+    | [] -> globals
+    | hd::tl ->
+      (match hd.description with
+        | Globaltype gt ->  Array.set globals next (string_of_global hd.import_name hd.index gt.t);
+                            create_globals globals tl (next+1)
+        | _             ->  create_globals globals tl next)
+
+let empty_program_state (param_types: resulttype list) (local_types: local_type list) (imports: import list)
+      : program_state =
   { instr_count     = 0;
     value_stack     = []; 
     local_values    = Array.init 
                         ((List.length param_types) + (List.fold_left ~f:sum_nlocals ~init:0 local_types))
                       ~f:(local_value param_types local_types); 
-      global_values  = Array.create ~len:10 "abc"}
+    global_values  = create_globals (Array.create ~len:(nglobals imports 0) "") imports 0}
 
 type program_states = program_state list
 type pending_states = program_states option list
@@ -1061,7 +1082,7 @@ let rec get_memory_size (i:import list): int =
   | Memtype m -> (get_size m)
   | _ -> get_memory_size (List.tl_exn i)
 
-let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fnum: int) (e: expr): execution list =
+let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fnum: int) (e: expr) (imports: import list): execution list =
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section (fnum - w.last_import_func)).locals in 
   let func_types    = w.function_section in
@@ -1072,7 +1093,7 @@ let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fnum: int) (e: expr
       e           (* code of those bblocks *)
       []          (* results of the execution so far *)
       (* the initial state of the program *)
-      (empty_program_state param_types local_types)
+      (empty_program_state param_types local_types imports)
       (* type index for each function *)
       func_types
       (* type signatures for each index *)

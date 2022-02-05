@@ -362,23 +362,24 @@ let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
     List.map ~f:(fun i -> List.nth_exn bblocks i) (ids_with_simple_brif_loops bblocks)
 
 let condition_of_simple_loop' (e: expr) (param_types: resulttype list) (local_types: local_type list)
-      (func_types: typeidx list) (types_list: functype list): string =
-  let _,s = reduce_bblock e (empty_program_state param_types local_types) func_types types_list in
+      (func_types: typeidx list) (types_list: functype list) (imports: import list): string =
+  let _,s = reduce_bblock e (empty_program_state param_types local_types imports) func_types types_list in
     s
 
 let condition_of_simple_loop (e: expr) (param_types: resulttype list) (local_types: local_type list)
-      (func_types: typeidx list) (types_list: functype list) (bb: bblock): string = 
+      (func_types: typeidx list) (types_list: functype list) (imports: import list) (bb: bblock): string = 
   String.concat [ "Simple brif loop condition in bblock ";
                   string_of_int bb.index;
                   ":\t";
                   condition_of_simple_loop' 
                       (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op))
-                      param_types local_types func_types types_list;
+                      param_types local_types func_types types_list imports;
                   "\n"]
 
 let conditions_of_simple_loops (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-      (func_types: typeidx list) (types_list: functype list) (loop_bblocks: bblock list): string =
-  String.concat (List.map ~f:(condition_of_simple_loop e param_types local_types func_types types_list) loop_bblocks)
+      (func_types: typeidx list) (types_list: functype list) (loop_bblocks: bblock list)
+      (imports: import list): string =
+  String.concat (List.map ~f:(condition_of_simple_loop e param_types local_types func_types types_list imports) loop_bblocks)
 
 (** analyze_simple_brif_loops given a list of bblocks that are simple brif loops, analyzes the loop to
   determine the branch condition
@@ -391,8 +392,8 @@ let conditions_of_simple_loops (e: expr) (param_types: resulttype list) (local_t
 *)
 (* TODO separate the execution from the output formatting *)                    
 let analyze_simple_brif_loops (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-      (func_types: typeidx list) (types_list: functype list)  (bblocks: bblock list): string =
-  conditions_of_simple_loops e param_types local_types func_types types_list bblocks
+      (func_types: typeidx list) (types_list: functype list)  (bblocks: bblock list) (imports: import list): string =
+  conditions_of_simple_loops e param_types local_types func_types types_list bblocks imports
 
 let execution_paths (bblocks: bblock list) : int list list =
   [List.map ~f:(fun s -> s.index) bblocks]
@@ -408,8 +409,8 @@ let execute_bblock (e: expr) (bblocks: bblock list) (state: program_state) (func
       ()
 
 let execute_code_path (e: expr) (bblocks: bblock list) (param_types: resulttype list) (local_types: local_type list) 
-      (func_types: typeidx list) (types_list: functype list) (cp: code_path): string = 
-  let state = empty_program_state param_types local_types in
+      (func_types: typeidx list) (types_list: functype list) (imports: import list) (cp: code_path): string = 
+  let state = empty_program_state param_types local_types imports in
     List.iter ~f:(execute_bblock e bblocks state func_types types_list) cp;
     string_of_state true (List.length param_types) state
 
@@ -427,9 +428,9 @@ let string_of_code_path (cp: code_path): string =
   String.concat ["["; string_of_ints cp; "]"]
 
 let loop_entry_state (e: expr) (bblocks: bblock list) (param_types: resulttype list) (local_types: local_type list) 
-      (func_types: typeidx list) (types_list: functype list) (cp: code_path): string = 
+      (func_types: typeidx list) (types_list: functype list) (imports: import list) (cp: code_path): string = 
     (Logging.get_logger "wanalyze")#info  "loop_entry_state: cp: %s" (string_of_code_path cp);
-    String.concat [string_of_code_path cp; execute_code_path e bblocks param_types local_types func_types types_list cp]
+    String.concat [string_of_code_path cp; execute_code_path e bblocks param_types local_types func_types types_list imports cp]
 
 let code_path_with_loop (bblocks: bblock list) (cp: code_path): code_path option =
   match code_path_has_loop bblocks cp with |true -> Some cp | _ -> None
@@ -467,6 +468,7 @@ let print_function w dir prefix fidx type_idx =
   let local_types   = (List.nth_exn w.code_section fidx).locals in 
   let func_types    = w.function_section in
   let types_list    = w.type_section in
+  let imports       = w.import_section in
   (Logging.get_logger "wanalyze")#info "print_function: fidx %d bblocks length %d term length %d"
   fidx (List.length bblocks) (List.length cps);
   (* function source code *)
@@ -501,12 +503,12 @@ let print_function w dir prefix fidx type_idx =
         Out_channel.output_string oc
           (String.concat ~sep:"\n"
             (List.map 
-                ~f:(loop_entry_state fn.e bblocks param_types local_types func_types types_list) 
+                ~f:(loop_entry_state fn.e bblocks param_types local_types func_types types_list imports) 
                 (List.dedup_and_sort ~compare:compare_cps (loop_code_paths bblocks cps))));
         Out_channel.output_string oc "\n";
         Out_channel.output_string oc
           (analyze_simple_brif_loops fn.e param_types local_types func_types types_list
-              (bblocks_with_simple_brif_loops bblocks));
+              (bblocks_with_simple_brif_loops bblocks) imports);
         Out_channel.close oc
   | false -> ())
   (* execution trace of the function *)
