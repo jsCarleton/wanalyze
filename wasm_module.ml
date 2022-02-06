@@ -231,6 +231,96 @@ type element =
 
 (* Code, including bblocks *)
 
+type local_type =
+{
+  n:  int;
+  v:  valtype;
+}
+
+(* basic blocks have a type that's determined by the control instruction that terminates the bblock *)
+type bb_type =
+  BB_unknown |
+  BB_unreachable | BB_block | BB_loop | BB_if | BB_else | BB_end | BB_br | BB_br_if | BB_br_table | BB_return
+
+type bblock =
+{
+          index:    int;      (* the index of this bblock in the list of bblocks, makes things easier to have this *)
+          start_op: int;      (* index into e of the first op in the expr *)
+  mutable end_op:   int;      (* index+1 of the last op in the expr *)
+  mutable succ:     int list; (* bblock indexes of bblocks that can be directly reached from this bblock *)
+  mutable pred:     int list; (* bblock indexes of bblocks that can directly reach this bblock *)
+  mutable bbtype:	  bb_type;  (* effectively the control opcode that created this bblock *)
+  mutable nesting:  int;      (* nesting level of the last opcode in the bblock *)
+  mutable labels:   int list; (* destination labels used in BR, BR_IF, BR_TABLE instructions *)
+  mutable br_dest:	int;			(* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)
+}
+
+type code_path = int list
+
+(* type that describes a function that's implement in a wasm module *)
+type func =
+{
+  locals:     local_type list;    (* local variable types of the function *)
+  e:          expr;               (* code of the function *)
+  bblocks:    bblock list;        (* basic blocks *)
+  code_paths: code_path list;     (* code paths *)
+}
+
+(* Globals *)
+type global =
+{
+  index:  int;
+  gt:     globaltype;
+  e:      expr;
+}
+
+(* Data *)
+type expr_bytes =
+{
+  e:  expr;
+  b:  bytes;
+}
+type mem_expr_bytes =
+{
+  x:  memidx;
+  e:  expr;
+  b:  bytes;
+}
+type data_details =
+| ExprBytes of expr_bytes
+| Bytes of bytes
+| MemExprBytes of mem_expr_bytes
+type data =
+{
+  index:    int;
+  details:  data_details;
+}
+
+(* Data Count *)
+
+(* wasm Module *)
+type wasm_module =
+{
+  module_name:              string;
+  mutable data_count:       int;
+  mutable type_section:     functype list;
+  mutable import_section:   import list;
+  mutable function_section: typeidx list;
+  mutable table_section:    tabletype list;
+  mutable memory_section:   memtype list;
+  mutable global_section:   global list;
+  mutable export_section:   export list;
+  mutable start_section:    funcidx option;
+  mutable element_section:  element list;
+  mutable code_section:     func list;
+  mutable data_section:     data list;
+  mutable last_import_func: funcidx;
+  mutable next_global:      int;
+  mutable next_memory:      int;
+  mutable next_table:       int;
+  mutable next_data:        int;
+}
+
 (* Program state types *)
 type program_state =
 {
@@ -238,12 +328,6 @@ type program_state =
   mutable value_stack:    string list;
   mutable local_values:   string array;
   mutable global_values:  string array;
-}
-
-type local_type =
-{
-  n:  int;
-  v:  valtype;
 }
 
 let sum_nlocals acc (l: local_type) = acc + l.n
@@ -289,14 +373,6 @@ let rec create_globals (imports: import list) (globals: string array) (next: int
                             create_globals tl globals (next+1)
         | _             ->  create_globals tl globals next)
 
-let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_types: local_type list): program_state =
-  { instr_count     = 0;
-    value_stack     = []; 
-    local_values    = Array.init 
-                        ((List.length param_types) + (List.fold_left ~f:sum_nlocals ~init:0 local_types))
-                      ~f:(local_value param_types local_types); 
-    global_values  = create_globals w.import_section (Array.create ~len:(nglobals w.import_section rts 0) "") 0}
-
 type program_states = program_state list
 type pending_states = program_states option list
 
@@ -306,11 +382,6 @@ type states =
   mutable pending:  pending_states;
   mutable final:    program_states;
 }
-
-(* basic blocks have a type that's determined by the control instruction that terminates the bblock *)
-type bb_type =
-  BB_unknown |
-  BB_unreachable | BB_block | BB_loop | BB_if | BB_else | BB_end | BB_br | BB_br_if | BB_br_table | BB_return
 
 let bb_type_of_opcode (op: int): bb_type =
   match op with
@@ -339,19 +410,6 @@ let string_of_bbtype (bbtype: bb_type) : string =
   | BB_br_if        -> "br_if"
   | BB_br_table     -> "br_table"
   | BB_return       -> "return"
-
-type bblock =
-{
-          index:    int;      (* the index of this bblock in the list of bblocks, makes things easier to have this *)
-          start_op: int;      (* index into e of the first op in the expr *)
-  mutable end_op:   int;      (* index+1 of the last op in the expr *)
-  mutable succ:     int list; (* bblock indexes of bblocks that can be directly reached from this bblock *)
-  mutable pred:     int list; (* bblock indexes of bblocks that can directly reach this bblock *)
-  mutable bbtype:	  bb_type;  (* effectively the control opcode that created this bblock *)
-  mutable nesting:  int;      (* nesting level of the last opcode in the bblock *)
-  mutable labels:   int list; (* destination labels used in BR, BR_IF, BR_TABLE instructions *)
-  mutable br_dest:	int;			(* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)
-}
 
 type execution =
 {
@@ -529,28 +587,30 @@ let string_of_retval (index: int) (rt: resulttype): string =
   String.concat ["r"; (string_of_resulttype rt); (string_of_int index)]
 
 (* call op handling *)
-let update_state_callop (param_count: int) (retval_types: resulttype list) (state: program_state) =
+let update_state_callop (_: wasm_module) (param_count: int) (retval_types: resulttype list) (state: program_state) =
   state.value_stack <- List.drop state.value_stack param_count;
   List.iter ~f:(push_retval state) 
     (List.init (List.length retval_types) ~f:(fun i -> (string_of_retval i (List.nth_exn retval_types i))))
 
-let update_states_callop (param_counts: int list) w
-      (op: op_type) (s: states) =
-  (match op.arg with
+let update_states_callop (w: wasm_module) (param_counts: int list) (op: op_type) (s: states) =
+  match op.arg with
   | Funcidx fidx -> 
-       List.iter  ~f:(update_state_callop (List.nth_exn param_counts fidx) 
-                                          (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2)
+       List.iter  ~f:(update_state_callop w (List.nth_exn param_counts fidx) 
+                                            (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2)
                   s.active;
-  | _ -> failwith "Invalid call argument")
+  | _ -> failwith "Invalid call argument"
 
+let nparams (w: wasm_module) (fidx: int) =
+  List.length (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt1
+        
 (* call indirect handling*)
 let update_states_callindop (w: wasm_module) (op: op_type) (s: states) =
-  (match op.arg with
+  match op.arg with
   | CallIndirect c -> 
-       List.iter  ~f:(update_state_callop (List.length (List.nth_exn w.type_section c.y).rt1)
-                                          (List.nth_exn w.type_section c.y).rt2)
+       List.iter  ~f:(update_state_callop w (nparams w c.y)
+                                            (List.nth_exn w.type_section (List.nth_exn w.function_section c.y)).rt2)
                   s.active;
-  | _ -> failwith "Invalid call indirect argument")
+  | _ -> failwith "Invalid call indirect argument"
 
 (* de-duplication of states WIP *)
 let states_equal (s1: program_state) (s2: program_state): bool =
@@ -564,8 +624,7 @@ let rec filter_unique (dest: program_states) (src: program_state): bool =
 let unique_states (dest: program_states) (src: program_states): program_states =
   List.append dest (List.filter ~f:(filter_unique dest) src)
 
-let update_states_controlop (param_counts: int list) w
-      (op: op_type) (s: states) = 
+let update_states_controlop (w: wasm_module) (param_counts: int list) (op: op_type) (s: states) = 
   match op.opcode with
   (* unreachable, nop - nothing to do *)
   | 0x00 | 0x01 -> ()
@@ -610,10 +669,10 @@ let update_states_controlop (param_counts: int list) w
       s.active <- []
   (* call *)
   | 0x10 -> 
-      update_states_callop param_counts w op s
+      update_states_callop w param_counts op s
   (* call_indirect *)
   | 0x11 ->
-      update_states_callindop w.type_section op s
+      update_states_callindop w op s
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
 
@@ -731,12 +790,6 @@ let get_import_typeidx (imp: import): typeidx =
     | Functype idx -> idx
     | _ -> failwith "Not an import function"
 
-let nparams (w: wasm_module) (fidx: int) =
-  List.length (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt1
-      
-let nretvals (w: wasm_module) (fidx: int) =
-  List.length (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
-        
 let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): string = 
   match op.opcode with
   (* unreachable, nop, block, loop, else, end, br, return - nothing to do *)
@@ -750,8 +803,8 @@ let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): st
   | 0x10 ->
     (match op.arg with
     | Funcidx fidx -> 
-        update_state_callop (nparams fidx w.function_section w.type_section) 
-                            (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
+        update_state_callop w (nparams w fidx)
+                              (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
                             s
     | _ -> failwith "Invalid call argument"); ""
   (* call_indirect *)
@@ -759,10 +812,10 @@ let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): st
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
     
-let reduce_op (s: program_state) (op: op_type) w: string =
+let reduce_op (w: wasm_module) (op: op_type) (s: program_state): string =
     update_instr_count s;
     match op.instrtype with
-    | Control -> update_state_controlop op s w.function_section w.type_section
+    | Control -> update_state_controlop w op s
     | _ ->
       (match op.instrtype with
       | Reference ->  failwith "Unimplemented reference"
@@ -801,7 +854,7 @@ let rec reduce_bblock' (w: wasm_module) (s: program_state) (e: expr) (succ_cond:
   match e with
   | []      -> succ_cond
   | hd::tl  -> 
-      reduce_bblock' w s tl (reduce_op w s hd)
+      reduce_bblock' w s tl (reduce_op w hd s)
 
 (**
   reduce_bblock from an initial program state, symbolically executes the code in an expr.
@@ -818,7 +871,7 @@ let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
   (Logging.get_logger "wanalyze")#info "reducing bblock";
   let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values=(Array.copy i.local_values);
               global_values=(Array.copy i.global_values)} in
-  let s = reduce_bblock' f e "" w.function_section w.type_section in
+  let s = reduce_bblock' w f e "" in
   f,s
 
 let execute_bblock (w: wasm_module) (bb: bblock) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state): execution list =
@@ -827,7 +880,8 @@ let execute_bblock (w: wasm_module) (bb: bblock) (index: int) (e: expr) (ex_acc:
     (* TODO call execute_bblocks'' recursively *)
     List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
 
-let execute_bblocks' (w: wasm_module) (bblocks: bblock list) (indices: int list) (e: expr) (ex_acc: execution list) (initial: program_state): execution list =
+let execute_bblocks' (w: wasm_module) (bblocks: bblock list) (indices: int list) (e: expr) (ex_acc: execution list)
+      (initial: program_state): execution list =
   match indices with
   | [] -> ex_acc
   (* TODO call execute_bblocks' recursively *)
@@ -903,8 +957,6 @@ let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): 
                   graph_suffix]
 
 (********************************************************************************)
-type code_path = int list
-
 (*
     succ_of_cp
     Takes a list of bblocks and a code path and returns the list of bblocks that
@@ -1003,69 +1055,14 @@ let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: 
 
 (********************************************************************************)
 
-(* type that describes a function that's implement in a wasm module *)
-type func =
-{
-  locals:     local_type list;    (* local variable types of the function *)
-  e:          expr;               (* code of the function *)
-  bblocks:    bblock list;        (* basic blocks *)
-  code_paths: code_path list;     (* code paths *)
-}
+let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_types: local_type list): program_state =
+  { instr_count     = 0;
+    value_stack     = []; 
+    local_values    = Array.init 
+                        ((List.length param_types) + (List.fold_left ~f:sum_nlocals ~init:0 local_types))
+                      ~f:(local_value param_types local_types); 
+    global_values  = create_globals w.import_section (Array.create ~len:(nglobals w.import_section 0) "") 0}
 
-(* Globals *)
-type global =
-{
-  index:  int;
-  gt:     globaltype;
-  e:      expr;
-}
-
-(* Data *)
-type expr_bytes =
-{
-  e:  expr;
-  b:  bytes;
-}
-type mem_expr_bytes =
-{
-  x:  memidx;
-  e:  expr;
-  b:  bytes;
-}
-type data_details =
-| ExprBytes of expr_bytes
-| Bytes of bytes
-| MemExprBytes of mem_expr_bytes
-type data =
-{
-  index:    int;
-  details:  data_details;
-}
-
-(* Data Count *)
-
-(* wasm Module *)
-type wasm_module =
-{
-  module_name:              string;
-  mutable data_count:       int;
-  mutable type_section:     functype list;
-  mutable import_section:   import list;
-  mutable function_section: typeidx list;
-  mutable table_section:    tabletype list;
-  mutable memory_section:   memtype list;
-  mutable global_section:   global list;
-  mutable export_section:   export list;
-  mutable start_section:    funcidx option;
-  mutable element_section:  element list;
-  mutable code_section:     func list;
-  mutable data_section:     data list;
-  mutable last_import_func: funcidx;
-  mutable next_global:      int;
-  mutable next_memory:      int;
-  mutable next_table:       int;
-  mutable next_data:        int;
-}
 
 let get_size (m: memtype): int =
 match m with
@@ -1077,20 +1074,18 @@ let rec get_memory_size (i:import list): int =
   | Memtype m -> (get_size m)
   | _ -> get_memory_size (List.tl_exn i)
 
+
 let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fnum: int) (e: expr): execution list =
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section (fnum - w.last_import_func)).locals in 
   execute_bblocks'
+      w           (* module *)
       bblocks     (* bblocks to execute *)
       [0]         (* index of the bblock to start with *)
       e           (* code of those bblocks *)
       []          (* results of the execution so far *)
-      (* the initial state of the program *)
-      (empty_program_state param_types local_types w)
-      (* type index for each function *)
-      w.function_section
-      (* type signatures for each index *)
-      w.type_section
+      (empty_program_state w param_types local_types)
+                  (* initial state of the program *)
 
 let create name =
   { module_name = name; data_count = 0;

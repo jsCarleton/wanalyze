@@ -370,9 +370,10 @@ let condition_of_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype
   String.concat [ "Simple brif loop condition in bblock ";
                   string_of_int bb.index;
                   ":\t";
-                  condition_of_simple_loop' 
+                  condition_of_simple_loop'
+                      w 
                       (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op))
-                      param_types local_types w;
+                      param_types local_types;
                   "\n"]
 
 let conditions_of_simple_loops (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
@@ -403,7 +404,7 @@ let execute_bblock (w: wasm_module) (e: expr) (bblocks: bblock list) (state: pro
       (bb_id: int) =
     (Logging.get_logger "wanalyze")#info  "execute_bblock: bb_id: %s" (string_of_int bb_id);
     let bb = List.nth_exn bblocks bb_id in
-    let (_: string) = reduce_bblock' state w (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op)) "" in
+    let (_: string) = reduce_bblock' w state (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op)) "" in
       ()
 
 let execute_code_path (w: wasm_module) (e: expr) (bblocks: bblock list) (param_types: resulttype list) (local_types: local_type list) 
