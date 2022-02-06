@@ -818,6 +818,12 @@ let reduce_op (w: wasm_module) (op: op_type) (s: program_state): string =
       | Control ->    failwith "Can't happen."
       ); ""
 
+let rec reduce_expr (w: wasm_module) (e: expr) (s: program_state): string =
+  match e with
+  | []      ->  List.hd_exn s.value_stack
+  | hd::tl  ->  let (_: string) = reduce_op w hd s in
+                reduce_expr w tl s
+
 (**
   reduce_bblock' symbolically executes the code in an expr.
   Parameters:
@@ -1053,25 +1059,30 @@ let rec n_iglobals (imports: import list) (acc: int): int =
 let n_mglobals (globals: global list): int =
   List.length globals
 
-let global_name (s: string): string =
-  match s with | "" -> s | _ -> String.concat [" ("; s; ")"]
-let string_of_global (import_name: string) (index: int) (t: valtype):  string =
-  String.concat ["g"; string_of_resulttype t; string_of_int index; (global_name import_name)]
+let string_of_mglobal (w: wasm_module) (e: expr) (s: program_state): string = 
+      reduce_expr w e s
 
-let rec create_globals (imports: import list) (globals: global list) (n_imports: int) (global_vals: string array) (next: int):
-          string array =
+let string_of_iglobal (import_name: string) (index: int) (t: valtype):  string =
+  String.concat ["g"; string_of_resulttype t; string_of_int index; " ("; import_name; ")"]
+
+let rec create_globals (w:wasm_module) (s: program_state) (imports: import list) (globals: global list) (n_imports: int)
+          (global_vals: string array) (next: int): string array =
   match imports with
     | [] ->
       (match globals with
       | []      -> global_vals
       | hd::tl  ->
-          Array.set global_vals next (string_of_global "" next hd.gt.t);
-          create_globals [] tl n_imports global_vals (next+1))
+          let g_val = string_of_mglobal w hd.e s in
+          Array.set global_vals next g_val;
+          Array.set s.global_values next g_val;
+          create_globals w s [] tl n_imports global_vals (next+1))
     | hd::tl ->
       (match hd.description with
-        | Globaltype gt ->  Array.set global_vals next (string_of_global hd.import_name hd.index gt.t);
-                            create_globals tl globals n_imports global_vals (next+1)
-        | _             ->  create_globals tl globals n_imports global_vals next)
+        | Globaltype gt ->  let g_val = (string_of_iglobal hd.import_name hd.index gt.t) in
+                            Array.set global_vals next g_val;
+                            Array.set s.global_values next g_val;
+                            create_globals w s tl globals n_imports global_vals (next+1)
+        | _             ->  create_globals w s tl globals n_imports global_vals next)
 
 (*
     empty_program_state
@@ -1080,18 +1091,25 @@ let rec create_globals (imports: import list) (globals: global list) (n_imports:
 *)
 let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_types: local_type list): program_state =
   let n_i = n_iglobals w.import_section 0 in    (* globals that are imported*)
-  let n_m = n_mglobals w.global_section in      (* globals defined in the module *) 
-  { instr_count   = 0;
-    value_stack   = []; 
-    local_values  = Array.init 
-                        ((List.length param_types) + (List.fold_left ~f:sum_nlocals ~init:0 local_types))
-                      ~f:(local_value param_types local_types); 
-    global_values = create_globals
+  let n_m = n_mglobals w.global_section in      (* globals defined in the module *)
+  let global_values = create_globals            (* we need a state to create the local variables*)
+                      w
+                      { instr_count = 0;
+                        value_stack = [];
+                        local_values = Array.create ~len:0 "";
+                        global_values = (Array.create ~len:(n_i + n_m) "")
+                      }
                       w.import_section
                       w.global_section
                       n_i
                       (Array.create ~len:(n_i + n_m) "")
-                      0}
+                      0 in
+{ instr_count   = 0;
+  value_stack   = []; 
+  local_values  = Array.init 
+                    ((List.length param_types) + (List.fold_left ~f:sum_nlocals ~init:0 local_types))
+                    ~f:(local_value param_types local_types); 
+  global_values = global_values }
 
 
 let get_size (m: memtype): int =

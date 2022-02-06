@@ -7,6 +7,6 @@ cost:    60;
 stack:   []; 
 params:  [pn0, pn1, pn2, (pn3 + (((i32.wrap_i64(pN4) * 12) + -12) shl 3)), pN4]; 
 locals:  [(pn0 + 8), (pn0 + 16), (pn0 + 24), (pn0 + 32), (pn0 + 40), (pn0 + 48), (pn0 + 56), (pn0 - -64), (pn0 + 72), (pn0 + 80), (pn0 + 88), ln16, ln17, ln18, ln19, ln20, ln21, ln22, ln23, ln24, ln25, ln26, ln27, ln28, ln29, ln30, ln31, ln32, ln33, ln34, ln35, ln36, ln37, ln38]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn4, gn5, gn6, gn7, gn8, gn9]
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
 Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)

@@ -7,6 +7,6 @@ cost:    9;
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [(pn2 /u 96), ln4]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn4, gn5, gn6, gn7, gn8, gn9]
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
 Simple brif loop condition in bblock 4:	((ln4 + 1) < ln3)

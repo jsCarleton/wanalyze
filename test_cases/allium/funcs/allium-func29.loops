@@ -7,12 +7,12 @@ cost:    19;
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [(pn0 + pn2), pn0, ln5]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn4, gn5, gn6, gn7, gn8, gn9]
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
 [0 3 23]
 cost:    23; 
 stack:   []; 
 params:  [pn0, pn1, ((pn0 + pn2) - 4)]; 
 locals:  [(pn0 + pn2), pn0, ln5]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn4, gn5, gn6, gn7, gn8, gn9]
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
