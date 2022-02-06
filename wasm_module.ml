@@ -353,26 +353,6 @@ let local_value (param_types: resulttype list) (local_types: local_type list) (i
   | true  -> String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i] 
   | _     -> String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
 
-let rec nglobals (imports: import list) (acc: int): int =
-  match imports with
-  | []      -> acc
-  | hd::tl  ->
-    (match hd.description with 
-      | Globaltype _ -> nglobals tl (acc+1)
-      | _            -> nglobals tl acc)
-
-let string_of_global (import_name: string) (index: int) (t: valtype):  string =
-  String.concat ["g"; string_of_resulttype t; string_of_int index; " ("; import_name; ")"]
-
-let rec create_globals (imports: import list) (globals: string array) (next: int): string array =
-  match imports with
-    | [] -> globals
-    | hd::tl ->
-      (match hd.description with
-        | Globaltype gt ->  Array.set globals next (string_of_global hd.import_name hd.index gt.t);
-                            create_globals tl globals (next+1)
-        | _             ->  create_globals tl globals next)
-
 type program_states = program_state list
 type pending_states = program_states option list
 
@@ -1054,14 +1034,64 @@ let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: 
   List.map ~f:List.rev (code_paths_of_bblocks' bblocks nterm term)
 
 (********************************************************************************)
+(* 
+    n_iglobals
+    return the number of globals that are imported by the module
+*)
+let rec n_iglobals (imports: import list) (acc: int): int =
+  match imports with
+  | []      -> acc
+  | hd::tl  ->
+    (match hd.description with 
+      | Globaltype _ -> n_iglobals tl (acc+1)
+      | _            -> n_iglobals tl acc)
 
+(* 
+    n_mglobals
+    return the number of globals that are defined by the module
+*)
+let n_mglobals (globals: global list): int =
+  List.length globals
+
+let global_name (s: string): string =
+  match s with | "" -> s | _ -> String.concat [" ("; s; ")"]
+let string_of_global (import_name: string) (index: int) (t: valtype):  string =
+  String.concat ["g"; string_of_resulttype t; string_of_int index; (global_name import_name)]
+
+let rec create_globals (imports: import list) (globals: global list) (n_imports: int) (global_vals: string array) (next: int):
+          string array =
+  match imports with
+    | [] ->
+      (match globals with
+      | []      -> global_vals
+      | hd::tl  ->
+          Array.set global_vals next (string_of_global "" next hd.gt.t);
+          create_globals [] tl n_imports global_vals (next+1))
+    | hd::tl ->
+      (match hd.description with
+        | Globaltype gt ->  Array.set global_vals next (string_of_global hd.import_name hd.index gt.t);
+                            create_globals tl globals n_imports global_vals (next+1)
+        | _             ->  create_globals tl globals n_imports global_vals next)
+
+(*
+    empty_program_state
+      returns a program state with the stack, locals and globals initialized based on the
+      module definitions
+*)
 let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_types: local_type list): program_state =
-  { instr_count     = 0;
-    value_stack     = []; 
-    local_values    = Array.init 
+  let n_i = n_iglobals w.import_section 0 in    (* globals that are imported*)
+  let n_m = n_mglobals w.global_section in      (* globals defined in the module *) 
+  { instr_count   = 0;
+    value_stack   = []; 
+    local_values  = Array.init 
                         ((List.length param_types) + (List.fold_left ~f:sum_nlocals ~init:0 local_types))
                       ~f:(local_value param_types local_types); 
-    global_values  = create_globals w.import_section (Array.create ~len:(nglobals w.import_section 0) "") 0}
+    global_values = create_globals
+                      w.import_section
+                      w.global_section
+                      n_i
+                      (Array.create ~len:(n_i + n_m) "")
+                      0}
 
 
 let get_size (m: memtype): int =

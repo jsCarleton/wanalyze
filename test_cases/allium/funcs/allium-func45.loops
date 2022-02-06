@@ -7,7 +7,7 @@ cost:    18;
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [rn0, rn0, rn0, lN6, lN7, lN8, lN9, lN10, lN11]; 
-globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn4, gn5, gn6, gn7, gn8, gn9]
 
 Simple brif loop condition in bblock 7:	((lN8 + 1) < 8)
 Simple brif loop condition in bblock 29:	(((lN6 + lN8) rem_u 8) != 0)
