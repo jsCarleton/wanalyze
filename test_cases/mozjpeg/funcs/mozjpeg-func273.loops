@@ -1,5 +1,20 @@
-Loops found in function 246 in these bblocks: 5 10.
+Loops found in function 273 in these bblocks: 5 10.
 Simple br_if conditions in: 5 10.
 Simple br conditions in: .
-Simple brif loop condition in bblock 5:	(N0 > 42949672959)
-Simple brif loop condition in bblock 10:	(L0 > 9)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 8 9]
+cost:    13; 
+stack:   []; 
+params:  [pN0, pn1]; 
+locals:  [i32.wrap_i64(pN0), ln3, ln4, pN0]; 
+globals: [5400608]
+
+[0 1 4]
+cost:    6; 
+stack:   []; 
+params:  [pN0, pn1]; 
+locals:  [ln2, ln3, ln4, lN5]; 
+globals: [5400608]
+
+Simple brif loop condition in bblock 5:	(pN0 > 42949672959)
+Simple brif loop condition in bblock 10:	(ln2 > 9)

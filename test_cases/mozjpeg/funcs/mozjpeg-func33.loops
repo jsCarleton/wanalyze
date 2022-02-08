@@ -1,4 +1,6 @@
-Loops found in function 6 in these bblocks: 25 79 116 125.
+Loops found in function 33 in these bblocks: 25 79 116 125.
 Simple br_if conditions in: 125.
 Simple br conditions in: .
-Simple brif loop condition in bblock 125:	i32.load@(L2)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+
+Simple brif loop condition in bblock 125:	i32.load@(ln3)

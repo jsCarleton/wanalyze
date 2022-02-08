@@ -1,4 +1,12 @@
-Loops found in function 0 in these bblocks: 9.
+Loops found in function 27 in these bblocks: 9.
 Simple br_if conditions in: 9.
 Simple br conditions in: .
-Simple brif loop condition in bblock 9:	((N2 + -32) > 31)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 3 4 5 6 7 8]
+cost:    161; 
+stack:   [(((pn0 + ((0 - pn0) && 3)) + ((pn2 - ((0 - pn0) && 3)) && -4)) + -28), (((pn0 + ((0 - pn0) && 3)) + ((pn2 - ((0 - pn0) && 3)) && -4)) + -24), (((pn0 + ((0 - pn0) && 3)) + ((pn2 - ((0 - pn0) && 3)) && -4)) + -20), (((pn0 + ((0 - pn0) && 3)) + ((pn2 - ((0 - pn0) && 3)) && -4)) + -16), (pn0 + ((0 - pn0) && 3)), (pn0 + ((0 - pn0) && 3)), (pn0 + ((0 - pn0) && 3)), (pn0 + ((0 - pn0) && 3)), (((pn0 + ((0 - pn0) && 3)) + ((pn2 - ((0 - pn0) && 3)) && -4)) + -12), (((pn0 + ((0 - pn0) && 3)) + ((pn2 - ((0 - pn0) && 3)) && -4)) + -8), (pn0 + ((0 - pn0) && 3)), (pn0 + ((0 - pn0) && 3)), (((pn0 + ((0 - pn0) && 3)) + ((pn2 - ((0 - pn0) && 3)) && -4)) + -4), (pn0 + ((0 - pn0) && 3)), pn0, ((pn0 + pn2) + -4), pn0, ((pn0 + pn2) + -3), pn0, ((pn0 + pn2) + -2), pn0, ((pn0 + pn2) + -1)]; 
+params:  [pn0, ((pn0 + ((0 - pn0) && 3)) + (((pn0 + ((0 - pn0) && 3)) && 4) || 24)), (((pn2 - ((0 - pn0) && 3)) && -4) - (((pn0 + ((0 - pn0) && 3)) && 4) || 24))]; 
+locals:  [(pn0 + ((0 - pn0) && 3)), (((pn0 + ((0 - pn0) && 3)) && 4) || 24), ((i64.extend_i32_u(((pn1 && 255) * 16843009)) shl 32) || i64.extend_i32_u(((pn1 && 255) * 16843009)))]; 
+globals: [5400608]
+
+Simple brif loop condition in bblock 9:	((pn2 + -32) > 31)

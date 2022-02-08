@@ -1,6 +1,10 @@
 open Core
 open Easy_logging
 
+(* Type definitions *)
+(* Part 1 - Module definitions *)
+(* most of these are definitions taken from the wasm spec *)
+
 (* Types *)
 type numtype =
   | I32 | I64 | F32 | F64
@@ -44,12 +48,11 @@ type functype =
   rt1:    resulttype list;
   rt2:    resulttype list;
 }
-let create_functype rt1 rt2 = { rt1; rt2}
 
 (* Imports *)
 type limits =
-| Noupper of int
-| Lowerupper of int*int
+  | Noupper of int
+  | Lowerupper of int*int
 
 type tabletype =
 {
@@ -60,8 +63,8 @@ type tabletype =
 type memtype = limits
 
 type mut =
-| Const
-| Var
+  | Const
+  | Var
 
 type globaltype = 
 {
@@ -70,10 +73,10 @@ type globaltype =
 }
 
 type importdesc = 
-| Functype    of typeidx
-| Tabletype   of tabletype
-| Memtype     of memtype
-| Globaltype  of globaltype
+  | Functype    of typeidx
+  | Tabletype   of tabletype
+  | Memtype     of memtype
+  | Globaltype  of globaltype
 
 type import =
 {
@@ -93,10 +96,10 @@ type import =
 
 (* Exports *)
 type exportdesc =
-| Func    of funcidx
-| Table   of tableidx
-| Mem     of memidx
-| Global  of globalidx
+  | Func    of funcidx
+  | Table   of tableidx
+  | Mem     of memidx
+  | Global  of globalidx
 
 type export =
 {
@@ -176,6 +179,7 @@ type instr_type =
   | Relop of string
   | Cvtop
 
+(* this type is supplemented with additional information to facilitate analysis *)
 type op_type =
 {
   opcode:     int;
@@ -220,14 +224,14 @@ type table_expr_ref_expr =
 }
 
 type element =
-| ExprFunc of expr_func
-| ElemFuncP of elem_func
-| TableExprElemFunc of table_expr_elem_func
-| ElemFuncD of elem_func
-| ExprExpr of expr_expr
-| RefExprP of ref_expr
-| TableExprRefExpr of table_expr_ref_expr
-| RefExprD of ref_expr
+  | ExprFunc of expr_func
+  | ElemFuncP of elem_func
+  | TableExprElemFunc of table_expr_elem_func
+  | ElemFuncD of elem_func
+  | ExprExpr of expr_expr
+  | RefExprP of ref_expr
+  | TableExprRefExpr of table_expr_ref_expr
+  | RefExprD of ref_expr
 
 (* Code, including bblocks *)
 
@@ -237,6 +241,8 @@ type local_type =
   v:  valtype;
 }
 
+(* basic blocks and code paths are supplementary information that we store as part of the func definition to
+    facilitate analysis *)
 (* basic blocks have a type that's determined by the control instruction that terminates the bblock *)
 type bb_type =
   BB_unknown |
@@ -287,9 +293,9 @@ type mem_expr_bytes =
   b:  bytes;
 }
 type data_details =
-| ExprBytes of expr_bytes
-| Bytes of bytes
-| MemExprBytes of mem_expr_bytes
+  | ExprBytes of expr_bytes
+  | Bytes of bytes
+  | MemExprBytes of mem_expr_bytes
 type data =
 {
   index:    int;
@@ -321,6 +327,11 @@ type wasm_module =
   mutable next_data:        int;
 }
 
+(* Type definitions *)
+(* Part 2 - Analysis definitions *)
+(* definitions that our analysis is based on *)
+(* the types op_code, bblock and code_path are defined above but are strictly speaking a by-product of our analysis *)
+
 (* Program state types *)
 type program_state =
 {
@@ -330,7 +341,29 @@ type program_state =
   mutable global_values:  string array;
 }
 
-let sum_nlocals acc (l: local_type) = acc + l.n
+type program_states = program_state list
+type pending_states = program_states option list
+
+type states =
+{
+  mutable active:   program_states;
+  mutable pending:  pending_states;
+  mutable final:    program_states;
+}
+
+type execution =
+{
+  index:              int;              (* the index of the bblock being executed *)
+  pred_index:         int;
+  succ_index:         int;
+  initial:            program_state;    (* the program state before the first instruction of the bblock is executed *)
+  mutable final:      program_state;    (* the program state after the last instruction of the bblock is executed *)
+  mutable succ_cond:  string;           (* the expression that must be true in order for the first successor state to be entered *) 
+}
+
+(* Implementation *)
+(* Part 1 - symbolic variable initialization of locals, parameters and function return values *)
+(* globals need the symbolic execution definitions to be initialized *)
 
 let string_of_resulttype (t: resulttype): string =
   match t with
@@ -353,15 +386,11 @@ let local_value (param_types: resulttype list) (local_types: local_type list) (i
   | true  -> String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i] 
   | _     -> String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
 
-type program_states = program_state list
-type pending_states = program_states option list
+let string_of_retval (index: int) (rt: resulttype): string =
+  String.concat ["r"; (string_of_resulttype rt); (string_of_int index)]
 
-type states =
-{
-  mutable active:   program_states;
-  mutable pending:  pending_states;
-  mutable final:    program_states;
-}
+(* Implementation *)
+(* Part 2 - basic blocks *)
 
 let bb_type_of_opcode (op: int): bb_type =
   match op with
@@ -376,30 +405,6 @@ let bb_type_of_opcode (op: int): bb_type =
   | (* br_table *)    0x0e -> BB_br_table   
   | (* return *)      0x0f -> BB_return
   | _                      -> failwith (sprintf "Invalid opcode for bb %x" op)
-
-let string_of_bbtype (bbtype: bb_type) : string =
-  match bbtype with
-  | BB_unknown      -> "unknown"
-  | BB_unreachable  -> "unreachable"
-  | BB_block        -> "block"
-  | BB_loop         -> "loop"
-  | BB_if           -> "if"
-  | BB_else         -> "else"
-  | BB_end          -> "end"
-  | BB_br           -> "br"
-  | BB_br_if        -> "br_if"
-  | BB_br_table     -> "br_table"
-  | BB_return       -> "return"
-
-type execution =
-{
-  index:              int;              (* the index of the bblock being executed *)
-  pred_index:         int;
-  succ_index:         int;
-  initial:            program_state;    (* the program state before the first instruction of the bblock is executed *)
-  mutable final:      program_state;    (* the program state after the last instruction of the bblock is executed *)
-  mutable succ_cond:  string;           (* the expression that must be true in order for the first successor state to be entered *) 
-}
 
 let mult_succ_count (bblocks: bblock list): int =
   List.fold bblocks ~init:0 ~f:(fun a x -> match x.succ with |[] | [_] -> a | _ -> a+1)
@@ -519,22 +524,9 @@ match index < List.length bblocks with
       | _ -> ()
     );
   set_br_dest bblocks (index+1)
-  
-(* printing the state *)
-let string_of_instr_count (count: int) = String.concat ["\ncost:    " ; string_of_int count ; "; "]
-let string_of_value_stack (stack: string list) = String.concat ["stack:   [" ; (String.concat ~sep:", " stack) ; "]; "]
-let string_of_param_values (locals: string array) = String.concat ["params:  [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]; "]
-let string_of_local_values (params: string array) = String.concat ["locals:  [" ; (String.concat ~sep:", " (Array.to_list params)) ; "]; "]
-let string_of_global_values (globals: string array) = String.concat ["globals: [" ; (String.concat ~sep:", " (Array.to_list globals)) ; "]"]
-let string_of_state (print_locals: bool) (nparams: int) (state: program_state): string =
-  String.concat [ string_of_instr_count state.instr_count; "\n";
-                  string_of_value_stack state.value_stack; "\n";
-                  string_of_param_values (Array.sub state.local_values ~pos:0 ~len:nparams); "\n";
-                  (match print_locals with 
-                    | true -> string_of_local_values (Array.sub state.local_values ~pos:nparams ~len:((Array.length state.local_values) - nparams)) 
-                    | false -> ""); "\n";
-                  string_of_global_values state.global_values; "\n"]
-let string_of_ps (nparams: int) (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:(string_of_state true nparams) ps)
+
+(* Implementation *)
+(* Part 3 - symbolic execution *)
 
 (* Updating the state of the program *)
 let pop_value (state: program_state) = state.value_stack <- List.tl_exn state.value_stack
@@ -562,9 +554,6 @@ let pop_pending_states (src: pending_states): program_states =
   | _ -> failwith "Invalid pending states"
 let push_retval (state: program_state) (retval: string) =
   state.value_stack <- List.cons retval state.value_stack
-
-let string_of_retval (index: int) (rt: resulttype): string =
-  String.concat ["r"; (string_of_resulttype rt); (string_of_int index)]
 
 (* call op handling *)
 let update_state_callop (_: wasm_module) (param_count: int) (retval_types: resulttype list) (state: program_state) =
@@ -889,60 +878,9 @@ let bblocks_of_expr (e: expr) : bblock list =
   List.iter ~f:(set_pred bblocks) bblocks;
   bblocks
 
-let graph_node (src: int) (label: string) (dest: int): string =
-  match src >= dest with
-  | true  -> 
-      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
-  | false -> 
-      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label=\""; label; "\"];\n"]
+(* Implementation *)
+(* Part 4 - code paths *)
 
-let graph_bblock (index: int) (bbtype: bb_type) (succ: int list) (pred: int list) (last: int): string =
-  match List.length pred > 0 || index = 0 with
-  | true ->
-    (match bbtype with
-    | BB_unreachable  -> graph_node index "unreachable" last
-    | BB_end          -> graph_node index "end" (List.nth_exn succ 0)
-    | BB_block        -> graph_node index "block" (List.nth_exn succ 0)
-    | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0)
-    | BB_if           ->
-        String.concat [
-          graph_node index "if" (List.nth_exn succ 0);
-          graph_node index "~if" (List.nth_exn succ 1);
-        ]
-    | BB_else         -> graph_node index "else" (List.nth_exn succ 0)
-    | BB_br_if        ->
-        String.concat [
-          graph_node index "~br_if" (List.nth_exn succ 0);
-          graph_node index "br_if" (List.nth_exn succ 1);
-        ]
-    | BB_br           -> graph_node index "br" (List.nth_exn succ 0)
-    | BB_br_table     -> String.concat (List.map ~f:(graph_node index  "br_table") succ)
-    | BB_return       -> graph_node index "return" last
-    | BB_unknown      -> failwith "Unknown bb type in graph_bblock")
-  | _ -> ""
-
-let graph_prefix (module_name: string) (func_idx: int) (last: int): string =
-  String.concat[
-          "digraph finite_state_machine {\n";
-          "    label = \""; module_name; " - function "; string_of_int func_idx; "\"\n";
-          "    labelloc =  t\n";
-          "    labelfontsize = 16\n";
-          "    labelfontcolor = black\n";
-          "    labelfontname = \"Helvetica\"\n";
-          "    node [shape = doublecircle]; 0 "; string_of_int last; ";\n";
-          "    node [shape = circle];\n"]
-let graph_suffix = "}\n"
-let rec graph_bblocks' (bblocks: bblock list) (last: int) (acc: string): string =
-  match bblocks with
-  | [] -> acc
-  | hd::tl -> graph_bblocks' tl last (String.concat [acc; graph_bblock hd.index hd.bbtype hd.succ hd.pred last])
-let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): string =
-  let last = (List.length bblocks) in
-  String.concat [ graph_prefix module_name func_idx last; 
-                  graph_bblocks' bblocks (List.length bblocks) "";
-                  graph_suffix]
-
-(********************************************************************************)
 (*
     succ_of_cp
     Takes a list of bblocks and a code path and returns the list of bblocks that
@@ -1039,7 +977,11 @@ let rec code_paths_of_bblocks' (bblocks: bblock list) (nterm: code_path list) (t
 let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
   List.map ~f:List.rev (code_paths_of_bblocks' bblocks nterm term)
 
-(********************************************************************************)
+(* Implementation *)
+(* Part 5 - globals *)
+(* this is here because we need the symbolic execution definitions to be able to
+    initialize globals *)
+
 (* 
     n_iglobals
     return the number of globals that are imported by the module
@@ -1084,6 +1026,10 @@ let rec create_globals (w:wasm_module) (s: program_state) (imports: import list)
                             create_globals w s tl globals n_imports global_vals (next+1)
         | _             ->  create_globals w s tl globals n_imports global_vals next)
 
+let sum_nlocals acc (l: local_type) = acc + l.n
+
+(* Implementation *)
+(* Part 6 - program state *)
 (*
     empty_program_state
       returns a program state with the stack, locals and globals initialized based on the
@@ -1111,17 +1057,8 @@ let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_t
                     ~f:(local_value param_types local_types); 
   global_values = global_values }
 
-
-let get_size (m: memtype): int =
-match m with
-| Noupper min         -> min
-| Lowerupper (_,max)  -> max
-
-let rec get_memory_size (i:import list): int =
-  match (List.hd_exn i).description with
-  | Memtype m -> (get_size m)
-  | _ -> get_memory_size (List.tl_exn i)
-
+(* Implementation *)
+(* Part 7 - basic block execution *)
 
 let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fnum: int) (e: expr): execution list =
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
@@ -1142,11 +1079,13 @@ let create name =
     element_section = []; code_section = []; data_section = [];
     last_import_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
   
-(* Section updating *)
+(* Implementation *)
+(* Part 8 - section updating *)
+
 (* type section *)
 let update_type_section (w: wasm_module) (rt1, rt2) =
   w.type_section 
-    <- List.append w.type_section [create_functype (List.map ~f:valtype_of_int rt1) (List.map ~f:valtype_of_int rt2) ]; true
+    <- List.append w.type_section [{rt1 = List.map ~f:valtype_of_int rt1; rt2 = List.map ~f:valtype_of_int rt2}]; true
 
 (* import section *)
 let index_of (w: wasm_module) desc =

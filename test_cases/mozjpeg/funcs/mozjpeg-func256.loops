@@ -1,3 +1,11 @@
-Loops found in function 229 in these bblocks: 7.
+Loops found in function 256 in these bblocks: 7.
 Simple br_if conditions in: .
 Simple br conditions in: .
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 3 4 5 6]
+cost:    29; 
+stack:   []; 
+params:  []; 
+locals:  [i32.load@(i32.load@(157068)), rn0, i32.load@(157068), ln3, ln4]; 
+globals: [5400608]
+

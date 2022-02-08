@@ -1,5 +1,62 @@
-Loops found in function 27 in these bblocks: 7 11 18 20 30.
+Loops found in function 54 in these bblocks: 7 11 18 20 30.
 Simple br_if conditions in: 11 20.
 Simple br conditions in: .
-Simple brif loop condition in bblock 11:	(N2 + -1)
-Simple brif loop condition in bblock 20:	(L1 == i32.load8_s@(((L0 + 1) + (L2 + 1040))))
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 3 4 5 6]
+cost:    75; 
+stack:   [1280, 1, pn0, pn3, i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1, pn2, 0]; 
+locals:  [1, ln5, (5400608 - 1312), i32.load@(i32.load@(pn0)), ln8, i32.load@(((pn0 + (pn2 shl 2)) + 88)), ln10]; 
+globals: [(5400608 - 1312)]
+
+[0 1 2 3 4 6]
+cost:    64; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1, pn2, 0]; 
+locals:  [1, ln5, (5400608 - 1312), i32.load@(pn3), ln8, i32.load@(((pn0 + (pn2 shl 2)) + 88)), ln10]; 
+globals: [(5400608 - 1312)]
+
+[0 1 2 4 5 6]
+cost:    61; 
+stack:   [1280, 1, pn0, pn3, i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1, pn2, 0]; 
+locals:  [1, ln5, (5400608 - 1312), i32.load@(i32.load@(pn0)), ln8, i32.load@(((pn0 + (pn2 shl 2)) + 88)), ln10]; 
+globals: [(5400608 - 1312)]
+
+[0 1 2 4 6]
+cost:    50; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1, pn2, 0]; 
+locals:  [1, ln5, (5400608 - 1312), i32.load@(pn3), ln8, i32.load@(((pn0 + (pn2 shl 2)) + 88)), ln10]; 
+globals: [(5400608 - 1312)]
+
+[0 2 3 4 5 6]
+cost:    61; 
+stack:   [1280, 1, pn0, pn3, i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1, pn2, 0]; 
+locals:  [1, ln5, (5400608 - 1312), i32.load@(i32.load@(pn0)), ln8, i32.load@(((pn0 + (pn2 shl 2)) + 88)), ln10]; 
+globals: [(5400608 - 1312)]
+
+[0 2 3 4 6]
+cost:    50; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1, pn2, 0]; 
+locals:  [1, ln5, (5400608 - 1312), i32.load@(pn3), ln8, i32.load@(((pn0 + (pn2 shl 2)) + 88)), ln10]; 
+globals: [(5400608 - 1312)]
+
+[0 2 4 5 6]
+cost:    47; 
+stack:   [1280, 1, pn0, pn3]; 
+params:  [pn0, pn1, pn2, 0]; 
+locals:  [1, ln5, (5400608 - 1312), i32.load@(i32.load@(pn0)), ln8, i32.load@(((pn0 + (pn2 shl 2)) + 88)), ln10]; 
+globals: [(5400608 - 1312)]
+
+[0 2 4 6]
+cost:    36; 
+stack:   []; 
+params:  [pn0, pn1, pn2, 0]; 
+locals:  [1, ln5, (5400608 - 1312), i32.load@(pn3), ln8, i32.load@(((pn0 + (pn2 shl 2)) + 88)), ln10]; 
+globals: [(5400608 - 1312)]
+
+Simple brif loop condition in bblock 11:	(pn2 + -1)
+Simple brif loop condition in bblock 20:	(ln5 == i32.load8_s@(((ln4 + 1) + (ln6 + 1040))))

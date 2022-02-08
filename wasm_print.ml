@@ -3,7 +3,6 @@ open Easy_logging
 open Wasm_module
 
 (* Printable strings *)
-
 let string_of_numtype nt =
   match nt with
   | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64"
@@ -210,6 +209,20 @@ let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; 
 let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
 let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
 
+let string_of_bbtype (bbtype: bb_type) : string =
+  match bbtype with
+  | BB_unknown      -> "unknown"
+  | BB_unreachable  -> "unreachable"
+  | BB_block        -> "block"
+  | BB_loop         -> "loop"
+  | BB_if           -> "if"
+  | BB_else         -> "else"
+  | BB_end          -> "end"
+  | BB_br           -> "br"
+  | BB_br_if        -> "br_if"
+  | BB_br_table     -> "br_table"
+  | BB_return       -> "return"
+
 let string_of_bbindex (i: int) : string = match i with | -1 -> "" | _ -> string_of_int i
 let string_of_ints (ints: int list): string =
     String.concat ~sep:" " (List.map ~f:string_of_int ints)
@@ -308,6 +321,22 @@ let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_o
 let has_successors (bblocks: bblock list) (bb_index: int ): bool =
   let succ = (List.nth_exn bblocks bb_index).succ in
     (List.length succ > 0) && (List.hd_exn succ < List.length bblocks)
+
+(* printing the state *)
+let string_of_instr_count (count: int) = String.concat ["\ncost:    " ; string_of_int count ; "; "]
+let string_of_value_stack (stack: string list) = String.concat ["stack:   [" ; (String.concat ~sep:", " stack) ; "]; "]
+let string_of_param_values (locals: string array) = String.concat ["params:  [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]; "]
+let string_of_local_values (params: string array) = String.concat ["locals:  [" ; (String.concat ~sep:", " (Array.to_list params)) ; "]; "]
+let string_of_global_values (globals: string array) = String.concat ["globals: [" ; (String.concat ~sep:", " (Array.to_list globals)) ; "]"]
+let string_of_state (print_locals: bool) (nparams: int) (state: program_state): string =
+  String.concat [ string_of_instr_count state.instr_count; "\n";
+                  string_of_value_stack state.value_stack; "\n";
+                  string_of_param_values (Array.sub state.local_values ~pos:0 ~len:nparams); "\n";
+                  (match print_locals with 
+                    | true -> string_of_local_values (Array.sub state.local_values ~pos:nparams ~len:((Array.length state.local_values) - nparams)) 
+                    | false -> ""); "\n";
+                  string_of_global_values state.global_values; "\n"]
+let string_of_ps (nparams: int) (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:(string_of_state true nparams) ps)
 
 let string_of_execution (nparams: int) (bblocks: bblock list) (ex: execution): string =
   sprintf "bblock %d from %d\ninitial state: %s\nfinal   state: %s\n" 
@@ -455,6 +484,59 @@ let rec compare_cps (cp1: code_path) (cp2: code_path): int =
         | true                  -> compare_cps tl1 tl2
         | false when hd1 < hd2  -> -1
         | _                     -> +1)
+
+let graph_node (src: int) (label: string) (dest: int): string =
+  match src >= dest with
+  | true  -> 
+      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
+  | false -> 
+      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label=\""; label; "\"];\n"]
+
+let graph_bblock (index: int) (bbtype: bb_type) (succ: int list) (pred: int list) (last: int): string =
+  match List.length pred > 0 || index = 0 with
+  | true ->
+    (match bbtype with
+    | BB_unreachable  -> graph_node index "unreachable" last
+    | BB_end          -> graph_node index "end" (List.nth_exn succ 0)
+    | BB_block        -> graph_node index "block" (List.nth_exn succ 0)
+    | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0)
+    | BB_if           ->
+        String.concat [
+          graph_node index "if" (List.nth_exn succ 0);
+          graph_node index "~if" (List.nth_exn succ 1);
+        ]
+    | BB_else         -> graph_node index "else" (List.nth_exn succ 0)
+    | BB_br_if        ->
+        String.concat [
+          graph_node index "~br_if" (List.nth_exn succ 0);
+          graph_node index "br_if" (List.nth_exn succ 1);
+        ]
+    | BB_br           -> graph_node index "br" (List.nth_exn succ 0)
+    | BB_br_table     -> String.concat (List.map ~f:(graph_node index  "br_table") succ)
+    | BB_return       -> graph_node index "return" last
+    | BB_unknown      -> failwith "Unknown bb type in graph_bblock")
+  | _ -> ""
+
+let graph_prefix (module_name: string) (func_idx: int) (last: int): string =
+  String.concat[
+          "digraph finite_state_machine {\n";
+          "    label = \""; module_name; " - function "; string_of_int func_idx; "\"\n";
+          "    labelloc =  t\n";
+          "    labelfontsize = 16\n";
+          "    labelfontcolor = black\n";
+          "    labelfontname = \"Helvetica\"\n";
+          "    node [shape = doublecircle]; 0 "; string_of_int last; ";\n";
+          "    node [shape = circle];\n"]
+let graph_suffix = "}\n"
+let rec graph_bblocks' (bblocks: bblock list) (last: int) (acc: string): string =
+  match bblocks with
+  | [] -> acc
+  | hd::tl -> graph_bblocks' tl last (String.concat [acc; graph_bblock hd.index hd.bbtype hd.succ hd.pred last])
+let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): string =
+  let last = (List.length bblocks) in
+  String.concat [ graph_prefix module_name func_idx last; 
+                  graph_bblocks' bblocks (List.length bblocks) "";
+                  graph_suffix]
 
 (* print the functions one by one along with our analysis *)
 let print_function (w: wasm_module) dir prefix fidx type_idx =

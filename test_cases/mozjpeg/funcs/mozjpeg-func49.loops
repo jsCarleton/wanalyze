@@ -1,4 +1,12 @@
-Loops found in function 22 in these bblocks: 3.
+Loops found in function 49 in these bblocks: 3.
 Simple br_if conditions in: 3.
 Simple br conditions in: .
-Simple brif loop condition in bblock 3:	((N2 + -256) > 255)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2]
+cost:    32; 
+stack:   []; 
+params:  [pn0, ((pn2 - pn3) < 256), (pn2 - pn3), pn3, pn4]; 
+locals:  [(5400608 - 256)]; 
+globals: [(5400608 - 256)]
+
+Simple brif loop condition in bblock 3:	((pn2 + -256) > 255)

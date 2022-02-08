@@ -1,5 +1,7 @@
-Loops found in function 5 in these bblocks: 39 55 71 85 102 131 233 241 257 265 299 331 338 356 404.
+Loops found in function 32 in these bblocks: 39 55 71 85 102 131 233 241 257 265 299 331 338 356 404.
 Simple br_if conditions in: 241 338.
 Simple br conditions in: .
-Simple brif loop condition in bblock 241:	((N0 + 1) != 32)
-Simple brif loop condition in bblock 338:	(L3 > (N0 + 8))
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+
+Simple brif loop condition in bblock 241:	((pn0 + 1) != 32)
+Simple brif loop condition in bblock 338:	(ln4 > (pn0 + 8))

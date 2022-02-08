@@ -1,5 +1,13 @@
-Loops found in function 138 in these bblocks: 3 11 13 25 27.
+Loops found in function 165 in these bblocks: 3 11 13 25 27.
 Simple br_if conditions in: 13 27.
 Simple br conditions in: .
-Simple brif loop condition in bblock 13:	(L0 < i32.load@(N0))
-Simple brif loop condition in bblock 27:	((L0 + 1) != L2)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2]
+cost:    18; 
+stack:   []; 
+params:  [pn0, pn1, pn2, pn3, pn4, pn5, pn6]; 
+locals:  [ln7, i32.load@(pn0), ln9, ln10, ln11, ln12, ln13, (i32.load@(pn0) * 3), (i32.load@(pn0) + 8)]; 
+globals: [5400608]
+
+Simple brif loop condition in bblock 13:	(ln7 < i32.load@(pn0))
+Simple brif loop condition in bblock 27:	((ln7 + 1) != ln9)

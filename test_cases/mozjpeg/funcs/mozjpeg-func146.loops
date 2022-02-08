@@ -1,5 +1,20 @@
-Loops found in function 119 in these bblocks: 7 13 19.
+Loops found in function 146 in these bblocks: 7 13 19.
 Simple br_if conditions in: 13 19.
 Simple br conditions in: .
-Simple brif loop condition in bblock 13:	i32.eqz((((i32.load@(L0) xor -1) && (i32.load@(L0) + -16843009)) && -2139062144))
-Simple brif loop condition in bblock 19:	i32.load8_u@(L1)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 3 6]
+cost:    14; 
+stack:   []; 
+params:  [pn0]; 
+locals:  [pn0, ln2, ln3]; 
+globals: [5400608]
+
+[0 1 2 12]
+cost:    10; 
+stack:   []; 
+params:  [pn0]; 
+locals:  [pn0, ln2, ln3]; 
+globals: [5400608]
+
+Simple brif loop condition in bblock 13:	i32.eqz((((i32.load@(ln1) xor -1) && (i32.load@(ln1) + -16843009)) && -2139062144))
+Simple brif loop condition in bblock 19:	i32.load8_u@(ln2)

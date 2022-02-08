@@ -1,4 +1,33 @@
-Loops found in function 150 in these bblocks: 28.
+Loops found in function 177 in these bblocks: 28.
 Simple br_if conditions in: 28.
 Simple br conditions in: .
-Simple brif loop condition in bblock 28:	((N0 + 1) != N1)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 3 4 5 6 7 8 9 10 11 12 24 25 26 27]
+cost:    82; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), pn0, pn0, pn0, pn0, i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, i32.load@(pn0)]; 
+locals:  [i32.load@(pn0), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 1 2 3 4 5 6 7 8 9 10 11 12 24 27]
+cost:    58; 
+stack:   [pn0, pn0, pn0, pn0, i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, i32.load@(pn0)]; 
+locals:  [i32.load@(pn0), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 2 3 4 5 6 7 8 9 10 11 12 24 25 26 27]
+cost:    68; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), pn0, pn0, pn0, pn0]; 
+params:  [0, i32.load@(pn0)]; 
+locals:  [i32.load@(pn0), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 2 3 4 5 6 7 8 9 10 11 12 24 27]
+cost:    44; 
+stack:   [pn0, pn0, pn0, pn0]; 
+params:  [0, i32.load@(pn0)]; 
+locals:  [i32.load@(pn0), i32.load@(pn0)]; 
+globals: [5400608]
+
+Simple brif loop condition in bblock 28:	((pn0 + 1) != pn1)

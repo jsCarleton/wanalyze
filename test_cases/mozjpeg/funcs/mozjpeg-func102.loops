@@ -1,15 +1,17 @@
-Loops found in function 75 in these bblocks: 4 10 17 18 27 32 42 49 65 73 81 85 96 101 122 131 133 142 143 150 154 158.
+Loops found in function 102 in these bblocks: 4 10 17 18 27 32 42 49 65 73 81 85 96 101 122 131 133 142 143 150 154 158.
 Simple br_if conditions in: 10 18 42 49 81 96 101 133 143 150 154 158.
 Simple br conditions in: .
-Simple brif loop condition in bblock 10:	((L0 + 1) != 64)
-Simple brif loop condition in bblock 18:	((L0 + 1) != 64)
-Simple brif loop condition in bblock 42:	(L8 shr_s 1)
-Simple brif loop condition in bblock 49:	(L0 shr_s 1)
-Simple brif loop condition in bblock 81:	((L0 + 1) != L3)
-Simple brif loop condition in bblock 96:	(L8 shr_s 1)
-Simple brif loop condition in bblock 101:	(L0 shr_s 1)
-Simple brif loop condition in bblock 133:	((L0 + -1) > L1)
-Simple brif loop condition in bblock 143:	((L0 + 1) != 64)
-Simple brif loop condition in bblock 150:	((N1 + 1) != L12)
-Simple brif loop condition in bblock 154:	(N1 > 0)
-Simple brif loop condition in bblock 158:	((L1 + 1) != L12)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+
+Simple brif loop condition in bblock 10:	((ln11 + 1) != 64)
+Simple brif loop condition in bblock 18:	((ln11 + 1) != 64)
+Simple brif loop condition in bblock 42:	(ln19 shr_s 1)
+Simple brif loop condition in bblock 49:	(ln11 shr_s 1)
+Simple brif loop condition in bblock 81:	((ln11 + 1) != ln14)
+Simple brif loop condition in bblock 96:	(ln19 shr_s 1)
+Simple brif loop condition in bblock 101:	(ln11 shr_s 1)
+Simple brif loop condition in bblock 133:	((ln11 + -1) > ln12)
+Simple brif loop condition in bblock 143:	((ln11 + 1) != 64)
+Simple brif loop condition in bblock 150:	((pn1 + 1) != ln23)
+Simple brif loop condition in bblock 154:	(pn1 > 0)
+Simple brif loop condition in bblock 158:	((ln12 + 1) != ln23)

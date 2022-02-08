@@ -1,5 +1,76 @@
-Loops found in function 147 in these bblocks: 16 27 37 45.
+Loops found in function 174 in these bblocks: 16 27 37 45.
 Simple br_if conditions in: 27 45.
 Simple br conditions in: .
-Simple brif loop condition in bblock 27:	((L3 + 1) != 16)
-Simple brif loop condition in bblock 45:	((L3 + 1) != 16)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 3 12 13 14 15]
+cost:    42; 
+stack:   [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+[0 1 2 3 12 13 14 36]
+cost:    42; 
+stack:   [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+[0 1 2 5 12 13 14 15]
+cost:    42; 
+stack:   [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+[0 1 2 5 12 13 14 36]
+cost:    42; 
+stack:   [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+[0 1 7 8 12 13 14 15]
+cost:    42; 
+stack:   [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+[0 1 7 8 12 13 14 36]
+cost:    42; 
+stack:   [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+[0 1 7 10 11 12 13 14 15]
+cost:    54; 
+stack:   [i32.load@(pn0), 1000, 1, pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+[0 1 7 10 11 12 13 14 36]
+cost:    54; 
+stack:   [i32.load@(pn0), 1000, 1, pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+[0 1 7 10 12 13 14 15]
+cost:    44; 
+stack:   [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+[0 1 7 10 12 13 14 36]
+cost:    44; 
+stack:   [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
+params:  [pn0, pn1]; 
+locals:  [i32.load@(pn0), ln3, i32.load@(pn0), ln5, ln6, i32.eqz(i32.load@(pn0))]; 
+globals: [5400608]
+
+Simple brif loop condition in bblock 27:	((ln5 + 1) != 16)
+Simple brif loop condition in bblock 45:	((ln5 + 1) != 16)

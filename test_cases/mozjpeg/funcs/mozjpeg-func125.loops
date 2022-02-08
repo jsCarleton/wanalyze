@@ -1,3 +1,46 @@
-Loops found in function 98 in these bblocks: 16 26 37.
+Loops found in function 125 in these bblocks: 16 26 37.
 Simple br_if conditions in: .
 Simple br conditions in: .
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 1 2 3 4 7 9 10 13 14 15]
+cost:    50; 
+stack:   [pn0, pn0]; 
+params:  [pn0]; 
+locals:  [i32.load8_u@(i32.load@(pn0)), ln2, ln3, (i32.load8_u@(i32.load@(pn0)) == 45), lN5]; 
+globals: [5400608]
+
+[0 1 2 3 4 7 9 12 13 14 15]
+cost:    45; 
+stack:   [pn0]; 
+params:  [pn0]; 
+locals:  [rn0, ln2, ln3, (i32.load8_u@(i32.load@(pn0)) == 45), lN5]; 
+globals: [5400608]
+
+[0 1 2 3 4 7 13 14 15]
+cost:    30; 
+stack:   [pn0]; 
+params:  [pn0]; 
+locals:  [i32.load8_u@(i32.load@(pn0)), ln2, ln3, ln4, lN5]; 
+globals: [5400608]
+
+[0 1 2 3 6 7 9 10 13 14 15]
+cost:    45; 
+stack:   [pn0]; 
+params:  [pn0]; 
+locals:  [i32.load8_u@(i32.load@(pn0)), ln2, ln3, (rn0 == 45), lN5]; 
+globals: [5400608]
+
+[0 1 2 3 6 7 9 12 13 14 15]
+cost:    40; 
+stack:   []; 
+params:  [pn0]; 
+locals:  [rn0, ln2, ln3, (rn0 == 45), lN5]; 
+globals: [5400608]
+
+[0 1 2 3 6 7 13 14 15]
+cost:    25; 
+stack:   []; 
+params:  [pn0]; 
+locals:  [rn0, ln2, ln3, ln4, lN5]; 
+globals: [5400608]
+

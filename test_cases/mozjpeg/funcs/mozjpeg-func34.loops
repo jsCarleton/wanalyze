@@ -1,7 +1,106 @@
-Loops found in function 7 in these bblocks: 13 21 26 37 42.
+Loops found in function 34 in these bblocks: 13 21 26 37 42.
 Simple br_if conditions in: 21 26 37 42.
 Simple br conditions in: .
-Simple brif loop condition in bblock 21:	((N2 - -64) <= L2)
-Simple brif loop condition in bblock 26:	((N2 + 4) < L1)
-Simple brif loop condition in bblock 37:	((N2 + 4) <= L1)
-Simple brif loop condition in bblock 42:	((N2 + 1) != L0)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0 3 4 5 6 7 17 18 19 20]
+cost:    40; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), (((pn0 + pn2) && -4) + -64)]; 
+globals: [5400608]
+
+[0 3 4 5 6 7 17 18 19 24 25]
+cost:    44; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), (((pn0 + pn2) && -4) + -64)]; 
+globals: [5400608]
+
+[0 3 4 5 6 7 17 18 19 24 40 41]
+cost:    48; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), (((pn0 + pn2) && -4) + -64)]; 
+globals: [5400608]
+
+[0 3 4 5 6 7 17 18 24 25]
+cost:    37; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), ln5]; 
+globals: [5400608]
+
+[0 3 4 5 6 7 17 18 24 40 41]
+cost:    41; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), ln5]; 
+globals: [5400608]
+
+[0 3 4 5 6 9 10 17 18 19 20]
+cost:    45; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), (((pn0 + pn2) && -4) + -64)]; 
+globals: [5400608]
+
+[0 3 4 5 6 9 10 17 18 19 24 25]
+cost:    49; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), (((pn0 + pn2) && -4) + -64)]; 
+globals: [5400608]
+
+[0 3 4 5 6 9 10 17 18 19 24 40 41]
+cost:    53; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), (((pn0 + pn2) && -4) + -64)]; 
+globals: [5400608]
+
+[0 3 4 5 6 9 10 17 18 24 25]
+cost:    42; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), ln5]; 
+globals: [5400608]
+
+[0 3 4 5 6 9 10 17 18 24 40 41]
+cost:    46; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) && -4), ln5]; 
+globals: [5400608]
+
+[0 3 4 5 6 9 12]
+cost:    29; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ln4, ln5]; 
+globals: [5400608]
+
+[0 3 4 30 31 40 41]
+cost:    28; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ln4, ln5]; 
+globals: [5400608]
+
+[0 3 4 30 33 34 40 41]
+cost:    35; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) + -4), ln5]; 
+globals: [5400608]
+
+[0 3 4 30 33 36]
+cost:    30; 
+stack:   []; 
+params:  [pn0, pn1, pn0]; 
+locals:  [(pn0 + pn2), ((pn0 + pn2) + -4), ln5]; 
+globals: [5400608]
+
+Simple brif loop condition in bblock 21:	((pn2 - -64) <= ln5)
+Simple brif loop condition in bblock 26:	((pn2 + 4) < ln4)
+Simple brif loop condition in bblock 37:	((pn2 + 4) <= ln4)
+Simple brif loop condition in bblock 42:	((pn2 + 1) != ln3)

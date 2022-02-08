@@ -1,8 +1,16 @@
-Loops found in function 45 in these bblocks: 1 3 7 14 19 20 28 31 32 42 47.
+Loops found in function 72 in these bblocks: 1 3 7 14 19 20 28 31 32 42 47.
 Simple br_if conditions in: 3 20 28 42 47.
 Simple br conditions in: .
-Simple brif loop condition in bblock 3:	((L0 + 1) != 257)
-Simple brif loop condition in bblock 20:	i32.eqz(i32.load8_u@((L0 + (L2 + 2080))))
-Simple brif loop condition in bblock 28:	i32.eqz(i32.load8_u@(((L2 + 2080) + L0)))
-Simple brif loop condition in bblock 42:	(i32.load@(((L0 shl 2) + L2)) > -1)
-Simple brif loop condition in bblock 47:	(i32.load@(((L0 shl 2) + L2)) > -1)
+Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
+[0]
+cost:    46; 
+stack:   [pn2, (5400608 - 2128), (5400608 - 2128), ((5400608 - 2128) + 2112), ((5400608 - 2128) + 2104), ((5400608 - 2128) + 2096)]; 
+params:  [pn0, pn1, pn2]; 
+locals:  [(5400608 - 2128), ln4, rn0, ln6, -1, 1000000000, ln9, ln10]; 
+globals: [(5400608 - 2128)]
+
+Simple brif loop condition in bblock 3:	((ln3 + 1) != 257)
+Simple brif loop condition in bblock 20:	i32.eqz(i32.load8_u@((ln3 + (ln5 + 2080))))
+Simple brif loop condition in bblock 28:	i32.eqz(i32.load8_u@(((ln5 + 2080) + ln3)))
+Simple brif loop condition in bblock 42:	(i32.load@(((ln3 shl 2) + ln5)) > -1)
+Simple brif loop condition in bblock 47:	(i32.load@(((ln3 shl 2) + ln5)) > -1)
