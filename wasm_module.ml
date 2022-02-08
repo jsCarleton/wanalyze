@@ -1078,7 +1078,127 @@ let create name =
     memory_section = []; global_section = []; export_section = []; start_section = None; 
     element_section = []; code_section = []; data_section = [];
     last_import_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
+
+(* Implementation *)
+(* Part 8 - loop analysis *)
+
+let has_loop' (bb: bblock): bool = 
+  match bb.bbtype with
+  | BB_loop -> true
+  | _       -> false
+
+let rec has_loop (bblocks: bblock list): bool =
+  match bblocks with
+  | hd::tl ->
+    (match has_loop' hd with
+    | true  -> true
+    | _     -> has_loop tl)
+  | _ ->  false
+
+let ids_with_loops (bblocks: bblock list): int list =
+  List.filter_map ~f:(fun s -> match has_loop' s with | true -> Some (s.index+1) | _ -> None) bblocks
+
+let simple_br_loop (bblocks: bblock list) (s: bblock): int option =
+  match List.length bblocks - s.index >= 5 with
+    | true -> (match s.bbtype,
+                  (List.nth_exn bblocks (s.index+1)).bbtype,
+                  (List.nth_exn bblocks (s.index+2)).bbtype,
+                  (List.nth_exn bblocks (s.index+3)).bbtype,
+                  (List.nth_exn bblocks (s.index+4)).bbtype with
+              | BB_loop, BB_if, BB_br, BB_end,BB_end -> Some (s.index+2)
+              | _ -> None)
+    | false -> None
+
+let simple_brif_loop (bblocks: bblock list) (s: bblock): int option =
+  match List.length bblocks - s.index >= 3 with
+    | true -> (match s.bbtype,
+                  (List.nth_exn bblocks (s.index+1)).bbtype,
+                  (List.nth_exn bblocks (s.index+2)).bbtype with
+                | BB_loop, BB_br_if, BB_end -> Some (s.index+1)
+                | _ -> None)
+    | false -> None
+
+let ids_with_simple_br_loops (bblocks: bblock list): int list =
+  List.filter_map ~f:(simple_br_loop bblocks) bblocks
   
+let ids_with_simple_brif_loops (bblocks: bblock list): int list =
+    List.filter_map ~f:(simple_brif_loop bblocks) bblocks
+ 
+let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
+    List.map ~f:(fun i -> List.nth_exn bblocks i) (ids_with_simple_brif_loops bblocks)
+
+let condition_of_simple_loop' (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list): string =
+  let _,s = reduce_bblock w e (empty_program_state w param_types local_types) in
+    s
+
+let condition_of_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list)
+      (bb: bblock): string = 
+  String.concat [ "Simple brif loop condition in bblock ";
+                  string_of_int bb.index;
+                  ":\t";
+                  condition_of_simple_loop'
+                      w 
+                      (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op))
+                      param_types local_types;
+                  "\n"]
+
+let conditions_of_simple_loops (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
+      (loop_bblocks: bblock list): string =
+  String.concat (List.map ~f:(condition_of_simple_loop w e param_types local_types) loop_bblocks)
+
+(** analyze_simple_brif_loops given a list of bblocks that are simple brif loops, analyzes the loop to
+  determine the branch condition
+  Parameters:
+  bblocks  list of brif loop bblocks found in the same functiob
+  e         code of the function that the bblocks are from
+  locals    type of locals in the function
+  Returns:
+  formatted string containing the conditions of the brif instructions at the end of each bblock 
+*)
+(* TODO separate the execution from the output formatting *)                    
+let analyze_simple_brif_loops (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
+      (bblocks: bblock list): string =
+  conditions_of_simple_loops w e param_types local_types bblocks
+
+let execution_paths (bblocks: bblock list) : int list list =
+  [List.map ~f:(fun s -> s.index) bblocks]
+
+let block_is_loop (bblocks: bblock list) (bb_id: int): bool =
+  match (List.nth_exn bblocks bb_id).bbtype with
+    | BB_loop -> true
+    | _       -> false
+
+let rec code_path_has_loop (bblocks: bblock list) (cp: code_path)=
+  match cp with
+  | hd::tl -> (match block_is_loop bblocks hd with | false -> code_path_has_loop bblocks tl | _ -> true)
+  | _ -> false
+
+let code_path_with_loop (bblocks: bblock list) (cp: code_path): code_path option =
+  match code_path_has_loop bblocks cp with |true -> Some cp | _ -> None
+
+let rec loop_prefix_of_code_path (bblocks: bblock list) (acc: code_path) (cp: code_path) : code_path =
+  match cp with
+  | []      -> acc
+  | hd::tl  ->
+      (match block_is_loop bblocks hd with
+        | true  -> List.append acc [hd]
+        | _     -> loop_prefix_of_code_path bblocks (List.append acc [hd]) tl)
+
+let loop_code_paths (bblocks: bblock list) (cps: code_path list): code_path list =
+  List.map ~f:(loop_prefix_of_code_path bblocks []) (List.filter_map ~f:(code_path_with_loop bblocks) cps)
+
+let rec compare_cps (cp1: code_path) (cp2: code_path): int =
+  match cp1, cp2 with
+  | [], []              ->  0
+  | _::_, []            -> -1
+  | [], _::_            -> +1
+  | hd1::tl1, hd2::tl2  ->
+      (match hd1 = hd2 with
+        | true                  -> compare_cps tl1 tl2
+        | false when hd1 < hd2  -> -1
+        | _                     -> +1)
+
+
 (* Implementation *)
 (* Part 8 - section updating *)
 
