@@ -261,6 +261,9 @@ type bblock =
   mutable br_dest:	int;			(* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)
 }
 
+let expr_of_bblock (e: expr) (bb: bblock): expr =
+  (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op))
+
 type code_path = int list
 
 (* type that describes a function that's implement in a wasm module *)
@@ -850,8 +853,7 @@ let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
   f,s
 
 let execute_bblock (w: wasm_module) (bb: bblock) (index: int) (e: expr) (ex_acc: execution list) (initial: program_state): execution list =
-  let final, succ_cond = (reduce_bblock w (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op)) 
-                                      initial) in
+  let final, succ_cond = (reduce_bblock w (expr_of_bblock e bb) initial) in
     (* TODO call execute_bblocks'' recursively *)
     List.append ex_acc [{index; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
 
@@ -1137,8 +1139,8 @@ let condition_of_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype
                   string_of_int bb.index;
                   ":\t";
                   condition_of_simple_loop'
-                      w 
-                      (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op))
+                      w
+                      (expr_of_bblock e bb)
                       param_types local_types;
                   "\n"]
 

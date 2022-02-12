@@ -1,6 +1,7 @@
 open Core
 open Easy_logging
 open Wasm_module
+open Ssa
 
 (* Part 1 *)
 (* Printable strings for basic types *)
@@ -416,7 +417,7 @@ let execute_bblock (w: wasm_module) (e: expr) (bblocks: bblock list) (state: pro
       (bb_id: int) =
     (Logging.get_logger "wanalyze")#info  "execute_bblock: bb_id: %s" (string_of_int bb_id);
     let bb = List.nth_exn bblocks bb_id in
-    let (_: string) = reduce_bblock' w state (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op)) "" in
+    let (_: string) = reduce_bblock' w state (expr_of_bblock e bb) "" in
       ()
 
 let execute_code_path (w: wasm_module) (e: expr) (bblocks: bblock list) (param_types: resulttype list) (local_types: local_type list) 
@@ -467,6 +468,7 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
   (match has_loop bblocks with
   | true ->
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
+        (* print some information about which basic blocks have loops *)
         Out_channel.output_string oc
           (sprintf 
             "Loops found in function %d in these bblocks: %s.\nSimple br_if conditions in: %s.\nSimple br conditions in: %s.\n"
@@ -474,6 +476,7 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
             (string_of_ints (ids_with_loops bblocks))
             (string_of_ints (ids_with_simple_brif_loops bblocks))
             (string_of_ints (ids_with_simple_br_loops bblocks)));
+        (* print the code paths from the root to a loop bblock and the VM state at loop entry *)
         Out_channel.output_string oc (sprintf "Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:\n");
         Out_channel.output_string oc
           (String.concat ~sep:"\n"
@@ -481,9 +484,15 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
                 ~f:(loop_entry_state w fn.e bblocks param_types local_types) 
                 (List.dedup_and_sort ~compare:compare_cps (loop_code_paths bblocks cps))));
         Out_channel.output_string oc "\n";
+        (* print the loop conditions and ssa for simple br_if loops *)
         Out_channel.output_string oc
           (analyze_simple_brif_loops w fn.e param_types local_types
               (bblocks_with_simple_brif_loops bblocks));
+        Out_channel.output_string oc
+          (String.concat
+            (List.map ~f:string_of_ssa 
+              (List.map ~f:(ssa_of_expr param_types local_types) 
+                (List.map ~f:(fun bb -> expr_of_bblock fn.e bb) (bblocks_with_simple_brif_loops bblocks)))));
         Out_channel.close oc
   | false -> ())
   (* execution trace of the function *)
