@@ -20,5 +20,30 @@
 0039      i64.add                   ; [1L+lN5 rn0]                   
 0040      local.tee 8               ; [1L+lN5 rn0] 
 0041      i64.const 8               ; [8 1L+lN5 rn0]
-0042      i64.lt_s                  ; [1L+lN<8 rn0]
+0042      i64.lt_s                  ; [1L+lN5<8 rn0]
 0043      br_if 0 (;@1;)
+
+t0 = ln1
+t1 = lN5
+t2 = i32(t1)
+t3 = 2
+t4 = t2 shl 2
+t5 = t4 + t0
+t6 = 0
+t7 = ln0
+t8 = rn0
+t9 = ln0
+t10 = 768
+t11 = t9+t10
+ln0 = t11
+t12 = lN5
+t13 = 1
+t14 = t12 + t13
+lN5 = t14
+t15 = 8
+t16 = lN5 < 8
+
+t12 = lN5
+t13 = 1
+t14 = t12 + t13
+lN5 = t14

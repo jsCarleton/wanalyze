@@ -4,12 +4,11 @@ Simple br conditions in: .
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 
 Simple brif loop condition in bblock 160:	rn0
-t0 = pn0
-TODO Constop = 
-TODO Control = 
-TODO VariableTL = 
-TODO Constop = 
-TODO Binop = 
-TODO VariableSL = 
-t7 = ln2
-TODO Control = 
+-t0 =  pn0
+-t1 =  0
++t2 =  rn0
+-ln2 =  t2
+-t4 =  8
+-t5 = ln2 + t4
+-pn0 =  t5
+-t7 =  ln2

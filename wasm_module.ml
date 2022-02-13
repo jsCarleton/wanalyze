@@ -564,12 +564,13 @@ let update_state_callop (_: wasm_module) (param_count: int) (retval_types: resul
   List.iter ~f:(push_retval state) 
     (List.init (List.length retval_types) ~f:(fun i -> (string_of_retval i (List.nth_exn retval_types i))))
 
+let ret_types (w: wasm_module) (fidx: int): resulttype list =
+  (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
+
 let update_states_callop (w: wasm_module) (param_counts: int list) (op: op_type) (s: states) =
   match op.arg with
   | Funcidx fidx -> 
-       List.iter  ~f:(update_state_callop w (List.nth_exn param_counts fidx) 
-                                            (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2)
-                  s.active;
+       List.iter  ~f:(update_state_callop w (List.nth_exn param_counts fidx) (ret_types w fidx)) s.active;
   | _ -> failwith "Invalid call argument"
 
 let nparams (w: wasm_module) (fidx: int) =
@@ -579,9 +580,7 @@ let nparams (w: wasm_module) (fidx: int) =
 let update_states_callindop (w: wasm_module) (op: op_type) (s: states) =
   match op.arg with
   | CallIndirect c -> 
-       List.iter  ~f:(update_state_callop w (nparams w c.y)
-                                            (List.nth_exn w.type_section (List.nth_exn w.function_section c.y)).rt2)
-                  s.active;
+       List.iter  ~f:(update_state_callop w (nparams w c.y) (List.nth_exn w.type_section c.y).rt2) s.active;
   | _ -> failwith "Invalid call indirect argument"
 
 (* de-duplication of states WIP *)
@@ -607,9 +606,9 @@ let update_states_controlop (w: wasm_module) (param_counts: int list) (op: op_ty
   | 0x03 -> (* TODO *)
       s.pending <- push_pending_states s.pending None
   (* if - make a copy of our current states on the pending stack *)
-    | 0x04 ->
-        List.iter ~f:pop_value s.active;
-        s.pending <- push_pending_states s.pending (Some s.active)
+  | 0x04 ->
+      List.iter ~f:pop_value s.active;
+      s.pending <- push_pending_states s.pending (Some s.active)
   (* else - swap the top of the pending stack and our current states *)
   | 0x05 ->
     let current = s.active in
@@ -775,9 +774,7 @@ let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): st
   | 0x10 ->
     (match op.arg with
     | Funcidx fidx -> 
-        update_state_callop w (nparams w fidx)
-                              (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
-                            s
+        update_state_callop w (nparams w fidx) (ret_types w fidx) s
     | _ -> failwith "Invalid call argument"); ""
   (* call_indirect *)
   | 0x11 -> "" (* TODO *)

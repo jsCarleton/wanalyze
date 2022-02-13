@@ -490,8 +490,8 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
               (bblocks_with_simple_brif_loops bblocks));
         Out_channel.output_string oc
           (String.concat
-            (List.map ~f:string_of_ssa 
-              (List.map ~f:(ssa_of_expr param_types local_types) 
+            (List.map ~f:string_of_ssa_list 
+              (List.map ~f:(ssa_of_expr w param_types local_types) 
                 (List.map ~f:(fun bb -> expr_of_bblock fn.e bb) (bblocks_with_simple_brif_loops bblocks)))));
         Out_channel.close oc
   | false -> ())

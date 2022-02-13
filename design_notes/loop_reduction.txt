@@ -68,3 +68,27 @@ t16 = lN5 < t15
 this can be simplified to
 lN5 = lN5 + 1
 brc = lN5 < 8
+
+We use this type to store the SSA statement and we build a list of these from the expr of the bblock
+type ssa = {
+  result:     string;
+  op1:        string;
+  op2:        string;
+  operation:  string;
+}
+
+There are a couple of points to make sure we handle correctly
+- it's not true that every opcode produces one SSA. For example a call of a function that returns multiple
+results will generate an SSA for each of those results
+- we need to keep track of whether an SSA variable is live or not. An SSA variable needs to be marked not live
+when an opcode consumes it
+
+type ssa = {
+  result:           string;
+  op1:              string;
+  op2:              string;
+  operation:        string;
+  mutable alive:    bool;
+}
+
+For efficiency we store the SSA list in reverse while we build it
