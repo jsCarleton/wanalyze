@@ -6,6 +6,7 @@ type ssa = {
   result:         string;
   op1:            string;
   op2:            string;
+  op3:            string;
   operation:      string;
   mutable alive:  bool;
 }
@@ -47,7 +48,7 @@ let name_of_tvar (t_index: int): string =
 let ssa_of_rt (start: int) (index: int) (r: resulttype) : ssa =
   { result = name_of_tvar (start+index);
     op1 = string_of_retval index r;
-    op2 = ""; operation = ""; alive = true}
+    op2 = ""; op3 = ""; operation = ""; alive = true}
 
 let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (acc: ssa list)
     (op: op_type): ssa list =
@@ -66,50 +67,72 @@ let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: loca
               List.append (List.mapi ~f:(ssa_of_rt (List.length acc)) (ret_types w fidx)) acc
           | _ -> failwith "Invalid call argument")
         | OP_call_indirect ->
-        { result = "TODO OP_call_indirect"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc)
+          (match op.arg with
+            | CallIndirect c ->
+                (* mark the arguments to the function dead *)
+                mark_dead acc (List.length (List.nth_exn w.type_section c.y).rt1);
+                (* create SSAs for each of the return values *)
+                List.append (List.mapi ~f:(ssa_of_rt (List.length acc)) (List.nth_exn w.type_section c.y).rt2) acc
+            | _ -> failwith "Invalid call_indirect argument")
+        | _ -> failwith (sprintf "Invalid control opcode %x" op.opcode))
     | Reference  ->
-        { result = "TODO Reference"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO Reference"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | Parametric  ->
-        { result = "TODO Parametric"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+        (match opcode_of_int op.opcode with
+          | OP_drop ->
+            mark_dead acc 1;
+            acc
+          | OP_select ->
+            let c = (find_and_kill acc).result in
+            let val2 = (find_and_kill acc).result in
+            let val1 = (find_and_kill acc).result in
+              { result = name_of_tvar (List.length acc); op1 = c; op2 = val2; op3 = val1; operation = "select"; alive = true}
+               :: acc
+          | _ -> failwith (sprintf "Invalid parametric opcode %x" op.opcode))
     | VariableGL ->
         { result = name_of_tvar (List.length acc);
           op1 = local_value param_types local_types (int_of_get_argL op.arg);
-          op2 = ""; operation = ""; alive = true} :: acc         
+          op2 = ""; op3 = ""; operation = ""; alive = true} :: acc         
     | VariableSL  ->
         { result = local_value param_types local_types (int_of_get_argL op.arg);
           op1 = (find_and_kill acc).result;
-          op2 = ""; operation = ""; alive = false} :: acc
+          op2 = ""; operation = ""; op3 = ""; alive = false} :: acc
     | VariableTL  ->
         { result = local_value param_types local_types (int_of_get_argL op.arg);
           op1 = (find_alive acc).result;
-          op2 = ""; operation = ""; alive = true} :: acc
+          op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | VariableGG  ->
-        { result = "TODO VariableGG"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO VariableGG"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | VariableSG  ->
-        { result = "TODO VariableSG"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO VariableSG"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | Table  ->
-        { result = "TODO Table"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO Table"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | MemoryL  ->
-        { result = "TODO MemoryL"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+        { result = name_of_tvar (List.length acc); op1 = (find_and_kill acc).result;
+          op2 = ""; op3 = ""; operation = "@"; alive = true} :: acc
     | MemoryS  ->
-        { result = "TODO MemoryS"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+        let op1 = (find_and_kill acc).result in
+        let result = String.concat["@("; (find_and_kill acc).result; ")"] in
+        { result; op1; op2 = ""; op3 = ""; operation = ""; alive = false} :: acc
     | MemoryM  ->
-        { result = "TODO MemoryM"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO MemoryM"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | Constop  ->
         { result = name_of_tvar (List.length acc);
           op1 = string_of_const_arg op.arg;
-          op2 = ""; operation = ""; alive = true} :: acc
+          op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | Unop  ->
-        { result = "TODO Unop"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO Unop"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | Binop operation
     | Relop operation  ->
         let op2 = (find_and_kill acc).result in
         let op1 = (find_and_kill acc).result in
-          { result = name_of_tvar (List.length acc); op1; op2; operation; alive = true} :: acc         
-    | Testop  ->
-        { result = "TODO Testop"; op1 = ""; op2 = ""; operation = ""; alive = true} :: acc
+          { result = name_of_tvar (List.length acc); op1; op2; op3 = ""; operation; alive = true} :: acc         
+    | Testop ->
+        { result = name_of_tvar (List.length acc);
+          op1 = (find_and_kill acc).result;
+          op2 = ""; op3 = ""; operation = op.opname; alive = true} :: acc
     | Cvtop   ->
-      { result = name_of_tvar (List.length acc); op1 = (find_and_kill acc).result; op2 = ""; operation = op.opname; alive = true} :: acc         
+      { result = name_of_tvar (List.length acc); op1 = (find_and_kill acc).result; op2 = ""; op3 = ""; operation = op.opname; alive = true} :: acc         
 
 let ssa_of_expr (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (e: expr): ssa list =
   List.rev (List.fold ~f:(ssa_of_op w param_types local_types) ~init:[] e)
@@ -119,9 +142,15 @@ let string_of_ssa (s: ssa): string =
     (match s.alive with | true -> "+" | false -> "-");
     s.result;
     " = ";
-    (match s.op2 with
-    | ""  -> String.concat [s.operation; " "; s.op1]
-    | _   -> String.concat [s.op1; " "; s.operation; " "; s.op2])]
+    (match s.op3 with
+      | "" ->
+        (match s.op2 with
+          | ""  -> 
+            (match s.operation with
+              | ""  -> s.op1
+              | _   -> String.concat [s.operation; "("; s.op1; ")"])
+          | _   -> String.concat [s.op1; " "; s.operation; " "; s.op2])
+      | _ -> String.concat [s.operation; "("; s.op1; ","; s.op2; ","; s.op3; ")"])]
 
 let string_of_ssa_list (sl: ssa list): string =
   String.concat ~sep:"\n" 

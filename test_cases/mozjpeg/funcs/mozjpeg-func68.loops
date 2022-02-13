@@ -10,3 +10,26 @@ locals:  [];
 globals: [5400608]
 
 Simple brif loop condition in bblock 2:	(pn4 > 1)
+-t0 = pn1
+-t1 = @(t0)
+-t2 = pn0
+-t3 = @(t2)
+-t4 = pn5
+-t5 = rn0
+-t6 = pn1
+-t7 = 4
+-t8 = t6 + t7
+-pn1 = t8
+-t10 = pn0
+-t11 = 4
+-t12 = t10 + t11
+-pn0 = t12
+-t14 = pn4
+-t15 = 1
+-t16 = t14 > t15
+-pn2 = t16
+-t18 = pn4
+-t19 = -1
+-t20 = t18 + t19
+-pn4 = t20
+-t22 = pn2

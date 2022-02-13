@@ -17,3 +17,22 @@ locals:  [(999999988 /u (pn2 shl 7)), ln5, (pn2 shl 7), ln7, (pn2 shl 7), rn0];
 globals: [5400608]
 
 Simple brif loop condition in bblock 6:	(ln7 + -1)
+-t0 = ln9
+-t1 = ln5
+-t2 = 2
+-t3 = t1 shl t2
+-t4 = t0 + t3
+-t5 = pn2
+-@(t4) = t5
+-t7 = ln5
+-t8 = 1
+-t9 = t7 + t8
+-ln5 = t9
+-t11 = pn2
+-t12 = ln6
+-t13 = t11 + t12
+-pn2 = t13
+-t15 = ln7
+-t16 = -1
++t17 = t15 + t16
+-ln7 = t17

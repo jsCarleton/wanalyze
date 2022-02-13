@@ -10,3 +10,12 @@ locals:  [(5400608 - 256)];
 globals: [(5400608 - 256)]
 
 Simple brif loop condition in bblock 3:	((pn2 + -256) > 255)
+-t0 = pn0
+-t1 = ln5
+-t2 = 256
+-t3 = pn2
+-t4 = -256
++t5 = t3 + t4
+-pn2 = t5
+-t7 = 255
+-t8 = pn2 > t7

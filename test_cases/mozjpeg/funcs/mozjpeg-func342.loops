@@ -28,3 +28,78 @@ Simple brif loop condition in bblock 27:	(ln2 shr_s 1)
 Simple brif loop condition in bblock 42:	i32.eqz(i32.load16_u@((ln13 + (i32.load@((((ln3 + 1) shl 2) + 142864)) shl 1))))
 Simple brif loop condition in bblock 52:	(ln8 shr_s 1)
 Simple brif loop condition in bblock 57:	(ln2 shr_s 1)
+-t0 = pn0
+-t1 = ln3
+-t2 = 1
+-t3 = ln3
+-t4 = 1
+-t5 = t3 + t4
+-ln3 = t5
+-t7 = ln2
+-t8 = 1
+-t9 = t7 shl t8
+-ln2 = t9
+-t11 = ln4
+-t12 = 1
++t13 = t11 shr_s t12
+-ln4 = t13-t0 = pn0
+-t1 = ln3
+-t2 = ln2
+-t3 = ln8
+-t4 = t2 && t3
+-t5 = 0
+-t6 = t4 != t5
+-t7 = ln2
+-t8 = 1
++t9 = t7 shr_s t8
+-ln2 = t9-t0 = pn0
+-t1 = ln4
+-t2 = 0
+-t3 = ln2
+-t4 = 4
+-t5 = t3 + t4
+-ln4 = t5
+-t7 = ln2
+-t8 = 3
+-t9 = t7 + t8
+-ln2 = t9
++t11 = ln13
+-t12 = ln3
+-t13 = 1
+-t14 = t12 + t13
+-ln3 = t14
+-t16 = 2
+-t17 = ln3 shl t16
+-t18 = 142864
+-t19 = t17 + t18
+-t20 = @(t19)
+-t21 = 1
+-t22 = t20 shl t21
+-t23 = t14 + t22
++t24 = @(t23)
+-ln8 = t24
+-t26 = i32.eqz(ln8)-t0 = pn0
+-t1 = ln3
+-t2 = 1
+-t3 = ln3
+-t4 = 1
+-t5 = t3 + t4
+-ln3 = t5
+-t7 = ln2
+-t8 = 1
+-t9 = t7 shl t8
+-ln2 = t9
+-t11 = ln8
+-t12 = 1
++t13 = t11 shr_s t12
+-ln8 = t13-t0 = pn0
+-t1 = ln3
+-t2 = ln2
+-t3 = ln4
+-t4 = t2 && t3
+-t5 = 0
+-t6 = t4 != t5
+-t7 = ln2
+-t8 = 1
++t9 = t7 shr_s t8
+-ln2 = t9

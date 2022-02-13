@@ -10,3 +10,19 @@ locals:  [ln5, i32.load@(pn0), i32.load@(pn0), ln8, ln9];
 globals: [5400608]
 
 Simple brif loop condition in bblock 5:	((ln5 + 1) != ln6)
+-t0 = ln5
+-t1 = ln9
+-t2 = t0 + t1
+-t3 = pn0
+-t4 = @(t3)
+-@(t2) = t4
+-t6 = pn0
+-t7 = ln7
+-t8 = t6 + t7
+-pn0 = t8
+-t10 = ln5
+-t11 = 1
++t12 = t10 + t11
+-ln5 = t12
+-t14 = ln6
+-t15 = ln5 != t14

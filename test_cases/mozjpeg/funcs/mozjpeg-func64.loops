@@ -17,3 +17,21 @@ locals:  [0, ln3, ln4, ln5, i32.load@((pn0 + (pn1 shl 2)))];
 globals: [5400608]
 
 Simple brif loop condition in bblock 3:	((ln2 + 1) != 64)
+-t0 = 1
+-t1 = ln5
+-t2 = ln6
+-t3 = ln2
+-t4 = 1
+-t5 = t3 shl t4
+-t6 = t2 + t5
+-t7 = @(t6)
+-t8 = 255
+-t9 = t7 > t8
+-t10 = select(t9,t1,t0)
+-ln5 = t10
+-t12 = ln2
+-t13 = 1
++t14 = t12 + t13
+-ln2 = t14
+-t16 = 64
+-t17 = ln2 != t16

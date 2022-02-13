@@ -27,3 +27,42 @@ Simple brif loop condition in bblock 11:	(pn1 shr_s 1)
 Simple brif loop condition in bblock 26:	(pn1 + -1)
 Simple brif loop condition in bblock 41:	(ln3 shr_s 1)
 Simple brif loop condition in bblock 64:	(pn1 + -1)
++t0 = ln3
+-ln5 = t0
+-t2 = 1
+-t3 = ln5 + t2
+-ln3 = t3
+-t5 = pn1
+-t6 = 1
++t7 = t5 shr_s t6
+-pn1 = t7-t0 = ln2
+-t1 = ln3
+-t2 = @(t1)
+-t3 = 1
+-t4 = ln3
+-t5 = 1
+-t6 = t4 + t5
+-ln3 = t6
+-t8 = pn1
+-t9 = -1
++t10 = t8 + t9
+-pn1 = t10+t0 = pn1
+-ln5 = t0
+-t2 = 1
+-t3 = ln5 + t2
+-pn1 = t3
+-t5 = ln3
+-t6 = 1
++t7 = t5 shr_s t6
+-ln3 = t7-t0 = ln2
+-t1 = ln3
+-t2 = @(t1)
+-t3 = 1
+-t4 = ln3
+-t5 = 1
+-t6 = t4 + t5
+-ln3 = t6
+-t8 = pn1
+-t9 = -1
++t10 = t8 + t9
+-pn1 = t10

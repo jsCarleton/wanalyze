@@ -5,3 +5,38 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 
 Simple brif loop condition in bblock 241:	((pn0 + 1) != 32)
 Simple brif loop condition in bblock 338:	(ln4 > (pn0 + 8))
+-t0 = pn0
+-t1 = 3
++t2 = t0 shl t1
+-ln2 = t2
+-t4 = 157120
++t5 = ln2 + t4
+-t6 = ln2
+-t7 = 157112
+-t8 = t6 + t7
+-ln3 = t8
+-@(t8) = ln3
+-t11 = ln2
+-t12 = 157124
+-t13 = t11 + t12
+-t14 = ln3
+-@(t13) = t14
+-t16 = pn0
+-t17 = 1
++t18 = t16 + t17
+-pn0 = t18
+-t20 = 32
+-t21 = pn0 != t20-t0 = pn0
+-t1 = 7
+-@(t0) = t1
+-t3 = pn0
+-t4 = 8
+-t5 = t3 + t4
+-ln1 = t5
+-t7 = pn0
+-t8 = 4
+-t9 = t7 + t8
+-pn0 = t9
+-t11 = ln4
+-t12 = ln1
+-t13 = t11 > t12

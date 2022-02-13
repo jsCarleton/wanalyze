@@ -87,3 +87,23 @@ locals:  [(5400608 - 128), (i32.wrap_i64((i64.load@((5400608 - 128)) shr_u 48)) 
 globals: [(5400608 - 128)]
 
 Simple brif loop condition in bblock 40:	(((pN4 shr_u 63) || (lN10 shl 1)) < 281474976710656)
+-t0 = pN4
+-t1 = 63
+-t2 = t0 shr_u t1
+-pN1 = t2
+-t4 = ln6
+-t5 = -1
+-t6 = t4 + t5
+-ln6 = t6
+-t8 = pN4
+-t9 = 1
+-t10 = t8 shl t9
+-pN4 = t10
+-t12 = pN1
+-t13 = lN10
+-t14 = 1
+-t15 = t13 shl t14
++t16 = t12 || t15
+-lN10 = t16
+-t18 = 281474976710656
+-t19 = lN10 < t18

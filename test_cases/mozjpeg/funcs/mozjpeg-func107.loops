@@ -60,3 +60,42 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 22:	i32.load@(ln2)
 Simple brif loop condition in bblock 27:	i32.load@(ln2)
+-t0 = ln2
+-t1 = @(t0)
+-pn0 = t1
+-t3 = ln2
+-t4 = @(t3)
+-t5 = ln2
+-t6 = @(t5)
+-t7 = t4 + t6
+-t8 = 12
+-t9 = t7 + t8
+-ln4 = t9
+-t11 = ln2
+-t12 = ln3
+-t13 = ln3
+-t14 = @(t13)
+-t15 = ln4
+-t16 = t14 - t15
+-@(t12) = t16
++t18 = pn0
+-ln2 = t18-t0 = ln2
+-t1 = @(t0)
+-pn0 = t1
+-t3 = ln2
+-t4 = @(t3)
+-t5 = ln2
+-t6 = @(t5)
+-t7 = t4 + t6
+-t8 = 12
+-t9 = t7 + t8
+-pn1 = t9
+-t11 = ln2
+-t12 = ln3
+-t13 = ln3
+-t14 = @(t13)
+-t15 = pn1
+-t16 = t14 - t15
+-@(t12) = t16
++t18 = pn0
+-ln2 = t18

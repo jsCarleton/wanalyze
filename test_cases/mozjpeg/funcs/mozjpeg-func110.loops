@@ -115,3 +115,39 @@ locals:  [(pn0 + (pn1 shl 2)), ln6];
 globals: [5400608]
 
 Simple brif loop condition in bblock 16:	((pn0 + 1) != 64)
+-t0 = pn1
+-t1 = pn0
+-t2 = 1
+-t3 = t1 shl t2
++t4 = t0 + t3
+-t5 = pn2
+-t6 = pn0
+-t7 = 2
+-t8 = t6 shl t7
+-t9 = t5 + t8
+-t10 = @(t9)
+-t11 = pn3
+-t12 = t10 * t11
+-t13 = 50
+-t14 = t12 + t13
+-t15 = 100
++t16 = t14 /s t15
+-pn4 = t16
+-t18 = 1
+-t19 = pn4
+-t20 = 1
+-t21 = t19 > t20
+-t22 = select(t21,t18,pn4)
+-pn4 = t22
+-t24 = 255
+-t25 = pn4
+-t26 = 255
+-t27 = t25 < t26
+-t28 = select(t27,t24,pn4)
+-@(t22) = t28
+-t30 = pn0
+-t31 = 1
++t32 = t30 + t31
+-pn0 = t32
+-t34 = 64
+-t35 = pn0 != t34

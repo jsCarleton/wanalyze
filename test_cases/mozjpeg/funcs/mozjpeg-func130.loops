@@ -10,3 +10,24 @@ locals:  [ln1, i32.load@(pn0), i32.load8_s@(i32.load@(pn0)), ln4];
 globals: [5400608]
 
 Simple brif loop condition in bblock 2:	rn0
++t0 = pn0
+-t1 = ln2
+-t2 = 1
+-t3 = t1 + t2
+-ln4 = t3
+-@(t3) = ln4
+-t6 = ln1
+-t7 = 10
+-t8 = t6 * t7
+-t9 = ln3
+-t10 = t8 + t9
+-t11 = -48
+-t12 = t10 + t11
+-ln1 = t12
+-t14 = ln2
+-t15 = @(t14)
+-ln3 = t15
+-t17 = ln4
+-ln2 = t17
+-t19 = ln3
+-t20 = rn0

@@ -92,3 +92,13 @@ type ssa = {
 }
 
 For efficiency we store the SSA list in reverse while we build it
+
+It turns out that there are instructions that take 3 operands e.g. select so we amend our data structure to the following:
+type ssa = {
+  result:           string;
+  op1:              string;
+  op2:              string;
+  op3:              string;
+  operation:        string;
+  mutable alive:    bool;
+}

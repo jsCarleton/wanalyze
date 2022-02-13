@@ -62,3 +62,60 @@ Simple brif loop condition in bblock 30:	((pn2 + -4) > 3)
 Simple brif loop condition in bblock 35:	(pn2 + -1)
 Simple brif loop condition in bblock 41:	((pn2 + -4) > 3)
 Simple brif loop condition in bblock 46:	(pn2 + -1)
++t0 = pn0
+-t1 = pn2
+-t2 = -4
+-t3 = t1 + t2
+-pn2 = t3
+-t5 = t3 + pn2
+-t6 = pn1
+-t7 = pn2
+-t8 = t6 + t7
+-t9 = @(t8)
+-@(t5) = t9
+-t11 = pn2
+-t12 = 3
+-t13 = t11 > t12+t0 = pn0
+-t1 = pn2
+-t2 = -1
+-t3 = t1 + t2
+-pn2 = t3
+-t5 = t3 + pn2
+-t6 = pn1
+-t7 = pn2
+-t8 = t6 + t7
+-t9 = @(t8)
+-@(t5) = t9
+-t11 = pn2-t0 = ln3
+-t1 = pn1
+-t2 = @(t1)
+-@(t0) = t2
+-t4 = pn1
+-t5 = 4
+-t6 = t4 + t5
+-pn1 = t6
+-t8 = ln3
+-t9 = 4
+-t10 = t8 + t9
+-ln3 = t10
+-t12 = pn2
+-t13 = -4
++t14 = t12 + t13
+-pn2 = t14
+-t16 = 3
+-t17 = pn2 > t16-t0 = ln3
+-t1 = pn1
+-t2 = @(t1)
+-@(t0) = t2
+-t4 = ln3
+-t5 = 1
+-t6 = t4 + t5
+-ln3 = t6
+-t8 = pn1
+-t9 = 1
+-t10 = t8 + t9
+-pn1 = t10
+-t12 = pn2
+-t13 = -1
++t14 = t12 + t13
+-pn2 = t14

@@ -11,3 +11,23 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 2:	(ln3 shr_s 1)
 Simple brif loop condition in bblock 17:	(ln2 + -1)
++t0 = ln2
+-ln4 = t0
+-t2 = 1
+-t3 = ln4 + t2
+-ln2 = t3
+-t5 = ln3
+-t6 = 1
++t7 = t5 shr_s t6
+-ln3 = t7-t0 = ln1
+-t1 = ln3
+-t2 = @(t1)
+-t3 = 1
+-t4 = ln3
+-t5 = 1
+-t6 = t4 + t5
+-ln3 = t6
+-t8 = ln2
+-t9 = -1
++t10 = t8 + t9
+-ln2 = t10

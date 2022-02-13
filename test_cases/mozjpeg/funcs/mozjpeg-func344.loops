@@ -24,3 +24,23 @@ locals:  [0, (i32.load@(pn0) + 204), i32.load@(pn0)];
 globals: [5400608]
 
 Simple brif loop condition in bblock 6:	((ln2 + 1) < i32.load@(pn0))
+-t0 = pn0
+-t1 = ln3
+-t2 = pn1
+-t3 = ln2
+-t4 = 2
+-t5 = t3 shl t4
+-t6 = t2 + t5
+-t7 = @(t6)
+-t8 = @(t7)
+-t9 = ln4
+-t10 = t8 shr_u t9
+-t11 = 1
+-t12 = t10 && t11
+-t13 = ln2
+-t14 = 1
++t15 = t13 + t14
+-ln2 = t15
+-t17 = pn0
+-t18 = @(t17)
+-t19 = ln2 < t18

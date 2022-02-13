@@ -11,3 +11,26 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 11:	((ln7 + 1) != ln10)
 Simple brif loop condition in bblock 33:	((ln7 + 1) != pn3)
+-t0 = ln11
+-t1 = ln14
+-t2 = ln11
+-t3 = ln7
+-t4 = 1
+-t5 = ln13
+-t6 = ln7
+-t7 = 1
++t8 = t6 + t7
+-ln7 = t8
+-t10 = ln10
+-t11 = ln7 != t10-t0 = pn2
+-t1 = ln10
+-t2 = pn2
+-t3 = ln7
+-t4 = 1
+-t5 = ln9
+-t6 = ln7
+-t7 = 1
++t8 = t6 + t7
+-ln7 = t8
+-t10 = pn3
+-t11 = ln7 != t10
