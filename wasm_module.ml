@@ -1,5 +1,6 @@
 open Core
 open Easy_logging
+open Symbolic_expr
 
 (* Type definitions *)
 (* Part 1 - Module definitions *)
@@ -336,10 +337,11 @@ type wasm_module =
 (* the types op_code, bblock and code_path are defined above but are strictly speaking a by-product of our analysis *)
 
 (* Program state types *)
+type value_type = string
 type program_state =
 {
   mutable instr_count:    int;
-  mutable value_stack:    string list;
+  mutable value_stack:    value_type list;
   mutable local_values:   string array;
   mutable global_values:  string array;
 }
@@ -532,14 +534,17 @@ match index < List.length bblocks with
 (* Part 3 - symbolic execution *)
 
 (* Updating the state of the program *)
-let pop_value (state: program_state) = state.value_stack <- List.tl_exn state.value_stack
+let stack_cdr (state: program_state): value_type list = List.tl_exn state.value_stack
+let drop_value (state: program_state) = state.value_stack <- stack_cdr state
+let push_value (state: program_state) (v: value_type) = state.value_stack <- List.cons v state.value_stack
+let poke_value (state: program_state) (v: value_type) = state.value_stack <- List.cons v (stack_cdr state)
 
 (* Parametric operators *)
 let update_state_parametricop (op: op_type) (s: program_state) = 
   match op.opcode with
-  | 0x1a -> (* drop *)      pop_value s
-  | 0x1b -> (* select *)    pop_value s; pop_value s (* TODO *)
-  | 0x1c -> (* select t* *) pop_value s; pop_value s (* TODO *)
+  | 0x1a -> (* drop *)      drop_value s
+  | 0x1b -> (* select *)    drop_value s; drop_value s (* TODO *)
+  | 0x1c -> (* select t* *) drop_value s; drop_value s (* TODO *)
   | _ -> failwith (sprintf "Invalid parametric %x " op.opcode)  
 
 (* Control operators *)
@@ -556,7 +561,7 @@ let pop_pending_states (src: pending_states): program_states =
   | Some s -> s
   | _ -> failwith "Invalid pending states"
 let push_retval (state: program_state) (retval: string) =
-  state.value_stack <- List.cons retval state.value_stack
+  push_value state retval
 
 (* call op handling *)
 let update_state_callop (_: wasm_module) (param_count: int) (retval_types: resulttype list) (state: program_state) =
@@ -607,7 +612,7 @@ let update_states_controlop (w: wasm_module) (param_counts: int list) (op: op_ty
       s.pending <- push_pending_states s.pending None
   (* if - make a copy of our current states on the pending stack *)
   | 0x04 ->
-      List.iter ~f:pop_value s.active;
+      List.iter ~f:drop_value s.active;
       s.pending <- push_pending_states s.pending (Some s.active)
   (* else - swap the top of the pending stack and our current states *)
   | 0x05 ->
@@ -631,9 +636,9 @@ let update_states_controlop (w: wasm_module) (param_counts: int list) (op: op_ty
   | 0x0c -> () (* TODO *)
   (* br_if *)
   | 0x0d -> 
-      List.iter ~f:pop_value s.active (* TODO *)
+      List.iter ~f:drop_value s.active (* TODO *)
   (* br_table *)
-  | 0x0e -> List.iter ~f:pop_value s.active (* TODO *)
+  | 0x0e -> List.iter ~f:drop_value s.active (* TODO *)
   (* return - remember our current states as final states, clear any current states *)
   | 0x0f -> 
       s.final <- unique_states s.final (states_copy s.active);
@@ -657,26 +662,26 @@ let int_of_get_argG arg =
     | Globalidx i -> i
     | _ -> failwith "Invalid global index"
 let update_state_varGLop (op: op_type) (state: program_state) = (* get local *)
-  state.value_stack <- List.cons (Array.get state.local_values (int_of_get_argL op.arg)) state.value_stack
+  push_value state (Array.get state.local_values (int_of_get_argL op.arg))
 let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
   Array.set state.local_values (int_of_get_argL op.arg) (List.hd_exn state.value_stack);
-  state.value_stack <- List.tl_exn state.value_stack
+  drop_value state
 let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
   Array.set state.local_values (int_of_get_argL op.arg) (List.hd_exn state.value_stack)
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
-  state.value_stack <- List.cons (Array.get state.global_values (int_of_get_argG op.arg)) state.value_stack
+  push_value state (Array.get state.global_values (int_of_get_argG op.arg))
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
   let value = List.hd_exn state.value_stack in
-  state.value_stack <- List.tl_exn state.value_stack;
+  drop_value state;
   Array.set state.global_values (int_of_get_argG op.arg) value
 
 (* memory operator *)
 let update_state_memloadop (op: op_type) (state: program_state) = 
   let addr = List.hd_exn state.value_stack in
-  state.value_stack <- List.tl_exn state.value_stack;
-  state.value_stack <- List.cons (String.concat [op.opname ; "@(" ; addr ; ")"]) state.value_stack
+  drop_value state;
+  push_value state (String.concat [op.opname ; "@(" ; addr ; ")"])
 let update_state_memstoreop (state: program_state) = 
-  state.value_stack <- List.tl_exn state.value_stack
+  drop_value state
 
 (* constant operators *)
 let string_of_const_arg arg =
@@ -687,37 +692,37 @@ let string_of_const_arg arg =
   | F64value f -> string_of_float f
   | _-> failwith "Invalid const argument"
 let update_state_constop (op: op_type) (state: program_state) =
-  state.value_stack <- List.cons (string_of_const_arg op.arg) state.value_stack
+  push_value state (string_of_const_arg op.arg)
 
 (* unary operators *)
 let update_state_unop (op: op_type) (state: program_state) = 
-  state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
+  poke_value state (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"])
 
 (* binary operators *)
 let update_state_binop (f: string) (state: program_state) =
   let result = String.concat ["(" ; (List.nth_exn state.value_stack 1) ; " " ; f ; " " ; (List.nth_exn state.value_stack 0) ; ")"] in
-  state.value_stack <- List.cons result (List.tl_exn (List.tl_exn state.value_stack))
+  drop_value state;
+  poke_value state result
 
 (* test operators *)
-let update_state_testop (op: op_type) (state: program_state) = 
-  state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
+let update_state_testop (op: op_type) (state: program_state) =
+  poke_value state (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"])
  
 (* TODO this does the same thing as update_state_binop *)
 (* rel operators *)
 let update_state_relop (f: string) (state: program_state) =
   let arg2 = List.hd_exn state.value_stack in
-  state.value_stack <- List.tl_exn state.value_stack;
+  drop_value state;
   let arg1 = List.hd_exn state.value_stack in
-  state.value_stack <- List.tl_exn state.value_stack;
-  state.value_stack <- List.cons (String.concat ["(" ; arg1 ; " " ; f ; " " ; arg2 ; ")"]) state.value_stack
+  poke_value state (String.concat ["(" ; arg1 ; " " ; f ; " " ; arg2 ; ")"])
 
 (* cvt operators *)
 let update_state_cvtop (op: op_type) (state: program_state) =
   match op.opcode with
   | 0xfc ->
-      state.value_stack <- List.cons (String.concat ["TODO (" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
+      poke_value state (String.concat ["TODO (" ; (List.hd_exn state.value_stack) ; ")"])
   | _ ->
-      state.value_stack <- List.cons (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"]) (List.tl_exn state.value_stack)
+      poke_value state (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"])
 
 (* instruction counter*)
 let update_instr_count (state: program_state) = state.instr_count <- state.instr_count + 1

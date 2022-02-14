@@ -102,3 +102,126 @@ type ssa = {
   operation:        string;
   mutable alive:    bool;
 }
+
+In this example (allium/78/4) we have a loop condition of ((ln4 + 1) < ln3) and the loop body reduces to this SSA:
+
+-t0 = pn1
+-t1 = 0
+-t2 = pn0
+-t3 = 0
+-t4 = rN0
+-t5 = pn1
+-t6 = 8
+-t7 = pn0
+-t8 = 8
+-t9 = rN0
+-t10 = pn1
+-t11 = 16
+-t12 = pn0
+-t13 = 16
+-t14 = rN0
+-t15 = pn1
+-t16 = 24
+-t17 = pn0
+-t18 = 24
+-t19 = rN0
+-t20 = pn1
+-t21 = 32
+-t22 = pn0
+-t23 = 32
+-t24 = rN0
+-t25 = pn1
+-t26 = 40
+-t27 = pn0
+-t28 = 40
+-t29 = rN0
+-t30 = pn1
+-t31 = 48
+-t32 = pn0
+-t33 = 48
+-t34 = rN0
+-t35 = pn1
+-t36 = 56
+-t37 = pn0
+-t38 = 56
+-t39 = rN0
+-t40 = pn1
+-t41 = -64
+-t42 = t40 - t41
+-t43 = 0
+-t44 = pn0
+-t45 = -64
+-t46 = t44 - t45
+-t47 = 0
+-t48 = rN0
+-t49 = pn1
+-t50 = 72
+-t51 = pn0
+-t52 = 72
+-t53 = rN0
+-t54 = pn1
+-t55 = 80
+-t56 = pn0
+-t57 = 80
+-t58 = rN0
+-t59 = pn1
+-t60 = 88
+-t61 = pn0
+-t62 = 88
+-t63 = rN0
+-t64 = pn0
+-t65 = pn1
+-t66 = 96
+-t67 = t65 + t66
+-pn1 = t67
+-t69 = ln4
+-t70 = 1
++t71 = t69 + t70
+-ln4 = t71
+-t73 = ln3
+-t74 = ln4 < t73
+
+We first extract the variables of interest from the loop condition: ln4, ln3
+We now want to determine the values of each of these variables when the br_if
+is executed. We do this by walking backwards through the SSA updating the 
+expression for the variable when the variable changes
+
+For ln4 we get
+ln4 -> ln4 = t71 -> ln4 = t69 + t70 -> ln4 = t69 + 1 -> ln4 = ln4 + 1
+so we see that ln4 is incremented by 1 in the loop
+
+For ln3 we see its not changed by the loop
+
+The loop terminates when ln4 >= ln3-1 and so the # of loop iterations is
+1+ceil(0, ln3-ln4'-1) where ln4' is the initial value of ln4 at loop entry
+
+Another example (allium/45/7) where the loop condition is ((lN8 + 1) < 8)
+
+-t0 = ln4
+-t1 = lN8
+-t2 = i32.wrap_i64(t1)
+-t3 = 2
+-t4 = t2 shl t3
+-t5 = t0 + t4
+-t6 = 0
+-t7 = ln3
+-t8 = ln3
+-t9 = 768
+-t10 = t8 + t9
+-ln3 = t10
+-t12 = lN8
+-t13 = 1
++t14 = t12 + t13
+-lN8 = t14
+-t16 = 8
+-t17 = lN8 < t16
+
+lN8 -> lN8 = t14 -> lN8 = t12 + t13 -> lN8 = t12 + 1 -> lN8 = lN8 + 1
+
+
+SSA reduction algorithm
+
+Extract the variables from the loop condition. For each variable v_i in the loop condition
+build a tree that starts with (=, v_i, v_i) and uses the SSA to expand the expression for the 
+second v_i node. So in the example above we have (=, lN8, lN8) -> (=, lN8, t14) -> (=, lN8, t12+t13) -> (=, lN8, t12+1)
+-> (=, lN8, lN8+1)
