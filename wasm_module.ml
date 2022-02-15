@@ -563,6 +563,18 @@ let expr_tree_of_unop (op: string) (arg: stack_value): stack_value =
 let expr_tree_of_binop (op: string) (arg1: stack_value) (arg2: stack_value): stack_value =
   String.concat ["(" ; arg1 ; " " ; op ; " " ; arg2 ; ")"]
 
+let rec string_of_expr_tree (e: expr_tree): string =
+  match e with
+    | Empty   -> "" (* empty expression *)
+    | Node n  ->
+      (match n.left with
+        | Empty -> n.op (* constant *)
+        | _ -> 
+          (match n.right with
+            | Empty -> String.concat[n.op; "("; string_of_expr_tree n.left; ")"] (* unary operator *)
+            | _     -> String.concat["("; string_of_expr_tree n.left; n.op; string_of_expr_tree n.right; ")"]) (* binary *)     )
+
+
 (* Parametric operators *)
 let update_state_parametricop (op: op_type) (s: program_state) = 
   match op.opcode with
