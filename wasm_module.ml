@@ -337,13 +337,15 @@ type wasm_module =
 (* the types op_code, bblock and code_path are defined above but are strictly speaking a by-product of our analysis *)
 
 (* Program state types *)
-type value_type = string
+type stack_value = string
+type local_value = string
+type global_value = string
 type program_state =
 {
   mutable instr_count:    int;
-  mutable value_stack:    value_type list;
-  mutable local_values:   string array;
-  mutable global_values:  string array;
+  mutable value_stack:    stack_value list;
+  mutable local_values:   local_value array;
+  mutable global_values:  global_value array;
 }
 
 type program_states = program_state list
@@ -390,9 +392,6 @@ let local_value (param_types: resulttype list) (local_types: local_type list) (i
   match i < nparams with 
   | true  -> String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i] 
   | _     -> String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
-
-let string_of_retval (index: int) (rt: resulttype): string =
-  String.concat ["r"; (string_of_resulttype rt); (string_of_int index)]
 
 (* Implementation *)
 (* Part 2 - basic blocks *)
@@ -534,10 +533,35 @@ match index < List.length bblocks with
 (* Part 3 - symbolic execution *)
 
 (* Updating the state of the program *)
-let stack_cdr (state: program_state): value_type list = List.tl_exn state.value_stack
-let drop_value (state: program_state) = state.value_stack <- stack_cdr state
-let push_value (state: program_state) (v: value_type) = state.value_stack <- List.cons v state.value_stack
-let poke_value (state: program_state) (v: value_type) = state.value_stack <- List.cons v (stack_cdr state)
+let stack_cdr   (state: program_state): stack_value list = List.tl_exn state.value_stack
+let drop_n_values
+                (state: program_state) (n: int) =
+  state.value_stack <- List.drop state.value_stack n
+let drop_value  (state: program_state) = drop_n_values state 1
+let push_value  (state: program_state) (v: stack_value) = state.value_stack <- List.cons v state.value_stack
+let poke_value  (state: program_state) (v: stack_value) = state.value_stack <- List.cons v (stack_cdr state)
+let peek_value  (state: program_state): stack_value = List.hd_exn state.value_stack
+let pop_value   (state: program_state): stack_value =
+  let value = peek_value state in
+  drop_value state;
+  value
+
+let expr_tree_of_const_arg arg: stack_value =
+  match arg with
+  | I32value i -> string_of_int i
+  | I64value i -> sprintf "%Ld" i
+  | F32value f -> string_of_float f
+  | F64value f -> string_of_float f
+  | _-> failwith "Invalid const argument"
+
+let expr_tree_of_retval (index: int) (rt: resulttype): stack_value =
+  String.concat ["r"; (string_of_resulttype rt); (string_of_int index)]
+
+let expr_tree_of_unop (op: string) (arg: stack_value): stack_value =
+  String.concat [op; "("; arg; ")"]
+
+let expr_tree_of_binop (op: string) (arg1: stack_value) (arg2: stack_value): stack_value =
+  String.concat ["(" ; arg1 ; " " ; op ; " " ; arg2 ; ")"]
 
 (* Parametric operators *)
 let update_state_parametricop (op: op_type) (s: program_state) = 
@@ -560,14 +584,12 @@ let pop_pending_states (src: pending_states): program_states =
   match List.hd_exn src with
   | Some s -> s
   | _ -> failwith "Invalid pending states"
-let push_retval (state: program_state) (retval: string) =
-  push_value state retval
 
 (* call op handling *)
 let update_state_callop (_: wasm_module) (param_count: int) (retval_types: resulttype list) (state: program_state) =
-  state.value_stack <- List.drop state.value_stack param_count;
-  List.iter ~f:(push_retval state) 
-    (List.init (List.length retval_types) ~f:(fun i -> (string_of_retval i (List.nth_exn retval_types i))))
+  drop_n_values state param_count;
+  List.iter ~f:(push_value state) 
+    (List.init (List.length retval_types) ~f:(fun i -> (expr_tree_of_retval i (List.nth_exn retval_types i))))
 
 let ret_types (w: wasm_module) (fidx: int): resulttype list =
   (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
@@ -664,65 +686,49 @@ let int_of_get_argG arg =
 let update_state_varGLop (op: op_type) (state: program_state) = (* get local *)
   push_value state (Array.get state.local_values (int_of_get_argL op.arg))
 let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
-  Array.set state.local_values (int_of_get_argL op.arg) (List.hd_exn state.value_stack);
-  drop_value state
+  Array.set state.local_values (int_of_get_argL op.arg) (pop_value state)
 let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
-  Array.set state.local_values (int_of_get_argL op.arg) (List.hd_exn state.value_stack)
+  Array.set state.local_values (int_of_get_argL op.arg) (peek_value state)
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
   push_value state (Array.get state.global_values (int_of_get_argG op.arg))
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
-  let value = List.hd_exn state.value_stack in
-  drop_value state;
-  Array.set state.global_values (int_of_get_argG op.arg) value
+  Array.set state.global_values (int_of_get_argG op.arg) (pop_value state)
 
 (* memory operator *)
 let update_state_memloadop (op: op_type) (state: program_state) = 
-  let addr = List.hd_exn state.value_stack in
-  drop_value state;
-  push_value state (String.concat [op.opname ; "@(" ; addr ; ")"])
+  poke_value state (expr_tree_of_unop (String.concat[op.opname; "@"]) (peek_value state))
 let update_state_memstoreop (state: program_state) = 
   drop_value state
 
 (* constant operators *)
-let string_of_const_arg arg =
-  match arg with
-  | I32value i -> string_of_int i
-  | I64value i -> sprintf "%Ld" i
-  | F32value f -> string_of_float f
-  | F64value f -> string_of_float f
-  | _-> failwith "Invalid const argument"
 let update_state_constop (op: op_type) (state: program_state) =
-  push_value state (string_of_const_arg op.arg)
+  push_value state (expr_tree_of_const_arg op.arg)
 
 (* unary operators *)
 let update_state_unop (op: op_type) (state: program_state) = 
-  poke_value state (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"])
+  poke_value state (expr_tree_of_unop op.opname (peek_value state))
 
 (* binary operators *)
 let update_state_binop (f: string) (state: program_state) =
-  let result = String.concat ["(" ; (List.nth_exn state.value_stack 1) ; " " ; f ; " " ; (List.nth_exn state.value_stack 0) ; ")"] in
-  drop_value state;
-  poke_value state result
+  let arg2 = pop_value state in
+  let arg1 = peek_value state in
+  poke_value state (expr_tree_of_binop f arg1 arg2)
 
 (* test operators *)
 let update_state_testop (op: op_type) (state: program_state) =
-  poke_value state (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"])
+  poke_value state (expr_tree_of_unop op.opname (peek_value state))
  
-(* TODO this does the same thing as update_state_binop *)
+(* this does the same thing as update_state_binop *)
 (* rel operators *)
-let update_state_relop (f: string) (state: program_state) =
-  let arg2 = List.hd_exn state.value_stack in
-  drop_value state;
-  let arg1 = List.hd_exn state.value_stack in
-  poke_value state (String.concat ["(" ; arg1 ; " " ; f ; " " ; arg2 ; ")"])
+let update_state_relop = update_state_binop
 
 (* cvt operators *)
 let update_state_cvtop (op: op_type) (state: program_state) =
   match op.opcode with
   | 0xfc ->
-      poke_value state (String.concat ["TODO (" ; (List.hd_exn state.value_stack) ; ")"])
+      poke_value state (expr_tree_of_unop "TODO" (peek_value state))
   | _ ->
-      poke_value state (String.concat [op.opname ; "(" ; (List.hd_exn state.value_stack) ; ")"])
+      poke_value state (expr_tree_of_unop op.opname (peek_value state))
 
 (* instruction counter*)
 let update_instr_count (state: program_state) = state.instr_count <- state.instr_count + 1

@@ -47,7 +47,7 @@ let name_of_tvar (t_index: int): string =
 
 let ssa_of_rt (start: int) (index: int) (r: resulttype) : ssa =
   { result = name_of_tvar (start+index);
-    op1 = string_of_retval index r;
+    op1 = expr_tree_of_retval index r;
     op2 = ""; op3 = ""; operation = ""; alive = true}
 
 let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (acc: ssa list)
@@ -118,7 +118,7 @@ let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: loca
         { result = "TODO MemoryM"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | Constop  ->
         { result = name_of_tvar (List.length acc);
-          op1 = string_of_const_arg op.arg;
+          op1 = expr_tree_of_const_arg op.arg;
           op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | Unop  ->
         { result = "TODO Unop"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
