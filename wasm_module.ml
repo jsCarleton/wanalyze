@@ -387,11 +387,13 @@ let rec local_type_of_index (local_types: local_type list) (index: int) (types_i
   | true  -> (List.nth_exn local_types types_index).v
   | _     -> local_type_of_index local_types index (types_index+1) (types_count + (List.nth_exn local_types types_index).n)
 
-let local_value (param_types: resulttype list) (local_types: local_type list) (i: int) =
+(* TODO *)
+let expr_tree_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): local_value =
   let nparams = List.length param_types in
   match i < nparams with 
   | true  -> String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i] 
   | _     -> String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
+let string_of_local_value = expr_tree_of_local_value
 
 (* Implementation *)
 (* Part 2 - basic blocks *)
@@ -533,6 +535,7 @@ match index < List.length bblocks with
 (* Part 3 - symbolic execution *)
 
 (* Updating the state of the program *)
+(* stack operations *)
 let stack_cdr   (state: program_state): stack_value list = List.tl_exn state.value_stack
 let drop_n_values
                 (state: program_state) (n: int) =
@@ -546,6 +549,27 @@ let pop_value   (state: program_state): stack_value =
   drop_value state;
   value
 
+(* value array operations *)
+(* TODO *)
+let copy_values (values: global_value array): global_value array =
+  Array.copy values
+let create_values (len: int): global_value array =
+  Array.create ~len:len ""
+let init_values (len: int) (f: (int -> global_value)): global_value array =
+  Array.init len ~f:f
+let get_value (values: global_value array) (i:int): global_value =
+  Array.get values i
+let set_value (values: global_value array) (i: int) (v: global_value) =
+  Array.set values i v
+let get_local (state: program_state) (i: int): local_value =
+  get_value state.local_values i
+let set_local (state: program_state) (i: int) (v: local_value) =
+  set_value state.local_values i v
+let get_global (state: program_state) (i: int): local_value =
+  get_value state.global_values i
+let set_global (state: program_state) (i: int) (v: local_value) =
+  set_value state.global_values i v
+
 let expr_tree_of_const_arg arg: stack_value =
   match arg with
   | I32value i -> string_of_int i
@@ -554,6 +578,7 @@ let expr_tree_of_const_arg arg: stack_value =
   | F64value f -> string_of_float f
   | _-> failwith "Invalid const argument"
 
+(* TODO *)
 let expr_tree_of_retval (index: int) (rt: resulttype): stack_value =
   String.concat ["r"; (string_of_resulttype rt); (string_of_int index)]
 
@@ -696,15 +721,15 @@ let int_of_get_argG arg =
     | Globalidx i -> i
     | _ -> failwith "Invalid global index"
 let update_state_varGLop (op: op_type) (state: program_state) = (* get local *)
-  push_value state (Array.get state.local_values (int_of_get_argL op.arg))
+  push_value state (get_local state (int_of_get_argL op.arg))
 let update_state_varSLop (op: op_type) (state: program_state) = (* set local *)
-  Array.set state.local_values (int_of_get_argL op.arg) (pop_value state)
+  set_local state (int_of_get_argL op.arg) (pop_value state)
 let update_state_varTLop (op: op_type) (state: program_state) = (* tee local *)
-  Array.set state.local_values (int_of_get_argL op.arg) (peek_value state)
+  set_local state  (int_of_get_argL op.arg) (peek_value state)
 let update_state_varGGop (op: op_type) (state: program_state) = (* get local *)
-  push_value state (Array.get state.global_values (int_of_get_argG op.arg))
+  push_value state (get_global state (int_of_get_argG op.arg))
 let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
-  Array.set state.global_values (int_of_get_argG op.arg) (pop_value state)
+  set_global state (int_of_get_argG op.arg) (pop_value state)
 
 (* memory operator *)
 let update_state_memloadop (op: op_type) (state: program_state) = 
@@ -867,8 +892,8 @@ let rec reduce_bblock' (w: wasm_module) (s: program_state) (e: expr) (succ_cond:
 let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
       program_state*string =
   (Logging.get_logger "wanalyze")#info "reducing bblock";
-  let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values=(Array.copy i.local_values);
-              global_values=(Array.copy i.global_values)} in
+  let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values = copy_values i.local_values;
+              global_values = copy_values i.global_values} in
   let s = reduce_bblock' w f e "" in
   f,s
 
@@ -1037,14 +1062,14 @@ let rec create_globals (w:wasm_module) (s: program_state) (imports: import list)
       | []      -> global_vals
       | hd::tl  ->
           let g_val = string_of_mglobal w hd.e s in
-          Array.set global_vals next g_val;
-          Array.set s.global_values next g_val;
+          set_value global_vals next g_val;
+          set_global s next g_val;
           create_globals w s [] tl n_imports global_vals (next+1))
     | hd::tl ->
       (match hd.description with
         | Globaltype gt ->  let g_val = (string_of_iglobal hd.import_name hd.index gt.t) in
-                            Array.set global_vals next g_val;
-                            Array.set s.global_values next g_val;
+                            set_value global_vals next g_val;
+                            set_global s next g_val;
                             create_globals w s tl globals n_imports global_vals (next+1)
         | _             ->  create_globals w s tl globals n_imports global_vals next)
 
@@ -1064,19 +1089,19 @@ let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_t
                       w
                       { instr_count = 0;
                         value_stack = [];
-                        local_values = Array.create ~len:0 "";
-                        global_values = (Array.create ~len:(n_i + n_m) "")
+                        local_values = create_values 0;
+                        global_values = create_values (n_i + n_m)
                       }
                       w.import_section
                       w.global_section
                       n_i
-                      (Array.create ~len:(n_i + n_m) "")
+                     (create_values (n_i + n_m))
                       0 in
 { instr_count   = 0;
   value_stack   = []; 
-  local_values  = Array.init 
+  local_values  = init_values
                     ((List.length param_types) + (List.fold_left ~f:sum_nlocals ~init:0 local_types))
-                    ~f:(local_value param_types local_types); 
+                    (expr_tree_of_local_value param_types local_types); 
   global_values = global_values }
 
 (* Implementation *)

@@ -91,14 +91,14 @@ let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: loca
           | _ -> failwith (sprintf "Invalid parametric opcode %x" op.opcode))
     | VariableGL ->
         { result = name_of_tvar (List.length acc);
-          op1 = local_value param_types local_types (int_of_get_argL op.arg);
+          op1 = string_of_local_value param_types local_types (int_of_get_argL op.arg);
           op2 = ""; op3 = ""; operation = ""; alive = true} :: acc         
     | VariableSL  ->
-        { result = local_value param_types local_types (int_of_get_argL op.arg);
+        { result = string_of_local_value param_types local_types (int_of_get_argL op.arg);
           op1 = (find_and_kill acc).result;
           op2 = ""; operation = ""; op3 = ""; alive = false} :: acc
     | VariableTL  ->
-        { result = local_value param_types local_types (int_of_get_argL op.arg);
+        { result = string_of_local_value param_types local_types (int_of_get_argL op.arg);
           op1 = (find_alive acc).result;
           op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
     | VariableGG  ->
