@@ -2,6 +2,7 @@ open Core
 open Easy_logging
 open Wasm_module
 open Ssa
+open Symbolic_expr
 
 (* Part 1 *)
 (* Printable strings for basic types *)
@@ -330,10 +331,14 @@ let has_successors (bblocks: bblock list) (bb_index: int ): bool =
 (* Part 3 *)
 (* printing the state *)
 let string_of_instr_count (count: int) = String.concat ["\ncost:    " ; string_of_int count ; "; "]
-let string_of_value_stack (stack: string list) = String.concat ["stack:   [" ; (String.concat ~sep:", " stack) ; "]; "]
-let string_of_param_values (locals: string array) = String.concat ["params:  [" ; (String.concat ~sep:", " (Array.to_list locals)) ; "]; "]
-let string_of_local_values (params: string array) = String.concat ["locals:  [" ; (String.concat ~sep:", " (Array.to_list params)) ; "]; "]
-let string_of_global_values (globals: string array) = String.concat ["globals: [" ; (String.concat ~sep:", " (Array.to_list globals)) ; "]"]
+let string_of_value_stack (stack: expr_tree list): string = 
+  String.concat ["stack:   [" ; (String.concat ~sep:", " (List.map ~f:string_of_expr_tree stack)); "]; "]
+let string_of_param_values (locals: expr_tree array): string = 
+  String.concat ["params:  [" ; (String.concat ~sep:", " (List.map ~f:string_of_expr_tree (Array.to_list locals))) ; "]; "]
+let string_of_local_values (params: expr_tree array): string = 
+  String.concat ["locals:  [" ; (String.concat ~sep:", " (List.map ~f:string_of_expr_tree (Array.to_list params))) ; "]; "]
+let string_of_global_values (globals: expr_tree array):string = 
+  String.concat ["globals: [" ; (String.concat ~sep:", " (List.map ~f:string_of_expr_tree (Array.to_list globals))) ; "]"]
 let string_of_state (print_locals: bool) (nparams: int) (state: program_state): string =
   String.concat [ string_of_instr_count state.instr_count; "\n";
                   string_of_value_stack state.value_stack; "\n";
@@ -417,7 +422,7 @@ let execute_bblock (w: wasm_module) (e: expr) (bblocks: bblock list) (state: pro
       (bb_id: int) =
     (Logging.get_logger "wanalyze")#info  "execute_bblock: bb_id: %s" (string_of_int bb_id);
     let bb = List.nth_exn bblocks bb_id in
-    let (_: string) = reduce_bblock' w state (expr_of_bblock e bb) "" in
+    let (_: expr_tree) = reduce_bblock' w state (expr_of_bblock e bb) Empty in
       ()
 
 let execute_code_path (w: wasm_module) (e: expr) (bblocks: bblock list) (param_types: resulttype list) (local_types: local_type list) 
