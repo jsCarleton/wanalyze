@@ -393,8 +393,8 @@ let local_name (local_types: local_type list) (nparams: int) (i: int): string =
 let expr_tree_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): expr_tree =
   let nparams = List.length param_types in
   match i < nparams with 
-  | true  -> Node {op = param_name param_types i; left = Empty; right = Empty}
-  | _     -> Node {op = local_name local_types nparams i; left = Empty; right = Empty}
+  | true  -> Variable (param_name param_types i)
+  | _     -> Variable (local_name local_types nparams i)
 
 let string_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): string =
   let nparams = List.length param_types in
@@ -578,39 +578,27 @@ let set_global (state: program_state) (i: int) (v: expr_tree) =
   set_value state.global_values i v
 
 let expr_tree_of_const_arg arg: expr_tree =
-  Node {
-    op = (match arg with
+ Constant (match arg with
             | I32value i -> string_of_int i
             | I64value i -> sprintf "%Ld" i
             | F32value f -> string_of_float f
             | F64value f -> string_of_float f
-            | _-> failwith "Invalid const argument");
-    left = Empty; right = Empty;
-  }
+            | _-> failwith "Invalid const argument")
 
 let expr_tree_of_retval (index: int) (rt: resulttype): expr_tree =
-  Node {
-    op = String.concat ["r"; (string_of_resulttype rt); (string_of_int index)];
-    left = Empty; right = Empty;
-  }
+  Variable (String.concat ["r"; (string_of_resulttype rt); (string_of_int index)])
 
 let expr_tree_of_unop (op: string) (arg: expr_tree): expr_tree =
-  Node {
-    op = op;
-    left = arg;
-    right = Empty;
-  }
+  Node {op = op; left = arg; right = Empty}
 
 let expr_tree_of_binop (op: string) (arg1: expr_tree) (arg2: expr_tree): expr_tree =
-  Node {
-    op = op;
-    left = arg1;
-    right = arg2;
-  }
+  Node {op = op; left = arg1; right = arg2}
 
 let rec string_of_expr_tree (e: expr_tree): string =
   match e with
     | Empty   -> "" (* empty expression *)
+    | Constant s -> s
+    | Variable s -> s
     | Node n  ->
       (match n.left with
         | Empty -> n.op (* constant *)
@@ -1072,10 +1060,7 @@ let expr_tree_of_mglobal (w: wasm_module) (e: expr) (s: program_state): expr_tre
       reduce_expr w e s
 
 let expr_tree_of_iglobal (import_name: string) (index: int) (t: valtype):  expr_tree =
-  Node {
-    op = String.concat ["g"; string_of_resulttype t; string_of_int index; " ("; import_name; ")"];
-    left = Empty; right = Empty;
-  }
+  Variable (String.concat ["g"; string_of_resulttype t; string_of_int index; " ("; import_name; ")"])
 
 let rec create_globals (w:wasm_module) (s: program_state) (imports: import list) (globals: global list) (n_imports: int)
           (global_vals: expr_tree array) (next: int): expr_tree array =
