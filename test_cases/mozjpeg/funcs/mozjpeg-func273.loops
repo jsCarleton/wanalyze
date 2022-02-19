@@ -18,8 +18,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 5:	pN0 > 42949672959
 Loop condition variables: pN0
-Simple brif loop condition in bblock 10:	ln2 > 9
-Loop condition variables: ln2
+SSA of loop:
 -t0 = pn1
 -t1 = -1
 -t2 = t0 + t1
@@ -43,6 +42,11 @@ Loop condition variables: ln2
 -t20 = lN5
 -pN0 = t20
 -t22 = ln2
+Loop variable calculations:
++pN0 = pN0 /u 10
+Simple brif loop condition in bblock 10:	ln2 > 9
+Loop condition variables: ln2
+SSA of loop:
 -t0 = pn1
 -t1 = -1
 -t2 = t0 + t1
@@ -65,3 +69,5 @@ Loop condition variables: ln2
 -t19 = ln3
 -ln2 = t19
 -t21 = ln4
+Loop variable calculations:
++ln2 = ln2 /u 10

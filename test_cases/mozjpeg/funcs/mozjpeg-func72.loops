@@ -11,14 +11,7 @@ globals: [5400608 - 2128]
 
 Simple brif loop condition in bblock 3:	(ln3 + 1) != 257
 Loop condition variables: ln3
-Simple brif loop condition in bblock 20:	i32.eqz(i32.load8_u@(ln3 + (ln5 + 2080)))
-Loop condition variables: ln3, ln5
-Simple brif loop condition in bblock 28:	i32.eqz(i32.load8_u@((ln5 + 2080) + ln3))
-Loop condition variables: ln5, ln3
-Simple brif loop condition in bblock 42:	(i32.load@((ln3 shl 2) + ln5)) > -1
-Loop condition variables: ln3, ln5
-Simple brif loop condition in bblock 47:	(i32.load@((ln3 shl 2) + ln5)) > -1
-Loop condition variables: ln3, ln5
+SSA of loop:
 -t0 = ln4
 -t1 = pn2
 -t2 = ln3
@@ -51,6 +44,11 @@ Loop condition variables: ln3, ln5
 -ln3 = t28
 -t30 = 257
 -t31 = t28 != t30
+Loop variable calculations:
++ln3 = ln3 + 1
+Simple brif loop condition in bblock 20:	i32.eqz(i32.load8_u@(ln3 + (ln5 + 2080)))
+Loop condition variables: ln3, ln5
+SSA of loop:
 -t0 = ln3
 -ln4 = t0
 -t2 = -1
@@ -64,6 +62,12 @@ Loop condition variables: ln3, ln5
 -ln10 = t9
 -t11 = (t9)
 -t12 = i32.eqz(t11)
+Loop variable calculations:
++ln5 = ln5
++ln3 = ln3 + -1
+Simple brif loop condition in bblock 28:	i32.eqz(i32.load8_u@((ln5 + 2080) + ln3))
+Loop condition variables: ln5, ln3
+SSA of loop:
 -t0 = ln5
 -t1 = 2080
 -t2 = t0 + t1
@@ -78,6 +82,12 @@ Loop condition variables: ln3, ln5
 -t11 = (t10)
 -pn2 = t11
 -t13 = i32.eqz(t11)
+Loop variable calculations:
++ln3 = ln3 + -1
++ln5 = ln5
+Simple brif loop condition in bblock 42:	(i32.load@((ln3 shl 2) + ln5)) > -1
+Loop condition variables: ln3, ln5
+SSA of loop:
 -t0 = ln3
 -t1 = 2
 -t2 = t0 shl t1
@@ -100,6 +110,12 @@ Loop condition variables: ln3, ln5
 -ln3 = t18
 -t20 = -1
 -t21 = t18 > t20
+Loop variable calculations:
++ln5 = ln5
++ln3 = ((ln3 shl 2) + ln5)
+Simple brif loop condition in bblock 47:	(i32.load@((ln3 shl 2) + ln5)) > -1
+Loop condition variables: ln3, ln5
+SSA of loop:
 -t0 = ln3
 -t1 = 2
 -t2 = t0 shl t1
@@ -121,3 +137,6 @@ Loop condition variables: ln3, ln5
 -ln3 = t17
 -t19 = -1
 -t20 = t17 > t19
+Loop variable calculations:
++ln5 = ln5
++ln3 = ((ln3 shl 2) + ln5)

@@ -11,6 +11,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 2:	(ln6 + 1) < (i32.load@(pn0))
 Loop condition variables: ln6, pn0
+SSA of loop:
 +t0 = pn0
 -t1 = ln5
 -t2 = pn1
@@ -48,3 +49,6 @@ Loop condition variables: ln6, pn0
 -t34 = pn0
 -t35 = (t34)
 -t36 = t32 < t35
+Loop variable calculations:
++pn0 = pn0
++ln6 = ln6 + 1

@@ -11,8 +11,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 13:	ln7 < (i32.load@(pn0))
 Loop condition variables: ln7, pn0
-Simple brif loop condition in bblock 27:	(ln7 + 1) != ln9
-Loop condition variables: ln7, ln9
+SSA of loop:
 -t0 = ln12
 -t1 = (t0)
 -ln9 = t1
@@ -35,6 +34,12 @@ Loop condition variables: ln7, ln9
 -t19 = t17 + t18
 -ln7 = t19
 -t21 = ln13
+Loop variable calculations:
++pn0 = pn0
++ln7 = ln7 + 1
+Simple brif loop condition in bblock 27:	(ln7 + 1) != ln9
+Loop condition variables: ln7, ln9
+SSA of loop:
 -t0 = ln10
 -t1 = ln13
 -t2 = ln10
@@ -47,3 +52,6 @@ Loop condition variables: ln7, ln9
 -ln7 = t8
 -t10 = ln9
 -t11 = t8 != t10
+Loop variable calculations:
++ln9 = ln9
++ln7 = ln7 + 1

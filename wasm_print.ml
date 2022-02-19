@@ -442,8 +442,21 @@ let loop_entry_state (w: wasm_module) (e: expr) (bblocks: bblock list) (param_ty
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
 
-let explode_var (_: string) (s: ssa list): ssa list =
-  s
+let rec expand_expr_tree (e: expr_tree) (s_src: ssa): expr_tree =
+  match e with 
+  | Variable v
+      -> (match (String.compare v s_src.result) with 
+            | 0 -> s_src.etree
+            | _ -> e)
+  | Node n -> Node {op = n.op;
+                    arg1 = expand_expr_tree (n.arg1) s_src;
+                    arg2 = expand_expr_tree (n.arg2) s_src;
+                    arg3 = expand_expr_tree (n.arg3) s_src;}
+  | _ -> e
+
+let explode_var (s: ssa list) (result: string): ssa =
+  let i = Variable result in
+  {result; etree = List.fold_left ~f:expand_expr_tree ~init:i s; alive = true}
 
 let print_function (w: wasm_module) dir prefix fidx type_idx =
   let fname         = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
@@ -508,7 +521,10 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
                                               "Loop condition variables: ";
                                               (String.concat ~sep:", " loop_vars);
                                               "\n";
-                                              (string_of_ssa_list loop_ssa)])
+                                              "SSA of loop:\n";
+                                              (string_of_ssa_list loop_ssa);
+                                              "Loop variable calculations:\n";
+                                              (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars))])
               bbs));
         Out_channel.close oc
   | false -> ())

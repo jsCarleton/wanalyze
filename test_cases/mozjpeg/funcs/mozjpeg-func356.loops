@@ -3252,6 +3252,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 50:	(pn3 + 1) != pn0
 Loop condition variables: pn3, pn0
+SSA of loop:
 -t0 = pn1
 -t1 = (t0)
 -t2 = pn3
@@ -3266,3 +3267,6 @@ Loop condition variables: pn3, pn0
 -pn3 = t10
 -t12 = pn0
 -t13 = t10 != t12
+Loop variable calculations:
++pn0 = pn0
++pn3 = pn3 + 1

@@ -11,12 +11,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 16:	(ln2 + 1) != ln12
 Loop condition variables: ln2, ln12
-Simple brif loop condition in bblock 23:	(ln2 + 1) < ln11
-Loop condition variables: ln2, ln11
-Simple brif loop condition in bblock 46:	(ln2 + 1) < ln7
-Loop condition variables: ln2, ln7
-Simple brif loop condition in bblock 52:	(ln2 + 1) != ln7
-Loop condition variables: ln2, ln7
+SSA of loop:
 -t0 = ln3
 -t1 = ln2
 -t2 = ln4
@@ -34,6 +29,12 @@ Loop condition variables: ln2, ln7
 -ln2 = t13
 -t15 = ln12
 -t16 = t13 != t15
+Loop variable calculations:
++ln12 = ln12
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 23:	(ln2 + 1) < ln11
+Loop condition variables: ln2, ln11
+SSA of loop:
 -t0 = ln3
 -t1 = ln2
 -t2 = ln4
@@ -53,6 +54,12 @@ Loop condition variables: ln2, ln7
 -ln2 = t15
 -t17 = ln11
 -t18 = t15 < t17
+Loop variable calculations:
++ln11 = ln11
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 46:	(ln2 + 1) < ln7
+Loop condition variables: ln2, ln7
+SSA of loop:
 -t0 = ln3
 -t1 = ln2
 -t2 = ln4
@@ -72,6 +79,12 @@ Loop condition variables: ln2, ln7
 -ln2 = t15
 -t17 = ln7
 -t18 = t15 < t17
+Loop variable calculations:
++ln7 = ln7
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 52:	(ln2 + 1) != ln7
+Loop condition variables: ln2, ln7
+SSA of loop:
 -t0 = ln3
 -t1 = ln2
 -t2 = ln4
@@ -89,3 +102,6 @@ Loop condition variables: ln2, ln7
 -ln2 = t13
 -t15 = ln7
 -t16 = t13 != t15
+Loop variable calculations:
++ln7 = ln7
++ln2 = ln2 + 1

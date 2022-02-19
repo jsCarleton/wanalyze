@@ -25,12 +25,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 11:	pn1 shr_s 1
 Loop condition variables: pn1
-Simple brif loop condition in bblock 26:	pn1 + -1
-Loop condition variables: pn1
-Simple brif loop condition in bblock 41:	ln3 shr_s 1
-Loop condition variables: ln3
-Simple brif loop condition in bblock 64:	pn1 + -1
-Loop condition variables: pn1
+SSA of loop:
 -t0 = ln3
 -ln5 = t0
 -t2 = 1
@@ -40,6 +35,11 @@ Loop condition variables: pn1
 -t6 = 1
 -t7 = t5 shr_s t6
 -pn1 = t7
+Loop variable calculations:
++pn1 = pn1 shr_s 1
+Simple brif loop condition in bblock 26:	pn1 + -1
+Loop condition variables: pn1
+SSA of loop:
 -t0 = ln2
 -t1 = ln3
 -t2 = (t1)
@@ -52,6 +52,11 @@ Loop condition variables: pn1
 -t9 = -1
 -t10 = t8 + t9
 -pn1 = t10
+Loop variable calculations:
++pn1 = pn1 + -1
+Simple brif loop condition in bblock 41:	ln3 shr_s 1
+Loop condition variables: ln3
+SSA of loop:
 -t0 = pn1
 -ln5 = t0
 -t2 = 1
@@ -61,6 +66,11 @@ Loop condition variables: pn1
 -t6 = 1
 -t7 = t5 shr_s t6
 -ln3 = t7
+Loop variable calculations:
++ln3 = ln3 shr_s 1
+Simple brif loop condition in bblock 64:	pn1 + -1
+Loop condition variables: pn1
+SSA of loop:
 -t0 = ln2
 -t1 = ln3
 -t2 = (t1)
@@ -73,3 +83,5 @@ Loop condition variables: pn1
 -t9 = -1
 -t10 = t8 + t9
 -pn1 = t10
+Loop variable calculations:
++pn1 = pn1 + -1

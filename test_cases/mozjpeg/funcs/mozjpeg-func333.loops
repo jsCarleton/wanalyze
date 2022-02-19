@@ -60,12 +60,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 30:	(pn2 + -4) > 3
 Loop condition variables: pn2
-Simple brif loop condition in bblock 35:	pn2 + -1
-Loop condition variables: pn2
-Simple brif loop condition in bblock 41:	(pn2 + -4) > 3
-Loop condition variables: pn2
-Simple brif loop condition in bblock 46:	pn2 + -1
-Loop condition variables: pn2
+SSA of loop:
 -t0 = pn0
 -t1 = pn2
 -t2 = -4
@@ -80,6 +75,11 @@ Loop condition variables: pn2
 -t11 = pn2
 -t12 = 3
 -t13 = t11 > t12
+Loop variable calculations:
++pn2 = pn2 + -4
+Simple brif loop condition in bblock 35:	pn2 + -1
+Loop condition variables: pn2
+SSA of loop:
 -t0 = pn0
 -t1 = pn2
 -t2 = -1
@@ -92,6 +92,11 @@ Loop condition variables: pn2
 -t9 = (t8)
 -@(t5) = (t9)
 -t11 = pn2
+Loop variable calculations:
++pn2 = pn2 + -1
+Simple brif loop condition in bblock 41:	(pn2 + -4) > 3
+Loop condition variables: pn2
+SSA of loop:
 -t0 = ln3
 -t1 = pn1
 -t2 = (t1)
@@ -110,6 +115,11 @@ Loop condition variables: pn2
 -pn2 = t14
 -t16 = 3
 -t17 = t14 > t16
+Loop variable calculations:
++pn2 = pn2 + -4
+Simple brif loop condition in bblock 46:	pn2 + -1
+Loop condition variables: pn2
+SSA of loop:
 -t0 = ln3
 -t1 = pn1
 -t2 = (t1)
@@ -126,3 +136,5 @@ Loop condition variables: pn2
 -t13 = -1
 -t14 = t12 + t13
 -pn2 = t14
+Loop variable calculations:
++pn2 = pn2 + -1

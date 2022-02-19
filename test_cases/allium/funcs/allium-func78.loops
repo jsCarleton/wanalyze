@@ -11,6 +11,7 @@ globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX)
 
 Simple brif loop condition in bblock 4:	(ln4 + 1) < ln3
 Loop condition variables: ln4, ln3
+SSA of loop:
 -t0 = pn1
 -t1 = 0
 -t2 = pn0
@@ -86,3 +87,6 @@ Loop condition variables: ln4, ln3
 -ln4 = t71
 -t73 = ln3
 -t74 = t71 < t73
+Loop variable calculations:
++ln3 = ln3
++ln4 = ln4 + 1

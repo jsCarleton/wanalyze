@@ -5,6 +5,7 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 
 Simple brif loop condition in bblock 160:	rn0
 Loop condition variables: rn0
+SSA of loop:
 -t0 = pn0
 -t1 = 0
 -t2 = rn0
@@ -13,3 +14,5 @@ Loop condition variables: rn0
 -t5 = t2 + t4
 -pn0 = t5
 -t7 = ln2
+Loop variable calculations:
++rn0 = rn0

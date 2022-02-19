@@ -11,6 +11,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 9:	(pn2 + -32) > 31
 Loop condition variables: pn2
+SSA of loop:
 -t0 = pn1
 -t1 = lN5
 -@(t0) = (t1)
@@ -33,3 +34,5 @@ Loop condition variables: pn2
 -pn2 = t18
 -t20 = 31
 -t21 = t18 > t20
+Loop variable calculations:
++pn2 = pn2 + -32

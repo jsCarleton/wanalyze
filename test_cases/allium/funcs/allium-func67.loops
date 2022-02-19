@@ -11,6 +11,7 @@ globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX)
 
 Simple brif loop condition in bblock 6:	(ln52 + 1) != 8
 Loop condition variables: ln52
+SSA of loop:
 -t0 = pn1
 -t1 = ln52
 -t2 = 2
@@ -49,3 +50,5 @@ Loop condition variables: ln52
 -ln52 = t34
 -t36 = 8
 -t37 = t34 != t36
+Loop variable calculations:
++ln52 = ln52 + 1

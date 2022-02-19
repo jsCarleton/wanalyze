@@ -5,7 +5,7 @@ open Symbolic_expr
 
 type ssa = {
   result:         string;
-  etree:          expr_tree;
+  mutable etree:  expr_tree;
   mutable alive:  bool;
 }
 (* type op_type =

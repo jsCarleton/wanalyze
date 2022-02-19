@@ -18,8 +18,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 13:	i32.eqz((((i32.load@(ln1)) xor -1) && ((i32.load@(ln1)) + -16843009)) && -2139062144)
 Loop condition variables: ln1, ln1
-Simple brif loop condition in bblock 19:	i32.load8_u@(ln2)
-Loop condition variables: ln2
+SSA of loop:
 -t0 = ln1
 -ln2 = t0
 -t2 = 4
@@ -37,6 +36,12 @@ Loop condition variables: ln2
 -t14 = -2139062144
 -t15 = t13 && t14
 -t16 = i32.eqz(t15)
+Loop variable calculations:
++ln1 = ln1 + 4
++ln1 = ln1 + 4
+Simple brif loop condition in bblock 19:	i32.load8_u@(ln2)
+Loop condition variables: ln2
+SSA of loop:
 -t0 = ln2
 -t1 = (t0)
 -ln3 = t1
@@ -46,3 +51,5 @@ Loop condition variables: ln2
 -ln1 = t5
 -ln2 = t5
 -t8 = ln3
+Loop variable calculations:
++ln2 = ln2 + 1

@@ -5,42 +5,7 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 
 Simple brif loop condition in bblock 19:	(ln3 + 1) != ln4
 Loop condition variables: ln3, ln4
-Simple brif loop condition in bblock 29:	(ln7 + 1) < (i32.load@(ln6))
-Loop condition variables: ln7, ln6
-Simple brif loop condition in bblock 34:	(ln1 + 1) < (i32.load@(ln6))
-Loop condition variables: ln1, ln6
-Simple brif loop condition in bblock 42:	(ln2 + 1) < (i32.load@(ln5))
-Loop condition variables: ln2, ln5
-Simple brif loop condition in bblock 47:	(ln3 + 1) < (i32.load@(ln5))
-Loop condition variables: ln3, ln5
-Simple brif loop condition in bblock 108:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 115:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 121:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 124:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 127:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 130:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 136:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 144:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 150:	(ln5 + 1) != ln4
-Loop condition variables: ln5, ln4
-Simple brif loop condition in bblock 153:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 156:	(ln5 + 1) != ln4
-Loop condition variables: ln5, ln4
-Simple brif loop condition in bblock 161:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
-Simple brif loop condition in bblock 167:	(ln5 + 1) != ln4
-Loop condition variables: ln5, ln4
-Simple brif loop condition in bblock 175:	(ln2 + 1) != ln4
-Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = ln3
 -t2 = 2
@@ -54,6 +19,12 @@ Loop condition variables: ln2, ln4
 -ln3 = t9
 -t11 = ln4
 -t12 = t9 != t11
+Loop variable calculations:
++ln4 = ln4
++ln3 = ln3 + 1
+Simple brif loop condition in bblock 29:	(ln7 + 1) < (i32.load@(ln6))
+Loop condition variables: ln7, ln6
+SSA of loop:
 -t0 = ln3
 -ln5 = t0
 -t2 = 1
@@ -108,6 +79,12 @@ Loop condition variables: ln2, ln4
 -t51 = ln6
 -t52 = (t51)
 -t53 = t49 < t52
+Loop variable calculations:
++ln6 = ln6
++ln7 = ln7 + 1
+Simple brif loop condition in bblock 34:	(ln1 + 1) < (i32.load@(ln6))
+Loop condition variables: ln1, ln6
+SSA of loop:
 -t0 = ln3
 -t1 = 1
 -@(t0) = (t1)
@@ -153,6 +130,12 @@ Loop condition variables: ln2, ln4
 -t42 = ln6
 -t43 = (t42)
 -t44 = t40 < t43
+Loop variable calculations:
++ln6 = ln6
++ln1 = ln1 + 1
+Simple brif loop condition in bblock 42:	(ln2 + 1) < (i32.load@(ln5))
+Loop condition variables: ln2, ln5
+SSA of loop:
 -t0 = ln1
 -t1 = 8589934593
 -@(t0) = (t1)
@@ -239,6 +222,12 @@ Loop condition variables: ln2, ln4
 -t83 = ln5
 -t84 = (t83)
 -t85 = t81 < t84
+Loop variable calculations:
++ln5 = ln5
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 47:	(ln3 + 1) < (i32.load@(ln5))
+Loop condition variables: ln3, ln5
+SSA of loop:
 -t0 = ln1
 -t1 = 8589934593
 -@(t0) = (t1)
@@ -307,6 +296,12 @@ Loop condition variables: ln2, ln4
 -t65 = ln5
 -t66 = (t65)
 -t67 = t63 < t66
+Loop variable calculations:
++ln5 = ln5
++ln3 = ln3 + 1
+Simple brif loop condition in bblock 108:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 0
 -@(t0) = (t1)
@@ -329,6 +324,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 115:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = ln2
 -t2 = 2
@@ -342,6 +343,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t9
 -t11 = ln4
 -t12 = t9 != t11
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 121:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 8589934592
 -@(t0) = (t1)
@@ -364,6 +371,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 124:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 8589934592
 -@(t0) = (t1)
@@ -386,6 +399,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 127:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 4294967298
 -@(t0) = (t1)
@@ -408,6 +427,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 130:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 1
 -@(t0) = (t1)
@@ -430,6 +455,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 136:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 4294967296
 -@(t0) = (t1)
@@ -452,6 +483,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 144:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = ln2
 -t2 = 2
@@ -465,6 +502,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t9
 -t11 = ln4
 -t12 = t9 != t11
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 150:	(ln5 + 1) != ln4
+Loop condition variables: ln5, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 8589934592
 -@(t0) = (t1)
@@ -487,6 +530,12 @@ Loop condition variables: ln2, ln4
 -ln5 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln5 = ln5 + 1
+Simple brif loop condition in bblock 153:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 8589934592
 -@(t0) = (t1)
@@ -509,6 +558,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 156:	(ln5 + 1) != ln4
+Loop condition variables: ln5, ln4
+SSA of loop:
 -t0 = ln1
 -pn0 = t0
 -t2 = 4294967298
@@ -532,6 +587,12 @@ Loop condition variables: ln2, ln4
 -ln5 = t19
 -t21 = ln4
 -t22 = t19 != t21
+Loop variable calculations:
++ln4 = ln4
++ln5 = ln5 + 1
+Simple brif loop condition in bblock 161:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 1
 -@(t0) = (t1)
@@ -554,6 +615,12 @@ Loop condition variables: ln2, ln4
 -ln2 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1
+Simple brif loop condition in bblock 167:	(ln5 + 1) != ln4
+Loop condition variables: ln5, ln4
+SSA of loop:
 -t0 = pn0
 -t1 = ln5
 -t2 = 2
@@ -569,6 +636,12 @@ Loop condition variables: ln2, ln4
 -ln5 = t11
 -t13 = ln4
 -t14 = t11 != t13
+Loop variable calculations:
++ln4 = ln4
++ln5 = ln5 + 1
+Simple brif loop condition in bblock 175:	(ln2 + 1) != ln4
+Loop condition variables: ln2, ln4
+SSA of loop:
 -t0 = ln1
 -t1 = 1
 -@(t0) = (t1)
@@ -591,3 +664,6 @@ Loop condition variables: ln2, ln4
 -ln2 = t18
 -t20 = ln4
 -t21 = t18 != t20
+Loop variable calculations:
++ln4 = ln4
++ln2 = ln2 + 1

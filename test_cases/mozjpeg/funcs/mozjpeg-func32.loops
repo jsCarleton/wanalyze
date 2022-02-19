@@ -5,8 +5,7 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 
 Simple brif loop condition in bblock 241:	(pn0 + 1) != 32
 Loop condition variables: pn0
-Simple brif loop condition in bblock 338:	ln4 > (pn0 + 8)
-Loop condition variables: ln4, pn0
+SSA of loop:
 -t0 = pn0
 -t1 = 3
 -t2 = t0 shl t1
@@ -29,6 +28,11 @@ Loop condition variables: ln4, pn0
 -pn0 = t18
 -t20 = 32
 -t21 = t18 != t20
+Loop variable calculations:
++pn0 = pn0 + 1
+Simple brif loop condition in bblock 338:	ln4 > (pn0 + 8)
+Loop condition variables: ln4, pn0
+SSA of loop:
 -t0 = pn0
 -t1 = 7
 -@(t0) = (t1)
@@ -43,3 +47,6 @@ Loop condition variables: ln4, pn0
 -t11 = ln4
 -t12 = ln1
 -t13 = t11 > t12
+Loop variable calculations:
++pn0 = pn0 + 4
++ln4 = ln4

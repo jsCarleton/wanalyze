@@ -18,6 +18,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 3:	(ln2 + 1) != 64
 Loop condition variables: ln2
+SSA of loop:
 -t0 = 1
 -t1 = ln5
 -t2 = ln6
@@ -36,3 +37,5 @@ Loop condition variables: ln2
 -ln2 = t14
 -t16 = 64
 -t17 = t14 != t16
+Loop variable calculations:
++ln2 = ln2 + 1

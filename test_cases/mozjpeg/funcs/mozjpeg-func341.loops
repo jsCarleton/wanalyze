@@ -11,8 +11,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 1:	(pn0 + 1) != 64
 Loop condition variables: pn0
-Simple brif loop condition in bblock 4:	(pn0 + 1) != 256
-Loop condition variables: pn0
+SSA of loop:
 -t0 = pn3
 -t1 = pn0
 -t2 = 3
@@ -68,6 +67,11 @@ Loop condition variables: pn0
 -pn0 = t51
 -t53 = 64
 -t54 = t51 != t53
+Loop variable calculations:
++pn0 = pn0 + 1
+Simple brif loop condition in bblock 4:	(pn0 + 1) != 256
+Loop condition variables: pn0
+SSA of loop:
 -t0 = pn3
 -t1 = pn0
 -t2 = 3
@@ -123,3 +127,5 @@ Loop condition variables: pn0
 -pn0 = t51
 -t53 = 256
 -t54 = t51 != t53
+Loop variable calculations:
++pn0 = pn0 + 1

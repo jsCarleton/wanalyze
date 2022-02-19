@@ -18,6 +18,7 @@ globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX)
 
 Simple brif loop condition in bblock 12:	(pn1 + 2) < 10
 Loop condition variables: pn1
+SSA of loop:
 -t0 = lN103
 -t1 = 48
 -t2 = t0 shr_u t1
@@ -1727,8 +1728,11 @@ Loop condition variables: pn1
 -pn1 = t1705
 -t1707 = 10
 -t1708 = t1705 < t1707
+Loop variable calculations:
++pn1 = pn1 + 2
 Simple brif loop condition in bblock 15:	(pn1 + 2) < 10
 Loop condition variables: pn1
+SSA of loop:
 -t0 = lN96
 -t1 = pn1
 -t2 = i64.extend_i32_u(t1)
@@ -3407,3 +3411,5 @@ Loop condition variables: pn1
 -pn1 = t1674
 -t1676 = 10
 -t1677 = t1674 < t1676
+Loop variable calculations:
++pn1 = pn1 + 2

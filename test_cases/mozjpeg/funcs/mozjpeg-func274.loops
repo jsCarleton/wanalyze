@@ -11,6 +11,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 2:	(pN0 shr_u 3) != 0
 Loop condition variables: pN0
+SSA of loop:
 -t0 = pn1
 -t1 = -1
 -t2 = t0 + t1
@@ -28,3 +29,5 @@ Loop condition variables: pN0
 -pN0 = t13
 -t15 = 0
 -t16 = t13 != t15
+Loop variable calculations:
++pN0 = pN0 shr_u 3

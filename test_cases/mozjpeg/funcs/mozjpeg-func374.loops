@@ -11,6 +11,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 5:	(ln5 + 1) != ln6
 Loop condition variables: ln5, ln6
+SSA of loop:
 -t0 = ln5
 -t1 = ln9
 -t2 = t0 + t1
@@ -27,3 +28,6 @@ Loop condition variables: ln5, ln6
 -ln5 = t12
 -t14 = ln6
 -t15 = t12 != t14
+Loop variable calculations:
++ln6 = ln6
++ln5 = ln5 + 1

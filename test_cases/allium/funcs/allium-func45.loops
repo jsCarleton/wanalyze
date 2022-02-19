@@ -11,6 +11,7 @@ globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX)
 
 Simple brif loop condition in bblock 7:	(lN8 + 1) < 8
 Loop condition variables: lN8
+SSA of loop:
 -t0 = ln4
 -t1 = lN8
 -t2 = i32.wrap_i64(t1)
@@ -29,8 +30,11 @@ Loop condition variables: lN8
 -lN8 = t14
 -t16 = 8
 -t17 = t14 < t16
+Loop variable calculations:
++lN8 = lN8 + 1
 Simple brif loop condition in bblock 29:	((lN6 + lN8) rem_u 8) != 0
 Loop condition variables: lN6, lN8
+SSA of loop:
 -t0 = ln3
 -t1 = pn1
 -t2 = ln4
@@ -66,3 +70,6 @@ Loop condition variables: lN6, lN8
 -lN6 = t31
 -t33 = 0
 -t34 = t31 != t33
+Loop variable calculations:
++lN8 = lN8
++lN6 = (lN6 + lN8) rem_u 8

@@ -116,6 +116,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 16:	(pn0 + 1) != 64
 Loop condition variables: pn0
+SSA of loop:
 -t0 = pn1
 -t1 = pn0
 -t2 = 1
@@ -152,3 +153,5 @@ Loop condition variables: pn0
 -pn0 = t32
 -t34 = 64
 -t35 = t32 != t34
+Loop variable calculations:
++pn0 = pn0 + 1

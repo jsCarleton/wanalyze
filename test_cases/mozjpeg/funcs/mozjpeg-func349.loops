@@ -18,10 +18,7 @@ globals: [5400608]
 
 Simple brif loop condition in bblock 9:	(ln5 + 1) != ln8
 Loop condition variables: ln5, ln8
-Simple brif loop condition in bblock 18:	(ln5 + 1) != ln8
-Loop condition variables: ln5, ln8
-Simple brif loop condition in bblock 29:	(ln5 + 1) != ln8
-Loop condition variables: ln5, ln8
+SSA of loop:
 -t0 = ln5
 -t1 = ln11
 -t2 = t0 + t1
@@ -56,6 +53,12 @@ Loop condition variables: ln5, ln8
 -ln5 = t30
 -t32 = ln8
 -t33 = t30 != t32
+Loop variable calculations:
++ln8 = ln8
++ln5 = ln5 + 1
+Simple brif loop condition in bblock 18:	(ln5 + 1) != ln8
+Loop condition variables: ln5, ln8
+SSA of loop:
 -t0 = ln5
 -t1 = ln10
 -t2 = t0 + t1
@@ -84,6 +87,12 @@ Loop condition variables: ln5, ln8
 -ln5 = t24
 -t26 = ln8
 -t27 = t24 != t26
+Loop variable calculations:
++ln8 = ln8
++ln5 = ln5 + 1
+Simple brif loop condition in bblock 29:	(ln5 + 1) != ln8
+Loop condition variables: ln5, ln8
+SSA of loop:
 -t0 = ln5
 -t1 = ln9
 -t2 = t0 + t1
@@ -102,3 +111,6 @@ Loop condition variables: ln5, ln8
 -ln5 = t14
 -t16 = ln8
 -t17 = t14 != t16
+Loop variable calculations:
++ln8 = ln8
++ln5 = ln5 + 1

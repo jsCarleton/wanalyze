@@ -5,6 +5,7 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 
 Simple brif loop condition in bblock 125:	i32.load@(ln3)
 Loop condition variables: ln3
+SSA of loop:
 -t0 = ln3
 -t1 = (t0)
 -pn0 = t1
@@ -12,3 +13,5 @@ Loop condition variables: ln3
 -t4 = t1 + t3
 -ln3 = t4
 -t6 = pn0
+Loop variable calculations:
++ln3 = ((ln3)) + 8

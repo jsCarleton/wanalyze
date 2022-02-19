@@ -11,6 +11,7 @@ globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX)
 
 Simple brif loop condition in bblock 4:	(i64.extend_i32_u(ln15 + 1)) < pN3
 Loop condition variables: ln15, pN3
+SSA of loop:
 -t0 = pn0
 -t1 = 0
 -t2 = pn0
@@ -278,3 +279,6 @@ Loop condition variables: ln15, pN3
 -t264 = i64.extend_i32_u(t262)
 -t265 = pN3
 -t266 = t264 < t265
+Loop variable calculations:
++pN3 = pN3
++ln15 = ln15 + 1
