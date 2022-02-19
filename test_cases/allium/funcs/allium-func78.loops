@@ -6,10 +6,11 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    9; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
-locals:  [(pn2 /u 96), ln4]; 
+locals:  [pn2 /u 96, ln4]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
-Simple brif loop condition in bblock 4:	((ln4 + 1) < ln3)
+Simple brif loop condition in bblock 4:	(ln4 + 1) < ln3
+Loop condition variables: ln4, ln3
 -t0 = pn1
 -t1 = 0
 -t2 = pn0
@@ -81,7 +82,7 @@ Simple brif loop condition in bblock 4:	((ln4 + 1) < ln3)
 -pn1 = t67
 -t69 = ln4
 -t70 = 1
-+t71 = t69 + t70
+-t71 = t69 + t70
 -ln4 = t71
 -t73 = ln3
--t74 = ln4 < t73
+-t74 = t71 < t73

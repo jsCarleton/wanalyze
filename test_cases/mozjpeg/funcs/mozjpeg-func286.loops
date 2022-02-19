@@ -4,8 +4,8 @@ Simple br conditions in: .
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 3 4]
 cost:    52; 
-stack:   [(5400608 - 32), (5400608 - 32), (5400608 - 32), (5400608 - 32)]; 
-params:  [pn0, ((5400608 - 32) + 16), pn2]; 
-locals:  [(5400608 - 32), ((i32.load@(pn0) - i32.load@(pn0)) + pn2), i32.load@(pn0), ln6, 2, ln8, ln9]; 
-globals: [(5400608 - 32)]
+stack:   [5400608 - 32, 5400608 - 32, 5400608 - 32, 5400608 - 32]; 
+params:  [pn0, (5400608 - 32) + 16, pn2]; 
+locals:  [5400608 - 32, ((i32.load@(pn0)) - (i32.load@(pn0))) + pn2, i32.load@(pn0), ln6, 2, ln8, ln9]; 
+globals: [5400608 - 32]
 

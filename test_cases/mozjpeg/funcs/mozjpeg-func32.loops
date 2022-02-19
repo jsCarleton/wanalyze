@@ -3,32 +3,35 @@ Simple br_if conditions in: 241 338.
 Simple br conditions in: .
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 
-Simple brif loop condition in bblock 241:	((pn0 + 1) != 32)
-Simple brif loop condition in bblock 338:	(ln4 > (pn0 + 8))
+Simple brif loop condition in bblock 241:	(pn0 + 1) != 32
+Loop condition variables: pn0
+Simple brif loop condition in bblock 338:	ln4 > (pn0 + 8)
+Loop condition variables: ln4, pn0
 -t0 = pn0
 -t1 = 3
-+t2 = t0 shl t1
+-t2 = t0 shl t1
 -ln2 = t2
 -t4 = 157120
-+t5 = ln2 + t4
+-t5 = t2 + t4
 -t6 = ln2
 -t7 = 157112
 -t8 = t6 + t7
 -ln3 = t8
--@(t8) = ln3
+-@(t5) = (t8)
 -t11 = ln2
 -t12 = 157124
 -t13 = t11 + t12
 -t14 = ln3
--@(t13) = t14
+-@(t13) = (t14)
 -t16 = pn0
 -t17 = 1
-+t18 = t16 + t17
+-t18 = t16 + t17
 -pn0 = t18
 -t20 = 32
--t21 = pn0 != t20-t0 = pn0
+-t21 = t18 != t20
+-t0 = pn0
 -t1 = 7
--@(t0) = t1
+-@(t0) = (t1)
 -t3 = pn0
 -t4 = 8
 -t5 = t3 + t4

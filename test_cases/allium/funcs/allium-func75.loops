@@ -6,10 +6,11 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    62; 
 stack:   []; 
 params:  [pn0, 0, pN2]; 
-locals:  [(pn1 + (((i32.wrap_i64(pN2) * 12) + -12) shl 3)), (pn0 + 8), (pn0 + 16), (pn0 + 24), (pn0 + 32), (pn0 + 40), (pn0 + 48), (pn0 + 56), (pn0 - -64), (pn0 + 72), (pn0 + 80), (pn0 + 88)]; 
+locals:  [pn1 + ((((i32.wrap_i64(pN2)) * 12) + -12) shl 3), pn0 + 8, pn0 + 16, pn0 + 24, pn0 + 32, pn0 + 40, pn0 + 48, pn0 + 56, pn0 - -64, pn0 + 72, pn0 + 80, pn0 + 88]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
-Simple brif loop condition in bblock 4:	(i64.extend_i32_u((pn1 + 1)) < pN2)
+Simple brif loop condition in bblock 4:	(i64.extend_i32_u(pn1 + 1)) < pN2
+Loop condition variables: pn1, pN2
 -t0 = ln3
 -t1 = 0
 -t2 = pn0
@@ -79,8 +80,8 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((pn1 + 1)) < pN2)
 -t66 = pn0
 -t67 = pn1
 -t68 = 1
-+t69 = t67 + t68
+-t69 = t67 + t68
 -pn1 = t69
--t71 = i64.extend_i32_u(pn1)
+-t71 = i64.extend_i32_u(t69)
 -t72 = pN2
 -t73 = t71 < t72

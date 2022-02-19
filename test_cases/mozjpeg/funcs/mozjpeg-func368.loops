@@ -6,83 +6,83 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    46; 
 stack:   [i32.load@(pn0)]; 
 params:  [i32.load@(i32.load@(i32.load@(pn0))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@(i32.load@(i32.load@(pn0))), ln5, lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@(i32.load@(i32.load@(pn0))), ln5, lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 5 6 12 15 16 17]
 cost:    37; 
 stack:   []; 
-params:  [i32.load@((i32.load@(i32.load@(pn0)) + (i32.load@(i32.load@(pn0)) shl 2))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@((i32.load@(i32.load@(pn0)) + (i32.load@(i32.load@(pn0)) shl 2))), ln5, lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+params:  [i32.load@((i32.load@(i32.load@(pn0))) + ((i32.load@(i32.load@(pn0))) shl 2)), pn1]; 
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@((i32.load@(i32.load@(pn0))) + ((i32.load@(i32.load@(pn0))) shl 2)), ln5, lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 5 8 9 10 11 12 13 14 15 16 17]
 cost:    63; 
 stack:   [i32.load@(pn0)]; 
 params:  [i32.load@(i32.load@(i32.load@(pn0))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 5 8 9 10 11 12 15 16 17]
 cost:    54; 
 stack:   []; 
-params:  [i32.load@((i32.load@(i32.load@(pn0)) + ((i32.load@(i32.load@(pn0)) - i32.load@(i32.load@(pn0))) shl 2))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@((i32.load@(i32.load@(pn0)) + ((i32.load@(i32.load@(pn0)) - i32.load@(i32.load@(pn0))) shl 2))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+params:  [i32.load@((i32.load@(i32.load@(pn0))) + (((i32.load@(i32.load@(pn0))) - (i32.load@(i32.load@(pn0)))) shl 2)), pn1]; 
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@((i32.load@(i32.load@(pn0))) + (((i32.load@(i32.load@(pn0))) - (i32.load@(i32.load@(pn0)))) shl 2)), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 5 8 9 10 14 15 16 17]
 cost:    51; 
 stack:   [i32.load@(pn0)]; 
 params:  [i32.load@(i32.load@(i32.load@(pn0))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 5 8 9 14 15 16 17]
 cost:    46; 
 stack:   [i32.load@(pn0)]; 
 params:  [i32.load@(i32.load@(i32.load@(pn0))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 5 8 14 15 16 17]
 cost:    40; 
 stack:   [i32.load@(pn0)]; 
 params:  [i32.load@(i32.load@(i32.load@(pn0))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@(i32.load@(i32.load@(pn0))), ln5, lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@(i32.load@(i32.load@(pn0))), ln5, lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 8 9 10 11 12 13 14 15 16 17]
 cost:    58; 
 stack:   [i32.load@(pn0)]; 
 params:  [i32.load@(i32.load@(i32.load@(pn0))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 8 9 10 11 12 15 16 17]
 cost:    49; 
 stack:   []; 
-params:  [i32.load@((i32.load@(i32.load@(pn0)) + ((i32.load@(i32.load@(pn0)) - i32.load@(i32.load@(pn0))) shl 2))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@((i32.load@(i32.load@(pn0)) + ((i32.load@(i32.load@(pn0)) - i32.load@(i32.load@(pn0))) shl 2))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+params:  [i32.load@((i32.load@(i32.load@(pn0))) + (((i32.load@(i32.load@(pn0))) - (i32.load@(i32.load@(pn0)))) shl 2)), pn1]; 
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@((i32.load@(i32.load@(pn0))) + (((i32.load@(i32.load@(pn0))) - (i32.load@(i32.load@(pn0)))) shl 2)), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 8 9 10 14 15 16 17]
 cost:    46; 
 stack:   [i32.load@(pn0)]; 
 params:  [i32.load@(i32.load@(i32.load@(pn0))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 8 9 14 15 16 17]
 cost:    41; 
 stack:   [i32.load@(pn0)]; 
 params:  [i32.load@(i32.load@(i32.load@(pn0))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@(i32.load@(i32.load@(pn0))), i32.load@(i32.load@(pn0)), lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 
 [0 1 2 3 4 8 14 15 16 17]
 cost:    35; 
 stack:   [i32.load@(pn0)]; 
 params:  [i32.load@(i32.load@(i32.load@(pn0))), pn1]; 
-locals:  [i32.load@(pn0), (5400608 - 48), i32.load@(i32.load@(i32.load@(pn0))), ln5, lN6, lN7, lN8]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(pn0), 5400608 - 48, i32.load@(i32.load@(i32.load@(pn0))), ln5, lN6, lN7, lN8]; 
+globals: [5400608 - 48]
 

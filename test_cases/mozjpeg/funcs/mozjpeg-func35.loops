@@ -6,24 +6,25 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    47; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [ln2, (5400608 - 48), i32.load@(((i32.load@(pn0) + (pn1 shl 2)) + 4484)), i32.load@(((i32.load@(pn0) + (pn1 shl 2)) + 4228)), i32.load@(154560), (pn1 * 36), i32.load@(pn0), i32.load@(pn0)]; 
-globals: [(5400608 - 48)]
+locals:  [ln2, 5400608 - 48, i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4484), i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4228), i32.load@(154560), pn1 * 36, i32.load@(pn0), i32.load@(pn0)]; 
+globals: [5400608 - 48]
 
 [0 1 6 7 8]
 cost:    96; 
-stack:   [(5400608 - 48), (5400608 - 48), (5400608 - 48)]; 
+stack:   [5400608 - 48, 5400608 - 48, 5400608 - 48]; 
 params:  [pn0, i32.load@(i32.load@(pn0))]; 
-locals:  [i32.load@(i32.load@(pn0)), (5400608 - 48), i32.load@(((i32.load@(pn0) + (pn1 shl 2)) + 4484)), i32.load@(((i32.load@(pn0) + (pn1 shl 2)) + 4228)), i32.load@(154560), (pn1 * 36), i32.load@(pn0), i32.load@(pn0)]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(i32.load@(pn0)), 5400608 - 48, i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4484), i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4228), i32.load@(154560), pn1 * 36, i32.load@(pn0), i32.load@(pn0)]; 
+globals: [5400608 - 48]
 
 [0 7 8]
 cost:    40; 
 stack:   []; 
 params:  [pn0, i32.load@(i32.load@(pn0))]; 
-locals:  [i32.load@(i32.load@(pn0)), (5400608 - 48), i32.load@(((i32.load@(pn0) + (pn1 shl 2)) + 4484)), i32.load@(((i32.load@(pn0) + (pn1 shl 2)) + 4228)), ln6, ln7, ln8, i32.load@(pn0)]; 
-globals: [(5400608 - 48)]
+locals:  [i32.load@(i32.load@(pn0)), 5400608 - 48, i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4484), i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4228), ln6, ln7, ln8, i32.load@(pn0)]; 
+globals: [5400608 - 48]
 
-Simple brif loop condition in bblock 3:	((ln2 + 1) < i32.load@((i32.load@(pn0) + ln7)))
+Simple brif loop condition in bblock 3:	(ln2 + 1) < (i32.load@((i32.load@(pn0)) + ln7))
+Loop condition variables: ln2, pn0, ln7
 -t0 = ln3
 -t1 = ln7
 -t2 = ln8
@@ -32,14 +33,14 @@ Simple brif loop condition in bblock 3:	((ln2 + 1) < i32.load@((i32.load@(pn0) +
 -t5 = 2
 -t6 = t4 shl t5
 -t7 = t3 + t6
--t8 = @(t7)
--@(t0) = t8
+-t8 = (t7)
+-@(t0) = (t8)
 -t10 = ln3
 -t11 = 132419
 -t12 = 132418
 -t13 = ln2
--t14 = select(t13,t12,t11)
--@(t10) = t14
+-t14 = select(t13, t12, t11)
+-@(t10) = (t14)
 -t16 = ln6
 -t17 = 132413
 -t18 = ln3
@@ -47,12 +48,12 @@ Simple brif loop condition in bblock 3:	((ln2 + 1) < i32.load@((i32.load@(pn0) +
 -t20 = t18 + t19
 -t21 = ln2
 -t22 = 1
-+t23 = t21 + t22
-+ln2 = t23
+-t23 = t21 + t22
+-ln2 = t23
 -t25 = pn0
--t26 = @(t25)
+-t26 = (t25)
 -ln8 = t26
 -t28 = ln7
--t29 = ln8 + t28
--t30 = @(t29)
--t31 = t26 < t30
+-t29 = t26 + t28
+-t30 = (t29)
+-t31 = t23 < t30

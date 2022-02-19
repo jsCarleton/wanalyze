@@ -6,36 +6,39 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    12; 
 stack:   []; 
 params:  [pn0]; 
-locals:  [ln1, i32.load@(i32.load@(pn0)), i32.load@(pn0), ln4, (5400608 - 16), ln6, ln7]; 
-globals: [(5400608 - 16)]
+locals:  [ln1, i32.load@(i32.load@(pn0)), i32.load@(pn0), ln4, 5400608 - 16, ln6, ln7]; 
+globals: [5400608 - 16]
 
 [0 21 22 23 24]
 cost:    33; 
-stack:   [(5400608 - 16), (5400608 - 16)]; 
+stack:   [5400608 - 16, 5400608 - 16]; 
 params:  [pn0]; 
-locals:  [i32.load@(pn0), 0, i32.load@(pn0), i32.load@(pn0), (5400608 - 16), ln6, ln7]; 
-globals: [(5400608 - 16)]
+locals:  [i32.load@(pn0), 0, i32.load@(pn0), i32.load@(pn0), 5400608 - 16, ln6, ln7]; 
+globals: [5400608 - 16]
 
 [0 21 22 23 37]
 cost:    33; 
-stack:   [(5400608 - 16), (5400608 - 16)]; 
+stack:   [5400608 - 16, 5400608 - 16]; 
 params:  [pn0]; 
-locals:  [i32.load@(pn0), 0, i32.load@(pn0), i32.load@(pn0), (5400608 - 16), ln6, ln7]; 
-globals: [(5400608 - 16)]
+locals:  [i32.load@(pn0), 0, i32.load@(pn0), i32.load@(pn0), 5400608 - 16, ln6, ln7]; 
+globals: [5400608 - 16]
 
-Simple brif loop condition in bblock 2:	(ln2 shr_s 1)
-Simple brif loop condition in bblock 17:	(ln1 + -1)
-+t0 = ln1
+Simple brif loop condition in bblock 2:	ln2 shr_s 1
+Loop condition variables: ln2
+Simple brif loop condition in bblock 17:	ln1 + -1
+Loop condition variables: ln1
+-t0 = ln1
 -ln4 = t0
 -t2 = 1
--t3 = ln4 + t2
+-t3 = t0 + t2
 -ln1 = t3
 -t5 = ln2
 -t6 = 1
-+t7 = t5 shr_s t6
--ln2 = t7-t0 = ln3
+-t7 = t5 shr_s t6
+-ln2 = t7
+-t0 = ln3
 -t1 = ln2
--t2 = @(t1)
+-t2 = (t1)
 -t3 = 1
 -t4 = ln2
 -t5 = 1
@@ -43,5 +46,5 @@ Simple brif loop condition in bblock 17:	(ln1 + -1)
 -ln2 = t6
 -t8 = ln1
 -t9 = -1
-+t10 = t8 + t9
+-t10 = t8 + t9
 -ln1 = t10

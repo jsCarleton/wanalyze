@@ -6,13 +6,13 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    19; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
-locals:  [pn0, (pn2 - pn1), ln5]; 
+locals:  [pn0, pn2 - pn1, ln5]; 
 globals: [5400608]
 
 [0 1 2 5 6]
 cost:    29; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
-locals:  [rn0, (pn2 - pn1), (rn0 + 1)]; 
+locals:  [rn0, pn2 - pn1, rn0 + 1]; 
 globals: [5400608]
 

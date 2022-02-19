@@ -30,27 +30,28 @@ params:  [0];
 locals:  [i32.load@(pn0), ln2, i32.load@(pn0)]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 33:	((pn0 + 1) != ln1)
+Simple brif loop condition in bblock 33:	(pn0 + 1) != ln1
+Loop condition variables: pn0, ln1
 -t0 = ln3
 -t1 = pn0
 -t2 = 84
 -t3 = t1 * t2
-+t4 = t0 + t3
+-t4 = t0 + t3
 -ln2 = t4
 -t6 = 0
--@(ln2) = t6
+-@(t4) = (t6)
 -t8 = ln2
 -t9 = 0
--@(t8) = t9
+-@(t8) = (t9)
 -t11 = ln2
 -t12 = 4294967297
--@(t11) = t12
+-@(t11) = (t12)
 -t14 = ln2
 -t15 = pn0
--@(t14) = t15
+-@(t14) = (t15)
 -t17 = pn0
 -t18 = 1
-+t19 = t17 + t18
+-t19 = t17 + t18
 -pn0 = t19
 -t21 = ln1
--t22 = pn0 != t21
+-t22 = t19 != t21

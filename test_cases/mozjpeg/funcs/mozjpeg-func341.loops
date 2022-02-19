@@ -5,36 +5,38 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 [0]
 cost:    30; 
 stack:   [pn3, pn3, pn3]; 
-params:  [0, i32.load@((i32.load@(pn0) + (pn1 shl 2))), pn2, pn3]; 
-locals:  [i32.load@(pn0), (pn0 + pn1), ln6, lf7]; 
+params:  [0, i32.load@((i32.load@(pn0)) + (pn1 shl 2)), pn2, pn3]; 
+locals:  [i32.load@(pn0), pn0 + pn1, ln6, lf7]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 1:	((pn0 + 1) != 64)
-Simple brif loop condition in bblock 4:	((pn0 + 1) != 256)
+Simple brif loop condition in bblock 1:	(pn0 + 1) != 64
+Loop condition variables: pn0
+Simple brif loop condition in bblock 4:	(pn0 + 1) != 256
+Loop condition variables: pn0
 -t0 = pn3
 -t1 = pn0
 -t2 = 3
 -t3 = t1 shl t2
-+t4 = t0 + t3
-+ln5 = t4
+-t4 = t0 + t3
+-ln5 = t4
 -t6 = pn0
 -t7 = pn1
 -t8 = t6 + t7
-+t9 = @(t8)
+-t9 = (t8)
 -ln6 = t9
 -t11 = 127
--t12 = ln6 && t11
+-t12 = t9 && t11
 -t13 = 2
 -t14 = t12 shl t13
 -t15 = 143216
 -t16 = t14 + t15
--t17 = @(t16)
+-t17 = (t16)
 -t18 = 16
 -t19 = t17 shr_s t18
 -t20 = f64.convert_i32_s(t19)
 -t21 = 1.90359885107e+185
 -t22 = t20 / t21
-+t23 = f32.demote_f64(t22)
+-t23 = f32.demote_f64(t22)
 -lf7 = t23
 -t25 = 6.96672438132e-310
 -t26 = lf7
@@ -42,14 +44,14 @@ Simple brif loop condition in bblock 4:	((pn0 + 1) != 256)
 -t28 = ln6
 -t29 = 128
 -t30 = t28 && t29
--t31 = select(t30,t27,lf7)
+-t31 = select(t30, t27, t23)
 -lf7 = t31
--t33 = f64.promote_f64(lf7)
+-t33 = f64.promote_f64(t31)
 -t34 = rF0
 -t35 = -6.15464882296e+227
 -t36 = t34 / t35
 -t37 = f32.demote_f64(t36)
--@(t31) = t37
+-@(t4) = (t37)
 -t39 = ln5
 -t40 = 6.96672438132e-310
 -t41 = lf7
@@ -59,36 +61,37 @@ Simple brif loop condition in bblock 4:	((pn0 + 1) != 256)
 -t45 = -6.15464882296e+227
 -t46 = t44 / t45
 -t47 = f32.demote_f64(t46)
--@(t39) = t47
+-@(t39) = (t47)
 -t49 = pn0
 -t50 = 1
-+t51 = t49 + t50
+-t51 = t49 + t50
 -pn0 = t51
 -t53 = 64
--t54 = pn0 != t53-t0 = pn3
+-t54 = t51 != t53
+-t0 = pn3
 -t1 = pn0
 -t2 = 3
 -t3 = t1 shl t2
-+t4 = t0 + t3
-+pn2 = t4
+-t4 = t0 + t3
+-pn2 = t4
 -t6 = pn0
 -t7 = pn1
 -t8 = t6 + t7
-+t9 = @(t8)
+-t9 = (t8)
 -ln4 = t9
 -t11 = 127
--t12 = ln4 && t11
+-t12 = t9 && t11
 -t13 = 2
 -t14 = t12 shl t13
 -t15 = 143216
 -t16 = t14 + t15
--t17 = @(t16)
+-t17 = (t16)
 -t18 = 16
 -t19 = t17 shr_s t18
 -t20 = f64.convert_i32_s(t19)
 -t21 = 1.90359885107e+185
 -t22 = t20 / t21
-+t23 = f32.demote_f64(t22)
+-t23 = f32.demote_f64(t22)
 -lf7 = t23
 -t25 = 6.96672438132e-310
 -t26 = lf7
@@ -96,14 +99,14 @@ Simple brif loop condition in bblock 4:	((pn0 + 1) != 256)
 -t28 = ln4
 -t29 = 128
 -t30 = t28 && t29
--t31 = select(t30,t27,lf7)
+-t31 = select(t30, t27, t23)
 -lf7 = t31
--t33 = f64.promote_f64(lf7)
+-t33 = f64.promote_f64(t31)
 -t34 = rF0
 -t35 = -6.15464882296e+227
 -t36 = t34 / t35
 -t37 = f32.demote_f64(t36)
--@(t31) = t37
+-@(t4) = (t37)
 -t39 = pn2
 -t40 = 6.96672438132e-310
 -t41 = lf7
@@ -113,10 +116,10 @@ Simple brif loop condition in bblock 4:	((pn0 + 1) != 256)
 -t45 = -6.15464882296e+227
 -t46 = t44 / t45
 -t47 = f32.demote_f64(t46)
--@(t39) = t47
+-@(t39) = (t47)
 -t49 = pn0
 -t50 = 1
-+t51 = t49 + t50
+-t51 = t49 + t50
 -pn0 = t51
 -t53 = 256
--t54 = pn0 != t53
+-t54 = t51 != t53

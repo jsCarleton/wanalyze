@@ -6,59 +6,60 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    264; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(gn2 (STACKTOP) + 128), 0, (pn0 + 72), gn2 (STACKTOP), ((gn2 (STACKTOP) + 128) + (64 - rn0)), (gn2 (STACKTOP) - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), (gn2 (STACKTOP) + 208), gn3 (STACK_MAX), 0, 0, 0]
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (64 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
 
 [0 1 2 3 5 7 8]
 cost:    264; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(gn2 (STACKTOP) + 128), 0, (pn0 + 72), gn2 (STACKTOP), ((gn2 (STACKTOP) + 128) + (128 - rn0)), (gn2 (STACKTOP) - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), (gn2 (STACKTOP) + 208), gn3 (STACK_MAX), 0, 0, 0]
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (128 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
 
 [0 1 2 4 5 6 8]
 cost:    264; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(gn2 (STACKTOP) + 128), 0, (pn0 + 72), gn2 (STACKTOP), ((gn2 (STACKTOP) + 128) + (64 - rn0)), (gn2 (STACKTOP) - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), (gn2 (STACKTOP) + 208), gn3 (STACK_MAX), 0, 0, 0]
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (64 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
 
 [0 1 2 4 5 7 8]
 cost:    264; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(gn2 (STACKTOP) + 128), 0, (pn0 + 72), gn2 (STACKTOP), ((gn2 (STACKTOP) + 128) + (128 - rn0)), (gn2 (STACKTOP) - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), (gn2 (STACKTOP) + 208), gn3 (STACK_MAX), 0, 0, 0]
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (128 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
 
 [0 2 3 5 6 8]
 cost:    261; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(gn2 (STACKTOP) + 128), 0, (pn0 + 72), gn2 (STACKTOP), ((gn2 (STACKTOP) + 128) + (64 - rn0)), (gn2 (STACKTOP) - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), (gn2 (STACKTOP) + 208), gn3 (STACK_MAX), 0, 0, 0]
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (64 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
 
 [0 2 3 5 7 8]
 cost:    261; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(gn2 (STACKTOP) + 128), 0, (pn0 + 72), gn2 (STACKTOP), ((gn2 (STACKTOP) + 128) + (128 - rn0)), (gn2 (STACKTOP) - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), (gn2 (STACKTOP) + 208), gn3 (STACK_MAX), 0, 0, 0]
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (128 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
 
 [0 2 4 5 6 8]
 cost:    261; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(gn2 (STACKTOP) + 128), 0, (pn0 + 72), gn2 (STACKTOP), ((gn2 (STACKTOP) + 128) + (64 - rn0)), (gn2 (STACKTOP) - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), (gn2 (STACKTOP) + 208), gn3 (STACK_MAX), 0, 0, 0]
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (64 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
 
 [0 2 4 5 7 8]
 cost:    261; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [(gn2 (STACKTOP) + 128), 0, (pn0 + 72), gn2 (STACKTOP), ((gn2 (STACKTOP) + 128) + (128 - rn0)), (gn2 (STACKTOP) - -64), (pn0 - -64), (pn0 + 136), rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), (gn2 (STACKTOP) + 208), gn3 (STACK_MAX), 0, 0, 0]
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (128 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
 
-Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
+Simple brif loop condition in bblock 9:	(ln3 + 2) < 10
+Loop condition variables: ln3
 -t0 = lN16
 -t1 = 48
 -t2 = t0 shr_u t1
@@ -164,10 +165,10 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t102 = t100 + t101
 -t103 = 0
 -t104 = rN0
-+t105 = t94 xor t104
+-t105 = t94 xor t104
 -lN18 = t105
 -t107 = 48
--t108 = lN18 shr_u t107
+-t108 = t105 shr_u t107
 -t109 = i32.wrap_i64(t108)
 -t110 = 255
 -t111 = t109 && t110
@@ -176,7 +177,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t114 = 3232
 -t115 = t113 + t114
 -t116 = 0
-+t117 = rN0
+-t117 = rN0
 -t118 = lN15
 -t119 = 48
 -t120 = t118 shr_u t119
@@ -280,16 +281,16 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t218 = t216 + t217
 -t219 = 0
 -t220 = rN0
-+t221 = t210 xor t220
+-t221 = t210 xor t220
 -lN19 = t221
 -t223 = ln3
 -t224 = 1
 -t225 = t223 || t224
 -ln6 = t225
--t227 = i64.extend_i32_u(ln6)
+-t227 = i64.extend_i32_u(t225)
 -t228 = 56
 -t229 = t227 shl t228
--t230 = t225 xor t229
+-t230 = t221 xor t229
 -t231 = 56
 -t232 = t230 shr_u t231
 -t233 = i32.wrap_i64(t232)
@@ -299,7 +300,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t237 = t235 + t236
 -t238 = 0
 -t239 = rN0
-+t240 = lN19 xor t239
+-t240 = t117 xor t239
 -t241 = lN17
 -t242 = 48
 -t243 = t241 shr_u t242
@@ -408,7 +409,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t346 = t335 xor t345
 -lN20 = t346
 -t348 = 40
--t349 = lN20 shr_u t348
+-t349 = t346 shr_u t348
 -t350 = i32.wrap_i64(t349)
 -t351 = 255
 -t352 = t350 && t351
@@ -418,7 +419,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t356 = t354 + t355
 -t357 = 0
 -t358 = rN0
-+t359 = t346 xor t358
+-t359 = t240 xor t358
 -t360 = lN11
 -t361 = 48
 -t362 = t360 shr_u t361
@@ -527,7 +528,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t465 = t454 xor t464
 -lN21 = t465
 -t467 = 32
--t468 = lN21 shr_u t467
+-t468 = t465 shr_u t467
 -t469 = i32.wrap_i64(t468)
 -t470 = 255
 -t471 = t469 && t470
@@ -537,7 +538,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t475 = t473 + t474
 -t476 = 0
 -t477 = rN0
-+t478 = t465 xor t477
+-t478 = t359 xor t477
 -t479 = lN12
 -t480 = 48
 -t481 = t479 shr_u t480
@@ -646,7 +647,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t584 = t573 xor t583
 -lN22 = t584
 -t586 = 24
--t587 = lN22 shr_u t586
+-t587 = t584 shr_u t586
 -t588 = i32.wrap_i64(t587)
 -t589 = 255
 -t590 = t588 && t589
@@ -656,7 +657,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t594 = t592 + t593
 -t595 = 0
 -t596 = rN0
-+t597 = t584 xor t596
+-t597 = t478 xor t596
 -t598 = lN13
 -t599 = 48
 -t600 = t598 shr_u t599
@@ -765,7 +766,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t703 = t692 xor t702
 -lN23 = t703
 -t705 = 16
--t706 = lN23 shr_u t705
+-t706 = t703 shr_u t705
 -t707 = i32.wrap_i64(t706)
 -t708 = 255
 -t709 = t707 && t708
@@ -775,7 +776,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t713 = t711 + t712
 -t714 = 0
 -t715 = rN0
-+t716 = t703 xor t715
+-t716 = t597 xor t715
 -t717 = lN10
 -t718 = 48
 -t719 = t717 shr_u t718
@@ -884,7 +885,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t822 = t811 xor t821
 -lN24 = t822
 -t824 = 8
--t825 = lN24 shr_u t824
+-t825 = t822 shr_u t824
 -t826 = i32.wrap_i64(t825)
 -t827 = 255
 -t828 = t826 && t827
@@ -894,7 +895,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t832 = t830 + t831
 -t833 = 0
 -t834 = rN0
-+t835 = t822 xor t834
+-t835 = t716 xor t834
 -t836 = lN14
 -t837 = 48
 -t838 = t836 shr_u t837
@@ -1002,7 +1003,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t940 = rN0
 -t941 = t930 xor t940
 -lN10 = t941
--t943 = i32.wrap_i64(lN10)
+-t943 = i32.wrap_i64(t941)
 -t944 = 255
 -t945 = t943 && t944
 -t946 = 3
@@ -1011,7 +1012,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -t949 = t947 + t948
 -t950 = 0
 -t951 = rN0
--t952 = t941 xor t951
+-t952 = t835 xor t951
 -lN14 = t952
 -t954 = lN20
 -t955 = 48
@@ -1764,7 +1765,7 @@ Simple brif loop condition in bblock 9:	((ln3 + 2) < 10)
 -lN10 = t1701
 -t1703 = ln3
 -t1704 = 2
-+t1705 = t1703 + t1704
+-t1705 = t1703 + t1704
 -ln3 = t1705
 -t1707 = 10
--t1708 = ln3 < t1707
+-t1708 = t1705 < t1707

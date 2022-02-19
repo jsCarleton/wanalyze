@@ -3,48 +3,57 @@ Simple br_if conditions in: 7 19 34 45 56 71 84 99 114.
 Simple br conditions in: .
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 
-Simple brif loop condition in bblock 7:	(ln3 != ln9)
-Simple brif loop condition in bblock 19:	(pn1 shr_s 1)
-Simple brif loop condition in bblock 34:	(pn1 + -1)
-Simple brif loop condition in bblock 45:	(ln5 + -1)
-Simple brif loop condition in bblock 56:	(ln4 shr_s 1)
-Simple brif loop condition in bblock 71:	(ln4 + -1)
-Simple brif loop condition in bblock 84:	(ln5 + -1)
-Simple brif loop condition in bblock 99:	(ln3 shr_s 1)
-Simple brif loop condition in bblock 114:	(pn1 + -1)
-+t0 = ln10
+Simple brif loop condition in bblock 7:	ln3 != ln9
+Loop condition variables: ln3, ln9
+Simple brif loop condition in bblock 19:	pn1 shr_s 1
+Loop condition variables: pn1
+Simple brif loop condition in bblock 34:	pn1 + -1
+Loop condition variables: pn1
+Simple brif loop condition in bblock 45:	ln5 + -1
+Loop condition variables: ln5
+Simple brif loop condition in bblock 56:	ln4 shr_s 1
+Loop condition variables: ln4
+Simple brif loop condition in bblock 71:	ln4 + -1
+Loop condition variables: ln4
+Simple brif loop condition in bblock 84:	ln5 + -1
+Loop condition variables: ln5
+Simple brif loop condition in bblock 99:	ln3 shr_s 1
+Loop condition variables: ln3
+Simple brif loop condition in bblock 114:	pn1 + -1
+Loop condition variables: pn1
+-t0 = ln10
 -t1 = ln3
 -t2 = 2
 -t3 = t1 shl t2
 -pn1 = t3
-+t5 = t3 + pn1
+-t5 = t0 + t3
 -t6 = ln13
 -t7 = pn1
 -t8 = 142864
 -t9 = t7 + t8
--t10 = @(t9)
+-t10 = (t9)
 -t11 = 1
 -t12 = t10 shl t11
 -t13 = t6 + t12
-+t14 = @(t13)
-+pn1 = t14
+-t14 = (t13)
+-pn1 = t14
 -t16 = pn1
 -t17 = 31
 -t18 = t16 shr_s t17
 -pn1 = t18
--t20 = t18 + pn1
+-t20 = t14 + t18
 -t21 = pn1
 -t22 = t20 xor t21
 -t23 = ln6
 -t24 = t22 shr_u t23
 -pn1 = t24
--@(t24) = pn1
+-@(t5) = (t24)
 -t27 = ln3
 -t28 = ln11
 -t29 = pn1
 -t30 = 1
 -t31 = t29 == t30
--t32 = select(t31,t28,t27)
+-t32 = select(t31, t28, t27)
 -ln11 = t32
 -t34 = ln3
 -t35 = ln9
@@ -54,17 +63,19 @@ Simple brif loop condition in bblock 114:	(pn1 + -1)
 -t39 = 1
 -t40 = t38 + t39
 -ln3 = t40
--t42 = pn1+t0 = ln3
+-t42 = pn1
+-t0 = ln3
 -ln4 = t0
 -t2 = 1
--t3 = ln4 + t2
+-t3 = t0 + t2
 -ln3 = t3
 -t5 = pn1
 -t6 = 1
-+t7 = t5 shr_s t6
--pn1 = t7-t0 = ln2
+-t7 = t5 shr_s t6
+-pn1 = t7
+-t0 = ln2
 -t1 = ln3
--t2 = @(t1)
+-t2 = (t1)
 -t3 = 1
 -t4 = ln3
 -t5 = 1
@@ -72,10 +83,11 @@ Simple brif loop condition in bblock 114:	(pn1 + -1)
 -ln3 = t6
 -t8 = pn1
 -t9 = -1
-+t10 = t8 + t9
--pn1 = t10-t0 = ln2
+-t10 = t8 + t9
+-pn1 = t10
+-t0 = ln2
 -t1 = ln7
--t2 = @(t1)
+-t2 = (t1)
 -t3 = 1
 -t4 = ln7
 -t5 = 1
@@ -83,18 +95,20 @@ Simple brif loop condition in bblock 114:	(pn1 + -1)
 -ln7 = t6
 -t8 = ln5
 -t9 = -1
-+t10 = t8 + t9
--ln5 = t10+t0 = pn1
+-t10 = t8 + t9
+-ln5 = t10
+-t0 = pn1
 -ln6 = t0
 -t2 = 1
--t3 = ln6 + t2
+-t3 = t0 + t2
 -pn1 = t3
 -t5 = ln4
 -t6 = 1
-+t7 = t5 shr_s t6
--ln4 = t7-t0 = ln2
+-t7 = t5 shr_s t6
+-ln4 = t7
+-t0 = ln2
 -t1 = pn1
--t2 = @(t1)
+-t2 = (t1)
 -t3 = 1
 -t4 = pn1
 -t5 = 1
@@ -102,10 +116,11 @@ Simple brif loop condition in bblock 114:	(pn1 + -1)
 -pn1 = t6
 -t8 = ln4
 -t9 = -1
-+t10 = t8 + t9
--ln4 = t10-t0 = ln2
+-t10 = t8 + t9
+-ln4 = t10
+-t0 = ln2
 -t1 = ln7
--t2 = @(t1)
+-t2 = (t1)
 -t3 = 1
 -t4 = ln7
 -t5 = 1
@@ -113,18 +128,20 @@ Simple brif loop condition in bblock 114:	(pn1 + -1)
 -ln7 = t6
 -t8 = ln5
 -t9 = -1
-+t10 = t8 + t9
--ln5 = t10+t0 = pn1
+-t10 = t8 + t9
+-ln5 = t10
+-t0 = pn1
 -ln4 = t0
 -t2 = 1
--t3 = ln4 + t2
+-t3 = t0 + t2
 -pn1 = t3
 -t5 = ln3
 -t6 = 1
-+t7 = t5 shr_s t6
--ln3 = t7-t0 = ln2
+-t7 = t5 shr_s t6
+-ln3 = t7
+-t0 = ln2
 -t1 = ln3
--t2 = @(t1)
+-t2 = (t1)
 -t3 = 1
 -t4 = ln3
 -t5 = 1
@@ -132,5 +149,5 @@ Simple brif loop condition in bblock 114:	(pn1 + -1)
 -ln3 = t6
 -t8 = pn1
 -t9 = -1
-+t10 = t8 + t9
+-t10 = t8 + t9
 -pn1 = t10

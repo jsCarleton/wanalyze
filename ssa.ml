@@ -1,13 +1,11 @@
 open Core
 open Wasm_module
 open Opcodes
+open Symbolic_expr
 
 type ssa = {
   result:         string;
-  op1:            string;
-  op2:            string;
-  op3:            string;
-  operation:      string;
+  etree:          expr_tree;
   mutable alive:  bool;
 }
 (* type op_type =
@@ -20,13 +18,16 @@ type ssa = {
 }
  *)
 
-let find_alive (sl: ssa list): ssa =
+let find_alive' (sl: ssa list): ssa =
   List.find_exn ~f:(fun x -> x.alive) sl
 
-let find_and_kill (sl: ssa list): ssa =
-  let s = find_alive sl in
+let find_alive (sl: ssa list): expr_tree =
+  Variable (find_alive' sl).result
+
+let find_and_kill (sl: ssa list): expr_tree =
+  let s = find_alive' sl in
     s.alive <- false;
-    s
+    Variable s.result
 
 let rec mark_dead (s: ssa list) (count: int) =
   match count with
@@ -46,9 +47,9 @@ let name_of_tvar (t_index: int): string =
   sprintf "t%d" t_index
 
 let ssa_of_rt (start: int) (index: int) (r: resulttype) : ssa =
-  { result = name_of_tvar (start+index);
-    op1 = string_of_expr_tree (expr_tree_of_retval index r);
-    op2 = ""; op3 = ""; operation = ""; alive = true}
+  { result = name_of_tvar (start+index); 
+    etree = expr_tree_of_retval index r;
+    alive = true}
 
 let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (acc: ssa list)
     (op: op_type): ssa list =
@@ -76,63 +77,69 @@ let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: loca
             | _ -> failwith "Invalid call_indirect argument")
         | _ -> failwith (sprintf "Invalid control opcode %x" op.opcode))
     | Reference  ->
-        { result = "TODO Reference"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO Reference"; etree = Empty; alive = true} :: acc
     | Parametric  ->
         (match opcode_of_int op.opcode with
           | OP_drop ->
             mark_dead acc 1;
             acc
           | OP_select ->
-            let c = (find_and_kill acc).result in
-            let val2 = (find_and_kill acc).result in
-            let val1 = (find_and_kill acc).result in
-              { result = name_of_tvar (List.length acc); op1 = c; op2 = val2; op3 = val1; operation = "select"; alive = true}
+            let c = find_and_kill acc in
+            let val2 = find_and_kill acc in
+            let val1 = find_and_kill acc in
+              { result = name_of_tvar (List.length acc); 
+                etree = Node {op = "select"; arg1 = c; arg2 = val2; arg3 = val1}; alive = true}
                :: acc
           | _ -> failwith (sprintf "Invalid parametric opcode %x" op.opcode))
     | VariableGL ->
         { result = name_of_tvar (List.length acc);
-          op1 = string_of_local_value param_types local_types (int_of_get_argL op.arg);
-          op2 = ""; op3 = ""; operation = ""; alive = true} :: acc         
+          etree = Variable (string_of_local_value param_types local_types (int_of_get_argL op.arg));
+          alive = true} :: acc         
     | VariableSL  ->
         { result = string_of_local_value param_types local_types (int_of_get_argL op.arg);
-          op1 = (find_and_kill acc).result;
-          op2 = ""; operation = ""; op3 = ""; alive = false} :: acc
+          etree = find_and_kill acc;
+          alive = false} :: acc
     | VariableTL  ->
         { result = string_of_local_value param_types local_types (int_of_get_argL op.arg);
-          op1 = (find_alive acc).result;
-          op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
+          etree = find_alive acc;
+          alive = false} :: acc
     | VariableGG  ->
-        { result = "TODO VariableGG"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO VariableGG"; etree = Empty; alive = true} :: acc
     | VariableSG  ->
-        { result = "TODO VariableSG"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO VariableSG"; etree = Empty; alive = true} :: acc
     | Table  ->
-        { result = "TODO Table"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO Table"; etree = Empty; alive = true} :: acc
     | MemoryL  ->
-        { result = name_of_tvar (List.length acc); op1 = (find_and_kill acc).result;
-          op2 = ""; op3 = ""; operation = "@"; alive = true} :: acc
+        { result = name_of_tvar (List.length acc); 
+          etree = Node {op = ""; arg1 = find_and_kill acc; arg2 = Empty; arg3 = Empty};
+          alive = true} :: acc
     | MemoryS  ->
-        let op1 = (find_and_kill acc).result in
-        let result = String.concat["@("; (find_and_kill acc).result; ")"] in
-        { result; op1; op2 = ""; op3 = ""; operation = ""; alive = false} :: acc
+        let arg1 = find_and_kill acc in
+        let result = String.concat["@("; string_of_expr_tree (find_and_kill acc); ")"] in
+        { result; etree = Node { op = ""; arg1; arg2 = Empty; arg3 = Empty}; alive = false} :: acc
     | MemoryM  ->
-        { result = "TODO MemoryM"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
+        { result = "TODO MemoryM"; etree = Empty; alive = true} :: acc
     | Constop  ->
         { result = name_of_tvar (List.length acc);
-          op1 = string_of_expr_tree (expr_tree_of_const_arg op.arg);
-          op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
+          etree = Constant (string_of_const_arg op.arg);
+          alive = true} :: acc
     | Unop  ->
-        { result = "TODO Unop"; op1 = ""; op2 = ""; op3 = ""; operation = ""; alive = true} :: acc
-    | Binop operation
-    | Relop operation  ->
-        let op2 = (find_and_kill acc).result in
-        let op1 = (find_and_kill acc).result in
-          { result = name_of_tvar (List.length acc); op1; op2; op3 = ""; operation; alive = true} :: acc         
+        { result = "TODO Unop"; etree = Empty; alive = true} :: acc
+    | Binop op
+    | Relop op  ->
+        let arg2 = find_and_kill acc in
+        let arg1 = find_and_kill acc in
+          { result = name_of_tvar (List.length acc); 
+            etree = Node {op; arg1; arg2; arg3 = Empty};
+            alive = true} :: acc         
     | Testop ->
         { result = name_of_tvar (List.length acc);
-          op1 = (find_and_kill acc).result;
-          op2 = ""; op3 = ""; operation = op.opname; alive = true} :: acc
+          etree = Node {op = op.opname; arg1 = find_and_kill acc; arg2 = Empty; arg3 = Empty};
+          alive = true} :: acc
     | Cvtop   ->
-      { result = name_of_tvar (List.length acc); op1 = (find_and_kill acc).result; op2 = ""; op3 = ""; operation = op.opname; alive = true} :: acc         
+        { result = name_of_tvar (List.length acc);
+          etree = Node {op = op.opname; arg1 = find_and_kill acc; arg2 = Empty; arg3 = Empty};
+          alive = true} :: acc         
 
 let ssa_of_expr (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (e: expr): ssa list =
   List.rev (List.fold ~f:(ssa_of_op w param_types local_types) ~init:[] e)
@@ -142,16 +149,7 @@ let string_of_ssa (s: ssa): string =
     (match s.alive with | true -> "+" | false -> "-");
     s.result;
     " = ";
-    (match s.op3 with
-      | "" ->
-        (match s.op2 with
-          | ""  -> 
-            (match s.operation with
-              | ""  -> s.op1
-              | _   -> String.concat [s.operation; "("; s.op1; ")"])
-          | _   -> String.concat [s.op1; " "; s.operation; " "; s.op2])
-      | _ -> String.concat [s.operation; "("; s.op1; ","; s.op2; ","; s.op3; ")"])]
+    string_of_expr_tree s.etree]
 
 let string_of_ssa_list (sl: ssa list): string =
-  String.concat ~sep:"\n" 
-    (List.map ~f:string_of_ssa sl)
+  (String.concat ~sep:"\n" (List.map ~f:string_of_ssa sl)) ^ "\n"

@@ -5,14 +5,14 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 [0 1]
 cost:    13; 
 stack:   []; 
-params:  [pn0, (pn1 && 255), pn2]; 
-locals:  [ln3, (pn0 + pn2), ln5, ln6]; 
+params:  [pn0, pn1 && 255, pn2]; 
+locals:  [ln3, pn0 + pn2, ln5, ln6]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
 [0 17]
 cost:    13; 
 stack:   []; 
-params:  [pn0, (pn1 && 255), pn2]; 
-locals:  [ln3, (pn0 + pn2), ln5, ln6]; 
+params:  [pn0, pn1 && 255, pn2]; 
+locals:  [ln3, pn0 + pn2, ln5, ln6]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 

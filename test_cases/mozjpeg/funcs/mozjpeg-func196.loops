@@ -6,6 +6,6 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    21; 
 stack:   []; 
 params:  [pn0, pn1, pn2, pn3]; 
-locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), ln6, (i32.load@(pn0) + 24), (i32.load@(pn0) + 12)]; 
+locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), ln6, (i32.load@(pn0)) + 24, (i32.load@(pn0)) + 12]; 
 globals: [5400608]
 

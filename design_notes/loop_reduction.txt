@@ -225,3 +225,14 @@ Extract the variables from the loop condition. For each variable v_i in the loop
 build a tree that starts with (=, v_i, v_i) and uses the SSA to expand the expression for the 
 second v_i node. So in the example above we have (=, lN8, lN8) -> (=, lN8, t14) -> (=, lN8, t12+t13) -> (=, lN8, t12+1)
 -> (=, lN8, lN8+1)
+
+Loop condition reduction
+Use the SSA and the loop condition to create a simplified loop summary
+
+expr -> SSA -> expr
+replace each occurrence of the LHS variable of SSA in expr with the RHS of the SSA
+do this repeatedly for each SSA of the loop body
+the resulting SSA is a simplification of the expr
+do this on the loop condition
+
+Define the Loop Execution Summary to 

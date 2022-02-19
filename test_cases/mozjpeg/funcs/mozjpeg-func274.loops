@@ -9,10 +9,11 @@ params:  [pN0, pn1];
 locals:  []; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 2:	((pN0 shr_u 3) != 0)
+Simple brif loop condition in bblock 2:	(pN0 shr_u 3) != 0
+Loop condition variables: pN0
 -t0 = pn1
 -t1 = -1
-+t2 = t0 + t1
+-t2 = t0 + t1
 -pn1 = t2
 -t4 = pN0
 -t5 = i32.wrap_i64(t4)
@@ -20,10 +21,10 @@ Simple brif loop condition in bblock 2:	((pN0 shr_u 3) != 0)
 -t7 = t5 && t6
 -t8 = 48
 -t9 = t7 || t8
--@(pn1) = t9
+-@(t2) = (t9)
 -t11 = pN0
 -t12 = 3
-+t13 = t11 shr_u t12
+-t13 = t11 shr_u t12
 -pN0 = t13
 -t15 = 0
--t16 = pN0 != t15
+-t16 = t13 != t15

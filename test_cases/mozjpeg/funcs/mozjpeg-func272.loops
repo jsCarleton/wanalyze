@@ -9,16 +9,17 @@ params:  [pn0, pn1];
 locals:  [ln2, ln3, ln4, ln5, ln6, ln7, ln8, lf9, lf10, lf11, lf12, lf13, lf14, lf15, lf16, lf17]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 1:	((ln2 + 1) != 64)
-+t0 = lf10
+Simple brif loop condition in bblock 1:	(ln2 + 1) != 64
+Loop condition variables: ln2
+-t0 = lf10
 -t1 = pn0
 -t2 = ln2
 -t3 = 2
 -t4 = t2 shl t3
 -t5 = t1 + t4
--t6 = @(t5)
+-t6 = (t5)
 -lf9 = t6
--t8 = t6 + lf9
+-t8 = t0 + t6
 -lf10 = t8
 -t10 = ln3
 -t11 = lf9
@@ -28,7 +29,7 @@ Simple brif loop condition in bblock 1:	((ln2 + 1) != 64)
 -ln3 = t14
 -t16 = ln2
 -t17 = 1
-+t18 = t16 + t17
+-t18 = t16 + t17
 -ln2 = t18
 -t20 = 64
--t21 = ln2 != t20
+-t21 = t18 != t20

@@ -16,84 +16,89 @@ params:  [pn0, pn1, pn2, pn3, pn4];
 locals:  [ln5, ln6, i32.load@(pn0), i32.load@(pn0), ln9, ln10, ln11]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 9:	((ln5 + 1) != ln8)
-Simple brif loop condition in bblock 18:	((ln5 + 1) != ln8)
-Simple brif loop condition in bblock 29:	((ln5 + 1) != ln8)
+Simple brif loop condition in bblock 9:	(ln5 + 1) != ln8
+Loop condition variables: ln5, ln8
+Simple brif loop condition in bblock 18:	(ln5 + 1) != ln8
+Loop condition variables: ln5, ln8
+Simple brif loop condition in bblock 29:	(ln5 + 1) != ln8
+Loop condition variables: ln5, ln8
 -t0 = ln5
 -t1 = ln11
 -t2 = t0 + t1
 -t3 = pn0
--t4 = @(t3)
--@(t2) = t4
+-t4 = (t3)
+-@(t2) = (t4)
 -t6 = ln5
 -t7 = ln10
 -t8 = t6 + t7
 -t9 = pn0
--t10 = @(t9)
--@(t8) = t10
+-t10 = (t9)
+-@(t8) = (t10)
 -t12 = ln5
 -t13 = ln9
 -t14 = t12 + t13
 -t15 = pn0
--t16 = @(t15)
--@(t14) = t16
+-t16 = (t15)
+-@(t14) = (t16)
 -t18 = ln5
 -t19 = ln7
 -t20 = t18 + t19
 -t21 = pn0
--t22 = @(t21)
--@(t20) = t22
+-t22 = (t21)
+-@(t20) = (t22)
 -t24 = pn0
 -t25 = 4
 -t26 = t24 + t25
 -pn0 = t26
 -t28 = ln5
 -t29 = 1
-+t30 = t28 + t29
+-t30 = t28 + t29
 -ln5 = t30
 -t32 = ln8
--t33 = ln5 != t32-t0 = ln5
+-t33 = t30 != t32
+-t0 = ln5
 -t1 = ln10
 -t2 = t0 + t1
 -t3 = pn0
--t4 = @(t3)
--@(t2) = t4
+-t4 = (t3)
+-@(t2) = (t4)
 -t6 = ln5
 -t7 = ln9
 -t8 = t6 + t7
 -t9 = pn0
--t10 = @(t9)
--@(t8) = t10
+-t10 = (t9)
+-@(t8) = (t10)
 -t12 = ln5
 -t13 = ln7
 -t14 = t12 + t13
 -t15 = pn0
--t16 = @(t15)
--@(t14) = t16
+-t16 = (t15)
+-@(t14) = (t16)
 -t18 = pn0
 -t19 = 3
 -t20 = t18 + t19
 -pn0 = t20
 -t22 = ln5
 -t23 = 1
-+t24 = t22 + t23
+-t24 = t22 + t23
 -ln5 = t24
 -t26 = ln8
--t27 = ln5 != t26-t0 = ln5
+-t27 = t24 != t26
+-t0 = ln5
 -t1 = ln9
 -t2 = t0 + t1
 -t3 = pn0
 -t4 = ln6
 -t5 = t3 + t4
--t6 = @(t5)
--@(t2) = t6
+-t6 = (t5)
+-@(t2) = (t6)
 -t8 = pn0
 -t9 = ln7
 -t10 = t8 + t9
 -pn0 = t10
 -t12 = ln5
 -t13 = 1
-+t14 = t12 + t13
+-t14 = t12 + t13
 -ln5 = t14
 -t16 = ln8
--t17 = ln5 != t16
+-t17 = t14 != t16

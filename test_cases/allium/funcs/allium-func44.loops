@@ -5,11 +5,12 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 [0 3]
 cost:    60; 
 stack:   []; 
-params:  [pn0, pn1, pn2, (pn3 + (((i32.wrap_i64(pN4) * 12) + -12) shl 3)), pN4]; 
-locals:  [(pn0 + 8), (pn0 + 16), (pn0 + 24), (pn0 + 32), (pn0 + 40), (pn0 + 48), (pn0 + 56), (pn0 - -64), (pn0 + 72), (pn0 + 80), (pn0 + 88), ln16, ln17, ln18, ln19, ln20, ln21, ln22, ln23, ln24, ln25, ln26, ln27, ln28, ln29, ln30, ln31, ln32, ln33, ln34, ln35, ln36, ln37, ln38]; 
+params:  [pn0, pn1, pn2, pn3 + ((((i32.wrap_i64(pN4)) * 12) + -12) shl 3), pN4]; 
+locals:  [pn0 + 8, pn0 + 16, pn0 + 24, pn0 + 32, pn0 + 40, pn0 + 48, pn0 + 56, pn0 - -64, pn0 + 72, pn0 + 80, pn0 + 88, ln16, ln17, ln18, ln19, ln20, ln21, ln22, ln23, ln24, ln25, ln26, ln27, ln28, ln29, ln30, ln31, ln32, ln33, ln34, ln35, ln36, ln37, ln38]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
-Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
+Simple brif loop condition in bblock 4:	(i64.extend_i32_u(ln16 + 1)) < pN4
+Loop condition variables: ln16, pN4
 -t0 = pn0
 -t1 = 0
 -t2 = pn0
@@ -23,8 +24,8 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -t10 = rN0
 -t11 = t7 + t10
 -t12 = t4 xor t11
-+t13 = ln5
-+t14 = 0
+-t13 = ln5
+-t14 = 0
 -t15 = ln5
 -t16 = 0
 -t17 = rN0
@@ -40,10 +41,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln28 = t26
 -t28 = 0
 -t29 = rN0
--t30 = t26 + t29
--t31 = t23 xor t30
-+t32 = ln6
-+t33 = 0
+-t30 = t23 + t29
+-t31 = t17 xor t30
+-t32 = ln6
+-t33 = 0
 -t34 = ln6
 -t35 = 0
 -t36 = rN0
@@ -59,10 +60,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln29 = t45
 -t47 = 0
 -t48 = rN0
--t49 = t45 + t48
--t50 = t42 xor t49
-+t51 = ln7
-+t52 = 0
+-t49 = t42 + t48
+-t50 = t36 xor t49
+-t51 = ln7
+-t52 = 0
 -t53 = ln7
 -t54 = 0
 -t55 = rN0
@@ -78,10 +79,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln30 = t64
 -t66 = 0
 -t67 = rN0
--t68 = t64 + t67
--t69 = t61 xor t68
-+t70 = ln8
-+t71 = 0
+-t68 = t61 + t67
+-t69 = t55 xor t68
+-t70 = ln8
+-t71 = 0
 -t72 = ln8
 -t73 = 0
 -t74 = rN0
@@ -97,10 +98,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln31 = t83
 -t85 = 0
 -t86 = rN0
--t87 = t83 + t86
--t88 = t80 xor t87
-+t89 = ln9
-+t90 = 0
+-t87 = t80 + t86
+-t88 = t74 xor t87
+-t89 = ln9
+-t90 = 0
 -t91 = ln9
 -t92 = 0
 -t93 = rN0
@@ -116,10 +117,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln32 = t102
 -t104 = 0
 -t105 = rN0
--t106 = t102 + t105
--t107 = t99 xor t106
-+t108 = ln10
-+t109 = 0
+-t106 = t99 + t105
+-t107 = t93 xor t106
+-t108 = ln10
+-t109 = 0
 -t110 = ln10
 -t111 = 0
 -t112 = rN0
@@ -135,10 +136,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln33 = t121
 -t123 = 0
 -t124 = rN0
--t125 = t121 + t124
--t126 = t118 xor t125
-+t127 = ln11
-+t128 = 0
+-t125 = t118 + t124
+-t126 = t112 xor t125
+-t127 = ln11
+-t128 = 0
 -t129 = ln11
 -t130 = 0
 -t131 = rN0
@@ -154,10 +155,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln34 = t140
 -t142 = 0
 -t143 = rN0
--t144 = t140 + t143
--t145 = t137 xor t144
-+t146 = ln12
-+t147 = 0
+-t144 = t137 + t143
+-t145 = t131 xor t144
+-t146 = ln12
+-t147 = 0
 -t148 = ln12
 -t149 = 0
 -t150 = rN0
@@ -173,10 +174,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln35 = t159
 -t161 = 0
 -t162 = rN0
--t163 = t159 + t162
--t164 = t156 xor t163
-+t165 = ln13
-+t166 = 0
+-t163 = t156 + t162
+-t164 = t150 xor t163
+-t165 = ln13
+-t166 = 0
 -t167 = ln13
 -t168 = 0
 -t169 = rN0
@@ -192,10 +193,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln36 = t178
 -t180 = 0
 -t181 = rN0
--t182 = t178 + t181
--t183 = t175 xor t182
-+t184 = ln14
-+t185 = 0
+-t182 = t175 + t181
+-t183 = t169 xor t182
+-t184 = ln14
+-t185 = 0
 -t186 = ln14
 -t187 = 0
 -t188 = rN0
@@ -211,10 +212,10 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln37 = t197
 -t199 = 0
 -t200 = rN0
--t201 = t197 + t200
--t202 = t194 xor t201
-+t203 = ln15
-+t204 = 0
+-t201 = t194 + t200
+-t202 = t188 xor t201
+-t203 = ln15
+-t204 = 0
 -t205 = ln15
 -t206 = 0
 -t207 = rN0
@@ -230,8 +231,8 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -ln38 = t216
 -t218 = 0
 -t219 = rN0
--t220 = t216 + t219
--t221 = t213 xor t220
+-t220 = t213 + t219
+-t221 = t207 xor t220
 -t222 = pn0
 -t223 = pn3
 -t224 = 0
@@ -465,8 +466,8 @@ Simple brif loop condition in bblock 4:	(i64.extend_i32_u((ln16 + 1)) < pN4)
 -pn3 = t451
 -t453 = ln16
 -t454 = 1
-+t455 = t453 + t454
+-t455 = t453 + t454
 -ln16 = t455
--t457 = i64.extend_i32_u(ln16)
+-t457 = i64.extend_i32_u(t455)
 -t458 = pN4
 -t459 = t457 < t458

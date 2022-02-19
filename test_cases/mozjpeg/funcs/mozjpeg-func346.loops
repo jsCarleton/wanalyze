@@ -23,8 +23,10 @@ params:  [pn0, pn1];
 locals:  [ln2, ln3, ln4, i32.load@(pn0), ln6, ln7, ln8, ln9, ln10]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 16:	(ln6 shr_s 1)
-Simple brif loop condition in bblock 27:	(ln2 shr_s 1)
+Simple brif loop condition in bblock 16:	ln6 shr_s 1
+Loop condition variables: ln6
+Simple brif loop condition in bblock 27:	ln2 shr_s 1
+Loop condition variables: ln2
 -t0 = pn0
 -t1 = ln3
 -t2 = 1
@@ -38,8 +40,9 @@ Simple brif loop condition in bblock 27:	(ln2 shr_s 1)
 -ln2 = t9
 -t11 = ln6
 -t12 = 1
-+t13 = t11 shr_s t12
--ln6 = t13-t0 = pn0
+-t13 = t11 shr_s t12
+-ln6 = t13
+-t0 = pn0
 -t1 = ln3
 -t2 = ln2
 -t3 = ln4
@@ -48,5 +51,5 @@ Simple brif loop condition in bblock 27:	(ln2 shr_s 1)
 -t6 = t4 != t5
 -t7 = ln2
 -t8 = 1
-+t9 = t7 shr_s t8
+-t9 = t7 shr_s t8
 -ln2 = t9

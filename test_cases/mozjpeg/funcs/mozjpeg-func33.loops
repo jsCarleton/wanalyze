@@ -4,10 +4,11 @@ Simple br conditions in: .
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 
 Simple brif loop condition in bblock 125:	i32.load@(ln3)
+Loop condition variables: ln3
 -t0 = ln3
-+t1 = @(t0)
+-t1 = (t0)
 -pn0 = t1
 -t3 = 8
--t4 = pn0 + t3
+-t4 = t1 + t3
 -ln3 = t4
 -t6 = pn0

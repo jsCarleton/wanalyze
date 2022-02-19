@@ -6,13 +6,17 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    30; 
 stack:   []; 
 params:  [pn0, pn1]; 
-locals:  [i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), ln5, ln6, ln7, i32.load@(i32.load@(pn0)), ln9, ln10, ln11, ln12, i32.load@(i32.load@(pn0)), ln14, (i32.load@(pn0) + -1), (i32.load@(pn0) + -1), ln17, (i32.load@(pn0) + 24)]; 
+locals:  [i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), ln5, ln6, ln7, i32.load@(i32.load@(pn0)), ln9, ln10, ln11, ln12, i32.load@(i32.load@(pn0)), ln14, (i32.load@(pn0)) + -1, (i32.load@(pn0)) + -1, ln17, (i32.load@(pn0)) + 24]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 16:	((ln2 + 1) != ln12)
-Simple brif loop condition in bblock 23:	((ln2 + 1) < ln11)
-Simple brif loop condition in bblock 46:	((ln2 + 1) < ln7)
-Simple brif loop condition in bblock 52:	((ln2 + 1) != ln7)
+Simple brif loop condition in bblock 16:	(ln2 + 1) != ln12
+Loop condition variables: ln2, ln12
+Simple brif loop condition in bblock 23:	(ln2 + 1) < ln11
+Loop condition variables: ln2, ln11
+Simple brif loop condition in bblock 46:	(ln2 + 1) < ln7
+Loop condition variables: ln2, ln7
+Simple brif loop condition in bblock 52:	(ln2 + 1) != ln7
+Loop condition variables: ln2, ln7
 -t0 = ln3
 -t1 = ln2
 -t2 = ln4
@@ -20,65 +24,68 @@ Simple brif loop condition in bblock 52:	((ln2 + 1) != ln7)
 -t4 = 2
 -t5 = t3 shl t4
 -t6 = t0 + t5
--t7 = @(t6)
+-t7 = (t6)
 -t8 = ln11
--t9 = @(t8)
--@(t7) = t9
+-t9 = (t8)
+-@(t7) = (t9)
 -t11 = ln2
 -t12 = 1
-+t13 = t11 + t12
+-t13 = t11 + t12
 -ln2 = t13
 -t15 = ln12
--t16 = ln2 != t15-t0 = ln3
--t1 = ln2
--t2 = ln4
--t3 = t1 + t2
--t4 = 2
--t5 = t3 shl t4
-+t6 = t0 + t5
--ln12 = t6
--t8 = @(ln12)
--t9 = ln12
--t10 = @(t9)
--t11 = @(t10)
--@(t8) = t11
--t13 = ln2
--t14 = 1
-+t15 = t13 + t14
--ln2 = t15
--t17 = ln11
--t18 = ln2 < t17-t0 = ln3
--t1 = ln2
--t2 = ln4
--t3 = t1 + t2
--t4 = 2
--t5 = t3 shl t4
-+t6 = t0 + t5
--ln12 = t6
--t8 = @(ln12)
--t9 = ln12
--t10 = @(t9)
--t11 = @(t10)
--@(t8) = t11
--t13 = ln2
--t14 = 1
-+t15 = t13 + t14
--ln2 = t15
--t17 = ln7
--t18 = ln2 < t17-t0 = ln3
+-t16 = t13 != t15
+-t0 = ln3
 -t1 = ln2
 -t2 = ln4
 -t3 = t1 + t2
 -t4 = 2
 -t5 = t3 shl t4
 -t6 = t0 + t5
--t7 = @(t6)
+-ln12 = t6
+-t8 = (t6)
+-t9 = ln12
+-t10 = (t9)
+-t11 = (t10)
+-@(t8) = (t11)
+-t13 = ln2
+-t14 = 1
+-t15 = t13 + t14
+-ln2 = t15
+-t17 = ln11
+-t18 = t15 < t17
+-t0 = ln3
+-t1 = ln2
+-t2 = ln4
+-t3 = t1 + t2
+-t4 = 2
+-t5 = t3 shl t4
+-t6 = t0 + t5
+-ln12 = t6
+-t8 = (t6)
+-t9 = ln12
+-t10 = (t9)
+-t11 = (t10)
+-@(t8) = (t11)
+-t13 = ln2
+-t14 = 1
+-t15 = t13 + t14
+-ln2 = t15
+-t17 = ln7
+-t18 = t15 < t17
+-t0 = ln3
+-t1 = ln2
+-t2 = ln4
+-t3 = t1 + t2
+-t4 = 2
+-t5 = t3 shl t4
+-t6 = t0 + t5
+-t7 = (t6)
 -t8 = ln12
--t9 = @(t8)
--@(t7) = t9
+-t9 = (t8)
+-@(t7) = (t9)
 -t11 = ln2
 -t12 = 1
-+t13 = t11 + t12
+-t13 = t11 + t12
 -ln2 = t13
 -t15 = ln7
--t16 = ln2 != t15
+-t16 = t13 != t15

@@ -577,36 +577,53 @@ let get_global (state: program_state) (i: int): expr_tree =
 let set_global (state: program_state) (i: int) (v: expr_tree) =
   set_value state.global_values i v
 
+let string_of_const_arg arg: string =
+  match arg with
+    | I32value i -> string_of_int i
+    | I64value i -> sprintf "%Ld" i
+    | F32value f -> string_of_float f
+    | F64value f -> string_of_float f
+    | _-> failwith "Invalid const argument"
+    
 let expr_tree_of_const_arg arg: expr_tree =
- Constant (match arg with
-            | I32value i -> string_of_int i
-            | I64value i -> sprintf "%Ld" i
-            | F32value f -> string_of_float f
-            | F64value f -> string_of_float f
-            | _-> failwith "Invalid const argument")
+ Constant (string_of_const_arg arg)
 
 let expr_tree_of_retval (index: int) (rt: resulttype): expr_tree =
   Variable (String.concat ["r"; (string_of_resulttype rt); (string_of_int index)])
 
-let expr_tree_of_unop (op: string) (arg: expr_tree): expr_tree =
-  Node {op = op; left = arg; right = Empty}
+let expr_tree_of_unop (op: string) (arg1: expr_tree): expr_tree =
+  Node {op = op; arg1; arg2 = Empty; arg3 = Empty}
 
 let expr_tree_of_binop (op: string) (arg1: expr_tree) (arg2: expr_tree): expr_tree =
-  Node {op = op; left = arg1; right = arg2}
+  Node {op = op; arg1; arg2; arg3 = Empty}
 
 let rec string_of_expr_tree (e: expr_tree): string =
   match e with
     | Empty   -> "" (* empty expression *)
-    | Constant s -> s
-    | Variable s -> s
+    | Constant s | Variable s -> s
     | Node n  ->
-      (match n.left with
-        | Empty -> n.op (* constant *)
-        | _ -> 
-          (match n.right with
-            | Empty -> String.concat[n.op; "("; string_of_expr_tree n.left; ")"] (* unary operator *)
-            | _     -> String.concat["("; string_of_expr_tree n.left; " "; n.op; " "; string_of_expr_tree n.right; ")"]) (* binary *)     )
-
+      (match n.arg1, n.arg2, n.arg3 with
+        | Empty, Empty, Empty -> failwith "Invalid expr tree"
+        | _, Empty, Empty (* unary operator *)
+            -> String.concat[n.op; "("; string_of_expr_tree n.arg1; ")"]
+        | Variable _, Variable _, Empty (* binary *)
+        | Variable _, Constant _, Empty
+        | Constant _, Variable _, Empty
+        | Constant _, Constant _, Empty
+            -> String.concat[string_of_expr_tree n.arg1; " "; n.op; " "; string_of_expr_tree n.arg2]
+        | Node _, Node _, Empty
+            -> String.concat["("; string_of_expr_tree n.arg1; ") "; n.op; " ("; string_of_expr_tree n.arg2; ")"]
+        | _, Node _, Empty
+          -> String.concat[string_of_expr_tree n.arg1; " "; n.op; " ("; string_of_expr_tree n.arg2; ")"]
+        | Node _, _, Empty
+          -> String.concat["("; string_of_expr_tree n.arg1; ") "; n.op; " "; string_of_expr_tree n.arg2]
+        | _, _, Empty
+            -> String.concat["("; string_of_expr_tree n.arg1; ") "; n.op; " ("; string_of_expr_tree n.arg2; ")"]
+        | _, _, _ (* ternary operator *)
+            ->String.concat[n.op; "(";  string_of_expr_tree n.arg1; ", ";
+                                        string_of_expr_tree n.arg2; ", ";
+                                        string_of_expr_tree n.arg3; ")"]
+        )
 
 (* Parametric operators *)
 let update_state_parametricop (op: op_type) (s: program_state) = 
@@ -1188,14 +1205,14 @@ let condition_of_simple_loop' (w: wasm_module) (e: expr) (param_types: resulttyp
 
 let condition_of_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list)
       (bb: bblock): string = 
+  let loop_cond = condition_of_simple_loop' w (expr_of_bblock e bb) param_types local_types in
   String.concat [ "Simple brif loop condition in bblock ";
                   string_of_int bb.index;
                   ":\t";
-                  string_of_expr_tree
-                      (condition_of_simple_loop'
-                          w
-                          (expr_of_bblock e bb)
-                          param_types local_types);
+                  string_of_expr_tree loop_cond;
+                  "\n";
+                  "Loop condition variables: ";
+                  (String.concat ~sep:", " (variables_of_expr_tree loop_cond));
                   "\n"]
 
 let conditions_of_simple_loops (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 

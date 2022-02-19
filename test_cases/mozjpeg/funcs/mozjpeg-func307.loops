@@ -6,13 +6,13 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    41; 
 stack:   []; 
 params:  [pn0, i32.load@(i32.load@(pn0)), i32.load@(pn0), pn3, 0, pn5, pn6, pn7]; 
-locals:  [(i32.load@(pn1) shl 2), (pn2 + (pn4 shl 2)), i32.load@((i32.load@(pn0) + (i32.load@(pn1) shl 2))), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), ln15, ln16, ln17, lf18, lF19]; 
+locals:  [(i32.load@(pn1)) shl 2, pn2 + (pn4 shl 2), i32.load@((i32.load@(pn0)) + ((i32.load@(pn1)) shl 2)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), ln15, ln16, ln17, lf18, lF19]; 
 globals: [5400608]
 
 [0 1 2 20]
 cost:    46; 
 stack:   []; 
 params:  [pn0, i32.load@(i32.load@(pn0)), i32.load@(pn0), pn3, 0, pn5, pn6, pn7]; 
-locals:  [i32.load@((pn0 + (i32.load@(pn1) shl 2))), (pn2 + (pn4 shl 2)), i32.load@((i32.load@(pn0) + (i32.load@(pn1) shl 2))), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), ln15, ln16, ln17, lf18, lF19]; 
+locals:  [i32.load@(pn0 + ((i32.load@(pn1)) shl 2)), pn2 + (pn4 shl 2), i32.load@((i32.load@(pn0)) + ((i32.load@(pn1)) shl 2)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), i32.load@(i32.load@(pn0)), ln15, ln16, ln17, lf18, lF19]; 
 globals: [5400608]
 

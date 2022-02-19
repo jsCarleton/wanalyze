@@ -6,10 +6,11 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    30; 
 stack:   [i32.load@(i32.load@(pn0)), 64, 1, pn0, pn0]; 
 params:  [pn0]; 
-locals:  [i32.load@(pn0), ln2, (i32.load@(i32.load@(pn0)) + 24)]; 
+locals:  [i32.load@(pn0), ln2, (i32.load@(i32.load@(pn0))) + 24]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 4:	((ln2 + 1) < i32.load@(pn0))
+Simple brif loop condition in bblock 4:	(ln2 + 1) < (i32.load@(pn0))
+Loop condition variables: ln2, pn0
 -t0 = ln3
 -t1 = ln2
 -t2 = 2
@@ -18,26 +19,26 @@ Simple brif loop condition in bblock 4:	((ln2 + 1) < i32.load@(pn0))
 -t5 = pn0
 -t6 = 1
 -t7 = ln1
--t8 = @(t7)
+-t8 = (t7)
 -t9 = 3
 -t10 = t8 shl t9
 -t11 = ln1
--t12 = @(t11)
+-t12 = (t11)
 -t13 = 3
 -t14 = t12 shl t13
 -t15 = pn0
--t16 = @(t15)
--t17 = @(t16)
+-t16 = (t15)
+-t17 = (t16)
 -t18 = rn0
--@(t5) = t18
+-@(t5) = (t18)
 -t20 = ln1
 -t21 = 84
 -t22 = t20 + t21
 -ln1 = t22
 -t24 = ln2
 -t25 = 1
-+t26 = t24 + t25
+-t26 = t24 + t25
 -ln2 = t26
 -t28 = pn0
--t29 = @(t28)
--t30 = ln2 < t29
+-t29 = (t28)
+-t30 = t26 < t29

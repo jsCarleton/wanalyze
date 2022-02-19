@@ -6,37 +6,39 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    42; 
 stack:   [pn0, i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
 params:  [pn0]; 
-locals:  [0, rn0, (i32.load@(i32.load@(pn0)) shl 8), ln4]; 
+locals:  [0, rn0, (i32.load@(i32.load@(pn0))) shl 8, ln4]; 
 globals: [5400608]
 
 [0 1 2 4]
 cost:    36; 
 stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
 params:  [pn0]; 
-locals:  [0, i32.load@(pn0), (i32.load@(i32.load@(pn0)) shl 8), ln4]; 
+locals:  [0, i32.load@(pn0), (i32.load@(i32.load@(pn0))) shl 8, ln4]; 
 globals: [5400608]
 
 [0 2 3 4]
 cost:    28; 
 stack:   [pn0]; 
 params:  [pn0]; 
-locals:  [0, rn0, (i32.load@(i32.load@(pn0)) shl 8), ln4]; 
+locals:  [0, rn0, (i32.load@(i32.load@(pn0))) shl 8, ln4]; 
 globals: [5400608]
 
 [0 2 4]
 cost:    22; 
 stack:   []; 
 params:  [pn0]; 
-locals:  [0, i32.load@(pn0), (i32.load@(i32.load@(pn0)) shl 8), ln4]; 
+locals:  [0, i32.load@(pn0), (i32.load@(i32.load@(pn0))) shl 8, ln4]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 5:	((ln1 + 1) != 64)
-Simple brif loop condition in bblock 12:	((ln1 + 1) != 64)
+Simple brif loop condition in bblock 5:	(ln1 + 1) != 64
+Loop condition variables: ln1
+Simple brif loop condition in bblock 12:	(ln1 + 1) != 64
+Loop condition variables: ln1
 -t0 = ln2
 -t1 = ln1
 -t2 = 1
 -t3 = t1 shl t2
-+t4 = t0 + t3
+-t4 = t0 + t3
 -t5 = ln3
 -t6 = ln1
 -t7 = 2
@@ -44,36 +46,37 @@ Simple brif loop condition in bblock 12:	((ln1 + 1) != 64)
 -t9 = t5 + t8
 -t10 = 132448
 -t11 = t9 + t10
--t12 = @(t11)
+-t12 = (t11)
 -t13 = 50
 -t14 = t12 * t13
 -t15 = 50
 -t16 = t14 + t15
 -t17 = 100
-+t18 = t16 /s t17
+-t18 = t16 /s t17
 -ln4 = t18
 -t20 = 1
 -t21 = ln4
 -t22 = 1
 -t23 = t21 > t22
--t24 = select(t23,t20,ln4)
+-t24 = select(t23, t20, t18)
 -ln4 = t24
 -t26 = 255
 -t27 = ln4
 -t28 = 255
 -t29 = t27 < t28
--t30 = select(t29,t26,ln4)
--@(t24) = t30
+-t30 = select(t29, t26, t24)
+-@(t4) = (t30)
 -t32 = ln1
 -t33 = 1
-+t34 = t32 + t33
+-t34 = t32 + t33
 -ln1 = t34
 -t36 = 64
--t37 = ln1 != t36-t0 = ln2
+-t37 = t34 != t36
+-t0 = ln2
 -t1 = ln1
 -t2 = 1
 -t3 = t1 shl t2
-+t4 = t0 + t3
+-t4 = t0 + t3
 -t5 = pn0
 -t6 = ln1
 -t7 = 2
@@ -81,29 +84,29 @@ Simple brif loop condition in bblock 12:	((ln1 + 1) != 64)
 -t9 = t5 + t8
 -t10 = 134752
 -t11 = t9 + t10
--t12 = @(t11)
+-t12 = (t11)
 -t13 = 50
 -t14 = t12 * t13
 -t15 = 50
 -t16 = t14 + t15
 -t17 = 100
-+t18 = t16 /s t17
+-t18 = t16 /s t17
 -ln3 = t18
 -t20 = 1
 -t21 = ln3
 -t22 = 1
 -t23 = t21 > t22
--t24 = select(t23,t20,ln3)
+-t24 = select(t23, t20, t18)
 -ln3 = t24
 -t26 = 255
 -t27 = ln3
 -t28 = 255
 -t29 = t27 < t28
--t30 = select(t29,t26,ln3)
--@(t24) = t30
+-t30 = select(t29, t26, t24)
+-@(t4) = (t30)
 -t32 = ln1
 -t33 = 1
-+t34 = t32 + t33
+-t34 = t32 + t33
 -ln1 = t34
 -t36 = 64
--t37 = ln1 != t36
+-t37 = t34 != t36

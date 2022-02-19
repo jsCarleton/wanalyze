@@ -30,18 +30,19 @@ params:  [pn0, pn1];
 locals:  [i32.load@(pn0), ln3, ln4, i32.load@(pn0), ln6, ln7, ln8, ln9, ln10, ln11]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 5:	((ln2 + 1) < i32.load@(pn0))
+Simple brif loop condition in bblock 5:	(ln2 + 1) < (i32.load@(pn0))
+Loop condition variables: ln2, pn0
 -t0 = ln5
 -t1 = ln2
 -t2 = 2
 -t3 = t1 shl t2
 -t4 = t0 + t3
 -t5 = 0
--@(t4) = t5
+-@(t4) = (t5)
 -t7 = ln2
 -t8 = 1
-+t9 = t7 + t8
+-t9 = t7 + t8
 -ln2 = t9
 -t11 = pn0
--t12 = @(t11)
--t13 = ln2 < t12
+-t12 = (t11)
+-t13 = t9 < t12

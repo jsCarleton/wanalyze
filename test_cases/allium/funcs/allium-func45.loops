@@ -9,8 +9,10 @@ params:  [pn0, pn1, pn2];
 locals:  [rn0, rn0, rn0, lN6, lN7, lN8, lN9, lN10, lN11]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
-Simple brif loop condition in bblock 7:	((lN8 + 1) < 8)
-Simple brif loop condition in bblock 29:	(((lN6 + lN8) rem_u 8) != 0)
+Simple brif loop condition in bblock 7:	(lN8 + 1) < 8
+Loop condition variables: lN8
+Simple brif loop condition in bblock 29:	((lN6 + lN8) rem_u 8) != 0
+Loop condition variables: lN6, lN8
 -t0 = ln4
 -t1 = lN8
 -t2 = i32.wrap_i64(t1)
@@ -25,22 +27,23 @@ Simple brif loop condition in bblock 29:	(((lN6 + lN8) rem_u 8) != 0)
 -ln3 = t10
 -t12 = lN8
 -t13 = 1
-+t14 = t12 + t13
+-t14 = t12 + t13
 -lN8 = t14
 -t16 = 8
--t17 = lN8 < t16+t0 = ln3
-+t1 = pn1
-+t2 = ln4
+-t17 = t14 < t16
+-t0 = ln3
+-t1 = pn1
+-t2 = ln4
 -t3 = ln3
 -t4 = 0
 -t5 = rN0
 -lN10 = t5
 -t7 = 8
--t8 = lN10 rem_u t7
+-t8 = t5 rem_u t7
 -t9 = i32.wrap_i64(t8)
 -t10 = 2
 -t11 = t9 shl t10
--t12 = t5 + t11
+-t12 = t2 + t11
 -t13 = 0
 -t14 = rn0
 -pn2 = t14
@@ -56,10 +59,10 @@ Simple brif loop condition in bblock 29:	(((lN6 + lN8) rem_u 8) != 0)
 -t25 = 8
 -t26 = lN6
 -t27 = lN8
-+t28 = t26 + t27
+-t28 = t26 + t27
 -lN6 = t28
 -t30 = 8
-+t31 = lN6 rem_u t30
+-t31 = t28 rem_u t30
 -lN6 = t31
 -t33 = 0
--t34 = lN6 != t33
+-t34 = t31 != t33

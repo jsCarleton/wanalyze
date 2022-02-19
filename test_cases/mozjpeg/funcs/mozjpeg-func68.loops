@@ -5,15 +5,16 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 [0 1]
 cost:    17; 
 stack:   []; 
-params:  [(pn0 + (pn1 shl 2)), (pn2 + (pn3 shl 2)), pn2, pn3, pn4, pn5]; 
+params:  [pn0 + (pn1 shl 2), pn2 + (pn3 shl 2), pn2, pn3, pn4, pn5]; 
 locals:  []; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 2:	(pn4 > 1)
+Simple brif loop condition in bblock 2:	pn4 > 1
+Loop condition variables: pn4
 -t0 = pn1
--t1 = @(t0)
+-t1 = (t0)
 -t2 = pn0
--t3 = @(t2)
+-t3 = (t2)
 -t4 = pn5
 -t5 = rn0
 -t6 = pn1

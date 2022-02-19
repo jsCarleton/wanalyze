@@ -6,11 +6,13 @@ Code paths from the root bblock to a loop bblock and the VM state at the conclus
 cost:    14; 
 stack:   []; 
 params:  [pn0, pn1, pn2, pn3, pn4, pn5, pn6]; 
-locals:  [i32.load@(pn2), ln8, i32.load@(pn0), ln10, ln11, (i32.load@(pn0) + 8), ln13, ln14]; 
+locals:  [i32.load@(pn2), ln8, i32.load@(pn0), ln10, ln11, (i32.load@(pn0)) + 8, ln13, ln14]; 
 globals: [5400608]
 
-Simple brif loop condition in bblock 11:	((ln7 + 1) != ln10)
-Simple brif loop condition in bblock 33:	((ln7 + 1) != pn3)
+Simple brif loop condition in bblock 11:	(ln7 + 1) != ln10
+Loop condition variables: ln7, ln10
+Simple brif loop condition in bblock 33:	(ln7 + 1) != pn3
+Loop condition variables: ln7, pn3
 -t0 = ln11
 -t1 = ln14
 -t2 = ln11
@@ -19,10 +21,11 @@ Simple brif loop condition in bblock 33:	((ln7 + 1) != pn3)
 -t5 = ln13
 -t6 = ln7
 -t7 = 1
-+t8 = t6 + t7
+-t8 = t6 + t7
 -ln7 = t8
 -t10 = ln10
--t11 = ln7 != t10-t0 = pn2
+-t11 = t8 != t10
+-t0 = pn2
 -t1 = ln10
 -t2 = pn2
 -t3 = ln7
@@ -30,7 +33,7 @@ Simple brif loop condition in bblock 33:	((ln7 + 1) != pn3)
 -t5 = ln9
 -t6 = ln7
 -t7 = 1
-+t8 = t6 + t7
+-t8 = t6 + t7
 -ln7 = t8
 -t10 = pn3
--t11 = ln7 != t10
+-t11 = t8 != t10
