@@ -142,7 +142,7 @@ let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: loca
           alive = true} :: acc         
 
 let ssa_of_expr (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (e: expr): ssa list =
-  List.rev (List.fold ~f:(ssa_of_op w param_types local_types) ~init:[] e)
+ List.fold ~f:(ssa_of_op w param_types local_types) ~init:[] e
 
 let string_of_ssa (s: ssa): string =
   String.concat[
@@ -152,4 +152,4 @@ let string_of_ssa (s: ssa): string =
     string_of_expr_tree s.etree]
 
 let string_of_ssa_list (sl: ssa list): string =
-  (String.concat ~sep:"\n" (List.map ~f:string_of_ssa sl)) ^ "\n"
+  (String.concat ~sep:"\n" (List.map ~f:string_of_ssa (List.rev sl))) ^ "\n"

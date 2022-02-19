@@ -442,6 +442,9 @@ let loop_entry_state (w: wasm_module) (e: expr) (bblocks: bblock list) (param_ty
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
 
+let explode_var (_: string) (s: ssa list): ssa list =
+  s
+
 let print_function (w: wasm_module) dir prefix fidx type_idx =
   let fname         = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
   let fn            = (List.nth_exn w.code_section fidx) in
@@ -490,14 +493,23 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
                 (List.dedup_and_sort ~compare:compare_cps (loop_code_paths bblocks cps))));
         Out_channel.output_string oc "\n";
         (* print the loop conditions and ssa for simple br_if loops *)
-        Out_channel.output_string oc
-          (analyze_simple_brif_loops w fn.e param_types local_types
-              (bblocks_with_simple_brif_loops bblocks));
+        let bbs = (bblocks_with_simple_brif_loops bblocks) in
         Out_channel.output_string oc
           (String.concat
-            (List.map ~f:string_of_ssa_list 
-              (List.map ~f:(ssa_of_expr w param_types local_types) 
-                (List.map ~f:(fun bb -> expr_of_bblock fn.e bb) (bblocks_with_simple_brif_loops bblocks)))));
+            (List.map ~f:(fun bb ->
+                              let loop_cond = analyze_simple_brif_loop w fn.e param_types local_types bb in
+                              let loop_vars = variables_of_expr_tree loop_cond in
+                              let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock fn.e bb) in
+                              String.concat [ "Simple brif loop condition in bblock ";
+                                              string_of_int bb.index;
+                                              ":\t";
+                                              string_of_expr_tree loop_cond;
+                                              "\n";
+                                              "Loop condition variables: ";
+                                              (String.concat ~sep:", " loop_vars);
+                                              "\n";
+                                              (string_of_ssa_list loop_ssa)])
+              bbs));
         Out_channel.close oc
   | false -> ())
   (* execution trace of the function *)

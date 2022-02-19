@@ -1199,39 +1199,19 @@ let ids_with_simple_brif_loops (bblocks: bblock list): int list =
 let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
     List.map ~f:(fun i -> List.nth_exn bblocks i) (ids_with_simple_brif_loops bblocks)
 
-let condition_of_simple_loop' (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list): expr_tree =
-  let _,s = reduce_bblock w e (empty_program_state w param_types local_types) in
-    s
-
-let condition_of_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list)
-      (bb: bblock): string = 
-  let loop_cond = condition_of_simple_loop' w (expr_of_bblock e bb) param_types local_types in
-  String.concat [ "Simple brif loop condition in bblock ";
-                  string_of_int bb.index;
-                  ":\t";
-                  string_of_expr_tree loop_cond;
-                  "\n";
-                  "Loop condition variables: ";
-                  (String.concat ~sep:", " (variables_of_expr_tree loop_cond));
-                  "\n"]
-
-let conditions_of_simple_loops (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-      (loop_bblocks: bblock list): string =
-  String.concat (List.map ~f:(condition_of_simple_loop w e param_types local_types) loop_bblocks)
-
-(** analyze_simple_brif_loops given a list of bblocks that are simple brif loops, analyzes the loop to
+(** analyze_simple_brif_loop given a bblocks that is a simple brif loops, analyzes the loop to
   determine the branch condition
   Parameters:
-  bblocks  list of brif loop bblocks found in the same functiob
-  e         code of the function that the bblocks are from
+  bb        brif loop bblock
+  e         code of the function that the bblock is from
   locals    type of locals in the function
   Returns:
-  formatted string containing the conditions of the brif instructions at the end of each bblock 
+  the loop condition in the form of an expr_tree
 *)
-(* TODO separate the execution from the output formatting *)                    
-let analyze_simple_brif_loops (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-      (bblocks: bblock list): string =
-  conditions_of_simple_loops w e param_types local_types bblocks
+let analyze_simple_brif_loop (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
+      (bb: bblock): expr_tree =
+  let _,loop_cond = reduce_bblock w (expr_of_bblock e bb) (empty_program_state w param_types local_types) in
+    loop_cond
 
 let execution_paths (bblocks: bblock list) : int list list =
   [List.map ~f:(fun s -> s.index) bblocks]
