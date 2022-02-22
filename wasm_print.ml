@@ -458,12 +458,40 @@ let explode_var (s: ssa list) (result: string): ssa =
   let i = Variable result in
   {result; etree = List.fold_left ~f:expand_expr_tree ~init:i s; alive = true}
 
-let print_function (w: wasm_module) dir prefix fidx type_idx =
-  let fname         = String.concat[dir; prefix; string_of_int (fidx + w.last_import_func)] in
+let loop_info w e param_types local_types bblocks (bb_idx: int) loop_type =
+  let bb_next = List.nth_exn bblocks (bb_idx+1) in
+  let loop_cond = analyze_simple_loop w e param_types local_types bb_next in
+  let loop_vars = variables_of_expr_tree loop_cond in
+  let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock e bb_next) in
+  String.concat[  loop_type;
+                  ",";
+                  (string_of_expr_tree loop_cond);
+                  ",";
+                  (String.concat ~sep:"; " loop_vars);
+                  ",";
+                  (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars) "; " false)]
+
+
+let loop_type w e param_types local_types bblocks (bb_idx: int) =
+  let bb = List.nth_exn bblocks bb_idx in
+  let bb_next = List.nth_exn bblocks (bb_idx+1) in
+  match simple_brif_loop bblocks bb with
+  | Some _ -> loop_info w e param_types local_types bblocks bb_idx "simple_br_if"
+  | _ -> (match simple_br_loop bblocks bb with
+            | Some _ ->  loop_info w e param_types local_types bblocks bb_idx "simple_br"
+            | _ -> (string_of_bb_type bb_next.bbtype))
+
+let print_summary oc_summary w e param_types local_types m fnum bblocks (bb: int) =
+  Out_channel.output_string oc_summary
+    (sprintf "%s,%d,%d,%s\n" m fnum bb (loop_type w e param_types local_types bblocks bb));
+  ()
+
+let print_function (w: wasm_module) oc_summary dir prefix fidx type_idx =
+  let fnum          = (fidx + w.last_import_func) in
+  let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = (List.nth_exn w.code_section fidx) in
   let bblocks       = fn.bblocks in
   let cps           = fn.code_paths in
-  let fnum          = (fidx + w.last_import_func) in
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
   (Logging.get_logger "wanalyze")#info "print_function: fidx %d bblocks length %d term length %d"
@@ -488,6 +516,12 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
   (* loop analysis *)
   (match has_loop bblocks with
   | true ->
+      (* print loop summary info *)
+      List.iter 
+        ~f:(print_summary oc_summary w fn.e param_types local_types (Filename.chop_extension w.module_name) fnum bblocks) 
+        (idx_of_bbs_of_loops bblocks);
+
+      (* print loop detail info *)
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
         (* print some information about which basic blocks have loops *)
         Out_channel.output_string oc
@@ -510,7 +544,7 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
         Out_channel.output_string oc
           (String.concat
             (List.map ~f:(fun bb ->
-                              let loop_cond = analyze_simple_brif_loop w fn.e param_types local_types bb in
+                              let loop_cond = analyze_simple_loop w fn.e param_types local_types bb in
                               let loop_vars = variables_of_expr_tree loop_cond in
                               let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock fn.e bb) in
                               String.concat [ "Simple brif loop condition in bblock ";
@@ -522,9 +556,10 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
                                               (String.concat ~sep:", " loop_vars);
                                               "\n";
                                               "SSA of loop:\n";
-                                              (string_of_ssa_list loop_ssa);
-                                              "Loop variable calculations:\n";
-                                              (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars))])
+                                              (string_of_ssa_list loop_ssa "\n" true);
+                                              "\nLoop variable calculations:\n";
+                                              (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars) "\n" true);
+                                              "\n"])
               bbs));
         Out_channel.close oc
   | false -> ())
@@ -534,9 +569,12 @@ let print_function (w: wasm_module) dir prefix fidx type_idx =
     Out_channel.close oc; *)
 
 let print_functions w =
+  let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in
+  Out_channel.output_string oc_summary "Module,Function,BBlock,Loop Type,Condition,Variables,Values\n";
   List.iteri 
-    ~f:(print_function w "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
-    (List.drop w.function_section w.last_import_func)
+    ~f:(print_function w oc_summary "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
+    (List.drop w.function_section w.last_import_func);
+  Out_channel.close oc_summary
 
 (* Part 7 *)
 (* Print the whole wasm module *)

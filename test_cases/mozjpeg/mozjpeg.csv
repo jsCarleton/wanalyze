@@ -1,0 +1,569 @@
+Module,Function,BBlock,Loop Type,Condition,Variables,Values
+mozjpeg,27,8,simple br_if,(pn2 + -32) > 31,pn2,pn2 = pn2 + -32
+mozjpeg,28,10,if
+mozjpeg,28,17,block
+mozjpeg,28,47,block
+mozjpeg,28,62,block
+mozjpeg,28,71,block
+mozjpeg,30,4,if
+mozjpeg,32,38,block
+mozjpeg,32,54,if
+mozjpeg,32,70,block
+mozjpeg,32,84,if
+mozjpeg,32,101,if
+mozjpeg,32,130,if
+mozjpeg,32,232,if
+mozjpeg,32,240,simple br_if,(pn0 + 1) != 32,pn0,pn0 = pn0 + 1
+mozjpeg,32,256,if
+mozjpeg,32,264,if
+mozjpeg,32,298,if
+mozjpeg,32,330,if
+mozjpeg,32,337,simple br_if,ln4 > (pn0 + 8),ln4; pn0,pn0 = pn0 + 4; ln4 = ln4
+mozjpeg,32,355,if
+mozjpeg,32,403,if
+mozjpeg,33,24,if
+mozjpeg,33,78,if
+mozjpeg,33,115,if
+mozjpeg,33,124,simple br_if,i32.load@(ln3),ln3,ln3 = ((ln3)) + 8
+mozjpeg,34,12,if
+mozjpeg,34,20,simple br_if,(pn2 - -64) <= ln5,pn2; ln5,ln5 = ln5; pn2 = pn2 - -64
+mozjpeg,34,25,simple br_if,(pn2 + 4) < ln4,pn2; ln4,ln4 = ln4; pn2 = pn2 + 4
+mozjpeg,34,36,simple br_if,(pn2 + 4) <= ln4,pn2; ln4,ln4 = ln4; pn2 = pn2 + 4
+mozjpeg,34,41,simple br_if,(pn2 + 1) != ln3,pn2; ln3,ln3 = ln3; pn2 = pn2 + 1
+mozjpeg,35,2,simple br_if,(ln2 + 1) < (i32.load@((i32.load@(pn0)) + ln7)),ln2; pn0; ln7,ln7 = ln7; pn0 = pn0; ln2 = ln2 + 1
+mozjpeg,35,8,if
+mozjpeg,42,23,block
+mozjpeg,42,31,block
+mozjpeg,49,2,simple br_if,(pn2 + -256) > 255,pn2,pn2 = pn2 + -256
+mozjpeg,52,8,if
+mozjpeg,52,19,if
+mozjpeg,54,6,if
+mozjpeg,54,10,simple br_if,pn2 + -1,pn2,pn2 = pn2 + -1
+mozjpeg,54,17,if
+mozjpeg,54,19,simple br_if,ln5 == (i32.load8_s@((ln4 + 1) + (ln6 + 1040))),ln5; ln4; ln6,ln6 = ln6; ln4 = ln4 + 1; ln5 = ln5
+mozjpeg,54,29,block
+mozjpeg,64,2,simple br_if,(ln2 + 1) != 64,ln2,ln2 = ln2 + 1
+mozjpeg,64,28,block
+mozjpeg,64,43,block
+mozjpeg,67,11,block
+mozjpeg,68,1,simple br_if,pn4 > 1,pn4,pn4 = pn4 + -1
+mozjpeg,69,1,simple br_if,ln3 shr_s 1,ln3,ln3 = ln3 shr_s 1
+mozjpeg,69,16,simple br_if,ln2 + -1,ln2,ln2 = ln2 + -1
+mozjpeg,69,37,simple br_if,(ln3 + 1) < (i32.load@(pn1)),ln3; pn1,pn1 = pn1; ln3 = ln3 + 1
+mozjpeg,72,0,if
+mozjpeg,72,2,simple br_if,(ln3 + 1) != 257,ln3,ln3 = ln3 + 1
+mozjpeg,72,6,if
+mozjpeg,72,13,block
+mozjpeg,72,18,loop
+mozjpeg,72,19,simple br_if,i32.eqz(i32.load8_u@(ln3 + (ln5 + 2080))),ln3; ln5,ln5 = ln5; ln3 = ln3 + -1
+mozjpeg,72,27,simple br_if,i32.eqz(i32.load8_u@((ln5 + 2080) + ln3)),ln5; ln3,ln3 = ln3 + -1; ln5 = ln5
+mozjpeg,72,30,loop
+mozjpeg,72,31,if
+mozjpeg,72,41,simple br_if,(i32.load@((ln3 shl 2) + ln5)) > -1,ln3; ln5,ln5 = ln5; ln3 = ((ln3 shl 2) + ln5)
+mozjpeg,72,46,simple br_if,(i32.load@((ln3 shl 2) + ln5)) > -1,ln3; ln5,ln5 = ln5; ln3 = ((ln3 shl 2) + ln5)
+mozjpeg,83,7,if
+mozjpeg,83,11,simple br_if,ln2 > 1,ln2,ln2 = ln2 + -1
+mozjpeg,84,9,simple br_if,(ln1 + 1) != ln7,ln1; ln7,ln7 = ln7; ln1 = ln1 + 1
+mozjpeg,84,25,simple br_if,(ln1 + 1) != ln3,ln1; ln3,ln3 = ln3; ln1 = ln1 + 1
+mozjpeg,86,1,simple br_if,(pn1 + 1) < (i32.load@(pn0)),pn1; pn0,pn0 = pn0; pn1 = pn1 + 1
+mozjpeg,86,7,if
+mozjpeg,86,9,if
+mozjpeg,86,11,block
+mozjpeg,86,15,loop
+mozjpeg,86,16,simple br_if,(pn1 + 1) != ln2,pn1; ln2,ln2 = ln2; pn1 = pn1 + 1
+mozjpeg,92,2,block
+mozjpeg,92,13,block
+mozjpeg,92,20,if
+mozjpeg,92,38,if
+mozjpeg,92,78,if
+mozjpeg,92,171,if
+mozjpeg,92,181,block
+mozjpeg,92,200,if
+mozjpeg,92,207,if
+mozjpeg,102,3,if
+mozjpeg,102,9,simple br_if,(ln11 + 1) != 64,ln11,ln11 = ln11 + 1
+mozjpeg,102,16,loop
+mozjpeg,102,17,simple br_if,(ln11 + 1) != 64,ln11,ln11 = ln11 + 1
+mozjpeg,102,26,block
+mozjpeg,102,31,if
+mozjpeg,102,41,simple br_if,ln19 shr_s 1,ln19,ln19 = ln19 shr_s 1
+mozjpeg,102,48,simple br_if,ln11 shr_s 1,ln11,ln11 = ln11 shr_s 1
+mozjpeg,102,64,block
+mozjpeg,102,72,block
+mozjpeg,102,80,simple br_if,(ln11 + 1) != ln14,ln11; ln14,ln14 = ln14; ln11 = ln11 + 1
+mozjpeg,102,84,block
+mozjpeg,102,95,simple br_if,ln19 shr_s 1,ln19,ln19 = ln19 shr_s 1
+mozjpeg,102,100,simple br_if,ln11 shr_s 1,ln11,ln11 = ln11 shr_s 1
+mozjpeg,102,121,if
+mozjpeg,102,130,if
+mozjpeg,102,132,simple br_if,(ln11 + -1) > ln12,ln11; ln12,ln12 = ln12; ln11 = ln11 + -1
+mozjpeg,102,141,loop
+mozjpeg,102,142,simple br_if,(ln11 + 1) != 64,ln11,ln11 = ln11 + 1
+mozjpeg,102,149,simple br_if,(pn1 + 1) != ln23,pn1; ln23,ln23 = ln23; pn1 = pn1 + 1
+mozjpeg,102,153,simple br_if,pn1 > 0,pn1,pn1 = pn1 + -1
+mozjpeg,102,157,simple br_if,(ln12 + 1) != ln23,ln12; ln23,ln23 = ln23; ln12 = ln12 + 1
+mozjpeg,104,10,if
+mozjpeg,104,16,simple br_if,(ln12 + 1) != 64,ln12,ln12 = ln12 + 1
+mozjpeg,104,23,loop
+mozjpeg,104,24,simple br_if,(ln12 + 1) != 64,ln12,ln12 = ln12 + 1
+mozjpeg,104,33,block
+mozjpeg,104,46,if
+mozjpeg,104,57,block
+mozjpeg,104,63,simple br_if,(ln12 + 1) != ln21,ln12; ln21,ln21 = ln21; ln12 = ln12 + 1
+mozjpeg,104,67,block
+mozjpeg,104,73,block
+mozjpeg,104,88,if
+mozjpeg,104,93,if
+mozjpeg,104,95,simple br_if,(ln12 + -1) > ln13,ln12; ln13,ln13 = ln13; ln12 = ln12 + -1
+mozjpeg,104,104,block
+mozjpeg,104,118,if
+mozjpeg,104,124,if
+mozjpeg,104,126,loop
+mozjpeg,104,127,simple br_if,pn6 != ln12,pn6; ln12,ln12 = ln12 + 1; pn6 = pn6
+mozjpeg,104,139,loop
+mozjpeg,104,140,simple br_if,(ln12 + 1) != 64,ln12,ln12 = ln12 + 1
+mozjpeg,104,147,simple br_if,(ln13 + 1) != ln29,ln13; ln29,ln29 = ln29; ln13 = ln13 + 1
+mozjpeg,104,151,simple br_if,ln13 > 0,ln13,ln13 = ln13 + -1
+mozjpeg,104,155,simple br_if,(pn2 + 1) != ln29,pn2; ln29,ln29 = ln29; pn2 = pn2 + 1
+mozjpeg,105,10,if
+mozjpeg,107,6,if
+mozjpeg,107,13,if
+mozjpeg,107,21,simple br_if,i32.load@(ln2),ln2,ln2 = (ln2)
+mozjpeg,107,26,simple br_if,i32.load@(ln2),ln2,ln2 = (ln2)
+mozjpeg,108,18,simple br_if,(ln3 + 1) != ln4,ln3; ln4,ln4 = ln4; ln3 = ln3 + 1
+mozjpeg,108,28,simple br_if,(ln7 + 1) < (i32.load@(ln6)),ln7; ln6,ln6 = ln6; ln7 = ln7 + 1
+mozjpeg,108,33,simple br_if,(ln1 + 1) < (i32.load@(ln6)),ln1; ln6,ln6 = ln6; ln1 = ln1 + 1
+mozjpeg,108,41,simple br_if,(ln2 + 1) < (i32.load@(ln5)),ln2; ln5,ln5 = ln5; ln2 = ln2 + 1
+mozjpeg,108,46,simple br_if,(ln3 + 1) < (i32.load@(ln5)),ln3; ln5,ln5 = ln5; ln3 = ln3 + 1
+mozjpeg,108,107,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,114,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,120,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,123,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,126,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,129,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,135,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,143,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,149,simple br_if,(ln5 + 1) != ln4,ln5; ln4,ln4 = ln4; ln5 = ln5 + 1
+mozjpeg,108,152,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,155,simple br_if,(ln5 + 1) != ln4,ln5; ln4,ln4 = ln4; ln5 = ln5 + 1
+mozjpeg,108,160,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,108,166,simple br_if,(ln5 + 1) != ln4,ln5; ln4,ln4 = ln4; ln5 = ln5 + 1
+mozjpeg,108,174,simple br_if,(ln2 + 1) != ln4,ln2; ln4,ln4 = ln4; ln2 = ln2 + 1
+mozjpeg,110,8,if
+mozjpeg,110,15,simple br_if,(pn0 + 1) != 64,pn0,pn0 = pn0 + 1
+mozjpeg,113,3,if
+mozjpeg,113,13,block
+mozjpeg,114,22,if
+mozjpeg,114,70,if
+mozjpeg,114,106,if
+mozjpeg,123,50,if
+mozjpeg,125,15,block
+mozjpeg,125,25,block
+mozjpeg,125,36,block
+mozjpeg,128,4,if
+mozjpeg,128,13,if
+mozjpeg,128,20,if
+mozjpeg,130,1,simple br_if,rn0,rn0,rn0 = rn0
+mozjpeg,141,0,block
+mozjpeg,141,14,if
+mozjpeg,146,6,if
+mozjpeg,146,12,simple br_if,i32.eqz((((i32.load@(ln1)) xor -1) && ((i32.load@(ln1)) + -16843009)) && -2139062144),ln1; ln1,ln1 = ln1 + 4; ln1 = ln1 + 4
+mozjpeg,146,18,simple br_if,i32.load8_u@(ln2),ln2,ln2 = ln2 + 1
+mozjpeg,150,21,block
+mozjpeg,150,39,simple br_if,((pN4 shr_u 63) || (lN10 shl 1)) < 281474976710656,pN4; lN10,lN10 = (pN4 shr_u 63) || (lN10 shl 1); pN4 = pN4 shl 1
+mozjpeg,154,5,block
+mozjpeg,154,32,block
+mozjpeg,154,47,block
+mozjpeg,154,56,block
+mozjpeg,154,73,block
+mozjpeg,157,3,simple br_if,(pn0 + 1) != ln5,pn0; ln5,ln5 = ln5; pn0 = pn0 + 1
+mozjpeg,157,10,loop
+mozjpeg,157,11,simple br_if,(ln9 + 1) != ln10,ln9; ln10,ln10 = ln10; ln9 = ln9 + 1
+mozjpeg,158,3,simple br_if,ln4 != ln9,ln4; ln9,ln9 = ln9; ln4 = ln4 + 1
+mozjpeg,158,8,loop
+mozjpeg,158,9,simple br,pn0,pn0,pn0 = pn0
+mozjpeg,159,3,simple br_if,(pn0 + 1) != ln4,pn0; ln4,ln4 = ln4; pn0 = pn0 + 1
+mozjpeg,159,10,loop
+mozjpeg,159,11,simple br_if,(ln7 + 1) != ln8,ln7; ln8,ln8 = ln8; ln7 = ln7 + 1
+mozjpeg,160,3,simple br_if,(ln4 + 1) != pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 1
+mozjpeg,161,3,simple br_if,ln4 != ln5,ln4; ln5,ln5 = ln5; ln4 = ln4 + 1
+mozjpeg,161,8,loop
+mozjpeg,161,9,simple br_if,pn0 + -1,pn0,pn0 = pn0 + -1
+mozjpeg,162,1,simple br_if,(ln6 + 1) < (i32.load@(pn0)),ln6; pn0,pn0 = pn0; ln6 = ln6 + 1
+mozjpeg,163,4,block
+mozjpeg,164,2,if
+mozjpeg,164,8,if
+mozjpeg,164,10,simple br_if,(ln7 + 1) != ln10,ln7; ln10,ln10 = ln10; ln7 = ln7 + 1
+mozjpeg,164,30,if
+mozjpeg,164,32,simple br_if,(ln7 + 1) != pn3,ln7; pn3,pn3 = pn3; ln7 = ln7 + 1
+mozjpeg,165,2,block
+mozjpeg,165,10,if
+mozjpeg,165,12,simple br_if,ln7 < (i32.load@(pn0)),ln7; pn0,pn0 = pn0; ln7 = ln7 + 1
+mozjpeg,165,24,if
+mozjpeg,165,26,simple br_if,(ln7 + 1) != ln9,ln7; ln9,ln9 = ln9; ln7 = ln7 + 1
+mozjpeg,167,4,loop
+mozjpeg,167,5,simple br_if,(ln3 + 1) != ln4,ln3; ln4,ln4 = ln4; ln3 = ln3 + 1
+mozjpeg,167,12,simple br_if,(ln6 + 1) < (i32.load@(pn0)),ln6; pn0,pn0 = pn0; ln6 = ln6 + 1
+mozjpeg,167,18,simple br_if,(ln1 + 1) < (i32.load@(pn0)),ln1; pn0,pn0 = pn0; ln1 = ln1 + 1
+mozjpeg,168,1,simple br_if,ln3 shr_s 1,ln3,ln3 = ln3 shr_s 1
+mozjpeg,168,16,simple br_if,ln2 + -1,ln2,ln2 = ln2 + -1
+mozjpeg,169,1,simple br_if,ln2 shr_s 1,ln2,ln2 = ln2 shr_s 1
+mozjpeg,169,16,simple br_if,ln1 + -1,ln1,ln1 = ln1 + -1
+mozjpeg,169,24,block
+mozjpeg,169,37,if
+mozjpeg,170,6,simple br_if,ln3 != ln9,ln3; ln9,ln9 = ln9; ln3 = ln3 + 1
+mozjpeg,170,12,block
+mozjpeg,170,16,if
+mozjpeg,170,18,simple br_if,pn1 shr_s 1,pn1,pn1 = pn1 shr_s 1
+mozjpeg,170,33,simple br_if,pn1 + -1,pn1,pn1 = pn1 + -1
+mozjpeg,170,44,simple br_if,ln5 + -1,ln5,ln5 = ln5 + -1
+mozjpeg,170,55,simple br_if,ln4 shr_s 1,ln4,ln4 = ln4 shr_s 1
+mozjpeg,170,70,simple br_if,ln4 + -1,ln4,ln4 = ln4 + -1
+mozjpeg,170,83,simple br_if,ln5 + -1,ln5,ln5 = ln5 + -1
+mozjpeg,170,98,simple br_if,ln3 shr_s 1,ln3,ln3 = ln3 shr_s 1
+mozjpeg,170,113,simple br_if,pn1 + -1,pn1,pn1 = pn1 + -1
+mozjpeg,171,5,simple br_if,(ln3 + 1) < (i32.load@(pn0)),ln3; pn0,pn0 = pn0; ln3 = ln3 + 1
+mozjpeg,172,6,block
+mozjpeg,172,10,simple br_if,pn1 shr_s 1,pn1,pn1 = pn1 shr_s 1
+mozjpeg,172,25,simple br_if,pn1 + -1,pn1,pn1 = pn1 + -1
+mozjpeg,172,31,block
+mozjpeg,172,40,simple br_if,ln3 shr_s 1,ln3,ln3 = ln3 shr_s 1
+mozjpeg,172,63,simple br_if,pn1 + -1,pn1,pn1 = pn1 + -1
+mozjpeg,173,5,block
+mozjpeg,174,15,block
+mozjpeg,174,26,simple br_if,(ln5 + 1) != 16,ln5,ln5 = ln5 + 1
+mozjpeg,174,36,block
+mozjpeg,174,44,simple br_if,(ln5 + 1) != 16,ln5,ln5 = ln5 + 1
+mozjpeg,177,27,simple br_if,(pn0 + 1) != pn1,pn0; pn1,pn1 = pn1; pn0 = pn0 + 1
+mozjpeg,178,32,simple br_if,(pn0 + 1) != ln1,pn0; ln1,ln1 = ln1; pn0 = pn0 + 1
+mozjpeg,180,4,simple br_if,(ln1 + 1) != 64,ln1,ln1 = ln1 + 1
+mozjpeg,180,11,simple br_if,(ln1 + 1) != 64,ln1,ln1 = ln1 + 1
+mozjpeg,184,21,simple br_if,(ln4 + 1) != ln7,ln4; ln7,ln7 = ln7; ln4 = ln4 + 1
+mozjpeg,184,65,simple br_if,(ln4 + 1) != ln11,ln4; ln11,ln11 = ln11; ln4 = ln4 + 1
+mozjpeg,184,115,simple br_if,(ln1 + -1) > ln4,ln1; ln4,ln4 = ln4; ln1 = ln1 + -1
+mozjpeg,184,127,simple br_if,(ln1 + -1) > ln4,ln1; ln4,ln4 = ln4; ln1 = ln1 + -1
+mozjpeg,184,132,if
+mozjpeg,184,139,if
+mozjpeg,184,152,if
+mozjpeg,184,162,if
+mozjpeg,184,172,if
+mozjpeg,184,182,if
+mozjpeg,185,19,block
+mozjpeg,185,28,simple br,(ln3 + 1) < (i32.load@(pn0)),ln3; pn0,pn0 = pn0; ln3 = ln3 + 1
+mozjpeg,185,50,simple br_if,(ln6 + 1) < (i32.load@(pn0)),ln6; pn0,pn0 = pn0; ln6 = ln6 + 1
+mozjpeg,185,58,block
+mozjpeg,185,71,block
+mozjpeg,185,95,block
+mozjpeg,185,100,if
+mozjpeg,185,107,if
+mozjpeg,185,115,block
+mozjpeg,185,128,if
+mozjpeg,185,140,if
+mozjpeg,185,147,if
+mozjpeg,185,156,block
+mozjpeg,185,168,if
+mozjpeg,185,177,simple br_if,ln1 != ln6,ln1; ln6,ln6 = ln6; ln1 = ln1 + 1
+mozjpeg,185,188,if
+mozjpeg,185,199,if
+mozjpeg,185,207,if
+mozjpeg,186,46,block
+mozjpeg,188,9,if
+mozjpeg,188,12,simple br_if,(ln1 + 1) != 64,ln1,ln1 = ln1 + 1
+mozjpeg,188,30,if
+mozjpeg,188,45,if
+mozjpeg,188,53,block
+mozjpeg,188,64,block
+mozjpeg,188,82,simple br_if,(ln1 + 1) < (i32.load@(pn0)),ln1; pn0,pn0 = pn0; ln1 = ln1 + 1
+mozjpeg,188,98,block
+mozjpeg,189,10,if
+mozjpeg,189,18,simple br_if,(ln1 + 1) != ln5,ln1; ln5,ln5 = ln5; ln1 = ln1 + 1
+mozjpeg,189,24,simple br_if,(ln2 + 1) != ln3,ln2; ln3,ln3 = ln3; ln2 = ln2 + 1
+mozjpeg,189,35,block
+mozjpeg,189,72,block
+mozjpeg,189,81,block
+mozjpeg,189,89,block
+mozjpeg,189,105,block
+mozjpeg,189,113,block
+mozjpeg,189,128,block
+mozjpeg,189,161,block
+mozjpeg,189,230,block
+mozjpeg,196,2,if
+mozjpeg,198,3,simple br_if,(ln2 + 1) < (i32.load@(pn0)),ln2; pn0,pn0 = pn0; ln2 = ln2 + 1
+mozjpeg,200,1,block
+mozjpeg,200,21,block
+mozjpeg,200,31,if
+mozjpeg,200,40,simple br_if,(ln2 + 1) != ln13,ln2; ln13,ln13 = ln13; ln2 = ln2 + 1
+mozjpeg,200,51,block
+mozjpeg,200,54,if
+mozjpeg,200,61,if
+mozjpeg,200,63,simple br_if,(ln2 + 1) != ln11,ln2; ln11,ln11 = ln11; ln2 = ln2 + 1
+mozjpeg,200,74,simple br_if,(ln6 + 1) < (i32.load@(ln5)),ln6; ln5,ln5 = ln5; ln6 = ln6 + 1
+mozjpeg,201,1,block
+mozjpeg,201,10,loop
+mozjpeg,201,11,simple br_if,(ln2 + 1) != ln7,ln2; ln7,ln7 = ln7; ln2 = ln2 + 1
+mozjpeg,201,18,simple br_if,(ln2 + 1) != ln5,ln2; ln5,ln5 = ln5; ln2 = ln2 + 1
+mozjpeg,201,26,if
+mozjpeg,201,28,loop
+mozjpeg,201,29,simple br_if,(ln2 + 1) != ln8,ln2; ln8,ln8 = ln8; ln2 = ln2 + 1
+mozjpeg,201,39,simple br_if,(ln5 + 1) < (i32.load@(ln3)),ln5; ln3,ln3 = ln3; ln5 = ln5 + 1
+mozjpeg,202,1,if
+mozjpeg,202,3,block
+mozjpeg,202,7,if
+mozjpeg,202,9,block
+mozjpeg,202,15,simple br_if,(ln2 + 1) != ln12,ln2; ln12,ln12 = ln12; ln2 = ln2 + 1
+mozjpeg,202,22,simple br_if,(ln2 + 1) < ln11,ln2; ln11,ln11 = ln11; ln2 = ln2 + 1
+mozjpeg,202,35,if
+mozjpeg,202,37,block
+mozjpeg,202,45,simple br_if,(ln2 + 1) < ln7,ln2; ln7,ln7 = ln7; ln2 = ln2 + 1
+mozjpeg,202,51,simple br_if,(ln2 + 1) != ln7,ln2; ln7,ln7 = ln7; ln2 = ln2 + 1
+mozjpeg,204,3,simple br_if,(pn1 + 1) < (i32.load@(pn0)),pn1; pn0,pn0 = pn0; pn1 = pn1 + 1
+mozjpeg,207,873,block
+mozjpeg,207,908,block
+mozjpeg,207,943,block
+mozjpeg,207,978,block
+mozjpeg,207,1013,block
+mozjpeg,207,1048,block
+mozjpeg,207,1083,block
+mozjpeg,207,1118,block
+mozjpeg,207,1153,block
+mozjpeg,207,1188,block
+mozjpeg,207,1223,block
+mozjpeg,207,1258,block
+mozjpeg,207,1293,block
+mozjpeg,207,1328,block
+mozjpeg,207,1363,block
+mozjpeg,207,1398,block
+mozjpeg,207,1433,block
+mozjpeg,207,1468,block
+mozjpeg,207,1503,block
+mozjpeg,207,1538,block
+mozjpeg,207,1573,block
+mozjpeg,207,1608,block
+mozjpeg,207,1643,block
+mozjpeg,207,1678,block
+mozjpeg,207,1713,block
+mozjpeg,207,1748,block
+mozjpeg,207,1783,block
+mozjpeg,207,1818,block
+mozjpeg,207,1853,block
+mozjpeg,207,1888,block
+mozjpeg,207,1921,block
+mozjpeg,207,1963,if
+mozjpeg,208,15,simple br_if,(ln4 + 1) < (i32.load@(ln6)),ln4; ln6,ln6 = ln6; ln4 = ln4 + 1
+mozjpeg,208,23,block
+mozjpeg,208,27,if
+mozjpeg,208,43,if
+mozjpeg,215,4,simple br_if,(ln2 + 1) < (i32.load@(pn0)),ln2; pn0,pn0 = pn0; ln2 = ln2 + 1
+mozjpeg,215,11,block
+mozjpeg,215,17,if
+mozjpeg,227,5,if
+mozjpeg,229,15,block
+mozjpeg,229,45,if
+mozjpeg,229,52,if
+mozjpeg,229,61,if
+mozjpeg,230,5,if
+mozjpeg,231,1,if
+mozjpeg,238,3,if
+mozjpeg,238,18,simple br_if,(ln4 + 1) < (i32.load@(pn0)),ln4; pn0,pn0 = pn0; ln4 = ln4 + 1
+mozjpeg,240,2,if
+mozjpeg,247,6,simple br,pn1 != pn2,pn1; pn2,pn2 = pn2; pn1 = pn1
+mozjpeg,252,11,if
+mozjpeg,252,13,if
+mozjpeg,256,6,if
+mozjpeg,258,5,block
+mozjpeg,259,2,if
+mozjpeg,259,7,if
+mozjpeg,263,7,block
+mozjpeg,263,11,simple br_if,rn0,rn0,rn0 = rn0
+mozjpeg,263,14,block
+mozjpeg,263,58,simple br_if,rn0,rn0,rn0 = rn0
+mozjpeg,263,91,block
+mozjpeg,263,148,block
+mozjpeg,263,160,simple br_if,(ln3 + 1) < (i32.load8_u@(ln4)),ln3; ln4,ln4 = ln4; ln3 = ln3 + 1
+mozjpeg,263,193,block
+mozjpeg,263,217,loop
+mozjpeg,263,218,block
+mozjpeg,263,234,block
+mozjpeg,263,250,block
+mozjpeg,264,2,block
+mozjpeg,264,17,block
+mozjpeg,264,33,block
+mozjpeg,264,83,simple br_if,(ln11 + 1) != 9,ln11,ln11 = ln11 + 1
+mozjpeg,264,107,simple br_if,(pn1 + 1) != ln7,pn1; ln7,ln7 = ln7; pn1 = pn1 + 1
+mozjpeg,264,113,loop
+mozjpeg,264,114,block
+mozjpeg,264,121,loop
+mozjpeg,264,122,block
+mozjpeg,264,124,block
+mozjpeg,264,126,block
+mozjpeg,264,135,if
+mozjpeg,264,145,simple br_if,((ln9 + 1) && 2047) != ln7,ln9; ln7,ln7 = ln7; ln9 = (ln9 + 1) && 2047
+mozjpeg,264,180,block
+mozjpeg,265,7,block
+mozjpeg,265,24,block
+mozjpeg,265,34,block
+mozjpeg,265,70,simple br_if,(lN14 + 1) != 8,lN14,lN14 = lN14 + 1
+mozjpeg,265,89,simple br_if,((ln7 shl 1) || (rn0 > -1)) > -1,ln7; rn0,rn0 = rn0; ln7 = (ln7 shl 1) || (rn0 > -1)
+mozjpeg,266,0,block
+mozjpeg,267,3,block
+mozjpeg,267,20,if
+mozjpeg,267,44,if
+mozjpeg,267,83,block
+mozjpeg,268,0,block
+mozjpeg,268,48,block
+mozjpeg,268,59,block
+mozjpeg,268,75,block
+mozjpeg,268,85,if
+mozjpeg,268,98,block
+mozjpeg,268,108,block
+mozjpeg,268,119,block
+mozjpeg,272,0,simple br_if,(ln2 + 1) != 64,ln2,ln2 = ln2 + 1
+mozjpeg,272,4,block
+mozjpeg,272,7,block
+mozjpeg,272,27,if
+mozjpeg,273,4,simple br_if,pN0 > 42949672959,pN0,pN0 = pN0 /u 10
+mozjpeg,273,9,simple br_if,ln2 > 9,ln2,ln2 = ln2 /u 10
+mozjpeg,274,1,simple br_if,(pN0 shr_u 3) != 0,pN0,pN0 = pN0 shr_u 3
+mozjpeg,275,1,simple br_if,(pN0 shr_u 4) != 0,pN0,pN0 = pN0 shr_u 4
+mozjpeg,284,0,block
+mozjpeg,286,4,if
+mozjpeg,291,0,simple br_if,(ln2 + 1) != 64,ln2,ln2 = ln2 + 1
+mozjpeg,291,4,block
+mozjpeg,291,7,block
+mozjpeg,291,17,block
+mozjpeg,307,3,if
+mozjpeg,307,5,block
+mozjpeg,307,20,if
+mozjpeg,307,22,block
+mozjpeg,307,31,block
+mozjpeg,310,0,simple br,pn0 != 3,pn0,pn0 = pn0
+mozjpeg,312,3,block
+mozjpeg,312,7,if
+mozjpeg,312,14,simple br_if,(pn2 + 1) != 64,pn2,pn2 = pn2 + 1
+mozjpeg,312,24,block
+mozjpeg,312,28,if
+mozjpeg,312,35,simple br_if,(pn2 + 1) != 64,pn2,pn2 = pn2 + 1
+mozjpeg,312,39,block
+mozjpeg,315,1,block
+mozjpeg,315,16,if
+mozjpeg,315,33,block
+mozjpeg,315,59,simple br_if,(ln4 + 1) != 8,ln4,ln4 = ln4 + 1
+mozjpeg,325,1,if
+mozjpeg,325,12,if
+mozjpeg,326,27,simple br,(i32.load@(ln5)) < (i32.load@(ln5)),ln5; ln5,ln5 = ln5; ln5 = ln5
+mozjpeg,333,14,if
+mozjpeg,333,23,if
+mozjpeg,333,29,simple br_if,(pn2 + -4) > 3,pn2,pn2 = pn2 + -4
+mozjpeg,333,34,simple br_if,pn2 + -1,pn2,pn2 = pn2 + -1
+mozjpeg,333,40,simple br_if,(pn2 + -4) > 3,pn2,pn2 = pn2 + -4
+mozjpeg,333,45,simple br_if,pn2 + -1,pn2,pn2 = pn2 + -1
+mozjpeg,336,3,loop
+mozjpeg,336,4,simple br_if,(ln7 + 1) != ln11,ln7; ln11,ln11 = ln11; ln7 = ln7 + 1
+mozjpeg,338,12,loop
+mozjpeg,338,13,simple br_if,(ln6 + 1) != ln10,ln6; ln10,ln10 = ln10; ln6 = ln6 + 1
+mozjpeg,338,22,loop
+mozjpeg,338,23,simple br_if,(ln6 + 1) != ln10,ln6; ln10,ln10 = ln10; ln6 = ln6 + 1
+mozjpeg,338,32,loop
+mozjpeg,338,33,simple br_if,(ln6 + 1) != ln10,ln6; ln10,ln10 = ln10; ln6 = ln6 + 1
+mozjpeg,338,42,loop
+mozjpeg,338,43,simple br_if,(ln6 + 1) != ln10,ln6; ln10,ln10 = ln10; ln6 = ln6 + 1
+mozjpeg,338,52,loop
+mozjpeg,338,53,simple br_if,(ln6 + 1) != ln10,ln6; ln10,ln10 = ln10; ln6 = ln6 + 1
+mozjpeg,338,62,loop
+mozjpeg,338,63,simple br_if,(ln6 + 1) != ln10,ln6; ln10,ln10 = ln10; ln6 = ln6 + 1
+mozjpeg,338,72,loop
+mozjpeg,338,73,simple br_if,(ln6 + 1) != ln10,ln6; ln10,ln10 = ln10; ln6 = ln6 + 1
+mozjpeg,340,12,loop
+mozjpeg,340,13,simple br_if,(ln5 + 1) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 1
+mozjpeg,340,22,loop
+mozjpeg,340,23,simple br_if,(ln5 + 1) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 1
+mozjpeg,340,32,loop
+mozjpeg,340,33,simple br_if,(ln5 + 1) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 1
+mozjpeg,340,42,loop
+mozjpeg,340,43,simple br_if,(ln5 + 1) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 1
+mozjpeg,340,52,loop
+mozjpeg,340,53,simple br_if,(ln5 + 1) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 1
+mozjpeg,340,62,loop
+mozjpeg,340,63,simple br_if,(ln5 + 1) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 1
+mozjpeg,340,72,loop
+mozjpeg,340,73,simple br_if,(ln5 + 1) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 1
+mozjpeg,341,0,simple br_if,(pn0 + 1) != 64,pn0,pn0 = pn0 + 1
+mozjpeg,341,3,simple br_if,(pn0 + 1) != 256,pn0,pn0 = pn0 + 1
+mozjpeg,342,5,block
+mozjpeg,342,15,simple br_if,ln4 shr_s 1,ln4,ln4 = ln4 shr_s 1
+mozjpeg,342,26,simple br_if,ln2 shr_s 1,ln2,ln2 = ln2 shr_s 1
+mozjpeg,342,32,if
+mozjpeg,342,39,if
+mozjpeg,342,41,simple br_if,i32.eqz(i32.load16_u@(ln13 + ((i32.load@(((ln3 + 1) shl 2) + 142864)) shl 1))),ln13; ln3,ln3 = ln3 + 1; ln13 = ln13
+mozjpeg,342,51,simple br_if,ln8 shr_s 1,ln8,ln8 = ln8 shr_s 1
+mozjpeg,342,56,simple br_if,ln2 shr_s 1,ln2,ln2 = ln2 shr_s 1
+mozjpeg,343,8,block
+mozjpeg,343,23,block
+mozjpeg,343,36,if
+mozjpeg,343,40,block
+mozjpeg,344,5,simple br_if,(ln2 + 1) < (i32.load@(pn0)),ln2; pn0,pn0 = pn0; ln2 = ln2 + 1
+mozjpeg,345,6,block
+mozjpeg,345,19,loop
+mozjpeg,345,20,block
+mozjpeg,345,35,simple br_if,ln10 shr_s 1,ln10,ln10 = ln10 shr_s 1
+mozjpeg,345,40,simple br_if,ln2 shr_s 1,ln2,ln2 = ln2 shr_s 1
+mozjpeg,346,5,block
+mozjpeg,346,15,simple br_if,ln6 shr_s 1,ln6,ln6 = ln6 shr_s 1
+mozjpeg,346,26,simple br_if,ln2 shr_s 1,ln2,ln2 = ln2 shr_s 1
+mozjpeg,347,21,if
+mozjpeg,347,36,block
+mozjpeg,349,7,loop
+mozjpeg,349,8,simple br_if,(ln5 + 1) != ln8,ln5; ln8,ln8 = ln8; ln5 = ln5 + 1
+mozjpeg,349,16,loop
+mozjpeg,349,17,simple br_if,(ln5 + 1) != ln8,ln5; ln8,ln8 = ln8; ln5 = ln5 + 1
+mozjpeg,349,25,if
+mozjpeg,349,27,loop
+mozjpeg,349,28,simple br_if,(ln5 + 1) != ln8,ln5; ln8,ln8 = ln8; ln5 = ln5 + 1
+mozjpeg,351,5,if
+mozjpeg,351,7,simple br_if,ln5 + -1,ln5,ln5 = ln5 + -1
+mozjpeg,352,3,if
+mozjpeg,352,5,simple br_if,ln7 + -1,ln7,ln7 = ln7 + -1
+mozjpeg,355,1,if
+mozjpeg,355,10,if
+mozjpeg,355,23,if
+mozjpeg,355,35,if
+mozjpeg,355,43,simple br_if,ln1 + -1,ln1,ln1 = ln1 + -1
+mozjpeg,355,55,if
+mozjpeg,355,65,if
+mozjpeg,355,73,simple br_if,ln1 + -1,ln1,ln1 = ln1 + -1
+mozjpeg,356,17,if
+mozjpeg,356,25,if
+mozjpeg,356,49,simple br_if,(pn3 + 1) != pn0,pn3; pn0,pn0 = pn0; pn3 = pn3 + 1
+mozjpeg,357,17,if
+mozjpeg,357,25,if
+mozjpeg,357,49,simple br_if,(pn3 + 1) != pn0,pn3; pn0,pn0 = pn0; pn3 = pn3 + 1
+mozjpeg,358,0,simple br_if,(pn0 + 1) != 256,pn0,pn0 = pn0 + 1
+mozjpeg,361,0,simple br_if,ln9,ln9,ln9 = ln9 + -1
+mozjpeg,361,3,simple br_if,ln15,ln15,ln15 = ln15 + -1
+mozjpeg,362,0,simple br_if,ln5,ln5,ln5 = ln5 + -1
+mozjpeg,362,3,simple br_if,ln15,ln15,ln15 = ln15 + -1
+mozjpeg,363,0,simple br_if,ln3,ln3,ln3 = ln3 + -1
+mozjpeg,363,3,simple br_if,ln2,ln2,ln2 = ln2 + -1
+mozjpeg,364,12,loop
+mozjpeg,364,13,simple br_if,(ln6 + 1) != ln7,ln6; ln7,ln7 = ln7; ln6 = ln6 + 1
+mozjpeg,364,22,loop
+mozjpeg,364,23,simple br_if,(ln6 + 1) != ln7,ln6; ln7,ln7 = ln7; ln6 = ln6 + 1
+mozjpeg,364,32,loop
+mozjpeg,364,33,simple br_if,(ln6 + 1) != ln7,ln6; ln7,ln7 = ln7; ln6 = ln6 + 1
+mozjpeg,364,42,loop
+mozjpeg,364,43,simple br_if,(ln6 + 1) != ln7,ln6; ln7,ln7 = ln7; ln6 = ln6 + 1
+mozjpeg,364,52,loop
+mozjpeg,364,53,simple br_if,(ln6 + 1) != ln7,ln6; ln7,ln7 = ln7; ln6 = ln6 + 1
+mozjpeg,364,62,loop
+mozjpeg,364,63,simple br_if,(ln6 + 1) != ln7,ln6; ln7,ln7 = ln7; ln6 = ln6 + 1
+mozjpeg,364,72,loop
+mozjpeg,364,73,simple br_if,(ln6 + 1) != ln7,ln6; ln7,ln7 = ln7; ln6 = ln6 + 1
+mozjpeg,368,17,if
+mozjpeg,373,3,simple br_if,(pn0 + 1) != ln4,pn0; ln4,ln4 = ln4; pn0 = pn0 + 1
+mozjpeg,373,8,block
+mozjpeg,373,12,if
+mozjpeg,373,14,loop
+mozjpeg,373,15,simple br_if,(ln5 + 1) != ln9,ln5; ln9,ln9 = ln9; ln5 = ln5 + 1
+mozjpeg,373,25,simple br_if,(pn0 + 1) != ln8,pn0; ln8,ln8 = ln8; pn0 = pn0 + 1
+mozjpeg,374,3,loop
+mozjpeg,374,4,simple br_if,(ln5 + 1) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 1

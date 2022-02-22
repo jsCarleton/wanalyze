@@ -246,8 +246,14 @@ type local_type =
     facilitate analysis *)
 (* basic blocks have a type that's determined by the control instruction that terminates the bblock *)
 type bb_type =
-  BB_unknown |
-  BB_unreachable | BB_block | BB_loop | BB_if | BB_else | BB_end | BB_br | BB_br_if | BB_br_table | BB_return
+  BB_unknown
+  | BB_unreachable | BB_block | BB_loop | BB_if | BB_else | BB_end | BB_br | BB_br_if | BB_br_table | BB_return
+
+let string_of_bb_type b =
+  match b with
+  BB_unknown -> "unknown"
+  | BB_unreachable -> "unreachable" | BB_block -> "block" | BB_loop -> "loop" | BB_if -> "if" | BB_else -> "else"
+  | BB_end -> "end" | BB_br -> "br" | BB_br_if -> "if" | BB_br_table -> "br_table" | BB_return -> "return"
 
 type bblock =
 {
@@ -1167,6 +1173,12 @@ let rec has_loop (bblocks: bblock list): bool =
     | _     -> has_loop tl)
   | _ ->  false
 
+let idx_of_bbs_of_loops (bblocks: bblock list): int list =
+  List.fold_left
+    ~init:[] 
+    ~f:(fun acc bb -> match bb.bbtype with | BB_loop -> (List.append acc [bb.index]) | _ -> acc)
+    bblocks
+
 let ids_with_loops (bblocks: bblock list): int list =
   List.filter_map ~f:(fun s -> match has_loop' s with | true -> Some (s.index+1) | _ -> None) bblocks
 
@@ -1181,12 +1193,12 @@ let simple_br_loop (bblocks: bblock list) (s: bblock): int option =
               | _ -> None)
     | false -> None
 
-let simple_brif_loop (bblocks: bblock list) (s: bblock): int option =
-  match List.length bblocks - s.index >= 3 with
-    | true -> (match s.bbtype,
-                  (List.nth_exn bblocks (s.index+1)).bbtype,
-                  (List.nth_exn bblocks (s.index+2)).bbtype with
-                | BB_loop, BB_br_if, BB_end -> Some (s.index+1)
+let simple_brif_loop (bblocks: bblock list) (b: bblock): int option =
+  match List.length bblocks - b.index >= 3 with
+    | true -> (match b.bbtype,
+                  (List.nth_exn bblocks (b.index+1)).bbtype,
+                  (List.nth_exn bblocks (b.index+2)).bbtype with
+                | BB_loop, BB_br_if, BB_end -> Some (b.index+1)
                 | _ -> None)
     | false -> None
 
@@ -1199,7 +1211,7 @@ let ids_with_simple_brif_loops (bblocks: bblock list): int list =
 let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
     List.map ~f:(fun i -> List.nth_exn bblocks i) (ids_with_simple_brif_loops bblocks)
 
-(** analyze_simple_brif_loop given a bblocks that is a simple brif loops, analyzes the loop to
+(** analyze_simple_loop given a bblocks that is a simple brif loops, analyzes the loop to
   determine the branch condition
   Parameters:
   bb        brif loop bblock
@@ -1208,7 +1220,7 @@ let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
   Returns:
   the loop condition in the form of an expr_tree
 *)
-let analyze_simple_brif_loop (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
+let analyze_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
       (bb: bblock): expr_tree =
   let _,loop_cond = reduce_bblock w (expr_of_bblock e bb) (empty_program_state w param_types local_types) in
     loop_cond
