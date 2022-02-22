@@ -458,12 +458,14 @@ let explode_var (s: ssa list) (result: string): ssa =
   let i = Variable result in
   {result; etree = List.fold_left ~f:expand_expr_tree ~init:i s; alive = true}
 
-let loop_info w e param_types local_types bblocks (bb_idx: int) loop_type =
-  let bb_next = List.nth_exn bblocks (bb_idx+1) in
+let loop_info w e param_types local_types cp_ssa bbs (bb_idx: int) loop_type =
+  let bb_next = List.nth_exn bbs (bb_idx+1) in
   let loop_cond = analyze_simple_loop w e param_types local_types bb_next in
   let loop_vars = variables_of_expr_tree loop_cond in
   let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock e bb_next) in
   String.concat[  loop_type;
+                  ",";
+                  (string_of_ssa_list (List.map ~f:(explode_var cp_ssa) loop_vars) "; " false);
                   ",";
                   (string_of_expr_tree loop_cond);
                   ",";
@@ -471,19 +473,22 @@ let loop_info w e param_types local_types bblocks (bb_idx: int) loop_type =
                   ",";
                   (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars) "; " false)]
 
-
-let loop_type w e param_types local_types bblocks (bb_idx: int) =
-  let bb = List.nth_exn bblocks bb_idx in
-  let bb_next = List.nth_exn bblocks (bb_idx+1) in
-  match simple_brif_loop bblocks bb with
-  | Some _ -> loop_info w e param_types local_types bblocks bb_idx "simple_br_if"
-  | _ -> (match simple_br_loop bblocks bb with
-            | Some _ ->  loop_info w e param_types local_types bblocks bb_idx "simple_br"
+let loop_type w e param_types local_types cp_ssa bbs (bb_idx: int) =
+  let bb = List.nth_exn bbs bb_idx in
+  let bb_next = List.nth_exn bbs (bb_idx+1) in
+  match simple_brif_loop bbs bb with
+  | Some _ -> loop_info w e param_types local_types cp_ssa bbs bb_idx "simple br_if"
+  | _ -> (match simple_br_loop bbs bb with
+            | Some _ ->  loop_info w e param_types local_types cp_ssa bbs bb_idx "simple br"
             | _ -> (string_of_bb_type bb_next.bbtype))
 
-let print_summary oc_summary w e param_types local_types m fnum bblocks (bb: int) =
+(* TODO more convenient to store code paths in reverse order? *)
+let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_path) =
+  let cp_ssa = ssa_of_code_path w e param_types local_types bbs cp in
+  let bb_idx = List.hd_exn (List.rev cp) in
   Out_channel.output_string oc_summary
-    (sprintf "%s,%d,%d,%s\n" m fnum bb (loop_type w e param_types local_types bblocks bb));
+    (sprintf "%s,%d,%d,%s,%s\n"
+        m fnum bb_idx (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb_idx));
   ()
 
 let print_function (w: wasm_module) oc_summary dir prefix fidx type_idx =
@@ -517,9 +522,10 @@ let print_function (w: wasm_module) oc_summary dir prefix fidx type_idx =
   (match has_loop bblocks with
   | true ->
       (* print loop summary info *)
+      let loop_cps = List.dedup_and_sort ~compare:compare_cps (loop_code_paths bblocks cps) in
       List.iter 
         ~f:(print_summary oc_summary w fn.e param_types local_types (Filename.chop_extension w.module_name) fnum bblocks) 
-        (idx_of_bbs_of_loops bblocks);
+        loop_cps;
 
       (* print loop detail info *)
       let oc = Out_channel.create (String.concat[fname; ".loops"]) in
@@ -534,10 +540,7 @@ let print_function (w: wasm_module) oc_summary dir prefix fidx type_idx =
         (* print the code paths from the root to a loop bblock and the VM state at loop entry *)
         Out_channel.output_string oc (sprintf "Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:\n");
         Out_channel.output_string oc
-          (String.concat ~sep:"\n"
-            (List.map 
-                ~f:(loop_entry_state w fn.e bblocks param_types local_types) 
-                (List.dedup_and_sort ~compare:compare_cps (loop_code_paths bblocks cps))));
+          (String.concat ~sep:"\n"  (List.map ~f:(loop_entry_state w fn.e bblocks param_types local_types) loop_cps));
         Out_channel.output_string oc "\n";
         (* print the loop conditions and ssa for simple br_if loops *)
         let bbs = (bblocks_with_simple_brif_loops bblocks) in
@@ -570,7 +573,7 @@ let print_function (w: wasm_module) oc_summary dir prefix fidx type_idx =
 
 let print_functions w =
   let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in
-  Out_channel.output_string oc_summary "Module,Function,BBlock,Loop Type,Condition,Variables,Values\n";
+  Out_channel.output_string oc_summary "Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values\n";
   List.iteri 
     ~f:(print_function w oc_summary "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
     (List.drop w.function_section w.last_import_func);

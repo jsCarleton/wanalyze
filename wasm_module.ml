@@ -393,6 +393,16 @@ let rec local_type_of_index (local_types: local_type list) (index: int) (types_i
 let param_name (param_types: resulttype list) (i: int): string =
   String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i]
 
+let local_value (local_types: local_type list) (nparams: int) (i: int): string =
+  match local_type_of_index local_types (i - nparams) 0 0 with
+    | Numtype nt ->
+      (match nt with
+        | I32 -> "0"
+        | I64 -> "0L"
+        | F32 -> "0.0f"
+        | F64 -> "0.0")
+    | _ -> "?"
+
 let local_name (local_types: local_type list) (nparams: int) (i: int): string =
   String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
 
@@ -407,6 +417,9 @@ let string_of_local_value (param_types: resulttype list) (local_types: local_typ
   match i < nparams with 
   | true  -> param_name param_types i
   | _     -> local_name local_types nparams i
+
+let string_of_global_value (i: int): string =
+  sprintf "g%d" i
 
 (* Implementation *)
 (* Part 2 - basic blocks *)
@@ -563,7 +576,6 @@ let pop_value   (state: program_state): expr_tree =
   value
 
 (* value array operations *)
-(* TODO *)
 let copy_values (values: expr_tree array): expr_tree array =
   Array.copy values
 let create_values (len: int): expr_tree array =
@@ -745,7 +757,7 @@ let update_states_controlop (w: wasm_module) (param_counts: int list) (op: op_ty
 (* Variable operators *)
 let int_of_get_argL arg =
   match arg with
-  | Localidx i -> i
+  | Localidx i | Globalidx i -> i
   | _ -> failwith "Invalid local index"
 let int_of_get_argG arg =
     match arg with
@@ -1104,7 +1116,8 @@ let rec create_globals (w:wasm_module) (s: program_state) (imports: import list)
                             create_globals w s tl globals n_imports global_vals (next+1)
         | _             ->  create_globals w s tl globals n_imports global_vals next)
 
-let sum_nlocals acc (l: local_type) = acc + l.n
+let sum_nlocals acc (l: local_type): int = acc + l.n
+let count_locals (ll: local_type list): int = List.fold_left ~f:sum_nlocals ~init:0 ll
 
 (* Implementation *)
 (* Part 6 - program state *)
@@ -1131,7 +1144,7 @@ let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_t
 { instr_count   = 0;
   value_stack   = []; 
   local_values  = init_values
-                    ((List.length param_types) + (List.fold_left ~f:sum_nlocals ~init:0 local_types))
+                    ((List.length param_types) + (count_locals local_types))
                     (expr_tree_of_local_value param_types local_types); 
   global_values = global_values }
 
@@ -1262,7 +1275,6 @@ let rec compare_cps (cp1: code_path) (cp2: code_path): int =
         | true                  -> compare_cps tl1 tl2
         | false when hd1 < hd2  -> -1
         | _                     -> +1)
-
 
 (* Implementation *)
 (* Part 8 - section updating *)
