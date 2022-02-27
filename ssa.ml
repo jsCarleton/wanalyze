@@ -173,5 +173,4 @@ let ssa_of_bblock_idx (w: wasm_module) (e: expr) (param_types: resulttype list) 
 
 let ssa_of_code_path (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
       (bbs: bblock list) (cp: code_path): ssa list =
-  printf "building ssa for code path\n";
-  List.fold ~f:(ssa_of_bblock_idx w e param_types local_types bbs) ~init:[] cp
+  List.fold ~f:(ssa_of_bblock_idx w e param_types local_types bbs) ~init:(ssa_of_locals local_types) cp
