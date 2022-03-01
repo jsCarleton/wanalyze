@@ -236,215 +236,220 @@ let rec read_vec_labelidx' ic len acc =
 let read_vec_labelidx ic =
   read_vec_labelidx' ic (read_vec_len ic) []
 
-let read_instr ic opcode _ =
-   match opcode_of_int opcode with
+let read_instr' ic opcode =
+match opcode_of_int opcode with
   (* control instructions *)
-  | OP_unreachable  -> ("unreachable", EmptyArg, Control)
-  | OP_nop          -> ("nop", EmptyArg, Control)
-  | OP_block        -> ("block", Blocktype (read_blocktype ic), Control)
-  | OP_loop         -> ("loop", Blocktype (read_blocktype ic), Control)
-  | OP_if           -> ("if", Blocktype (read_blocktype ic), Control)
-  | OP_else         -> ("else", EmptyArg, Control)
-  | OP_end          -> ("end", EmptyArg, Control)
-  | OP_br           -> ("br", Labelidx (read_idx ic), Control)
-  | OP_br_if        -> ("br_if",  Labelidx (read_idx ic), Control)
-  | OP_br_table     -> ("br_table", 
+  | OP_unreachable
+  | OP_nop          -> EmptyArg, Control
+  | OP_block
+  | OP_loop
+  | OP_if           -> Blocktype (read_blocktype ic), Control
+  | OP_else 
+  | OP_end          -> EmptyArg, Control
+  | OP_br
+  | OP_br_if        -> Labelidx (read_idx ic), Control
+  | OP_br_table     -> 
       (let table = (read_vec_labelidx ic) in let index = (read_labelidx ic) in
-       BrTable {table; index}), Control)
-  | OP_return         -> ("return", EmptyArg, Control)
-  | OP_call           -> ("call", Funcidx (read_idx ic), Control)
-  | OP_call_indirect  -> ("call_indirect", 
+       BrTable {table; index}), Control
+  | OP_return         -> EmptyArg, Control
+  | OP_call           -> Funcidx (read_idx ic), Control
+  | OP_call_indirect  -> 
       (let y = read_idx ic in
        let x = read_idx ic in
-       CallIndirect {y; x}), Control)
+       CallIndirect {y; x}), Control
    (* reference instructions*)
-  | OP_ref_null -> ("ref.null", EmptyArg, Reference) (* TODO not what the spec says *)
+  | OP_ref_null -> EmptyArg, Reference (* TODO not what the spec says *)
   (* parametric instructions *)
-  | OP_drop -> ("drop", EmptyArg, Parametric)
+  | OP_drop -> EmptyArg, Parametric
   | OP_select -> 
       (match opcode with
-        | 0x1b -> ("select", EmptyArg, Parametric)
-        | _ (* 0x1c *) -> ("select", ValtypeList (read_vec_valtype ic), Parametric))
+        | 0x1b -> EmptyArg, Parametric
+        | _ (* 0x1c *) -> ValtypeList (read_vec_valtype ic), Parametric)
   (* variable instructions*)
-  | OP_local_get  -> ("local.get", Localidx (uLEB ic 32), VariableGL)
-  | OP_local_set  -> ("local.set", Localidx (uLEB ic 32), VariableSL)
-  | OP_local_tee  -> ("local.tee", Localidx (uLEB ic 32), VariableTL)
-  | OP_global_get -> ("global.get", Globalidx (uLEB ic 32), VariableGG)
-  | OP_global_set -> ("global.set", Globalidx (uLEB ic 32), VariableSG)
+  | OP_local_get  -> Localidx (uLEB ic 32), VariableGL
+  | OP_local_set  -> Localidx (uLEB ic 32), VariableSL
+  | OP_local_tee  -> Localidx (uLEB ic 32), VariableTL
+  | OP_global_get -> Globalidx (uLEB ic 32), VariableGG
+  | OP_global_set -> Globalidx (uLEB ic 32), VariableSG
   (* table instructions *)
-  | OP_table_get -> ("table.get", Tableidx (uLEB ic 32), Table)
-  | OP_table_set -> ("table.set", Tableidx (uLEB ic 32), Table)
+  | OP_table_get -> Tableidx (uLEB ic 32), Table
+  | OP_table_set -> Tableidx (uLEB ic 32), Table
   (* memory instructions *)
-  | OP_i32_load     -> ("i32.load", Memarg (read_memarg ic 32), MemoryL)
-  | OP_i64_load     -> ("i64.load", Memarg (read_memarg ic 64), MemoryL)
-  | OP_f32_load     -> ("f32.load", Memarg (read_memarg ic 32), MemoryL)
-  | OP_f64_load     -> ("f64.load", Memarg (read_memarg ic 64), MemoryL)
-  | OP_i32_load8_s  -> ("i32.load8_s", Memarg (read_memarg ic 8), MemoryL)
-  | OP_i32_load8_u  -> ("i32.load8_u", Memarg (read_memarg ic 8), MemoryL)
-  | OP_i32_load16_s -> ("i32.load16_s", Memarg (read_memarg ic 16), MemoryL)
-  | OP_i32_load16_u -> ("i32.load16_u", Memarg (read_memarg ic 16), MemoryL)
-  | OP_i64_load8_s  -> ("i64.load8_s", Memarg (read_memarg ic 8), MemoryL)
-  | OP_i64_load8_u  -> ("i64.load8_u", Memarg (read_memarg ic 8), MemoryL)
-  | OP_i64_load16_s -> ("i64.load16_s", Memarg (read_memarg ic 16), MemoryL)
-  | OP_i64_load16_u -> ("i64.load16_u", Memarg (read_memarg ic 16), MemoryL)
-  | OP_i64_load32_s -> ("i64.load32_s", Memarg (read_memarg ic 32), MemoryL)
-  | OP_i64_load32_u -> ("i64.load32_u", Memarg (read_memarg ic 32), MemoryL)
-  | OP_i32_store    -> ("i32.store", Memarg (read_memarg ic 32), MemoryS)
-  | OP_i64_store    -> ("i64.store", Memarg (read_memarg ic 64), MemoryS)
-  | OP_f32_store    -> ("f32.store", Memarg (read_memarg ic 32), MemoryS)
-  | OP_f64_store    -> ("f64.store", Memarg (read_memarg ic 64), MemoryS)
-  | OP_i32_store8   -> ("i32.store8", Memarg (read_memarg ic 8), MemoryS)
-  | OP_i32_store16  -> ("i32.store16", Memarg (read_memarg ic 16), MemoryS)
-  | OP_i64_store8   -> ("i64.store8", Memarg (read_memarg ic 8), MemoryS)
-  | OP_i64_store16  -> ("i64.store16", Memarg (read_memarg ic 16), MemoryS)
-  | OP_i64_store32  -> ("i64.store32", Memarg (read_memarg ic 32), MemoryS)
-  | OP_memory_size  -> ("memory.size", EmptyArg, MemoryM) (* TODO not what the spec says *)
-  | OP_memory_grow  -> ("memory grow", EmptyArg, MemoryM) (* TODO not what the spec says *)
+  | OP_i32_load     -> Memarg (read_memarg ic 32), MemoryL
+  | OP_i64_load     -> Memarg (read_memarg ic 64), MemoryL
+  | OP_f32_load     -> Memarg (read_memarg ic 32), MemoryL
+  | OP_f64_load     -> Memarg (read_memarg ic 64), MemoryL
+  | OP_i32_load8_s
+  | OP_i32_load8_u  -> Memarg (read_memarg ic 8), MemoryL
+  | OP_i32_load16_s
+  | OP_i32_load16_u -> Memarg (read_memarg ic 16), MemoryL
+  | OP_i64_load8_s
+  | OP_i64_load8_u  -> Memarg (read_memarg ic 8), MemoryL
+  | OP_i64_load16_s
+  | OP_i64_load16_u -> Memarg (read_memarg ic 16), MemoryL
+  | OP_i64_load32_s
+  | OP_i64_load32_u -> Memarg (read_memarg ic 32), MemoryL
+  | OP_i32_store    -> Memarg (read_memarg ic 32), MemoryS
+  | OP_i64_store    -> Memarg (read_memarg ic 64), MemoryS
+  | OP_f32_store    -> Memarg (read_memarg ic 32), MemoryS
+  | OP_f64_store    -> Memarg (read_memarg ic 64), MemoryS
+  | OP_i32_store8   -> Memarg (read_memarg ic 8), MemoryS
+  | OP_i32_store16  -> Memarg (read_memarg ic 16), MemoryS
+  | OP_i64_store8   -> Memarg (read_memarg ic 8), MemoryS
+  | OP_i64_store16  -> Memarg (read_memarg ic 16), MemoryS
+  | OP_i64_store32  -> Memarg (read_memarg ic 32), MemoryS
+  | OP_memory_size
+  | OP_memory_grow  -> EmptyArg, MemoryM (* TODO not what the spec says *)
   (* numeric instructions *)
-  | OP_i32_const -> ("i32.const", I32value (read_i32 ic), Constop)
-  |	OP_i64_const -> ("i64.const", I64value (sLEB ic 64), Constop)
-  | OP_f32_const -> ("f32.const", F32value (read_f32 ic), Constop)
-  | OP_f64_const -> ("f64.const", F64value (read_f64 ic), Constop)
+  | OP_i32_const -> I32value (read_i32 ic), Constop
+  |	OP_i64_const -> I64value (sLEB ic 64), Constop
+  | OP_f32_const -> F32value (read_f32 ic), Constop
+  | OP_f64_const -> F64value (read_f64 ic), Constop
 
-  | OP_i32_eqz  -> ("i32.eqz", EmptyArg, Testop)
-  | OP_i32_eq   -> ("i32.eq", EmptyArg, Relop "==")
-  | OP_i32_ne   -> ("i32.ne", EmptyArg, Relop "!=")
-  | OP_i32_lt_s -> ("i32.lt_s", EmptyArg, Relop "<")
-  | OP_i32_lt_u -> ("i32.lt_u", EmptyArg, Relop "<")
-  | OP_i32_gt_s -> ("i32.gt_s", EmptyArg, Relop ">")
-  | OP_i32_gt_u -> ("i32.gt_u", EmptyArg, Relop ">")
-  | OP_i32_le_s -> ("i32.le_s", EmptyArg, Relop "<=")
-  | OP_i32_le_u -> ("i32.le_u", EmptyArg, Relop "<=")
-  | OP_i32_ge_s -> ("i32.ge_s", EmptyArg, Relop ">=")
-  | OP_i32_ge_u -> ("i32.ge_u", EmptyArg, Relop ">=")
+  | OP_i32_eqz  -> EmptyArg, Testop
+  | OP_i32_eq   -> EmptyArg, Relop "=="
+  | OP_i32_ne   -> EmptyArg, Relop "!="
+  | OP_i32_lt_s -> EmptyArg, Relop "<"
+  | OP_i32_lt_u -> EmptyArg, Relop "<"
+  | OP_i32_gt_s -> EmptyArg, Relop ">"
+  | OP_i32_gt_u -> EmptyArg, Relop ">"
+  | OP_i32_le_s -> EmptyArg, Relop "<="
+  | OP_i32_le_u -> EmptyArg, Relop "<="
+  | OP_i32_ge_s -> EmptyArg, Relop ">="
+  | OP_i32_ge_u -> EmptyArg, Relop ">="
 
-  | OP_i64_eqz  -> ("i64.eqz", EmptyArg, Testop)
-  | OP_i64_eq   -> ("i64.eq", EmptyArg, Relop "==")
-  | OP_i64_ne   -> ("i64.ne", EmptyArg, Relop "!=")
-  | OP_i64_lt_s -> ("i64.lt_s", EmptyArg, Relop "<")
-  | OP_i64_lt_u -> ("i64.lt_u", EmptyArg, Relop "<")
-  | OP_i64_gt_s -> ("i64.gt_s", EmptyArg, Relop ">")
-  | OP_i64_gt_u -> ("i64.gt_u", EmptyArg, Relop ">")
-  | OP_i64_le_s -> ("i64.le_s", EmptyArg, Relop "<=")
-  | OP_i64_le_u -> ("i64.le_u", EmptyArg, Relop "<=")
-  | OP_i64_ge_s -> ("i64.ge_s", EmptyArg, Relop ">=")
-  | OP_i64_ge_u -> ("i64.ge_u", EmptyArg, Relop ">=")
+  | OP_i64_eqz  -> EmptyArg, Testop
+  | OP_i64_eq   -> EmptyArg, Relop "=="
+  | OP_i64_ne   -> EmptyArg, Relop "!="
+  | OP_i64_lt_s -> EmptyArg, Relop "<"
+  | OP_i64_lt_u -> EmptyArg, Relop "<"
+  | OP_i64_gt_s -> EmptyArg, Relop ">"
+  | OP_i64_gt_u -> EmptyArg, Relop ">"
+  | OP_i64_le_s -> EmptyArg, Relop "<="
+  | OP_i64_le_u -> EmptyArg, Relop "<="
+  | OP_i64_ge_s -> EmptyArg, Relop ">="
+  | OP_i64_ge_u -> EmptyArg, Relop ">="
 
-  | OP_f32_eq -> ("f32.eq", EmptyArg, Relop "==")
-  | OP_f32_ne -> ("f32.ne", EmptyArg, Relop "!=")
-  | OP_f32_lt -> ("f32.lt", EmptyArg, Relop "<")
-  | OP_f32_gt -> ("f32.gt", EmptyArg, Relop ">")
-  | OP_f32_le -> ("f32.le", EmptyArg, Relop "<=")
-  | OP_f32_ge -> ("f32.ge", EmptyArg, Relop ">")
+  | OP_f32_eq -> EmptyArg, Relop "=="
+  | OP_f32_ne -> EmptyArg, Relop "!="
+  | OP_f32_lt -> EmptyArg, Relop "<"
+  | OP_f32_gt -> EmptyArg, Relop ">"
+  | OP_f32_le -> EmptyArg, Relop "<="
+  | OP_f32_ge -> EmptyArg, Relop ">"
 
-  | OP_f64_eq -> ("f64.eq", EmptyArg, Relop "==")
-  | OP_f64_ne -> ("f64.ne", EmptyArg, Relop "!=")
-  | OP_f64_lt -> ("f64.lt", EmptyArg, Relop "<")
-  | OP_f64_gt -> ("f64.gt", EmptyArg, Relop ">")
-  | OP_f64_le -> ("f64.le", EmptyArg, Relop "<=")
-  | OP_f64_ge -> ("f64.ge", EmptyArg, Relop ">=")
+  | OP_f64_eq -> EmptyArg, Relop "=="
+  | OP_f64_ne -> EmptyArg, Relop "!="
+  | OP_f64_lt -> EmptyArg, Relop "<"
+  | OP_f64_gt -> EmptyArg, Relop ">"
+  | OP_f64_le -> EmptyArg, Relop "<="
+  | OP_f64_ge -> EmptyArg, Relop ">="
 
-  | OP_i32_clz    -> ("i32.clz", EmptyArg, Unop)
-  | OP_i32_ctz    -> ("i32.ctz", EmptyArg, Unop)
-  | OP_i32_popcnt -> ("i32.popcnt", EmptyArg, Unop)
-  | OP_i32_add    -> ("i32.add", EmptyArg, Binop "+")
-  | OP_i32_sub    -> ("i32.sub", EmptyArg, Binop "-")
-  | OP_i32_mul    -> ("i32.mul", EmptyArg, Binop "*")
-  | OP_i32_div_s  -> ("i32.div_s", EmptyArg, Binop "/s")
-  | OP_i32_div_u  -> ("i32.div_u", EmptyArg, Binop "/u")
-  | OP_i32_rem_s  -> ("i32.rem_s", EmptyArg, Binop "rem_s")
-  | OP_i32_rem_u  -> ("i32.rem_u", EmptyArg, Binop "rem_u")
-  | OP_i32_and    -> ("i32.and", EmptyArg, Binop "&&")
-  | OP_i32_or     -> ("i32.or", EmptyArg, Binop "||")
-  | OP_i32_xor    -> ("i32.xor", EmptyArg, Binop "xor")
-  | OP_i32_shl    -> ("i32.shl", EmptyArg, Binop "shl")
-  | OP_i32_shr_s  -> ("i32.shr_s", EmptyArg, Binop "shr_s")
-  | OP_i32_shr_u  -> ("i32.shr_u", EmptyArg, Binop "shr_u")
-  | OP_i32_rotl   -> ("i32.rotl", EmptyArg, Binop "rotl")
-  | OP_i32_rotr   -> ("i32.rotr", EmptyArg, Binop "rotr")
+  | OP_i32_clz
+  | OP_i32_ctz
+  | OP_i32_popcnt -> EmptyArg, Unop
+  | OP_i32_add    -> EmptyArg, Binop "+"
+  | OP_i32_sub    -> EmptyArg, Binop "-"
+  | OP_i32_mul    -> EmptyArg, Binop "*"
+  | OP_i32_div_s  -> EmptyArg, Binop "/s"
+  | OP_i32_div_u  -> EmptyArg, Binop "/u"
+  | OP_i32_rem_s  -> EmptyArg, Binop "rem_s"
+  | OP_i32_rem_u  -> EmptyArg, Binop "rem_u"
+  | OP_i32_and    -> EmptyArg, Binop "&&"
+  | OP_i32_or     -> EmptyArg, Binop "||"
+  | OP_i32_xor    -> EmptyArg, Binop "xor"
+  | OP_i32_shl    -> EmptyArg, Binop "shl"
+  | OP_i32_shr_s  -> EmptyArg, Binop "shr_s"
+  | OP_i32_shr_u  -> EmptyArg, Binop "shr_u"
+  | OP_i32_rotl   -> EmptyArg, Binop "rotl"
+  | OP_i32_rotr   -> EmptyArg, Binop "rotr"
 
-  | OP_i64_clz    -> ("i64.clz", EmptyArg, Unop)
-  | OP_i64_ctz    -> ("i64.ctz", EmptyArg, Unop)
-  | OP_i64_popcnt -> ("i64.popcnt", EmptyArg, Unop)
-  | OP_i64_add    -> ("i64.add", EmptyArg, Binop "+")
-  | OP_i64_sub    -> ("i64.sub", EmptyArg, Binop "-")
-  | OP_i64_mul    -> ("i64.mul", EmptyArg, Binop "*")
-  | OP_i64_div_s  -> ("i64.div_s", EmptyArg, Binop "/s")
-  | OP_i64_div_u  -> ("i64.div_u", EmptyArg, Binop "/u")
-  | OP_i64_rem_s  -> ("i64.rem_s", EmptyArg, Binop "rem_s")
-  | OP_i64_rem_u  -> ("i64.rem_u", EmptyArg, Binop "rem_u")
-  | OP_i64_and    -> ("i64.and", EmptyArg, Binop "&&")
-  | OP_i64_or     -> ("i64.or", EmptyArg, Binop "||")
-  | OP_i64_xor    -> ("i64.xor", EmptyArg, Binop "xor")
-  | OP_i64_shl    -> ("i64.shl", EmptyArg, Binop "shl")
-  | OP_i64_shr_s  -> ("i64.shr_s", EmptyArg, Binop "shr_s")
-  | OP_i64_shr_u  -> ("i64.shr_u", EmptyArg, Binop "shr_u")
-  | OP_i64_rotl   -> ("i64.rotl", EmptyArg, Binop "rotl")
-  | OP_i64_rotr   -> ("i64.rotr", EmptyArg, Binop "rotr")
+  | OP_i64_clz
+  | OP_i64_ctz
+  | OP_i64_popcnt -> EmptyArg, Unop
+  | OP_i64_add    -> EmptyArg, Binop "+"
+  | OP_i64_sub    -> EmptyArg, Binop "-"
+  | OP_i64_mul    -> EmptyArg, Binop "*"
+  | OP_i64_div_s  -> EmptyArg, Binop "/s"
+  | OP_i64_div_u  -> EmptyArg, Binop "/u"
+  | OP_i64_rem_s  -> EmptyArg, Binop "rem_s"
+  | OP_i64_rem_u  -> EmptyArg, Binop "rem_u"
+  | OP_i64_and    -> EmptyArg, Binop "&&"
+  | OP_i64_or     -> EmptyArg, Binop "||"
+  | OP_i64_xor    -> EmptyArg, Binop "xor"
+  | OP_i64_shl    -> EmptyArg, Binop "shl"
+  | OP_i64_shr_s  -> EmptyArg, Binop "shr_s"
+  | OP_i64_shr_u  -> EmptyArg, Binop "shr_u"
+  | OP_i64_rotl   -> EmptyArg, Binop "rotl"
+  | OP_i64_rotr   -> EmptyArg, Binop "rotr"
 
-  | OP_f32_abs      -> ("f32.abs", EmptyArg, Unop)
-  | OP_f32_neg      -> ("f32.neg", EmptyArg, Unop)
-  | OP_f32_ceil     -> ("f32.ceil", EmptyArg, Unop)
-  | OP_f32_floor    -> ("f32.floor", EmptyArg, Unop)
-  | OP_f32_trunc    -> ("f32.trunc", EmptyArg, Unop)
-  | OP_f32_nearest  -> ("f32.nearest", EmptyArg, Unop)
-  | OP_f32_sqrt     -> ("f32.sqrt", EmptyArg, Unop)
-  | OP_f32_add      -> ("f32.add", EmptyArg, Binop "+")
-  | OP_f32_sub      -> ("f32.sub", EmptyArg, Binop "-")
-  | OP_f32_mul      -> ("f32.mul", EmptyArg, Binop "*")
-  | OP_f32_div      -> ("f32.div", EmptyArg, Binop "div")
-  | OP_f32_min      -> ("f32.min", EmptyArg, Binop "min")
-  | OP_f32_max      -> ("f32.max", EmptyArg, Binop "max")
-  | OP_f32_copysign -> ("f32.copysign", EmptyArg, Binop "copysign")
+  | OP_f32_abs
+  | OP_f32_neg
+  | OP_f32_ceil
+  | OP_f32_floor
+  | OP_f32_trunc
+  | OP_f32_nearest
+  | OP_f32_sqrt     -> EmptyArg, Unop
+  | OP_f32_add      -> EmptyArg, Binop "+"
+  | OP_f32_sub      -> EmptyArg, Binop "-"
+  | OP_f32_mul      -> EmptyArg, Binop "*"
+  | OP_f32_div      -> EmptyArg, Binop "div"
+  | OP_f32_min      -> EmptyArg, Binop "min"
+  | OP_f32_max      -> EmptyArg, Binop "max"
+  | OP_f32_copysign -> EmptyArg, Binop "copysign"
 
-  | OP_f64_abs      -> ("f64.abs", EmptyArg, Unop)
-  | OP_f64_neg      -> ("f64.neg", EmptyArg, Unop)
-  | OP_f64_ceil     -> ("f64.ceil", EmptyArg, Unop)
-  | OP_f64_floor    -> ("f64.floor", EmptyArg, Unop)
-  | OP_f64_trunc    -> ("f64.trunc", EmptyArg, Unop)
-  | OP_f64_nearest  -> ("f64.nearest", EmptyArg, Unop)
-  | OP_f64_sqrt     -> ("f64.sqrt", EmptyArg, Unop)
-  | OP_f64_add      -> ("f64.add", EmptyArg, Binop "+")
-  | OP_f64_sub      -> ("f64.sub", EmptyArg, Binop "-")
-  | OP_f64_mul      -> ("f64.mul", EmptyArg, Binop "*")
-  | OP_f64_div      -> ("f64.div", EmptyArg, Binop "/")
-  | OP_f64_min      -> ("f64.min", EmptyArg, Binop "min")
-  | OP_f64_max      -> ("f64.max", EmptyArg, Binop "max")
-  | OP_f64_copysign -> ("f64.copysign", EmptyArg, Binop "copysign")
+  | OP_f64_abs
+  | OP_f64_neg
+  | OP_f64_ceil
+  | OP_f64_floor
+  | OP_f64_trunc
+  | OP_f64_nearest
+  | OP_f64_sqrt     -> EmptyArg, Unop
+  | OP_f64_add      -> EmptyArg, Binop "+"
+  | OP_f64_sub      -> EmptyArg, Binop "-"
+  | OP_f64_mul      -> EmptyArg, Binop "*"
+  | OP_f64_div      -> EmptyArg, Binop "/"
+  | OP_f64_min      -> EmptyArg, Binop "min"
+  | OP_f64_max      -> EmptyArg, Binop "max"
+  | OP_f64_copysign -> EmptyArg, Binop "copysign"
 
-  | OP_i32_wrap_i64         -> ("i32.wrap_i64", EmptyArg, Cvtop)
-  | OP_i32_trunc_f32_s      -> ("i32.trunc_f32_s", EmptyArg, Unop)
-  | OP_i32_trunc_f32_u      -> ("i32.trunc_f32_u", EmptyArg, Unop)
-  | OP_i32_trunc_f64_s      -> ("i32.trunc_f64_s", EmptyArg, Unop)
-  | OP_i32_trunc_f64_u      -> ("i32.trunc_f64_u", EmptyArg, Unop)
-  | OP_i64_extend_i32_s     -> ("i64.extend_i32_s", EmptyArg, Cvtop)
-  | OP_i64_extend_i32_u     -> ("i64.extend_i32_u", EmptyArg, Cvtop)
-  | OP_i64_trunc_f32_s      -> ("i64.trunc_f32_s", EmptyArg, Unop)
-  | OP_i64_trunc_f32_u      -> ("i64.trunc_f32_u", EmptyArg, Unop)
-  | OP_i64_trunc_f64_s      -> ("i64.trunc_f64_s", EmptyArg, Unop)
-  | OP_i64_trunc_f64_u      -> ("i64.trunc_f64_u", EmptyArg, Unop)
-  | OP_f32_convert_i32_s    -> ("f32.convert_i32_s", EmptyArg, Cvtop)
-  | OP_f32_convert_i32_u    -> ("f32.convert_i32_u", EmptyArg, Cvtop)
-  | OP_f32_convert_i64_s    -> ("f32.convert_i64_s", EmptyArg, Cvtop)
-  | OP_f32_convert_i64_u    -> ("f32.convert_i64_u", EmptyArg, Cvtop)
-  | OP_f32_demote_f64       -> ("f32.demote_f64", EmptyArg, Cvtop)
-  | OP_f64_convert_i32_s    -> ("f64.convert_i32_s", EmptyArg, Cvtop)
-  | OP_f64_convert_i32_u    -> ("f64.convert_i32_u", EmptyArg, Cvtop)
-  | OP_f64_convert_i64_s    -> ("f64.convert_i64_s", EmptyArg, Cvtop)
-  | OP_f64_convert_i64_u    -> ("f64.convert_i64_u", EmptyArg, Cvtop)
-  | OP_f64_promote_f32      -> ("f64.promote_f32", EmptyArg, Cvtop)
-  | OP_i32_reinterpret_f32  -> ("i32.reinterpret_f32", EmptyArg, Cvtop)
-  | OP_i64_reinterpret_f64  -> ("i64.reinterpret_f64", EmptyArg, Cvtop)
-  | OP_f32_reinterpret_i32  -> ("f32.reinterpret_i32", EmptyArg, Cvtop)
-  | OP_f64_reinterpret_i64  -> ("f64.reinterpret_i64", EmptyArg, Cvtop)
+  | OP_i32_wrap_i64         -> EmptyArg, Cvtop
+  | OP_i32_trunc_f32_s
+  | OP_i32_trunc_f32_u
+  | OP_i32_trunc_f64_s
+  | OP_i32_trunc_f64_u      -> EmptyArg, Unop
+  | OP_i64_extend_i32_s
+  | OP_i64_extend_i32_u     -> EmptyArg, Cvtop
+  | OP_i64_trunc_f32_s
+  | OP_i64_trunc_f32_u
+  | OP_i64_trunc_f64_s
+  | OP_i64_trunc_f64_u      -> EmptyArg, Unop
+  | OP_f32_convert_i32_s
+  | OP_f32_convert_i32_u
+  | OP_f32_convert_i64_s
+  | OP_f32_convert_i64_u
+  | OP_f32_demote_f64
+  | OP_f64_convert_i32_s
+  | OP_f64_convert_i32_u
+  | OP_f64_convert_i64_s
+  | OP_f64_convert_i64_u
+  | OP_f64_promote_f32
+  | OP_i32_reinterpret_f32
+  | OP_i64_reinterpret_f64
+  | OP_f32_reinterpret_i32
+  | OP_f64_reinterpret_i64
+  | OP_i32_extend8_s
+  | OP_i32_extend16_s
+  | OP_i64_extend8_s
+  | OP_i64_extend16_s
+  | OP_i64_extend32_s -> EmptyArg, Cvtop
 
-  | OP_i32_extend8_s  -> ("i32.extend8_s", EmptyArg, Cvtop)
-  | OP_i32_extend16_s -> ("i32.extend16_s", EmptyArg, Cvtop)
-  | OP_i64_extend8_s  -> ("i64.extend8_s", EmptyArg, Cvtop)
-  | OP_i64_extend16_s -> ("i64.extend16_s", EmptyArg, Cvtop)
-  | OP_i64_extend32_s -> ("i64.extend32_s", EmptyArg, Cvtop)
+  | OP_trunc_sat -> TruncSat (read_i32 ic), Cvtop (* ixx.trunc_sat_fyy_z *)
 
-  | OP_trunc_sat -> ("", TruncSat (read_i32 ic), Cvtop) (* ixx.trunc_sat_fyy_z *)
+
+let read_instr ic opcode _ =
+  let opname = string_of_opcode (opcode_of_int opcode) in
+  let arg, instrtype = read_instr' ic opcode in
+  opname, arg, instrtype
 
 let read_valtype ic = valtype_of_int (read_byte ic)
 
@@ -456,7 +461,7 @@ let read_local ic = (fun _ ->
 
 let rec read_expr' ic (nesting: int) (acc_instr: op_type list) : op_type list =
   let opcode = read_byte ic in
-  let (opname, arg, instrtype) = (read_instr ic opcode read_expr') in
+  let opname, arg, instrtype = (read_instr ic opcode read_expr') in
   match opcode with
   (* end *)
   | 0x0b ->
