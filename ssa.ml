@@ -137,8 +137,11 @@ let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: loca
       { result = name_of_tvar (List.length acc);
         etree = Constant (string_of_const_arg op.arg);
         alive = true} :: acc
-  | Unop  ->
-      failwith "Unop"
+  | Unop ->
+      let arg1 = find_and_kill acc in
+        { result = name_of_tvar (List.length acc); 
+          etree = Node {op = op.opname; arg1; arg2 = Empty; arg3 = Empty};
+          alive = true} :: acc         
   | Binop op
   | Relop op  ->
       let arg2 = find_and_kill acc in
