@@ -4,7 +4,7 @@ open ReadBin
 open Wasm_module
 
 (* create our logger *)
-let logger = Logging.make_logger "wanalyze" Debug [ RotatingFile ("wanalyze", Debug, 65536, 2) ]
+let logger = Logging.make_logger "wanalyze" Debug [ RotatingFile ("wanalyze", Debug, 65536, 5) ]
 
 let usage_msg = "readBin [-f n] [-s] <file1> <file2> ..."
 let input_files = ref []

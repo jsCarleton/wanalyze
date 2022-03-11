@@ -961,10 +961,14 @@ let set_pred (bblocks: bblock list) (bb: bblock) =
   List.iter ~f:(set_pred' bblocks bb.index) bb.succ
 
 let bblocks_of_expr (e: expr) : bblock list =
+  (Logging.get_logger "wanalyze")#info "getting bblocks";
   let bblocks = bblocks_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;
                                      labels=[]; br_dest= -1} in
+  (Logging.get_logger "wanalyze")#info "set_br_dest";
   set_br_dest bblocks 0;
+  (Logging.get_logger "wanalyze")#info "set_successors";
   set_successors bblocks 0;
+  (Logging.get_logger "wanalyze")#info "set_pred";
   List.iter ~f:(set_pred bblocks) bblocks;
   bblocks
 
@@ -1051,21 +1055,21 @@ let step_code_path (bblocks: bblock list) (cp: code_path): (code_path list)*(cod
         we return []
 *)
 let rec code_paths_of_bblocks' (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
-  match (mult_succ_count bblocks) < 30 with   (* hack to prevent this code from running for a very long time *)
-  | true ->
-    (match nterm with
+  match nterm with
     | []        -> term
     | hd::tl    ->
         let n,t = step_code_path bblocks hd in
-            code_paths_of_bblocks' bblocks (List.append n tl) (List.append t term))
-  | _ -> []
-
+            code_paths_of_bblocks' bblocks (List.append n tl) (List.append t term)
+  
 (*
     For convenience we build each code path in reverse order. Here we reverse that since
     we actually need them in flow graph order for execution purposes
 *)
 let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
-  List.map ~f:List.rev (code_paths_of_bblocks' bblocks nterm term)
+  (Logging.get_logger "wanalyze")#info "mult_succ_count: %d" (mult_succ_count bblocks);
+  match (mult_succ_count bblocks) < 23 with   (* hack to prevent this code from running for a very long time *)
+    | true  -> List.map ~f:List.rev (code_paths_of_bblocks' bblocks nterm term)
+    | false -> []
 
 (* Implementation *)
 (* Part 5 - globals *)
@@ -1336,11 +1340,14 @@ let update_element_section (w: wasm_module) elem =
 (* code section *)
 let update_code_section (w: wasm_module) locals e =
   let bblocks = bblocks_of_expr e in
+  (Logging.get_logger "wanalyze")#info "got bblocks";
+  let code_paths = code_paths_of_bblocks bblocks [[0]] [] in
+  (Logging.get_logger "wanalyze")#info "got code_paths";
   w.code_section <- List.append w.code_section
     [{  locals; 
         e; 
         bblocks;
-        code_paths = code_paths_of_bblocks bblocks [[0]] []}]
+        code_paths}]
 
 (* data section *)
 let index_of_data (w: wasm_module) =

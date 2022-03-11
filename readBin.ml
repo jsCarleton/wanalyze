@@ -175,6 +175,7 @@ let read_globaltype ic =
   {t; m}
 
 let read_idx ic = uLEB ic 32
+let read_u32 ic = uLEB ic 32
 
 let read_importdesc ic =
   let importdesc_type = read_byte ic in
@@ -196,7 +197,7 @@ let read_string ic len =
   String.concat ~sep:"" (read_string' ic len [])
 
 let read_name ic =
-  let name = read_string ic (read_byte ic) in
+  let name = read_string ic (read_u32 ic) in
   logger#info ("name = %s ") name; name
 
 let read_import ic w =
@@ -462,6 +463,7 @@ let read_local ic = (fun _ ->
 let rec read_expr' ic (nesting: int) (acc_instr: op_type list) : op_type list =
   let opcode = read_byte ic in
   let opname, arg, instrtype = (read_instr ic opcode read_expr') in
+  logger#info  "op: %s" opname;
   match opcode with
   (* end *)
   | 0x0b ->
@@ -566,9 +568,11 @@ let read_code ic w =
   &&
   (* func *)
   let locals = read_vec ic (read_local ic) in
+  logger#info  "read_expr";
   let e = read_expr ic in
   logger#info  "locals %s" (String.strip (Wasm_print.string_of_locals locals));
   update_code_section w locals e;
+  logger#info "code section updated";
   true
 
 (* Data section *)
