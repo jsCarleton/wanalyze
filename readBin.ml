@@ -108,6 +108,23 @@ let read_section ic section entry_handler =
   read_section_length ic >= 0 (* discard the section size *)
   && read_entries ic (read_vec_len ic) section entry_handler
 
+
+let rec read_section_new' ic entry_handler acc n =
+  match n with
+  | 0 -> List.rev acc
+  | _ -> read_section_new' ic entry_handler ((entry_handler ic) :: acc) (n-1)
+
+let read_section_new ic acc entry_handler =
+  let _: int = read_section_length ic in (* discard the length *)
+  read_section_new' ic entry_handler (List.rev acc) (read_vec_len ic)
+
+let rec read_section_new2' ic entry_handler acc1 acc2 n =
+  match n with
+  | 0 -> List.rev acc1, List.rev acc2
+  | _ ->  let a1,a2 = entry_handler ic in
+          match a1, a2 with
+          | None,     None      -> read_section_new2' ic entry_handler acc1 acc2 (n-1)
+          | Some a1', None      -> read_section_new2' ic entry_handler (a1'::acc1) acc2 (n-1)
           | None,     Some a2'  -> read_section_new2' ic entry_handler acc1 (a2'::acc2) (n-1)
           | Some a1', Some a2'  -> read_section_new2' ic entry_handler (a1'::acc1) (a2'::acc2) (n-1)
 
@@ -116,7 +133,7 @@ let read_section_new2 ic entry_handler =
   read_section_new2' ic entry_handler [] [] (read_vec_len ic)
 
 (* Type section *)
-let read_valtype ic =
+let read_valtype ic = (* TODO why do we need this? *)
   match read_byte ic with
   | 0 -> logger#info  "None "; 0
   | 0x7f -> logger#info  "i32 "; 0x7f
