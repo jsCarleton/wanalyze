@@ -108,6 +108,13 @@ let read_section ic section entry_handler =
   read_section_length ic >= 0 (* discard the section size *)
   && read_entries ic (read_vec_len ic) section entry_handler
 
+          | None,     Some a2'  -> read_section_new2' ic entry_handler acc1 (a2'::acc2) (n-1)
+          | Some a1', Some a2'  -> read_section_new2' ic entry_handler (a1'::acc1) (a2'::acc2) (n-1)
+
+let read_section_new2 ic entry_handler =
+  let _: int = read_section_length ic in (* discard the length *)
+  read_section_new2' ic entry_handler [] [] (read_vec_len ic)
+
 (* Type section *)
 let read_valtype ic =
   match read_byte ic with
@@ -119,15 +126,17 @@ let read_valtype ic =
   | 0x70 -> logger#info  "funcref "; 0x70
   | 0x6f -> logger#info  "externref "; 0x6f
   | x -> logger#info "invalid valtype %x" x; -1
-  
-let read_functype ic =
-  (* it seems we need to write it like this to ensure that the order of
-     evaluation is correct *)
-  let rt1 = read_vec ic read_valtype in
-  let rt2 = read_vec ic read_valtype in
-  rt1, rt2
 
-let read_type ic w = (read_byte ic = 0x60) && update_type_section w (read_functype ic)
+let read_type_section' ic =
+  let encoder = read_byte ic in
+  match encoder with
+  | 0x60  ->  let rt1 = read_vec ic read_valtype in
+              let rt2 = read_vec ic read_valtype in
+              {rt1 = List.map ~f:valtype_of_int rt1; rt2 = List.map ~f:valtype_of_int rt2}
+  | _     -> failwith (sprintf "Invalid function type encoder %x" encoder)
+
+let read_type_section ic =
+  read_section_new ic [] read_type_section'
 
 (* Import section *)
 let read_limits ic = 
@@ -200,21 +209,46 @@ let read_name ic =
   let name = read_string ic (read_u32 ic) in
   logger#info ("name = %s ") name; name
 
-let read_import ic w =
+let index_of (w: wasm_module) desc =
+  (match desc with
+  | Functype _ -> w.last_import_func <- w.last_import_func + 1; w.last_import_func-1
+  | Tabletype _ -> w.next_table <- w.next_table + 1; w.next_table-1
+  | Memtype _ -> w.next_memory <- w.next_memory + 1; w.next_memory-1
+  | Globaltype _ -> w.next_global <- w.next_global + 1; w.next_global-1
+  )
+
+let read_import_section' w ic =
   let module_name = read_name ic in
   let import_name = read_name ic in
   let description = read_importdesc ic in
-  update_import_section w module_name import_name description
+  match description with
+  | None -> failwith "No description"
+  | Some desc ->
+      Some {module_name; import_name; description = desc; index = index_of w desc},
+      (match desc with
+      | Functype i  -> Some i
+      | _           -> None)
 
+let read_import_section w ic =
+  read_section_new2 ic (read_import_section' w)
+      
 (* Function section *)
-let read_function ic w = update_function_section w (read_idx ic)
+let read_function_section' ic = read_idx ic
+
+let read_function_section ic acc =
+  read_section_new ic acc read_function_section'
 
 (* Table section *)
-let read_table ic w = update_table_section w (read_tabletype ic)
+let read_table_section' ic = read_tabletype ic
+
+let read_table_section ic =
+  read_section_new ic [] read_table_section'
 
 (* Memory section *)
-let read_mem_type ic = read_limits ic
-let read_memory ic w = update_memory_section w (read_mem_type ic)
+let read_memory_section' ic = read_mem_type ic
+
+let read_memory_section ic =
+  read_section_new ic [] read_memory_section'
 
 (* Global section *)
 let read_blocktype ic =
@@ -463,33 +497,39 @@ let read_local ic = (fun _ ->
 let rec read_expr' ic (nesting: int) (acc_instr: op_type list) : op_type list =
   let opcode = read_byte ic in
   let opname, arg, instrtype = (read_instr ic opcode read_expr') in
-  logger#info  "op: %s" opname;
   match opcode with
   (* end *)
   | 0x0b ->
       (* does this end mark the end of the program? *)
       ( match nesting with
         (* yes *)
-        | 0 -> acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}]
+        | 0 -> {opcode; opname; arg; nesting=nesting-1; instrtype} :: acc_instr
         (* no, it's the end of a block, loop, if [else] - decrease the nesting *)
-        | _ -> read_expr' ic  (nesting-1)  (acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}])
+        | _ -> read_expr' ic  (nesting-1)  ({opcode; opname; arg; nesting=nesting-1; instrtype} :: acc_instr)
       )
   (* block, loop, if - increase the nesting *)
   | 0x02 | 0x03 | 0x04 ->
-      read_expr' ic (nesting+1) (acc_instr@[{opcode; opname; arg; nesting; instrtype}])
+      read_expr' ic (nesting+1) ({opcode; opname; arg; nesting; instrtype} :: acc_instr)
   (* else - descrease the nesting *)
   | 0x05 ->  
-      read_expr' ic  nesting (acc_instr@[{opcode; opname; arg; nesting=nesting-1; instrtype}])
+      read_expr' ic  nesting ({opcode; opname; arg; nesting=nesting-1; instrtype} :: acc_instr)
   (* all others - same nesting *)
   | _ ->  
-      read_expr' ic nesting (acc_instr@[{opcode; opname; arg; nesting; instrtype}])
+      read_expr' ic nesting ({opcode; opname; arg; nesting; instrtype} :: acc_instr)
   
-let read_expr ic = read_expr' ic 0 []
-let read_global ic w = 
+let read_expr ic = List.rev (read_expr' ic 0 [])
+
+let index_of_global (w: wasm_module) =
+  w.next_global <- w.next_global + 1; w.next_global-1
+
+let read_global_section' w ic = 
   let gt = read_globaltype ic in
   let e = read_expr ic in
-  update_global_section w gt e
+  {gt; e; index = index_of_global w}
 
+let read_global_section w ic =
+  read_section_new ic [] (read_global_section' w)
+  
 (* Export section *)
 let read_exportdesc ic =
   let exportdesc_type = read_byte ic in
@@ -500,14 +540,18 @@ let read_exportdesc ic =
   | 0x03 -> logger#info  "global "; Global (read_idx ic)
   | _ -> logger#info ("Invalid exportdesc %x!") exportdesc_type; Func (read_idx ic)
 
-let read_export ic w = 
+let read_export_section' ic =
   let name = read_name ic in
-  update_export_section w name (read_exportdesc ic)
+  let desc = read_exportdesc ic in
+  {name; desc}
+
+let read_export_section ic =
+  read_section_new ic [] read_export_section'
 
 (* Start section *)
-let read_start ic w =
-  read_section_length ic >= 0 (* discard the section length *)
-  && update_start_section w (read_idx ic)
+let read_start_section ic =
+  let _: int = read_section_length ic in (* discard the section length *)
+  Some (read_idx ic)
 
 (* Element section *)
 let read_elemkind ic: int =
@@ -521,99 +565,114 @@ let read_idx ic =
   | -1 -> logger#info  "idx error!"; 0
   | i -> logger#info  "Index: %d " i; i
 
-let read_element ic w =
+let read_element_section' ic =
   let element_type = read_byte ic in
   match element_type with
   | 0x00 ->
       let e = read_expr ic in
       let y = read_vec ic read_idx in
-      update_element_section w (ExprFunc {e; y})
+      ExprFunc {e; y}
   | 0x01 ->
       let (_: int) = read_elemkind ic in
       let y = read_vec ic read_idx in
-      update_element_section w (ElemFuncP {y})
+      ElemFuncP {y}
   | 0x02 ->
       let x = read_idx ic in
       let e = read_expr ic in
       let (_: int) = read_elemkind ic in
       let y = read_vec ic read_idx in
-      update_element_section w (TableExprElemFunc {x; e; y})
+      TableExprElemFunc {x; e; y}
   | 0x03 -> 
       let (_: int) = read_elemkind ic in
       let y = read_vec ic read_idx in
-      update_element_section w (ElemFuncD {y})
+      ElemFuncD {y}
   | 0x04 -> 
       let e = read_expr ic in
       let el = read_vec ic read_expr in
-      update_element_section w (ExprExpr {e; el})
+      ExprExpr {e; el}
   | 0x05 ->
       let et = read_reftype ic in
       let el = read_vec ic read_expr in
-      update_element_section w (RefExprP {et; el})
+      RefExprP {et; el}
   | 0x06 -> 
       let x = read_idx ic in
       let e = read_expr ic in
       let et = read_reftype ic in
       let el = read_vec ic read_expr in
-      update_element_section w (TableExprRefExpr {x; e; et; el})
+      TableExprRefExpr {x; e; et; el}
   | 0x07 -> 
       let et = read_reftype ic in
       let el = read_vec ic read_expr in
-      update_element_section w (RefExprD {et; el})
+      RefExprD {et; el}
   | _ -> failwith (String.concat ["Invalid element item: " ; (string_of_int element_type)])
 
+let read_element_section ic =
+  read_section_new ic [] read_element_section'
+  
 (* Code section *)
-let read_code ic w =
-  (uLEB ic 32) >= 0 (* we discard the size *)
-  &&
-  (* func *)
+let read_code_section' ic =
+  let _: int = read_section_length ic in
   let locals = read_vec ic (read_local ic) in
-  logger#info  "read_expr";
   let e = read_expr ic in
-  logger#info  "locals %s" (String.strip (Wasm_print.string_of_locals locals));
-  update_code_section w locals e;
-  logger#info "code section updated";
-  true
+  let bblocks = bblocks_of_expr e in
+  let code_paths = code_paths_of_bblocks bblocks [[0]] [] in
+  {locals; e; bblocks; code_paths}
+
+let read_code_section ic =
+  read_section_new ic [] read_code_section'
 
 (* Data section *)
-let read_data ic w =
+let read_data ic =
   let data_item_type = read_byte ic in
   match data_item_type with
   | 0x00 -> 
       let e = read_expr ic in
       let b = read_bytes ic in
-      update_data_section w (ExprBytes {e; b})
+      ExprBytes {e; b}
   | 0x01 -> 
       let b = read_bytes ic in
-      update_data_section w (Bytes b)
+      Bytes b
   | 0x02 -> 
       let x = read_idx ic in
       let e = read_expr ic in
       let b = read_bytes ic in
-      update_data_section w (MemExprBytes {x; e; b})
+      MemExprBytes {x; e; b}
   | _ -> failwith (String.concat ["Invalid data item: " ; string_of_int data_item_type])
 
+let index_of_data (w: wasm_module) =
+  w.next_data <- w.next_data + 1; w.next_data-1
+
+let read_data_section' w ic =
+  let details = read_data ic in
+  {index = index_of_data w; details}
+
+let read_data_section w ic =
+  read_section_new ic [] (read_data_section' w)
+
 (* Data count section *)
-let read_data_count ic w =
-  read_section_length ic >= 0 (* discard the section length *)
-  && update_data_count_section w (uLEB ic 32)
+let read_data_count ic =
+  let _: int = read_section_length ic in (* discard the section length *)
+  uLEB ic 32
 
 (* Section reader *)
 let read_section_body ic w id =
   match id with
   | 0 -> logger#info  "Custom section - unimplemented, skipping"; skip_bytes ic (read_section_length ic); true
-  | 1 -> logger#info  "Type section";      read_section ic w read_type
-  | 2 -> logger#info  "Import section";    read_section ic w read_import
-  | 3 -> logger#info  "Function section";  read_section ic w read_function
-  | 4 -> logger#info  "Table section";     read_section ic w read_table
-  | 5 -> logger#info  "Memory section";    read_section ic w read_memory
-  | 6 -> logger#info  "Global section";    read_section ic w read_global
-  | 7 -> logger#info  "Export section";    read_section ic w read_export
-  | 8 -> logger#info  "Start section";     read_start ic w
-  | 9 -> logger#info  "Element section";   read_section ic w read_element
-  | 10 -> logger#info  "Code section";     read_section ic w read_code
-  | 11 -> logger#info  "Data section";     read_section ic w read_data
-  | 12 -> logger#info  "Data count";       read_data_count ic w
+  | 1 -> logger#info  "Type section";      w.type_section   <- read_type_section ic; true
+  | 2 -> logger#info  "Import section";    let i, f = read_import_section w ic in
+                                           w.import_section <- i;
+                                           w.function_section <- f;
+                                           true
+  | 3 -> logger#info  "Function section";  w.function_section <- read_function_section ic w.function_section; true
+  | 4 -> logger#info  "Table section";     w.table_section    <- read_table_section ic; true
+  | 5 -> logger#info  "Memory section";    w.memory_section   <- read_memory_section ic; true
+  | 6 -> logger#info  "Global section";    w.global_section   <- read_global_section w ic; true
+  | 7 -> logger#info  "Export section";    w.export_section   <- read_export_section ic; true
+  | 8 -> logger#info  "Start section";     w.start_section    <- read_start_section ic; true
+  | 9 -> logger#info  "Element section";   w.element_section  <- read_element_section ic; true
+  | 10 -> logger#info  "Code section";     w.code_section     <- read_code_section ic; true
+  | 11 -> logger#info  "Data section";     w.data_section     <- read_data_section w ic; true
+  | 12 -> logger#info  "Data count";       w.data_count       <- read_data_count ic; true
   | _ -> logger#info  "Unknown section, skipping"; skip_bytes ic (read_section_length ic); true
 
 let read_section_id ic =
