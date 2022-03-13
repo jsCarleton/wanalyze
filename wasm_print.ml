@@ -162,8 +162,10 @@ let string_of_arg a  =
 
 let string_of_line_number (idx: int) (annotate: bool) =
   match annotate with | true -> sprintf "%4.4d" idx | _ -> ""
+
 let string_of_opcode' (op: op_type) idx comment (annotate:bool) =
   String.concat ["\n" ; string_of_line_number idx annotate; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
+
 let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
   let op = List.nth e idx in
   match op with
@@ -203,12 +205,35 @@ let rec string_of_expr' e annotate (bblocks: bblock list) idx acc =
     | _ -> string_of_expr' e annotate bblocks (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
     )
   | false -> acc
+
 let string_of_expr e bblocks annotate = 
   string_of_expr' e annotate (match annotate with | true -> bblocks | _ -> []) 0 ""
 
-let string_of_code (w: wasm_module) idx annotate =
+let rec print_expr' oc e annotate (bblocks: bblock list) idx =
+  match idx < (List.length e) with
+  | true -> 
+    (match bblocks with
+    | hd::tl ->
+      (match hd.start_op = idx with
+        | true  ->
+            Out_channel.output_string oc (String.concat [(bblock_sep annotate hd.index); (string_of_opcode e idx annotate)]);
+            print_expr' oc e annotate tl (idx+1)
+        | false ->
+            Out_channel.output_string oc (string_of_opcode e idx annotate);
+            print_expr' oc e annotate bblocks (idx+1)
+      )
+    | _ ->  Out_channel.output_string oc (string_of_opcode e idx annotate);
+            print_expr' oc e annotate bblocks (idx+1) 
+    )
+  | false -> ()
+
+let print_expr oc e bblocks annotate =
+  print_expr' oc e annotate (match annotate with | true -> bblocks | _ -> []) 0
+
+let print_code oc (w: wasm_module) idx annotate =
   let f = List.nth_exn w.code_section idx in
-  String.concat [(string_of_locals (List.nth_exn w.code_section idx).locals) ; (string_of_expr f.e f.bblocks annotate)]
+  Out_channel.output_string oc (string_of_locals (List.nth_exn w.code_section idx).locals);
+  print_expr oc f.e f.bblocks annotate
 
 let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
 let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
@@ -239,14 +264,19 @@ let string_of_bblocks (s: bblock list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_bblock s)]
 
-let string_of_function (w: wasm_module) annotate i idx = 
-  String.concat [
-    "  (func (;" ; string_of_int (i + w.last_import_func) ; ";) (type " ; string_of_int idx ; ")" 
-    ; string_of_types "param" (get_type_sig w idx).rt1
-    ; string_of_types "result" (get_type_sig w idx).rt2
-    ; string_of_code w i annotate ; ")\n"]
-let string_of_function_section (w: wasm_module) = 
-  String.concat ~sep:"" (List.mapi ~f:(string_of_function w false) (List.drop w.function_section w.last_import_func))
+let print_function oc (w: wasm_module) annotate i idx =
+  Out_channel.output_string oc "  (func (;"; 
+  Out_channel.output_string oc (string_of_int (i + w.last_import_func));
+  Out_channel.output_string oc ";) (type ";
+  Out_channel.output_string oc (string_of_int idx);
+  Out_channel.output_string oc ")"; 
+  Out_channel.output_string oc (string_of_types "param" (get_type_sig w idx).rt1);
+  Out_channel.output_string oc (string_of_types "result" (get_type_sig w idx).rt2);
+  print_code oc w i annotate;
+  Out_channel.output_string oc ")\n"
+
+let print_function_section oc (w: wasm_module) =
+  List.iteri ~f:(print_function oc w false) (List.drop w.function_section w.last_import_func)
 
 (* Table section *) 
 let string_of_table i (t: tabletype) = String.concat [(string_of_tabletype t i) ; "\n"]
@@ -503,7 +533,7 @@ let print_function (w: wasm_module) oc_summary dir prefix fidx type_idx =
   fidx (List.length bblocks) (List.length cps);
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
-    Out_channel.output_string oc (string_of_function w true fidx type_idx);
+    print_function oc w true fidx type_idx;
     Out_channel.close oc;
   (* bblocks in function *)
   let oc = Out_channel.create (String.concat[fname; ".bblocks"]) in
@@ -588,7 +618,7 @@ let print w =
     Out_channel.output_string oc "(module\n";
     Out_channel.output_string oc (string_of_type_section w.type_section);
     Out_channel.output_string oc (string_of_import_section w.import_section);
-    Out_channel.output_string oc (string_of_function_section w);
+    print_function_section oc w;
     Out_channel.output_string oc (string_of_table_section w.table_section);
     Out_channel.output_string oc (string_of_memory_section w.memory_section);
     Out_channel.output_string oc (string_of_global_section w.global_section);
