@@ -135,7 +135,7 @@ let string_of_opcode (code: wasm_opcode): string =
   | OP_i32_store -> "i32.store" | OP_i64_store -> "i64.store" | OP_f32_store -> "f32.store" | OP_f64_store -> "f64.store" 
   | OP_i32_store8 -> "i32.store8" | OP_i32_store16 -> "i32.store16"  | OP_i64_store8 -> "i64.store8" | OP_i64_store16 -> "i64.store16" 
   | OP_i64_store32 -> "i64.store32" 
-  | OP_memory_size -> "memory_size" | OP_memory_grow -> "memory_grow"
+  | OP_memory_size -> "memory.size" | OP_memory_grow -> "memory.grow"
   (* Numeric *)
   | OP_i32_const -> "i32.const" | OP_i64_const -> "i64.const" | OP_f32_const -> "f32.const" | OP_f64_const -> "f64.const"
   | OP_i32_eqz -> "i32.eqz" | OP_i32_eq -> "i32.eq" | OP_i32_ne -> "i32.ne" | OP_i32_lt_s -> "i32.lt_s" | OP_i32_lt_u -> "i32.lt_u" 

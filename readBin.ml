@@ -90,8 +90,8 @@ let read_memarg ic bits =
 let rec read_vec' ic n reader acc =
   match n with
   | 0 -> acc
-  | _ -> read_vec' ic (n-1) reader (acc@[reader ic])
-let read_vec ic reader = read_vec' ic (read_vec_len ic) reader []
+  | _ -> read_vec' ic (n-1) reader ((reader ic) :: acc)
+let read_vec ic reader = List.rev (read_vec' ic (read_vec_len ic) reader [])
 
 (* Sections consisting of vectors of entries *)
 let rec read_entries ic n w entry_handler =
@@ -102,7 +102,11 @@ let rec read_entries ic n w entry_handler =
     entry_handler ic w &&
     read_entries ic (n-1) w entry_handler
 
-let read_section_length ic = uLEB ic 32
+let read_section_length ic = 
+  let n = uLEB ic 32 in
+  logger#info "section length: %d" n;
+  n
+
 let read_section ic section entry_handler =
   logger#info  "reading section: ";  
   read_section_length ic >= 0 (* discard the section size *)
@@ -159,8 +163,8 @@ let read_type_section ic =
 let read_limits ic = 
   let limit_type = read_byte ic in
   match limit_type with
-  | 0x00 -> logger#info  "lower limit"; Noupper (uLEB ic 32)
-  | 0x01 -> logger#info  "lower, upper"; Lowerupper ((uLEB ic 32), (uLEB ic 32))
+  | 0x00 -> Noupper (uLEB ic 32)
+  | 0x01 -> Lowerupper ((uLEB ic 32), (uLEB ic 32))
   | _ -> failwith (String.concat ["Invalid limit type: " ; string_of_int limit_type])
 
 let read_mem_type ic = read_limits ic
@@ -168,8 +172,8 @@ let read_mem_type ic = read_limits ic
 let read_reftype ic =
   let x = read_byte ic in
   match x with
-  | 0x70 -> logger#info  "funcref"; Funcref
-  | 0x6F -> logger#info  "externref"; Externref
+  | 0x70 -> Funcref
+  | 0x6F -> Externref
   | x -> logger#info "Invalid reftype %x!" x; Funcref
 
 let read_tabletype ic = 
@@ -180,8 +184,8 @@ let read_tabletype ic =
 let read_mut ic =
   let mut_type = read_byte ic in
   match mut_type with
-  | 0x00 -> logger#info  "const "; Const
-  | 0x01 -> logger#info  "var "; Var
+  | 0x00 -> Const
+  | 0x01 -> Var
   | _ -> logger#info  "Invalid mut %x!" mut_type; Const
 
 let read_valtype ic =
@@ -206,25 +210,23 @@ let read_u32 ic = uLEB ic 32
 let read_importdesc ic =
   let importdesc_type = read_byte ic in
   match importdesc_type with
-  | 0x00 -> logger#info  "func ";    Some (Functype (read_idx ic))
-  | 0x01 -> logger#info  "table ";   Some (Tabletype (read_tabletype ic))
-  | 0x02 -> logger#info  "mem ";     Some (Memtype (read_mem_type ic))
-  | 0x03 -> logger#info  "global ";  Some (Globaltype (read_globaltype ic))
+  | 0x00 -> Some (Functype (read_idx ic))
+  | 0x01 -> Some (Tabletype (read_tabletype ic))
+  | 0x02 -> Some (Memtype (read_mem_type ic))
+  | 0x03 -> Some (Globaltype (read_globaltype ic))
   | _ -> logger#info ("Invalid importdesc %x!") importdesc_type; None
 
 let rec read_string' ic len acc =
   match len with
   | 0 -> acc
   | _ ->
-    let c = [Char.escaped (char_of_int (read_byte ic))] in
-    read_string' ic (len-1) (acc@c)
+    let c = Char.escaped (char_of_int (read_byte ic)) in
+    read_string' ic (len-1) (c::acc)
 
 let read_string ic len =
-  String.concat ~sep:"" (read_string' ic len [])
+  String.concat ~sep:"" (List.rev (read_string' ic len []))
 
-let read_name ic =
-  let name = read_string ic (read_u32 ic) in
-  logger#info ("name = %s ") name; name
+let read_name ic = read_string ic (read_u32 ic)
 
 let index_of (w: wasm_module) desc =
   (match desc with
@@ -551,10 +553,10 @@ let read_global_section w ic =
 let read_exportdesc ic =
   let exportdesc_type = read_byte ic in
   match exportdesc_type with
-  | 0x00 -> logger#info  "func"; Func (read_idx ic)
-  | 0x01 -> logger#info  "table"; Table (read_idx ic)
-  | 0x02 -> logger#info  "mem "; Mem (read_idx ic)
-  | 0x03 -> logger#info  "global "; Global (read_idx ic)
+  | 0x00 -> Func (read_idx ic)
+  | 0x01 -> Table (read_idx ic)
+  | 0x02 -> Mem (read_idx ic)
+  | 0x03 -> Global (read_idx ic)
   | _ -> logger#info ("Invalid exportdesc %x!") exportdesc_type; Func (read_idx ic)
 
 let read_export_section' ic =
@@ -577,10 +579,7 @@ let read_elemkind ic: int =
   | 0x00 -> k
   | _ -> logger#info "Invalid elemkind %x" k; k
 
-let read_idx ic =
-  match uLEB ic 32 with
-  | -1 -> logger#info  "idx error!"; 0
-  | i -> logger#info  "Index: %d " i; i
+let read_idx ic = uLEB ic 32
 
 let read_element_section' ic =
   let element_type = read_byte ic in

@@ -65,7 +65,7 @@
 0060      i32.and
 0061      select
 0062      local.tee 7
-0063      f64.promote_f64
+0063      f64.promote_f32
 0064      call 74
 0065      f64.const -6.15464882296e+227
 0066      f64.div
@@ -75,7 +75,7 @@
 0070      f32.const 6.96672438132e-310
 0071      local.get 7
 0072      f32.sub
-0073      f64.promote_f64
+0073      f64.promote_f32
 0074      call 74
 0075      f64.const -6.15464882296e+227
 0076      f64.div
@@ -135,7 +135,7 @@
 0127      i32.and
 0128      select
 0129      local.tee 7
-0130      f64.promote_f64
+0130      f64.promote_f32
 0131      call 74
 0132      f64.const -6.15464882296e+227
 0133      f64.div
@@ -145,7 +145,7 @@
 0137      f32.const 6.96672438132e-310
 0138      local.get 7
 0139      f32.sub
-0140      f64.promote_f64
+0140      f64.promote_f32
 0141      call 74
 0142      f64.const -6.15464882296e+227
 0143      f64.div

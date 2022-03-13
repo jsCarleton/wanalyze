@@ -961,14 +961,10 @@ let set_pred (bblocks: bblock list) (bb: bblock) =
   List.iter ~f:(set_pred' bblocks bb.index) bb.succ
 
 let bblocks_of_expr (e: expr) : bblock list =
-  (Logging.get_logger "wanalyze")#info "getting bblocks";
   let bblocks = bblocks_of_expr' e [] {index=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;
                                      labels=[]; br_dest= -1} in
-  (Logging.get_logger "wanalyze")#info "set_br_dest";
   set_br_dest bblocks 0;
-  (Logging.get_logger "wanalyze")#info "set_successors";
   set_successors bblocks 0;
-  (Logging.get_logger "wanalyze")#info "set_pred";
   List.iter ~f:(set_pred bblocks) bblocks;
   bblocks
 

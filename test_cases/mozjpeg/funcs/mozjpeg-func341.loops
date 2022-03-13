@@ -45,7 +45,7 @@ SSA of loop:
 -t30 = t28 && t29
 -t31 = select(t30, t27, t23)
 -lf7 = t31
--t33 = f64.promote_f64(t31)
+-t33 = f64.promote_f32(t31)
 -t34 = rF0
 -t35 = -6.15464882296e+227
 -t36 = t34 / t35
@@ -55,7 +55,7 @@ SSA of loop:
 -t40 = 6.96672438132e-310
 -t41 = lf7
 -t42 = t40 - t41
--t43 = f64.promote_f64(t42)
+-t43 = f64.promote_f32(t42)
 -t44 = rF0
 -t45 = -6.15464882296e+227
 -t46 = t44 / t45
@@ -105,7 +105,7 @@ SSA of loop:
 -t30 = t28 && t29
 -t31 = select(t30, t27, t23)
 -lf7 = t31
--t33 = f64.promote_f64(t31)
+-t33 = f64.promote_f32(t31)
 -t34 = rF0
 -t35 = -6.15464882296e+227
 -t36 = t34 / t35
@@ -115,7 +115,7 @@ SSA of loop:
 -t40 = 6.96672438132e-310
 -t41 = lf7
 -t42 = t40 - t41
--t43 = f64.promote_f64(t42)
+-t43 = f64.promote_f32(t42)
 -t44 = rF0
 -t45 = -6.15464882296e+227
 -t46 = t44 / t45

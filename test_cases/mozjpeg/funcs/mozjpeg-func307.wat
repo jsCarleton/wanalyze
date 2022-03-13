@@ -80,7 +80,7 @@
 0069                i32.shl
 0070                i32.add
 0071                f32.load
-0072                f64.promote_f64
+0072                f64.promote_f32
 0073                local.get 2
 0074                i32.const 7
 0075                i32.and
@@ -91,7 +91,7 @@
 0080                f64.load
 0081                f64.div
 0082                f32.demote_f64
-0083                f64.promote_f64
+0083                f64.promote_f32
 0084                local.get 2
 0085                i32.const -8
 0086                i32.and
@@ -105,7 +105,7 @@
 0094                f32.ge
 0095                select
 0096                local.get 18
-0097                f64.promote_f64
+0097                f64.promote_f32
 0098                f64.add
 0099                local.tee 19
 0100                f64.abs
@@ -211,7 +211,7 @@
 0183              i32.shl
 0184              i32.add
 0185              f32.load
-0186              f64.promote_f64
+0186              f64.promote_f32
 0187              local.get 2
 0188              i32.const 7
 0189              i32.and
@@ -222,7 +222,7 @@
 0194              f64.load
 0195              f64.div
 0196              f32.demote_f64
-0197              f64.promote_f64
+0197              f64.promote_f32
 0198              local.get 2
 0199              i32.const -8
 0200              i32.and
@@ -236,7 +236,7 @@
 0208              f32.ge
 0209              select
 0210              local.get 18
-0211              f64.promote_f64
+0211              f64.promote_f32
 0212              f64.add
 0213              local.tee 19
 0214              f64.abs

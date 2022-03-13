@@ -9,7 +9,7 @@
 0005    block (result i64)  ;; label = @1
 1 ------------------------------------------------------------
 0006      local.get 1
-0007      f32.reinterpret_f32
+0007      i32.reinterpret_f32
 0008      local.tee 4
 0009      i32.const 2147483647
 0010      i32.and

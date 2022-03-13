@@ -13131,7 +13131,7 @@
           end
           local.get 22
           f32.load
-          f64.promote_f64
+          f64.promote_f32
           local.set 56
           block (result f64)  ;; label = @4
             local.get 22
@@ -13144,7 +13144,7 @@
             i32.eqz
             if  ;; label = @5
               local.get 48
-              f64.promote_f64
+              f64.promote_f32
               call 62
               local.set 57
               local.get 56
@@ -13153,7 +13153,7 @@
               local.get 47
               f32.const 6.75006861106e-310
               f32.div
-              f64.promote_f64
+              f64.promote_f32
               f64.add
               f64.div
               br 1 (;@4;)
@@ -14837,7 +14837,7 @@
           end
           local.get 24
           f32.load
-          f64.promote_f64
+          f64.promote_f32
           local.set 58
           block (result f64)  ;; label = @4
             local.get 24
@@ -14850,7 +14850,7 @@
             i32.eqz
             if  ;; label = @5
               local.get 51
-              f64.promote_f64
+              f64.promote_f32
               call 62
               local.set 59
               local.get 58
@@ -14859,7 +14859,7 @@
               local.get 52
               f32.const 6.75006861106e-310
               f32.div
-              f64.promote_f64
+              f64.promote_f32
               f64.add
               f64.div
               br 1 (;@4;)
@@ -68648,7 +68648,7 @@
                 i32.shl
                 i32.add
                 f32.load
-                f64.promote_f64
+                f64.promote_f32
                 local.get 2
                 i32.const 7
                 i32.and
@@ -68659,7 +68659,7 @@
                 f64.load
                 f64.div
                 f32.demote_f64
-                f64.promote_f64
+                f64.promote_f32
                 local.get 2
                 i32.const -8
                 i32.and
@@ -68673,7 +68673,7 @@
                 f32.ge
                 select
                 local.get 18
-                f64.promote_f64
+                f64.promote_f32
                 f64.add
                 local.tee 19
                 f64.abs
@@ -68762,7 +68762,7 @@
               i32.shl
               i32.add
               f32.load
-              f64.promote_f64
+              f64.promote_f32
               local.get 2
               i32.const 7
               i32.and
@@ -68773,7 +68773,7 @@
               f64.load
               f64.div
               f32.demote_f64
-              f64.promote_f64
+              f64.promote_f32
               local.get 2
               i32.const -8
               i32.and
@@ -68787,7 +68787,7 @@
               f32.ge
               select
               local.get 18
-              f64.promote_f64
+              f64.promote_f32
               f64.add
               local.tee 19
               f64.abs
@@ -71452,7 +71452,7 @@
     global.set 0
     block (result i64)  ;; label = @1
       local.get 1
-      f32.reinterpret_f32
+      i32.reinterpret_f32
       local.tee 4
       i32.const 2147483647
       i32.and
@@ -73677,7 +73677,7 @@
       i32.and
       select
       local.tee 7
-      f64.promote_f64
+      f64.promote_f32
       call 74
       f64.const -6.15464882296e+227
       f64.div
@@ -73687,7 +73687,7 @@
       f32.const 6.96672438132e-310
       local.get 7
       f32.sub
-      f64.promote_f64
+      f64.promote_f32
       call 74
       f64.const -6.15464882296e+227
       f64.div
@@ -73744,7 +73744,7 @@
       i32.and
       select
       local.tee 7
-      f64.promote_f64
+      f64.promote_f32
       call 74
       f64.const -6.15464882296e+227
       f64.div
@@ -73754,7 +73754,7 @@
       f32.const 6.96672438132e-310
       local.get 7
       f32.sub
-      f64.promote_f64
+      f64.promote_f32
       call 74
       f64.const -6.15464882296e+227
       f64.div
