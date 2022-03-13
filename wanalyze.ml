@@ -15,10 +15,7 @@ let processFile file =
   logger#info  "**** New file: %s" file;
   let ic = In_channel.create file in
   let w  = Wasm_module.create file in
-  (match parse_wasm ic w with
-   | true  -> logger#info "Success yes\n"
-   | _     -> logger#info "Failed\n"
-  );
+  parse_wasm ic w;
   Wasm_print.print w
 
 let () =

@@ -2,47 +2,6 @@ Loops found in function 338 in these bblocks: 13 14 23 24 33 34 43 44 53 54 63 6
 Simple br_if conditions in: 14 24 34 44 54 64 74.
 Simple br conditions in: .
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 3 4 5 6 7 8 10 11 12]
-cost:    27; 
-stack:   []; 
-params:  [pn0, pn1, pn2, pn3, pn4]; 
-locals:  [i32.load@(i32.load@(pn0)), ln6, ln7, ln8, ln9, i32.load@(pn0), ln11, ln12, ln13]; 
-globals: [5400608]
-
-[0 1 2 3 4 5 6 7 8 20 21 22]
-cost:    27; 
-stack:   []; 
-params:  [pn0, pn1, pn2, pn3, pn4]; 
-locals:  [i32.load@(i32.load@(pn0)), ln6, ln7, ln8, ln9, i32.load@(pn0), ln11, ln12, ln13]; 
-globals: [5400608]
-
-[0 1 2 3 4 5 6 7 8 30 31 32]
-cost:    27; 
-stack:   []; 
-params:  [pn0, pn1, pn2, pn3, pn4]; 
-locals:  [i32.load@(i32.load@(pn0)), ln6, ln7, ln8, ln9, i32.load@(pn0), ln11, ln12, ln13]; 
-globals: [5400608]
-
-[0 1 2 3 4 5 6 7 8 40 41 42]
-cost:    27; 
-stack:   []; 
-params:  [pn0, pn1, pn2, pn3, pn4]; 
-locals:  [i32.load@(i32.load@(pn0)), ln6, ln7, ln8, ln9, i32.load@(pn0), ln11, ln12, ln13]; 
-globals: [5400608]
-
-[0 1 2 3 4 5 6 7 8 50 51 52]
-cost:    27; 
-stack:   []; 
-params:  [pn0, pn1, pn2, pn3, pn4]; 
-locals:  [i32.load@(i32.load@(pn0)), ln6, ln7, ln8, ln9, i32.load@(pn0), ln11, ln12, ln13]; 
-globals: [5400608]
-
-[0 1 2 3 4 5 6 7 8 60 61 62]
-cost:    27; 
-stack:   []; 
-params:  [pn0, pn1, pn2, pn3, pn4]; 
-locals:  [i32.load@(i32.load@(pn0)), ln6, ln7, ln8, ln9, i32.load@(pn0), ln11, ln12, ln13]; 
-globals: [5400608]
 
 Simple brif loop condition in bblock 14:	(ln6 + 1) != ln10
 Loop condition variables: ln6, ln10

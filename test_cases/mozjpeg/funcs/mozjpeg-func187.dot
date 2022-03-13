@@ -225,9 +225,9 @@ digraph finite_state_machine {
     144 -> 145[label="block"];
     145 -> 146[label="block"];
     146 -> 147[label="block"];
-    147 -> 153[label="br_table"];
-    147 -> 157[label="br_table"];
     147 -> 149[label="br_table"];
+    147 -> 157[label="br_table"];
+    147 -> 153[label="br_table"];
     149 -> 150[label="~br_if"];
     149 -> 160[label="br_if"];
     150 -> 151[label="~br_if"];

@@ -12,10 +12,10 @@ digraph finite_state_machine {
     3 -> 4[label="block"];
     4 -> 5[label="block"];
     5 -> 6[label="block"];
-    6 -> 42[label="br_table"];
-    6 -> 34[label="br_table"];
-    6 -> 25[label="br_table"];
     6 -> 8[label="br_table"];
+    6 -> 25[label="br_table"];
+    6 -> 34[label="br_table"];
+    6 -> 42[label="br_table"];
     8 -> 9[label="if"];
     8 -> 10[label="~if"];
     9 -> 10[label="end"];

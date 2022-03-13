@@ -2,10 +2,4 @@ Loops found in function 267 in these bblocks: 4 21 45 84.
 Simple br_if conditions in: .
 Simple br conditions in: .
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 3]
-cost:    25; 
-stack:   []; 
-params:  [pn0, pn1, pn2 shl 2]; 
-locals:  [5400608 - 48, ln4, ln5, ln6, i32.load@((pn2 shl 2) + 155720), i32.load@((pn2 shl 2) + 155708), lN9, lN10]; 
-globals: [5400608 - 48]
 

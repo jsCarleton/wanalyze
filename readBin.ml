@@ -17,14 +17,18 @@ let read_byte ic : int =
 
 let read_4bytes ic =
   (read_byte ic) lor ((read_byte ic) lsl 8) lor ((read_byte ic) lsl 16) lor ((read_byte ic) lsl 24)
+
 let read_magic ic = 
   let magic =  read_4bytes ic in
-  logger#info "Magic:   %8.8x" magic;
-  magic = 0x0061736d
+  match magic with
+  | 0x0061736d  -> ()
+  | _           -> failwith (sprintf "Invalid magic value %d" magic)
+
 let read_version ic = 
   let version = (read_byte ic) lor ((read_byte ic) lsl 8) lor ((read_byte ic) lsl 16) lor ((read_byte ic) lsl 24) in
-  logger#info "Version: %8.8x" version;
-  version =0x01000000
+  match version with
+  | 0x01000000  -> ()
+  | _           -> failwith (sprintf "Invalid version %x" version)
 
 let rec skip_bytes ic n =
   match n with
@@ -91,6 +95,7 @@ let rec read_vec' ic n reader acc =
   match n with
   | 0 -> acc
   | _ -> read_vec' ic (n-1) reader ((reader ic) :: acc)
+
 let read_vec ic reader = List.rev (read_vec' ic (read_vec_len ic) reader [])
 
 (* Sections consisting of vectors of entries *)
@@ -281,14 +286,6 @@ let read_vec_valtype ic =
   List.init (read_vec_len ic) ~f:(fun _ -> (valtype_of_int (read_byte ic)))
 
 let read_labelidx ic = uLEB ic 32
-let rec read_vec_labelidx' ic len acc =
-  match len with
-  | 0 -> acc
-  | _ ->
-      let label = read_labelidx ic in
-      read_vec_labelidx' ic (len-1) acc@[label]
-let read_vec_labelidx ic =
-  read_vec_labelidx' ic (read_vec_len ic) []
 
 let read_instr' ic opcode =
 match opcode_of_int opcode with
@@ -303,7 +300,7 @@ match opcode_of_int opcode with
   | OP_br
   | OP_br_if        -> Labelidx (read_idx ic), Control
   | OP_br_table     -> 
-      (let table = (read_vec_labelidx ic) in let index = (read_labelidx ic) in
+      (let table = (read_vec ic read_labelidx) in let index = (read_labelidx ic) in
        BrTable {table; index}), Control
   | OP_return         -> EmptyArg, Control
   | OP_call           -> Funcidx (read_idx ic), Control
@@ -673,23 +670,22 @@ let read_data_count ic =
 (* Section reader *)
 let read_section_body ic w id =
   match id with
-  | 0 -> logger#info  "Custom section - unimplemented, skipping"; skip_bytes ic (read_section_length ic); true
-  | 1 -> logger#info  "Type section";      w.type_section   <- read_type_section ic; true
+  | 0 -> logger#info  "Custom section - unimplemented, skipping"; skip_bytes ic (read_section_length ic)
+  | 1 -> logger#info  "Type section";      w.type_section   <- read_type_section ic
   | 2 -> logger#info  "Import section";    let i, f = read_import_section w ic in
                                            w.import_section <- i;
-                                           w.function_section <- f;
-                                           true
-  | 3 -> logger#info  "Function section";  w.function_section <- read_function_section ic w.function_section; true
-  | 4 -> logger#info  "Table section";     w.table_section    <- read_table_section ic; true
-  | 5 -> logger#info  "Memory section";    w.memory_section   <- read_memory_section ic; true
-  | 6 -> logger#info  "Global section";    w.global_section   <- read_global_section w ic; true
-  | 7 -> logger#info  "Export section";    w.export_section   <- read_export_section ic; true
-  | 8 -> logger#info  "Start section";     w.start_section    <- read_start_section ic; true
-  | 9 -> logger#info  "Element section";   w.element_section  <- read_element_section ic; true
-  | 10 -> logger#info  "Code section";     w.code_section     <- read_code_section ic; true
-  | 11 -> logger#info  "Data section";     w.data_section     <- read_data_section w ic; true
-  | 12 -> logger#info  "Data count";       w.data_count       <- read_data_count ic; true
-  | _ -> logger#info  "Unknown section, skipping"; skip_bytes ic (read_section_length ic); true
+                                           w.function_section <- f
+  | 3 -> logger#info  "Function section";  w.function_section <- read_function_section ic w.function_section
+  | 4 -> logger#info  "Table section";     w.table_section    <- read_table_section ic
+  | 5 -> logger#info  "Memory section";    w.memory_section   <- read_memory_section ic
+  | 6 -> logger#info  "Global section";    w.global_section   <- read_global_section w ic
+  | 7 -> logger#info  "Export section";    w.export_section   <- read_export_section ic
+  | 8 -> logger#info  "Start section";     w.start_section    <- read_start_section ic
+  | 9 -> logger#info  "Element section";   w.element_section  <- read_element_section ic
+  | 10 -> logger#info  "Code section";     w.code_section     <- read_code_section ic
+  | 11 -> logger#info  "Data section";     w.data_section     <- read_data_section w ic
+  | 12 -> logger#info  "Data count";       w.data_count       <- read_data_count ic
+  | _ -> logger#info  "Unknown section, skipping"; skip_bytes ic (read_section_length ic)
 
 let read_section_id ic =
   match read_byte ic with
@@ -698,8 +694,11 @@ let read_section_id ic =
 (* wasm Module reader *)
 let rec read_sections ic w =
   match read_section_id ic with
-  | -1 -> true
-  | id -> read_section_body ic w id && read_sections ic w
+  | -1 -> ()
+  | id -> read_section_body ic w id;
+          read_sections ic w
 
 let parse_wasm ic w =
-  read_magic ic && read_version ic && read_sections ic w
+  read_magic ic;
+  read_version ic;
+  read_sections ic w

@@ -2,12 +2,6 @@ Loops found in function 202 in these bblocks: 2 4 8 10 16 23 36 38 46 52.
 Simple br_if conditions in: 16 23 46 52.
 Simple br conditions in: .
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1]
-cost:    30; 
-stack:   []; 
-params:  [pn0, pn1]; 
-locals:  [i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), ln5, ln6, ln7, i32.load@(i32.load@(pn0)), ln9, ln10, ln11, ln12, i32.load@(i32.load@(pn0)), ln14, (i32.load@(pn0)) + -1, (i32.load@(pn0)) + -1, ln17, (i32.load@(pn0)) + 24]; 
-globals: [5400608]
 
 Simple brif loop condition in bblock 16:	(ln2 + 1) != ln12
 Loop condition variables: ln2, ln12

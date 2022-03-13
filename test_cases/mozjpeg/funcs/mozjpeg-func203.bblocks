@@ -7,7 +7,7 @@ index start   end nesting dest  labels type        succ/pred
     4    33    34     2   17           block       s=[5] p=[3]
     5    34    35     3   13           block       s=[6] p=[4]
     6    35    36     4   9            block       s=[7] p=[5]
-    7    36    38     5         3 1 2 4 0 br_table    s=[21 13 17 25 9] p=[6]
+    7    36    38     5         0 4 2 1 3 br_table    s=[9 25 17 13 21] p=[6]
     8    38    39     4                end         s=[9] p=[]
     9    39    42     4   11           if          s=[10 11] p=[8 7]
    10    42    52     4                end         s=[11] p=[9]

@@ -169,24 +169,25 @@ let string_of_opcode' (op: op_type) idx comment (annotate:bool) =
 let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
   let op = List.nth e idx in
   match op with
-  | Some op -> 
-    (* some special cases need to be handled here *)
-    ( match op.opcode with
-    | 0x02 (* block *)
-    | 0x03 (* loop *)
-    | 0x04 (* if *)
-        -> string_of_opcode' op idx (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)]) annotate
-    | 0x0c (* br *)
-    | 0x0d (* br_if *)
-        -> string_of_opcode' op idx (String.concat [" (;@" ; string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ; ";)"]) annotate
-    | 0x0b (* end *) ->
-      (match op.nesting with
-      | -1 -> ""
-      | _ -> string_of_opcode' op idx "" annotate
-      )
-    | _ -> string_of_opcode' op idx "" annotate
+let string_of_opcode' (op: op_type) (idx: int) (annotate:bool) =
+  match op.opcode with (* some special cases need to be handled here *)
+  | 0x02 (* block *)
+  | 0x03 (* loop *)
+  | 0x04 (* if *)
+      -> string_of_opcode'' op idx (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)]) annotate
+  | 0x0c (* br *)
+  | 0x0d (* br_if *)
+      -> string_of_opcode'' op idx (String.concat [" (;@" ; string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ; ";)"]) annotate
+  | 0x0b (* end *) ->
+    (match op.nesting with
+    | -1 -> ""
+    | _ -> string_of_opcode'' op idx "" annotate
     )
-  | _ -> failwith "Missing opcode"
+  | _ -> string_of_opcode'' op idx "" annotate
+
+let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
+  let op = List.nth_exn e idx in
+  string_of_opcode' op idx annotate
 
 let bblock_sep annotate index = 
   match annotate with
@@ -227,8 +228,17 @@ let rec print_expr' oc e annotate (bblocks: bblock list) idx =
     )
   | false -> ()
 
+let print_expr'' oc annotate base idx op =
+  Out_channel.output_string oc (string_of_opcode' op (base+idx) annotate)
+
+let print_bblock oc e annotate (bb: bblock) =
+  Out_channel.output_string oc (bblock_sep annotate bb.index);
+  List.iteri ~f:(print_expr'' oc annotate bb.start_op) (expr_of_bblock e bb)
+
 let print_expr oc e bblocks annotate =
-  print_expr' oc e annotate (match annotate with | true -> bblocks | _ -> []) 0
+  match annotate with
+  | true  -> List.iter ~f:(print_bblock oc e annotate) bblocks 
+  | false -> List.iter ~f:(print_expr'' oc annotate 0 0) e 
 
 let print_code oc (w: wasm_module) idx annotate =
   let f = List.nth_exn w.code_section idx in

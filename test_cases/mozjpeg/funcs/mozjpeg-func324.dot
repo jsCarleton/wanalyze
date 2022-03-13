@@ -11,9 +11,9 @@ digraph finite_state_machine {
     2 -> 3[label="block"];
     3 -> 4[label="block"];
     4 -> 5[label="block"];
-    5 -> 11[label="br_table"];
-    5 -> 9[label="br_table"];
     5 -> 7[label="br_table"];
+    5 -> 9[label="br_table"];
+    5 -> 11[label="br_table"];
     7 -> 14[label="br"];
     9 -> 14[label="br"];
     11 -> 14[label="br"];
@@ -22,9 +22,9 @@ digraph finite_state_machine {
     15 -> 16[label="block"];
     16 -> 17[label="block"];
     17 -> 18[label="block"];
+    18 -> 20[label="br_table"];
+    18 -> 20[label="br_table"];
     18 -> 22[label="br_table"];
-    18 -> 20[label="br_table"];
-    18 -> 20[label="br_table"];
     20 -> 25[label="br"];
     22 -> 25[label="br"];
     24 -> 25[label="end"];

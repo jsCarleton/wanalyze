@@ -14,11 +14,11 @@ digraph finite_state_machine {
     4 -> 5[label="block"];
     5 -> 6[label="block"];
     6 -> 7[label="block"];
-    7 -> 21[label="br_table"];
-    7 -> 13[label="br_table"];
-    7 -> 17[label="br_table"];
-    7 -> 25[label="br_table"];
     7 -> 9[label="br_table"];
+    7 -> 25[label="br_table"];
+    7 -> 17[label="br_table"];
+    7 -> 13[label="br_table"];
+    7 -> 21[label="br_table"];
     9 -> 10[label="if"];
     9 -> 11[label="~if"];
     10 -> 11[label="end"];

@@ -10,8 +10,8 @@ digraph finite_state_machine {
     1 -> 2[label="block"];
     2 -> 3[label="block"];
     3 -> 4[label="block"];
-    4 -> 6[label="br_table"];
     4 -> 15[label="br_table"];
+    4 -> 6[label="br_table"];
     6 -> 7[label="~br_if"];
     6 -> 37[label="br_if"];
     7 -> 8[label="loop"];

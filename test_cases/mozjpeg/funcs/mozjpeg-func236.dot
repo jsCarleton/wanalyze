@@ -12,8 +12,8 @@ digraph finite_state_machine {
     2 -> 16[label="br"];
     4 -> 5[label="block"];
     5 -> 6[label="block"];
-    6 -> 10[label="br_table"];
     6 -> 8[label="br_table"];
+    6 -> 10[label="br_table"];
     8 -> 16[label="br"];
     10 -> 11[label="if"];
     10 -> 15[label="~if"];

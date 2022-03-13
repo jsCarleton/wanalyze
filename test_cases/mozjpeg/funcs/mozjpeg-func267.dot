@@ -50,10 +50,10 @@ digraph finite_state_machine {
     36 -> 37[label="block"];
     37 -> 38[label="block"];
     38 -> 39[label="block"];
-    39 -> 41[label="br_table"];
-    39 -> 60[label="br_table"];
-    39 -> 60[label="br_table"];
     39 -> 44[label="br_table"];
+    39 -> 60[label="br_table"];
+    39 -> 60[label="br_table"];
+    39 -> 41[label="br_table"];
     41 -> 42[label="~br_if"];
     41 -> 100[label="br_if"];
     42 -> 100[label="br"];
@@ -76,10 +76,10 @@ digraph finite_state_machine {
     58 -> 100[label="br_if"];
     59 -> 60[label="end"];
     60 -> 61[label="block"];
-    61 -> 77[label="br_table"];
-    61 -> 93[label="br_table"];
-    61 -> 93[label="br_table"];
     61 -> 63[label="br_table"];
+    61 -> 93[label="br_table"];
+    61 -> 93[label="br_table"];
+    61 -> 77[label="br_table"];
     63 -> 64[label="block"];
     64 -> 65[label="~br_if"];
     64 -> 75[label="br_if"];

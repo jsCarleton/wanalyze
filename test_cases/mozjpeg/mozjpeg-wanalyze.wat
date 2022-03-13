@@ -12197,7 +12197,7 @@
                                                   local.get 1
                                                   i32.const -99
                                                   i32.add
-                                                  br_table 3 18 18 0 18 8 18 18 2 4 1 18 18 18 18 5 18 18 18 18 5 13 18
+                                                  br_table 13 5 18 18 18 18 5 18 18 18 18 1 4 2 18 18 8 18 0 18 18 3 18
                                                 end
                                                 local.get 6
                                                 i64.load
@@ -12217,7 +12217,7 @@
                                                             local.get 17
                                                             i32.const 255
                                                             i32.and
-                                                            br_table 6 5 25 4 3 2 1 0 25
+                                                            br_table 0 1 2 3 4 25 5 6 25
                                                           end
                                                           local.get 6
                                                           i32.load
@@ -16719,7 +16719,7 @@
               local.get 4
               i32.const -1
               i32.add
-              br_table 0 2 1 2
+              br_table 1 2 0 2
             end
             i32.const 64
             local.set 3
@@ -17430,7 +17430,7 @@
                                           block  ;; label = @20
                                             local.get 5
                                             i32.load
-                                            br_table 1 0 2
+                                            br_table 0 1 2
                                           end
                                           local.get 1
                                           i64.const 0
@@ -20199,7 +20199,7 @@
               local.get 1
               i32.const 2
               i32.add
-              br_table 3 4 2 2 1 0 4
+              br_table 0 1 2 2 4 3 4
             end
             local.get 0
             local.get 2
@@ -20726,7 +20726,7 @@
                         local.get 1
                         i32.const -9
                         i32.add
-                        br_table 8 7 6 5 4 3 2 1 0 9
+                        br_table 0 1 2 3 4 5 6 7 8 9
                       end
                       local.get 2
                       local.get 2
@@ -28661,7 +28661,7 @@
                 local.tee 1
                 i32.const -1
                 i32.add
-                br_table 1 1 1 1 1 1 1 1 1 1 3 3 2 1 0 4
+                br_table 0 1 2 3 3 1 1 1 1 1 1 1 1 1 1 4
               end
               local.get 0
               i32.load
@@ -28761,7 +28761,7 @@
                       local.tee 1
                       i32.const -1
                       i32.add
-                      br_table 4 3 2 1 0 5
+                      br_table 0 1 2 3 4 5
                     end
                     local.get 0
                     i32.load
@@ -28793,7 +28793,7 @@
                             local.get 1
                             i32.const -1
                             i32.add
-                            br_table 2 1 0 3
+                            br_table 0 1 2 3
                           end
                           local.get 2
                           i32.const 2
@@ -28898,7 +28898,7 @@
                     local.get 1
                     i32.const -2
                     i32.add
-                    br_table 7 0 1
+                    br_table 0 7 1
                   end
                   local.get 2
                   i32.const 9
@@ -28950,7 +28950,7 @@
                 i32.load
                 i32.const -4
                 i32.add
-                br_table 5 0 1
+                br_table 0 5 1
               end
               local.get 2
               i32.const 10
@@ -29077,7 +29077,7 @@
                     block  ;; label = @9
                       block  ;; label = @10
                         local.get 1
-                        br_table 4 3 2 1 0 5 6
+                        br_table 5 0 1 2 3 4 6
                       end
                       local.get 0
                       i32.const 1
@@ -29368,7 +29368,7 @@
                     block  ;; label = @9
                       local.get 0
                       i32.load
-                      br_table 7 7 7 7 7 7 7 7 7 7 3 2 7 7 0 4 5
+                      br_table 4 0 7 7 2 3 7 7 7 7 7 7 7 7 7 7 5
                     end
                     local.get 0
                     i32.load
@@ -30330,7 +30330,7 @@
               block  ;; label = @6
                 local.get 1
                 i32.load
-                br_table 3 2 1 0 4
+                br_table 0 1 2 3 4
               end
               local.get 0
               call 84
@@ -30712,7 +30712,7 @@
             block  ;; label = @5
               local.get 6
               i32.load
-              br_table 2 1 3 0 4
+              br_table 0 3 1 2 4
             end
             local.get 0
             i32.load
@@ -30990,7 +30990,7 @@
                         local.get 1
                         i32.const -2
                         i32.add
-                        br_table 2 1 0 5
+                        br_table 0 1 2 5
                       end
                       local.get 2
                       i32.const 5000
@@ -31328,7 +31328,7 @@
                       local.get 4
                       i32.const -2
                       i32.add
-                      br_table 2 1 0 4
+                      br_table 0 1 2 4
                     end
                     local.get 2
                     i32.load
@@ -35356,7 +35356,7 @@
               i32.load
               i32.const -3
               i32.add
-              br_table 1 2 0 2
+              br_table 0 2 1 2
             end
             local.get 0
             i32.load
@@ -41161,7 +41161,7 @@
           block  ;; label = @4
             block  ;; label = @5
               local.get 1
-              br_table 3 1 2 4 0 4
+              br_table 0 4 2 1 3 4
             end
             local.get 2
             i32.load
@@ -59467,7 +59467,7 @@
         block  ;; label = @3
           local.get 1
           i32.load
-          br_table 1 0 2
+          br_table 0 1 2
         end
         local.get 1
         i32.load
@@ -60168,7 +60168,7 @@
           local.tee 1
           i32.const -101
           i32.add
-          br_table 2 0 0 1
+          br_table 0 0 2 1
         end
         local.get 0
         i32.load
@@ -60993,7 +60993,7 @@
                             i32.and
                             i32.const -65
                             i32.add
-                            br_table 2 9 4 9 9 4 2 4 9 9 4 4 4 9 1 9 5 4 0 4 4 4 4 4 9 4 9 9 9 9 9 4 9 9 4 9 9 9 9 4 9 9 9 9 9 9 3 9 9 9 9 4 4 4 9 4 9 4 9
+                            br_table 4 9 4 9 4 4 4 9 9 9 9 3 9 9 9 9 9 9 4 9 9 9 9 4 9 9 4 9 9 9 9 9 4 9 4 4 4 4 4 0 4 5 9 1 9 4 4 4 9 9 4 2 4 9 9 4 9 2 9
                           end
                           local.get 4
                           i32.const 2
@@ -61204,7 +61204,7 @@
                                         local.get 11
                                         i32.const -88
                                         i32.add
-                                        br_table 6 11 11 4 11 2 11 11 6 3 11 11 11 11 11 5 11 1 1 1 4 2 11 1 11 11 11 11 11 2 11 11 6 0
+                                        br_table 6 11 11 2 11 11 11 11 11 1 11 2 4 1 1 1 11 5 11 11 11 11 11 3 6 11 11 2 11 4 11 11 6 0
                                       end
                                       local.get 11
                                       i32.const -65
@@ -61247,7 +61247,7 @@
                                     i64.load
                                     local.set 17
                                     local.get 13
-                                    br_table 7 6 5 9
+                                    br_table 5 6 7 9
                                   end
                                   local.get 11
                                   i32.const 239
@@ -64558,7 +64558,7 @@
                     block  ;; label = @9
                       block  ;; label = @10
                         local.get 4
-                        br_table 0 3 3 1 2
+                        br_table 1 3 3 0 2
                       end
                       local.get 1
                       i32.load
@@ -64629,7 +64629,7 @@
                 end
                 block  ;; label = @7
                   local.get 4
-                  br_table 1 2 2 0 2
+                  br_table 0 2 2 1 2
                 end
                 block  ;; label = @7
                   local.get 2
@@ -69441,7 +69441,7 @@
                 block  ;; label = @7
                   local.get 0
                   i32.load
-                  br_table 2 1 0 3
+                  br_table 0 1 2 3
                 end
                 local.get 8
                 local.get 3
@@ -69686,7 +69686,7 @@
                         i32.const 65535
                         i32.and
                         local.tee 9
-                        br_table 2 1 0
+                        br_table 1 2 0
                       end
                       i32.const 8
                       i32.const 16
@@ -70395,7 +70395,7 @@
             block  ;; label = @5
               local.get 0
               i32.load
-              br_table 2 1 0 3
+              br_table 0 1 2 3
             end
             local.get 1
             i32.const 12
@@ -70437,7 +70437,7 @@
           block  ;; label = @4
             local.get 0
             i32.load
-            br_table 1 0 0 2
+            br_table 0 0 1 2
           end
           local.get 1
           i32.const 21
@@ -71770,7 +71770,7 @@
                     i32.load
                     i32.const -6
                     i32.add
-                    br_table 5 4 3 1 5 4 3 2 1 0 6
+                    br_table 0 1 2 3 4 5 1 3 4 5 6
                   end
                   local.get 4
                   i32.const 1
@@ -72995,7 +72995,7 @@
                     i32.load
                     i32.const -6
                     i32.add
-                    br_table 5 4 3 1 5 4 3 2 1 0 6
+                    br_table 0 1 2 3 4 5 1 3 4 5 6
                   end
                   local.get 4
                   i32.const 1
@@ -75757,7 +75757,7 @@
             local.tee 7
             i32.const -3
             i32.add
-            br_table 0 1 2
+            br_table 1 0 2
           end
           local.get 8
           i32.eqz
@@ -79139,7 +79139,7 @@
                     i32.load
                     i32.const -6
                     i32.add
-                    br_table 5 4 3 1 5 4 3 2 1 0 6
+                    br_table 0 1 2 3 4 5 1 3 4 5 6
                   end
                   local.get 4
                   i32.const 1
