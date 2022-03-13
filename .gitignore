@@ -35,7 +35,7 @@ _opam/
 *.svg
 *.bblocks
 *.dot
-*.wat
+test_cases/*/funcs/*.wat
 *.loops
 test_cases/.DS_Store
 test_cases/doom/.DS_Store
@@ -47,3 +47,5 @@ test_cases/mozjpeg/.DS_Store
 .DS_Store
 *.data
 *.old
+test_cases/autocad/autocad-wanalyze.wat
+test_cases/autocad/autocad-wabt.wat

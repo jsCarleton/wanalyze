@@ -353,13 +353,13 @@ let hexstring_of_bytes (b: bytes) : string =
 let string_of_data d =
   match d.details with
   | ExprBytes eb ->
-      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; string_of_inline_expr eb.e ; ") \"" ; string_of_bytes eb.b ; "\")\n"]
+      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; string_of_inline_expr eb.e ; ") \"" ; string_of_bytes eb.b ; "\")"]
   | Bytes b ->
-      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; hexstring_of_bytes b ; ")\n"]
+      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; hexstring_of_bytes b ; ")"]
   | MemExprBytes meb ->
       String.concat ["  (data (;" ; string_of_int d.index ; ";) (memory " ; string_of_int meb.x ; ") (offset: " ; string_of_inline_expr meb.e 
-          ; ") "  ; hexstring_of_bytes meb.b ; ")\n"]
-let string_of_data_section section = String.concat ~sep:"" (List.map ~f:string_of_data section)
+          ; ") "  ; hexstring_of_bytes meb.b ; ")"]
+let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string_of_data section)
 
 let has_successors (bblocks: bblock list) (bb_index: int ): bool =
   let succ = (List.nth_exn bblocks bb_index).succ in
@@ -633,6 +633,6 @@ let print w =
     Out_channel.output_string oc (string_of_start w.start_section);
     Out_channel.output_string oc (string_of_element_section w.element_section);
     Out_channel.output_string oc (string_of_data_section w.data_section);
-    Out_channel.output_string oc ")";
+    Out_channel.output_string oc ")\n";
     Out_channel.close oc;
     print_functions w

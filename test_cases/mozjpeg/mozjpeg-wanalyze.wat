@@ -80558,5 +80558,4 @@
   (data (;30;) (i32.const 156844) "p")
   (data (;31;) (i32.const 156868) "q\00\00\00r\00\00\00\88e\02")
   (data (;32;) (i32.const 156892) "\02")
-  (data (;33;) (i32.const 156907) "\ff\ff\ff\ff\ff")
-)
+  (data (;33;) (i32.const 156907) "\ff\ff\ff\ff\ff"))
