@@ -163,12 +163,9 @@ let string_of_arg a  =
 let string_of_line_number (idx: int) (annotate: bool) =
   match annotate with | true -> sprintf "%4.4d" idx | _ -> ""
 
-let string_of_opcode' (op: op_type) idx comment (annotate:bool) =
+let string_of_opcode'' (op: op_type) idx comment (annotate:bool) =
   String.concat ["\n" ; string_of_line_number idx annotate; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
 
-let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
-  let op = List.nth e idx in
-  match op with
 let string_of_opcode' (op: op_type) (idx: int) (annotate:bool) =
   match op.opcode with (* some special cases need to be handled here *)
   | 0x02 (* block *)
