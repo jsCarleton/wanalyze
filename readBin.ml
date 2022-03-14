@@ -68,24 +68,27 @@ let read_bytes ic : bytes =
   let len = read_vec_len ic in
   Bytes.init len ~f:(fun _ -> Char.of_int_exn (read_byte ic))
 
- let read_i32 ic = 
-  match Int64.to_int (sLEB ic 32) with
-  | None -> -1
-  | Some x -> x
+let read_i32 ic = 
+match Int64.to_int (sLEB ic 32) with
+| None -> -1
+| Some x -> x
 
 let read_i32' ic b = 
     match Int64.to_int (sLEB' ic 32 0L 0 (of_int b)) with
     | None -> -1
     | Some x -> x
 
-let rec bytes_to_i64' ic n acc : int64 =
-  match n with
+let rec bytes_to_i64' ic n left acc : int64 =
+  match left with
   | 0 -> acc
-  | _ -> bytes_to_i64' ic (n-1) (i64add (i64lsl acc 8) (Int64.of_int (read_byte ic)))
-let bytes_to_i64 ic n : int64 = bytes_to_i64' ic n 0L
+  | _ -> bytes_to_i64' ic n (left-1) (i64lor acc (i64lsl (Int64.of_int (read_byte ic)) (8*(n-left))) )
+let bytes_to_i64 ic n: int64 = bytes_to_i64' ic n n 0L
 
 let read_f32 ic = Int64.float_of_bits (Int64.shift_left (bytes_to_i64 ic 4) 32)
-let read_f64 ic = Int64.float_of_bits (bytes_to_i64 ic 8)
+let read_f64 ic =
+  let f = (bytes_to_i64 ic 8) in
+  logger#info "floating point bits %Lx" f;
+  Int64.float_of_bits f
                       
 let read_memarg ic bits = 
   let a = uLEB ic 32 in

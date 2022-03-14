@@ -63,7 +63,7 @@
 0058      local.get 17
 0059      f32.sub
 0060      f32.add
-0061      f32.const -1.10384894777e+246
+0061      f32.const 0.000320729566738
 0062      f32.mul
 0063      local.tee 8
 0064      f32.sub
@@ -87,7 +87,7 @@
 0082      f32.sub
 0083      local.tee 7
 0084      f32.add
-0085      f32.const -1.10384894777e+246
+0085      f32.const 0.000320729566738
 0086      f32.mul
 0087      local.tee 8
 0088      f32.sub
@@ -98,7 +98,7 @@
 0093      f32.sub
 0094      f32.add
 0095      local.tee 7
-0096      f32.const -1.84822848946e+99
+0096      f32.const 5.06328651682e-05
 0097      f32.mul
 0098      local.get 7
 0099      local.get 5
@@ -106,7 +106,7 @@
 0101      f32.add
 0102      local.tee 6
 0103      f32.sub
-0104      f32.const 5.06535475484e-203
+0104      f32.const 2.37630774791e-06
 0105      f32.mul
 0106      local.tee 7
 0107      f32.add
@@ -124,7 +124,7 @@
 0119      f32.add
 0120      local.tee 5
 0121      local.get 6
-0122      f32.const 5.56556716801e+256
+0122      f32.const 0.0453907549381
 0123      f32.mul
 0124      local.get 7
 0125      f32.add
@@ -206,7 +206,7 @@
 0198      local.get 17
 0199      f32.sub
 0200      f32.add
-0201      f32.const -1.10384894777e+246
+0201      f32.const 0.000320729566738
 0202      f32.mul
 0203      local.tee 8
 0204      f32.sub
@@ -230,7 +230,7 @@
 0222      f32.sub
 0223      local.tee 7
 0224      f32.add
-0225      f32.const -1.10384894777e+246
+0225      f32.const 0.000320729566738
 0226      f32.mul
 0227      local.tee 8
 0228      f32.sub
@@ -241,7 +241,7 @@
 0233      f32.sub
 0234      f32.add
 0235      local.tee 7
-0236      f32.const -1.84822848946e+99
+0236      f32.const 5.06328651682e-05
 0237      f32.mul
 0238      local.get 7
 0239      local.get 5
@@ -249,7 +249,7 @@
 0241      f32.add
 0242      local.tee 6
 0243      f32.sub
-0244      f32.const 5.06535475484e-203
+0244      f32.const 2.37630774791e-06
 0245      f32.mul
 0246      local.tee 7
 0247      f32.add
@@ -267,7 +267,7 @@
 0259      f32.add
 0260      local.tee 5
 0261      local.get 6
-0262      f32.const 5.56556716801e+256
+0262      f32.const 0.0453907549381
 0263      f32.mul
 0264      local.get 7
 0265      f32.add

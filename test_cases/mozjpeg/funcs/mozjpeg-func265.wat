@@ -665,7 +665,7 @@
 0564          local.get 5
 0565          i32.const 352
 0566          i32.add
-0567          f64.const 3.03865194162e-319
+0567          f64.const 1.
 0568          i32.const 144
 0569          local.get 1
 0570          i32.sub

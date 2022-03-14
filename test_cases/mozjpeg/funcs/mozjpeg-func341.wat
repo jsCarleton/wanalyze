@@ -53,11 +53,11 @@
 0048      i32.const 16
 0049      i32.shr_s
 0050      f64.convert_i32_s
-0051      f64.const 1.90359885107e+185
+0051      f64.const 46340.95
 0052      f64.div
 0053      f32.demote_f64
 0054      local.tee 7
-0055      f32.const 6.96672438132e-310
+0055      f32.const 0.0078125
 0056      local.get 7
 0057      f32.sub
 0058      local.get 6
@@ -67,17 +67,17 @@
 0062      local.tee 7
 0063      f64.promote_f32
 0064      call 74
-0065      f64.const -6.15464882296e+227
+0065      f64.const -0.69314718056
 0066      f64.div
 0067      f32.demote_f64
 0068      f32.store
 0069      local.get 5
-0070      f32.const 6.96672438132e-310
+0070      f32.const 0.0078125
 0071      local.get 7
 0072      f32.sub
 0073      f64.promote_f32
 0074      call 74
-0075      f64.const -6.15464882296e+227
+0075      f64.const -0.69314718056
 0076      f64.div
 0077      f32.demote_f64
 0078      f32.store offset=4
@@ -123,11 +123,11 @@
 0115      i32.const 16
 0116      i32.shr_s
 0117      f64.convert_i32_s
-0118      f64.const 1.90359885107e+185
+0118      f64.const 46340.95
 0119      f64.div
 0120      f32.demote_f64
 0121      local.tee 7
-0122      f32.const 6.96672438132e-310
+0122      f32.const 0.0078125
 0123      local.get 7
 0124      f32.sub
 0125      local.get 4
@@ -137,17 +137,17 @@
 0129      local.tee 7
 0130      f64.promote_f32
 0131      call 74
-0132      f64.const -6.15464882296e+227
+0132      f64.const -0.69314718056
 0133      f64.div
 0134      f32.demote_f64
 0135      f32.store offset=512
 0136      local.get 2
-0137      f32.const 6.96672438132e-310
+0137      f32.const 0.0078125
 0138      local.get 7
 0139      f32.sub
 0140      f64.promote_f32
 0141      call 74
-0142      f64.const -6.15464882296e+227
+0142      f64.const -0.69314718056
 0143      f64.div
 0144      f32.demote_f64
 0145      f32.store offset=516

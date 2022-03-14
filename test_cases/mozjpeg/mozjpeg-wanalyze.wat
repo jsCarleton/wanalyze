@@ -8587,7 +8587,7 @@
           i32.eqz
           if  ;; label = @4
             local.get 0
-            f64.const 2.83944467321e-319
+            f64.const 8.98846567431e+307
             f64.mul
             return
           end
@@ -8595,13 +8595,13 @@
           i32.const 2146435072
           i32.ge_u
           if  ;; label = @4
-            f64.const 3.04497598188e-319
+            f64.const -1.
             local.get 0
             f64.div
             return
           end
           local.get 0
-          f64.const 6.62364167441e-317
+          f64.const -1075.
           f64.le
           i32.const 1
           i32.xor
@@ -8619,13 +8619,13 @@
         i32.gt_u
         br_if 1 (;@1;)
         local.get 0
-        f64.const 3.03865194162e-319
+        f64.const 1.
         f64.add
       end
       return
     end
     local.get 0
-    f64.const 2.33050765143e-319
+    f64.const 2.63882790666e+13
     f64.add
     local.tee 4
     i64.reinterpret_f64
@@ -8645,7 +8645,7 @@
     local.get 5
     local.get 0
     local.get 4
-    f64.const 2.3368316917e-319
+    f64.const -2.63882790666e+13
     f64.add
     f64.sub
     local.get 2
@@ -8661,18 +8661,18 @@
     local.get 0
     local.get 0
     local.get 0
-    f64.const 3.26797355052e+252
+    f64.const 0.00133335591646
     f64.mul
-    f64.const 6.90736517116e-309
+    f64.const 0.00961812984213
     f64.add
     f64.mul
-    f64.const -1.21161496892e-122
+    f64.const 0.0555041086648
     f64.add
     f64.mul
-    f64.const 2.06719437934e+259
+    f64.const 0.240226506959
     f64.add
     f64.mul
-    f64.const -6.15464882296e+227
+    f64.const 0.69314718056
     f64.add
     f64.mul
     f64.add
@@ -10253,7 +10253,7 @@
             i64.and
             i64.eqz
             if  ;; label = @5
-              f64.const 3.04497598188e-319
+              f64.const -1.
               local.get 0
               local.get 0
               f64.mul
@@ -10294,7 +10294,7 @@
           return
         end
         local.get 0
-        f64.const 1.01515668251e-319
+        f64.const 1.80143985095e+16
         f64.mul
         i64.reinterpret_f64
         local.tee 4
@@ -10315,7 +10315,7 @@
       i32.add
       f64.convert_i32_s
       local.tee 5
-      f64.const 1.22223262164e-309
+      f64.const 0.693147180369
       f64.mul
       local.get 4
       i64.const 4294967295
@@ -10330,21 +10330,21 @@
       i64.shl
       i64.or
       f64.reinterpret_i64
-      f64.const 3.04497598188e-319
+      f64.const -1.
       f64.add
       local.tee 0
       local.get 5
-      f64.const 3.50232779907e+261
+      f64.const 1.90821492927e-10
       f64.mul
       local.get 0
       local.get 0
-      f64.const 3.16202013338e-322
+      f64.const 2.
       f64.add
       f64.div
       local.tee 5
       local.get 0
       local.get 0
-      f64.const 2.83628265308e-319
+      f64.const 0.5
       f64.mul
       f64.mul
       local.tee 6
@@ -10357,27 +10357,27 @@
       local.tee 0
       local.get 0
       local.get 0
-      f64.const -1.30940053957e-155
+      f64.const 0.153138376992
       f64.mul
-      f64.const -5.17730330201e-80
+      f64.const 0.222221984321
       f64.add
       f64.mul
-      f64.const 1.11768178914e-284
+      f64.const 0.399999999994
       f64.add
       f64.mul
       local.get 5
       local.get 0
       local.get 0
       local.get 0
-      f64.const 1.34628701563e+21
+      f64.const 0.147981986051
       f64.mul
-      f64.const -7.72447940946e+144
+      f64.const 0.181835721616
       f64.add
       f64.mul
-      f64.const 3.16233854898e+123
+      f64.const 0.285714287437
       f64.add
       f64.mul
-      f64.const -1.54711227727e-215
+      f64.const 0.666666666667
       f64.add
       f64.mul
       f64.add
@@ -10436,7 +10436,7 @@
       i32.ge_s
       if  ;; label = @2
         local.get 0
-        f64.const 2.83944467321e-319
+        f64.const 8.98846567431e+307
         f64.mul
         local.set 0
         local.get 1
@@ -10450,7 +10450,7 @@
           br 2 (;@1;)
         end
         local.get 0
-        f64.const 2.83944467321e-319
+        f64.const 8.98846567431e+307
         f64.mul
         local.set 0
         local.get 1
@@ -10469,7 +10469,7 @@
       i32.gt_s
       br_if 0 (;@1;)
       local.get 0
-      f64.const 2.02369288537e-320
+      f64.const 2.22507385851e-308
       f64.mul
       local.set 0
       local.get 1
@@ -10483,7 +10483,7 @@
         br 1 (;@1;)
       end
       local.get 0
-      f64.const 2.02369288537e-320
+      f64.const 2.22507385851e-308
       f64.mul
       local.set 0
       local.get 1
@@ -13007,7 +13007,7 @@
         i32.const 2
         i32.shl
         i32.add
-        f64.const 3.03865194162e-319
+        f64.const 1.
         local.get 5
         local.get 11
         i32.const 1
@@ -13144,7 +13144,7 @@
               call 62
               local.get 57
               local.get 47
-              f32.const 6.75006861106e-310
+              f32.const 1.92414534861e+12
               f32.div
               f64.promote_f32
               f64.add
@@ -13152,7 +13152,7 @@
               br 1 (;@4;)
             end
             local.get 56
-            f64.const 5.15409281742e-320
+            f64.const -12.
             f64.add
             call 62
           end
@@ -13800,7 +13800,7 @@
               local.get 0
               i32.add
               local.set 36
-              f32.const -5.19131973105e-186
+              f32.const 6.01739734877e+301
               local.set 48
               local.get 27
               local.set 0
@@ -13910,14 +13910,14 @@
                         local.tee 24
                         i32.eqz
                         if  ;; label = @11
-                          f32.const 6.96672438132e-310
+                          f32.const 0.0078125
                           local.set 47
                           br 1 (;@10;)
                         end
                         local.get 29
                         f32.load offset=508
                         local.tee 55
-                        f32.const 6.96672438132e-310
+                        f32.const 0.0078125
                         f32.add
                         local.set 47
                         local.get 24
@@ -14050,7 +14050,7 @@
                       f32.add
                       local.tee 47
                       f32.abs
-                      f32.const 1.67637667486e-312
+                      f32.const 3.53369412956e+72
                       f32.lt
                       if  ;; label = @10
                         local.get 47
@@ -14701,7 +14701,7 @@
         i32.const 2
         i32.shl
         i32.add
-        f64.const 3.03865194162e-319
+        f64.const 1.
         local.get 6
         local.get 12
         i32.const 1
@@ -14850,7 +14850,7 @@
               call 62
               local.get 59
               local.get 52
-              f32.const 6.75006861106e-310
+              f32.const 1.92414534861e+12
               f32.div
               f64.promote_f32
               f64.add
@@ -14858,7 +14858,7 @@
               br 1 (;@4;)
             end
             local.get 58
-            f64.const 5.15409281742e-320
+            f64.const -12.
             f64.add
             call 62
           end
@@ -15457,7 +15457,7 @@
                 local.get 16
                 i32.add
                 local.set 37
-                f32.const -5.19131973105e-186
+                f32.const 6.01739734877e+301
                 local.set 51
                 local.get 19
                 local.set 13
@@ -15818,7 +15818,7 @@
               local.get 34
               i32.add
               local.set 16
-              f32.const -5.19131973105e-186
+              f32.const 6.01739734877e+301
               local.set 51
               i32.const 0
               local.set 12
@@ -15915,7 +15915,7 @@
           i32.shl
           i32.add
           local.set 6
-          f32.const -5.19131973105e-186
+          f32.const 6.01739734877e+301
           local.set 52
           i32.const 0
           local.set 12
@@ -18155,27 +18155,27 @@
       end
     end)
   (func (;109;) (type 37) (param f32) (result f32)
-    f32.const 6.96672438132e-310
+    f32.const 0.0078125
     local.get 0
     local.get 0
     f32.const 0.
     f32.le
     select
-    f32.const 1.0878623622e-309
+    f32.const 5.27765581332e+13
     f32.min
     local.tee 0
-    f32.const 3.92526781413e-310
+    f32.const 206158430208.
     f32.lt
     i32.const 1
     i32.xor
     i32.eqz
     if  ;; label = @1
-      f32.const 1.8479714401e-307
+      f32.const 2.18573788186e+27
       local.get 0
       f32.div
       return
     end
-    f32.const 3.92548001371e-310
+    f32.const 1.35107988821e+16
     local.get 0
     local.get 0
     f32.add
@@ -31755,11 +31755,11 @@
               f64.load offset=56
               local.get 15
               f64.div
-              f64.const 2.83628265308e-319
+              f64.const 0.5
               f64.add
               local.tee 15
               f64.abs
-              f64.const 2.83638146621e-319
+              f64.const 2147483648.
               f64.lt
               if  ;; label = @6
                 local.get 15
@@ -31817,11 +31817,11 @@
               f64.load offset=568
               local.get 15
               f64.div
-              f64.const 2.83628265308e-319
+              f64.const 0.5
               f64.add
               local.tee 15
               f64.abs
-              f64.const 2.83638146621e-319
+              f64.const 2147483648.
               f64.lt
               if  ;; label = @6
                 local.get 15
@@ -31881,11 +31881,11 @@
               f64.load
               local.get 15
               f64.div
-              f64.const 2.83628265308e-319
+              f64.const 0.5
               f64.add
               local.tee 15
               f64.abs
-              f64.const 2.83638146621e-319
+              f64.const 2147483648.
               f64.lt
               if  ;; label = @6
                 local.get 15
@@ -31945,11 +31945,11 @@
               f64.load
               local.get 15
               f64.div
-              f64.const 2.83628265308e-319
+              f64.const 0.5
               f64.add
               local.tee 15
               f64.abs
-              f64.const 2.83638146621e-319
+              f64.const 2147483648.
               f64.lt
               if  ;; label = @6
                 local.get 15
@@ -63081,7 +63081,7 @@
                 local.get 6
                 i32.const 640
                 i32.add
-                f64.const 3.03865194162e-319
+                f64.const 1.
                 i32.const 225
                 local.get 1
                 i32.sub
@@ -63106,7 +63106,7 @@
                 local.get 6
                 i32.const 624
                 i32.add
-                f64.const 3.03865194162e-319
+                f64.const 1.
                 i32.const 113
                 local.get 1
                 i32.sub
@@ -63191,7 +63191,7 @@
                     i32.add
                     local.get 5
                     f64.convert_i32_s
-                    f64.const 2.63391336454e-319
+                    f64.const 0.25
                     f64.mul
                     call 44
                     local.get 6
@@ -63221,7 +63221,7 @@
                     i32.add
                     local.get 5
                     f64.convert_i32_s
-                    f64.const 2.93746729735e-319
+                    f64.const 0.75
                     f64.mul
                     call 44
                     local.get 6
@@ -63257,7 +63257,7 @@
                     i32.const 512
                     i32.add
                     local.get 25
-                    f64.const 2.83628265308e-319
+                    f64.const 0.5
                     f64.mul
                     call 44
                     local.get 6
@@ -63282,7 +63282,7 @@
                   i32.const 544
                   i32.add
                   local.get 25
-                  f64.const 2.93746729735e-319
+                  f64.const 0.75
                   f64.mul
                   call 44
                   local.get 6
@@ -63393,7 +63393,7 @@
                 local.get 20
                 local.get 25
                 f64.abs
-                f64.const 3.50786608547e-322
+                f64.const 1.03845937171e+34
                 f64.ge
                 local.tee 3
                 select
@@ -64177,7 +64177,7 @@
           local.get 5
           i32.const 352
           i32.add
-          f64.const 3.03865194162e-319
+          f64.const 1.
           i32.const 144
           local.get 1
           i32.sub
@@ -64384,11 +64384,11 @@
         i32.add
         f32.load
         f32.mul
-        f32.const 2.0874921394e-309
+        f32.const 4.05747227276e+31
         f32.add
         local.tee 5
         f32.abs
-        f32.const 1.67637667486e-312
+        f32.const 3.53369412956e+72
         f32.lt
         if  ;; label = @3
           local.get 5
@@ -64807,7 +64807,7 @@
         local.get 3
         local.get 6
         f32.convert_i32_s
-        f32.const 6.98030515438e-310
+        f32.const 1.40444776161e+306
         f32.mul
         call 335
         local.get 3
@@ -65692,7 +65692,7 @@
       local.set 10
       local.get 3
       local.get 9
-      f32.const 1.38120706034e-309
+      f32.const 5.27765581332e+14
       f32.ge
       i32.add
       local.set 3
@@ -65708,7 +65708,7 @@
     i32.const 2147483583
     i32.and
     if  ;; label = @1
-      f32.const 1.34859198503e-309
+      f32.const 6442450944.
       local.get 1
       i32.load16_u
       local.tee 1
@@ -65720,7 +65720,7 @@
       i32.gt_u
       select
       local.tee 11
-      f32.const 1.38127072021e-309
+      f32.const 1.48552804714e+29
       local.get 10
       f32.sub
       local.get 3
@@ -65731,7 +65731,7 @@
       local.get 9
       f32.lt
       select
-      f32.const 1.38120706034e-309
+      f32.const 5.27765581332e+14
       f32.add
       local.set 16
       i32.const 0
@@ -65755,7 +65755,7 @@
           i32.shl
           i32.add
           f32.load
-          f32.const 1.38120706034e-309
+          f32.const 5.27765581332e+14
           f32.lt
           i32.const 1
           i32.xor
@@ -65789,7 +65789,7 @@
               i32.shl
               i32.add
               f32.load
-              f32.const 1.38120706034e-309
+              f32.const 5.27765581332e+14
               f32.ge
               br_if 1 (;@4;)
             end
@@ -65811,7 +65811,7 @@
             i32.add
             local.set 7
             block (result i32)  ;; label = @5
-              f32.const 1.38120706034e-309
+              f32.const 5.27765581332e+14
               local.get 0
               local.get 2
               i32.const -1
@@ -65851,7 +65851,7 @@
               f32.load
               f32.sub
               local.tee 11
-              f32.const 1.38120706034e-309
+              f32.const 5.27765581332e+14
               local.get 9
               f32.sub
               local.tee 9
@@ -65894,7 +65894,7 @@
               f32.load
               f32.sub
               local.tee 11
-              f32.const 1.38120706034e-309
+              f32.const 5.27765581332e+14
               local.get 9
               f32.sub
               local.tee 9
@@ -65909,7 +65909,7 @@
               f32.sub
               local.tee 9
               f32.abs
-              f32.const 1.67637667486e-312
+              f32.const 3.53369412956e+72
               f32.lt
               if  ;; label = @6
                 local.get 9
@@ -65937,7 +65937,7 @@
             f32.convert_i32_s
             local.set 17
             block (result i32)  ;; label = @5
-              f32.const 1.38120706034e-309
+              f32.const 5.27765581332e+14
               local.get 14
               local.get 13
               local.get 3
@@ -65947,7 +65947,7 @@
               f32.sub
               local.tee 9
               f32.abs
-              f32.const 1.67637667486e-312
+              f32.const 3.53369412956e+72
               f32.lt
               if  ;; label = @6
                 local.get 9
@@ -65962,7 +65962,7 @@
             i32.mul
             f32.convert_i32_s
             local.set 13
-            f32.const 6.96672438132e-310
+            f32.const 0.0078125
             local.get 11
             f32.div
             local.tee 14
@@ -65985,7 +65985,7 @@
               local.get 13
               f32.mul
               local.get 12
-              f32.const 3.49025867698e-310
+              f32.const 32.
               f32.mul
               local.tee 11
               local.get 15
@@ -65993,7 +65993,7 @@
               f32.add
               local.tee 9
               f32.sub
-              f32.const 1.38120706034e-309
+              f32.const 5.27765581332e+14
               f32.mul
               local.get 10
               local.get 15
@@ -66007,9 +66007,9 @@
               local.get 9
               local.get 11
               f32.sub
-              f32.const 6.96672438132e-310
+              f32.const 0.0078125
               f32.add
-              f32.const 1.38120706034e-309
+              f32.const 5.27765581332e+14
               f32.mul
               f32.add
               f32.add
@@ -67759,7 +67759,7 @@
             i32.sub
             f32.convert_i32_s
             local.set 15
-            f32.const 6.96672438132e-310
+            f32.const 0.0078125
             local.get 6
             i32.const 1
             i32.add
@@ -67786,7 +67786,7 @@
                 local.get 15
                 f32.mul
                 local.get 11
-                f32.const 3.49025867698e-310
+                f32.const 32.
                 f32.mul
                 local.tee 17
                 local.get 12
@@ -67794,7 +67794,7 @@
                 f32.add
                 local.tee 13
                 f32.sub
-                f32.const 1.38120706034e-309
+                f32.const 5.27765581332e+14
                 f32.mul
                 local.get 10
                 local.get 12
@@ -67808,9 +67808,9 @@
                 local.get 13
                 local.get 17
                 f32.sub
-                f32.const 6.96672438132e-310
+                f32.const 0.0078125
                 f32.add
-                f32.const 1.38120706034e-309
+                f32.const 5.27765581332e+14
                 f32.mul
                 f32.add
                 f32.add
@@ -67818,7 +67818,7 @@
                 f32.ceil
                 local.tee 13
                 f32.abs
-                f32.const 1.67637667486e-312
+                f32.const 3.53369412956e+72
                 f32.lt
                 if  ;; label = @7
                   local.get 13
@@ -68633,8 +68633,8 @@
               i32.shl
               i32.add
               block (result i32)  ;; label = @6
-                f64.const 2.83628265308e-319
-                f64.const 2.84260669335e-319
+                f64.const 0.5
+                f64.const -0.5
                 local.get 1
                 local.get 2
                 i32.const 2
@@ -68670,7 +68670,7 @@
                 f64.add
                 local.tee 19
                 f64.abs
-                f64.const 2.83638146621e-319
+                f64.const 2147483648.
                 f64.lt
                 if  ;; label = @7
                   local.get 19
@@ -68747,8 +68747,8 @@
             i32.shl
             i32.add
             block (result i32)  ;; label = @5
-              f64.const 2.83628265308e-319
-              f64.const 2.84260669335e-319
+              f64.const 0.5
+              f64.const -0.5
               local.get 1
               local.get 2
               i32.const 2
@@ -68784,7 +68784,7 @@
               f64.add
               local.tee 19
               f64.abs
-              f64.const 2.83638146621e-319
+              f64.const 2147483648.
               f64.lt
               if  ;; label = @6
                 local.get 19
@@ -69870,7 +69870,7 @@
               i32.const 2
               i32.shl
               i32.add
-              f64.const 3.03865194162e-319
+              f64.const 1.
               local.get 4
               i32.const 3
               i32.shl
@@ -69886,7 +69886,7 @@
               i32.load16_u
               f64.convert_i32_u
               f64.mul
-              f64.const 4.07900597207e-320
+              f64.const 8.
               f64.mul
               f64.div
               f32.demote_f64
@@ -69899,7 +69899,7 @@
               i32.const 2
               i32.shl
               i32.add
-              f64.const 3.03865194162e-319
+              f64.const 1.
               local.get 15
               local.get 5
               local.get 2
@@ -69909,9 +69909,9 @@
               i32.load16_u
               f64.convert_i32_u
               f64.mul
-              f64.const -3.27559249918e+228
+              f64.const 1.387039845
               f64.mul
-              f64.const 4.07900597207e-320
+              f64.const 8.
               f64.mul
               f64.div
               f32.demote_f64
@@ -69924,7 +69924,7 @@
               i32.const 2
               i32.shl
               i32.add
-              f64.const 3.03865194162e-319
+              f64.const 1.
               local.get 15
               local.get 5
               local.get 2
@@ -69934,9 +69934,9 @@
               i32.load16_u
               f64.convert_i32_u
               f64.mul
-              f64.const -3.65995135129e+50
+              f64.const 1.306562965
               f64.mul
-              f64.const 4.07900597207e-320
+              f64.const 8.
               f64.mul
               f64.div
               f32.demote_f64
@@ -69949,7 +69949,7 @@
               i32.const 2
               i32.shl
               i32.add
-              f64.const 3.03865194162e-319
+              f64.const 1.
               local.get 15
               local.get 5
               local.get 2
@@ -69959,9 +69959,9 @@
               i32.load16_u
               f64.convert_i32_u
               f64.mul
-              f64.const -4.74862062784e-106
+              f64.const 1.175875602
               f64.mul
-              f64.const 4.07900597207e-320
+              f64.const 8.
               f64.mul
               f64.div
               f32.demote_f64
@@ -69974,7 +69974,7 @@
               i32.const 2
               i32.shl
               i32.add
-              f64.const 3.03865194162e-319
+              f64.const 1.
               local.get 15
               local.get 5
               local.get 2
@@ -69984,7 +69984,7 @@
               i32.load16_u
               f64.convert_i32_u
               f64.mul
-              f64.const 4.07900597207e-320
+              f64.const 8.
               f64.mul
               f64.div
               f32.demote_f64
@@ -69997,7 +69997,7 @@
               i32.const 2
               i32.shl
               i32.add
-              f64.const 3.03865194162e-319
+              f64.const 1.
               local.get 15
               local.get 5
               local.get 2
@@ -70007,9 +70007,9 @@
               i32.load16_u
               f64.convert_i32_u
               f64.mul
-              f64.const 6.70326621608e-21
+              f64.const 0.785694958
               f64.mul
-              f64.const 4.07900597207e-320
+              f64.const 8.
               f64.mul
               f64.div
               f32.demote_f64
@@ -70022,7 +70022,7 @@
               i32.const 2
               i32.shl
               i32.add
-              f64.const 3.03865194162e-319
+              f64.const 1.
               local.get 15
               local.get 5
               local.get 2
@@ -70032,9 +70032,9 @@
               i32.load16_u
               f64.convert_i32_u
               f64.mul
-              f64.const -6.93972599462e-24
+              f64.const 0.5411961
               f64.mul
-              f64.const 4.07900597207e-320
+              f64.const 8.
               f64.mul
               f64.div
               f32.demote_f64
@@ -70047,7 +70047,7 @@
               i32.const 2
               i32.shl
               i32.add
-              f64.const 3.03865194162e-319
+              f64.const 1.
               local.get 15
               local.get 5
               local.get 2
@@ -70057,9 +70057,9 @@
               i32.load16_u
               f64.convert_i32_u
               f64.mul
-              f64.const 1.67359287538e+143
+              f64.const 0.275899379
               f64.mul
-              f64.const 4.07900597207e-320
+              f64.const 8.
               f64.mul
               f64.div
               f32.demote_f64
@@ -70559,7 +70559,7 @@
                 call 109
                 local.tee 6
                 f32.abs
-                f32.const 1.67637667486e-312
+                f32.const 3.53369412956e+72
                 f32.lt
                 if  ;; label = @7
                   local.get 6
@@ -70597,7 +70597,7 @@
               call 109
               local.tee 6
               f32.abs
-              f32.const 1.67637667486e-312
+              f32.const 3.53369412956e+72
               f32.lt
               if  ;; label = @6
                 local.get 6
@@ -70621,7 +70621,7 @@
       local.get 3
       f32.load offset=12
       local.tee 6
-      f32.const 9.79216177699e-310
+      f32.const 2.19902325555e+13
       f32.ge
       i32.const 1
       i32.xor
@@ -70633,7 +70633,7 @@
         br 1 (;@1;)
       end
       local.get 6
-      f32.const 8.70569993201e-310
+      f32.const 8.79609302221e+12
       f32.ge
       i32.const 1
       i32.xor
@@ -73658,11 +73658,11 @@
       i32.const 16
       i32.shr_s
       f64.convert_i32_s
-      f64.const 1.90359885107e+185
+      f64.const 46340.95
       f64.div
       f32.demote_f64
       local.tee 7
-      f32.const 6.96672438132e-310
+      f32.const 0.0078125
       local.get 7
       f32.sub
       local.get 6
@@ -73672,17 +73672,17 @@
       local.tee 7
       f64.promote_f32
       call 74
-      f64.const -6.15464882296e+227
+      f64.const -0.69314718056
       f64.div
       f32.demote_f64
       f32.store
       local.get 5
-      f32.const 6.96672438132e-310
+      f32.const 0.0078125
       local.get 7
       f32.sub
       f64.promote_f32
       call 74
-      f64.const -6.15464882296e+227
+      f64.const -0.69314718056
       f64.div
       f32.demote_f64
       f32.store offset=4
@@ -73725,11 +73725,11 @@
       i32.const 16
       i32.shr_s
       f64.convert_i32_s
-      f64.const 1.90359885107e+185
+      f64.const 46340.95
       f64.div
       f32.demote_f64
       local.tee 7
-      f32.const 6.96672438132e-310
+      f32.const 0.0078125
       local.get 7
       f32.sub
       local.get 4
@@ -73739,17 +73739,17 @@
       local.tee 7
       f64.promote_f32
       call 74
-      f64.const -6.15464882296e+227
+      f64.const -0.69314718056
       f64.div
       f32.demote_f64
       f32.store offset=512
       local.get 2
-      f32.const 6.96672438132e-310
+      f32.const 0.0078125
       local.get 7
       f32.sub
       f64.promote_f32
       call 74
-      f64.const -6.15464882296e+227
+      f64.const -0.69314718056
       f64.div
       f32.demote_f64
       f32.store offset=516
@@ -78893,7 +78893,7 @@
       local.get 17
       f32.sub
       f32.add
-      f32.const -1.10384894777e+246
+      f32.const 0.000320729566738
       f32.mul
       local.tee 8
       f32.sub
@@ -78917,7 +78917,7 @@
       f32.sub
       local.tee 7
       f32.add
-      f32.const -1.10384894777e+246
+      f32.const 0.000320729566738
       f32.mul
       local.tee 8
       f32.sub
@@ -78928,7 +78928,7 @@
       f32.sub
       f32.add
       local.tee 7
-      f32.const -1.84822848946e+99
+      f32.const 5.06328651682e-05
       f32.mul
       local.get 7
       local.get 5
@@ -78936,7 +78936,7 @@
       f32.add
       local.tee 6
       f32.sub
-      f32.const 5.06535475484e-203
+      f32.const 2.37630774791e-06
       f32.mul
       local.tee 7
       f32.add
@@ -78954,7 +78954,7 @@
       f32.add
       local.tee 5
       local.get 6
-      f32.const 5.56556716801e+256
+      f32.const 0.0453907549381
       f32.mul
       local.get 7
       f32.add
@@ -79033,7 +79033,7 @@
       local.get 17
       f32.sub
       f32.add
-      f32.const -1.10384894777e+246
+      f32.const 0.000320729566738
       f32.mul
       local.tee 8
       f32.sub
@@ -79057,7 +79057,7 @@
       f32.sub
       local.tee 7
       f32.add
-      f32.const -1.10384894777e+246
+      f32.const 0.000320729566738
       f32.mul
       local.tee 8
       f32.sub
@@ -79068,7 +79068,7 @@
       f32.sub
       f32.add
       local.tee 7
-      f32.const -1.84822848946e+99
+      f32.const 5.06328651682e-05
       f32.mul
       local.get 7
       local.get 5
@@ -79076,7 +79076,7 @@
       f32.add
       local.tee 6
       f32.sub
-      f32.const 5.06535475484e-203
+      f32.const 2.37630774791e-06
       f32.mul
       local.tee 7
       f32.add
@@ -79094,7 +79094,7 @@
       f32.add
       local.tee 5
       local.get 6
-      f32.const 5.56556716801e+256
+      f32.const 0.0453907549381
       f32.mul
       local.get 7
       f32.add

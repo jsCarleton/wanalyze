@@ -553,7 +553,7 @@
 0489              i32.const 2
 0490              i32.shl
 0491              i32.add
-0492              f64.const 3.03865194162e-319
+0492              f64.const 1.
 0493              local.get 4
 0494              i32.const 3
 0495              i32.shl
@@ -569,7 +569,7 @@
 0505              i32.load16_u
 0506              f64.convert_i32_u
 0507              f64.mul
-0508              f64.const 4.07900597207e-320
+0508              f64.const 8.
 0509              f64.mul
 0510              f64.div
 0511              f32.demote_f64
@@ -582,7 +582,7 @@
 0518              i32.const 2
 0519              i32.shl
 0520              i32.add
-0521              f64.const 3.03865194162e-319
+0521              f64.const 1.
 0522              local.get 15
 0523              local.get 5
 0524              local.get 2
@@ -592,9 +592,9 @@
 0528              i32.load16_u
 0529              f64.convert_i32_u
 0530              f64.mul
-0531              f64.const -3.27559249918e+228
+0531              f64.const 1.387039845
 0532              f64.mul
-0533              f64.const 4.07900597207e-320
+0533              f64.const 8.
 0534              f64.mul
 0535              f64.div
 0536              f32.demote_f64
@@ -607,7 +607,7 @@
 0543              i32.const 2
 0544              i32.shl
 0545              i32.add
-0546              f64.const 3.03865194162e-319
+0546              f64.const 1.
 0547              local.get 15
 0548              local.get 5
 0549              local.get 2
@@ -617,9 +617,9 @@
 0553              i32.load16_u
 0554              f64.convert_i32_u
 0555              f64.mul
-0556              f64.const -3.65995135129e+50
+0556              f64.const 1.306562965
 0557              f64.mul
-0558              f64.const 4.07900597207e-320
+0558              f64.const 8.
 0559              f64.mul
 0560              f64.div
 0561              f32.demote_f64
@@ -632,7 +632,7 @@
 0568              i32.const 2
 0569              i32.shl
 0570              i32.add
-0571              f64.const 3.03865194162e-319
+0571              f64.const 1.
 0572              local.get 15
 0573              local.get 5
 0574              local.get 2
@@ -642,9 +642,9 @@
 0578              i32.load16_u
 0579              f64.convert_i32_u
 0580              f64.mul
-0581              f64.const -4.74862062784e-106
+0581              f64.const 1.175875602
 0582              f64.mul
-0583              f64.const 4.07900597207e-320
+0583              f64.const 8.
 0584              f64.mul
 0585              f64.div
 0586              f32.demote_f64
@@ -657,7 +657,7 @@
 0593              i32.const 2
 0594              i32.shl
 0595              i32.add
-0596              f64.const 3.03865194162e-319
+0596              f64.const 1.
 0597              local.get 15
 0598              local.get 5
 0599              local.get 2
@@ -667,7 +667,7 @@
 0603              i32.load16_u
 0604              f64.convert_i32_u
 0605              f64.mul
-0606              f64.const 4.07900597207e-320
+0606              f64.const 8.
 0607              f64.mul
 0608              f64.div
 0609              f32.demote_f64
@@ -680,7 +680,7 @@
 0616              i32.const 2
 0617              i32.shl
 0618              i32.add
-0619              f64.const 3.03865194162e-319
+0619              f64.const 1.
 0620              local.get 15
 0621              local.get 5
 0622              local.get 2
@@ -690,9 +690,9 @@
 0626              i32.load16_u
 0627              f64.convert_i32_u
 0628              f64.mul
-0629              f64.const 6.70326621608e-21
+0629              f64.const 0.785694958
 0630              f64.mul
-0631              f64.const 4.07900597207e-320
+0631              f64.const 8.
 0632              f64.mul
 0633              f64.div
 0634              f32.demote_f64
@@ -705,7 +705,7 @@
 0641              i32.const 2
 0642              i32.shl
 0643              i32.add
-0644              f64.const 3.03865194162e-319
+0644              f64.const 1.
 0645              local.get 15
 0646              local.get 5
 0647              local.get 2
@@ -715,9 +715,9 @@
 0651              i32.load16_u
 0652              f64.convert_i32_u
 0653              f64.mul
-0654              f64.const -6.93972599462e-24
+0654              f64.const 0.5411961
 0655              f64.mul
-0656              f64.const 4.07900597207e-320
+0656              f64.const 8.
 0657              f64.mul
 0658              f64.div
 0659              f32.demote_f64
@@ -730,7 +730,7 @@
 0666              i32.const 2
 0667              i32.shl
 0668              i32.add
-0669              f64.const 3.03865194162e-319
+0669              f64.const 1.
 0670              local.get 15
 0671              local.get 5
 0672              local.get 2
@@ -740,9 +740,9 @@
 0676              i32.load16_u
 0677              f64.convert_i32_u
 0678              f64.mul
-0679              f64.const 1.67359287538e+143
+0679              f64.const 0.275899379
 0680              f64.mul
-0681              f64.const 4.07900597207e-320
+0681              f64.const 8.
 0682              f64.mul
 0683              f64.div
 0684              f32.demote_f64

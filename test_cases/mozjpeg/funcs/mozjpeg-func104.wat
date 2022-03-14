@@ -203,7 +203,7 @@
 0182        i32.const 2
 0183        i32.shl
 0184        i32.add
-0185        f64.const 3.03865194162e-319
+0185        f64.const 1.
 0186        local.get 6
 0187        local.get 12
 0188        i32.const 1
@@ -364,7 +364,7 @@
 0331              call 62
 0332              local.get 59
 0333              local.get 52
-0334              f32.const 6.75006861106e-310
+0334              f32.const 1.92414534861e+12
 0335              f32.div
 0336              f64.promote_f32
 0337              f64.add
@@ -374,7 +374,7 @@
 0340            end
 31 ------------------------------------------------------------
 0341            local.get 58
-0342            f64.const 5.15409281742e-320
+0342            f64.const -12.
 0343            f64.add
 0344            call 62
 0345          end
@@ -1009,7 +1009,7 @@
 0938                local.get 16
 0939                i32.add
 0940                local.set 37
-0941                f32.const -5.19131973105e-186
+0941                f32.const 6.01739734877e+301
 0942                local.set 51
 0943                local.get 19
 0944                local.set 13
@@ -1407,7 +1407,7 @@
 1299              local.get 34
 1300              i32.add
 1301              local.set 16
-1302              f32.const -5.19131973105e-186
+1302              f32.const 6.01739734877e+301
 1303              local.set 51
 1304              i32.const 0
 1305              local.set 12
@@ -1518,7 +1518,7 @@
 1396          i32.shl
 1397          i32.add
 1398          local.set 6
-1399          f32.const -5.19131973105e-186
+1399          f32.const 6.01739734877e+301
 1400          local.set 52
 1401          i32.const 0
 1402          local.set 12

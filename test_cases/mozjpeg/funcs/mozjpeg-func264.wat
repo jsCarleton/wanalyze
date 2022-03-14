@@ -1308,7 +1308,7 @@
 1148                local.get 6
 1149                i32.const 640
 1150                i32.add
-1151                f64.const 3.03865194162e-319
+1151                f64.const 1.
 1152                i32.const 225
 1153                local.get 1
 1154                i32.sub
@@ -1333,7 +1333,7 @@
 1173                local.get 6
 1174                i32.const 624
 1175                i32.add
-1176                f64.const 3.03865194162e-319
+1176                f64.const 1.
 1177                i32.const 113
 1178                local.get 1
 1179                i32.sub
@@ -1424,7 +1424,7 @@
 1258                    i32.add
 1259                    local.get 5
 1260                    f64.convert_i32_s
-1261                    f64.const 2.63391336454e-319
+1261                    f64.const 0.25
 1262                    f64.mul
 1263                    call 44
 1264                    local.get 6
@@ -1457,7 +1457,7 @@
 1288                    i32.add
 1289                    local.get 5
 1290                    f64.convert_i32_s
-1291                    f64.const 2.93746729735e-319
+1291                    f64.const 0.75
 1292                    f64.mul
 1293                    call 44
 1294                    local.get 6
@@ -1496,7 +1496,7 @@
 1324                    i32.const 512
 1325                    i32.add
 1326                    local.get 25
-1327                    f64.const 2.83628265308e-319
+1327                    f64.const 0.5
 1328                    f64.mul
 1329                    call 44
 1330                    local.get 6
@@ -1523,7 +1523,7 @@
 1349                  i32.const 544
 1350                  i32.add
 1351                  local.get 25
-1352                  f64.const 2.93746729735e-319
+1352                  f64.const 0.75
 1353                  f64.mul
 1354                  call 44
 1355                  local.get 6
@@ -1640,7 +1640,7 @@
 1460                local.get 20
 1461                local.get 25
 1462                f64.abs
-1463                f64.const 3.50786608547e-322
+1463                f64.const 1.03845937171e+34
 1464                f64.ge
 1465                local.tee 3
 1466                select
