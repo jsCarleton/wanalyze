@@ -6,7 +6,7 @@
 0002    i32.sub
 0003    local.tee 2
 0004    local.get 0
-0005    i32.store
+0005    i32.store offset=12
 0006    local.get 2
 0007    local.get 0
 0008    local.get 1
@@ -22,6 +22,6 @@
 0018    local.tee 0
 0019    i32.const 4
 0020    i32.add
-0021    i32.store
+0021    i32.store offset=8
 0022    local.get 0
 0023    i32.load)

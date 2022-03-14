@@ -6,25 +6,25 @@
 0002    local.get 3
 0003    i32.const 0
 0004    local.get 0
-0005    i32.load
+0005    i32.load offset=236
 0006    local.get 0
-0007    i32.load
+0007    i32.load offset=28
 0008    call 68
 0009    block  ;; label = @1
 1 ------------------------------------------------------------
 0010      local.get 0
-0011      i32.load
+0011      i32.load offset=236
 0012      local.tee 2
 0013      i32.const 1
 0014      i32.lt_s
 0015      br_if 0 (;@1;)
 2 ------------------------------------------------------------
 0016      local.get 1
-0017      i32.load
+0017      i32.load offset=28
 0018      i32.const 3
 0019      i32.shl
 0020      local.get 0
-0021      i32.load
+0021      i32.load offset=28
 0022      local.tee 0
 0023      i32.sub
 0024      local.tee 1

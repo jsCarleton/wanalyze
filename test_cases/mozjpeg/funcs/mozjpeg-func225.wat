@@ -7,33 +7,33 @@
 0003    local.tee 1
 0004    global.set 0
 0005    local.get 0
-0006    i32.load
+0006    i32.load offset=364
 0007    local.set 2
 0008    local.get 1
 0009    local.get 0
-0010    i32.load
+0010    i32.load offset=24
 0011    local.tee 3
 0012    i32.load
-0013    i32.store
+0013    i32.store offset=8
 0014    local.get 1
 0015    local.get 3
-0016    i32.load
-0017    i32.store
+0016    i32.load offset=4
+0017    i32.store offset=12
 0018    local.get 1
 0019    local.get 2
-0020    i64.load align=4
-0021    i64.store
+0020    i64.load offset=20 align=4
+0021    i64.store offset=24
 0022    local.get 1
 0023    local.get 2
-0024    i64.load align=4
-0025    i64.store
+0024    i64.load offset=28 align=4
+0025    i64.store offset=32
 0026    local.get 1
 0027    local.get 2
-0028    i64.load align=4
-0029    i64.store
+0028    i64.load offset=12 align=4
+0029    i64.store offset=16
 0030    local.get 1
 0031    local.get 0
-0032    i32.store
+0032    i32.store offset=40
 0033    local.get 1
 0034    i32.const 8
 0035    i32.add
@@ -45,7 +45,7 @@
 0040      i32.load
 0041      local.tee 3
 0042      i32.const 24
-0043      i32.store
+0043      i32.store offset=20
 0044      local.get 0
 0045      local.get 3
 0046      i32.load
@@ -53,15 +53,15 @@
 0048    end
 2 ------------------------------------------------------------
 0049    local.get 0
-0050    i32.load
+0050    i32.load offset=24
 0051    local.tee 0
 0052    local.get 1
-0053    i32.load
+0053    i32.load offset=8
 0054    i32.store
 0055    local.get 0
 0056    local.get 1
-0057    i32.load
-0058    i32.store
+0057    i32.load offset=12
+0058    i32.store offset=4
 0059    local.get 2
 0060    i32.const 12
 0061    i32.add
@@ -70,12 +70,12 @@
 0064    i32.const 16
 0065    i32.add
 0066    local.tee 2
-0067    i64.load align=4
-0068    i64.store align=4
+0067    i64.load offset=16 align=4
+0068    i64.store offset=16 align=4
 0069    local.get 0
 0070    local.get 2
-0071    i64.load align=4
-0072    i64.store align=4
+0071    i64.load offset=8 align=4
+0072    i64.store offset=8 align=4
 0073    local.get 0
 0074    local.get 2
 0075    i64.load align=4

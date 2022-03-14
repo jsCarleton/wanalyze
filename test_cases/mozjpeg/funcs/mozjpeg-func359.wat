@@ -7,8 +7,8 @@
 0004    i32.const 0
 0005    call 107
 0006    local.get 0
-0007    i32.load
+0007    i32.load offset=4
 0008    call 33
 0009    local.get 0
 0010    i32.const 0
-0011    i32.store)
+0011    i32.store offset=4)

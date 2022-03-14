@@ -2,7 +2,7 @@
 0 ------------------------------------------------------------
 0000    local.get 0
 0001    local.get 1
-0002    i32.load
+0002    i32.load offset=8
 0003    i32.const 0
 0004    call 37
 0005    if  ;; label = @1
@@ -16,12 +16,12 @@
 0011    end
 3 ------------------------------------------------------------
 0012    local.get 0
-0013    i32.load
+0013    i32.load offset=8
 0014    local.tee 0
 0015    local.get 1
 0016    local.get 2
 0017    local.get 3
 0018    local.get 0
 0019    i32.load
-0020    i32.load
+0020    i32.load offset=28
 0021    call_indirect (type 7))

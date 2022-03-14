@@ -4,7 +4,7 @@
 0001    i32.load
 0002    local.tee 1
 0003    i32.const 49
-0004    i32.store
+0004    i32.store offset=20
 0005    local.get 0
 0006    local.get 1
 0007    i32.load

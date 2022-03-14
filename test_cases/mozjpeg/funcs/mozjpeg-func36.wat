@@ -49,4 +49,4 @@
 0039    i64.store
 0040    local.get 0
 0041    local.get 2
-0042    i64.store)
+0042    i64.store offset=8)

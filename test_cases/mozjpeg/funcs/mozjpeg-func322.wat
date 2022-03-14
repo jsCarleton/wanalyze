@@ -11,11 +11,11 @@
 0007    local.set 3
 0008    local.get 2
 0009    local.get 1
-0010    i32.load
-0011    i32.store
+0010    i32.load offset=4
+0011    i32.store offset=12
 0012    local.get 2
 0013    local.get 3
-0014    i32.store
+0014    i32.store offset=8
 0015    local.get 0
 0016    local.get 2
 0017    i32.const 8

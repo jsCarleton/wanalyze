@@ -22,10 +22,10 @@
 0016        i64.const 9222809086901354496
 0017        call 31
 0018        local.get 4
-0019        i64.load
+0019        i64.load offset=40
 0020        local.set 2
 0021        local.get 4
-0022        i64.load
+0022        i64.load offset=32
 0023        local.set 1
 0024        local.get 3
 0025        i32.const 32767
@@ -58,10 +58,10 @@
 0049        i32.add
 0050        local.set 3
 0051        local.get 4
-0052        i64.load
+0052        i64.load offset=24
 0053        local.set 2
 0054        local.get 4
-0055        i64.load
+0055        i64.load offset=16
 0056        local.set 1
 0057        br 1 (;@1;)
 6 ------------------------------------------------------------
@@ -81,10 +81,10 @@
 0069      i64.const 281474976710656
 0070      call 31
 0071      local.get 4
-0072      i64.load
+0072      i64.load offset=72
 0073      local.set 2
 0074      local.get 4
-0075      i64.load
+0075      i64.load offset=64
 0076      local.set 1
 0077      local.get 3
 0078      i32.const -32765
@@ -117,10 +117,10 @@
 0102      i32.add
 0103      local.set 3
 0104      local.get 4
-0105      i64.load
+0105      i64.load offset=56
 0106      local.set 2
 0107      local.get 4
-0108      i64.load
+0108      i64.load offset=48
 0109      local.set 1
 0110    end
 12 ------------------------------------------------------------
@@ -137,8 +137,8 @@
 0121    call 31
 0122    local.get 0
 0123    local.get 4
-0124    i64.load
-0125    i64.store
+0124    i64.load offset=8
+0125    i64.store offset=8
 0126    local.get 0
 0127    local.get 4
 0128    i64.load

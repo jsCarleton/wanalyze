@@ -18,10 +18,10 @@
 0012      loop  ;; label = @2
 3 ------------------------------------------------------------
 0013        local.get 1
-0014        i32.load8_u
+0014        i32.load8_u offset=1
 0015        local.set 3
 0016        local.get 0
-0017        i32.load8_u
+0017        i32.load8_u offset=1
 0018        local.tee 2
 0019        i32.eqz
 0020        br_if 1 (;@1;)

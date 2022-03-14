@@ -37,7 +37,7 @@
 0029      i32.add
 0030      call 36
 0031      local.get 3
-0032      i64.load
+0032      i64.load offset=8
 0033      i64.const 281474976710656
 0034      i64.xor
 0035      i32.const 16414
@@ -62,7 +62,7 @@
 0053    i64.store
 0054    local.get 0
 0055    local.get 4
-0056    i64.store
+0056    i64.store offset=8
 0057    local.get 3
 0058    i32.const 16
 0059    i32.add

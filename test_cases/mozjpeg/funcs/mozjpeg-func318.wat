@@ -8,11 +8,11 @@
 0004    global.set 0
 0005    local.get 2
 0006    local.get 0
-0007    i32.store
+0007    i32.store offset=4
 0008    local.get 2
 0009    local.get 1
 0010    i64.load align=4
-0011    i64.store align=4
+0011    i64.store offset=8 align=4
 0012    local.get 2
 0013    i32.const 4
 0014    i32.add

@@ -24,4 +24,4 @@
 0021    i64.const 48
 0022    i64.shl
 0023    i64.or
-0024    i64.store)
+0024    i64.store offset=8)

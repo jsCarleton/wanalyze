@@ -9,14 +9,14 @@
 0004      br_if 0 (;@1;)
 2 ------------------------------------------------------------
 0005      local.get 0
-0006      i32.load
+0006      i32.load offset=28
 0007      local.tee 11
 0008      i32.eqz
 0009      br_if 0 (;@1;)
 3 ------------------------------------------------------------
 0010      local.get 0
-0011      i32.load
-0012      i32.load
+0011      i32.load offset=352
+0012      i32.load offset=8
 0013      local.set 6
 0014      loop  ;; label = @2
 4 ------------------------------------------------------------
@@ -29,18 +29,18 @@
 0021        i32.shl
 0022        local.tee 5
 0023        local.get 2
-0024        i32.load
+0024        i32.load offset=12
 0025        i32.add
 0026        i32.load
 0027        local.set 12
 0028        local.get 2
-0029        i32.load
+0029        i32.load offset=8
 0030        local.get 5
 0031        i32.add
 0032        i32.load
 0033        local.set 13
 0034        local.get 2
-0035        i32.load
+0035        i32.load offset=4
 0036        local.get 5
 0037        i32.add
 0038        i32.load
@@ -59,10 +59,10 @@
 0051        loop  ;; label = @3
 5 ------------------------------------------------------------
 0052          local.get 5
-0053          i32.load8_u
+0053          i32.load8_u offset=2
 0054          local.set 8
 0055          local.get 5
-0056          i32.load8_u
+0056          i32.load8_u offset=1
 0057          local.set 9
 0058          local.get 5
 0059          i32.load8_u
@@ -71,7 +71,7 @@
 0062          local.get 12
 0063          i32.add
 0064          local.get 5
-0065          i32.load8_u
+0065          i32.load8_u offset=3
 0066          i32.store8
 0067          local.get 7
 0068          local.get 15

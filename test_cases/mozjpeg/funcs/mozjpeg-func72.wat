@@ -23,10 +23,10 @@
 0019    i32.store8
 0020    local.get 3
 0021    i64.const 0
-0022    i64.store
+0022    i64.store offset=2080
 0023    local.get 3
 0024    i64.const 0
-0025    i64.store
+0025    i64.store offset=2088
 0026    local.get 3
 0027    i32.const 1040
 0028    i32.add
@@ -41,7 +41,7 @@
 0037    local.set 5
 0038    local.get 2
 0039    i32.const 1
-0040    i32.store
+0040    i32.store offset=1024
 0041    i32.const 1000000000
 0042    local.set 8
 0043    i32.const -1
@@ -151,7 +151,7 @@
 0138              i32.load
 0139              local.tee 4
 0140              i32.const 39
-0141              i32.store
+0141              i32.store offset=20
 0142              local.get 0
 0143              local.get 4
 0144              i32.load
@@ -322,14 +322,14 @@
 0288        i32.const 2096
 0289        i32.add
 0290        i32.load8_u
-0291        i32.store8
+0291        i32.store8 offset=16
 0292        local.get 1
 0293        local.get 5
-0294        i64.load
-0295        i64.store align=4
+0294        i64.load offset=2088
+0295        i64.store offset=8 align=4
 0296        local.get 1
 0297        local.get 5
-0298        i64.load
+0298        i64.load offset=2080
 0299        i64.store align=4
 0300        i32.const 0
 0301        local.set 4
@@ -357,7 +357,7 @@
 0320              local.get 4
 0321              i32.add
 0322              local.get 3
-0323              i32.store8
+0323              i32.store8 offset=17
 0324              local.get 4
 0325              i32.const 1
 0326              i32.add
@@ -386,7 +386,7 @@
 38 ------------------------------------------------------------
 0345        local.get 1
 0346        i32.const 0
-0347        i32.store
+0347        i32.store offset=276
 0348        local.get 5
 0349        i32.const 2128
 0350        i32.add

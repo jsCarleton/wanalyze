@@ -2,7 +2,7 @@
     (local i32 i32)
 0 ------------------------------------------------------------
 0000    local.get 0
-0001    i32.load
+0001    i32.load offset=20
 0002    local.tee 5
 0003    i32.const 100
 0004    i32.ne
@@ -12,10 +12,10 @@
 0007      i32.load
 0008      local.tee 6
 0009      local.get 5
-0010      i32.store
+0010      i32.store offset=24
 0011      local.get 6
 0012      i32.const 20
-0013      i32.store
+0013      i32.store offset=20
 0014      local.get 0
 0015      local.get 0
 0016      i32.load
@@ -32,10 +32,10 @@
 0025      i32.load
 0026      local.tee 5
 0027      local.get 1
-0028      i32.store
+0028      i32.store offset=24
 0029      local.get 5
 0030      i32.const 31
-0031      i32.store
+0031      i32.store offset=20
 0032      local.get 0
 0033      local.get 0
 0034      i32.load
@@ -60,7 +60,7 @@
 0051      local.get 0
 0052      call 82
 0053      local.tee 1
-0054      i32.store
+0054      i32.store offset=72
 0055    end
 6 ------------------------------------------------------------
 0056    i32.const 0
@@ -167,4 +167,4 @@
 19 ------------------------------------------------------------
 0145    local.get 1
 0146    i32.const 0
-0147    i32.store)
+0147    i32.store offset=128)

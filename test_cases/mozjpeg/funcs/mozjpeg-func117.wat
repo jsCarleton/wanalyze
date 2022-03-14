@@ -29,12 +29,12 @@
 0022          local.get 1
 0023          i32.const 1
 0024          i32.shl
-0025          i32.store
+0025          i32.store offset=8
 0026          local.get 7
 0027          local.get 1
 0028          local.get 2
 0029          i32.add
-0030          i32.store
+0030          i32.store offset=12
 0031          local.get 7
 0032          i32.const 8
 0033          i32.add

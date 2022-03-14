@@ -14,40 +14,40 @@
 0009      f32.load
 0010      local.tee 6
 0011      local.get 1
-0012      f32.load
+0012      f32.load offset=28
 0013      local.tee 7
 0014      f32.add
 0015      local.tee 5
 0016      local.get 1
-0017      f32.load
+0017      f32.load offset=12
 0018      local.tee 9
 0019      local.get 1
-0020      f32.load
+0020      f32.load offset=16
 0021      local.tee 11
 0022      f32.add
 0023      local.tee 8
 0024      f32.add
 0025      local.tee 10
 0026      local.get 1
-0027      f32.load
+0027      f32.load offset=4
 0028      local.tee 12
 0029      local.get 1
-0030      f32.load
+0030      f32.load offset=24
 0031      local.tee 13
 0032      f32.add
 0033      local.tee 14
 0034      local.get 1
-0035      f32.load
+0035      f32.load offset=8
 0036      local.tee 15
 0037      local.get 1
-0038      f32.load
+0038      f32.load offset=20
 0039      local.tee 16
 0040      f32.add
 0041      local.tee 17
 0042      f32.add
 0043      local.tee 18
 0044      f32.sub
-0045      f32.store
+0045      f32.store offset=16
 0046      local.get 1
 0047      local.get 18
 0048      local.get 10
@@ -67,12 +67,12 @@
 0062      f32.mul
 0063      local.tee 8
 0064      f32.sub
-0065      f32.store
+0065      f32.store offset=24
 0066      local.get 1
 0067      local.get 5
 0068      local.get 8
 0069      f32.add
-0070      f32.store
+0070      f32.store offset=8
 0071      local.get 1
 0072      local.get 6
 0073      local.get 7
@@ -112,12 +112,12 @@
 0107      f32.add
 0108      local.tee 9
 0109      f32.add
-0110      f32.store
+0110      f32.store offset=20
 0111      local.get 1
 0112      local.get 10
 0113      local.get 9
 0114      f32.sub
-0115      f32.store
+0115      f32.store offset=12
 0116      local.get 1
 0117      local.get 5
 0118      local.get 8
@@ -130,12 +130,12 @@
 0125      f32.add
 0126      local.tee 6
 0127      f32.sub
-0128      f32.store
+0128      f32.store offset=28
 0129      local.get 1
 0130      local.get 5
 0131      local.get 6
 0132      f32.add
-0133      f32.store
+0133      f32.store offset=4
 0134      local.get 3
 0135      local.tee 4
 0136      i32.const -1
@@ -157,40 +157,40 @@
 0149      f32.load
 0150      local.tee 6
 0151      local.get 0
-0152      f32.load
+0152      f32.load offset=224
 0153      local.tee 7
 0154      f32.add
 0155      local.tee 5
 0156      local.get 0
-0157      f32.load
+0157      f32.load offset=96
 0158      local.tee 9
 0159      local.get 0
-0160      f32.load
+0160      f32.load offset=128
 0161      local.tee 11
 0162      f32.add
 0163      local.tee 8
 0164      f32.add
 0165      local.tee 10
 0166      local.get 0
-0167      f32.load
+0167      f32.load offset=32
 0168      local.tee 12
 0169      local.get 0
-0170      f32.load
+0170      f32.load offset=192
 0171      local.tee 13
 0172      f32.add
 0173      local.tee 14
 0174      local.get 0
-0175      f32.load
+0175      f32.load offset=64
 0176      local.tee 15
 0177      local.get 0
-0178      f32.load
+0178      f32.load offset=160
 0179      local.tee 16
 0180      f32.add
 0181      local.tee 17
 0182      f32.add
 0183      local.tee 18
 0184      f32.sub
-0185      f32.store
+0185      f32.store offset=128
 0186      local.get 0
 0187      local.get 18
 0188      local.get 10
@@ -210,12 +210,12 @@
 0202      f32.mul
 0203      local.tee 8
 0204      f32.sub
-0205      f32.store
+0205      f32.store offset=192
 0206      local.get 0
 0207      local.get 5
 0208      local.get 8
 0209      f32.add
-0210      f32.store
+0210      f32.store offset=64
 0211      local.get 0
 0212      local.get 6
 0213      local.get 7
@@ -255,12 +255,12 @@
 0247      f32.add
 0248      local.tee 9
 0249      f32.add
-0250      f32.store
+0250      f32.store offset=160
 0251      local.get 0
 0252      local.get 10
 0253      local.get 9
 0254      f32.sub
-0255      f32.store
+0255      f32.store offset=96
 0256      local.get 0
 0257      local.get 5
 0258      local.get 8
@@ -273,12 +273,12 @@
 0265      f32.add
 0266      local.tee 6
 0267      f32.sub
-0268      f32.store
+0268      f32.store offset=224
 0269      local.get 0
 0270      local.get 5
 0271      local.get 6
 0272      f32.add
-0273      f32.store
+0273      f32.store offset=32
 0274      local.get 2
 0275      local.tee 1
 0276      i32.const -1

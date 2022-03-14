@@ -26,7 +26,7 @@
 0020        i32.add
 0021        local.set 1
 0022        local.get 2
-0023        i32.load8_s
+0023        i32.load8_s offset=1
 0024        local.set 3
 0025        local.get 4
 0026        local.set 2

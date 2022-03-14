@@ -8,9 +8,9 @@
 0004    global.set 0
 0005    local.get 0
 0006    i32.const 156984
-0007    i32.store
+0007    i32.store offset=12
 0008    local.get 0
-0009    i32.load
+0009    i32.load offset=12
 0010    drop
 0011    call 140
 0012    local.get 0

@@ -17,7 +17,7 @@
 0009            local.get 0
 0010            i32.load
 0011            local.tee 2
-0012            i32.load
+0012            i32.load offset=20
 0013            local.tee 0
 0014            i32.const 1
 0015            i32.lt_s
@@ -25,12 +25,12 @@
 5 ------------------------------------------------------------
 0017            local.get 0
 0018            local.get 2
-0019            i32.load
+0019            i32.load offset=116
 0020            i32.gt_s
 0021            br_if 0 (;@4;)
 6 ------------------------------------------------------------
 0022            local.get 2
-0023            i32.load
+0023            i32.load offset=112
 0024            local.get 0
 0025            i32.const 2
 0026            i32.shl
@@ -40,21 +40,21 @@
 0029          end
 8 ------------------------------------------------------------
 0030          local.get 2
-0031          i32.load
+0031          i32.load offset=120
 0032          local.tee 4
 0033          i32.eqz
 0034          br_if 1 (;@2;)
 9 ------------------------------------------------------------
 0035          local.get 0
 0036          local.get 2
-0037          i32.load
+0037          i32.load offset=124
 0038          local.tee 5
 0039          i32.lt_s
 0040          br_if 1 (;@2;)
 10 ------------------------------------------------------------
 0041          local.get 0
 0042          local.get 2
-0043          i32.load
+0043          i32.load offset=128
 0044          i32.gt_s
 0045          br_if 1 (;@2;)
 11 ------------------------------------------------------------
@@ -75,9 +75,9 @@
 14 ------------------------------------------------------------
 0058      local.get 2
 0059      local.get 0
-0060      i32.store
+0060      i32.store offset=24
 0061      local.get 2
-0062      i32.load
+0062      i32.load offset=112
 0063      i32.load
 0064      local.set 4
 0065    end
@@ -117,7 +117,7 @@
 0091        local.get 2
 0092        i32.const 24
 0093        i32.add
-0094        i32.store
+0094        i32.store offset=32
 0095        local.get 1
 0096        local.get 4
 0097        local.get 3
@@ -129,24 +129,24 @@
 0102      end
 24 ------------------------------------------------------------
 0103      local.get 2
-0104      i64.load align=4
+0104      i64.load offset=32 align=4
 0105      local.set 6
 0106      local.get 2
-0107      i64.load align=4
+0107      i64.load offset=40 align=4
 0108      local.set 7
 0109      local.get 2
-0110      i64.load align=4
+0110      i64.load offset=24 align=4
 0111      local.set 8
 0112      local.get 3
 0113      local.get 2
-0114      i64.load align=4
-0115      i64.store
+0114      i64.load offset=48 align=4
+0115      i64.store offset=24
 0116      local.get 3
 0117      local.get 7
-0118      i64.store
+0118      i64.store offset=16
 0119      local.get 3
 0120      local.get 6
-0121      i64.store
+0121      i64.store offset=8
 0122      local.get 3
 0123      local.get 8
 0124      i64.store

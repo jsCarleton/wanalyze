@@ -42,7 +42,7 @@
 0029            i32.and
 0030            i32.const 128
 0031            i32.or
-0032            i32.store8
+0032            i32.store8 offset=1
 0033            local.get 0
 0034            local.get 1
 0035            i32.const 6
@@ -74,7 +74,7 @@
 0058            i32.and
 0059            i32.const 128
 0060            i32.or
-0061            i32.store8
+0061            i32.store8 offset=2
 0062            local.get 0
 0063            local.get 1
 0064            i32.const 12
@@ -90,7 +90,7 @@
 0074            i32.and
 0075            i32.const 128
 0076            i32.or
-0077            i32.store8
+0077            i32.store8 offset=1
 0078            i32.const 3
 0079            return
 13 ------------------------------------------------------------
@@ -109,7 +109,7 @@
 0090            i32.and
 0091            i32.const 128
 0092            i32.or
-0093            i32.store8
+0093            i32.store8 offset=3
 0094            local.get 0
 0095            local.get 1
 0096            i32.const 18
@@ -125,7 +125,7 @@
 0106            i32.and
 0107            i32.const 128
 0108            i32.or
-0109            i32.store8
+0109            i32.store8 offset=2
 0110            local.get 0
 0111            local.get 1
 0112            i32.const 12
@@ -134,7 +134,7 @@
 0115            i32.and
 0116            i32.const 128
 0117            i32.or
-0118            i32.store8
+0118            i32.store8 offset=1
 0119            i32.const 4
 0120            return
 16 ------------------------------------------------------------

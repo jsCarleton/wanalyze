@@ -2,16 +2,16 @@
     (local i32 i32)
 0 ------------------------------------------------------------
 0000    local.get 0
-0001    i32.load
+0001    i32.load offset=352
 0002    local.get 0
 0003    i32.const 1
 0004    i32.const 8192
 0005    local.get 0
-0006    i32.load
+0006    i32.load offset=4
 0007    i32.load
 0008    call_indirect (type 3)
 0009    local.tee 2
-0010    i32.store
+0010    i32.store offset=8
 0011    i32.const 0
 0012    local.set 0
 0013    loop  ;; label = @1

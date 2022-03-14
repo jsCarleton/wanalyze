@@ -11,15 +11,15 @@
 1 ------------------------------------------------------------
 0007      local.get 1
 0008      local.get 1
-0009      i32.load
+0009      i32.load offset=16
 0010      local.tee 2
 0011      local.get 1
-0012      i32.load
+0012      i32.load offset=12
 0013      local.tee 4
 0014      i32.add
 0015      local.tee 3
 0016      local.get 1
-0017      i32.load
+0017      i32.load offset=28
 0018      local.tee 8
 0019      local.get 1
 0020      i32.load
@@ -29,18 +29,18 @@
 0024      i32.add
 0025      local.tee 7
 0026      local.get 1
-0027      i32.load
+0027      i32.load offset=20
 0028      local.tee 10
 0029      local.get 1
-0030      i32.load
+0030      i32.load offset=8
 0031      local.tee 11
 0032      i32.add
 0033      local.tee 12
 0034      local.get 1
-0035      i32.load
+0035      i32.load offset=24
 0036      local.tee 13
 0037      local.get 1
-0038      i32.load
+0038      i32.load offset=4
 0039      local.tee 14
 0040      i32.add
 0041      local.tee 16
@@ -49,7 +49,7 @@
 0044      i32.sub
 0045      i32.const 2
 0046      i32.shl
-0047      i32.store
+0047      i32.store offset=16
 0048      local.get 1
 0049      local.get 7
 0050      local.get 17
@@ -102,7 +102,7 @@
 0097      i32.add
 0098      i32.const 11
 0099      i32.shr_s
-0100      i32.store
+0100      i32.store offset=28
 0101      local.get 1
 0102      local.get 6
 0103      local.get 3
@@ -124,7 +124,7 @@
 0119      i32.add
 0120      i32.const 11
 0121      i32.shr_s
-0122      i32.store
+0122      i32.store offset=24
 0123      local.get 1
 0124      local.get 12
 0125      local.get 3
@@ -133,7 +133,7 @@
 0128      i32.add
 0129      i32.const 11
 0130      i32.shr_s
-0131      i32.store
+0131      i32.store offset=8
 0132      local.get 1
 0133      local.get 11
 0134      local.get 10
@@ -156,7 +156,7 @@
 0151      i32.add
 0152      i32.const 11
 0153      i32.shr_s
-0154      i32.store
+0154      i32.store offset=20
 0155      local.get 1
 0156      local.get 6
 0157      local.get 8
@@ -167,7 +167,7 @@
 0162      i32.add
 0163      i32.const 11
 0164      i32.shr_s
-0165      i32.store
+0165      i32.store offset=12
 0166      local.get 1
 0167      local.get 5
 0168      local.get 4
@@ -178,7 +178,7 @@
 0173      i32.add
 0174      i32.const 11
 0175      i32.shr_s
-0176      i32.store
+0176      i32.store offset=4
 0177      local.get 9
 0178      local.tee 2
 0179      i32.const -1
@@ -197,15 +197,15 @@
 4 ------------------------------------------------------------
 0190      local.get 0
 0191      local.get 0
-0192      i32.load
+0192      i32.load offset=128
 0193      local.tee 1
 0194      local.get 0
-0195      i32.load
+0195      i32.load offset=96
 0196      local.tee 9
 0197      i32.add
 0198      local.tee 4
 0199      local.get 0
-0200      i32.load
+0200      i32.load offset=224
 0201      local.tee 2
 0202      local.get 0
 0203      i32.load
@@ -215,18 +215,18 @@
 0207      i32.add
 0208      local.tee 5
 0209      local.get 0
-0210      i32.load
+0210      i32.load offset=160
 0211      local.tee 6
 0212      local.get 0
-0213      i32.load
+0213      i32.load offset=64
 0214      local.tee 7
 0215      i32.add
 0216      local.tee 10
 0217      local.get 0
-0218      i32.load
+0218      i32.load offset=192
 0219      local.tee 11
 0220      local.get 0
-0221      i32.load
+0221      i32.load offset=32
 0222      local.tee 12
 0223      i32.add
 0224      local.tee 13
@@ -237,7 +237,7 @@
 0229      i32.add
 0230      i32.const 2
 0231      i32.shr_s
-0232      i32.store
+0232      i32.store offset=128
 0233      local.get 0
 0234      local.get 5
 0235      local.get 14
@@ -292,7 +292,7 @@
 0284      i32.add
 0285      i32.const 15
 0286      i32.shr_s
-0287      i32.store
+0287      i32.store offset=224
 0288      local.get 0
 0289      local.get 3
 0290      local.get 4
@@ -314,7 +314,7 @@
 0306      i32.add
 0307      i32.const 15
 0308      i32.shr_s
-0309      i32.store
+0309      i32.store offset=192
 0310      local.get 0
 0311      local.get 10
 0312      local.get 4
@@ -323,7 +323,7 @@
 0315      i32.add
 0316      i32.const 15
 0317      i32.shr_s
-0318      i32.store
+0318      i32.store offset=64
 0319      local.get 0
 0320      local.get 7
 0321      local.get 6
@@ -346,7 +346,7 @@
 0338      i32.add
 0339      i32.const 15
 0340      i32.shr_s
-0341      i32.store
+0341      i32.store offset=160
 0342      local.get 0
 0343      local.get 3
 0344      local.get 2
@@ -357,7 +357,7 @@
 0349      i32.add
 0350      i32.const 15
 0351      i32.shr_s
-0352      i32.store
+0352      i32.store offset=96
 0353      local.get 0
 0354      local.get 8
 0355      local.get 9
@@ -368,7 +368,7 @@
 0360      i32.add
 0361      i32.const 15
 0362      i32.shr_s
-0363      i32.store
+0363      i32.store offset=32
 0364      local.get 15
 0365      local.tee 1
 0366      i32.const -1

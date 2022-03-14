@@ -4,4 +4,4 @@
 0001    local.get 1
 0002    i32.const -2147483648
 0003    i32.or
-0004    i32.store)
+0004    i32.store offset=8)

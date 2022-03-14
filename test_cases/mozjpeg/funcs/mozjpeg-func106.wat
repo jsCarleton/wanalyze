@@ -2,7 +2,7 @@
     (local i32 i32 i32)
 0 ------------------------------------------------------------
 0000    local.get 0
-0001    i32.load
+0001    i32.load offset=4
 0002    local.set 3
 0003    local.get 2
 0004    i32.const 1000000001
@@ -12,7 +12,7 @@
 0007      local.get 0
 0008      i32.load
 0009      i64.const 34359738422
-0010      i64.store align=4
+0010      i64.store offset=20 align=4
 0011      local.get 0
 0012      local.get 0
 0013      i32.load
@@ -36,7 +36,7 @@
 0029      local.get 0
 0030      i32.load
 0031      i64.const 12884901942
-0032      i64.store align=4
+0032      i64.store offset=20 align=4
 0033      local.get 0
 0034      local.get 0
 0035      i32.load
@@ -53,10 +53,10 @@
 0044      i32.load
 0045      local.tee 2
 0046      local.get 1
-0047      i32.store
+0047      i32.store offset=24
 0048      local.get 2
 0049      i32.const 14
-0050      i32.store
+0050      i32.store offset=20
 0051      local.get 0
 0052      local.get 0
 0053      i32.load
@@ -73,7 +73,7 @@
 0062      local.get 0
 0063      i32.load
 0064      i64.const 17179869238
-0065      i64.store align=4
+0065      i64.store offset=20 align=4
 0066      local.get 0
 0067      local.get 0
 0068      i32.load
@@ -83,30 +83,30 @@
 8 ------------------------------------------------------------
 0072    local.get 3
 0073    local.get 3
-0074    i32.load
+0074    i32.load offset=76
 0075    local.get 4
 0076    i32.add
-0077    i32.store
+0077    i32.store offset=76
 0078    local.get 3
 0079    local.get 1
 0080    i32.const 2
 0081    i32.shl
 0082    i32.add
 0083    local.tee 0
-0084    i32.load
+0084    i32.load offset=60
 0085    local.set 1
 0086    local.get 2
 0087    i32.const 0
-0088    i32.store
+0088    i32.store offset=8
 0089    local.get 2
 0090    local.get 5
-0091    i32.store
+0091    i32.store offset=4
 0092    local.get 2
 0093    local.get 1
 0094    i32.store
 0095    local.get 0
 0096    local.get 2
-0097    i32.store
+0097    i32.store offset=60
 0098    local.get 2
 0099    i32.const 12
 0100    i32.add

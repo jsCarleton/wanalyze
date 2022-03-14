@@ -152,6 +152,7 @@ type op_arg =
   | Elemidx of elemidx
   | TableCopy of table_copy
   | Memarg of memarg
+  | IgnoreArg of int
   | Dataidx of dataidx
   | I32value of int
   | I64value of int64

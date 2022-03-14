@@ -249,12 +249,12 @@
 0215          i32.add
 0216          call 36
 0217          local.get 5
-0218          i64.load
+0218          i64.load offset=88
 0219          local.tee 11
 0220          i64.const 32
 0221          i64.shl
 0222          local.get 5
-0223          i64.load
+0223          i64.load offset=80
 0224          local.tee 1
 0225          i64.const 32
 0226          i64.shr_u
@@ -300,12 +300,12 @@
 0264        i32.add
 0265        call 36
 0266        local.get 5
-0267        i64.load
+0267        i64.load offset=72
 0268        local.tee 2
 0269        i64.const 15
 0270        i64.shl
 0271        local.get 5
-0272        i64.load
+0272        i64.load offset=64
 0273        local.tee 3
 0274        i64.const 49
 0275        i64.shr_u
@@ -661,31 +661,31 @@
 0613            local.get 7
 0614            call 63
 0615            local.get 5
-0616            i64.load
+0616            i64.load offset=48
 0617            local.get 5
-0618            i64.load
+0618            i64.load offset=56
 0619            i64.or
 0620            i64.const 0
 0621            i64.ne
 0622            i64.extend_i32_u
 0623            local.get 5
-0624            i64.load
+0624            i64.load offset=32
 0625            local.get 5
-0626            i64.load
+0626            i64.load offset=16
 0627            i64.or
 0628            i64.or
 0629            local.set 13
 0630            local.get 5
-0631            i64.load
+0631            i64.load offset=40
 0632            local.get 5
-0633            i64.load
+0633            i64.load offset=24
 0634            i64.or
 0635            local.set 4
 0636            local.get 5
 0637            i64.load
 0638            local.set 2
 0639            local.get 5
-0640            i64.load
+0640            i64.load offset=8
 0641            br 2 (;@2;)
 45 ------------------------------------------------------------
 0642          end
@@ -769,7 +769,7 @@
 0709    i64.store
 0710    local.get 0
 0711    local.get 10
-0712    i64.store
+0712    i64.store offset=8
 0713    local.get 5
 0714    i32.const 96
 0715    i32.add

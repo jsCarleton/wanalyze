@@ -255,10 +255,10 @@
 0228        i32.add
 0229        call 36
 0230        local.get 5
-0231        i64.load
+0231        i64.load offset=104
 0232        local.set 9
 0233        local.get 5
-0234        i64.load
+0234        i64.load offset=96
 0235        local.set 10
 0236        i32.const 16
 0237        local.get 6
@@ -308,10 +308,10 @@
 0278        i32.sub
 0279        local.set 8
 0280        local.get 5
-0281        i64.load
+0281        i64.load offset=80
 0282        local.set 3
 0283        local.get 5
-0284        i64.load
+0284        i64.load offset=88
 0285      end
 27 ------------------------------------------------------------
 0286      i64.const 3
@@ -378,14 +378,14 @@
 0342        local.get 7
 0343        call 63
 0344        local.get 5
-0345        i64.load
+0345        i64.load offset=56
 0346        local.set 4
 0347        local.get 5
-0348        i64.load
+0348        i64.load offset=48
 0349        local.get 5
-0350        i64.load
+0350        i64.load offset=64
 0351        local.get 5
-0352        i64.load
+0352        i64.load offset=72
 0353        i64.or
 0354        i64.const 0
 0355        i64.ne
@@ -466,10 +466,10 @@
 0423          i32.sub
 0424          local.set 6
 0425          local.get 5
-0426          i64.load
+0426          i64.load offset=40
 0427          local.set 3
 0428          local.get 5
-0429          i64.load
+0429          i64.load offset=32
 0430          local.set 1
 0431          br 1 (;@2;)
 40 ------------------------------------------------------------
@@ -567,9 +567,9 @@
 0513        local.get 5
 0514        i64.load
 0515        local.get 5
-0516        i64.load
+0516        i64.load offset=16
 0517        local.get 5
-0518        i64.load
+0518        i64.load offset=24
 0519        i64.or
 0520        i64.const 0
 0521        i64.ne
@@ -577,7 +577,7 @@
 0523        i64.or
 0524        local.set 1
 0525        local.get 5
-0526        i64.load
+0526        i64.load offset=8
 0527        local.set 3
 0528      end
 51 ------------------------------------------------------------
@@ -639,7 +639,7 @@
 0583    i64.store
 0584    local.get 0
 0585    local.get 4
-0586    i64.store
+0586    i64.store offset=8
 0587    local.get 5
 0588    i32.const 112
 0589    i32.add

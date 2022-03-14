@@ -85,7 +85,7 @@
 0071      i64.load
 0072      local.set 6
 0073      local.get 2
-0074      i64.load
+0074      i64.load offset=8
 0075      i64.const 281474976710656
 0076      i64.xor
 0077      i32.const 15372
@@ -107,7 +107,7 @@
 0092    i64.const -9223372036854775808
 0093    i64.and
 0094    i64.or
-0095    i64.store
+0095    i64.store offset=8
 0096    local.get 2
 0097    i32.const 16
 0098    i32.add

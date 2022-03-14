@@ -133,7 +133,7 @@
 0116      i32.sub
 0117      call 63
 0118      local.get 2
-0119      i64.load
+0119      i64.load offset=8
 0120      i64.const 4
 0121      i64.shl
 0122      local.get 2
@@ -144,9 +144,9 @@
 0127      i64.or
 0128      local.set 4
 0129      local.get 2
-0130      i64.load
+0130      i64.load offset=16
 0131      local.get 2
-0132      i64.load
+0132      i64.load offset=24
 0133      i64.or
 0134      i64.const 0
 0135      i64.ne

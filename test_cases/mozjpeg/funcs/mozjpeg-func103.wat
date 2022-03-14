@@ -20,8 +20,8 @@
 0016    i64.store
 0017    local.get 0
 0018    local.get 5
-0019    i64.load
-0020    i64.store
+0019    i64.load offset=8
+0020    i64.store offset=8
 0021    local.get 5
 0022    i32.const 16
 0023    i32.add

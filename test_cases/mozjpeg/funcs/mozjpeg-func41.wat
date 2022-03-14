@@ -44,7 +44,7 @@
 0040    i64.const 32
 0041    i64.shr_u
 0042    i64.add
-0043    i64.store
+0043    i64.store offset=8
 0044    local.get 0
 0045    local.get 5
 0046    i64.const 4294967295

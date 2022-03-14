@@ -13,10 +13,10 @@
 0008      i32.load
 0009      local.set 6
 0010      local.get 3
-0011      i32.load
+0011      i32.load offset=768
 0012      local.set 7
 0013      local.get 3
-0014      i32.load
+0014      i32.load offset=256
 0015      local.set 3
 0016      local.get 0
 0017      local.get 4

@@ -2,7 +2,7 @@
     (local i32)
 0 ------------------------------------------------------------
 0000    local.get 0
-0001    i32.load
+0001    i32.load offset=4
 0002    local.set 4
 0003    local.get 0
 0004    i32.load
@@ -44,5 +44,5 @@
 0036    select
 0037    local.get 0
 0038    i32.load
-0039    i32.load
+0039    i32.load offset=28
 0040    call_indirect (type 7))

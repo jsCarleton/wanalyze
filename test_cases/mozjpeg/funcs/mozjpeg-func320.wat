@@ -13,13 +13,13 @@
 0009    local.get 0
 0010    call_indirect (type 2)
 0011    local.get 2
-0012    i32.load
+0012    i32.load offset=8
 0013    call 11
 0014    local.get 2
-0015    i32.load
+0015    i32.load offset=8
 0016    local.set 0
 0017    local.get 2
-0018    i32.load
+0018    i32.load offset=8
 0019    call 10
 0020    local.get 2
 0021    i32.const 16

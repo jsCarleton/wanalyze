@@ -350,7 +350,7 @@ match opcode_of_int opcode with
   | OP_i64_store16  -> Memarg (read_memarg ic 16), MemoryS
   | OP_i64_store32  -> Memarg (read_memarg ic 32), MemoryS
   | OP_memory_size
-  | OP_memory_grow  -> EmptyArg, MemoryM (* TODO not what the spec says *)
+  | OP_memory_grow  -> IgnoreArg (read_byte ic), MemoryM
   (* numeric instructions *)
   | OP_i32_const -> I32value (read_i32 ic), Constop
   |	OP_i64_const -> I64value (sLEB ic 64), Constop

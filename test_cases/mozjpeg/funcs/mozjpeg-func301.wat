@@ -8,10 +8,10 @@
 0004    global.set 0
 0005    local.get 0
 0006    i32.const 153070
-0007    i32.store
+0007    i32.store offset=12
 0008    i32.const 156604
 0009    local.get 0
-0010    i32.load
+0010    i32.load offset=12
 0011    i32.const 4
 0012    i32.const -2147483648
 0013    i32.const 2147483647

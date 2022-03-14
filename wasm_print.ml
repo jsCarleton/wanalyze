@@ -45,7 +45,7 @@ let string_of_functype ti i =
 let string_of_limits (limit: limits) = 
   match limit with
   | Noupper l -> string_of_int l
-  | Lowerupper (l,u) -> String.concat [string_of_int l ; " " ; string_of_int u]
+  | Lowerupper (l,u) -> String.concat [string_of_int u ; " " ; string_of_int l]
 let string_of_tabletype tt i =
   String.concat ["(table (;" ; string_of_int i ; ";) " ; string_of_limits tt.lim ; " " ; string_of_reftype tt.et ; ")"]
 let string_of_memtype mt i =
@@ -100,15 +100,17 @@ let string_of_locals locals =
   | 0 -> ""
   | _ -> String.concat ["\n    (local" ; (String.concat ~sep:"" (List.map ~f:string_of_local locals)) ; ")"]
 
-let string_of_memarg m = 
-  match m.bits with
-  | 64 ->
-    (match m.a with
-    | 0 -> "align=1"
-    | 2 -> "align=4"
-    | _ -> ""
-    )
-  | _ -> ""
+let string_of_memarg m =
+  let offset_part = 
+    match m.o with | 0 -> "" | _ -> (sprintf "offset=%d" m.o) in
+  let align_part = 
+    match m.bits with | 64 -> (match m.a with | 0 -> "align=1" | 2 -> "align=4" | _ -> "") 
+                      | _  -> "" in
+  match offset_part, align_part with
+  | "", ""  -> ""
+  | "", _   -> align_part
+  | _, ""   -> offset_part
+  | _, _    -> String.concat [offset_part; " "; align_part]
 
 let string_of_typeidx ti =
   String.concat ["(type " ; string_of_int ti ; " )"]
@@ -135,6 +137,7 @@ match a with
 | Elemidx e -> string_of_int e
 | TableCopy tc -> String.concat [(string_of_int tc.x) ; "," ; (string_of_int tc.y)]
 | Memarg m-> string_of_memarg m
+| IgnoreArg _ -> ""
 | Dataidx d -> string_of_int d
 | I32value i -> string_of_int i
 | I64value i -> sprintf "%Ld" i

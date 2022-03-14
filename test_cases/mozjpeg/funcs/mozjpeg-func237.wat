@@ -32,16 +32,16 @@
 0024      drop
 0025      local.get 3
 0026      i32.const -1
-0027      i32.store
+0027      i32.store offset=20
 0028      local.get 3
 0029      local.get 0
-0030      i32.store
+0030      i32.store offset=16
 0031      local.get 3
 0032      i32.const 0
-0033      i32.store
+0033      i32.store offset=12
 0034      local.get 3
 0035      local.get 1
-0036      i32.store
+0036      i32.store offset=8
 0037      local.get 3
 0038      i32.const 24
 0039      i32.add
@@ -51,7 +51,7 @@
 0043      drop
 0044      local.get 3
 0045      i32.const 1
-0046      i32.store
+0046      i32.store offset=56
 0047      local.get 1
 0048      local.get 3
 0049      i32.const 8
@@ -61,11 +61,11 @@
 0053      i32.const 1
 0054      local.get 1
 0055      i32.load
-0056      i32.load
+0056      i32.load offset=28
 0057      call_indirect (type 7)
 0058      i32.const 0
 0059      local.get 3
-0060      i32.load
+0060      i32.load offset=32
 0061      i32.const 1
 0062      i32.ne
 0063      br_if 0 (;@1;)
@@ -73,7 +73,7 @@
 0064      drop
 0065      local.get 2
 0066      local.get 3
-0067      i32.load
+0067      i32.load offset=24
 0068      i32.store
 0069      i32.const 1
 0070    end

@@ -12,7 +12,7 @@
 0008    i32.add
 0009    local.get 0
 0010    i32.load
-0011    i32.load
+0011    i32.load offset=12
 0012    call_indirect (type 2)
 0013    local.get 1
 0014    local.get 1

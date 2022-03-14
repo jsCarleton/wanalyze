@@ -2,31 +2,31 @@
     (local i32 i32 i32 f32)
 0 ------------------------------------------------------------
 0000    local.get 0
-0001    i32.load
+0001    i32.load offset=364
 0002    local.set 4
 0003    local.get 3
 0004    local.get 0
 0005    local.get 1
 0006    i32.add
 0007    local.tee 5
-0008    i32.load8_u
-0009    i32.store
+0008    i32.load8_u offset=120
+0009    i32.store offset=2560
 0010    local.get 3
 0011    local.get 5
-0012    i32.load8_u
-0013    i32.store
+0012    i32.load8_u offset=136
+0013    i32.store offset=2564
 0014    local.get 3
 0015    local.get 0
 0016    local.get 2
 0017    i32.add
-0018    i32.load8_u
-0019    i32.store
+0018    i32.load8_u offset=152
+0019    i32.store offset=2568
 0020    local.get 4
 0021    local.get 1
 0022    i32.const 2
 0023    i32.shl
 0024    i32.add
-0025    i32.load
+0025    i32.load offset=76
 0026    local.set 1
 0027    i32.const 0
 0028    local.set 0
@@ -80,7 +80,7 @@
 0075      f64.const -6.15464882296e+227
 0076      f64.div
 0077      f32.demote_f64
-0078      f32.store
+0078      f32.store offset=4
 0079      local.get 0
 0080      i32.const 1
 0081      i32.add
@@ -96,7 +96,7 @@
 0089    i32.const 2
 0090    i32.shl
 0091    i32.add
-0092    i32.load
+0092    i32.load offset=140
 0093    local.set 1
 0094    i32.const 0
 0095    local.set 0
@@ -140,7 +140,7 @@
 0132      f64.const -6.15464882296e+227
 0133      f64.div
 0134      f32.demote_f64
-0135      f32.store
+0135      f32.store offset=512
 0136      local.get 2
 0137      f32.const 6.96672438132e-310
 0138      local.get 7
@@ -150,7 +150,7 @@
 0142      f64.const -6.15464882296e+227
 0143      f64.div
 0144      f32.demote_f64
-0145      f32.store
+0145      f32.store offset=516
 0146      local.get 0
 0147      i32.const 1
 0148      i32.add

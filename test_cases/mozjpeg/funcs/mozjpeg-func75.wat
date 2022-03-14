@@ -8,7 +8,7 @@
 0004    global.set 0
 0005    local.get 3
 0006    local.get 2
-0007    i32.store
+0007    i32.store offset=12
 0008    local.get 0
 0009    local.get 1
 0010    local.get 2

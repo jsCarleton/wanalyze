@@ -2,12 +2,12 @@
     (local i32 i32)
 0 ------------------------------------------------------------
 0000    local.get 0
-0001    i32.load
+0001    i32.load offset=176
 0002    i32.eqz
 0003    if  ;; label = @1
 1 ------------------------------------------------------------
 0004      local.get 0
-0005      i32.load
+0005      i32.load offset=336
 0006      local.set 2
 0007      local.get 1
 0008      if  ;; label = @2
@@ -16,7 +16,7 @@
 0010        i32.load
 0011        local.tee 3
 0012        i32.const 4
-0013        i32.store
+0013        i32.store offset=20
 0014        local.get 0
 0015        local.get 3
 0016        i32.load
@@ -25,15 +25,15 @@
 3 ------------------------------------------------------------
 0019      local.get 2
 0020      local.get 1
-0021      i32.store
+0021      i32.store offset=20
 0022      local.get 2
 0023      i32.const 0
-0024      i32.store
+0024      i32.store offset=16
 0025      local.get 2
 0026      i64.const 0
-0027      i64.store align=4
+0027      i64.store offset=8 align=4
 0028      local.get 2
 0029      i32.const 41
-0030      i32.store
+0030      i32.store offset=4
 0031    end
 4 ------------------------------------------------------------)

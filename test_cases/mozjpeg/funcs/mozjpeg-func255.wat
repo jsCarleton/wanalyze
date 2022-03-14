@@ -5,7 +5,7 @@
 0001    call 58
 0002    local.tee 1
 0003    i32.const 0
-0004    i32.store
+0004    i32.store offset=8
 0005    local.get 1
 0006    i64.const 51539607564
 0007    i64.store align=4
@@ -15,7 +15,7 @@
 0011    local.tee 1
 0012    i32.const 156013
 0013    i64.load align=1
-0014    i64.store align=1
+0014    i64.store offset=5 align=1
 0015    local.get 1
 0016    i32.const 156008
 0017    i64.load align=1

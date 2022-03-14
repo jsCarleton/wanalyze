@@ -8,8 +8,8 @@
 0005    local.get 0
 0006    i32.load
 0007    local.get 1
-0008    i32.load
-0009    i32.store
+0008    i32.load offset=4
+0009    i32.store offset=4
 0010    local.get 0
 0011    local.get 0
 0012    i32.load

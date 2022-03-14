@@ -7,17 +7,17 @@
 0003    block (result i32)  ;; label = @1
 1 ------------------------------------------------------------
 0004      local.get 0
-0005      i32.load
+0005      i32.load offset=4
 0006      i32.const -12
 0007      i32.add
 0008      local.tee 2
 0009      local.tee 1
 0010      local.get 1
-0011      i32.load
+0011      i32.load offset=8
 0012      i32.const -1
 0013      i32.add
 0014      local.tee 1
-0015      i32.store
+0015      i32.store offset=8
 0016      local.get 1
 0017      i32.const -1
 0018      i32.le_s

@@ -12,16 +12,16 @@
 0008    call 27
 0009    local.tee 3
 0010    i32.const -1
-0011    i32.store
+0011    i32.store offset=76
 0012    local.get 3
 0013    local.get 0
-0014    i32.store
+0014    i32.store offset=44
 0015    local.get 3
 0016    i32.const 111
-0017    i32.store
+0017    i32.store offset=32
 0018    local.get 3
 0019    local.get 0
-0020    i32.store
+0020    i32.store offset=84
 0021    local.get 3
 0022    local.get 1
 0023    local.get 2

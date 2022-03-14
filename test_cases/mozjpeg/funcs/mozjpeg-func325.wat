@@ -8,7 +8,7 @@
 0004    global.set 0
 0005    local.get 3
 0006    i32.const 1117126656
-0007    i32.store
+0007    i32.store offset=12
 0008    block  ;; label = @1
 1 ------------------------------------------------------------
 0009      loop  ;; label = @2
@@ -26,7 +26,7 @@
 5 ------------------------------------------------------------
 0018              local.get 3
 0019              i32.const 44
-0020              i32.store8
+0020              i32.store8 offset=11
 0021              local.get 3
 0022              local.get 3
 0023              i32.const 12
@@ -36,7 +36,7 @@
 0027              local.get 3
 0028              i32.const 11
 0029              i32.add
-0030              i32.store
+0030              i32.store offset=4
 0031              local.get 1
 0032              i32.const 148338
 0033              local.get 3
@@ -46,7 +46,7 @@
 0037              br_if 4 (;@1;)
 6 ------------------------------------------------------------
 0038              local.get 3
-0039              i32.load8_u
+0039              i32.load8_u offset=11
 0040              i32.const 44
 0041              i32.ne
 0042              br_if 4 (;@1;)
@@ -59,7 +59,7 @@
 0048              block (result i32)  ;; label = @6
 8 ------------------------------------------------------------
 0049                local.get 3
-0050                f32.load
+0050                f32.load offset=12
 0051                call 109
 0052                local.tee 6
 0053                f32.abs
@@ -108,7 +108,7 @@
 0086            block (result i32)  ;; label = @5
 19 ------------------------------------------------------------
 0087              local.get 3
-0088              f32.load
+0088              f32.load offset=12
 0089              call 109
 0090              local.tee 6
 0091              f32.abs
@@ -142,7 +142,7 @@
 0111      local.get 2
 0112      call 309
 0113      local.get 3
-0114      f32.load
+0114      f32.load offset=12
 0115      local.tee 6
 0116      f32.const 9.79216177699e-310
 0117      f32.ge

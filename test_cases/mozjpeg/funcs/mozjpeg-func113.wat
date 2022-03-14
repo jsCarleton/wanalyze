@@ -7,17 +7,17 @@
 0003    local.tee 6
 0004    global.set 0
 0005    local.get 0
-0006    i32.load
+0006    i32.load offset=12
 0007    local.set 2
 0008    local.get 0
-0009    i32.load
+0009    i32.load offset=8
 0010    local.set 3
 0011    local.get 6
 0012    local.set 1
 0013    i32.const 1
 0014    local.set 7
 0015    local.get 0
-0016    i32.load
+0016    i32.load offset=4
 0017    i32.const 256
 0018    i32.ge_u
 0019    if  ;; label = @1
@@ -69,7 +69,7 @@
 6 ------------------------------------------------------------
 0060          local.get 1
 0061          i32.const 0
-0062          i32.store8
+0062          i32.store8 offset=1
 0063          local.get 1
 0064          i32.const 2
 0065          i32.add
@@ -91,7 +91,7 @@
 10 ------------------------------------------------------------
 0078    local.get 0
 0079    i64.const 0
-0080    i64.store align=4
+0080    i64.store offset=8 align=4
 0081    block  ;; label = @1
 11 ------------------------------------------------------------
 0082      local.get 7
@@ -115,7 +115,7 @@
 0097          local.get 3
 0098          local.get 2
 0099          local.get 0
-0100          i32.load
+0100          i32.load offset=4
 0101          local.tee 1
 0102          local.get 2
 0103          local.get 1
@@ -132,11 +132,11 @@
 0114          i32.store
 0115          local.get 0
 0116          local.get 0
-0117          i32.load
+0117          i32.load offset=4
 0118          local.get 5
 0119          i32.sub
 0120          local.tee 1
-0121          i32.store
+0121          i32.store offset=4
 0122          block  ;; label = @4
 15 ------------------------------------------------------------
 0123            local.get 1
@@ -176,12 +176,12 @@
 0149      i32.store
 0150      local.get 0
 0151      local.get 0
-0152      i32.load
+0152      i32.load offset=4
 0153      local.get 3
 0154      local.get 1
 0155      i32.sub
 0156      i32.add
-0157      i32.store
+0157      i32.store offset=4
 0158      i32.const 1
 0159      local.set 4
 0160    end

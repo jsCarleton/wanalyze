@@ -8,11 +8,11 @@
 0004    global.set 0
 0005    local.get 0
 0006    i32.const 153497
-0007    i32.store
+0007    i32.store offset=12
 0008    i32.const 153880
 0009    i32.const 5
 0010    local.get 0
-0011    i32.load
+0011    i32.load offset=12
 0012    call 0
 0013    local.get 0
 0014    i32.const 16

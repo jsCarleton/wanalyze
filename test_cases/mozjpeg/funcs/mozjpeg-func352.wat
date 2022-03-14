@@ -9,7 +9,7 @@
 0005    i32.div_u
 0006    local.set 6
 0007    local.get 0
-0008    i32.load
+0008    i32.load offset=4
 0009    local.set 4
 0010    local.get 8
 0011    i32.const 999999989
@@ -20,7 +20,7 @@
 0015      i32.load
 0016      local.tee 7
 0017      i32.const 70
-0018      i32.store
+0018      i32.store offset=20
 0019      local.get 0
 0020      local.get 7
 0021      i32.load
@@ -35,7 +35,7 @@
 0029    i32.lt_s
 0030    select
 0031    local.tee 4
-0032    i32.store
+0032    i32.store offset=80
 0033    local.get 0
 0034    local.get 1
 0035    local.get 3

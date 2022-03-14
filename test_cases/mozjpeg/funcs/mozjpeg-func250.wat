@@ -22,7 +22,7 @@
 0018    i32.const 21
 0019    i32.add
 0020    local.get 2
-0021    i32.load
+0021    i32.load offset=8
 0022    call 247
 0023    local.get 2
 0024    i32.const 32

@@ -3,7 +3,7 @@
 0 ------------------------------------------------------------
 0000    local.get 1
 0001    local.get 0
-0002    i32.load
+0002    i32.load offset=84
 0003    local.tee 1
 0004    local.get 1
 0005    local.get 2
@@ -31,13 +31,13 @@
 0027    local.get 3
 0028    i32.add
 0029    local.tee 3
-0030    i32.store
+0030    i32.store offset=84
 0031    local.get 0
 0032    local.get 3
-0033    i32.store
+0033    i32.store offset=8
 0034    local.get 0
 0035    local.get 1
 0036    local.get 2
 0037    i32.add
-0038    i32.store
+0038    i32.store offset=4
 0039    local.get 2)

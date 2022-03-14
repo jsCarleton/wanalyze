@@ -4,8 +4,8 @@
 0000    local.get 0
 0001    i32.const 0
 0002    local.get 0
-0003    i32.load
-0004    i32.load
+0003    i32.load offset=332
+0004    i32.load offset=4160
 0005    i32.const 8
 0006    i32.shl
 0007    local.tee 2
