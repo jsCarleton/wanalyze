@@ -89,7 +89,7 @@ let read_f64 ic =
   let f = (bytes_to_i64 ic 8) in
   logger#info "floating point bits %Lx" f;
   Int64.float_of_bits f
-                      
+
 let read_memarg ic bits = 
   let a = uLEB ic 32 in
   {a; o=uLEB ic 32; bits}
