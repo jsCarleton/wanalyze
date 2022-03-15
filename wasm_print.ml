@@ -51,7 +51,13 @@ let string_of_tabletype tt i =
 let string_of_memtype mt i =
   String.concat ["(memory (;" ; string_of_int i ; ";) " ; string_of_limits mt ; ")"]
 let string_of_globaltype gt i =
-  String.concat ["(global (;" ; string_of_int i ; ";) " ; string_of_valtype gt.t ; ")"]
+  String.concat [ "(global (;";
+                  string_of_int i;
+                  ";) ";
+                  (match gt.m with 
+                    | Const -> string_of_valtype gt.t
+                    | Var   -> String.concat["(mut "; string_of_valtype gt.t; ")"]);
+                   ")"]
 
 let string_of_description d i =
   match d with
@@ -69,7 +75,7 @@ let string_of_exportdesc d =
   | Func f -> String.concat ["func " ; string_of_int f]
   | Table t -> String.concat ["table " ; string_of_int t]
   | Mem m -> String.concat ["memory " ; string_of_int m]
-  | Global g -> String.concat ["table " ; string_of_int g]
+  | Global g -> String.concat ["global " ; string_of_int g]
 let string_of_export (e: export) =
   String.concat ["  (export \"" ; e.name ; "\" (" ; string_of_exportdesc e.desc ; "))\n"]
 let string_of_export_section section = String.concat ~sep:"" (List.map ~f:string_of_export section)
@@ -77,7 +83,7 @@ let string_of_export_section section = String.concat ~sep:"" (List.map ~f:string
 (* Start section *)
 let string_of_start idx =
   match idx with
-  | Some idx' -> String.concat ["(start " ; string_of_int idx' ; ")\n"]
+  | Some idx' -> String.concat ["  (start " ; string_of_int idx' ; ")\n"]
   | _ -> ""
   
 (* Function section *)
@@ -321,8 +327,15 @@ let string_of_memory_section section = String.concat ~sep:"" (List.mapi ~f:strin
 (* Global section *)
 let string_of_inline_expr e = String.strip (string_of_expr e [] false)
 let string_of_global (g: global) =
-  String.concat ["  (global (;" ; string_of_int g.index ; ";) " ; "(" ; (string_of_mut g.gt.m) ; " " ; (string_of_valtype g.gt.t) 
-  ; ") (" ; (string_of_inline_expr g.e) ; "))\n"]
+  String.concat [ "  (global (;" ;
+                  string_of_int g.index ;
+                  ";) ";
+                  (match g.gt.m with
+                    | Var   -> String.concat["("; string_of_mut g.gt.m; " "; string_of_valtype g.gt.t; ")"]
+                    | Const -> string_of_valtype g.gt.t);
+                  " (";
+                  (string_of_inline_expr g.e);
+                  "))\n"]
 let string_of_global_section section =
   String.concat ~sep:"" (List.map ~f:string_of_global section)
 

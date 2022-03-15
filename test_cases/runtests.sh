@@ -22,6 +22,7 @@ cd ../doom
 echo "doom"
 time ../../wanalyze.native websockets-doom.wasm
 diff -y --suppress-common-lines *t.wat *e.wat | grep -v f64 | grep -v f32 >diff.out
-# echo "autocad"
-# cd ../autocad
-# time ../../wanalyze.native autocad.wasm
+echo "autocad"
+cd ../autocad
+time ../../wanalyze.native autocad.wasm
+diff -y --suppress-common-lines *t.wat *e.wat | grep -v f64 | grep -v f32 >diff.out
