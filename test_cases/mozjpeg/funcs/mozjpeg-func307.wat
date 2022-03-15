@@ -101,7 +101,7 @@
 0090                f64.div
 0091                f32.demote_f64
 0092                local.tee 18
-0093                f32.const 0.
+0093                f32.const 0x0
 0094                f32.ge
 0095                select
 0096                local.get 18
@@ -232,7 +232,7 @@
 0204              f64.div
 0205              f32.demote_f64
 0206              local.tee 18
-0207              f32.const 0.
+0207              f32.const 0x0
 0208              f32.ge
 0209              select
 0210              local.get 18

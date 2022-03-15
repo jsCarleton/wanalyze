@@ -57,7 +57,7 @@
 0052      f64.div
 0053      f32.demote_f64
 0054      local.tee 7
-0055      f32.const 0.0078125
+0055      f32.const 0x3f800000
 0056      local.get 7
 0057      f32.sub
 0058      local.get 6
@@ -72,7 +72,7 @@
 0067      f32.demote_f64
 0068      f32.store
 0069      local.get 5
-0070      f32.const 0.0078125
+0070      f32.const 0x3f800000
 0071      local.get 7
 0072      f32.sub
 0073      f64.promote_f32
@@ -127,7 +127,7 @@
 0119      f64.div
 0120      f32.demote_f64
 0121      local.tee 7
-0122      f32.const 0.0078125
+0122      f32.const 0x3f800000
 0123      local.get 7
 0124      f32.sub
 0125      local.get 4
@@ -142,7 +142,7 @@
 0134      f32.demote_f64
 0135      f32.store offset=512
 0136      local.get 2
-0137      f32.const 0.0078125
+0137      f32.const 0x3f800000
 0138      local.get 7
 0139      f32.sub
 0140      f64.promote_f32

@@ -498,7 +498,7 @@
 0394        local.get 3
 0395        local.get 6
 0396        f32.convert_i32_s
-0397        f32.const 1.40444776161e+306
+0397        f32.const 0x7f800000
 0398        f32.mul
 0399        call 335
 0400        local.get 3

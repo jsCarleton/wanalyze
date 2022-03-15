@@ -141,7 +141,7 @@ match a with
 | Dataidx d -> string_of_int d
 | I32value i -> string_of_int i
 | I64value i -> sprintf "%Ld" i
-| F32value f -> string_of_float f
+| F32value f -> sprintf "0x%x" f
 | F64value f -> string_of_float f
 | TruncSat i -> 
     (match i with

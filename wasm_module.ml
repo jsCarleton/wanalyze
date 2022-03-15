@@ -156,7 +156,7 @@ type op_arg =
   | Dataidx of dataidx
   | I32value of int
   | I64value of int64
-  | F32value of float (* do we distinguish between float32 and float64? *)
+  | F32value of int (* since OCAML doesn't seem to have 32 bit floats we just keep the bits *)
   | F64value of float
   | TruncSat of int
   | EmptyArg
@@ -600,7 +600,7 @@ let string_of_const_arg arg: string =
   match arg with
     | I32value i -> string_of_int i
     | I64value i -> sprintf "%Ld" i
-    | F32value f -> string_of_float f
+    | F32value f -> sprintf "0x%x" f
     | F64value f -> string_of_float f
     | _-> failwith "Invalid const argument"
     

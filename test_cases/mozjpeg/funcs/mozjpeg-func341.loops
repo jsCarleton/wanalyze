@@ -37,7 +37,7 @@ SSA of loop:
 -t22 = t20 / t21
 -t23 = f32.demote_f64(t22)
 -lf7 = t23
--t25 = 0.0078125
+-t25 = 0x3f800000
 -t26 = lf7
 -t27 = t25 - t26
 -t28 = ln6
@@ -52,7 +52,7 @@ SSA of loop:
 -t37 = f32.demote_f64(t36)
 -@(t4) = (t37)
 -t39 = ln5
--t40 = 0.0078125
+-t40 = 0x3f800000
 -t41 = lf7
 -t42 = t40 - t41
 -t43 = f64.promote_f32(t42)
@@ -97,7 +97,7 @@ SSA of loop:
 -t22 = t20 / t21
 -t23 = f32.demote_f64(t22)
 -lf7 = t23
--t25 = 0.0078125
+-t25 = 0x3f800000
 -t26 = lf7
 -t27 = t25 - t26
 -t28 = ln4
@@ -112,7 +112,7 @@ SSA of loop:
 -t37 = f32.demote_f64(t36)
 -@(t4) = (t37)
 -t39 = pn2
--t40 = 0.0078125
+-t40 = 0x3f800000
 -t41 = lf7
 -t42 = t40 - t41
 -t43 = f64.promote_f32(t42)

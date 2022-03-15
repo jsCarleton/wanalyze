@@ -46,6 +46,26 @@ let i64lor i1 i2 : int64 = Stdlib.Int64.logor i1 i2
 let i64land i1 i2 : int64 = Stdlib.Int64.logand i1 i2
 let of_int i : int64 = Stdlib.Int64.of_int i
 
+let unsigned64_of_32 n =
+  i64land 0xffffffffL (Int64.of_int n)
+
+let read_8bits ic = read_byte ic
+
+let read_16bits ic =
+  let low = read_8bits ic in
+  let high = read_8bits ic in
+  low lor (high lsl 8)
+
+let read_32bits ic =
+  let low = read_16bits ic in
+  let high = read_16bits ic in
+  low lor (high lsl 16)
+
+let read_64bits ic =
+  let low = read_32bits ic in
+  let high = read_32bits ic in
+  i64lor (unsigned64_of_32 low) (i64lsl (Int64.of_int high) 32)
+
 let rec uLEB ic size =
   let n = read_byte ic in
   match (n < (1 lsl 7)) && (n < (1 lsl size)) with
@@ -84,9 +104,10 @@ let rec bytes_to_i64' ic n left acc : int64 =
   | _ -> bytes_to_i64' ic n (left-1) (i64lor acc (i64lsl (Int64.of_int (read_byte ic)) (8*(n-left))) )
 let bytes_to_i64 ic n: int64 = bytes_to_i64' ic n n 0L
 
-let read_f32 ic = Int64.float_of_bits (Int64.shift_left (bytes_to_i64 ic 4) 32)
+let read_f32 ic = read_32bits ic
+
 let read_f64 ic =
-  let f = (bytes_to_i64 ic 8) in
+  let f = read_64bits ic in
   logger#info "floating point bits %Lx" f;
   Int64.float_of_bits f
 

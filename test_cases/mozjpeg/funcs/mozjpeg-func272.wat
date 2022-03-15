@@ -15,7 +15,7 @@
 0010      local.set 10
 0011      local.get 3
 0012      local.get 9
-0013      f32.const 5.27765581332e+14
+0013      f32.const 0x42fe0000
 0014      f32.ge
 0015      i32.add
 0016      local.set 3
@@ -34,7 +34,7 @@
 0027    i32.and
 0028    if  ;; label = @1
 4 ------------------------------------------------------------
-0029      f32.const 6442450944.
+0029      f32.const 0x41f80000
 0030      local.get 1
 0031      i32.load16_u
 0032      local.tee 1
@@ -46,7 +46,7 @@
 0038      i32.gt_u
 0039      select
 0040      local.tee 11
-0041      f32.const 1.48552804714e+29
+0041      f32.const 0x45fe0000
 0042      local.get 10
 0043      f32.sub
 0044      local.get 3
@@ -57,7 +57,7 @@
 0049      local.get 9
 0050      f32.lt
 0051      select
-0052      f32.const 5.27765581332e+14
+0052      f32.const 0x42fe0000
 0053      f32.add
 0054      local.set 16
 0055      i32.const 0
@@ -83,7 +83,7 @@
 0073          i32.shl
 0074          i32.add
 0075          f32.load
-0076          f32.const 5.27765581332e+14
+0076          f32.const 0x42fe0000
 0077          f32.lt
 0078          i32.const 1
 0079          i32.xor
@@ -123,7 +123,7 @@
 0107              i32.shl
 0108              i32.add
 0109              f32.load
-0110              f32.const 5.27765581332e+14
+0110              f32.const 0x42fe0000
 0111              f32.ge
 0112              br_if 1 (;@4;)
 13 ------------------------------------------------------------
@@ -151,7 +151,7 @@
 0130            local.set 7
 0131            block (result i32)  ;; label = @5
 18 ------------------------------------------------------------
-0132              f32.const 5.27765581332e+14
+0132              f32.const 0x42fe0000
 0133              local.get 0
 0134              local.get 2
 0135              i32.const -1
@@ -191,7 +191,7 @@
 0169              f32.load
 0170              f32.sub
 0171              local.tee 11
-0172              f32.const 5.27765581332e+14
+0172              f32.const 0x42fe0000
 0173              local.get 9
 0174              f32.sub
 0175              local.tee 9
@@ -234,7 +234,7 @@
 0212              f32.load
 0213              f32.sub
 0214              local.tee 11
-0215              f32.const 5.27765581332e+14
+0215              f32.const 0x42fe0000
 0216              local.get 9
 0217              f32.sub
 0218              local.tee 9
@@ -249,7 +249,7 @@
 0227              f32.sub
 0228              local.tee 9
 0229              f32.abs
-0230              f32.const 3.53369412956e+72
+0230              f32.const 0x4f000000
 0231              f32.lt
 0232              if  ;; label = @6
 19 ------------------------------------------------------------
@@ -282,7 +282,7 @@
 0256            local.set 17
 0257            block (result i32)  ;; label = @5
 23 ------------------------------------------------------------
-0258              f32.const 5.27765581332e+14
+0258              f32.const 0x42fe0000
 0259              local.get 14
 0260              local.get 13
 0261              local.get 3
@@ -292,7 +292,7 @@
 0265              f32.sub
 0266              local.tee 9
 0267              f32.abs
-0268              f32.const 3.53369412956e+72
+0268              f32.const 0x4f000000
 0269              f32.lt
 0270              if  ;; label = @6
 24 ------------------------------------------------------------
@@ -311,7 +311,7 @@
 0280            i32.mul
 0281            f32.convert_i32_s
 0282            local.set 13
-0283            f32.const 0.0078125
+0283            f32.const 0x3f800000
 0284            local.get 11
 0285            f32.div
 0286            local.tee 14
@@ -335,7 +335,7 @@
 0303              local.get 13
 0304              f32.mul
 0305              local.get 12
-0306              f32.const 32.
+0306              f32.const 0x40400000
 0307              f32.mul
 0308              local.tee 11
 0309              local.get 15
@@ -343,7 +343,7 @@
 0311              f32.add
 0312              local.tee 9
 0313              f32.sub
-0314              f32.const 5.27765581332e+14
+0314              f32.const 0x42fe0000
 0315              f32.mul
 0316              local.get 10
 0317              local.get 15
@@ -357,9 +357,9 @@
 0325              local.get 9
 0326              local.get 11
 0327              f32.sub
-0328              f32.const 0.0078125
+0328              f32.const 0x3f800000
 0329              f32.add
-0330              f32.const 5.27765581332e+14
+0330              f32.const 0x42fe0000
 0331              f32.mul
 0332              f32.add
 0333              f32.add

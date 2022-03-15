@@ -257,7 +257,7 @@
 0236            i32.sub
 0237            f32.convert_i32_s
 0238            local.set 15
-0239            f32.const 0.0078125
+0239            f32.const 0x3f800000
 0240            local.get 6
 0241            i32.const 1
 0242            i32.add
@@ -286,7 +286,7 @@
 0263                local.get 15
 0264                f32.mul
 0265                local.get 11
-0266                f32.const 32.
+0266                f32.const 0x40400000
 0267                f32.mul
 0268                local.tee 17
 0269                local.get 12
@@ -294,7 +294,7 @@
 0271                f32.add
 0272                local.tee 13
 0273                f32.sub
-0274                f32.const 5.27765581332e+14
+0274                f32.const 0x42fe0000
 0275                f32.mul
 0276                local.get 10
 0277                local.get 12
@@ -308,9 +308,9 @@
 0285                local.get 13
 0286                local.get 17
 0287                f32.sub
-0288                f32.const 0.0078125
+0288                f32.const 0x3f800000
 0289                f32.add
-0290                f32.const 5.27765581332e+14
+0290                f32.const 0x42fe0000
 0291                f32.mul
 0292                f32.add
 0293                f32.add
@@ -318,7 +318,7 @@
 0295                f32.ceil
 0296                local.tee 13
 0297                f32.abs
-0298                f32.const 3.53369412956e+72
+0298                f32.const 0x4f000000
 0299                f32.lt
 0300                if  ;; label = @7
 20 ------------------------------------------------------------
