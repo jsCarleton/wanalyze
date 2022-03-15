@@ -9730,7 +9730,7 @@
     i32.const 155808
     i32.add
     i32.load16_u
-    i32.store16
+    i32.store16 align=1
     local.get 0
     i32.const 2
     i32.add)
@@ -29816,8 +29816,8 @@
       i64.store offset=17 align=1
       local.get 2
       i32.const 137113
-      i32.load
-      i32.store offset=25
+      i32.load align=1
+      i32.store offset=25 align=1
       local.get 1
       i32.load
       i32.const 29
@@ -29913,8 +29913,8 @@
       i64.store offset=17 align=1
       local.get 2
       i32.const 137113
-      i32.load
-      i32.store offset=25
+      i32.load align=1
+      i32.store offset=25 align=1
       local.get 1
       i32.load offset=4
       i32.const 29
@@ -61270,7 +61270,7 @@
                                     i32.store8 offset=46
                                     local.get 5
                                     i32.const 0
-                                    i32.store offset=42
+                                    i32.store offset=42 align=2
                                     br 8 (;@8;)
                                   end
                                   local.get 5

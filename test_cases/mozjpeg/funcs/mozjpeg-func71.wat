@@ -7,7 +7,7 @@
 0004    i32.const 155808
 0005    i32.add
 0006    i32.load16_u
-0007    i32.store16
+0007    i32.store16 align=1
 0008    local.get 0
 0009    i32.const 2
 0010    i32.add)

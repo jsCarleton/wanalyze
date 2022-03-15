@@ -87,8 +87,8 @@
 0078      i64.store offset=17 align=1
 0079      local.get 2
 0080      i32.const 137113
-0081      i32.load
-0082      i32.store offset=25
+0081      i32.load align=1
+0082      i32.store offset=25 align=1
 0083      local.get 1
 0084      i32.load
 0085      i32.const 29
@@ -188,8 +188,8 @@
 0175      i64.store offset=17 align=1
 0176      local.get 2
 0177      i32.const 137113
-0178      i32.load
-0179      i32.store offset=25
+0178      i32.load align=1
+0179      i32.store offset=25 align=1
 0180      local.get 1
 0181      i32.load offset=4
 0182      i32.const 29

@@ -68,7 +68,7 @@ let string_of_exportdesc d =
   match d with
   | Func f -> String.concat ["func " ; string_of_int f]
   | Table t -> String.concat ["table " ; string_of_int t]
-  | Mem m -> String.concat ["table " ; string_of_int m]
+  | Mem m -> String.concat ["memory " ; string_of_int m]
   | Global g -> String.concat ["table " ; string_of_int g]
 let string_of_export (e: export) =
   String.concat ["  (export \"" ; e.name ; "\" (" ; string_of_exportdesc e.desc ; "))\n"]
@@ -104,9 +104,11 @@ let string_of_memarg m =
   let offset_part = 
     match m.o with | 0 -> "" | _ -> (sprintf "offset=%d" m.o) in
   let align_part = 
-    match m.bits with | 64 -> (match m.a with | 0 -> "align=1" | 2 -> "align=4" | _ -> "") 
+    match m.bits with | 64 -> (match m.a with | 0 -> "align=1" | 1 -> "align=2" | 2 -> "align=4" | _ -> "") 
+                      | 32 -> (match m.a with | 0 -> "align=1" | 1 -> "align=2" | _ -> "")
+                      | 16 -> (match m.a with | 0 -> "align=1" | _ -> "")
                       | _  -> "" in
-  match offset_part, align_part with
+   match offset_part, align_part with
   | "", ""  -> ""
   | "", _   -> align_part
   | _, ""   -> offset_part
@@ -136,7 +138,7 @@ match a with
 | Tableidx t-> string_of_int t
 | Elemidx e -> string_of_int e
 | TableCopy tc -> String.concat [(string_of_int tc.x) ; "," ; (string_of_int tc.y)]
-| Memarg m-> string_of_memarg m
+| Memarg m -> string_of_memarg m
 | IgnoreArg _ -> ""
 | Dataidx d -> string_of_int d
 | I32value i -> string_of_int i
@@ -289,11 +291,11 @@ let print_function_section oc (w: wasm_module) =
   List.iteri ~f:(print_function oc w false) (List.drop w.function_section w.last_import_func)
 
 (* Table section *) 
-let string_of_table i (t: tabletype) = String.concat [(string_of_tabletype t i) ; "\n"]
+let string_of_table i (t: tabletype) = String.concat ["  "; (string_of_tabletype t i) ; "\n"]
 let string_of_table_section section = String.concat ~sep:"" (List.mapi ~f:string_of_table section)
 
   (* Memory section *) 
-let string_of_memory i (m: memtype) = String.concat [(string_of_memtype m i) ; "\n"]
+let string_of_memory i (m: memtype) = String.concat ["  "; (string_of_memtype m i) ; "\n"]
 let string_of_memory_section section = String.concat ~sep:"" (List.mapi ~f:string_of_memory section)
 
 (* Global section *)
