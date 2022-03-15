@@ -159,6 +159,11 @@ match a with
     )
 | EmptyArg -> ""
 
+let label_index_of_arg a =
+  match a with 
+  | Labelidx l -> l
+  | _ -> failwith "No label index"
+
 let string_of_arg a  =
   let argstring = string_of_arg' a in
   match String.length argstring with
@@ -171,6 +176,11 @@ let string_of_line_number (idx: int) (annotate: bool) =
 let string_of_opcode'' (op: op_type) idx comment (annotate:bool) =
   String.concat ["\n" ; string_of_line_number idx annotate; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
 
+let string_of_br_index nesting index =
+  (String.concat [" (;@" ; string_of_int (nesting - index) ; ";)"])
+let string_of_br_arg nesting arg =
+  string_of_br_index nesting (label_index_of_arg arg)
+
 let string_of_opcode' (op: op_type) (idx: int) (annotate:bool) =
   match op.opcode with (* some special cases need to be handled here *)
   | 0x02 (* block *)
@@ -179,7 +189,7 @@ let string_of_opcode' (op: op_type) (idx: int) (annotate:bool) =
       -> string_of_opcode'' op idx (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)]) annotate
   | 0x0c (* br *)
   | 0x0d (* br_if *)
-      -> string_of_opcode'' op idx (String.concat [" (;@" ; string_of_int (op.nesting - int_of_string (String.lstrip (string_of_arg op.arg))) ; ";)"]) annotate
+      -> string_of_opcode'' op idx (string_of_br_arg op.nesting op.arg) annotate
   | 0x0b (* end *) ->
     (match op.nesting with
     | -1 -> ""
