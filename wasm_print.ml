@@ -123,12 +123,24 @@ let string_of_blocktype b =
   | Valuetype vt -> String.concat ["(result " ; string_of_valtype vt ; ")"]
   | Typeindex ti -> string_of_typeidx ti
 
-let string_of_br_table b = String.concat [(String.concat ~sep:" " (List.map ~f:string_of_int b.table)) ; " " ; string_of_int b.index]
-let string_of_arg' a  =
+let string_of_br_target nesting index =
+  (String.concat [" (;@" ; string_of_int (nesting - index) ; ";)"])
+
+let string_of_br_index nesting index =
+  (String.concat [string_of_int index; string_of_br_target nesting index])
+
+let string_of_br_table nesting b = 
+  String.concat [
+    String.concat ~sep:" " (List.map ~f:(string_of_br_index nesting) b.table);
+    " " ;
+    string_of_int b.index;
+    string_of_br_target nesting b.index]
+
+let string_of_arg' nesting a  =
 match a with 
 | Blocktype b -> string_of_blocktype b
 | Labelidx l -> string_of_int l
-| BrTable b -> string_of_br_table b
+| BrTable b -> string_of_br_table nesting b
 | Funcidx f -> string_of_int f
 | CallIndirect ci -> String.concat ["(type " ; (string_of_int ci.y) ; ")"]
 | Reftype r -> string_of_reftype r
@@ -164,8 +176,8 @@ let label_index_of_arg a =
   | Labelidx l -> l
   | _ -> failwith "No label index"
 
-let string_of_arg a  =
-  let argstring = string_of_arg' a in
+let string_of_arg nesting a  =
+  let argstring = string_of_arg' nesting a in
   match String.length argstring with
   | 0 -> ""
   | _ -> String.concat [" " ; argstring]
@@ -173,29 +185,27 @@ let string_of_arg a  =
 let string_of_line_number (idx: int) (annotate: bool) =
   match annotate with | true -> sprintf "%4.4d" idx | _ -> ""
 
-let string_of_opcode'' (op: op_type) idx comment (annotate:bool) =
-  String.concat ["\n" ; string_of_line_number idx annotate; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg op.arg) ; comment]
+let string_of_opcode'' nesting (op: op_type) idx comment (annotate:bool) =
+  String.concat ["\n" ; string_of_line_number idx annotate; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg nesting op.arg) ; comment]
 
-let string_of_br_index nesting index =
-  (String.concat [" (;@" ; string_of_int (nesting - index) ; ";)"])
 let string_of_br_arg nesting arg =
-  string_of_br_index nesting (label_index_of_arg arg)
+  string_of_br_target nesting (label_index_of_arg arg)
 
 let string_of_opcode' (op: op_type) (idx: int) (annotate:bool) =
   match op.opcode with (* some special cases need to be handled here *)
   | 0x02 (* block *)
   | 0x03 (* loop *)
   | 0x04 (* if *)
-      -> string_of_opcode'' op idx (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)]) annotate
+      -> string_of_opcode'' op.nesting op idx (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)]) annotate
   | 0x0c (* br *)
   | 0x0d (* br_if *)
-      -> string_of_opcode'' op idx (string_of_br_arg op.nesting op.arg) annotate
+      -> string_of_opcode'' op.nesting op idx (string_of_br_arg op.nesting op.arg) annotate
   | 0x0b (* end *) ->
     (match op.nesting with
     | -1 -> ""
-    | _ -> string_of_opcode'' op idx "" annotate
+    | _ -> string_of_opcode'' op.nesting op idx "" annotate
     )
-  | _ -> string_of_opcode'' op idx "" annotate
+  | _ -> string_of_opcode'' op.nesting op idx "" annotate
 
 let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
   let op = List.nth_exn e idx in
