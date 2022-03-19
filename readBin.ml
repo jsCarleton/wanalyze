@@ -7,8 +7,6 @@ open Opcodes
     - make logger#info s look at verbose flag 
     - add validation of indices (e.g. functions, types)*)
 
-let logger = Logging.get_logger "wanalyze"
-
 let read_byte ic : int =
   let b = In_channel.input_byte ic in
     match b with
@@ -78,7 +76,7 @@ let rec sLEB' ic size acc shift b: int64 =
                     (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (shift+7) (of_int (read_byte ic))
   | 0x00L ->         i64lor (i64lsl (i64land b 0x7FL) shift) acc
   | 0x40L -> i64lor (i64lor (i64lsl (i64land b 0x7FL) shift) acc) (i64lsl 0xffffffffffffff80L shift)
-  | _ -> logger#info "invalid byte in LEB: %Lx\n" b; 0L
+  | _ -> failwith (sprintf "invalid byte in LEB: %Lx\n" b)
 
 let sLEB ic size : int64 = sLEB' ic size 0L 0 (of_int (read_byte ic))
 
@@ -108,7 +106,6 @@ let read_f32 ic = read_32bits ic
 
 let read_f64 ic =
   let f = read_64bits ic in
-  logger#info "floating point bits %Lx" f;
   Int64.float_of_bits f
 
 let read_memarg ic bits = 
@@ -124,7 +121,6 @@ let read_vec ic reader = List.rev (read_vec' ic (read_vec_len ic) reader [])
 
 (* Sections consisting of vectors of entries *)
 let rec read_entries ic n w entry_handler =
-   logger#info  "%s - section has %d entries left" (Time.to_sec_string ~zone:Time.Zone.utc (Time.now ())) n;
   match n with
   | 0 -> true
   | _ ->
@@ -133,11 +129,9 @@ let rec read_entries ic n w entry_handler =
 
 let read_section_length ic = 
   let n = uLEB ic 32 in
-  logger#info "section length: %d" n;
   n
 
 let read_section ic section entry_handler =
-  logger#info  "reading section: ";  
   read_section_length ic >= 0 (* discard the section size *)
   && read_entries ic (read_vec_len ic) section entry_handler
 
@@ -166,16 +160,7 @@ let read_section_new2 ic entry_handler =
   read_section_new2' ic entry_handler [] [] (read_vec_len ic)
 
 (* Type section *)
-let read_valtype ic = (* TODO why do we need this? *)
-  match read_byte ic with
-  | 0 -> logger#info  "None "; 0
-  | 0x7f -> logger#info  "i32 "; 0x7f
-  | 0x7e -> logger#info  "i64 "; 0x7e
-  | 0x7d -> logger#info  "f32 "; 0x7d
-  | 0x7c -> logger#info  "f64 "; 0x7c
-  | 0x70 -> logger#info  "funcref "; 0x70
-  | 0x6f -> logger#info  "externref "; 0x6f
-  | x -> logger#info "invalid valtype %x" x; -1
+let read_valtype ic = read_byte ic
 
 let read_type_section' ic =
   let encoder = read_byte ic in
@@ -203,7 +188,7 @@ let read_reftype ic =
   match x with
   | 0x70 -> Funcref
   | 0x6F -> Externref
-  | x -> logger#info "Invalid reftype %x!" x; Funcref
+  | x -> failwith (sprintf "Invalid reftype %x!" x)
 
 let read_tabletype ic = 
   let et = read_reftype ic in
@@ -215,7 +200,7 @@ let read_mut ic =
   match mut_type with
   | 0x00 -> Const
   | 0x01 -> Var
-  | _ -> logger#info  "Invalid mut %x!" mut_type; Const
+  | _ -> failwith (sprintf "Invalid mut %x!" mut_type;)
 
 let read_valtype ic =
   let valtype = read_byte ic in
@@ -226,7 +211,7 @@ let read_valtype ic =
   | 0x7c -> Numtype F64
   | 0x70 -> Reftype Funcref
   | 0x6f -> Reftype Externref
-  | _ -> logger#info "Invalid valtype %x" valtype; Numtype I32
+  | _ -> failwith (sprintf "Invalid valtype %x" valtype)
 
 let read_globaltype ic = 
   let t = read_valtype ic in
@@ -243,7 +228,7 @@ let read_importdesc ic =
   | 0x01 -> Some (Tabletype (read_tabletype ic))
   | 0x02 -> Some (Memtype (read_mem_type ic))
   | 0x03 -> Some (Globaltype (read_globaltype ic))
-  | _ -> logger#info ("Invalid importdesc %x!") importdesc_type; None
+  | _ -> failwith (sprintf "Invalid importdesc %x!" importdesc_type)
 
 let rec read_string' ic len acc =
   match len with
@@ -531,7 +516,6 @@ let read_valtype ic = valtype_of_int (read_byte ic)
 let read_local ic = (fun _ ->
   let n = uLEB ic 32 in
   let v = read_valtype ic in
-  logger#info  "local count: %d type: %s" n (Wasm_print.string_of_valtype v); 
   {n; v})
 
 let rec read_expr' ic (nesting: int) (acc_instr: op_type list) : op_type list =
@@ -578,7 +562,7 @@ let read_exportdesc ic =
   | 0x01 -> Table (read_idx ic)
   | 0x02 -> Mem (read_idx ic)
   | 0x03 -> Global (read_idx ic)
-  | _ -> logger#info ("Invalid exportdesc %x!") exportdesc_type; Func (read_idx ic)
+  | _ -> failwith (sprintf "Invalid exportdesc %x!" exportdesc_type)
 
 let read_export_section' ic =
   let name = read_name ic in
@@ -598,7 +582,7 @@ let read_elemkind ic: int =
   let k = read_byte ic in
   match k with
   | 0x00 -> k
-  | _ -> logger#info "Invalid elemkind %x" k; k
+  | _ -> failwith (sprintf "Invalid elemkind %x" k)
 
 let read_idx ic = uLEB ic 32
 
@@ -694,26 +678,24 @@ let read_data_count ic =
 (* Section reader *)
 let read_section_body ic w id =
   match id with
-  | 0 -> logger#info  "Custom section - unimplemented, skipping"; skip_bytes ic (read_section_length ic)
-  | 1 -> logger#info  "Type section";      w.type_section   <- read_type_section ic
-  | 2 -> logger#info  "Import section";    let i, f = read_import_section w ic in
-                                           w.import_section <- i;
-                                           w.function_section <- f
-  | 3 -> logger#info  "Function section";  w.function_section <- read_function_section ic w.function_section
-  | 4 -> logger#info  "Table section";     w.table_section    <- read_table_section ic
-  | 5 -> logger#info  "Memory section";    w.memory_section   <- read_memory_section ic
-  | 6 -> logger#info  "Global section";    w.global_section   <- read_global_section w ic
-  | 7 -> logger#info  "Export section";    w.export_section   <- read_export_section ic
-  | 8 -> logger#info  "Start section";     w.start_section    <- read_start_section ic
-  | 9 -> logger#info  "Element section";   w.element_section  <- read_element_section ic
-  | 10 -> logger#info  "Code section";     w.code_section     <- read_code_section ic
-  | 11 -> logger#info  "Data section";     w.data_section     <- read_data_section w ic
-  | 12 -> logger#info  "Data count";       w.data_count       <- read_data_count ic
-  | _ -> logger#info  "Unknown section, skipping"; skip_bytes ic (read_section_length ic)
+  | 0 ->  skip_bytes ic (read_section_length ic)
+  | 1 ->  w.type_section   <- read_type_section ic
+  | 2 ->  let i, f = read_import_section w ic in
+            w.import_section <- i;
+            w.function_section <- f
+  | 3 ->  w.function_section <- read_function_section ic w.function_section
+  | 4 ->  w.table_section    <- read_table_section ic
+  | 5 ->  w.memory_section   <- read_memory_section ic
+  | 6 ->  w.global_section   <- read_global_section w ic
+  | 7 ->  w.export_section   <- read_export_section ic
+  | 8 ->  w.start_section    <- read_start_section ic
+  | 9 ->  w.element_section  <- read_element_section ic
+  | 10 -> w.code_section     <- read_code_section ic
+  | 11 -> w.data_section     <- read_data_section w ic
+  | 12 -> w.data_count       <- read_data_count ic
+  | _ ->  skip_bytes ic (read_section_length ic)
 
-let read_section_id ic =
-  match read_byte ic with
-  | id -> logger#info  "Section type: %d" id; id
+let read_section_id ic = read_byte ic
 
 (* wasm Module reader *)
 let rec read_sections ic w =

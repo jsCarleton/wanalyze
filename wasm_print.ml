@@ -88,9 +88,7 @@ let string_of_start idx =
   
 (* Function section *)
 let get_type_sig (w: wasm_module) idx =
-  match List.nth w.type_section idx with
-  | Some x -> x
-  | _ -> (Logging.get_logger "wanalyze")#info  "Invalid index: %d" idx; {rt1 = []; rt2 = []}
+  List.nth_exn w.type_section idx
 
 let rec string_repeat' s sep n acc =
   match n with
@@ -237,24 +235,6 @@ let rec string_of_expr' e annotate (bblocks: bblock list) idx acc =
 
 let string_of_expr e bblocks annotate = 
   string_of_expr' e annotate (match annotate with | true -> bblocks | _ -> []) 0 ""
-
-let rec print_expr' oc e annotate (bblocks: bblock list) idx =
-  match idx < (List.length e) with
-  | true -> 
-    (match bblocks with
-    | hd::tl ->
-      (match hd.start_op = idx with
-        | true  ->
-            Out_channel.output_string oc (String.concat [(bblock_sep annotate hd.index); (string_of_opcode e idx annotate)]);
-            print_expr' oc e annotate tl (idx+1)
-        | false ->
-            Out_channel.output_string oc (string_of_opcode e idx annotate);
-            print_expr' oc e annotate bblocks (idx+1)
-      )
-    | _ ->  Out_channel.output_string oc (string_of_opcode e idx annotate);
-            print_expr' oc e annotate bblocks (idx+1) 
-    )
-  | false -> ()
 
 let print_expr'' oc annotate base idx op =
   Out_channel.output_string oc (string_of_opcode' op (base+idx) annotate)
@@ -428,7 +408,6 @@ let string_of_execution (nparams: int) (bblocks: bblock list) (ex: execution): s
   sprintf "bblock %d from %d\ninitial state: %s\nfinal   state: %s\n" 
       ex.index ex.pred_index (string_of_state true nparams ex.initial) (string_of_state (has_successors bblocks ex.index) nparams ex.final)
 let string_of_executions (nparams: int) (executions: execution list) (bblocks: bblock list): string = 
-  (Logging.get_logger "wanalyze")#info "executions: %d" (List.length executions);
   String.concat (List.map ~f:(string_of_execution nparams bblocks) executions)
 
 (* Part 4 *)
@@ -495,7 +474,6 @@ let string_of_list_of_list_of_ints (ll: int list list) =
 
 let execute_bblock (w: wasm_module) (e: expr) (bblocks: bblock list) (state: program_state)
       (bb_id: int) =
-    (Logging.get_logger "wanalyze")#info  "execute_bblock: bb_id: %s" (string_of_int bb_id);
     let bb = List.nth_exn bblocks bb_id in
     let (_: expr_tree) = reduce_bblock' w state (expr_of_bblock e bb) Empty in
       ()
@@ -511,7 +489,6 @@ let string_of_code_path (cp: code_path): string =
 
 let loop_entry_state (w: wasm_module) (e: expr) (bblocks: bblock list) (param_types: resulttype list) (local_types: local_type list) 
       (cp: code_path): string = 
-    (Logging.get_logger "wanalyze")#info  "loop_entry_state: cp: %s" (string_of_code_path cp);
     String.concat [string_of_code_path cp; execute_code_path w e bblocks param_types local_types cp]
 
 (* Part 6 *)
@@ -566,7 +543,7 @@ let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_pa
         m fnum bb_idx (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb_idx));
   ()
 
-let print_function (w: wasm_module) oc_summary dir prefix fidx type_idx =
+let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx =
   let fnum          = (fidx + w.last_import_func) in
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = (List.nth_exn w.code_section fidx) in
@@ -574,8 +551,6 @@ let print_function (w: wasm_module) oc_summary dir prefix fidx type_idx =
   let cps           = fn.code_paths in
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
-  (Logging.get_logger "wanalyze")#info "print_function: fidx %d bblocks length %d term length %d"
-  fidx (List.length bblocks) (List.length cps);
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     print_function oc w true fidx type_idx;
@@ -650,7 +625,7 @@ let print_functions w =
   let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in
   Out_channel.output_string oc_summary "Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values\n";
   List.iteri 
-    ~f:(print_function w oc_summary "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
+    ~f:(print_function_details w oc_summary "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
     (List.drop w.function_section w.last_import_func);
   Out_channel.close oc_summary
 
@@ -659,7 +634,6 @@ let print_functions w =
 
 let print w =
   let oc = Out_channel.create (String.concat[Filename.chop_extension w.module_name; "-wanalyze.wat"]) in
-    (Logging.get_logger "wanalyze")#info "Module: %s" w.module_name;
     Out_channel.output_string oc "(module\n";
     Out_channel.output_string oc (string_of_type_section w.type_section);
     Out_channel.output_string oc (string_of_import_section w.import_section);

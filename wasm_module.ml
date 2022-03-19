@@ -816,27 +816,26 @@ let update_instr_count (state: program_state) = state.instr_count <- state.instr
 
 (* given an instruction, update states *)
 let update_s (w: wasm_module) (s: states) (param_counts: int list) (op: op_type) =
-  (Logging.get_logger "wanalyze")#info "States: %d " (List.length s.final);
    List.iter ~f:update_instr_count s.active;
   match op.instrtype with
-  | Control ->    ((Logging.get_logger "wanalyze")#info "type: Control";update_states_controlop w param_counts op s)
+  | Control ->    update_states_controlop w param_counts op s
   | Reference ->  failwith "Unimplemented reference"
-  | Parametric -> (Logging.get_logger "wanalyze")#info  "type: Parametric";List.iter ~f:(update_state_parametricop op) s.active
-  | VariableGL -> (Logging.get_logger "wanalyze")#info  "type: VariableGL";List.iter ~f:(update_state_varGLop op) s.active
-  | VariableSL -> (Logging.get_logger "wanalyze")#info  "type: VariableSL";List.iter ~f:(update_state_varSLop op) s.active
-  | VariableTL -> (Logging.get_logger "wanalyze")#info  "type: VariableTL";List.iter ~f:(update_state_varTLop op) s.active
-  | VariableGG -> (Logging.get_logger "wanalyze")#info  "type: VariableGG";List.iter ~f:(update_state_varGGop op) s.active
-  | VariableSG -> (Logging.get_logger "wanalyze")#info  "type: VariableSG";List.iter ~f:(update_state_varSGop op) s.active
+  | Parametric -> List.iter ~f:(update_state_parametricop op) s.active
+  | VariableGL -> List.iter ~f:(update_state_varGLop op) s.active
+  | VariableSL -> List.iter ~f:(update_state_varSLop op) s.active
+  | VariableTL -> List.iter ~f:(update_state_varTLop op) s.active
+  | VariableGG -> List.iter ~f:(update_state_varGGop op) s.active
+  | VariableSG -> List.iter ~f:(update_state_varSGop op) s.active
   | Table ->      failwith "Unimplemented table"
-  | MemoryL ->    (Logging.get_logger "wanalyze")#info  "type: MemoryL";List.iter ~f:(update_state_memloadop op) s.active
-  | MemoryS ->    (Logging.get_logger "wanalyze")#info  "type: MemoryS";List.iter ~f:update_state_memstoreop s.active
-  | MemoryM ->    (Logging.get_logger "wanalyze")#info  "type: MemoryM"; () (* nothing to do in this case *)
-  | Constop ->    (Logging.get_logger "wanalyze")#info  "type: Constop";List.iter ~f:(update_state_constop op) s.active
-  | Unop ->       (Logging.get_logger "wanalyze")#info  "type: Unop";List.iter ~f:(update_state_unop op) s.active
-  | Binop f ->    (Logging.get_logger "wanalyze")#info  "type: Binop";List.iter ~f:(update_state_binop f) s.active
-  | Testop ->     (Logging.get_logger "wanalyze")#info  "type: Testop";List.iter ~f:(update_state_testop op) s.active
-  | Relop f ->    (Logging.get_logger "wanalyze")#info  "type: Relop";List.iter ~f:(update_state_binop f) s.active
-  | Cvtop ->      (Logging.get_logger "wanalyze")#info  "type: Cvtop";List.iter ~f:(update_state_cvtop op) s.active
+  | MemoryL ->    List.iter ~f:(update_state_memloadop op) s.active
+  | MemoryS ->    List.iter ~f:update_state_memstoreop s.active
+  | MemoryM ->    () (* nothing to do in this case *)
+  | Constop ->    List.iter ~f:(update_state_constop op) s.active
+  | Unop ->       List.iter ~f:(update_state_unop op) s.active
+  | Binop f ->    List.iter ~f:(update_state_binop f) s.active
+  | Testop ->     List.iter ~f:(update_state_testop op) s.active
+  | Relop f ->    List.iter ~f:(update_state_binop f) s.active
+  | Cvtop ->      List.iter ~f:(update_state_cvtop op) s.active
 
 let param_count  (func_sigs: functype list) (func_idx: int): int =
     List.length (List.nth_exn func_sigs func_idx).rt1
@@ -935,7 +934,6 @@ let rec reduce_bblock' (w: wasm_module) (s: program_state) (e: expr) (succ_cond:
  *)
 let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
       program_state*expr_tree =
-  (Logging.get_logger "wanalyze")#info "reducing bblock";
   let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values = copy_values i.local_values;
               global_values = copy_values i.global_values} in
   let s = reduce_bblock' w f e Empty in
@@ -1063,7 +1061,6 @@ let rec code_paths_of_bblocks' (bblocks: bblock list) (nterm: code_path list) (t
     we actually need them in flow graph order for execution purposes
 *)
 let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
-  (Logging.get_logger "wanalyze")#info "mult_succ_count: %d" (mult_succ_count bblocks);
   match (mult_succ_count bblocks) < 23 with   (* hack to prevent this code from running for a very long time *)
     | true  -> List.map ~f:List.rev (code_paths_of_bblocks' bblocks nterm term)
     | false -> []
