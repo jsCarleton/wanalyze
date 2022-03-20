@@ -10,16 +10,16 @@ do
     /usr/bin/time -f "elapsed time: %E" ../../wanalyze.native "$f".wasm
     # Analyze the outputs
     nl=$(wc -l "$f""$WATSUFFIX")
-    nf=$(grep "(func (" "$f""$WATSUFFIX" | wc -l)
+    nf=$(grep "^  (func (;" "$f""$WATSUFFIX" | wc -l)
     np=$(grep "loop" "$f""$WATSUFFIX" | wc -l)
-    lf=$(grep -l loop funcs/*.wat | wc -l)
-    np=$(find funcs/*.paths -size 1c  | wc -l)
+    lf=$(find ./funcs -name "*.wat" -print0 | xargs -0 grep -l loop | wc -l)
+    nb=$(find ./funcs -name "*.paths" -size 1c | wc -l)
     # Print the result
     echo "lines of code: $nl"
     echo "# of functions: $nf"
     echo "# of loops: $np"
     echo "# functions with loops: $lf"
-    echo "# functions with too many paths: $np"
+    echo "# functions with too many paths: $nb"
     # Compare the source file we created to the one created by wabt
     diff -y --suppress-common-lines *t.wat *e.wat | grep -v f64 | grep -v f32 >diff.out
     diffsize=$(find diff.out -printf "%s")

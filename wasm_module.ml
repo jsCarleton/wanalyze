@@ -1061,7 +1061,7 @@ let rec code_paths_of_bblocks' (bblocks: bblock list) (nterm: code_path list) (t
     we actually need them in flow graph order for execution purposes
 *)
 let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
-  match (mult_succ_count bblocks) < 23 with   (* hack to prevent this code from running for a very long time *)
+  match (mult_succ_count bblocks) < 24 with   (* hack to prevent this code from running for a very long time *)
     | true  -> List.map ~f:List.rev (code_paths_of_bblocks' bblocks nterm term)
     | false -> []
 
