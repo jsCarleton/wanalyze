@@ -6,15 +6,21 @@ for f in $FILELIST
 do
     echo $f
     cd $f
+    # Run our analysis
     /usr/bin/time -f "elapsed time: %E" ../../wanalyze.native "$f".wasm
-    nlines=$(wc -l "$f""$WATSUFFIX")
-    echo "lines of code: $nlines"
-    nfuncs=$(grep "(func (" "$f""$WATSUFFIX" | wc -l)
-    echo "# of functions: $nfuncs"
-    nloops=$(grep "loop" "$f""$WATSUFFIX" | wc -l)
-    echo "# of loops: $nloops"
+    # Analyze the outputs
+    nl=$(wc -l "$f""$WATSUFFIX")
+    nf=$(grep "(func (" "$f""$WATSUFFIX" | wc -l)
+    np=$(grep "loop" "$f""$WATSUFFIX" | wc -l)
     lf=$(grep -l loop funcs/*.wat | wc -l)
-    echo "#functions with loops: $lf"
+    np=$(find funcs/*.paths -size 1c  | wc -l)
+    # Print the result
+    echo "lines of code: $nl"
+    echo "# of functions: $nf"
+    echo "# of loops: $np"
+    echo "# functions with loops: $lf"
+    echo "# functions with too many paths: $np"
+    # Compare the source file we created to the one created by wabt
     diff -y --suppress-common-lines *t.wat *e.wat | grep -v f64 | grep -v f32 >diff.out
     diffsize=$(find diff.out -printf "%s")
     if [ $diffsize -gt 0 ]
