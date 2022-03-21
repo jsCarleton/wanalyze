@@ -3,6 +3,7 @@ open Easy_logging
 open Wasm_module
 open Ssa
 open Symbolic_expr
+open Loops
 
 (* Part 1 *)
 (* Printable strings for basic types *)
@@ -534,6 +535,17 @@ let loop_type w e param_types local_types cp_ssa bbs (bb_idx: int) =
             | Some _ ->  loop_info w e param_types local_types cp_ssa bbs bb_idx "simple br"
             | _ -> (string_of_bb_type bb_next.bbtype))
 
+let print_loop_bblock oc (lb: loop_body) =
+  List.iter ~f:(fun x -> Out_channel.output_string oc (String.concat [(string_of_int x.index); " "])) lb
+
+let print_loop_bblocks oc (lbs: loop_body list) =
+  List.iter 
+    ~f:(fun x -> 
+          Out_channel.output_string oc "Loop block: [";
+          print_loop_bblock oc x;
+          Out_channel.output_string oc "]\n")
+    lbs
+
 (* TODO more convenient to store code paths in reverse order? *)
 let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_path) =
   let cp_ssa = ssa_of_code_path w e param_types local_types bbs cp in
@@ -587,6 +599,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
             (string_of_ints (ids_with_loops bblocks))
             (string_of_ints (ids_with_simple_brif_loops bblocks))
             (string_of_ints (ids_with_simple_br_loops bblocks)));
+            print_loop_bblocks oc (loop_bodies_of_bblocks bblocks);
         (* print the code paths from the root to a loop bblock and the VM state at loop entry *)
         Out_channel.output_string oc (sprintf "Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:\n");
         Out_channel.output_string oc

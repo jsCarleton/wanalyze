@@ -1,0 +1,26 @@
+Loops
+
+A loop body is a set of consecutive basic blocks with the following properties:
+- the first basic block is of type loop,
+- the nesting of the first basic block is the "loop nesting",
+- the last basic block is of type end and it has nesting "loop nesting",
+- every other basic block has nesting greater than the "loop nestint"
+
+Loop body properties:
+- entry paths: the set of basic block paths that can enter a loop
+- exit basic blocks: the end, br and br_if basic blocks whose target basic block
+  is outside the loop body
+
+Entry path properties:
+
+Loop path properties:
+
+Exit basic block properties:
+- branch condition: the condition (of the if or br_if) under which the loop is exitted
+- branch variables: the variables used in the branch condition
+- branch variable possible initial values: the set of values that the branch variables can contain
+  upon entry to the loop
+- paths to exit basic block: the possible paths within the loop to the exit block
+
+Paths to exit basic block properties:
+- branch variable updates: the SSA simplification of the branch variables in the exit basic blocks

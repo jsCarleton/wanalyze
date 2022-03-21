@@ -1236,7 +1236,7 @@ let analyze_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype list
   let _,loop_cond = reduce_bblock w (expr_of_bblock e bb) (empty_program_state w param_types local_types) in
     loop_cond
 
-let execution_paths (bblocks: bblock list) : int list list =
+let execution_paths (bblocks: bblock list): int list list =
   [List.map ~f:(fun s -> s.index) bblocks]
 
 let block_is_loop (bblocks: bblock list) (bb_id: int): bool =
@@ -1257,8 +1257,8 @@ let rec loop_prefix_of_code_path (bblocks: bblock list) (acc: code_path) (cp: co
   | []      -> acc
   | hd::tl  ->
       (match block_is_loop bblocks hd with
-        | true  -> List.append acc [hd]
-        | _     -> loop_prefix_of_code_path bblocks (List.append acc [hd]) tl)
+        | true  -> List.rev (hd::acc)
+        | _     -> loop_prefix_of_code_path bblocks (hd::acc) tl)
 
 let loop_code_paths (bblocks: bblock list) (cps: code_path list): code_path list =
   List.map ~f:(loop_prefix_of_code_path bblocks []) (List.filter_map ~f:(code_path_with_loop bblocks) cps)
@@ -1273,6 +1273,3 @@ let rec compare_cps (cp1: code_path) (cp2: code_path): int =
         | true                  -> compare_cps tl1 tl2
         | false when hd1 < hd2  -> -1
         | _                     -> +1)
-
-(* Implementation *)
-(* Part 8 - section updating *)
