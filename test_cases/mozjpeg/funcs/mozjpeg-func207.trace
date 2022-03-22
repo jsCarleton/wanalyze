@@ -1,3 +1,0 @@
-segment 0 from -1
-initial state:   steps: 0; stack: []; locals: [N0, N1, N2, N3, N4, ??, ??, ??, ??, ??, ??, ??, ??, ??, ??]; globals: [abc, abc, abc, abc, abc, abc, abc, abc, abc, abc]
-final   state:   steps: 54; stack: []; locals: [N0, N1, , ((i32.load@(N0) shl i32.load8_s@(((N3 + i32.load8_u@((((((i32.load16_s@(N1) - N2) shr_s 31) xor ) - ) + 66832))) + 1024))) || i32.load@((N3 + ( shl 2)))), N4, ??, , ( + ), i32.load@(N0), , i32.load8_s@((N4 + 1264)), ??, i32.load@(N4), , ??]; globals: [(abc - 256), abc, abc, abc, abc, abc, abc, abc, abc, abc]
