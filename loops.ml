@@ -17,7 +17,7 @@ type loop_prefix = {
   loop_exit
   describes the conditions where a loop is exited
 *)
-type loop_exit = {
+type loop_path = {
   path_to_exit:         bblock list;      (* path within the loop to the bblock where the exit occurs *)
   condition_at_exit:    expr_tree;        (* condition that's true for the exit to occur *)
   vars_of_condition:    string list;      (* variables used in the condition *)
@@ -31,7 +31,7 @@ type loop_exit = {
 *)
 type loop = {
   loop_bblocks: bblock list;      (* list of consecutive bblocks that comprise the loop *)
-  loop_exits:   loop_exit list;   (* list of exits from the loop *)
+  loop_paths:   loop_path list;   (* list of possible paths through the loop *)
 }
 
 (**
@@ -69,7 +69,7 @@ let rec loop_bblocks_of_bblocks'
 let loop_bblocks_of_bblocks (bblocks: bblock list): bblock list list =
   loop_bblocks_of_bblocks' bblocks [] [] false (-1)
 
-let loop_exits_of_loop_bblocks (loop_bblocks: bblock list): loop_exit list =
+let loop_paths_of_loop_bblocks (loop_bblocks: bblock list): loop_path list =
   List.map  ~f:(fun path_to_exit -> { path_to_exit;
                                       condition_at_exit = Empty;
                                       vars_of_condition = [];
@@ -88,7 +88,7 @@ let loop_exits_of_loop_bblocks (loop_bblocks: bblock list): loop_exit list =
 
 let loops_of_bblocks (bblocks: bblock list): loop list =
   List.map  ~f:(fun loop_bblocks -> { loop_bblocks; 
-                                      loop_exits = loop_exits_of_loop_bblocks loop_bblocks})
+                                      loop_paths = loop_paths_of_loop_bblocks loop_bblocks})
             (loop_bblocks_of_bblocks bblocks)
   
 (**

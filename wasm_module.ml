@@ -977,21 +977,38 @@ let bblocks_of_expr (e: expr) : bblock list =
 (* Part 4 - code paths *)
 
 (*
-    succ_of_cp
-    Takes a code path and returns the list of bblocks that
-    are immediate successors to the code path
+  succ_of_cp
+    Takes the index of the last block in the code fragment we're working with and a code path and
+    returns the list of bblocks in the fragment that are immediate successors to the code path
+
+  Parameters:
+    last_idx  last block index
+    cp        a code path
+
+  Returns:
+    the list of successor basic blocks
 *)
-let succ_of_cp (cp: code_path): bblock list = (List.hd_exn cp).succ
+let succ_of_cp (last_idx: int) (cp: code_path): bblock list = 
+  List.filter ~f:(fun x -> x.index <= last_idx) (List.hd_exn cp).succ
 
 (*
     term_of_cp_bb
-        Takes a code path and a successor bblock
-        Returns the code path if the successor bblock has index greater than the
-        index of the last bblock in the given code path.
-        None otherwise
+
+    Takes a code path and a successor bblock and returns the code path if the successor bblock
+    has index greater than the index of the last bblock in the given code path.
+    None otherwise
+
+    Parameters:
+      last_idx  last block index
+      cp        a code path
+      succ      possible succesor block
+
+    Returns:
+      a code path option that is None if the successor is outside the code fragment, the successor
+      otherwise
 *)
-let term_of_cp_bb (bblocks: bblock list) (cp: code_path) (succ: bblock): code_path option =
-    match       (succ.index > (List.nth_exn bblocks (List.length bblocks - 1)).index) 
+let term_of_cp_bb (last_idx: int) (cp: code_path) (succ: bblock): code_path option =
+    match       (succ.index > last_idx)
             ||  (List.hd_exn cp).index >= succ.index with
     | true  -> Some cp
     |  _    -> None
@@ -1001,8 +1018,8 @@ let term_of_cp_bb (bblocks: bblock list) (cp: code_path) (succ: bblock): code_pa
         Takes a code path and returns a list containing the terminal code paths that are terminated
         by the next bblock one bblock longer than the given code path
 *)
-let terms_of_cp (bblocks: bblock list) (cp: code_path): code_path list =
-    List.filter_map ~f:(term_of_cp_bb bblocks cp) (succ_of_cp cp)
+let terms_of_cp (last_idx: int) (cp: code_path): code_path list =
+    List.filter_map ~f:(term_of_cp_bb last_idx cp) (succ_of_cp last_idx cp)
 
 (*
     nterm_of_cp_bb
@@ -1011,9 +1028,9 @@ let terms_of_cp (bblocks: bblock list) (cp: code_path): code_path list =
     index of the last bblock in the given code path.
     None otherwise
 *)
-let nterm_of_cp_bb (bblocks: bblock list) (cp: code_path) (succ: bblock): code_path option =
-    match       (succ.index < List.length bblocks) 
-            &&  (List.nth_exn bblocks (List.hd_exn cp).index).index < succ.index with
+let nterm_of_cp_bb (last_idx: int) (cp: code_path) (succ: bblock): code_path option =
+    match       (succ.index <= last_idx) 
+            &&  (List.hd_exn cp).index < succ.index with
     | true    -> Some (List.cons succ cp)
     | _       -> None
 
@@ -1022,19 +1039,19 @@ let nterm_of_cp_bb (bblocks: bblock list) (cp: code_path) (succ: bblock): code_p
         Takes a code path and returns a list containing the non-terminal code paths that are one bblock longer
         than the given code path
 *)
-let nterms_of_cp (bblocks: bblock list) (cp: code_path): code_path list =
-    List.filter_map ~f:(nterm_of_cp_bb bblocks cp) (succ_of_cp cp)
+let nterms_of_cp (last_idx: int) (cp: code_path): code_path list =
+    List.filter_map ~f:(nterm_of_cp_bb last_idx cp) (succ_of_cp last_idx cp)
 
 (*
     is_term
         Takes a code path and returns true if it has reached a terminal state, false otherwise
 *)
-let is_term (cp: code_path): bool =
+let is_term (last_idx: int) (cp: code_path): bool =
     match (List.hd_exn cp).bbtype with
     | BB_return
     | BB_unreachable -> true
     | _ ->
-        (match succ_of_cp cp with
+        (match succ_of_cp last_idx cp with
         | []    -> true
         | _     -> false)
 
@@ -1043,10 +1060,10 @@ let is_term (cp: code_path): bool =
         Takes list of bblocks and a code path
         Returns a pair of lists of code-paths that's the resulting non-terminal and terminal paths respectively
 *)
-let step_code_path (bblocks: bblock list) (cp: code_path): (code_path list)*(code_path list) =
-    match is_term cp with
+let step_code_path (last_idx: int) (cp: code_path): (code_path list)*(code_path list) =
+    match is_term last_idx cp with
     | true  -> [], [cp]
-    | _     -> (nterms_of_cp bblocks cp), (terms_of_cp bblocks cp)
+    | _     -> (nterms_of_cp last_idx cp), (terms_of_cp last_idx cp)
 
 (* 
     code_paths_of_bblocks'
@@ -1054,20 +1071,21 @@ let step_code_path (bblocks: bblock list) (cp: code_path): (code_path list)*(cod
         Returns the terminal code paths *unless* we think there are too many code paths. In that case
         we return []
 *)
-let rec code_paths_of_bblocks' (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
+let rec code_paths_of_bblocks' (last_idx: int) (nterm: code_path list) (term: code_path list): code_path list =
   match nterm with
     | []        -> term
     | hd::tl    ->
-        let n,t = step_code_path bblocks hd in
-            code_paths_of_bblocks' bblocks (List.append n tl) (List.append t term)
+        let n,t = step_code_path last_idx hd in
+            code_paths_of_bblocks' last_idx (List.append n tl) (List.append t term)
   
 (*
     For convenience we build each code path in reverse order. Here we reverse that since
     we actually need them in flow graph order for execution purposes
 *)
 let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
+  let last_idx = (List.nth_exn bblocks ((List.length bblocks)-1)).index in
   match (mult_succ_count bblocks) < 24 with   (* hack to prevent this code from running for a very long time *)
-    | true  -> List.map ~f:List.rev (code_paths_of_bblocks' bblocks nterm term)
+    | true  -> List.map ~f:List.rev (code_paths_of_bblocks' last_idx nterm term)
     | false -> []
 
 (* Implementation *)

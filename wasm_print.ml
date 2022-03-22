@@ -592,6 +592,47 @@ let print_loops_bblocks oc (lbs: bblock list list) =
           Out_channel.output_string oc "]\n")
     lbs
 
+(**
+  print_loop_paths
+
+  Print the possible paths within a loop, one per line
+
+  Parameters:
+    oc  output channel to print on
+    lp  list of loop paths
+
+  Returns:
+    ()
+**)
+
+let print_loop_paths oc (lp: loop_path list) =
+  List.iter ~f:(fun x -> 
+      Out_channel.output_string oc "  Loop path: [";
+      print_loop_bblocks oc x.path_to_exit;
+      Out_channel.output_string oc "]\n")
+  lp
+
+(**
+  print_loops
+
+  Print everything we know about the loops that we've found
+
+  Parameters:
+    oc  output channel to print on
+    ls  list of loops we've found
+
+  Returns:
+    ()
+**)
+
+let print_loop oc (l: loop) =
+  Out_channel.output_string oc "Loop block: [";
+  print_loop_bblocks oc l.loop_bblocks;
+  Out_channel.output_string oc "]\n";
+  print_loop_paths oc (l.loop_paths)
+
+let print_loops oc (ls: loop list) = List.iter ~f:(print_loop oc) ls
+
 (* TODO more convenient to store code paths in reverse order? *)
 let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_path) =
   let cp_ssa = ssa_of_code_path w e param_types local_types cp in
@@ -646,7 +687,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
             (string_of_ints (ids_with_loops bblocks))
             (string_of_ints (ids_with_simple_brif_loops bblocks))
             (string_of_ints (ids_with_simple_br_loops bblocks)));
-            print_loops_bblocks oc (loop_bblocks_of_bblocks bblocks);
+            print_loops oc loops;
         (* print the code paths from the root to a loop bblock and the VM state at loop entry *)
         Out_channel.output_string oc (sprintf "Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:\n");
         Out_channel.output_string oc
