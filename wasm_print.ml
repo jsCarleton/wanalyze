@@ -273,15 +273,30 @@ let string_of_bbtype (bbtype: bb_type) : string =
   | BB_br_table     -> "br_table"
   | BB_return       -> "return"
 
-let string_of_bbindex (i: int) : string = match i with | -1 -> "" | _ -> string_of_int i
+let string_of_br_dest (bb: bblock option) : string =
+  match bb with 
+    | Some x -> string_of_int x.index
+    | _ -> ""
 let string_of_ints (ints: int list): string =
     String.concat ~sep:" " (List.map ~f:string_of_int ints)
-let string_of_bblock (s: bblock) : string = 
-  sprintf "%5d %5d %5d %5d   %-5s %6s %-11s s=[%s] p=[%s]\n" 
-    s.index s.start_op s.end_op s.nesting (string_of_bbindex s.br_dest) (string_of_ints s.labels) (string_of_bbtype s.bbtype) (string_of_ints s.succ) (string_of_ints s.pred)
-let string_of_bblocks (s: bblock list) : string =
+let indexes_of_bblocks (bbs: bblock list): int list =
+  List.map ~f:(fun x -> x.index) bbs
+let string_of_bblocks (bbs: bblock list): string =
+  String.concat ["["; string_of_ints (indexes_of_bblocks bbs); "]"]
+let string_of_bblock_detail (s: bblock) : string = 
+  sprintf "%5d %5d %5d %5d   %-5s %6s %-11s s=%s p=%s\n" 
+    s.index
+    s.start_op
+    s.end_op
+    s.nesting
+    (string_of_br_dest s.br_dest)
+    (string_of_ints s.labels)
+    (string_of_bbtype s.bbtype)
+    (string_of_bblocks s.succ)
+    (string_of_bblocks s.pred)
+let string_of_bblocks_detail (s: bblock list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
-                 String.concat (List.map ~f:string_of_bblock s)]
+                 String.concat (List.map ~f:string_of_bblock_detail s)]
 
 let print_function oc (w: wasm_module) annotate i idx =
   Out_channel.output_string oc "  (func (;"; 
@@ -382,7 +397,7 @@ let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string
 
 let has_successors (bblocks: bblock list) (bb_index: int ): bool =
   let succ = (List.nth_exn bblocks bb_index).succ in
-    (List.length succ > 0) && (List.hd_exn succ < List.length bblocks)
+    (List.length succ > 0)
 
 (* Part 3 *)
 (* printing the state *)
@@ -421,27 +436,30 @@ let graph_node (src: int) (label: string) (dest: int): string =
   | false -> 
       String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label=\""; label; "\"];\n"]
 
-let graph_bblock (index: int) (bbtype: bb_type) (succ: int list) (pred: int list) (last: int): string =
+let graph_bblock (index: int) (bbtype: bb_type) (succ: bblock list) (pred: bblock list) (last: int): string =
   match List.length pred > 0 || index = 0 with
   | true ->
     (match bbtype with
     | BB_unreachable  -> graph_node index "unreachable" last
-    | BB_end          -> graph_node index "end" (List.nth_exn succ 0)
-    | BB_block        -> graph_node index "block" (List.nth_exn succ 0)
-    | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0)
+    | BB_end          -> 
+        (match succ with 
+          | []  -> graph_node index "end" last 
+          | _   -> graph_node index "end" (List.nth_exn succ 0).index)
+    | BB_block        -> graph_node index "block" (List.nth_exn succ 0).index
+    | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0).index
     | BB_if           ->
         String.concat [
-          graph_node index "if" (List.nth_exn succ 0);
-          graph_node index "~if" (List.nth_exn succ 1);
+          graph_node index "if" (List.nth_exn succ 0).index;
+          graph_node index "~if" (List.nth_exn succ 1).index;
         ]
-    | BB_else         -> graph_node index "else" (List.nth_exn succ 0)
+    | BB_else         -> graph_node index "else" (List.nth_exn succ 0).index
     | BB_br_if        ->
         String.concat [
-          graph_node index "~br_if" (List.nth_exn succ 0);
-          graph_node index "br_if" (List.nth_exn succ 1);
+          graph_node index "~br_if" (List.nth_exn succ 0).index;
+          graph_node index "br_if" (List.nth_exn succ 1).index;
         ]
-    | BB_br           -> graph_node index "br" (List.nth_exn succ 0)
-    | BB_br_table     -> String.concat (List.map ~f:(graph_node index  "br_table") succ)
+    | BB_br           -> graph_node index "br" (List.nth_exn succ 0).index
+    | BB_br_table     -> String.concat (List.map ~f:(graph_node index "br_table") (indexes_of_bblocks succ))
     | BB_return       -> graph_node index "return" last
     | BB_unknown      -> failwith "Unknown bb type in graph_bblock")
   | _ -> ""
@@ -470,27 +488,24 @@ let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): 
 (* Part 5 *)
 (* printing analysis results *)
 
-let string_of_list_of_list_of_ints (ll: int list list) =
-  String.concat ~sep:"\n" (List.map ~f:string_of_ints ll)
+let string_of_code_path (cp: code_path): string = string_of_bblocks cp
+let string_of_code_paths (cps: code_path list) =
+  String.concat ~sep:"\n" (List.map ~f:string_of_code_path cps)
 
-let execute_bblock (w: wasm_module) (e: expr) (bblocks: bblock list) (state: program_state)
-      (bb_id: int) =
-    let bb = List.nth_exn bblocks bb_id in
+let execute_bblock (w: wasm_module) (e: expr) (state: program_state)
+      (bb: bblock) =
     let (_: expr_tree) = reduce_bblock' w state (expr_of_bblock e bb) Empty in
       ()
 
-let execute_code_path (w: wasm_module) (e: expr) (bblocks: bblock list) (param_types: resulttype list) (local_types: local_type list) 
+let execute_code_path (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
       (cp: code_path): string = 
   let state = empty_program_state w param_types local_types in
-    List.iter ~f:(execute_bblock w e bblocks state) cp;
+    List.iter ~f:(execute_bblock w e state) cp;
     string_of_state true (List.length param_types) state
 
-let string_of_code_path (cp: code_path): string =
-  String.concat ["["; string_of_ints cp; "]"]
-
-let loop_entry_state (w: wasm_module) (e: expr) (bblocks: bblock list) (param_types: resulttype list) (local_types: local_type list) 
+let loop_entry_state (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
       (cp: code_path): string = 
-    String.concat [string_of_code_path cp; execute_code_path w e bblocks param_types local_types cp]
+    String.concat [string_of_code_path cp; execute_code_path w e param_types local_types cp]
 
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
@@ -535,24 +550,55 @@ let loop_type w e param_types local_types cp_ssa bbs (bb_idx: int) =
             | Some _ ->  loop_info w e param_types local_types cp_ssa bbs bb_idx "simple br"
             | _ -> (string_of_bb_type bb_next.bbtype))
 
-let print_loop_bblock oc (lb: loop_body) =
-  List.iter ~f:(fun x -> Out_channel.output_string oc (String.concat [(string_of_int x.index); " "])) lb
+(**
+  print_loop_bblocks
 
-let print_loop_bblocks oc (lbs: loop_body list) =
+  Print a loop bblocks
+
+  Parameters:
+    oc  output channel to print on
+    lb  loop body
+
+  Returns:
+    ()
+**)
+let print_loop_bblocks oc (lb: bblock list) =
+  let ll = List.length lb in
+  List.iteri 
+    ~f:(fun i x -> 
+          match (i+1) = ll with
+            | false -> Out_channel.output_string oc (String.concat [string_of_int x.index; " "])
+            | true  -> Out_channel.output_string oc (string_of_int x.index))
+    lb
+
+(**
+  print_loops_bblocks
+
+  Print a list of blocks for multiple loops, one per line
+
+  Parameters:
+    oc    output channel to print on
+    lbs   loop body list
+
+  Returns:
+    ()
+**)
+
+let print_loops_bblocks oc (lbs: bblock list list) =
   List.iter 
     ~f:(fun x -> 
           Out_channel.output_string oc "Loop block: [";
-          print_loop_bblock oc x;
+          print_loop_bblocks oc x;
           Out_channel.output_string oc "]\n")
     lbs
 
 (* TODO more convenient to store code paths in reverse order? *)
 let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_path) =
-  let cp_ssa = ssa_of_code_path w e param_types local_types bbs cp in
-  let bb_idx = List.hd_exn (List.rev cp) in
+  let cp_ssa = ssa_of_code_path w e param_types local_types cp in
+  let bb = List.hd_exn (List.rev cp) in
   Out_channel.output_string oc_summary
     (sprintf "%s,%d,%d,%s,%s\n"
-        m fnum bb_idx (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb_idx));
+        m fnum bb.index (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb.index));
   ()
 
 let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx =
@@ -569,7 +615,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
     Out_channel.close oc;
   (* bblocks in function *)
   let oc = Out_channel.create (String.concat[fname; ".bblocks"]) in
-    Out_channel.output_string oc (string_of_bblocks bblocks);
+    Out_channel.output_string oc (string_of_bblocks_detail bblocks);
     Out_channel.close oc;
   (* graphviz command file for function flow graph *)
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
@@ -577,7 +623,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
     Out_channel.close oc;
   (* code paths *)
   let oc = Out_channel.create (String.concat[fname; ".paths"]) in
-    Out_channel.output_string oc (string_of_list_of_list_of_ints cps);
+    Out_channel.output_string oc (string_of_code_paths cps);
     Out_channel.output_string oc "\n";
     Out_channel.close oc;
   (* loop analysis *)
@@ -599,11 +645,11 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
             (string_of_ints (ids_with_loops bblocks))
             (string_of_ints (ids_with_simple_brif_loops bblocks))
             (string_of_ints (ids_with_simple_br_loops bblocks)));
-            print_loop_bblocks oc (loop_bodies_of_bblocks bblocks);
+            print_loops_bblocks oc (loop_bblocks_of_bblocks bblocks);
         (* print the code paths from the root to a loop bblock and the VM state at loop entry *)
         Out_channel.output_string oc (sprintf "Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:\n");
         Out_channel.output_string oc
-          (String.concat ~sep:"\n"  (List.map ~f:(loop_entry_state w fn.e bblocks param_types local_types) loop_cps));
+          (String.concat ~sep:"\n"  (List.map ~f:(loop_entry_state w fn.e param_types local_types) loop_cps));
         Out_channel.output_string oc "\n";
         (* print the loop conditions and ssa for simple br_if loops *)
         let bbs = (bblocks_with_simple_brif_loops bblocks) in

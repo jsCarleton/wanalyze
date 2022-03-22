@@ -8,4 +8,4 @@ index start   end nesting dest  labels type        succ/pred
     5    55    58     0   8            if          s=[6 7] p=[4 3]
     6    58    64     0                else        s=[8] p=[5]
     7    64    68     0                end         s=[8] p=[5]
-    8    68    73    -1                end         s=[9] p=[7 6]
+    8    68    73    -1                end         s=[] p=[7 6]

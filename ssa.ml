@@ -170,10 +170,10 @@ let ssa_of_locals (ll: local_type list): ssa list =
 let ssa_of_expr' (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (e: expr) acc: ssa list =
   List.fold_left ~f:(ssa_of_op w param_types local_types) ~init:acc e
 
-let ssa_of_bblock_idx (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-    (bbs: bblock list) acc (bb_idx: int): ssa list =
-  ssa_of_expr' w param_types local_types (expr_of_bblock e (List.nth_exn bbs bb_idx)) acc
+let ssa_of_bblock (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
+    acc (bb: bblock): ssa list =
+  ssa_of_expr' w param_types local_types (expr_of_bblock e bb) acc
 
 let ssa_of_code_path (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-      (bbs: bblock list) (cp: code_path): ssa list =
-  List.fold ~f:(ssa_of_bblock_idx w e param_types local_types bbs) ~init:(ssa_of_locals local_types) cp
+      (cp: code_path): ssa list =
+  List.fold ~f:(ssa_of_bblock w e param_types local_types) ~init:(ssa_of_locals local_types) cp

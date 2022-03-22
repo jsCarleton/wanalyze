@@ -636,7 +636,7 @@ let read_code_section' ic =
   let locals = read_vec ic (read_local ic) in
   let e = read_expr ic in
   let bblocks = bblocks_of_expr e in
-  let code_paths = code_paths_of_bblocks bblocks [[0]] [] in
+  let code_paths = code_paths_of_bblocks bblocks [[List.hd_exn bblocks]] [] in
   {locals; e; bblocks; code_paths}
 
 let read_code_section ic =

@@ -24,3 +24,34 @@ Exit basic block properties:
 
 Paths to exit basic block properties:
 - branch variable updates: the SSA simplification of the branch variables in the exit basic blocks
+
+
+
+Print loop info as follows:
+
+
+loop: [bb bb bb bb bb]
+    path to exit: [bb bb bb bb]
+    condition at exit: f(v1,v2,...)
+    vars of condition: v1 v2 ....
+    assignments to vars of condition on path to exit: v1=X, v2=Y, ....
+    path to loop: [bb bb bb]
+        values of vars at loop entry: v1=X, v2=Y, ...
+    path to loop: [bb bb bb]
+        values of vars at loop entry: v1=X, v2=Y, ...
+
+type loop = {
+    loop_bblocks:   bblock list;
+    loop_exits:     loop_exit list;
+}
+
+type loop_exit = {
+    path_to_exit:           bblock list;
+    condition_at_exit:      expr_tree;
+    vars_of_condition:      string list;
+    assignments_to_vars:    ssa list; 
+}
+
+
+path to exit: [bb bb bb bb]
+condition at exit: a<b
