@@ -978,11 +978,10 @@ let bblocks_of_expr (e: expr) : bblock list =
 
 (*
     succ_of_cp
-    Takes a list of bblocks and a code path and returns the list of bblocks that
+    Takes a code path and returns the list of bblocks that
     are immediate successors to the code path
 *)
-let succ_of_cp (bblocks: bblock list) (cp: code_path): bblock list =
-    (List.nth_exn bblocks (List.hd_exn cp).index).succ
+let succ_of_cp (cp: code_path): bblock list = (List.hd_exn cp).succ
 
 (*
     term_of_cp_bb
@@ -993,7 +992,7 @@ let succ_of_cp (bblocks: bblock list) (cp: code_path): bblock list =
 *)
 let term_of_cp_bb (bblocks: bblock list) (cp: code_path) (succ: bblock): code_path option =
     match       (succ.index > (List.nth_exn bblocks (List.length bblocks - 1)).index) 
-            ||  (List.nth_exn bblocks (List.hd_exn cp).index).index >= succ.index with
+            ||  (List.hd_exn cp).index >= succ.index with
     | true  -> Some cp
     |  _    -> None
     
@@ -1003,7 +1002,7 @@ let term_of_cp_bb (bblocks: bblock list) (cp: code_path) (succ: bblock): code_pa
         by the next bblock one bblock longer than the given code path
 *)
 let terms_of_cp (bblocks: bblock list) (cp: code_path): code_path list =
-    List.filter_map ~f:(term_of_cp_bb bblocks cp) (succ_of_cp bblocks cp)
+    List.filter_map ~f:(term_of_cp_bb bblocks cp) (succ_of_cp cp)
 
 (*
     nterm_of_cp_bb
@@ -1024,18 +1023,18 @@ let nterm_of_cp_bb (bblocks: bblock list) (cp: code_path) (succ: bblock): code_p
         than the given code path
 *)
 let nterms_of_cp (bblocks: bblock list) (cp: code_path): code_path list =
-    List.filter_map ~f:(nterm_of_cp_bb bblocks cp) (succ_of_cp bblocks cp)
+    List.filter_map ~f:(nterm_of_cp_bb bblocks cp) (succ_of_cp cp)
 
 (*
     is_term
         Takes a code path and returns true if it has reached a terminal state, false otherwise
 *)
-let is_term (bblocks: bblock list) (cp: code_path): bool =
-    match (List.nth_exn bblocks (List.hd_exn cp).index).bbtype with
+let is_term (cp: code_path): bool =
+    match (List.hd_exn cp).bbtype with
     | BB_return
     | BB_unreachable -> true
     | _ ->
-        (match succ_of_cp bblocks cp with
+        (match succ_of_cp cp with
         | []    -> true
         | _     -> false)
 
@@ -1045,7 +1044,7 @@ let is_term (bblocks: bblock list) (cp: code_path): bool =
         Returns a pair of lists of code-paths that's the resulting non-terminal and terminal paths respectively
 *)
 let step_code_path (bblocks: bblock list) (cp: code_path): (code_path list)*(code_path list) =
-    match is_term bblocks cp with
+    match is_term cp with
     | true  -> [], [cp]
     | _     -> (nterms_of_cp bblocks cp), (terms_of_cp bblocks cp)
 

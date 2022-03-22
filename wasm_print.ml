@@ -631,6 +631,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
   | true ->
       (* print loop summary info *)
       let loop_cps = List.dedup_and_sort ~compare:compare_cps (loop_code_paths bblocks cps) in
+      let loops = loops_of_bblocks bblocks in
       List.iter 
         ~f:(print_summary oc_summary w fn.e param_types local_types (Filename.chop_extension w.module_name) fnum bblocks) 
         loop_cps;
