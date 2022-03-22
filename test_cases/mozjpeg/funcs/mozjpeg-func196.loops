@@ -2,6 +2,16 @@ Loops found in function 196 in these bblocks: 3.
 Simple br_if conditions in: .
 Simple br conditions in: .
 Loop block: [2 3 4 5 6 7 8 9 10 11 12 13 14]
+  Loop path: [2 3 5 6 7 11 13 14]
+  Loop path: [2 3 5 6 7 11 13]
+  Loop path: [2 3 5 6 7 11 12 13 14]
+  Loop path: [2 3 5 6 7 11 12 13]
+  Loop path: [2 3 5 6 7 8 9]
+  Loop path: [2 3 4 6 7 11 13 14]
+  Loop path: [2 3 4 6 7 11 13]
+  Loop path: [2 3 4 6 7 11 12 13 14]
+  Loop path: [2 3 4 6 7 11 12 13]
+  Loop path: [2 3 4 6 7 8 9]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2]
 cost:    21; 

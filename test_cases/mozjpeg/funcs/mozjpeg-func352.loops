@@ -2,7 +2,14 @@ Loops found in function 352 in these bblocks: 4 6.
 Simple br_if conditions in: 6.
 Simple br conditions in: .
 Loop block: [3 4 5 6 7 8 9 10]
+  Loop path: [3 4 9 10]
+  Loop path: [3 4 9]
+  Loop path: [3 4 5 6 7 8 9 10]
+  Loop path: [3 4 5 6 7 8 9]
+  Loop path: [3 4 5 6]
 Loop block: [5 6 7]
+  Loop path: [5 6 7]
+  Loop path: [5 6]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 3]
 cost:    47; 

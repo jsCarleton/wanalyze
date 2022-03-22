@@ -2,9 +2,23 @@ Loops found in function 208 in these bblocks: 16 24 28 44.
 Simple br_if conditions in: 16.
 Simple br conditions in: .
 Loop block: [15 16 17]
+  Loop path: [15 16 17]
+  Loop path: [15 16]
 Loop block: [23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39]
+  Loop path: [23 24 25 35 36 37]
+  Loop path: [23 24 25 26 36 37]
+  Loop path: [23 24 25 26 27 28 31 32 33 36 37]
+  Loop path: [23 24 25 26 27 28 31]
+  Loop path: [23 24 25 26 27 28 29 30 31 32 33 36 37]
+  Loop path: [23 24 25 26 27 28 29 30 31]
 Loop block: [27 28 29 30 31 32]
+  Loop path: [27 28 31 32]
+  Loop path: [27 28 31]
+  Loop path: [27 28 29 30 31 32]
+  Loop path: [27 28 29 30 31]
 Loop block: [43 44 45 46]
+  Loop path: [43 44 45 46]
+  Loop path: [43 44 45]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 3 4 5 6 7 11 12 13 14 15]
 cost:    123; 

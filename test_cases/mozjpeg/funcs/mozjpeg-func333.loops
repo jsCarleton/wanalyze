@@ -2,11 +2,23 @@ Loops found in function 333 in these bblocks: 15 24 30 35 41 46.
 Simple br_if conditions in: 30 35 41 46.
 Simple br conditions in: .
 Loop block: [14 15 16 17]
+  Loop path: [14 15 16 17]
+  Loop path: [14 15 16]
 Loop block: [23 24 25 26]
+  Loop path: [23 24 25 26]
+  Loop path: [23 24 25]
 Loop block: [29 30 31]
+  Loop path: [29 30 31]
+  Loop path: [29 30]
 Loop block: [34 35 36]
+  Loop path: [34 35 36]
+  Loop path: [34 35]
 Loop block: [40 41 42]
+  Loop path: [40 41 42]
+  Loop path: [40 41]
 Loop block: [45 46 47]
+  Loop path: [45 46 47]
+  Loop path: [45 46]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 5 6 7 8 9 44 45]
 cost:    38; 

@@ -2,8 +2,15 @@ Loops found in function 158 in these bblocks: 4 9 10.
 Simple br_if conditions in: 4.
 Simple br conditions in: 11.
 Loop block: [3 4 5]
+  Loop path: [3 4 5]
+  Loop path: [3 4]
 Loop block: [8 9 10 11 12 13 14 15]
+  Loop path: [8 9 10 13 14 15]
+  Loop path: [8 9 10 13 14]
+  Loop path: [8 9 10 11]
 Loop block: [9 10 11 12 13]
+  Loop path: [9 10 13]
+  Loop path: [9 10 11]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 3]
 cost:    32; 

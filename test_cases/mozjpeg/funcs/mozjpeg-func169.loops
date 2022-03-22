@@ -2,9 +2,27 @@ Loops found in function 169 in these bblocks: 2 17 25 38.
 Simple br_if conditions in: 2 17.
 Simple br conditions in: .
 Loop block: [1 2 3]
+  Loop path: [1 2 3]
+  Loop path: [1 2]
 Loop block: [16 17 18]
+  Loop path: [16 17 18]
+  Loop path: [16 17]
 Loop block: [24 25 26 27 28 29 30 31 32 33 34]
+  Loop path: [24 25 26 31 32]
+  Loop path: [24 25 26 31]
+  Loop path: [24 25 26 27 31 32]
+  Loop path: [24 25 26 27 31]
+  Loop path: [24 25 26 27 28 30 31 32]
+  Loop path: [24 25 26 27 28 30 31]
+  Loop path: [24 25 26 27 28 29 30 31 32]
+  Loop path: [24 25 26 27 28 29 30 31]
 Loop block: [37 38 39 40 41 42 43]
+  Loop path: [37 38 42 43]
+  Loop path: [37 38 42]
+  Loop path: [37 38 39 41 42 43]
+  Loop path: [37 38 39 41 42]
+  Loop path: [37 38 39 40 41 42 43]
+  Loop path: [37 38 39 40 41 42]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1]
 cost:    12; 

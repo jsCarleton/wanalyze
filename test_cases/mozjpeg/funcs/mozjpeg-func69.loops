@@ -2,8 +2,14 @@ Loops found in function 69 in these bblocks: 2 17 38.
 Simple br_if conditions in: 2 17 38.
 Simple br conditions in: .
 Loop block: [1 2 3]
+  Loop path: [1 2 3]
+  Loop path: [1 2]
 Loop block: [16 17 18]
+  Loop path: [16 17 18]
+  Loop path: [16 17]
 Loop block: [37 38 39]
+  Loop path: [37 38 39]
+  Loop path: [37 38]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1]
 cost:    5; 

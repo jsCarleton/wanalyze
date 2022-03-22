@@ -2,6 +2,10 @@ Loops found in function 266 in these bblocks: 1.
 Simple br_if conditions in: .
 Simple br conditions in: .
 Loop block: [0 1 2 3 4 5 6 7]
+  Loop path: [0 1 2 5 6 7]
+  Loop path: [0 1 2 5 6]
+  Loop path: [0 1 2 3 6 7]
+  Loop path: [0 1 2 3 6]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0]
 cost:    1; 
