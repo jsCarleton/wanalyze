@@ -27,8 +27,7 @@ Paths to exit basic block properties:
 
 
 
-Print loop info as follows:
-
+Print loop info as follows, things that are indented can have multiple occurences:
 
 loop: [bb bb bb bb bb]
     path to exit: [bb bb bb bb]
@@ -40,6 +39,8 @@ loop: [bb bb bb bb bb]
     path to loop: [bb bb bb]
         values of vars at loop entry: v1=X, v2=Y, ...
 
+Use these types to store loop info:
+
 type loop = {
     loop_bblocks:   bblock list;
     loop_exits:     loop_exit list;
@@ -49,9 +50,15 @@ type loop_exit = {
     path_to_exit:           bblock list;
     condition_at_exit:      expr_tree;
     vars_of_condition:      string list;
-    assignments_to_vars:    ssa list; 
+    assignments_to_vars:    ssa list;
+    loop_prefixes:          loop_prefix list; 
 }
 
+type loop_prefix = {
+    prefix_cp:              bblock list;
+    loop_var_values:        ssa list;
+}
 
-path to exit: [bb bb bb bb]
-condition at exit: a<b
+Loop exit determination
+
+given loop_bblocks
