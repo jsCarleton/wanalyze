@@ -1,6 +1,29 @@
 Loops found in function 104 in these bblocks: 11 17 24 25 34 47 58 64 68 74 89 94 96 105 119 125 127 128 140 141 148 152 156.
 Simple br_if conditions in: 17 25 64 96 128 141 148 152 156.
 Simple br conditions in: .
+Loop block: [10 11 12 13 14]
+Loop block: [16 17 18]
+Loop block: [23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114]
+Loop block: [24 25 26]
+Loop block: [33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55]
+Loop block: [46 47 48 49 50]
+Loop block: [57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87]
+Loop block: [63 64 65]
+Loop block: [67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82]
+Loop block: [73 74 75 76 77 78 79]
+Loop block: [88 89 90 91 92]
+Loop block: [93 94 95 96 97 98 99 100]
+Loop block: [95 96 97]
+Loop block: [104 105 106 107 108 109 110]
+Loop block: [118 119 120 121 122]
+Loop block: [124 125 126 127 128 129 130 131 132 133 134]
+Loop block: [126 127 128 129 130 131]
+Loop block: [127 128 129]
+Loop block: [139 140 141 142 143 144]
+Loop block: [140 141 142]
+Loop block: [147 148 149]
+Loop block: [151 152 153]
+Loop block: [155 156 157]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 
 Simple brif loop condition in bblock 17:	(ln12 + 1) != 64

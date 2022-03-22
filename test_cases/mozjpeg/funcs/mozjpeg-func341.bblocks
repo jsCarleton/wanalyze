@@ -6,4 +6,4 @@ index start   end nesting dest  labels type        succ/pred
     3    87    97     0   4            loop        s=[4] p=[2]
     4    97   153     1              0 br_if       s=[5 4] p=[4 3]
     5   153   154     0                end         s=[6] p=[4]
-    6   154   155    -1                end         s=[7] p=[5]
+    6   154   155    -1                end         s=[] p=[5]

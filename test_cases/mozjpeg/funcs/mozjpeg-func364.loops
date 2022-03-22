@@ -1,6 +1,20 @@
 Loops found in function 364 in these bblocks: 13 14 23 24 33 34 43 44 53 54 63 64 73 74.
 Simple br_if conditions in: 14 24 34 44 54 64 74.
 Simple br conditions in: .
+Loop block: [12 13 14 15 16 17]
+Loop block: [13 14 15]
+Loop block: [22 23 24 25 26 27]
+Loop block: [23 24 25]
+Loop block: [32 33 34 35 36 37]
+Loop block: [33 34 35]
+Loop block: [42 43 44 45 46 47]
+Loop block: [43 44 45]
+Loop block: [52 53 54 55 56 57]
+Loop block: [53 54 55]
+Loop block: [62 63 64 65 66 67]
+Loop block: [63 64 65]
+Loop block: [72 73 74 75 76 77]
+Loop block: [73 74 75]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 
 Simple brif loop condition in bblock 14:	(ln6 + 1) != ln7

@@ -1,7 +1,7 @@
                           br    target
 index start   end nesting dest  labels type        succ/pred
     0     0     4     0   3            if          s=[1 3] p=[]
-    1     4    11     1                return      s=[46] p=[0]
+    1     4    11     1                return      s=[] p=[0]
     2    11    12     0                end         s=[3] p=[]
     3    12    17     0   40           block       s=[4] p=[2 0]
     4    17    24     1   30           if          s=[5 30] p=[3]
@@ -45,4 +45,4 @@ index start   end nesting dest  labels type        succ/pred
    42   238   253     2              0 br_if       s=[43 42] p=[42 41]
    43   253   254     1                end         s=[44] p=[42]
    44   254   255     0                end         s=[45] p=[43]
-   45   255   257    -1                end         s=[46] p=[44 40]
+   45   255   257    -1                end         s=[] p=[44 40]

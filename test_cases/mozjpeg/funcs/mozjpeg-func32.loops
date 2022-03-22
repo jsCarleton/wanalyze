@@ -1,6 +1,21 @@
 Loops found in function 32 in these bblocks: 39 55 71 85 102 131 226 234 250 258 292 324 331 349 397.
 Simple br_if conditions in: 234 331.
 Simple br conditions in: .
+Loop block: [38 39 40 41 42 43 44 45]
+Loop block: [54 55 56 57]
+Loop block: [70 71 72 73 74 75 76 77]
+Loop block: [84 85 86 87 88 89]
+Loop block: [101 102 103 104]
+Loop block: [130 131 132 133 134 135]
+Loop block: [225 226 227 228]
+Loop block: [233 234 235]
+Loop block: [249 250 251 252 253 254]
+Loop block: [257 258 259 260 261 262 263]
+Loop block: [291 292 293 294]
+Loop block: [323 324 325 326]
+Loop block: [330 331 332]
+Loop block: [348 349 350 351]
+Loop block: [396 397 398 399]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 
 Simple brif loop condition in bblock 234:	(pn0 + 1) != 32
