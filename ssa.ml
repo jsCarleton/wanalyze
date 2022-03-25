@@ -2,21 +2,15 @@ open Core
 open Wasm_module
 open Opcodes
 open Symbolic_expr
+open Execution
+open Bblock
+open Code_path
 
 type ssa = {
   result:         string;
   mutable etree:  expr_tree;
   mutable alive:  bool;
 }
-(* type op_type =
-{
-  opcode:     int;
-  opname:     string;
-  arg:        op_arg;
-  nesting:    int;            (* the lexical nesting level of the instruction *)
-  instrtype:  instr_type;
-}
- *)
 
 let find_alive' (sl: ssa list): ssa =
   List.find_exn ~f:(fun x -> x.alive) sl

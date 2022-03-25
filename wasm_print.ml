@@ -1,9 +1,11 @@
 open Core
 open Easy_logging
 open Wasm_module
+open Bblock
 open Ssa
 open Symbolic_expr
-open Loops
+open Code_path
+open Execution
 
 (* Part 1 *)
 (* Printable strings for basic types *)
@@ -67,7 +69,7 @@ let string_of_description d i =
   | Memtype mt -> string_of_memtype mt i
   | Globaltype gt -> string_of_globaltype gt i
 let string_of_import (i: import) = String.concat ["  (import \"" ; i.module_name ; "\" \"" ; i.import_name ; "\" "
-      ; string_of_description i.description i.index ; ")\n"]
+      ; string_of_description i.description i.iindex ; ")\n"]
 let string_of_import_section section = String.concat ~sep:"" (List.map ~f:string_of_import section)
 
 (* Export section *)
@@ -138,8 +140,8 @@ let string_of_br_table nesting b =
   String.concat [
     String.concat ~sep:" " (List.map ~f:(string_of_br_index nesting) b.table);
     " " ;
-    string_of_int b.index;
-    string_of_br_target nesting b.index]
+    string_of_int b.brtindex;
+    string_of_br_target nesting b.brtindex]
 
 let string_of_arg' nesting a  =
 match a with 
@@ -191,7 +193,7 @@ let string_of_line_number (idx: int) (annotate: bool) =
   match annotate with | true -> sprintf "%4.4d" idx | _ -> ""
 
 let string_of_opcode'' nesting (op: op_type) idx comment (annotate:bool) =
-  String.concat ["\n" ; string_of_line_number idx annotate; (String.make (op.nesting*2 + 4) ' ') ; op.opname ; (string_of_arg nesting op.arg) ; comment]
+  String.concat ["\n" ; string_of_line_number idx annotate; (String.make (op.opnesting*2 + 4) ' ') ; op.opname ; (string_of_arg nesting op.arg) ; comment]
 
 let string_of_br_arg nesting arg =
   string_of_br_target nesting (label_index_of_arg arg)
@@ -201,16 +203,16 @@ let string_of_opcode' (op: op_type) (idx: int) (annotate:bool) =
   | 0x02 (* block *)
   | 0x03 (* loop *)
   | 0x04 (* if *)
-      -> string_of_opcode'' op.nesting op idx (String.concat ["  ;; label = @" ; string_of_int (op.nesting + 1)]) annotate
+      -> string_of_opcode'' op.opnesting op idx (String.concat ["  ;; label = @" ; string_of_int (op.opnesting + 1)]) annotate
   | 0x0c (* br *)
   | 0x0d (* br_if *)
-      -> string_of_opcode'' op.nesting op idx (string_of_br_arg op.nesting op.arg) annotate
+      -> string_of_opcode'' op.opnesting op idx (string_of_br_arg op.opnesting op.arg) annotate
   | 0x0b (* end *) ->
-    (match op.nesting with
+    (match op.opnesting with
     | -1 -> ""
-    | _ -> string_of_opcode'' op.nesting op idx "" annotate
+    | _ -> string_of_opcode'' op.opnesting op idx "" annotate
     )
-  | _ -> string_of_opcode'' op.nesting op idx "" annotate
+  | _ -> string_of_opcode'' op.opnesting op idx "" annotate
 
 let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
   let op = List.nth_exn e idx in
@@ -227,7 +229,7 @@ let rec string_of_expr' e annotate (bblocks: bblock list) idx acc =
     (match bblocks with
     | hd::tl ->
       (match hd.start_op = idx with
-        | true  -> string_of_expr' e annotate tl (idx+1) (String.concat [acc ; (bblock_sep annotate hd.index); (string_of_opcode e idx annotate)])
+        | true  -> string_of_expr' e annotate tl (idx+1) (String.concat [acc ; (bblock_sep annotate hd.bbindex); (string_of_opcode e idx annotate)])
         | false -> string_of_expr' e annotate bblocks (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
       )
     | _ -> string_of_expr' e annotate bblocks (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
@@ -241,7 +243,7 @@ let print_expr'' oc annotate base idx op =
   Out_channel.output_string oc (string_of_opcode' op (base+idx) annotate)
 
 let print_bblock oc e annotate (bb: bblock) =
-  Out_channel.output_string oc (bblock_sep annotate bb.index);
+  Out_channel.output_string oc (bblock_sep annotate bb.bbindex);
   List.iteri ~f:(print_expr'' oc annotate bb.start_op) (expr_of_bblock e bb)
 
 let print_expr oc e bblocks annotate =
@@ -249,10 +251,10 @@ let print_expr oc e bblocks annotate =
   | true  -> List.iter ~f:(print_bblock oc e annotate) bblocks 
   | false -> List.iter ~f:(print_expr'' oc annotate 0 0) e 
 
-let print_code oc (w: wasm_module) idx annotate =
+let print_code oc (w: wasm_module) idx annotate bbs =
   let f = List.nth_exn w.code_section idx in
   Out_channel.output_string oc (string_of_locals (List.nth_exn w.code_section idx).locals);
-  print_expr oc f.e f.bblocks annotate
+  print_expr oc f.e bbs annotate
 
 let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
 let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
@@ -275,17 +277,17 @@ let string_of_bbtype (bbtype: bb_type) : string =
 
 let string_of_br_dest (bb: bblock option) : string =
   match bb with 
-    | Some x -> string_of_int x.index
+    | Some x -> string_of_int x.bbindex
     | _ -> ""
 let string_of_ints (ints: int list): string =
     String.concat ~sep:" " (List.map ~f:string_of_int ints)
 let indexes_of_bblocks (bbs: bblock list): int list =
-  List.map ~f:(fun x -> x.index) bbs
+  List.map ~f:(fun x -> x.bbindex) bbs
 let string_of_bblocks (bbs: bblock list): string =
   String.concat ["["; string_of_ints (indexes_of_bblocks bbs); "]"]
 let string_of_bblock_detail (s: bblock) : string = 
   sprintf "%5d %5d %5d %5d   %-5s %6s %-11s s=%s p=%s\n" 
-    s.index
+    s.bbindex
     s.start_op
     s.end_op
     s.nesting
@@ -298,7 +300,7 @@ let string_of_bblocks_detail (s: bblock list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_bblock_detail s)]
 
-let print_function oc (w: wasm_module) annotate i idx =
+let print_function oc (w: wasm_module) annotate bbs i idx =
   Out_channel.output_string oc "  (func (;"; 
   Out_channel.output_string oc (string_of_int (i + w.last_import_func));
   Out_channel.output_string oc ";) (type ";
@@ -306,11 +308,11 @@ let print_function oc (w: wasm_module) annotate i idx =
   Out_channel.output_string oc ")"; 
   Out_channel.output_string oc (string_of_types "param" (get_type_sig w idx).rt1);
   Out_channel.output_string oc (string_of_types "result" (get_type_sig w idx).rt2);
-  print_code oc w i annotate;
+  print_code oc w i annotate bbs;
   Out_channel.output_string oc ")\n"
 
 let print_function_section oc (w: wasm_module) =
-  List.iteri ~f:(print_function oc w false) (List.drop w.function_section w.last_import_func)
+  List.iteri ~f:(print_function oc w false []) (List.drop w.function_section w.last_import_func)
 
 (* Table section *) 
 let string_of_table i (t: tabletype) = String.concat ["  "; (string_of_tabletype t i) ; "\n"]
@@ -324,7 +326,7 @@ let string_of_memory_section section = String.concat ~sep:"" (List.mapi ~f:strin
 let string_of_inline_expr e = String.strip (string_of_expr e [] false)
 let string_of_global (g: global) =
   String.concat [ "  (global (;" ;
-                  string_of_int g.index ;
+                  string_of_int g.gindex ;
                   ";) ";
                   (match g.gt.m with
                     | Var   -> String.concat["("; string_of_mut g.gt.m; " "; string_of_valtype g.gt.t; ")"]
@@ -387,11 +389,11 @@ let hexstring_of_bytes (b: bytes) : string =
 let string_of_data d =
   match d.details with
   | ExprBytes eb ->
-      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; string_of_inline_expr eb.e ; ") \"" ; string_of_bytes eb.b ; "\")"]
+      String.concat ["  (data (;" ; string_of_int d.dindex ; ";) (" ; string_of_inline_expr eb.e ; ") \"" ; string_of_bytes eb.b ; "\")"]
   | Bytes b ->
-      String.concat ["  (data (;" ; string_of_int d.index ; ";) (" ; hexstring_of_bytes b ; ")"]
+      String.concat ["  (data (;" ; string_of_int d.dindex ; ";) (" ; hexstring_of_bytes b ; ")"]
   | MemExprBytes meb ->
-      String.concat ["  (data (;" ; string_of_int d.index ; ";) (memory " ; string_of_int meb.x ; ") (offset: " ; string_of_inline_expr meb.e 
+      String.concat ["  (data (;" ; string_of_int d.dindex ; ";) (memory " ; string_of_int meb.x ; ") (offset: " ; string_of_inline_expr meb.e 
           ; ") "  ; hexstring_of_bytes meb.b ; ")"]
 let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string_of_data section)
 
@@ -422,7 +424,7 @@ let string_of_ps (nparams: int) (ps: program_states): string = String.concat ~se
 
 let string_of_execution (nparams: int) (bblocks: bblock list) (ex: execution): string =
   sprintf "bblock %d from %d\ninitial state: %s\nfinal   state: %s\n" 
-      ex.index ex.pred_index (string_of_state true nparams ex.initial) (string_of_state (has_successors bblocks ex.index) nparams ex.final)
+      ex.eindex ex.pred_index (string_of_state true nparams ex.initial) (string_of_state (has_successors bblocks ex.eindex) nparams ex.final)
 let string_of_executions (nparams: int) (executions: execution list) (bblocks: bblock list): string = 
   String.concat (List.map ~f:(string_of_execution nparams bblocks) executions)
 
@@ -444,21 +446,21 @@ let graph_bblock (index: int) (bbtype: bb_type) (succ: bblock list) (pred: bbloc
     | BB_end          -> 
         (match succ with 
           | []  -> graph_node index "end" last 
-          | _   -> graph_node index "end" (List.nth_exn succ 0).index)
-    | BB_block        -> graph_node index "block" (List.nth_exn succ 0).index
-    | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0).index
+          | _   -> graph_node index "end" (List.nth_exn succ 0).bbindex)
+    | BB_block        -> graph_node index "block" (List.nth_exn succ 0).bbindex
+    | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0).bbindex
     | BB_if           ->
         String.concat [
-          graph_node index "if" (List.nth_exn succ 0).index;
-          graph_node index "~if" (List.nth_exn succ 1).index;
+          graph_node index "if" (List.nth_exn succ 0).bbindex;
+          graph_node index "~if" (List.nth_exn succ 1).bbindex;
         ]
-    | BB_else         -> graph_node index "else" (List.nth_exn succ 0).index
+    | BB_else         -> graph_node index "else" (List.nth_exn succ 0).bbindex
     | BB_br_if        ->
         String.concat [
-          graph_node index "~br_if" (List.nth_exn succ 0).index;
-          graph_node index "br_if" (List.nth_exn succ 1).index;
+          graph_node index "~br_if" (List.nth_exn succ 0).bbindex;
+          graph_node index "br_if" (List.nth_exn succ 1).bbindex;
         ]
-    | BB_br           -> graph_node index "br" (List.nth_exn succ 0).index
+    | BB_br           -> graph_node index "br" (List.nth_exn succ 0).bbindex
     | BB_br_table     -> String.concat (List.map ~f:(graph_node index "br_table") (indexes_of_bblocks succ))
     | BB_return       -> graph_node index "return" last
     | BB_unknown      -> failwith "Unknown bb type in graph_bblock")
@@ -478,7 +480,7 @@ let graph_suffix = "}\n"
 let rec graph_bblocks' (bblocks: bblock list) (last: int) (acc: string): string =
   match bblocks with
   | [] -> acc
-  | hd::tl -> graph_bblocks' tl last (String.concat [acc; graph_bblock hd.index hd.bbtype hd.succ hd.pred last])
+  | hd::tl -> graph_bblocks' tl last (String.concat [acc; graph_bblock hd.bbindex hd.bbtype hd.succ hd.pred last])
 let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): string =
   let last = (List.length bblocks) in
   String.concat [ graph_prefix module_name func_idx last; 
@@ -567,8 +569,8 @@ let print_loop_bblocks oc (lb: bblock list) =
   List.iteri 
     ~f:(fun i x -> 
           match (i+1) = ll with
-            | false -> Out_channel.output_string oc (String.concat [string_of_int x.index; " "])
-            | true  -> Out_channel.output_string oc (string_of_int x.index))
+            | false -> Out_channel.output_string oc (String.concat [string_of_int x.bbindex; " "])
+            | true  -> Out_channel.output_string oc (string_of_int x.bbindex))
     lb
 
 (**
@@ -639,20 +641,20 @@ let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_pa
   let bb = List.hd_exn (List.rev cp) in
   Out_channel.output_string oc_summary
     (sprintf "%s,%d,%d,%s,%s\n"
-        m fnum bb.index (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb.index));
+        m fnum bb.bbindex (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb.bbindex));
   ()
 
 let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx =
   let fnum          = (fidx + w.last_import_func) in
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = (List.nth_exn w.code_section fidx) in
-  let bblocks       = fn.bblocks in
-  let cps           = fn.code_paths in
+  let bblocks       = bblocks_of_expr fn.e in
+  let cps           = code_paths_of_bblocks bblocks [[List.hd_exn bblocks]] [] in
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
-    print_function oc w true fidx type_idx;
+    print_function oc w true bblocks fidx type_idx;
     Out_channel.close oc;
   (* bblocks in function *)
   let oc = Out_channel.create (String.concat[fname; ".bblocks"]) in
@@ -702,7 +704,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
                               let loop_vars = variables_of_expr_tree loop_cond in
                               let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock fn.e bb) in
                               String.concat [ "Simple brif loop condition in bblock ";
-                                              string_of_int bb.index;
+                                              string_of_int bb.bbindex;
                                               ":\t";
                                               string_of_expr_tree loop_cond;
                                               "\n";

@@ -1,7 +1,7 @@
 open Core
 open Easy_logging
 open Wasm_module
-open Opcodes
+open Opcode
 
 (* TODO: 
     - make logger#info s look at verbose flag 
@@ -257,7 +257,7 @@ let read_import_section' w ic =
   match description with
   | None -> failwith "No description"
   | Some desc ->
-      Some {module_name; import_name; description = desc; index = index_of w desc},
+      Some {module_name; import_name; description = desc; iindex = index_of w desc},
       (match desc with
       | Functype i  -> Some i
       | _           -> None)
@@ -309,8 +309,8 @@ match opcode_of_int opcode with
   | OP_br
   | OP_br_if        -> Labelidx (read_idx ic), Control
   | OP_br_table     -> 
-      (let table = (read_vec ic read_labelidx) in let index = (read_labelidx ic) in
-       BrTable {table; index}), Control
+      (let table = (read_vec ic read_labelidx) in let brtindex = (read_labelidx ic) in
+       BrTable {table; brtindex}), Control
   | OP_return         -> EmptyArg, Control
   | OP_call           -> Funcidx (read_idx ic), Control
   | OP_call_indirect  -> 
@@ -518,28 +518,28 @@ let read_local ic = (fun _ ->
   let v = read_valtype ic in
   {n; v})
 
-let rec read_expr' ic (nesting: int) (acc_instr: op_type list) : op_type list =
+let rec read_expr' ic (opnesting: int) (acc_instr: op_type list) : op_type list =
   let opcode = read_byte ic in
   let opname, arg, instrtype = (read_instr ic opcode read_expr') in
   match opcode with
   (* end *)
   | 0x0b ->
       (* does this end mark the end of the program? *)
-      ( match nesting with
+      ( match opnesting with
         (* yes *)
-        | 0 -> {opcode; opname; arg; nesting=nesting-1; instrtype} :: acc_instr
-        (* no, it's the end of a block, loop, if [else] - decrease the nesting *)
-        | _ -> read_expr' ic  (nesting-1)  ({opcode; opname; arg; nesting=nesting-1; instrtype} :: acc_instr)
+        | 0 -> {opcode; opname; arg; opnesting=opnesting-1; instrtype} :: acc_instr
+        (* no, it's the end of a block, loop, if [else] - decrease the opnesting *)
+        | _ -> read_expr' ic  (opnesting-1)  ({opcode; opname; arg; opnesting=opnesting-1; instrtype} :: acc_instr)
       )
-  (* block, loop, if - increase the nesting *)
+  (* block, loop, if - increase the opnesting *)
   | 0x02 | 0x03 | 0x04 ->
-      read_expr' ic (nesting+1) ({opcode; opname; arg; nesting; instrtype} :: acc_instr)
-  (* else - descrease the nesting *)
+      read_expr' ic (opnesting+1) ({opcode; opname; arg; opnesting; instrtype} :: acc_instr)
+  (* else - descrease the opnesting *)
   | 0x05 ->  
-      read_expr' ic  nesting ({opcode; opname; arg; nesting=nesting-1; instrtype} :: acc_instr)
-  (* all others - same nesting *)
+      read_expr' ic  opnesting ({opcode; opname; arg; opnesting=opnesting-1; instrtype} :: acc_instr)
+  (* all others - same opnesting *)
   | _ ->  
-      read_expr' ic nesting ({opcode; opname; arg; nesting; instrtype} :: acc_instr)
+      read_expr' ic opnesting ({opcode; opname; arg; opnesting; instrtype} :: acc_instr)
   
 let read_expr ic = List.rev (read_expr' ic 0 [])
 
@@ -549,7 +549,7 @@ let index_of_global (w: wasm_module) =
 let read_global_section' w ic = 
   let gt = read_globaltype ic in
   let e = read_expr ic in
-  {gt; e; index = index_of_global w}
+  {gt; e; gindex = index_of_global w}
 
 let read_global_section w ic =
   read_section_new ic [] (read_global_section' w)
@@ -635,9 +635,7 @@ let read_code_section' ic =
   let _: int = read_section_length ic in
   let locals = read_vec ic (read_local ic) in
   let e = read_expr ic in
-  let bblocks = bblocks_of_expr e in
-  let code_paths = code_paths_of_bblocks bblocks [[List.hd_exn bblocks]] [] in
-  {locals; e; bblocks; code_paths}
+  {locals; e}
 
 let read_code_section ic =
   read_section_new ic [] read_code_section'
@@ -665,7 +663,7 @@ let index_of_data (w: wasm_module) =
 
 let read_data_section' w ic =
   let details = read_data ic in
-  {index = index_of_data w; details}
+  {dindex = index_of_data w; details}
 
 let read_data_section w ic =
   read_section_new ic [] (read_data_section' w)

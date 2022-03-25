@@ -7,7 +7,7 @@ do
     echo $f
     cd $f
     # Run our analysis
-    /usr/bin/time -f "elapsed time: %E" ../../wanalyze.native "$f".wasm
+    /usr/bin/time ../../wanalyze.native "$f".wasm
     # Analyze the outputs
     nl=$(wc -l "$f""$WATSUFFIX")
     nf=$(grep "^  (func (;" "$f""$WATSUFFIX" | wc -l)
@@ -26,8 +26,8 @@ do
     echo "# paths through all loops: $lp"
     # Compare the source file we created to the one created by wabt
     diff -y --suppress-common-lines *t.wat *e.wat | grep -v f64 | grep -v f32 >diff.out
-    diffsize=$(find diff.out -printf "%s")
-    if [ $diffsize -gt 0 ]
+    ds=$(stat -f %z diff.out)
+    if [ $ds -gt 0 ]
     then
         echo "Check diff output"
     fi
