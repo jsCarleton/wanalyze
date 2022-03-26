@@ -39,8 +39,8 @@ let string_of_types n l =
   | _ ->  String.concat [" (" ; n ; " " ;  String.concat ~sep:" " (List.map ~f:string_of_resulttype l) ; ")"]
 let string_of_functype i ft = 
   String.concat ["  (type (;" ; (string_of_int i) ; ";) (func" 
-  ; (string_of_types "param" ft.rt1) ; (string_of_types "result" ft.rt2) ; "))\n"]
-let string_of_type_section section = String.concat ~sep:"" (List.mapi ~f:string_of_functype section)
+  ; (string_of_types "param" ft.rt1) ; (string_of_types "result" ft.rt2) ; "))"]
+let string_of_type_section section = String.concat ~sep:"\n" (List.mapi ~f:string_of_functype section)
 
 (* Import section *)
 let string_of_functype ti i =
@@ -69,8 +69,8 @@ let string_of_description d i =
   | Memtype mt -> string_of_memtype mt i
   | Globaltype gt -> string_of_globaltype gt i
 let string_of_import (i: import) = String.concat ["  (import \"" ; i.module_name ; "\" \"" ; i.import_name ; "\" "
-      ; string_of_description i.description i.iindex ; ")\n"]
-let string_of_import_section section = String.concat ~sep:"" (List.map ~f:string_of_import section)
+      ; string_of_description i.description i.iindex ; ")"]
+let string_of_import_section section = String.concat ~sep:"\n" (List.map ~f:string_of_import section)
 
 (* Export section *)
 let string_of_exportdesc d =
@@ -80,8 +80,8 @@ let string_of_exportdesc d =
   | Mem m -> String.concat ["memory " ; string_of_int m]
   | Global g -> String.concat ["global " ; string_of_int g]
 let string_of_export (e: export) =
-  String.concat ["  (export \"" ; e.name ; "\" (" ; string_of_exportdesc e.desc ; "))\n"]
-let string_of_export_section section = String.concat ~sep:"" (List.map ~f:string_of_export section)
+  String.concat ["  (export \"" ; e.name ; "\" (" ; string_of_exportdesc e.desc ; "))"]
+let string_of_export_section section = String.concat ~sep:"\n" (List.map ~f:string_of_export section)
 
 (* Start section *)
 let string_of_start idx =
@@ -301,6 +301,7 @@ let string_of_bblocks_detail (s: bblock list) : string =
                  String.concat (List.map ~f:string_of_bblock_detail s)]
 
 let print_function oc (w: wasm_module) annotate bbs i idx =
+  (match annotate with | true -> () | _ -> Out_channel.output_string oc "\n");
   Out_channel.output_string oc "  (func (;"; 
   Out_channel.output_string oc (string_of_int (i + w.last_import_func));
   Out_channel.output_string oc ";) (type ";
@@ -309,18 +310,18 @@ let print_function oc (w: wasm_module) annotate bbs i idx =
   Out_channel.output_string oc (string_of_types "param" (get_type_sig w idx).rt1);
   Out_channel.output_string oc (string_of_types "result" (get_type_sig w idx).rt2);
   print_code oc w i annotate bbs;
-  Out_channel.output_string oc ")\n"
+  Out_channel.output_string oc ")"
 
 let print_function_section oc (w: wasm_module) =
   List.iteri ~f:(print_function oc w false []) (List.drop w.function_section w.last_import_func)
 
 (* Table section *) 
-let string_of_table i (t: tabletype) = String.concat ["  "; (string_of_tabletype t i) ; "\n"]
-let string_of_table_section section = String.concat ~sep:"" (List.mapi ~f:string_of_table section)
+let string_of_table i (t: tabletype) = String.concat ["  "; (string_of_tabletype t i)]
+let string_of_table_section section = String.concat ~sep:"\n" (List.mapi ~f:string_of_table section)
 
   (* Memory section *) 
-let string_of_memory i (m: memtype) = String.concat ["  "; (string_of_memtype m i) ; "\n"]
-let string_of_memory_section section = String.concat ~sep:"" (List.mapi ~f:string_of_memory section)
+let string_of_memory i (m: memtype) = String.concat ["  "; (string_of_memtype m i)]
+let string_of_memory_section section = String.concat ~sep:"\n" (List.mapi ~f:string_of_memory section)
 
 (* Global section *)
 let string_of_inline_expr e = String.strip (string_of_expr e [] false)
@@ -333,9 +334,9 @@ let string_of_global (g: global) =
                     | Const -> string_of_valtype g.gt.t);
                   " (";
                   (string_of_inline_expr g.e);
-                  "))\n"]
+                  "))"]
 let string_of_global_section section =
-  String.concat ~sep:"" (List.map ~f:string_of_global section)
+  String.concat ~sep:"\n" (List.map ~f:string_of_global section)
 
 (* Element section *)
 let string_of_list_idx li =
@@ -347,27 +348,27 @@ let string_of_expr_list el = String.concat ~sep:"" (List.map ~f:string_of_expr_i
 let string_of_element i e =
 match e with
 | ExprFunc exf ->
-    String.concat ["  (elem (;" ; string_of_int i ; ";) (" ; string_of_inline_expr exf.e ; ") func " ; string_of_list_idx exf.y ; ")\n"]
+    String.concat ["  (elem (;" ; string_of_int i ; ";) (" ; string_of_inline_expr exf.e ; ") func " ; string_of_list_idx exf.y ; ")"]
 | ElemFuncP ef ->
-    String.concat ["  (elem (;" ; string_of_int i ; ";) func " ; string_of_list_idx ef.y ; ")\n"]
+    String.concat ["  (elem (;" ; string_of_int i ; ";) func " ; string_of_list_idx ef.y ; ")"]
 | TableExprElemFunc teef->
     String.concat ["  (elem (;" ; string_of_int i ; ";) (table " ; string_of_int teef.x ; ") (offset " ; string_of_inline_expr teef.e
-          ; ") func " ; string_of_list_idx teef.y ; ")\n"]
+          ; ") func " ; string_of_list_idx teef.y ; ")"]
 | ElemFuncD ef ->
-    String.concat ["  (elem (;" ; string_of_int i ; ";) func " ; string_of_list_idx ef.y ; ")\n"]
+    String.concat ["  (elem (;" ; string_of_int i ; ";) func " ; string_of_list_idx ef.y ; ")"]
 | ExprExpr ee ->
     String.concat ["  (elem (;" ; string_of_int i ; ";) (offset " ; string_of_inline_expr ee.e ; ") "
-          ; String.concat ~sep:"" (List.map ~f:string_of_expr_item ee.el) ; ")\n"]
+          ; String.concat ~sep:"" (List.map ~f:string_of_expr_item ee.el) ; ")"]
 | RefExprP re ->
-    String.concat ["  (elem (;" ; string_of_int i ; ";) " ; string_of_reftype re.et ; " " ; string_of_expr_list re.el ; ")\n"]
+    String.concat ["  (elem (;" ; string_of_int i ; ";) " ; string_of_reftype re.et ; " " ; string_of_expr_list re.el ; ")"]
 | TableExprRefExpr tere ->
     String.concat ["  (elem (;" ; string_of_int i ; ";) (table " ; string_of_int tere.x ; ") (offset " ; string_of_inline_expr tere.e
-          ; string_of_reftype tere.et ; ")" ; string_of_expr_list tere.el ; ")\n"]
+          ; string_of_reftype tere.et ; ")" ; string_of_expr_list tere.el ; ")"]
 | RefExprD re ->
-    String.concat ["  (elem (;" ; string_of_int i ; ";) declare " ; string_of_reftype re.et ; " " ; string_of_expr_list re.el ; ")\n"]
+    String.concat ["  (elem (;" ; string_of_int i ; ";) declare " ; string_of_reftype re.et ; " " ; string_of_expr_list re.el ; ")"]
   
 let string_of_element_section section =
-  String.concat ~sep:"" (List.mapi ~f:string_of_element section)
+  String.concat ~sep:"\n" (List.mapi ~f:string_of_element section)
 
 (* Data section *)
 let hexEscape (c: char) : string =
@@ -655,6 +656,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     print_function oc w true bblocks fidx type_idx;
+    Out_channel.output_string oc "\n";
     Out_channel.close oc;
   (* bblocks in function *)
   let oc = Out_channel.create (String.concat[fname; ".bblocks"]) in
@@ -735,19 +737,25 @@ let print_functions w =
 (* Part 7 *)
 (* Print the whole wasm module *)
 
+let print_section oc s =
+  match s with
+    | "" -> ()
+    | _  -> Out_channel.output_string oc "\n";
+            Out_channel.output_string oc s
+
 let print w =
   let oc = Out_channel.create (String.concat[Filename.chop_extension w.module_name; "-wanalyze.wat"]) in
-    Out_channel.output_string oc "(module\n";
-    Out_channel.output_string oc (string_of_type_section w.type_section);
-    Out_channel.output_string oc (string_of_import_section w.import_section);
+    Out_channel.output_string oc "(module";
+    print_section oc (string_of_type_section w.type_section);
+    print_section oc (string_of_import_section w.import_section);
     print_function_section oc w;
-    Out_channel.output_string oc (string_of_table_section w.table_section);
-    Out_channel.output_string oc (string_of_memory_section w.memory_section);
-    Out_channel.output_string oc (string_of_global_section w.global_section);
-    Out_channel.output_string oc (string_of_export_section w.export_section);
-    Out_channel.output_string oc (string_of_start w.start_section);
-    Out_channel.output_string oc (string_of_element_section w.element_section);
-    Out_channel.output_string oc (string_of_data_section w.data_section);
+    print_section oc (string_of_table_section w.table_section);
+    print_section oc (string_of_memory_section w.memory_section);
+    print_section oc (string_of_global_section w.global_section);
+    print_section oc (string_of_export_section w.export_section);
+    print_section oc (string_of_start w.start_section);
+    print_section oc (string_of_element_section w.element_section);
+    print_section oc (string_of_data_section w.data_section);
     Out_channel.output_string oc ")\n";
     Out_channel.close oc;
     print_functions w

@@ -1,6 +1,6 @@
 open Core
 open Wasm_module
-open Opcodes
+open Opcode
 open Symbolic_expr
 open Execution
 open Bblock

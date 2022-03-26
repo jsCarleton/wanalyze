@@ -389,31 +389,9 @@ let string_of_local_value (param_types: resulttype list) (local_types: local_typ
 let string_of_global_value (i: int): string =
   sprintf "g%d" i
 
-(* Implementation *)
-(* Part 2 - basic blocks *)
-
-(* Implementation *)
-(* Part 3 - symbolic execution *)
-
-
-(* Implementation *)
-
-(* Implementation *)
-(* Part 5 - globals *)
-(* this is here because we need the symbolic execution definitions to be able to
-    initialize globals *)
-
-(* Implementation *)
-(* Part 6 - program state *)
-(* Implementation *)
-(* Part 7 - basic block execution *)
-
 let create name =
   { module_name = name; data_count = 0;
     type_section = []; import_section = []; function_section = []; table_section = []; 
     memory_section = []; global_section = []; export_section = []; start_section = None; 
     element_section = []; code_section = []; data_section = [];
     last_import_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
-
-(* Implementation *)
-(* Part 8 - loop analysis *)

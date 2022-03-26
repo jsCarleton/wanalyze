@@ -1,0 +1,26 @@
+sci - simple control instruction
+cci - compound control instruction
+ncil - non-control instruction list
+cfi - control flow instruction
+sblock - simple block
+cblock - compound block
+cfblock - control flow block
+
+sci -> unreachable | return
+cci -> block | loop | if | else 
+cfi -> br | br_if | br_table
+
+cfblock -> sci cfi
+sblock -> ncil sfi
+
+program' -> e
+    | cblock program'
+    | cfblock program'
+
+cblock -> if program' end
+    | if program' else program' end
+    | block program' end
+    | loop program' end
+
+program -> sblock
+    | program'*

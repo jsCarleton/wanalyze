@@ -496,4 +496,3 @@ let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fnum: int) (e: expr
       []          (* results of the execution so far *)
       (empty_program_state w param_types local_types)
                   (* initial state of the program *)
-
