@@ -12,28 +12,28 @@ Loop block: [8 9 10 11 12 13 14 15 16 17 18 19 20 21]
   Loop path: [8 9 10 11 12 13 15 17 18 19]
   Loop path: [8 9 10 11 12 13 15 16 18 19]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 3 4 5 7 8]
+[0 1 2 3 4 5 7 8] 99
 cost:    99; 
 stack:   []; 
 params:  [pn0, gn2 (STACKTOP), pn2]; 
 locals:  [-1, -1, (rn0 - rn0) + pn2, gn2 (STACKTOP) + 32, 2, gn2 (STACKTOP), pn0 + 28, pn0 + 20, ln11, pn0 + 60, ln13]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 48, gn3 (STACK_MAX), 0, 0, 0]
 
-[0 1 2 3 4 6 7 8]
+[0 1 2 3 4 6 7 8] 92
 cost:    92; 
 stack:   []; 
 params:  [pn0, gn2 (STACKTOP), pn2]; 
 locals:  [rn0, rn0, (rn0 - rn0) + pn2, gn2 (STACKTOP) + 32, 2, gn2 (STACKTOP), pn0 + 28, pn0 + 20, ln11, pn0 + 60, ln13]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 48, gn3 (STACK_MAX), 0, 0, 0]
 
-[0 2 3 4 5 7 8]
+[0 2 3 4 5 7 8] 96
 cost:    96; 
 stack:   []; 
 params:  [pn0, gn2 (STACKTOP), pn2]; 
 locals:  [-1, -1, (rn0 - rn0) + pn2, gn2 (STACKTOP) + 32, 2, gn2 (STACKTOP), pn0 + 28, pn0 + 20, ln11, pn0 + 60, ln13]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 48, gn3 (STACK_MAX), 0, 0, 0]
 
-[0 2 3 4 6 7 8]
+[0 2 3 4 6 7 8] 89
 cost:    89; 
 stack:   []; 
 params:  [pn0, gn2 (STACKTOP), pn2]; 

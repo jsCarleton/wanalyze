@@ -6,6 +6,7 @@ open Ssa
 open Symbolic_expr
 open Code_path
 open Execution
+open Cost
 
 (* Part 1 *)
 (* Printable strings for basic types *)
@@ -491,7 +492,7 @@ let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): 
 (* Part 5 *)
 (* printing analysis results *)
 
-let string_of_code_path (cp: code_path): string = string_of_bblocks cp
+let string_of_code_path (cp: code_path): string = String.concat[string_of_bblocks cp; " "; (string_of_int (cost_of_code_path cp))]
 let string_of_code_paths (cps: code_path list) =
   String.concat ~sep:"\n" (List.map ~f:string_of_code_path cps)
 
@@ -669,7 +670,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
   (* code paths *)
   let oc = Out_channel.create (String.concat[fname; ".paths"]) in
     Out_channel.output_string oc (string_of_code_paths cps);
-    Out_channel.output_string oc "\n";
+    Out_channel.output_string oc (sprintf "\n%d\n" (cost_of_code_paths cps));
     Out_channel.close oc;
   (* loop analysis *)
   (match has_loop bblocks with
@@ -726,13 +727,22 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
     Out_channel.output_string oc (string_of_executions (execute_bblocks w bblocks (fidx + w.last_import_func) code.e) bblocks);
     Out_channel.close oc; *)
 
-let print_functions w =
+let print_functions w fnum =
   let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in
-  Out_channel.output_string oc_summary "Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values\n";
-  List.iteri 
-    ~f:(print_function_details w oc_summary "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
-    (List.drop w.function_section w.last_import_func);
+  match fnum with
+  | -1 -> Out_channel.output_string oc_summary "Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values\n";
+          List.iteri 
+            ~f:(print_function_details w oc_summary "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
+            (List.drop w.function_section w.last_import_func)
+  | _  -> print_function_details
+            w
+            oc_summary
+            "funcs/"
+            (String.concat[Filename.chop_extension w.module_name; "-func"])
+            fnum
+            (List.nth_exn (List.drop w.function_section w.last_import_func) fnum);
   Out_channel.close oc_summary
+          
 
 (* Part 7 *)
 (* Print the whole wasm module *)
@@ -743,7 +753,7 @@ let print_section oc s =
     | _  -> Out_channel.output_string oc "\n";
             Out_channel.output_string oc s
 
-let print w =
+let print w fnum =
   let oc = Out_channel.create (String.concat[Filename.chop_extension w.module_name; "-wanalyze.wat"]) in
     Out_channel.output_string oc "(module";
     print_section oc (string_of_type_section w.type_section);
@@ -758,4 +768,4 @@ let print w =
     print_section oc (string_of_data_section w.data_section);
     Out_channel.output_string oc ")\n";
     Out_channel.close oc;
-    print_functions w
+    print_functions w fnum

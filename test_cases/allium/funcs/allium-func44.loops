@@ -5,7 +5,7 @@ Loop block: [3 4 5]
   Loop path: [3 4 5]
   Loop path: [3 4]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 3]
+[0 3] 60
 cost:    60; 
 stack:   []; 
 params:  [pn0, pn1, pn2, pn3 + ((((i32.wrap_i64(pN4)) * 12) + -12) shl 3), pN4]; 

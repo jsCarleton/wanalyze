@@ -18,14 +18,14 @@ Loop block: [29 30 31 32 33]
   Loop path: [29 30 33]
   Loop path: [29 30 31]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 3 4]
+[0 3 4] 19
 cost:    19; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [pn0 + pn2, pn0, ln5]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
-[0 3 23]
+[0 3 23] 23
 cost:    23; 
 stack:   []; 
 params:  [pn0, pn1, (pn0 + pn2) - 4]; 
