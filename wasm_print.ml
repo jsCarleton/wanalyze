@@ -597,7 +597,28 @@ let print_loops_bblocks oc (lbs: bblock list list) =
     lbs
 
 (**
-  print_loop_paths
+  print_paths
+
+  Prints a list of paths
+
+  Parameters:
+    oc  output channel to print on
+    bbs list of paths
+
+  Returns:
+    ()
+**)
+
+let print_loop_paths oc label (bbs: bblock list list) =
+  List.iter ~f:(fun x -> 
+      Out_channel.output_string oc label;
+      Out_channel.output_string ": [";
+      print_loop_bblocks oc x;
+      Out_channel.output_string oc "]\n")
+  lp
+
+(**
+  print_looping_paths
 
   Print the possible paths within a loop, one per line
 
@@ -609,12 +630,18 @@ let print_loops_bblocks oc (lbs: bblock list list) =
     ()
 **)
 
-let print_loop_paths oc (lp: loop_path list) =
-  List.iter ~f:(fun x -> 
-      Out_channel.output_string oc "  Loop path: [";
-      print_loop_bblocks oc x.path_to_exit;
-      Out_channel.output_string oc "]\n")
-  lp
+let is_loop_back (bbs: bblock list) (bb: bblock): bool
+  List.length (List.filter ~f:(fun x -> x.bbindex < bb.bbindex) bbs) > 0
+
+let is_loop_path (lp: loop_path): bool =
+  let last_bblock = List.nth_exn loop_path ((List.length loop_path) - 1) in
+  is_loop_back last_bblock.pred last_bblock.bbindex
+
+let looping_paths_of_loop_paths (lp: loop_path_list): bblock list list: =
+  List.dedup (List.filter ~f:is_looping_path lp)
+
+let print_looping_paths oc (lp: loop_path list) =
+  print_loop_paths oc "  Looping path" (looping_paths_of_loop_paths lp)
 
 (**
   print_loops
@@ -633,7 +660,7 @@ let print_loop oc (l: loop) =
   Out_channel.output_string oc "Loop block: [";
   print_loop_bblocks oc l.loop_bblocks;
   Out_channel.output_string oc "]\n";
-  print_loop_paths oc (l.loop_paths)
+  print_loop_paths oc "  Loop path" (List.map ~f:(fun x -> x.path_to_exit) l.loop_paths)
 
 let print_loops oc (ls: loop list) = List.iter ~f:(print_loop oc) ls
 

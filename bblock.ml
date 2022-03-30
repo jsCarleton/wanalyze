@@ -23,7 +23,7 @@ type bblock =
   mutable end_op:   int;            (* index+1 of the last op in the expr *)
   mutable succ:     bblock list;    (* bblocks that can be directly reached from this bblock *)
   mutable pred:     bblock list;    (* bblocks that can directly reach this bblock *)
-  mutable bbtype:	bb_type;        (* effectively the control opcode that created this bblock *)
+  mutable bbtype:	  bb_type;        (* effectively the control opcode that created this bblock *)
   mutable nesting:  int;            (* nesting level of the last opcode in the bblock *)
   mutable labels:   int list;       (* destination labels used in BR, BR_IF, BR_TABLE instructions *)
   mutable br_dest:	bblock option;  (* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)

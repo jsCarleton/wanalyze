@@ -165,7 +165,7 @@ type loop_prefix = {
  *)}
 
 (*
-  loop_exit
+  loop_path
   describes the conditions where a loop is exited
 *)
 type loop_path = {
