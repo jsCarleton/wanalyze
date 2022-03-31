@@ -612,10 +612,10 @@ let print_loops_bblocks oc (lbs: bblock list list) =
 let print_loop_paths oc label (bbs: bblock list list) =
   List.iter ~f:(fun x -> 
       Out_channel.output_string oc label;
-      Out_channel.output_string ": [";
+      Out_channel.output_string oc ": [";
       print_loop_bblocks oc x;
       Out_channel.output_string oc "]\n")
-  lp
+  bbs
 
 (**
   print_looping_paths
@@ -630,18 +630,21 @@ let print_loop_paths oc label (bbs: bblock list list) =
     ()
 **)
 
-let is_loop_back (bbs: bblock list) (bb: bblock): bool
-  List.length (List.filter ~f:(fun x -> x.bbindex < bb.bbindex) bbs) > 0
+let exit_paths_of_loop (l: loop): bblock list list =
+  List.map ~f:(fun x -> x.path_to_exit) l.loop_paths
 
-let is_loop_path (lp: loop_path): bool =
-  let last_bblock = List.nth_exn loop_path ((List.length loop_path) - 1) in
-  is_loop_back last_bblock.pred last_bblock.bbindex
+let is_loop_back (bbs: bblock list) (bb: bblock): bool =
+  (List.length (List.filter ~f:(fun x -> x.bbindex <= bb.bbindex) bbs)) > 0
 
-let looping_paths_of_loop_paths (lp: loop_path_list): bblock list list: =
-  List.dedup (List.filter ~f:is_looping_path lp)
+let is_looping_path (bbs:  bblock list): bool =
+  let last_bblock = List.nth_exn bbs ((List.length bbs) - 1) in
+  is_loop_back last_bblock.succ last_bblock
 
-let print_looping_paths oc (lp: loop_path list) =
-  print_loop_paths oc "  Looping path" (looping_paths_of_loop_paths lp)
+let looping_paths_of_loop_paths (bbs_list: bblock list list): bblock list list =
+  List.dedup_and_sort ~compare:compare_cps (List.filter ~f:is_looping_path bbs_list)
+
+let print_looping_paths oc (l: loop) =
+  print_loop_paths oc "  Looping path" (looping_paths_of_loop_paths (exit_paths_of_loop l))
 
 (**
   print_loops
@@ -660,7 +663,8 @@ let print_loop oc (l: loop) =
   Out_channel.output_string oc "Loop block: [";
   print_loop_bblocks oc l.loop_bblocks;
   Out_channel.output_string oc "]\n";
-  print_loop_paths oc "  Loop path" (List.map ~f:(fun x -> x.path_to_exit) l.loop_paths)
+  print_loop_paths oc "  Loop path" (exit_paths_of_loop l);
+  print_looping_paths oc l
 
 let print_loops oc (ls: loop list) = List.iter ~f:(print_loop oc) ls
 
