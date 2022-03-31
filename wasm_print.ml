@@ -630,18 +630,18 @@ let print_loop_paths oc label (bbs: bblock list list) =
     ()
 **)
 
-let exit_paths_of_loop (l: loop): bblock list list =
+let exit_paths_of_loop (l: loop): code_path list =
   List.map ~f:(fun x -> x.path_to_exit) l.loop_paths
 
-let is_loop_back (bbs: bblock list) (bb: bblock): bool =
-  (List.length (List.filter ~f:(fun x -> x.bbindex <= bb.bbindex) bbs)) > 0
+let is_loop_back (cp: code_path) (bb: bblock): bool =
+  (List.length (List.filter ~f:(fun x -> x.bbindex <= bb.bbindex) cp)) > 0
 
-let is_looping_path (bbs:  bblock list): bool =
-  let last_bblock = List.nth_exn bbs ((List.length bbs) - 1) in
+let is_looping_path (cp: code_path): bool =
+  let last_bblock = List.nth_exn cp ((List.length cp) - 1) in
   is_loop_back last_bblock.succ last_bblock
 
-let looping_paths_of_loop_paths (bbs_list: bblock list list): bblock list list =
-  List.dedup_and_sort ~compare:compare_cps (List.filter ~f:is_looping_path bbs_list)
+let looping_paths_of_loop_paths (cps: code_path list): code_path list =
+  List.dedup_and_sort ~compare:compare_cps (List.filter ~f:is_looping_path cps)
 
 let print_looping_paths oc (l: loop) =
   print_loop_paths oc "  Looping path" (looping_paths_of_loop_paths (exit_paths_of_loop l))
