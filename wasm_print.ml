@@ -618,6 +618,40 @@ let print_loop_paths oc label (bbs: bblock list list) =
   bbs
 
 (**
+  print_paths_to_loop_path
+
+  Print the possible paths to a given loop path, one per line
+
+  Parameters:
+    oc    output channel to print on
+    paths all paths
+    cp    list of loop paths
+
+  Returns:
+    ()
+**)
+
+let rec prefix_of_code_path (bb: bblock) (acc: code_path) (cp: code_path): code_path =
+  match cp with
+  | [] -> failwith "Bblock not found"
+  | hd::tl  ->
+    (match hd.bbindex = bb.bbindex with
+    | true  -> List.rev acc
+    | false -> prefix_of_code_path bb (hd::acc) tl)
+
+let prefix_of_code_paths (cps: code_path list) (bb: bblock): code_path list =
+  List.map ~f:(prefix_of_code_path bb []) cps
+
+let path_has_bblock (bb: bblock) (cp: code_path): bool =
+  List.exists ~f:(fun x -> x.bbindex = bb.bbindex) cp
+
+let paths_to_bblock (cps: code_path list) (bb: bblock): code_path list =
+  prefix_of_code_paths (List.filter ~f:(path_has_bblock bb) cps) bb
+
+let print_paths_to_loop_path oc (cps: code_path list) (lp: code_path) =
+  print_loop_paths oc "  Path to loop: " (paths_to_bblock cps (List.hd_exn lp))
+
+(**
   print_looping_paths
 
   Print the possible paths within a loop, one per line
