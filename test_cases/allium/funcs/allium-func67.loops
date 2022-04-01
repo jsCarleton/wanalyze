@@ -5,10 +5,12 @@ Loop block: [0 1 2 3 4]
   Loop path: [0 1 4]
   Loop path: [0 1 2]
   Looping path: [0 1 2]
+  Path to loop: []
 Loop block: [5 6 7]
   Loop path: [5 6 7]
   Loop path: [5 6]
   Looping path: [5 6]
+  Path to loop: [0 1 4]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0] 421
 cost:    421; 

@@ -14,6 +14,8 @@ Loop block: [10 11 12 13 14 15 16 17]
   Looping path: [10 11 12 14 16]
   Looping path: [10 11 13 14 15 16]
   Looping path: [10 11 13 14 16]
+  Path to loop: [0 1 6 7 9]
+  Path to loop: [0 1 6 8 9]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 6 7 9 10] 21
 cost:    21; 

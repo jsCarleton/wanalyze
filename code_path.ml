@@ -168,8 +168,9 @@ type loop_prefix = {
   loop_path
   describes the conditions where a loop is exited
 *)
+
 type loop_path = {
-  path_to_exit:         bblock list;      (* path within the loop to the bblock where the exit occurs *)
+  path_to_exit:         code_path;      (* path within the loop to the bblock where the exit occurs *)
   condition_at_exit:    expr_tree;        (* condition that's true for the exit to occur *)
   vars_of_condition:    string list;      (* variables used in the condition *)
 (*   assignments_to_vars:  ssa list;         (* assignments made to the condition variables *)
@@ -180,10 +181,25 @@ type loop_path = {
   loop
   consists of a the bblocks that make up the loop and the list of loop exits
 *)
+
 type loop = {
   loop_bblocks: bblock list;      (* list of consecutive bblocks that comprise the loop *)
   loop_paths:   loop_path list;   (* list of possible paths through the loop *)
 }
+
+(**
+  exit_paths_of_loop
+
+  Given a loop return a list containing the code_paths that make up the exit paths of that loop
+
+  Parameters:
+    l   the loop
+  Returns:
+    the list of code paths
+**)
+
+let exit_paths_of_loop (l: loop): code_path list =
+  List.map ~f:(fun x -> x.path_to_exit) l.loop_paths
 
 (**
   Given the bblocks of a function return a list of loop bblocks
@@ -241,7 +257,7 @@ let loops_of_bblocks (bblocks: bblock list): loop list =
   List.map  ~f:(fun loop_bblocks -> { loop_bblocks; 
                                       loop_paths = loop_paths_of_loop_bblocks loop_bblocks})
             (loop_bblocks_of_bblocks bblocks)
-  
+
 (**
   cp_has_bb
 
@@ -255,19 +271,14 @@ let loops_of_bblocks (bblocks: bblock list): loop list =
     Some cp if the code path contains the bblock, None otherwise
 **)
 
-let rec cp_has_bb' (cp: code_path) (bb: bblock): bool =
-  match cp with
-    | []      -> false
-    | hd::tl  ->
-        (match hd.bbindex = bb.bbindex with
-          | true  -> true
-          | _     -> cp_has_bb' tl bb)
+let cp_has_bb' (bb: bblock) (cp: code_path) : bool =
+  List.exists ~f:(fun x -> x.bbindex = bb.bbindex) cp
   
 let cp_has_bb (bb: bblock) (cp: code_path): code_path option =
-  match cp_has_bb' cp bb with | true -> Some cp | _ -> None
+  match cp_has_bb' bb cp with | true -> Some cp | _ -> None
   
 (**
-  loop_prefix
+  prefix_of_code_path
 
   Given a bblock and a code path that contains that bblock
   return the prefix of the code path up to, but not including, the
@@ -281,36 +292,91 @@ let cp_has_bb (bb: bblock) (cp: code_path): code_path option =
     the prefix of the cp up to bb
 **)
 
-let rec loop_prefix (bb: bblock) (acc: code_path) (cp: code_path): code_path =
+let rec prefix_of_code_path (bb: bblock) (acc: code_path) (cp: code_path): code_path =
     match cp with
-    | []      -> failwith "Loop not found"
+    | []      -> failwith "Bblock not found"
     | hd::tl  ->
         (match hd.bbindex = bb.bbindex with
           | true -> (List.rev acc)
-          | _    -> loop_prefix bb (hd::acc) tl)
+          | _    -> prefix_of_code_path bb (hd::acc) tl)
   
 (**
-  code_paths_of_loop
+  prefixes_of_code_paths
 
-  Given the code paths of a function and a loop body return the code
-  paths that contain loop body
+  Given a bblock and a list of code paths that contains that bblock
+  return a list of the code paths that are the prefixes of the code path up to, but
+  not including, the  bblock
 
   Parameters:
-    cps   code paths
-    lb    loop body
+    cps   list of code paths that contain the bb
+    bb    bblock
   Returns:
-    the code paths to that loop body
+    the prefixes of the cps up to bb
 **)
-let code_paths_of_loop' (cps: code_path list) (bb: bblock): code_path list =
-  List.map ~f:(loop_prefix bb [])
-  (List.filter_map ~f:(cp_has_bb bb) cps)  (* code paths that contain this loop *)
 
-let code_paths_of_loop (cps: code_path list) (lb: bblock list): code_path list =
-  code_paths_of_loop' cps (List.hd_exn lb)
+let prefixes_of_code_paths (cps: code_path list) (bb: bblock): code_path list =
+  List.map ~f:(prefix_of_code_path bb []) cps
+          
+(**
+  unique_paths_to_bblock
 
+  Given a list of code paths and a bblock return the list of unique prefixes of the
+  bblock in the list of code paths
 
+  Parameters:
+    cps   list of code paths that may or may not contain the bb
+    bb    bblock
+  Returns:
+    unique prefixes from the cps that contain the bb
+**)
+  
+let unique_paths_to_bblock (cps: code_path list) (bb: bblock): code_path list =
+  List.dedup_and_sort ~compare:compare_cps (prefixes_of_code_paths (List.filter ~f:(cp_has_bb' bb) cps) bb)
 
+(**
+  has_back_branch
 
+  Given a bblock determine if it has a backwards branch
+
+  Parameters:
+    bb   the bb
+  Returns:
+    true if it has a backwards branch, false otherwise
+**)
+  
+let has_back_branch (bb: bblock): bool =
+  List.exists ~f:(fun x -> x.bbindex <= bb.bbindex) bb.succ
+  
+(**
+  is_looping_path
+
+  Given a code path determine if it's a looping path
+
+  Parameters:
+    cp  the code path
+  Returns:
+    true if it's a looping path, false otherwise
+**)
+
+let is_looping_path (cp: code_path): bool =
+    has_back_branch (List.nth_exn cp ((List.length cp) - 1))
+  
+(**
+  unique_looping_paths
+
+  Given a list of code paths return the list of unique looping paths from
+  the list
+
+  Parameters:
+    cps  the list of code paths
+  Returns:
+    the list of unique looping paths
+**)
+
+let unique_looping_paths (cps: code_path list): code_path list =
+    List.dedup_and_sort ~compare:compare_cps (List.filter ~f:is_looping_path cps)
+  
+  
 
 let has_loop' (bb: bblock): bool = 
   match bb.bbtype with

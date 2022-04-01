@@ -599,7 +599,7 @@ let print_loops_bblocks oc (lbs: bblock list list) =
 (**
   print_paths
 
-  Prints a list of paths
+  Prints a list of paths, one per line
 
   Parameters:
     oc  output channel to print on
@@ -623,33 +623,16 @@ let print_loop_paths oc label (bbs: bblock list list) =
   Print the possible paths to a given loop path, one per line
 
   Parameters:
-    oc    output channel to print on
-    paths all paths
-    cp    list of loop paths
+    oc            output channel to print on
+    cps           all paths
+    loop_bblocks  list of bblocks that make up the loop
 
   Returns:
     ()
 **)
 
-let rec prefix_of_code_path (bb: bblock) (acc: code_path) (cp: code_path): code_path =
-  match cp with
-  | [] -> failwith "Bblock not found"
-  | hd::tl  ->
-    (match hd.bbindex = bb.bbindex with
-    | true  -> List.rev acc
-    | false -> prefix_of_code_path bb (hd::acc) tl)
-
-let prefix_of_code_paths (cps: code_path list) (bb: bblock): code_path list =
-  List.map ~f:(prefix_of_code_path bb []) cps
-
-let path_has_bblock (bb: bblock) (cp: code_path): bool =
-  List.exists ~f:(fun x -> x.bbindex = bb.bbindex) cp
-
-let paths_to_bblock (cps: code_path list) (bb: bblock): code_path list =
-  prefix_of_code_paths (List.filter ~f:(path_has_bblock bb) cps) bb
-
-let print_paths_to_loop_path oc (cps: code_path list) (lp: code_path) =
-  print_loop_paths oc "  Path to loop: " (paths_to_bblock cps (List.hd_exn lp))
+let print_paths_to_loop oc (cps: code_path list) (loop_bblocks: bblock list) =
+  print_loop_paths oc "  Path to loop" (unique_paths_to_bblock cps (List.hd_exn loop_bblocks))
 
 (**
   print_looping_paths
@@ -664,21 +647,9 @@ let print_paths_to_loop_path oc (cps: code_path list) (lp: code_path) =
     ()
 **)
 
-let exit_paths_of_loop (l: loop): code_path list =
-  List.map ~f:(fun x -> x.path_to_exit) l.loop_paths
-
-let is_loop_back (cp: code_path) (bb: bblock): bool =
-  (List.length (List.filter ~f:(fun x -> x.bbindex <= bb.bbindex) cp)) > 0
-
-let is_looping_path (cp: code_path): bool =
-  let last_bblock = List.nth_exn cp ((List.length cp) - 1) in
-  is_loop_back last_bblock.succ last_bblock
-
-let looping_paths_of_loop_paths (cps: code_path list): code_path list =
-  List.dedup_and_sort ~compare:compare_cps (List.filter ~f:is_looping_path cps)
-
-let print_looping_paths oc (l: loop) =
-  print_loop_paths oc "  Looping path" (looping_paths_of_loop_paths (exit_paths_of_loop l))
+let print_looping_paths oc (cps: code_path list) (l: loop) =
+  print_loop_paths oc "  Looping path" (unique_looping_paths (exit_paths_of_loop l));
+  print_paths_to_loop oc cps (l.loop_bblocks)
 
 (**
   print_loops
@@ -693,14 +664,15 @@ let print_looping_paths oc (l: loop) =
     ()
 **)
 
-let print_loop oc (l: loop) =
+let print_loop oc (cps: code_path list) (l: loop) =
   Out_channel.output_string oc "Loop block: [";
   print_loop_bblocks oc l.loop_bblocks;
   Out_channel.output_string oc "]\n";
   print_loop_paths oc "  Loop path" (exit_paths_of_loop l);
-  print_looping_paths oc l
+  print_looping_paths oc cps l
 
-let print_loops oc (ls: loop list) = List.iter ~f:(print_loop oc) ls
+let print_loops oc (cps: code_path list) (ls: loop list) =
+  List.iter ~f:(print_loop oc cps) ls
 
 (* TODO more convenient to store code paths in reverse order? *)
 let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_path) =
@@ -757,7 +729,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
             (string_of_ints (ids_with_loops bblocks))
             (string_of_ints (ids_with_simple_brif_loops bblocks))
             (string_of_ints (ids_with_simple_br_loops bblocks)));
-            print_loops oc loops;
+            print_loops oc cps loops;
         (* print the code paths from the root to a loop bblock and the VM state at loop entry *)
         Out_channel.output_string oc (sprintf "Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:\n");
         Out_channel.output_string oc
