@@ -261,8 +261,8 @@ let loops_of_bblocks (bblocks: bblock list): loop list =
 (**
   cp_has_bb
 
-  Given a code path and a bblock returns a code path option that's None
-  if the code path contains the index and the given code path otherwise 
+  Given a code path and a bblock returns a bool that's true
+  if the code path contains the index and false otherwise 
 
   Parameters:
     bb     bblock index
@@ -271,11 +271,8 @@ let loops_of_bblocks (bblocks: bblock list): loop list =
     Some cp if the code path contains the bblock, None otherwise
 **)
 
-let cp_has_bb' (bb: bblock) (cp: code_path) : bool =
+let cp_has_bb (bb: bblock) (cp: code_path) : bool =
   List.exists ~f:(fun x -> x.bbindex = bb.bbindex) cp
-  
-let cp_has_bb (bb: bblock) (cp: code_path): code_path option =
-  match cp_has_bb' bb cp with | true -> Some cp | _ -> None
   
 (**
   prefix_of_code_path
@@ -331,7 +328,7 @@ let prefixes_of_code_paths (cps: code_path list) (bb: bblock): code_path list =
 **)
   
 let unique_paths_to_bblock (cps: code_path list) (bb: bblock): code_path list =
-  List.dedup_and_sort ~compare:compare_cps (prefixes_of_code_paths (List.filter ~f:(cp_has_bb' bb) cps) bb)
+  List.dedup_and_sort ~compare:compare_cps (prefixes_of_code_paths (List.filter ~f:(cp_has_bb bb) cps) bb)
 
 (**
   has_back_branch
@@ -391,12 +388,6 @@ let rec has_loop (bblocks: bblock list): bool =
     | _     -> has_loop tl)
   | _ ->  false
 
-let idx_of_bbs_of_loops (bblocks: bblock list): int list =
-  List.fold_left
-    ~init:[] 
-    ~f:(fun acc bb -> match bb.bbtype with | BB_loop -> (List.append acc [bb.bbindex]) | _ -> acc)
-    bblocks
-
 let ids_with_loops (bblocks: bblock list): int list =
   List.filter_map ~f:(fun s -> match has_loop' s with | true -> Some (s.bbindex+1) | _ -> None) bblocks
 
@@ -442,6 +433,3 @@ let analyze_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype list
       (bb: bblock): expr_tree =
   let _,loop_cond = reduce_bblock w (expr_of_bblock e bb) (empty_program_state w param_types local_types) in
     loop_cond
-
-let execution_paths (bblocks: bblock list): int list list =
-  [List.map ~f:(fun s -> s.bbindex) bblocks]

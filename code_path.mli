@@ -1,0 +1,52 @@
+type code_path = Bblock.bblock list
+
+(*
+  loop_prefix
+  for a given loop_exit, a loop_prefix consists of the path (in bblocks) from the start
+  of the program and the value of the loop_exit's condition variables at the end of the path
+*)
+type loop_prefix = {
+  prefix_cp:        Bblock.bblock list;  (* path to the loop from the start of the program *)
+(* TODO  loop_var_values:  ssa list;     (* values of loop condition variables at path end *) *)
+}
+
+(*
+  loop_path
+  describes the conditions where a loop is exited
+*)
+
+type loop_path = {
+  path_to_exit:         code_path;                  (* path within the loop to the bblock where the exit occurs *)
+  condition_at_exit:    Symbolic_expr.expr_tree;    (* condition that's true for the exit to occur *)
+  vars_of_condition:    string list;                (* variables used in the condition *)
+(* TODO  assignments_to_vars:  ssa list;         (* assignments made to the condition variables *) *)
+  loop_prefixes:        loop_prefix list;           (* the list of prefix code paths for this loop_exit*)
+}
+
+(*
+  loop
+  consists of a the bblocks that make up the loop and the list of loop exits
+*)
+
+type loop = {
+  loop_bblocks: Bblock.bblock list; (* list of consecutive bblocks that comprise the loop *)
+  loop_paths:   loop_path list;     (* list of possible paths through the loop *)
+}
+
+
+val analyze_simple_loop             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list -> Wasm_module.local_type list
+                        -> Bblock.bblock -> Symbolic_expr.expr_tree
+val simple_brif_loop                : Bblock.bblock list -> Bblock.bblock -> int option
+val simple_br_loop                  : Bblock.bblock list -> Bblock.bblock -> int option
+val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_path list
+val unique_looping_paths            : code_path list -> code_path list
+val exit_paths_of_loop              : loop -> code_path list
+val code_paths_of_bblocks           : Bblock.bblock list -> code_path list -> code_path list -> code_path list
+val has_loop                        : Bblock.bblock list -> bool
+val compare_cps                     : code_path -> code_path -> int
+val loop_code_paths                 : Bblock.bblock list -> code_path list -> code_path list
+val loops_of_bblocks                : Bblock.bblock list -> loop list
+val ids_with_loops                  : Bblock.bblock list -> int list
+val ids_with_simple_brif_loops      : Bblock.bblock list -> int list
+val ids_with_simple_br_loops        : Bblock.bblock list -> int list
+val bblocks_with_simple_brif_loops  : Bblock.bblock list -> Bblock.bblock list

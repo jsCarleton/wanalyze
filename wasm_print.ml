@@ -257,11 +257,6 @@ let print_code oc (w: wasm_module) idx annotate bbs =
   Out_channel.output_string oc (string_of_locals (List.nth_exn w.code_section idx).locals);
   print_expr oc f.e bbs annotate
 
-let string_of_param  p = String.concat ["(param " ; (string_of_resulttype p) ; ")"]
-let string_of_result r = String.concat ["(result " ; (string_of_resulttype r) ; ")"]
-let string_of_params pl = String.concat ~sep:"" (List.map ~f:string_of_param pl)
-let string_of_results rl = String.concat ~sep:"" (List.map ~f:string_of_result rl)
-
 let string_of_bbtype (bbtype: bb_type) : string =
   match bbtype with
   | BB_unknown      -> "unknown"
@@ -399,10 +394,6 @@ let string_of_data d =
           ; ") "  ; hexstring_of_bytes meb.b ; ")"]
 let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string_of_data section)
 
-let has_successors (bblocks: bblock list) (bb_index: int ): bool =
-  let succ = (List.nth_exn bblocks bb_index).succ in
-    (List.length succ > 0)
-
 (* Part 3 *)
 (* printing the state *)
 let string_of_instr_count (count: int) = String.concat ["\ncost:    " ; string_of_int count ; "; "]
@@ -422,13 +413,6 @@ let string_of_state (print_locals: bool) (nparams: int) (state: program_state): 
                     | true -> string_of_local_values (Array.sub state.local_values ~pos:nparams ~len:((Array.length state.local_values) - nparams)) 
                     | false -> ""); "\n";
                   string_of_global_values state.global_values; "\n"]
-let string_of_ps (nparams: int) (ps: program_states): string = String.concat ~sep:"\n" (List.map ~f:(string_of_state true nparams) ps)
-
-let string_of_execution (nparams: int) (bblocks: bblock list) (ex: execution): string =
-  sprintf "bblock %d from %d\ninitial state: %s\nfinal   state: %s\n" 
-      ex.eindex ex.pred_index (string_of_state true nparams ex.initial) (string_of_state (has_successors bblocks ex.eindex) nparams ex.final)
-let string_of_executions (nparams: int) (executions: execution list) (bblocks: bblock list): string = 
-  String.concat (List.map ~f:(string_of_execution nparams bblocks) executions)
 
 (* Part 4 *)
 (* creating the .dot file that contains the flow graph definition *)
@@ -574,27 +558,6 @@ let print_loop_bblocks oc (lb: bblock list) =
             | false -> Out_channel.output_string oc (String.concat [string_of_int x.bbindex; " "])
             | true  -> Out_channel.output_string oc (string_of_int x.bbindex))
     lb
-
-(**
-  print_loops_bblocks
-
-  Print a list of blocks for multiple loops, one per line
-
-  Parameters:
-    oc    output channel to print on
-    lbs   loop body list
-
-  Returns:
-    ()
-**)
-
-let print_loops_bblocks oc (lbs: bblock list list) =
-  List.iter 
-    ~f:(fun x -> 
-          Out_channel.output_string oc "Loop block: [";
-          print_loop_bblocks oc x;
-          Out_channel.output_string oc "]\n")
-    lbs
 
 (**
   print_paths

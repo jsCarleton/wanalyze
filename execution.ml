@@ -114,19 +114,6 @@ let update_state_parametricop (op: op_type) (s: program_state) =
   | _ -> failwith (sprintf "Invalid parametric %x " op.opcode)  
 
 (* Control operators *)
-let state_copy (s: program_state): program_state =
-  {instr_count=s.instr_count; value_stack=s.value_stack; local_values=s.local_values; global_values=s.global_values}
-let states_copy (states: program_states): program_states =
-  List.map ~f:state_copy states
-let push_pending_states (dest: pending_states) (src: program_states option): pending_states =
-  match src with
-  | Some s ->  List.cons (Some (states_copy s)) dest
-  | _ -> List.cons None dest
-let pop_pending_states (src: pending_states): program_states =
-  match List.hd_exn src with
-  | Some s -> s
-  | _ -> failwith "Invalid pending states"
-
 (* call op handling *)
 let update_state_callop (_: wasm_module) (param_count: int) (retval_types: resulttype list) (state: program_state) =
   drop_n_values state param_count;
@@ -136,86 +123,12 @@ let update_state_callop (_: wasm_module) (param_count: int) (retval_types: resul
 let ret_types (w: wasm_module) (fidx: int): resulttype list =
   (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
 
-let update_states_callop (w: wasm_module) (param_counts: int list) (op: op_type) (s: states) =
-  match op.arg with
-  | Funcidx fidx -> 
-       List.iter  ~f:(update_state_callop w (List.nth_exn param_counts fidx) (ret_types w fidx)) s.active;
-  | _ -> failwith "Invalid call argument"
-
 let nparams (w: wasm_module) (fidx: int) =
   List.length (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt1
         
 (* call indirect handling*)
-let update_states_callindop (w: wasm_module) (op: op_type) (s: states) =
-  match op.arg with
-  | CallIndirect c -> 
-       List.iter  ~f:(update_state_callop w (nparams w c.y) (List.nth_exn w.type_section c.y).rt2) s.active;
-  | _ -> failwith "Invalid call indirect argument"
 
 (* de-duplication of states WIP *)
-let states_equal (s1: program_state) (s2: program_state): bool =
-  (List.length s1.value_stack) = (List.length s2.value_stack)
-
-let rec filter_unique (dest: program_states) (src: program_state): bool =
-  match dest with
-  | [] -> true
-  | hd::_ when (states_equal hd src) -> false
-  | _::tl -> filter_unique tl src
-let unique_states (dest: program_states) (src: program_states): program_states =
-  List.append dest (List.filter ~f:(filter_unique dest) src)
-
-let update_states_controlop (w: wasm_module) (param_counts: int list) (op: op_type) (s: states) = 
-  match op.opcode with
-  (* unreachable, nop - nothing to do *)
-  | 0x00 | 0x01 -> ()
-  (* block *)
-  | 0x02 -> (* TODO *)
-      s.pending <- push_pending_states s.pending None
-  (* loop *)
-  | 0x03 -> (* TODO *)
-      s.pending <- push_pending_states s.pending None
-  (* if - make a copy of our current states on the pending stack *)
-  | 0x04 ->
-      List.iter ~f:drop_value s.active;
-      s.pending <- push_pending_states s.pending (Some s.active)
-  (* else - swap the top of the pending stack and our current states *)
-  | 0x05 ->
-    let current = s.active in
-      s.active <- pop_pending_states s.pending;
-      s.pending <- List.cons (Some current) (List.tl_exn s.pending)
-  (* end - pop states from the pending stack and append to the current states,
-          unless it's the end of the program in which case we append the current
-          states to the final states *)
-  | 0x0b ->
-    (match op.opnesting with
-    | -1 -> 
-        s.final <- unique_states s.final (states_copy s.active)
-    |  _ ->
-        (match List.hd_exn s.pending with
-        | Some states -> s.active <- unique_states s.active states
-        | _ -> ());
-        s.pending <- List.tl_exn s.pending
-    )
-  (* br *)
-  | 0x0c -> () (* TODO *)
-  (* br_if *)
-  | 0x0d -> 
-      List.iter ~f:drop_value s.active (* TODO *)
-  (* br_table *)
-  | 0x0e -> List.iter ~f:drop_value s.active (* TODO *)
-  (* return - remember our current states as final states, clear any current states *)
-  | 0x0f -> 
-      s.final <- unique_states s.final (states_copy s.active);
-      s.active <- []
-  (* call *)
-  | 0x10 -> 
-      update_states_callop w param_counts op s
-  (* call_indirect *)
-  | 0x11 ->
-      update_states_callindop w op s
-  (* all other op codes *)
-  | _ -> failwith "Invalid control op"
-
 (* Variable operators *)
 let int_of_get_argL arg =
   match arg with
@@ -260,10 +173,6 @@ let update_state_binop (f: string) (state: program_state) =
 let update_state_testop (op: op_type) (state: program_state) =
   poke_value state (expr_tree_of_unop op.opname (peek_value state))
  
-(* this does the same thing as update_state_binop *)
-(* rel operators *)
-let update_state_relop = update_state_binop
-
 (* cvt operators *)
 let update_state_cvtop (op: op_type) (state: program_state) =
   match op.opcode with
@@ -274,44 +183,6 @@ let update_state_cvtop (op: op_type) (state: program_state) =
 
 (* instruction counter*)
 let update_instr_count (state: program_state) = state.instr_count <- state.instr_count + 1
-
-(* given an instruction, update states *)
-let update_s (w: wasm_module) (s: states) (param_counts: int list) (op: op_type) =
-   List.iter ~f:update_instr_count s.active;
-  match op.instrtype with
-  | Control ->    update_states_controlop w param_counts op s
-  | Reference ->  failwith "Unimplemented reference"
-  | Parametric -> List.iter ~f:(update_state_parametricop op) s.active
-  | VariableGL -> List.iter ~f:(update_state_varGLop op) s.active
-  | VariableSL -> List.iter ~f:(update_state_varSLop op) s.active
-  | VariableTL -> List.iter ~f:(update_state_varTLop op) s.active
-  | VariableGG -> List.iter ~f:(update_state_varGGop op) s.active
-  | VariableSG -> List.iter ~f:(update_state_varSGop op) s.active
-  | Table ->      failwith "Unimplemented table"
-  | MemoryL ->    List.iter ~f:(update_state_memloadop op) s.active
-  | MemoryS ->    List.iter ~f:update_state_memstoreop s.active
-  | MemoryM ->    () (* nothing to do in this case *)
-  | Constop ->    List.iter ~f:(update_state_constop op) s.active
-  | Unop ->       List.iter ~f:(update_state_unop op) s.active
-  | Binop f ->    List.iter ~f:(update_state_binop f) s.active
-  | Testop ->     List.iter ~f:(update_state_testop op) s.active
-  | Relop f ->    List.iter ~f:(update_state_binop f) s.active
-  | Cvtop ->      List.iter ~f:(update_state_cvtop op) s.active
-
-let param_count  (func_sigs: functype list) (func_idx: int): int =
-    List.length (List.nth_exn func_sigs func_idx).rt1
-let retval_count (func_sigs: functype list) (func_idx: int): int =
-    List.length (List.nth_exn func_sigs func_idx).rt2
-
-let filter_import_fn (imp: import): bool =
-  match imp.description with
-  | Functype _ -> true
-  | _ -> false
-
-let get_import_typeidx (imp: import): typeidx =
-  match imp.description with
-    | Functype idx -> idx
-    | _ -> failwith "Not an import function"
 
 let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): expr_tree = 
   match op.opcode with
@@ -360,7 +231,10 @@ let reduce_op (w: wasm_module) (op: op_type) (s: program_state): expr_tree =
       ); Empty
 
 (**
-  reduce_bblock' symbolically executes the code in an expr.
+  reduce_bblock'
+  
+  Symbolically execute the code in an expr
+
   Parameters:
   s             the starting program_state, as a side-effect of symbolic execution this state is updated
   e             expr containing the code to be executed
@@ -370,6 +244,7 @@ let reduce_op (w: wasm_module) (op: op_type) (s: program_state): expr_tree =
   Returns:
   the succ_cond value
  *)
+
 let rec reduce_bblock' (w: wasm_module) (s: program_state) (e: expr) (succ_cond: expr_tree) :
       expr_tree =
   match e with
@@ -393,19 +268,6 @@ let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
               global_values = copy_values i.global_values} in
   let s = reduce_bblock' w f e Empty in
   f,s
-
-let execute_bblock (w: wasm_module) (bb: bblock) (eindex: int) (e: expr) (ex_acc: execution list) (initial: program_state): execution list =
-  let final, succ_cond = (reduce_bblock w (expr_of_bblock e bb) initial) in
-    (* TODO call execute_bblocks'' recursively *)
-    List.append ex_acc [{eindex; pred_index= -1; succ_index= -1; initial; final; succ_cond}]
-
-let execute_bblocks' (w: wasm_module) (bblocks: bblock list) (indices: int list) (e: expr) (ex_acc: execution list)
-      (initial: program_state): execution list =
-  match indices with
-  | [] -> ex_acc
-  (* TODO call execute_bblocks' recursively *)
-  | hd::_ ->
-      execute_bblock w (List.nth_exn bblocks hd) hd e ex_acc initial
 
 let set_pred' (bblocks: bblock list) (src: bblock) (dest: bblock) =
   match dest.bbindex < List.length bblocks with 
@@ -484,15 +346,3 @@ let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_t
                     ((List.length param_types) + (count_locals local_types))
                     (expr_tree_of_local_value param_types local_types); 
   global_values = global_values }
-
-let execute_bblocks (w: wasm_module) (bblocks: bblock list) (fnum: int) (e: expr): execution list =
-  let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
-  let local_types   = (List.nth_exn w.code_section (fnum - w.last_import_func)).locals in 
-  execute_bblocks'
-      w           (* module *)
-      bblocks     (* bblocks to execute *)
-      [0]         (* index of the bblock to start with *)
-      e           (* code of those bblocks *)
-      []          (* results of the execution so far *)
-      (empty_program_state w param_types local_types)
-                  (* initial state of the program *)

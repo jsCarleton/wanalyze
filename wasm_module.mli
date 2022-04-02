@@ -1,12 +1,3 @@
-open Core
-open Easy_logging
-open Symbolic_expr
-
-(* Type definitions *)
-(* Part 1 - Module definitions *)
-(* most of these are definitions taken from the wasm spec *)
-
-(* Types *)
 type numtype =
   | I32 | I64 | F32 | F64
 
@@ -18,17 +9,6 @@ type valtype =
   | Reftype of reftype
 
 type resulttype = valtype
-
-let valtype_of_int i =
-  match i with
-  | 0x7f -> Numtype I32
-  | 0x7e -> Numtype I64
-  | 0x7d -> Numtype F32
-  | 0x7c -> Numtype F64
-  | 0x70 -> Reftype Funcref
-  | 0x6f -> Reftype Externref
-  | _ -> failwith (String.concat ["Invalid valtype: " ; (string_of_int i)])
-  
 
 type labelidx = int
 type blockidx = int
@@ -306,18 +286,12 @@ type wasm_module =
   mutable next_data:        int;
 }
 
-(* Type definitions *)
-(* Part 2 - Analysis definitions *)
-(* definitions that our analysis is based on *)
-(* the types op_code, bblock and code_path are defined above but are strictly speaking a by-product of our analysis *)
-
-(* Program state types *)
 type program_state =
 {
   mutable instr_count:    int;
-  mutable value_stack:    expr_tree list;
-  mutable local_values:   expr_tree array;
-  mutable global_values:  expr_tree array;
+  mutable value_stack:    Symbolic_expr.expr_tree list;
+  mutable local_values:   Symbolic_expr.expr_tree array;
+  mutable global_values:  Symbolic_expr.expr_tree array;
 }
 
 type program_states = program_state list
@@ -332,67 +306,19 @@ type states =
 
 type execution =
 {
-  eindex:             int;              (* the index of the bblock being executed *)
+  eindex:             int;                      (* the index of the bblock being executed *)
   pred_index:         int;
   succ_index:         int;
-  initial:            program_state;    (* the program state before the first instruction of the bblock is executed *)
-  mutable final:      program_state;    (* the program state after the last instruction of the bblock is executed *)
-  mutable succ_cond:  expr_tree;        (* the expression that must be true in order for the first successor state to be entered *) 
+  initial:            program_state;            (* the program state before the first instruction of the bblock is executed *)
+  mutable final:      program_state;            (* the program state after the last instruction of the bblock is executed *)
+  mutable succ_cond:  Symbolic_expr.expr_tree;  (* the expression that must be true in order for the first successor state to be entered *) 
 }
 
-(* Implementation *)
-(* Part 1 - symbolic variable initialization of locals, parameters and function return values *)
-(* globals need the symbolic execution definitions to be initialized *)
-
-let string_of_resulttype (t: resulttype): string =
-  match t with
-  | Numtype nt ->
-      (match nt with
-        | I32 -> "n"
-        | I64 -> "N"
-        | F32 -> "f"
-        | F64 -> "F")
-  | _ -> "?"
-
-let rec local_type_of_index (local_types: local_type list) (index: int) (types_index: int) (types_count: int): valtype =
-  match index < types_count + (List.nth_exn local_types types_index).n with
-  | true  -> (List.nth_exn local_types types_index).v
-  | _     -> local_type_of_index local_types index (types_index+1) (types_count + (List.nth_exn local_types types_index).n)
-
-let param_name (param_types: resulttype list) (i: int): string =
-  String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i]
-
-let local_value (local_types: local_type list) (nparams: int) (i: int): string =
-  match local_type_of_index local_types (i - nparams) 0 0 with
-    | Numtype nt ->
-      (match nt with
-        | I32 -> "0"
-        | I64 -> "0L"
-        | F32 -> "0.0f"
-        | F64 -> "0.0")
-    | _ -> "?"
-
-let local_name (local_types: local_type list) (nparams: int) (i: int): string =
-  String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
-
-let expr_tree_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): expr_tree =
-  let nparams = List.length param_types in
-  match i < nparams with 
-  | true  -> Variable (param_name param_types i)
-  | _     -> Variable (local_name local_types nparams i)
-
-let string_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): string =
-  let nparams = List.length param_types in
-  match i < nparams with 
-  | true  -> param_name param_types i
-  | _     -> local_name local_types nparams i
-
-let string_of_global_value (i: int): string =
-  sprintf "g%d" i
-
-let create name =
-  { module_name = name; data_count = 0;
-    type_section = []; import_section = []; function_section = []; table_section = []; 
-    memory_section = []; global_section = []; export_section = []; start_section = None; 
-    element_section = []; code_section = []; data_section = [];
-    last_import_func = 0; next_global = 0; next_memory = 0; next_table = 0; next_data = 0}
+val create                      : string -> wasm_module
+val string_of_resulttype        : resulttype -> string
+val expr_tree_of_local_value    : resulttype list -> local_type list -> int -> Symbolic_expr.expr_tree
+val string_of_local_value       : resulttype list -> local_type list -> int -> string 
+val string_of_global_value      : int -> string
+val local_value                 : local_type list -> int -> int -> string
+val local_name                  : local_type list -> int -> int -> string
+val valtype_of_int              : int -> valtype
