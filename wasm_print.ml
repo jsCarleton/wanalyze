@@ -482,7 +482,7 @@ let string_of_code_paths (cps: code_path list) =
 
 let execute_bblock (w: wasm_module) (e: expr) (state: program_state)
       (bb: bblock) =
-    let (_: expr_tree) = reduce_bblock' w state (expr_of_bblock e bb) Empty in
+    let (_: expr_tree) = succ_cond_of_bblock w state (expr_of_bblock e bb) Empty in
       ()
 
 let execute_code_path (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 

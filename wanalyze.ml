@@ -1,7 +1,5 @@
 open Core
 open Easy_logging
-open ReadBin
-open Wasm_module
 
 (* create our logger *)
 let logger = Logging.make_logger "wanalyze" Debug [ RotatingFile ("wanalyze", Debug, 65536, 5) ]
@@ -16,7 +14,7 @@ let processFile fnum file =
   logger#info  "**** New file: %s %d" file fnum;
   let ic = In_channel.create file in
   let w  = Wasm_module.create file in
-  parse_wasm ic w;
+  ReadBin.parse_wasm ic w;
   Wasm_print.print w fnum
 
 let () =

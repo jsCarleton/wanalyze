@@ -16,7 +16,7 @@ type bblock =
 }
 
 val expr_of_bblock      : Wasm_module.expr -> bblock -> Wasm_module.expr
-val bblocks_of_expr'    : Wasm_module.expr -> bblock list -> bblock -> bblock list
+val bblocks_of_expr     : Wasm_module.expr -> bblock list -> bblock -> bblock list
 val set_br_dest         : bblock list -> int -> unit
 val set_successors      : bblock list -> int -> unit
 val mult_succ_count     : bblock list -> int

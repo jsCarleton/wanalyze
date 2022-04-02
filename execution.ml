@@ -231,7 +231,7 @@ let reduce_op (w: wasm_module) (op: op_type) (s: program_state): expr_tree =
       ); Empty
 
 (**
-  reduce_bblock'
+  reduce_bblock
   
   Symbolically execute the code in an expr
 
@@ -245,12 +245,12 @@ let reduce_op (w: wasm_module) (op: op_type) (s: program_state): expr_tree =
   the succ_cond value
  *)
 
-let rec reduce_bblock' (w: wasm_module) (s: program_state) (e: expr) (succ_cond: expr_tree) :
+let rec succ_cond_of_bblock (w: wasm_module) (s: program_state) (e: expr) (succ_cond: expr_tree) :
       expr_tree =
   match e with
   | []      -> succ_cond
   | hd::tl  -> 
-      reduce_bblock' w s tl (reduce_op w hd s)
+      succ_cond_of_bblock w s tl (reduce_op w hd s)
 
 (**
   reduce_bblock from an initial program state, symbolically executes the code in an expr.
@@ -266,7 +266,7 @@ let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
       program_state*expr_tree =
   let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values = copy_values i.local_values;
               global_values = copy_values i.global_values} in
-  let s = reduce_bblock' w f e Empty in
+  let s = succ_cond_of_bblock w f e Empty in
   f,s
 
 let set_pred' (bblocks: bblock list) (src: bblock) (dest: bblock) =
@@ -277,7 +277,7 @@ let set_pred (bblocks: bblock list) (bb: bblock) =
   List.iter ~f:(set_pred' bblocks bb) bb.succ
 
 let bblocks_of_expr (e: expr) : bblock list =
-  let bblocks = bblocks_of_expr' e [] {bbindex=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;
+  let bblocks = bblocks_of_expr e [] {bbindex=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;
                                      labels=[]; br_dest= None} in
   (Logging.get_logger "wanalyze")#info "# bblocks: %d" (List.length bblocks);
   set_br_dest bblocks 0;

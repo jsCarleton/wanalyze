@@ -1,24 +1,22 @@
 open Core
 open Wasm_module
 open Opcode
-open Symbolic_expr
 open Execution
 open Bblock
-open Code_path
 
 type ssa = {
   result:         string;
-  mutable etree:  expr_tree;
+  mutable etree:  Symbolic_expr.expr_tree;
   mutable alive:  bool;
 }
 
 let find_alive' (sl: ssa list): ssa =
   List.find_exn ~f:(fun x -> x.alive) sl
 
-let find_alive (sl: ssa list): expr_tree =
+let find_alive (sl: ssa list): Symbolic_expr.expr_tree =
   Variable (find_alive' sl).result
 
-let find_and_kill (sl: ssa list): expr_tree =
+let find_and_kill (sl: ssa list): Symbolic_expr.expr_tree =
   let s = find_alive' sl in
     s.alive <- false;
     Variable s.result
@@ -165,9 +163,9 @@ let ssa_of_expr' (w: wasm_module) (param_types: resulttype list) (local_types: l
   List.fold_left ~f:(ssa_of_op w param_types local_types) ~init:acc e
 
 let ssa_of_bblock (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-    acc (bb: bblock): ssa list =
+    acc (bb: Bblock.bblock): ssa list =
   ssa_of_expr' w param_types local_types (expr_of_bblock e bb) acc
 
 let ssa_of_code_path (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-      (cp: code_path): ssa list =
+      (cp: Code_path.code_path): ssa list =
   List.fold ~f:(ssa_of_bblock w e param_types local_types) ~init:(ssa_of_locals local_types) cp

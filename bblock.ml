@@ -49,7 +49,7 @@ let mult_succ_count (bblocks: bblock list): int =
 let expr_of_bblock (e: expr) (bb: bblock): expr =
   (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op))
 
-let rec bblocks_of_expr' (e: expr) (bb_acc: bblock list) (current: bblock): bblock list =
+let rec bblocks_of_expr (e: expr) (bb_acc: bblock list) (current: bblock): bblock list =
 match e with
 | [] -> bb_acc
 | _  ->
@@ -75,7 +75,7 @@ match e with
       current.bbtype <- bb_type_of_opcode (List.hd_exn e).opcode;
       current.nesting <- (List.hd_exn e).opnesting;
       (* the new block doesn't have a correct type until we discover what it is*)
-      bblocks_of_expr' (List.tl_exn e) (List.append bb_acc [current]) 
+      bblocks_of_expr (List.tl_exn e) (List.append bb_acc [current]) 
                     {bbindex    = current.bbindex+1;
                     start_op    = current.end_op; 
                     end_op      = current.end_op+1;
@@ -88,7 +88,7 @@ match e with
     (* 2. all other opcodes get added to the current bblock *)
     | _ ->
       current.end_op <- current.end_op + 1;
-      bblocks_of_expr' (List.tl_exn e) bb_acc current
+      bblocks_of_expr (List.tl_exn e) bb_acc current
 
 let rec get_end_else_bblock (bblocks: bblock list) (index: int) (nesting: int): bblock =
   match (List.nth_exn bblocks index).bbtype with
