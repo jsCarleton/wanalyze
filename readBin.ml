@@ -3,10 +3,6 @@ open Easy_logging
 open Wasm_module
 open Opcode
 
-(* TODO: 
-    - make logger#info s look at verbose flag 
-    - add validation of indices (e.g. functions, types)*)
-
 let read_byte ic : int =
   let b = In_channel.input_byte ic in
     match b with
@@ -34,11 +30,6 @@ let rec skip_bytes ic n =
   | _ -> ignore (read_byte ic: int); skip_bytes ic (n-1)
   
 (* i64 helper functions *)
-let i64lt i1 i2 = (Int64.compare i1 i2) < 0
-let i64le i1 i2 = (Int64.compare i1 i2) <=0
-let i64mul i1 i2 : int64 = Stdlib.Int64.mul i1 i2
-let i64add i1 i2 : int64 = Stdlib.Int64.add i1 i2
-let i64sub i1 i2 : int64 = Stdlib.Int64.sub i1 i2
 let i64lsl i n : int64 = Stdlib.Int64.shift_left i n
 let i64lor i1 i2 : int64 = Stdlib.Int64.logor i1 i2
 let i64land i1 i2 : int64 = Stdlib.Int64.logand i1 i2
@@ -96,19 +87,13 @@ let read_i32' ic b =
     | None -> -1
     | Some x -> x
 
-let rec bytes_to_i64' ic n left acc : int64 =
-  match left with
-  | 0 -> acc
-  | _ -> bytes_to_i64' ic n (left-1) (i64lor acc (i64lsl (Int64.of_int (read_byte ic)) (8*(n-left))) )
-let bytes_to_i64 ic n: int64 = bytes_to_i64' ic n n 0L
-
 let read_f32 ic = read_32bits ic
 
 let read_f64 ic =
   let f = read_64bits ic in
   Int64.float_of_bits f
 
-let read_memarg ic bits = 
+let read_memarg ic bits : memarg = 
   let a = uLEB ic 32 in
   {a; o=uLEB ic 32; bits}
 
@@ -120,21 +105,9 @@ let rec read_vec' ic n reader acc =
 let read_vec ic reader = List.rev (read_vec' ic (read_vec_len ic) reader [])
 
 (* Sections consisting of vectors of entries *)
-let rec read_entries ic n w entry_handler =
-  match n with
-  | 0 -> true
-  | _ ->
-    entry_handler ic w &&
-    read_entries ic (n-1) w entry_handler
-
 let read_section_length ic = 
   let n = uLEB ic 32 in
   n
-
-let read_section ic section entry_handler =
-  read_section_length ic >= 0 (* discard the section size *)
-  && read_entries ic (read_vec_len ic) section entry_handler
-
 
 let rec read_section_new' ic entry_handler acc n =
   match n with
