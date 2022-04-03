@@ -4,72 +4,94 @@ Simple br conditions in: .
 Loop block: [14 15 16 17]
   Loop path: [14 15 16 17]
   Loop path: [14 15 16]
+  Looping path: [14 15 16]
+  Path to loop: [0 1 2 5 6 7 8 11]
 Loop block: [23 24 25 26]
   Loop path: [23 24 25 26]
   Loop path: [23 24 25]
+  Looping path: [23 24 25]
+  Path to loop: [0 1 2 5 6 7 20 21 22]
 Loop block: [29 30 31]
   Loop path: [29 30 31]
   Loop path: [29 30]
+  Looping path: [29 30]
+  Path to loop: [0 1 2 5 6 7 20 21 22 23 24 25 26 27 28]
+  Path to loop: [0 1 2 5 6 7 20 21 22 28]
 Loop block: [34 35 36]
   Loop path: [34 35 36]
   Loop path: [34 35]
+  Looping path: [34 35]
+  Path to loop: [0 1 2 5 6 7 20 21 22 23 24 25 26 27 28 29 30 31 32 33]
+  Path to loop: [0 1 2 5 6 7 20 21 22 23 24 25 26 27 28 33]
+  Path to loop: [0 1 2 5 6 7 20 21 22 28 29 30 31 32 33]
+  Path to loop: [0 1 2 5 6 7 20 21 22 28 33]
+  Path to loop: [0 1 2 5 6 7 20 21 33]
 Loop block: [40 41 42]
   Loop path: [40 41 42]
   Loop path: [40 41]
+  Looping path: [40 41]
+  Path to loop: [0 1 2 5 6 7 8 11 12 39]
+  Path to loop: [0 1 2 5 6 7 8 11 14 15 16 17 18 39]
 Loop block: [45 46 47]
   Loop path: [45 46 47]
   Loop path: [45 46]
+  Looping path: [45 46]
+  Path to loop: [0 1 2 5 6 7 8 9 44]
+  Path to loop: [0 1 2 5 6 7 8 11 12 39 40 41 42 43 44]
+  Path to loop: [0 1 2 5 6 7 8 11 12 39 44]
+  Path to loop: [0 1 2 5 6 7 8 11 14 15 16 17 18 39 40 41 42 43 44]
+  Path to loop: [0 1 2 5 6 7 8 11 14 15 16 17 18 39 44]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 5 6 7 8 9 44 45]
+[0 1 2 5 6 7 8 9 44 45] 38
 cost:    38; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [pn0]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 8 11 12 39 40]
+[0 1 2 5 6 7 8 11 12 39 40] 44
 cost:    44; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [pn0]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 8 11 12 39 44 45]
+[0 1 2 5 6 7 8 11 12 39 44 45] 47
 cost:    47; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [pn0]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 8 11 14]
+[0 1 2 5 6 7 8 11 14] 39
 cost:    39; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [pn0]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 20 21 22 23]
+[0 1 2 5 6 7 20 21 22 23] 39
 cost:    39; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [(pn0 xor pn1) && 3]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 20 21 22 28 29]
+[0 1 2 5 6 7 20 21 22 28 29] 43
 cost:    43; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [(pn0 xor pn1) && 3]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 20 21 22 28 33 34]
+[0 1 2 5 6 7 20 21 22 28 33 34] 46
 cost:    46; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [(pn0 xor pn1) && 3]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 20 21 33 34]
+[0 1 2 5 6 7 20 21 33 34] 36
 cost:    36; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 

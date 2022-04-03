@@ -4,8 +4,10 @@ Simple br conditions in: .
 Loop block: [1 2 3]
   Loop path: [1 2 3]
   Loop path: [1 2]
+  Looping path: [1 2]
+  Path to loop: [0]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1]
+[0 1] 5
 cost:    5; 
 stack:   []; 
 params:  [pN0, pn1]; 

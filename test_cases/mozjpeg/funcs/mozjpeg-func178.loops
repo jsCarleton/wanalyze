@@ -4,29 +4,34 @@ Simple br conditions in: .
 Loop block: [32 33 34]
   Loop path: [32 33 34]
   Loop path: [32 33]
+  Looping path: [32 33]
+  Path to loop: [0 1 2 3 4 5 6 7 8 9 27 28 29 30 31]
+  Path to loop: [0 1 2 3 4 5 6 7 8 9 27 28 29]
+  Path to loop: [0 1 2 3 4 5 6 7 8 9 27 29 30 31]
+  Path to loop: [0 1 2 3 4 5 6 7 8 9 27 29]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 3 4 5 6 7 8 9 27 28 29 30 31 32]
+[0 1 2 3 4 5 6 7 8 9 27 28 29 30 31 32] 82
 cost:    82; 
 stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), pn0, pn0, pn0, pn0, i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
 params:  [0]; 
 locals:  [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
 globals: [5400608]
 
-[0 1 2 3 4 5 6 7 8 9 27 28 29 32]
+[0 1 2 3 4 5 6 7 8 9 27 28 29 32] 58
 cost:    58; 
 stack:   [pn0, pn0, pn0, pn0, i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
 params:  [0]; 
 locals:  [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
 globals: [5400608]
 
-[0 1 2 3 4 5 6 7 8 9 27 29 30 31 32]
+[0 1 2 3 4 5 6 7 8 9 27 29 30 31 32] 68
 cost:    68; 
 stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(pn0), pn0, pn0, pn0, pn0]; 
 params:  [0]; 
 locals:  [i32.load@(pn0), i32.load@(pn0), i32.load@(pn0)]; 
 globals: [5400608]
 
-[0 1 2 3 4 5 6 7 8 9 27 29 32]
+[0 1 2 3 4 5 6 7 8 9 27 29 32] 44
 cost:    44; 
 stack:   [pn0, pn0, pn0, pn0]; 
 params:  [0]; 

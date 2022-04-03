@@ -4,12 +4,15 @@ Simple br conditions in: .
 Loop block: [17 18 19 20]
   Loop path: [17 18 19 20]
   Loop path: [17 18 19]
+  Looping path: [17 18 19]
 Loop block: [25 26 27 28]
   Loop path: [25 26 27 28]
   Loop path: [25 26 27]
+  Looping path: [25 26 27]
 Loop block: [49 50 51]
   Loop path: [49 50 51]
   Loop path: [49 50]
+  Looping path: [49 50]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 
 Simple brif loop condition in bblock 50:	(pn3 + 1) != pn0

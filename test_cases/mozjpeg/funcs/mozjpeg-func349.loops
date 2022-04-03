@@ -5,16 +5,26 @@ Loop block: [7 8 9 10 11 12]
   Loop path: [7 8 9 10 11 12]
   Loop path: [7 8 9 10 11]
   Loop path: [7 8 9]
+  Looping path: [7 8 9 10 11]
+  Looping path: [7 8 9]
+  Path to loop: [0 1 2 3 4 6]
 Loop block: [8 9 10]
   Loop path: [8 9 10]
   Loop path: [8 9]
+  Looping path: [8 9]
+  Path to loop: [0 1 2 3 4 6 7]
 Loop block: [16 17 18 19 20 21]
   Loop path: [16 17 18 19 20 21]
   Loop path: [16 17 18 19 20]
   Loop path: [16 17 18]
+  Looping path: [16 17 18 19 20]
+  Looping path: [16 17 18]
+  Path to loop: [0 1 2 3 4 15]
 Loop block: [17 18 19]
   Loop path: [17 18 19]
   Loop path: [17 18]
+  Looping path: [17 18]
+  Path to loop: [0 1 2 3 4 15 16]
 Loop block: [25 26 27 28 29 30 31 32 33 34 35]
   Loop path: [25 26 34 35]
   Loop path: [25 26 34]
@@ -22,22 +32,29 @@ Loop block: [25 26 27 28 29 30 31 32 33 34 35]
   Loop path: [25 26 27 28 29 30 31 32 33 34]
   Loop path: [25 26 27 28 29 30 31]
   Loop path: [25 26 27 28 29]
+  Looping path: [25 26 27 28 29 30 31 32 33 34]
+  Looping path: [25 26 27 28 29 30 31]
+  Looping path: [25 26 27 28 29]
+  Looping path: [25 26 34]
 Loop block: [27 28 29 30 31 32]
   Loop path: [27 28 29 30 31 32]
   Loop path: [27 28 29 30 31]
   Loop path: [27 28 29]
+  Looping path: [27 28 29 30 31]
+  Looping path: [27 28 29]
 Loop block: [28 29 30]
   Loop path: [28 29 30]
   Loop path: [28 29]
+  Looping path: [28 29]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 3 4 6 7]
+[0 1 2 3 4 6 7] 21
 cost:    21; 
 stack:   []; 
 params:  [pn0, pn1, pn2, pn3, pn4]; 
 locals:  [ln5, ln6, i32.load@(pn0), i32.load@(pn0), ln9, ln10, ln11]; 
 globals: [5400608]
 
-[0 1 2 3 4 15 16]
+[0 1 2 3 4 15 16] 21
 cost:    21; 
 stack:   []; 
 params:  [pn0, pn1, pn2, pn3, pn4]; 

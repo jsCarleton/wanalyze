@@ -9,16 +9,18 @@ do
     # Run our analysis
     /usr/bin/time ../../wanalyze.native "$f".wasm
     # Analyze the outputs
-    nl=$(wc -l "$f""$WATSUFFIX")
+    nl=$(wc -l <"$f""$WATSUFFIX")
     nf=$(grep "^  (func (;" "$f""$WATSUFFIX" | wc -l)
+    nc=$(grep -v ' -1' "$f".costs | wc -l)
     np=$(grep "loop" "$f""$WATSUFFIX" | wc -l)
     lf=$(find ./funcs -name "*.wat" -print0 | xargs -0 grep -l loop | wc -l)
-    nb=$(find ./funcs -name "*.paths" -size 1c | wc -l)
+    nb=$(find ./funcs -name "*.paths" -size 3c | wc -l)
     tp=$(find ./funcs -type f -name '*.paths' -exec wc -l {} \; | awk '{ total += $1 } END {print total}')
     lp=$(grep "Loop path" funcs/*.loops | wc -l)
     # Print the result
     echo "lines of code: $nl"
     echo "# of functions: $nf"
+    echo "# of costs: $nc"
     echo "# of loops: $np"
     echo "# functions with loops: $lf"
     echo "# functions with too many paths: $nb"

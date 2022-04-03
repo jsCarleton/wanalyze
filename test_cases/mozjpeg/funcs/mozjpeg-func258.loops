@@ -6,8 +6,10 @@ Loop block: [5 6 7 8 9 10 11 12]
   Loop path: [5 6 7 8 12]
   Loop path: [5 6 7 8 9 10]
   Loop path: [5 6 7 8 9]
+  Looping path: [5 6 7 8 9]
+  Path to loop: [0 3 4]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 3 4 5]
+[0 3 4 5] 12
 cost:    12; 
 stack:   []; 
 params:  [pn0, pn1]; 

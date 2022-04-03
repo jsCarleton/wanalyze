@@ -646,7 +646,7 @@ let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_pa
         m fnum bb.bbindex (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb.bbindex));
   ()
 
-let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx =
+let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = (fidx + w.last_import_func) in
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = (List.nth_exn w.code_section fidx) in
@@ -721,7 +721,16 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
                                               "\n"])
               bbs));
         Out_channel.close oc
-  | false -> ())
+  | false -> ());
+  (* costs *)
+  Out_channel.output_string oc_costs
+    (String.concat 
+      [ string_of_int fnum;
+        " ";
+        (match has_loop bblocks with
+            | false -> string_of_int (max_cost_of_code_paths cps (-1))
+            | true  -> "-1");
+        "\n"])
   (* execution trace of the function *)
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
     Out_channel.output_string oc (string_of_executions (execute_bblocks w bblocks (fidx + w.last_import_func) code.e) bblocks);
@@ -729,21 +738,23 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
 
 let print_functions w fnum =
   let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in
+  let oc_costs   = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".costs"]) in
   match fnum with
   | -1 -> Out_channel.output_string oc_summary "Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values\n";
           List.iteri 
-            ~f:(print_function_details w oc_summary "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
+            ~f:(print_function_details w oc_summary oc_costs "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
             (List.drop w.function_section w.last_import_func)
   | _  -> print_function_details
             w
             oc_summary
+            oc_costs
             "funcs/"
             (String.concat[Filename.chop_extension w.module_name; "-func"])
             fnum
             (List.nth_exn (List.drop w.function_section w.last_import_func) fnum);
-  Out_channel.close oc_summary
+  Out_channel.close oc_summary;
+  Out_channel.close oc_costs
           
-
 (* Part 7 *)
 (* Print the whole wasm module *)
 

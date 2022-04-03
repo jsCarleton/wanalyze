@@ -22,113 +22,139 @@ Loop block: [11 12 13 14 15 16 17 18 19 20 21 22 23 24 25]
   Loop path: [11 12 13 14 15 16 17 18 19 20 21 24]
   Loop path: [11 12 13 14 15 16 17 18 19 20 21 22 23 24 25]
   Loop path: [11 12 13 14 15 16 17 18 19 20 21 22 23 24]
+  Looping path: [11 12 13 14 15 16 17 18 19 20 21 22 23 24]
+  Looping path: [11 12 13 14 15 16 17 18 19 20 21 24]
+  Looping path: [11 12 13 14 15 16 17 18 19 23 24]
+  Looping path: [11 12 13 14 15 16 17 21 22 23 24]
+  Looping path: [11 12 13 14 15 16 17 21 24]
+  Looping path: [11 12 13 14 15 16 21 22 23 24]
+  Looping path: [11 12 13 14 15 16 21 24]
+  Looping path: [11 12 13 14 15 19 20 21 22 23 24]
+  Looping path: [11 12 13 14 15 19 20 21 24]
+  Looping path: [11 12 13 14 15 19 23 24]
+  Path to loop: [0 1 2 3 4 5 6 7 8 9 10]
+  Path to loop: [0 1 2 3 4 5 6 7 8 10]
+  Path to loop: [0 1 2 3 4 5 6 7 10]
+  Path to loop: [0 1 2 3 4 5 6 10]
+  Path to loop: [0 1 2 3 5 6 7 8 9 10]
+  Path to loop: [0 1 2 3 5 6 7 8 10]
+  Path to loop: [0 1 2 3 5 6 7 10]
+  Path to loop: [0 1 2 3 5 6 10]
+  Path to loop: [0 1 2 5 6 7 8 9 10]
+  Path to loop: [0 1 2 5 6 7 8 10]
+  Path to loop: [0 1 2 5 6 7 10]
+  Path to loop: [0 1 2 5 6 10]
+  Path to loop: [0 1 5 6 7 8 9 10]
+  Path to loop: [0 1 5 6 7 8 10]
+  Path to loop: [0 1 5 6 7 10]
+  Path to loop: [0 1 5 6 10]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 3 4 5 6 7 8 9 10 11]
+[0 1 2 3 4 5 6 7 8 9 10 11] 97
 cost:    97; 
 stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 3 4 5 6 7 8 10 11]
+[0 1 2 3 4 5 6 7 8 10 11] 87
 cost:    87; 
 stack:   [pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 3 4 5 6 7 10 11]
+[0 1 2 3 4 5 6 7 10 11] 82
 cost:    82; 
 stack:   [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 3 4 5 6 10 11]
+[0 1 2 3 4 5 6 10 11] 59
 cost:    59; 
 stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), (i32.load@(i32.load@(pn0))) + -1, i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 3 5 6 7 8 9 10 11]
+[0 1 2 3 5 6 7 8 9 10 11] 87
 cost:    87; 
 stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 3 5 6 7 8 10 11]
+[0 1 2 3 5 6 7 8 10 11] 77
 cost:    77; 
 stack:   [pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 3 5 6 7 10 11]
+[0 1 2 3 5 6 7 10 11] 72
 cost:    72; 
 stack:   [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 3 5 6 10 11]
+[0 1 2 3 5 6 10 11] 49
 cost:    49; 
 stack:   [pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), (i32.load@(i32.load@(pn0))) + -1, i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 8 9 10 11]
+[0 1 2 5 6 7 8 9 10 11] 82
 cost:    82; 
 stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 8 10 11]
+[0 1 2 5 6 7 8 10 11] 72
 cost:    72; 
 stack:   [pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 5 6 7 10 11]
+[0 1 2 5 6 7 10 11] 67
 cost:    67; 
 stack:   [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 2 5 6 10 11]
+[0 1 2 5 6 10 11] 44
 cost:    44; 
 stack:   [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), (i32.load@(i32.load@(pn0))) + -1, i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 5 6 7 8 9 10 11]
+[0 1 5 6 7 8 9 10 11] 61
 cost:    61; 
 stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 5 6 7 8 10 11]
+[0 1 5 6 7 8 10 11] 51
 cost:    51; 
 stack:   [pn0, i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 5 6 7 10 11]
+[0 1 5 6 7 10 11] 46
 cost:    46; 
 stack:   [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0)]; 
 params:  [pn0, 0]; 
 locals:  [i32.load@(pn0), i32.load@(i32.load@(pn0)), i32.load@(pn0), ln5]; 
 globals: [5400608]
 
-[0 1 5 6 10 11]
+[0 1 5 6 10 11] 23
 cost:    23; 
 stack:   []; 
 params:  [pn0, 0]; 

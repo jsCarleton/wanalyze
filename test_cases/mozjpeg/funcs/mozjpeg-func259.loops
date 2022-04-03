@@ -4,19 +4,25 @@ Simple br conditions in: .
 Loop block: [2 3 4 5]
   Loop path: [2 3 4 5]
   Loop path: [2 3 4]
+  Looping path: [2 3 4]
+  Path to loop: [0 1]
 Loop block: [7 8 9 10 11]
   Loop path: [7 8 11]
   Loop path: [7 8 9 10 11]
   Loop path: [7 8 9]
+  Looping path: [7 8 9]
+  Path to loop: [0 1 2 3 4 5 6]
+  Path to loop: [0 1 2 3]
+  Path to loop: [0 1]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2]
+[0 1 2] 16
 cost:    16; 
 stack:   []; 
 params:  []; 
 locals:  [i32.load@(143184), 143184, ln2]; 
 globals: [5400608]
 
-[0 1 7]
+[0 1 7] 16
 cost:    16; 
 stack:   []; 
 params:  []; 

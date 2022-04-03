@@ -4,29 +4,40 @@ Simple br conditions in: .
 Loop block: [3 4 5]
   Loop path: [3 4 5]
   Loop path: [3 4]
+  Looping path: [3 4]
+  Path to loop: [0 1 2]
 Loop block: [10 11 12 13 14 15]
   Loop path: [10 11 12 13 14 15]
   Loop path: [10 11 12 13 14]
   Loop path: [10 11 12]
+  Looping path: [10 11 12 13 14]
+  Looping path: [10 11 12]
+  Path to loop: [0 1 2 3 4 5 6 7 8 9]
+  Path to loop: [0 1 2 7 8 9]
+  Path to loop: [0 1 7 8 9]
 Loop block: [11 12 13]
   Loop path: [11 12 13]
   Loop path: [11 12]
+  Looping path: [11 12]
+  Path to loop: [0 1 2 3 4 5 6 7 8 9 10]
+  Path to loop: [0 1 2 7 8 9 10]
+  Path to loop: [0 1 7 8 9 10]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 3]
+[0 1 2 3] 24
 cost:    24; 
 stack:   []; 
 params:  [0, pn1, pn2, pn3]; 
 locals:  [i32.load@(pn1), i32.load@(pn0), i32.load@(pn0), ((i32.load@(pn1)) shl 4) - (i32.load@(pn0)), ln8, ln9, ln10]; 
 globals: [5400608]
 
-[0 1 2 7 8 9 10]
+[0 1 2 7 8 9 10] 38
 cost:    38; 
 stack:   []; 
 params:  [pn0, pn1, pn2, pn3]; 
 locals:  [i32.load@(pn1), 0, 0, ((i32.load@(pn1)) shl 4) - (i32.load@(pn0)), ln8, ln9, (i32.load@(pn1)) shl 3]; 
 globals: [5400608]
 
-[0 1 7 8 9 10]
+[0 1 7 8 9 10] 27
 cost:    27; 
 stack:   []; 
 params:  [pn0, pn1, pn2, pn3]; 
