@@ -19,6 +19,7 @@ type code_path = bblock list
   Returns:
     the list of successor basic blocks
 *)
+
 let succ_of_cp (last_idx: int) (cp: code_path): bblock list = 
   List.filter ~f:(fun x -> x.bbindex <= last_idx) (List.hd_exn cp).succ
 
@@ -38,6 +39,7 @@ let succ_of_cp (last_idx: int) (cp: code_path): bblock list =
       a code path option that is None if the successor is outside the code fragment, the successor
       otherwise
 *)
+
 let term_of_cp_bb (last_idx: int) (cp: code_path) (succ: bblock): code_path option =
     match       (succ.bbindex > last_idx)
             ||  (List.hd_exn cp).bbindex >= succ.bbindex with
@@ -49,6 +51,7 @@ let term_of_cp_bb (last_idx: int) (cp: code_path) (succ: bblock): code_path opti
         Takes a code path and returns a list containing the terminal code paths that are terminated
         by the next bblock one bblock longer than the given code path
 *)
+
 let terms_of_cp (last_idx: int) (cp: code_path): code_path list =
     List.filter_map ~f:(term_of_cp_bb last_idx cp) (succ_of_cp last_idx cp)
 
@@ -59,6 +62,7 @@ let terms_of_cp (last_idx: int) (cp: code_path): code_path list =
     index of the last bblock in the given code path.
     None otherwise
 *)
+
 let nterm_of_cp_bb (last_idx: int) (cp: code_path) (succ: bblock): code_path option =
     match       (succ.bbindex <= last_idx) 
             &&  (List.hd_exn cp).bbindex < succ.bbindex with
@@ -70,6 +74,7 @@ let nterm_of_cp_bb (last_idx: int) (cp: code_path) (succ: bblock): code_path opt
         Takes a code path and returns a list containing the non-terminal code paths that are one bblock longer
         than the given code path
 *)
+
 let nterms_of_cp (last_idx: int) (cp: code_path): code_path list =
     List.filter_map ~f:(nterm_of_cp_bb last_idx cp) (succ_of_cp last_idx cp)
 
@@ -77,6 +82,7 @@ let nterms_of_cp (last_idx: int) (cp: code_path): code_path list =
     is_term
         Takes a code path and returns true if it has reached a terminal state, false otherwise
 *)
+
 let is_term (last_idx: int) (cp: code_path): bool =
     match (List.hd_exn cp).bbtype with
     | BB_return
@@ -91,6 +97,7 @@ let is_term (last_idx: int) (cp: code_path): bool =
         Takes list of bblocks and a code path
         Returns a pair of lists of code-paths that's the resulting non-terminal and terminal paths respectively
 *)
+
 let step_code_path (last_idx: int) (cp: code_path): (code_path list)*(code_path list) =
     match is_term last_idx cp with
     | true  -> [], [cp]
@@ -102,6 +109,7 @@ let step_code_path (last_idx: int) (cp: code_path): (code_path list)*(code_path 
         Returns the terminal code paths *unless* we think there are too many code paths. In that case
         we return []
 *)
+
 let rec code_paths_of_bblocks' (last_idx: int) (nterm: code_path list) (term: code_path list): code_path list =
   match nterm with
     | []        -> term
@@ -113,6 +121,7 @@ let rec code_paths_of_bblocks' (last_idx: int) (nterm: code_path list) (term: co
     For convenience we build each code path in reverse order. Here we reverse that since
     we actually need them in flow graph order for execution purposes
 *)
+
 let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
   let last_idx = (List.nth_exn bblocks ((List.length bblocks)-1)).bbindex in
   match (mult_succ_count bblocks) < 24 with   (* hack to prevent this code from running for a very long time *)
@@ -159,6 +168,7 @@ let rec compare_cps (cp1: code_path) (cp2: code_path): int =
   for a given loop_exit, a loop_prefix consists of the path (in bblocks) from the start
   of the program and the value of the loop_exit's condition variables at the end of the path
 *)
+
 type loop_prefix = {
   prefix_cp:        bblock list;  (* path to the loop from the start of the program *)
 (*   loop_var_values:  ssa list;     (* values of loop condition variables at path end *)
@@ -278,7 +288,7 @@ let cp_has_bb (bb: bblock) (cp: code_path) : bool =
   prefix_of_code_path
 
   Given a bblock and a code path that contains that bblock
-  return the prefix of the code path up to, but not including, the
+  return the prefix of the code path up to and including the
   bblock
 
   Parameters:
@@ -294,15 +304,15 @@ let rec prefix_of_code_path (bb: bblock) (acc: code_path) (cp: code_path): code_
     | []      -> failwith "Bblock not found"
     | hd::tl  ->
         (match hd.bbindex = bb.bbindex with
-          | true -> (List.rev acc)
+          | true -> (List.rev (hd::acc))
           | _    -> prefix_of_code_path bb (hd::acc) tl)
   
 (**
   prefixes_of_code_paths
 
   Given a bblock and a list of code paths that contains that bblock
-  return a list of the code paths that are the prefixes of the code path up to, but
-  not including, the  bblock
+  return a list of the code paths that are the prefixes of the code path up to
+  and including the  bblock
 
   Parameters:
     cps   list of code paths that contain the bb
@@ -318,7 +328,7 @@ let prefixes_of_code_paths (cps: code_path list) (bb: bblock): code_path list =
   unique_paths_to_bblock
 
   Given a list of code paths and a bblock return the list of unique prefixes of the
-  bblock in the list of code paths
+  bblock, including the bblock, in the list of code paths
 
   Parameters:
     cps   list of code paths that may or may not contain the bb
@@ -371,7 +381,9 @@ let is_looping_path (cp: code_path): bool =
 **)
 
 let unique_looping_paths (cps: code_path list): code_path list =
-    List.dedup_and_sort ~compare:compare_cps (List.filter ~f:is_looping_path cps)
+    List.dedup_and_sort ~compare:compare_cps        (* only unique paths *) 
+      (List.filter ~f:is_looping_path               (* only include looping paths *)
+        (List.map ~f:(fun cp -> List.tl_exn cp) cps))  (* don't include the loop bb in the looping path*)
   
 (**
   paths_with_no_loops
@@ -482,6 +494,7 @@ let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
   Returns:
   the loop condition in the form of an expr_tree
 *)
+
 let analyze_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
       (bb: bblock): expr_tree =
   let _,loop_cond = reduce_bblock w (expr_of_bblock e bb) (empty_program_state w param_types local_types) in

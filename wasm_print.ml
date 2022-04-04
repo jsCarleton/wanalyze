@@ -539,25 +539,25 @@ let loop_type w e param_types local_types cp_ssa bbs (bb_idx: int) =
             | _ -> (string_of_bb_type bb_next.bbtype))
 
 (**
-  print_loop_bblocks
+  print_bblocks
 
-  Print a loop bblocks
+  Print a list of bblock
 
   Parameters:
     oc  output channel to print on
-    lb  loop body
+    bbs bblock list
 
   Returns:
     ()
 **)
-let print_loop_bblocks oc (lb: bblock list) =
-  let ll = List.length lb in
+let print_bblocks oc (bbs: bblock list) =
+  let ll = List.length bbs in
   List.iteri 
     ~f:(fun i x -> 
           match (i+1) = ll with
             | false -> Out_channel.output_string oc (String.concat [string_of_int x.bbindex; " "])
             | true  -> Out_channel.output_string oc (string_of_int x.bbindex))
-    lb
+    bbs
 
 (**
   print_paths
@@ -576,7 +576,7 @@ let print_loop_paths oc label (bbs: bblock list list) =
   List.iter ~f:(fun x -> 
       Out_channel.output_string oc label;
       Out_channel.output_string oc ": [";
-      print_loop_bblocks oc x;
+      print_bblocks oc x;
       Out_channel.output_string oc "]\n")
   bbs
 
@@ -629,7 +629,10 @@ let print_looping_paths oc (cps: code_path list) (l: loop) =
 
 let print_loop oc (cps: code_path list) (l: loop) =
   Out_channel.output_string oc "Loop block: [";
-  print_loop_bblocks oc l.loop_bblocks;
+  print_bblocks oc l.loop_bblocks;
+  Out_channel.output_string oc "]\n";
+  Out_channel.output_string oc "  Loop exits: [";
+  print_bblocks oc (exit_bblocks_of_loop l);
   Out_channel.output_string oc "]\n";
   print_loop_paths oc "  Loop path" (exit_paths_of_loop l);
   print_looping_paths oc cps l
@@ -729,16 +732,22 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
         " ";
         (let loops = loops_of_bblocks bblocks in
         match List.length loops with
-          | 0 -> string_of_int (max_cost_of_code_paths cps (-1))
-          | 1 -> let l = List.hd_exn loops in
-                    String.concat["max("; 
-                                  string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
-                                  ", ";
-                                  string_of_int (max_cost_of_code_paths (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) 0);
-                                  "+@3+";
-                                  string_of_int (max_cost_of_code_paths (paths_from_bblocks (exit_bblocks_of_loop l)) 0);
-                                  ")"]
-          | _ -> "-1");
+          | 0 -> let c = max_cost_of_code_paths cps (-1) in
+                 if c >= 0 then string_of_int c else "too many paths"
+          | 1 -> (  let l = List.hd_exn loops in
+                    let exit_bbs = exit_bblocks_of_loop l in
+                    match List.length exit_bbs with
+                      | 0 -> failwith "Loop has no exits"
+                      | 1 ->
+                          String.concat["max("; 
+                            string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
+                            ", ";
+                            string_of_int (max_cost_of_code_paths (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) 0);
+                            "+@3+";
+                            string_of_int (max_cost_of_code_paths (paths_from_bblocks exit_bbs) 0);
+                            ")"]
+                      | _ -> "multiple exits")
+          | _ -> "multiple loops");
         "\n"])
   (* execution trace of the function *)
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
