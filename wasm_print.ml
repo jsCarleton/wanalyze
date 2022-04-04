@@ -727,9 +727,18 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
     (String.concat 
       [ string_of_int fnum;
         " ";
-        (match has_loop bblocks with
-            | false -> string_of_int (max_cost_of_code_paths cps (-1))
-            | true  -> "-1");
+        (let loops = loops_of_bblocks bblocks in
+        match List.length loops with
+          | 0 -> string_of_int (max_cost_of_code_paths cps (-1))
+          | 1 -> let l = List.hd_exn loops in
+                    String.concat["max("; 
+                                  string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
+                                  ", ";
+                                  string_of_int (max_cost_of_code_paths (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) 0);
+                                  "+@3+";
+                                  string_of_int (max_cost_of_code_paths (paths_from_bblocks (exit_bblocks_of_loop l)) 0);
+                                  ")"]
+          | _ -> "-1");
         "\n"])
   (* execution trace of the function *)
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in

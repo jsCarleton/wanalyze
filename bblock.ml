@@ -176,3 +176,13 @@ match index < List.length bblocks with
       | _ -> ()
     );
   set_br_dest bblocks (index+1)
+
+let loop_count_of_bblocks (bblocks: bblock list) (init: int): int =
+  List.fold_left ~f:(fun init bb -> init + (match bb.bbtype with | BB_loop -> 1 | _ -> 0)) 
+                  ~init:init
+                  bblocks
+
+let rec first_loop_of_bblocks (bblocks: bblock list): bblock =
+  match (List.hd_exn bblocks).bbtype with
+  | BB_loop  -> List.hd_exn bblocks
+  | _        -> first_loop_of_bblocks (List.tl_exn bblocks)

@@ -119,29 +119,29 @@ let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: 
     | true  -> List.map ~f:List.rev (code_paths_of_bblocks' last_idx nterm term)
     | false -> []
     
-let block_is_loop (bb: bblock): bool =
+let bblock_is_loop (bb: bblock): bool =
   match bb.bbtype with
     | BB_loop -> true
     | _       -> false
 
-let rec code_path_has_loop (bblocks: bblock list) (cp: code_path)=
+let rec code_path_has_loop (cp: code_path)=
   match cp with
-  | hd::tl -> (match block_is_loop hd with | false -> code_path_has_loop bblocks tl | _ -> true)
+  | hd::tl -> (match bblock_is_loop hd with | false -> code_path_has_loop tl | _ -> true)
   | _ -> false
 
-let code_path_with_loop (bblocks: bblock list) (cp: code_path): code_path option =
-  match code_path_has_loop bblocks cp with |true -> Some cp | _ -> None
+let code_path_with_loop (cp: code_path): code_path option =
+  match code_path_has_loop cp with |true -> Some cp | _ -> None
 
 let rec loop_prefix_of_code_path (bblocks: bblock list) (acc: code_path) (cp: code_path) : code_path =
   match cp with
   | []      -> acc
   | hd::tl  ->
-      (match block_is_loop hd with
+      (match bblock_is_loop hd with
         | true  -> List.rev (hd::acc)
         | _     -> loop_prefix_of_code_path bblocks (hd::acc) tl)
 
 let loop_code_paths (bblocks: bblock list) (cps: code_path list): code_path list =
-  List.map ~f:(loop_prefix_of_code_path bblocks []) (List.filter_map ~f:(code_path_with_loop bblocks) cps)
+  List.map ~f:(loop_prefix_of_code_path bblocks []) (List.filter_map ~f:code_path_with_loop cps)
 
 let rec compare_cps (cp1: code_path) (cp2: code_path): int =
   match cp1, cp2 with
@@ -170,7 +170,7 @@ type loop_prefix = {
 *)
 
 type loop_path = {
-  path_to_exit:         code_path;      (* path within the loop to the bblock where the exit occurs *)
+  path_to_exit:         code_path;        (* path within the loop to the bblock where the exit occurs *)
   condition_at_exit:    expr_tree;        (* condition that's true for the exit to occur *)
   vars_of_condition:    string list;      (* variables used in the condition *)
 (*   assignments_to_vars:  ssa list;         (* assignments made to the condition variables *)
@@ -227,8 +227,8 @@ let rec loop_bblocks_of_bblocks'
               | _ ->
                   loop_bblocks_of_bblocks' tl acc_lbs (hd::acc_lb) true nesting)
           | false ->
-            (match hd.bbtype with
-              | BB_loop ->
+            (match bblock_is_loop hd with
+              | true ->
                   loop_bblocks_of_bblocks' tl acc_lbs [hd] true hd.nesting
               | _ ->
                   loop_bblocks_of_bblocks' tl acc_lbs [] false (-1)))
@@ -242,7 +242,7 @@ let loop_paths_of_loop_bblocks (loop_bblocks: bblock list): loop_path list =
                                       vars_of_condition = [];
  (*                                       assignments_to_vars = [];
   *)                                    loop_prefixes =[]})
-            (code_paths_of_bblocks loop_bblocks [[List.hd_exn loop_bblocks]] [])
+            (code_paths_of_bblocks loop_bblocks [[List.hd_exn loop_bblocks]] []) (* TODO this includes the looping paths within the loop *)
 
 (**
   Given the bblocks of a function return a list of loops
@@ -373,23 +373,76 @@ let is_looping_path (cp: code_path): bool =
 let unique_looping_paths (cps: code_path list): code_path list =
     List.dedup_and_sort ~compare:compare_cps (List.filter ~f:is_looping_path cps)
   
-  
+(**
+  paths_with_no_loops
 
-let has_loop' (bb: bblock): bool = 
-  match bb.bbtype with
-  | BB_loop -> true
-  | _       -> false
+  Given a list of code paths return the sublist of paths with no loops
+
+  Parameters:
+    cps  the list of code paths
+  Returns:
+    the sublist with no loops
+**)
+
+let paths_with_no_loops (cps: code_path list): code_path list =
+    List.filter ~f:(fun cp -> not (code_path_has_loop cp)) cps
+  
+(**
+  exit_bblocks_of_loop
+
+  Given a loop return the list of bblocks in the loop that are
+  bblocks from which the loops is exitted
+
+  Parameters:
+    l  the loop
+  Returns:
+    the list of exit bblocks
+**)
+
+let is_loop_exit_bblock last_index bb =
+  (List.fold_left ~f:(fun init' bb -> if bb.bbindex >= last_index then init' else init'+1) ~init:0 bb.succ) = 0
+
+let exit_bblocks_of_loop (l: loop): bblock list =
+  let lbb = l.loop_bblocks in
+  let last_index = (List.hd_exn lbb).bbindex + (List.length lbb) in
+  List.filter ~f:(is_loop_exit_bblock last_index) lbb
+
+
+(**
+  unique_paths_from_bblocks
+
+  Given a list of bblocks, return the list of code paths from those bblocks
+
+  Parameters:
+    bbs the bblock list
+  Returns:
+    the list of code paths
+
+**)
+
+let rec paths_from_bblock (acc: code_path list) (bb: bblock): code_path list =
+  match bb.succ with
+  | []  -> List.map ~f:List.rev (List.map ~f:(fun cp -> bb::cp) acc)
+  | _   -> List.concat (List.map ~f:(fun bb' -> paths_from_bblock (List.map ~f:(fun cp -> bb::cp) acc) bb') bb.succ)
+
+let paths_from_bblocks (bbs: bblock list): code_path list =
+  List.concat (List.map ~f:(paths_from_bblock [[]]) bbs)
+
+
+
+
+
 
 let rec has_loop (bblocks: bblock list): bool =
   match bblocks with
   | hd::tl ->
-    (match has_loop' hd with
+    (match bblock_is_loop hd with
     | true  -> true
     | _     -> has_loop tl)
   | _ ->  false
 
 let ids_with_loops (bblocks: bblock list): int list =
-  List.filter_map ~f:(fun s -> match has_loop' s with | true -> Some (s.bbindex+1) | _ -> None) bblocks
+  List.filter_map ~f:(fun s -> match bblock_is_loop s with | true -> Some (s.bbindex+1) | _ -> None) bblocks
 
 let simple_br_loop (bblocks: bblock list) (s: bblock): int option =
   match List.length bblocks - s.bbindex >= 5 with

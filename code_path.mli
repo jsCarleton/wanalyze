@@ -33,20 +33,26 @@ type loop = {
   loop_paths:   loop_path list;     (* list of possible paths through the loop *)
 }
 
+(* cost calculations *)
+val paths_with_no_loops             : code_path list -> code_path list
+val exit_bblocks_of_loop            : loop -> Bblock.bblock list
+val paths_from_bblocks              : Bblock.bblock list -> code_path list
 
-val analyze_simple_loop             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list -> Wasm_module.local_type list
-                        -> Bblock.bblock -> Symbolic_expr.expr_tree
-val simple_brif_loop                : Bblock.bblock list -> Bblock.bblock -> int option
-val simple_br_loop                  : Bblock.bblock list -> Bblock.bblock -> int option
+val exit_paths_of_loop              : loop -> code_path list
 val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_path list
 val unique_looping_paths            : code_path list -> code_path list
-val exit_paths_of_loop              : loop -> code_path list
 val code_paths_of_bblocks           : Bblock.bblock list -> code_path list -> code_path list -> code_path list
 val has_loop                        : Bblock.bblock list -> bool
 val compare_cps                     : code_path -> code_path -> int
 val loop_code_paths                 : Bblock.bblock list -> code_path list -> code_path list
 val loops_of_bblocks                : Bblock.bblock list -> loop list
 val ids_with_loops                  : Bblock.bblock list -> int list
+
+(* simple case analysis *)
+val analyze_simple_loop             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list -> Wasm_module.local_type list
+                        -> Bblock.bblock -> Symbolic_expr.expr_tree
+val simple_brif_loop                : Bblock.bblock list -> Bblock.bblock -> int option
+val simple_br_loop                  : Bblock.bblock list -> Bblock.bblock -> int option
 val ids_with_simple_brif_loops      : Bblock.bblock list -> int list
 val ids_with_simple_br_loops        : Bblock.bblock list -> int list
 val bblocks_with_simple_brif_loops  : Bblock.bblock list -> Bblock.bblock list
