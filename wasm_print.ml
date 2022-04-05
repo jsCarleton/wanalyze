@@ -732,20 +732,45 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
         " ";
         (let loops = loops_of_bblocks bblocks in
         match List.length loops with
+          (*  no loops
+              cost is the max cost over all possible code paths (if we can compute it) *)
           | 0 -> let c = max_cost_of_code_paths cps (-1) in
                  if c >= 0 then string_of_int c else "too many paths"
+          (*  exactly one loop
+              the function is divided into 4 disjoint sets of code paths that either:
+              1. start at the function entry, end at the function exit and don't enter the loop
+              2. start at the function entry, end at the loop bblock
+              3. start at the bblock following the loop bblock and end at that bblock, a return or
+                 unreachable bblock or at the end bblock of the loop
+              4. start at a return or unreachable bblock or the end bblock of the loop, end at the
+                 function exit
+
+              resulting max cost is max(cost(1), max(2 + 3 + 4)) where max is taken over all valid
+              combinations of path *)
           | 1 -> (  let l = List.hd_exn loops in
                     let exit_bbs = exit_bblocks_of_loop l in
                     match List.length exit_bbs with
                       | 0 -> failwith "Loop has no exits"
-                      | 1 ->
-                          String.concat["max("; 
-                            string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
-                            ", ";
-                            string_of_int (max_cost_of_code_paths (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) 0);
-                            "+@3+";
-                            string_of_int (max_cost_of_code_paths (paths_from_bblocks exit_bbs) 0);
-                            ")"]
+                      | 1 -> (
+                          let bbacks = branchbacks_of_loop l in
+                          match List.length bbacks with
+                          | 0 -> failwith "Loop has no branchbacks"
+                          | 1 ->
+                            let bback = List.hd_exn bbacks in
+                            let prefixes = (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) in
+                            Printf.printf "%d prefixes\n" (List.length prefixes);
+                            let conds = conditions_of_paths w fn.e param_types local_types prefixes (exit_paths_of_loop l) bback in
+                            String.concat["max("; 
+                              string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
+                              ", ";
+                              string_of_int (max_cost_of_code_paths prefixes 0);
+                              "+@3+";
+                              "(* "; string_of_int (bback.bbindex); " *)";
+                              "(* "; string_of_int (List.length conds); " *)";
+                              "(* "; string_of_expr_tree (List.hd_exn conds); " *)";
+                              string_of_int (max_cost_of_code_paths (paths_from_bblocks exit_bbs) 0);
+                              ")"]
+                          | _ -> "multiple branchbacks")
                       | _ -> "multiple exits")
           | _ -> "multiple loops");
         "\n"])
@@ -753,6 +778,7 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
     Out_channel.output_string oc (string_of_executions (execute_bblocks w bblocks (fidx + w.last_import_func) code.e) bblocks);
     Out_channel.close oc; *)
+    
 
 let print_functions w fnum =
   let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in

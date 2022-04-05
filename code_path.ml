@@ -440,6 +440,79 @@ let rec paths_from_bblock (acc: code_path list) (bb: bblock): code_path list =
 let paths_from_bblocks (bbs: bblock list): code_path list =
   List.concat (List.map ~f:(paths_from_bblock [[]]) bbs)
 
+(*
+  branchbacks_of_loop
+
+  Given a loop return the bblock that contains the branchback for that loop
+
+  Parameters:
+    l the loop
+  Returns:
+    the branchback of that loop
+
+*)
+
+let is_branchback (bb: bblock) (idx: int): bool =
+  List.exists ~f:(fun bb' -> bb'.bbindex = idx && bb'.bbindex <= bb.bbindex ) bb.succ
+
+let branchbacks_of_loop (l: loop): bblock list =
+  (* get the index of the second bblock in the loop, the loop head *)
+  (* any branchback with have this bblock in its list of successors *)
+  let lh = (List.nth_exn l.loop_bblocks 1).bbindex in
+  List.filter_map ~f:(fun bb -> if is_branchback bb lh then Some bb else None) l.loop_bblocks
+
+(*
+  condition_of_code_path
+
+  Given a code path and a branchback bblock in the code path, return the loop condition
+  as a string
+
+  Parameters:
+    w           wasm module
+    e           code of the function
+    param_types function parameter types
+    local_types function local variable types
+    cp          the code path
+    bback       the branchback bblock
+  Returns:
+    the condition of the loop
+
+*)
+
+let rec expr_of_code_path e (cp: code_path) (bb: bblock) (acc: expr list): expr =
+  match cp with
+  | [] ->       failwith "Branchback block not found"
+  | hd::tl ->   if    hd.bbindex = bb.bbindex 
+                then  List.concat (List.rev ((expr_of_bblock e hd)::acc))
+                else  expr_of_code_path e tl bb ((expr_of_bblock e hd)::acc)
+
+                let string_of_ints (ints: int list): string =
+                  String.concat ~sep:" " (List.map ~f:string_of_int ints)
+                let indexes_of_bblocks (bbs: bblock list): int list =
+                  List.map ~f:(fun x -> x.bbindex) bbs
+                let string_of_bblocks (bbs: bblock list): string =
+                  String.concat ["["; string_of_ints (indexes_of_bblocks bbs); "]"]
+                
+
+let condition_of_loop w e param_types local_types (bback: bblock) (cp: code_path): expr_tree =
+  Printf.printf "%s\n" (string_of_bblocks cp);
+  match bback.bbtype with
+  | BB_br_if ->
+      let _,loop_cond = reduce_bblock w (expr_of_code_path e cp bback []) (empty_program_state w param_types local_types) in
+        loop_cond
+  | BB_br_table ->  Empty (* TODO *)
+  | BB_br ->        Empty (* TODO *)
+  | _ ->            failwith "Invalid branchback"
+
+let rec all_paths (cp1: code_path list) (cp2: code_path list) (cp2all: code_path list) (acc: code_path list): code_path list =
+    match cp1, cp2 with
+    | [], _               -> acc
+    | _::tl1, []          -> all_paths tl1 cp2all cp2all acc
+    | hd1::tl1, hd2::tl2  -> all_paths tl1 tl2 cp2all ((List.concat [hd1; (List.tl_exn hd2)])::acc) (* TODO this tl on hd2 is a hack *)
+  
+let conditions_of_paths w e param_types local_types (prefixes: code_path list) (loop_paths: code_path list) (bback: bblock): expr_tree list =
+  List.map ~f:(condition_of_loop w e param_types local_types bback) (all_paths prefixes loop_paths loop_paths [])
+
 
 
 
@@ -485,15 +558,22 @@ let ids_with_simple_brif_loops (bblocks: bblock list): int list =
 let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
     List.map ~f:(fun i -> List.nth_exn bblocks i) (ids_with_simple_brif_loops bblocks)
 
-(** analyze_simple_loop given a bblocks that is a simple brif loops, analyzes the loop to
+(** 
+
+  analyze_simple_loop
+  
+  Given a bblocks that is a simple brif loops, analyzes the loop to
   determine the branch condition
+
   Parameters:
-  bb        brif loop bblock
-  e         code of the function that the bblock is from
-  locals    type of locals in the function
+    w           wasm module
+    e           code of the function that the bblock is from
+    param_types types of the parameters to this function
+    local_types types of the local variable in this function
+    bb          brif loop bblock
   Returns:
-  the loop condition in the form of an expr_tree
-*)
+    the loop condition in the form of an expr_tree
+**)
 
 let analyze_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
       (bb: bblock): expr_tree =

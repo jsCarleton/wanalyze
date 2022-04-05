@@ -37,6 +37,11 @@ type loop = {
 val paths_with_no_loops             : code_path list -> code_path list
 val exit_bblocks_of_loop            : loop -> Bblock.bblock list
 val paths_from_bblocks              : Bblock.bblock list -> code_path list
+val branchbacks_of_loop             : loop -> Bblock.bblock list
+val condition_of_loop               : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list 
+        -> Wasm_module.local_type list -> Bblock.bblock -> code_path -> Symbolic_expr.expr_tree
+val conditions_of_paths             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list 
+        -> Wasm_module.local_type list -> code_path list -> code_path list -> Bblock.bblock -> Symbolic_expr.expr_tree list
 
 val exit_paths_of_loop              : loop -> code_path list
 val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_path list
