@@ -649,6 +649,17 @@ let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_pa
         m fnum bb.bbindex (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb.bbindex));
   ()
 
+let string_of_cost_of_loops col: string =
+  if List.length col = 1 then
+    let c = List.hd_exn col in
+      sprintf "%d + %d*c('%s', _, _)" c.prefix_cost c.loop_cost (string_of_expr_tree c.loop_cond)
+  else
+    String.concat[
+        "max("; 
+          String.concat ~sep:", "
+            (List.map ~f:(fun c -> sprintf "%d+%d*c('%s', _, _)" c.prefix_cost c.loop_cost (string_of_expr_tree c.loop_cond)) col);
+        ")"]
+
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = (fidx + w.last_import_func) in
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
@@ -758,21 +769,19 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
                           | 1 ->
                             let bback = List.hd_exn bbacks in
                             let prefixes = (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) in
-                            Printf.printf "%d prefixes\n" (List.length prefixes);
-                            let conds = conditions_of_paths w fn.e param_types local_types prefixes (exit_paths_of_loop l) bback in
+                            let ep = exit_paths_of_loop l in
+                            Printf.printf "\n%d\n" fnum;
+                            let col = cost_of_loops w fn.e param_types local_types prefixes ep bback in
+                            Printf.printf "%s" (string_of_code_paths ep);
                             String.concat["max("; 
                               string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
                               ", ";
-                              string_of_int (max_cost_of_code_paths prefixes 0);
-                              "+@3+";
-                              "(* "; string_of_int (bback.bbindex); " *)";
-                              "(* "; string_of_int (List.length conds); " *)";
-                              "(* "; string_of_expr_tree (List.hd_exn conds); " *)";
+                              string_of_cost_of_loops col; " + ";
                               string_of_int (max_cost_of_code_paths (paths_from_bblocks exit_bbs) 0);
                               ")"]
-                          | _ -> "multiple branchbacks")
-                      | _ -> "multiple exits")
-          | _ -> "multiple loops");
+                          | _ -> "-1 multiple branchbacks")
+                      | _ -> "-2 multiple exits")
+          | _ -> "-3 multiple loops");
         "\n"])
   (* execution trace of the function *)
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in

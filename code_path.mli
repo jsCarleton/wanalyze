@@ -17,10 +17,6 @@ type loop_prefix = {
 
 type loop_path = {
   path_to_exit:         code_path;                  (* path within the loop to the bblock where the exit occurs *)
-  condition_at_exit:    Symbolic_expr.expr_tree;    (* condition that's true for the exit to occur *)
-  vars_of_condition:    string list;                (* variables used in the condition *)
-(* TODO  assignments_to_vars:  ssa list;         (* assignments made to the condition variables *) *)
-  loop_prefixes:        loop_prefix list;           (* the list of prefix code paths for this loop_exit*)
 }
 
 (*
@@ -42,6 +38,8 @@ val condition_of_loop               : Wasm_module.wasm_module -> Wasm_module.exp
         -> Wasm_module.local_type list -> Bblock.bblock -> code_path -> Symbolic_expr.expr_tree
 val conditions_of_paths             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list 
         -> Wasm_module.local_type list -> code_path list -> code_path list -> Bblock.bblock -> Symbolic_expr.expr_tree list
+
+val expr_of_code_path               : Wasm_module.expr -> code_path -> Bblock.bblock -> Wasm_module.expr list -> Wasm_module.expr
 
 val exit_paths_of_loop              : loop -> code_path list
 val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_path list

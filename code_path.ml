@@ -181,10 +181,6 @@ type loop_prefix = {
 
 type loop_path = {
   path_to_exit:         code_path;        (* path within the loop to the bblock where the exit occurs *)
-  condition_at_exit:    expr_tree;        (* condition that's true for the exit to occur *)
-  vars_of_condition:    string list;      (* variables used in the condition *)
-(*   assignments_to_vars:  ssa list;         (* assignments made to the condition variables *)
- *)  loop_prefixes:        loop_prefix list; (* the list of prefix code paths for this loop_exit*)
 }
 
 (*
@@ -247,11 +243,7 @@ let loop_bblocks_of_bblocks (bblocks: bblock list): bblock list list =
   loop_bblocks_of_bblocks' bblocks [] [] false (-1)
 
 let loop_paths_of_loop_bblocks (loop_bblocks: bblock list): loop_path list =
-  List.map  ~f:(fun path_to_exit -> { path_to_exit;
-                                      condition_at_exit = Empty;
-                                      vars_of_condition = [];
- (*                                       assignments_to_vars = [];
-  *)                                    loop_prefixes =[]})
+  List.map  ~f:(fun path_to_exit -> { path_to_exit })
             (code_paths_of_bblocks loop_bblocks [[List.hd_exn loop_bblocks]] []) (* TODO this includes the looping paths within the loop *)
 
 (**
@@ -486,16 +478,7 @@ let rec expr_of_code_path e (cp: code_path) (bb: bblock) (acc: expr list): expr 
                 then  List.concat (List.rev ((expr_of_bblock e hd)::acc))
                 else  expr_of_code_path e tl bb ((expr_of_bblock e hd)::acc)
 
-                let string_of_ints (ints: int list): string =
-                  String.concat ~sep:" " (List.map ~f:string_of_int ints)
-                let indexes_of_bblocks (bbs: bblock list): int list =
-                  List.map ~f:(fun x -> x.bbindex) bbs
-                let string_of_bblocks (bbs: bblock list): string =
-                  String.concat ["["; string_of_ints (indexes_of_bblocks bbs); "]"]
-                
-
 let condition_of_loop w e param_types local_types (bback: bblock) (cp: code_path): expr_tree =
-  Printf.printf "%s\n" (string_of_bblocks cp);
   match bback.bbtype with
   | BB_br_if ->
       let _,loop_cond = reduce_bblock w (expr_of_code_path e cp bback []) (empty_program_state w param_types local_types) in
@@ -512,6 +495,11 @@ let rec all_paths (cp1: code_path list) (cp2: code_path list) (cp2all: code_path
   
 let conditions_of_paths w e param_types local_types (prefixes: code_path list) (loop_paths: code_path list) (bback: bblock): expr_tree list =
   List.map ~f:(condition_of_loop w e param_types local_types bback) (all_paths prefixes loop_paths loop_paths [])
+
+
+
+
+
 
 
 
