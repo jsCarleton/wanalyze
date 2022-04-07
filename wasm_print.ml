@@ -770,15 +770,14 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
                             (* 1 loop, 1 loop exit, 1 loop branchback *)
                             let bback = List.hd_exn bbacks in
                             let prefixes = (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) in
-                            let ep = l.looping_paths in
                             Printf.printf "\n\n%d\n" fnum;
                             Printf.printf "branchback: %d\n" bback.bbindex;
                             Printf.printf "exit bb: %d\n" (List.hd_exn exit_bbs).bbindex;
                             Printf.printf "Prefix paths\n";
                             Printf.printf "%s" (string_of_code_paths prefixes);
                             Printf.printf "\nLooping paths\n";
-                            Printf.printf "%s" (string_of_code_paths ep);
-                            let col = cost_of_loops w fn.e param_types local_types prefixes ep bback in
+                            Printf.printf "%s" (string_of_code_paths l.looping_paths);
+                            let col = cost_of_loops w fn.e param_types local_types prefixes l.looping_paths bback in
                             String.concat["max("; 
                               string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
                               ", ";
