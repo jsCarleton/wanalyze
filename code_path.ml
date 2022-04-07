@@ -103,11 +103,27 @@ let step_code_path (last_idx: int) (cp: code_path): (code_path list)*(code_path 
     | true  -> [], [cp]
     | _     -> (nterms_of_cp last_idx cp), (terms_of_cp last_idx cp)
 
-(* 
-    code_paths_of_bblocks'
-        Takes a list of bblocks, a list of non-terminal code paths and a list of terminal code paths
-        Returns the terminal code paths *unless* we think there are too many code paths. In that case
-        we return []
+(*
+    code_paths_of_bblocks
+
+    Takes a list of consecutive basic blocks, a list of partial non-terminal code paths,
+    a list of terminal code paths and returns a list of all code paths through the
+    list of basic blocks
+
+    TODO - the nterm parameter has to be of the form [[bb]] where bb is the first bblock
+    of the bblocks parameter
+
+    Parameters:
+      bblocks   list of bblocks
+      nterm     list of non-terminal paths
+      term      list of terminal paths
+
+    Returns:
+      the list containing all code paths through basic blocks
+
+    Note, for performance purpoises we build the code paths in reverse order and reverse them when we're done.
+    Also, to prevent this from running away exponentially we return an empty list if there are more than N basic
+    blocks with more than 1 successor.
 *)
 
 let rec code_paths_of_bblocks' (last_idx: int) (nterm: code_path list) (term: code_path list): code_path list =
@@ -117,11 +133,6 @@ let rec code_paths_of_bblocks' (last_idx: int) (nterm: code_path list) (term: co
         let n,t = step_code_path last_idx hd in
             code_paths_of_bblocks' last_idx (List.append n tl) (List.append t term)
   
-(*
-    For convenience we build each code path in reverse order. Here we reverse that since
-    we actually need them in flow graph order for execution purposes
-*)
-
 let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
   let last_idx = (List.nth_exn bblocks ((List.length bblocks)-1)).bbindex in
   match (mult_succ_count bblocks) < 24 with   (* hack to prevent this code from running for a very long time *)
@@ -189,32 +200,23 @@ type loop_path = {
 *)
 
 type loop = {
-  loop_bblocks: bblock list;      (* list of consecutive bblocks that comprise the loop *)
-  loop_paths:   loop_path list;   (* list of possible paths through the loop *)
+  loop_bblocks:   bblock list;     (* list of consecutive bblocks that comprise the loop *)
+  looping_paths:  code_path list;  (* list of possible looping paths through the loop *)
+  branchbacks:    Bblock.bblock list; (* list of bblocks that contain branchbacks *)
 }
 
 (**
-  exit_paths_of_loop
+  loop_bblocks_of_bblocks
 
-  Given a loop return a list containing the code_paths that make up the exit paths of that loop
-
-  Parameters:
-    l   the loop
-  Returns:
-    the list of code paths
-**)
-
-let exit_paths_of_loop (l: loop): code_path list =
-  List.map ~f:(fun x -> x.path_to_exit) l.loop_paths
-
-(**
   Given the bblocks of a function return a list of loop bblocks
+  The loop bblocks are comprised of the the set
 
   Parameters:
     bblocks   the list of basic blocks
   Returns:
     the list of loop bblocks in the basic blocks
 **)
+
 let rec loop_bblocks_of_bblocks' 
     (bblocks: bblock list) 
     (acc_lbs: bblock list list)
@@ -242,22 +244,75 @@ let rec loop_bblocks_of_bblocks'
 let loop_bblocks_of_bblocks (bblocks: bblock list): bblock list list =
   loop_bblocks_of_bblocks' bblocks [] [] false (-1)
 
-let loop_paths_of_loop_bblocks (loop_bblocks: bblock list): loop_path list =
-  List.map  ~f:(fun path_to_exit -> { path_to_exit })
-            (code_paths_of_bblocks loop_bblocks [[List.hd_exn loop_bblocks]] []) (* TODO this includes the looping paths within the loop *)
+(**
+  is_looping_path
+
+  Given a code path in a loop returns true if it is a looping path, false
+  otherwise
+
+  Parameters:
+    cp   the code path
+  Returns:
+    true if its looping
+**)
+
+let is_branchback (bb: bblock) (idx: int): bool =
+  List.exists ~f:(fun bb' -> bb'.bbindex = idx && bb'.bbindex <= bb.bbindex ) bb.succ
+
+let is_looping_path (cp: code_path): bool =
+  is_branchback (List.nth_exn cp ((List.length cp) - 1)) (List.hd_exn cp).bbindex
+
+(**
+  looping_paths_of_loop_bblocks
+
+  Given the bblocks of a loop return the looping paths within that loop
+
+  Parameters:
+    loop_bblocks   list of basic blocks that make up the loop
+  Returns:
+    the list of looping paths within the loop
+**)
+
+let looping_paths_of_loop_bblocks (loop_bblocks: bblock list): code_path list =
+  (* the first bblock is a loop and is never part of a looping path *)
+  let tl = List.tl_exn loop_bblocks in
+    List.filter ~f:is_looping_path
+      (code_paths_of_bblocks tl [[List.hd_exn tl]] [])
+
+(*
+  branchbacks_of_loop
+
+  Given a loop return the bblock that contains the branchback for that loop
+
+  Parameters:
+    l the loop
+  Returns:
+    the branchback of that loop
+
+*)
+
+let branchbacks_of_loop (lbb: bblock list): bblock list =
+  (* get the index of the second bblock in the loop, the loop head *)
+  (* any branchback with have this bblock in its list of successors *)
+  let lh = (List.nth_exn lbb 1).bbindex in
+  List.filter_map ~f:(fun bb -> if is_branchback bb lh then Some bb else None) lbb
 
 (**
   Given the bblocks of a function return a list of loops
 
   Parameters:
-    bblocks   the list of basic blocks
+    bblocks   the list of basic blocks of the function
   Returns:
     the list of loops in the basic blocks
 **)
 
 let loops_of_bblocks (bblocks: bblock list): loop list =
-  List.map  ~f:(fun loop_bblocks -> { loop_bblocks; 
-                                      loop_paths = loop_paths_of_loop_bblocks loop_bblocks})
+  List.map  ~f:(fun loop_bblocks -> { (* the bblocks that make up the loop from loop ... end *)
+                                      loop_bblocks;
+                                      (* the paths in the loop that loop *)
+                                      looping_paths = looping_paths_of_loop_bblocks loop_bblocks;
+                                      (* the blocks where the loop loops *)
+                                      branchbacks = branchbacks_of_loop loop_bblocks})
             (loop_bblocks_of_bblocks bblocks)
 
 (**
@@ -331,51 +386,6 @@ let prefixes_of_code_paths (cps: code_path list) (bb: bblock): code_path list =
   
 let unique_paths_to_bblock (cps: code_path list) (bb: bblock): code_path list =
   List.dedup_and_sort ~compare:compare_cps (prefixes_of_code_paths (List.filter ~f:(cp_has_bb bb) cps) bb)
-
-(**
-  has_back_branch
-
-  Given a bblock determine if it has a backwards branch
-
-  Parameters:
-    bb   the bb
-  Returns:
-    true if it has a backwards branch, false otherwise
-**)
-  
-let has_back_branch (bb: bblock): bool =
-  List.exists ~f:(fun x -> x.bbindex <= bb.bbindex) bb.succ
-  
-(**
-  is_looping_path
-
-  Given a code path determine if it's a looping path
-
-  Parameters:
-    cp  the code path
-  Returns:
-    true if it's a looping path, false otherwise
-**)
-
-let is_looping_path (cp: code_path): bool =
-    has_back_branch (List.nth_exn cp ((List.length cp) - 1))
-  
-(**
-  unique_looping_paths
-
-  Given a list of code paths return the list of unique looping paths from
-  the list
-
-  Parameters:
-    cps  the list of code paths
-  Returns:
-    the list of unique looping paths
-**)
-
-let unique_looping_paths (cps: code_path list): code_path list =
-    List.dedup_and_sort ~compare:compare_cps        (* only unique paths *) 
-      (List.filter ~f:is_looping_path               (* only include looping paths *)
-        (List.map ~f:(fun cp -> List.tl_exn cp) cps))  (* don't include the loop bb in the looping path*)
   
 (**
   paths_with_no_loops
@@ -433,27 +443,6 @@ let paths_from_bblocks (bbs: bblock list): code_path list =
   List.concat (List.map ~f:(paths_from_bblock [[]]) bbs)
 
 (*
-  branchbacks_of_loop
-
-  Given a loop return the bblock that contains the branchback for that loop
-
-  Parameters:
-    l the loop
-  Returns:
-    the branchback of that loop
-
-*)
-
-let is_branchback (bb: bblock) (idx: int): bool =
-  List.exists ~f:(fun bb' -> bb'.bbindex = idx && bb'.bbindex <= bb.bbindex ) bb.succ
-
-let branchbacks_of_loop (l: loop): bblock list =
-  (* get the index of the second bblock in the loop, the loop head *)
-  (* any branchback with have this bblock in its list of successors *)
-  let lh = (List.nth_exn l.loop_bblocks 1).bbindex in
-  List.filter_map ~f:(fun bb -> if is_branchback bb lh then Some bb else None) l.loop_bblocks
-
-(*
   condition_of_code_path
 
   Given a code path and a branchback bblock in the code path, return the loop condition
@@ -491,7 +480,7 @@ let rec all_paths (cp1: code_path list) (cp2: code_path list) (cp2all: code_path
     match cp1, cp2 with
     | [], _               -> acc
     | _::tl1, []          -> all_paths tl1 cp2all cp2all acc
-    | hd1::tl1, hd2::tl2  -> all_paths tl1 tl2 cp2all ((List.concat [hd1; (List.tl_exn hd2)])::acc) (* TODO this tl on hd2 is a hack *)
+    | hd1::tl1, hd2::tl2  -> all_paths tl1 tl2 cp2all ((List.concat [hd1; hd2])::acc)
   
 let conditions_of_paths w e param_types local_types (prefixes: code_path list) (loop_paths: code_path list) (bback: bblock): expr_tree list =
   List.map ~f:(condition_of_loop w e param_types local_types bback) (all_paths prefixes loop_paths loop_paths [])

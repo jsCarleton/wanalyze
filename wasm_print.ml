@@ -611,7 +611,7 @@ let print_paths_to_loop oc (cps: code_path list) (loop_bblocks: bblock list) =
 **)
 
 let print_looping_paths oc (cps: code_path list) (l: loop) =
-  print_loop_paths oc "  Looping path" (unique_looping_paths (exit_paths_of_loop l));
+  print_loop_paths oc "  Looping path" l.looping_paths;
   print_paths_to_loop oc cps (l.loop_bblocks)
 
 (**
@@ -634,7 +634,7 @@ let print_loop oc (cps: code_path list) (l: loop) =
   Out_channel.output_string oc "  Loop exits: [";
   print_bblocks oc (exit_bblocks_of_loop l);
   Out_channel.output_string oc "]\n";
-  print_loop_paths oc "  Loop path" (exit_paths_of_loop l);
+  print_loop_paths oc "  Looping path" l.looping_paths;
   print_looping_paths oc cps l
 
 let print_loops oc (cps: code_path list) (ls: loop list) =
@@ -763,16 +763,22 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
                     match List.length exit_bbs with
                       | 0 -> failwith "Loop has no exits"
                       | 1 -> (
-                          let bbacks = branchbacks_of_loop l in
+                          let bbacks = l.branchbacks in
                           match List.length bbacks with
                           | 0 -> failwith "Loop has no branchbacks"
                           | 1 ->
+                            (* 1 loop, 1 loop exit, 1 loop branchback *)
                             let bback = List.hd_exn bbacks in
                             let prefixes = (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) in
-                            let ep = exit_paths_of_loop l in
-                            Printf.printf "\n%d\n" fnum;
-                            let col = cost_of_loops w fn.e param_types local_types prefixes ep bback in
+                            let ep = l.looping_paths in
+                            Printf.printf "\n\n%d\n" fnum;
+                            Printf.printf "branchback: %d\n" bback.bbindex;
+                            Printf.printf "exit bb: %d\n" (List.hd_exn exit_bbs).bbindex;
+                            Printf.printf "Prefix paths\n";
+                            Printf.printf "%s" (string_of_code_paths prefixes);
+                            Printf.printf "\nLooping paths\n";
                             Printf.printf "%s" (string_of_code_paths ep);
+                            let col = cost_of_loops w fn.e param_types local_types prefixes ep bback in
                             String.concat["max("; 
                               string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
                               ", ";
@@ -788,7 +794,6 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
     Out_channel.output_string oc (string_of_executions (execute_bblocks w bblocks (fidx + w.last_import_func) code.e) bblocks);
     Out_channel.close oc; *)
     
-
 let print_functions w fnum =
   let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in
   let oc_costs   = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".costs"]) in

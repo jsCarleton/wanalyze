@@ -57,7 +57,7 @@ let rec all_loops (cp1: Code_path.code_path list) (cp2: Code_path.code_path list
     match cp1, cp2 with
     | [], _        -> acc
     | _::tl1, []   -> all_loops tl1 cp2all cp2all acc
-    | _, hd2::tl2  -> all_loops cp1 tl2 cp2all ({prefix_path = (List.hd_exn cp1); loop_path = (List.tl_exn hd2)}::acc) (* TODO this tl on hd2 is a hack *)
+    | _, hd2::tl2  -> all_loops cp1 tl2 cp2all ({prefix_path = (List.hd_exn cp1); loop_path = hd2}::acc)
 
 let cost_of_loop w e param_types local_types (bback: Bblock.bblock) lp: loop_metric_info =
   match bback.bbtype with
@@ -76,5 +76,5 @@ let cost_of_loops w e param_types local_types (prefixes: Code_path.code_path lis
   List.dedup_and_sort ~compare:compare_metrics
     (List.map ~f:(cost_of_loop w e param_types local_types bback)
       (all_loops prefixes loop_paths loop_paths [])) in
-    Printf.printf "Prefixes: %d Loop paths: %d All: %d, unique: %d\n" (List.length prefixes) (List.length loop_paths)(List.length al) (List.length ual);
+    Printf.printf "\nPrefixes: %d Loop paths: %d All: %d, unique: %d\n" (List.length prefixes) (List.length loop_paths)(List.length al) (List.length ual);
     ual

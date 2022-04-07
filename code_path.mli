@@ -11,29 +11,20 @@ type loop_prefix = {
 }
 
 (*
-  loop_path
-  describes the conditions where a loop is exited
-*)
-
-type loop_path = {
-  path_to_exit:         code_path;                  (* path within the loop to the bblock where the exit occurs *)
-}
-
-(*
   loop
   consists of a the bblocks that make up the loop and the list of loop exits
 *)
 
 type loop = {
-  loop_bblocks: Bblock.bblock list; (* list of consecutive bblocks that comprise the loop *)
-  loop_paths:   loop_path list;     (* list of possible paths through the loop *)
+  loop_bblocks:   Bblock.bblock list; (* list of consecutive bblocks that comprise the loop, from the loop bblock `to the corresponding end bblock `*)
+  looping_paths:  code_path list;     (* list of possible looping paths through the loop *)
+  branchbacks:    Bblock.bblock list; (* list of bblocks that contain branchbacks *)
 }
 
 (* cost calculations *)
 val paths_with_no_loops             : code_path list -> code_path list
 val exit_bblocks_of_loop            : loop -> Bblock.bblock list
 val paths_from_bblocks              : Bblock.bblock list -> code_path list
-val branchbacks_of_loop             : loop -> Bblock.bblock list
 val condition_of_loop               : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list 
         -> Wasm_module.local_type list -> Bblock.bblock -> code_path -> Symbolic_expr.expr_tree
 val conditions_of_paths             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list 
@@ -41,9 +32,7 @@ val conditions_of_paths             : Wasm_module.wasm_module -> Wasm_module.exp
 
 val expr_of_code_path               : Wasm_module.expr -> code_path -> Bblock.bblock -> Wasm_module.expr list -> Wasm_module.expr
 
-val exit_paths_of_loop              : loop -> code_path list
 val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_path list
-val unique_looping_paths            : code_path list -> code_path list
 val code_paths_of_bblocks           : Bblock.bblock list -> code_path list -> code_path list -> code_path list
 val has_loop                        : Bblock.bblock list -> bool
 val compare_cps                     : code_path -> code_path -> int
