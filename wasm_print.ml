@@ -498,26 +498,10 @@ let loop_entry_state (w: wasm_module) (e: expr) (param_types: resulttype list) (
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
 
-let rec expand_expr_tree (e: expr_tree) (s_src: ssa): expr_tree =
-  match e with 
-  | Variable v
-      -> (match (String.compare v s_src.result) with 
-            | 0 -> s_src.etree
-            | _ -> e)
-  | Node n -> Node {op = n.op;
-                    arg1 = expand_expr_tree (n.arg1) s_src;
-                    arg2 = expand_expr_tree (n.arg2) s_src;
-                    arg3 = expand_expr_tree (n.arg3) s_src;}
-  | _ -> e
-
-let explode_var (s: ssa list) (result: string): ssa =
-  let i = Variable result in
-  {result; etree = List.fold_left ~f:expand_expr_tree ~init:i s; alive = true}
-
 let loop_info w e param_types local_types cp_ssa bbs (bb_idx: int) loop_type =
   let bb_next = List.nth_exn bbs (bb_idx+1) in
   let loop_cond = analyze_simple_loop w e param_types local_types bb_next in
-  let loop_vars = variables_of_expr_tree loop_cond in
+  let loop_vars = vars_of_expr_tree loop_cond in
   let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock e bb_next) in
   String.concat[  loop_type;
                   ",";
@@ -649,16 +633,17 @@ let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_pa
         m fnum bb.bbindex (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb.bbindex));
   ()
 
+let string_of_vars vs =
+  String.concat ~sep:"; " (List.dedup_and_sort ~compare:String.compare vs)
+
+let string_of_loop_cost_fn c =
+  sprintf "%d + %d*c('%s', '%s', '%s', '%s')" c.prefix_cost c.loop_cost (string_of_vars c.loop_vars) (string_of_ssa_list c.lv_entry_vals "; " false) (string_of_expr_tree c.loop_cond) (string_of_ssa_list c.lv_loop_vals "; " false) 
+
 let string_of_cost_of_loops col: string =
   if List.length col = 1 then
-    let c = List.hd_exn col in
-      sprintf "%d + %d*c('%s', _, _)" c.prefix_cost c.loop_cost (string_of_expr_tree c.loop_cond)
+    string_of_loop_cost_fn (List.hd_exn col)
   else
-    String.concat[
-        "max("; 
-          String.concat ~sep:", "
-            (List.map ~f:(fun c -> sprintf "%d+%d*c('%s', _, _)" c.prefix_cost c.loop_cost (string_of_expr_tree c.loop_cond)) col);
-        ")"]
+    String.concat["max("; String.concat ~sep:", " (List.map ~f:string_of_loop_cost_fn col); ")"]
 
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = (fidx + w.last_import_func) in
@@ -718,7 +703,7 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
           (String.concat
             (List.map ~f:(fun bb ->
                               let loop_cond = analyze_simple_loop w fn.e param_types local_types bb in
-                              let loop_vars = variables_of_expr_tree loop_cond in
+                              let loop_vars = vars_of_expr_tree loop_cond in
                               let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock fn.e bb) in
                               String.concat [ "Simple brif loop condition in bblock ";
                                               string_of_int bb.bbindex;

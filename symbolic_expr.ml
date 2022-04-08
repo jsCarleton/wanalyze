@@ -5,10 +5,10 @@ type expr_tree = Empty | Constant of string | Variable of string | Node of node
 
 type assignment = {v_assign: string; e_assign: expr_tree}
 
-let rec variables_of_expr_tree (tree: expr_tree): string list =
+let rec vars_of_expr_tree (tree: expr_tree): string list =
   match tree with
     | Empty | Constant _ -> []
     | Variable v -> [v]
-    | Node n -> List.append (List.append (variables_of_expr_tree n.arg1) 
-                                         (variables_of_expr_tree n.arg2)) 
-                            (variables_of_expr_tree n.arg3)
+    | Node n -> List.append (List.append (vars_of_expr_tree n.arg1) 
+                                         (vars_of_expr_tree n.arg2)) 
+                            (vars_of_expr_tree n.arg3)

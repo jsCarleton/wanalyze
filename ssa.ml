@@ -3,6 +3,7 @@ open Wasm_module
 open Opcode
 open Execution
 open Bblock
+open Symbolic_expr
 
 type ssa = {
   result:         string;
@@ -43,12 +44,12 @@ let ssa_of_rt (start: int) (index: int) (r: resulttype) : ssa =
     etree = expr_tree_of_retval index r;
     alive = true}
 
-    let string_of_ssa (alive: bool) (s: ssa): string =
-      String.concat[
-        (match s.alive,alive with | _, false -> "" | true,_ -> "+" | false,_ -> "-");
-        s.result;
-        " = ";
-        string_of_expr_tree s.etree]
+let string_of_ssa (alive: bool) (s: ssa): string =
+  String.concat[
+    (match s.alive,alive with | _, false -> "" | true,_ -> "+" | false,_ -> "-");
+    s.result;
+    " = ";
+    string_of_expr_tree s.etree]
     
 let string_of_ssa_list (sl: ssa list) (sep: string) (alive: bool): string =
   (String.concat ~sep:sep (List.map ~f:(string_of_ssa alive) (List.rev sl)))
@@ -169,3 +170,19 @@ let ssa_of_bblock (w: wasm_module) (e: expr) (param_types: resulttype list) (loc
 let ssa_of_code_path (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
       (cp: Code_path.code_path): ssa list =
   List.fold ~f:(ssa_of_bblock w e param_types local_types) ~init:(ssa_of_locals local_types) cp
+
+let rec expand_expr_tree (e: expr_tree) (s_src: ssa): expr_tree =
+  match e with 
+  | Variable v
+      -> (match (String.compare v s_src.result) with 
+            | 0 -> s_src.etree
+            | _ -> e)
+  | Node n -> Node {op = n.op;
+                    arg1 = expand_expr_tree (n.arg1) s_src;
+                    arg2 = expand_expr_tree (n.arg2) s_src;
+                    arg3 = expand_expr_tree (n.arg3) s_src;}
+  | _ -> e
+
+let explode_var (s: ssa list) (result: string): ssa =
+  let i = Variable result in
+  {result; etree = List.fold_left ~f:expand_expr_tree ~init:i s; alive = true}

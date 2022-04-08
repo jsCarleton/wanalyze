@@ -32,9 +32,12 @@ let rec max_cost_of_code_paths (cps: Code_path.code_path list) (init: int): int 
 
 type loop_metric_info =
 {
-  prefix_cost:  int;        (* the cost of the prefix portion of the loop *)
-  loop_cost:    int;        (* the static cost of the loop portion of the loop *)
-  loop_cond:    Symbolic_expr.expr_tree;  (* the condition under which the loop iterates *)
+  prefix_cost:      int;            (* the cost of the prefix portion of the loop *)
+  loop_cost:        int;            (* the static cost of the loop portion of the loop *)
+  loop_cond:        Symbolic_expr.expr_tree;  (* the condition under which the loop iterates *)
+  loop_vars:        string list;    (* the names of the variables that appear in the loop_cond *)
+  lv_entry_vals:    Ssa.ssa list;   (* loop variable values, in ssa form, at the beginning of the loop *)
+  lv_loop_vals:     Ssa.ssa list;   (* loop variable values, in sss form, when the branchback block has been executed *)
 }
 
 type loop_path_parts =
@@ -76,34 +79,32 @@ let site_of_nesting_if (_: Code_path.code_path) (bb: Bblock.bblock): cond_site =
         | BB_br_if  -> (* negate *) {cond_bb; sense=false}
         | _         -> failwith "TODO handle this bbtype"
 
+(* TODO do we need both symbolic execution and SSA to do this? *)
 let cost_of_loop w e param_types local_types (bback: Bblock.bblock) (lp: loop_path_parts): loop_metric_info =
-(* a key part of this is locating the bblock that the condition of the loop is tested ... *)
-  match bback.bbtype with
-  | BB_br_if ->
-    (* ... in the case of a br_if loop it's easy, it's the bblock that contains the br_if *)
-    let _,loop_cond = Execution.reduce_bblock w 
-                        (Code_path.expr_of_code_path e (List.concat [lp.prefix_part; lp.loop_part]) bback [])
-                        (Execution.empty_program_state w param_types local_types) in
-        {prefix_cost = cost_of_code_path lp.prefix_part; 
-         loop_cost = cost_of_code_path lp.loop_part;
-         loop_cond}
-  | BB_br ->
-    (* ... for a br loop, its the condition of the if bblock that the br is nested in. If the br is actually in the if bblock then 
-        we use that condition. Otherwise when it's in the else bblock then we negate that condition *)
-    let cs = site_of_nesting_if lp.loop_part bback in
-    let _,loop_cond = Execution.reduce_bblock w 
-                        (Code_path.expr_of_code_path e (List.concat [lp.prefix_part; lp.loop_part]) cs.cond_bb [])
-                        (Execution.empty_program_state w param_types local_types) in
-        {prefix_cost = cost_of_code_path lp.prefix_part;
-         loop_cost = cost_of_code_path lp.loop_part;
-         loop_cond =
-            if cs.sense then
-                loop_cond
-            else 
-                Node { op = "not"; arg1 = loop_cond; arg2 = Empty; arg3 = Empty}}
-  | BB_br_table -> failwith "TODO handle this case"
-  | _ -> 
-    failwith "Invalid branchback"
+  (* a key part of this is locating the bblock that the condition of the loop is tested ... *)
+  let cs =
+    (match bback.bbtype with
+        | BB_br_if      -> {cond_bb = bback; sense = true}
+        | BB_br         -> site_of_nesting_if lp.loop_part bback
+        | BB_br_table   -> failwith "TODO handle this case"
+        | _             -> failwith "Invalid branchback bblock"
+    ) in
+  (* TODO we're getting the loop cond by executing just the loop_part. is this right? couldn't it be the case
+    that there's a side effect of the prefix_part that the loop needs? *)
+  let _, loop_cond = Execution.reduce_bblock w 
+            (Code_path.expr_of_code_path e lp.loop_part cs.cond_bb [])
+            (Execution.empty_program_state w param_types local_types) in
+  let loop_vars     = Symbolic_expr.vars_of_expr_tree loop_cond in
+  let prefix_ssa    = Ssa.ssa_of_code_path w e param_types local_types lp.prefix_part in
+  let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
+  let loop_ssa      = Ssa.ssa_of_code_path w e param_types local_types lp.loop_part in
+  let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
+    {prefix_cost = cost_of_code_path lp.prefix_part;
+        loop_cost = cost_of_code_path lp.loop_part;
+        loop_cond = if cs.sense then loop_cond else Node { op = "not"; arg1 = loop_cond; arg2 = Empty; arg3 = Empty};
+        loop_vars;
+        lv_entry_vals;
+        lv_loop_vals}
 
 let cost_of_loops w e param_types local_types (prefixes: Code_path.code_path list) (loop_paths: Code_path.code_path list) (bback: Bblock.bblock): loop_metric_info list =
   let al = all_loops prefixes loop_paths loop_paths [] in
@@ -113,3 +114,23 @@ let cost_of_loops w e param_types local_types (prefixes: Code_path.code_path lis
       (all_loops prefixes loop_paths loop_paths [])) in
     Printf.printf "\nPrefixes: %d Loop paths: %d All: %d, unique: %d\n" (List.length prefixes) (List.length loop_paths)(List.length al) (List.length ual);
     ual
+
+(*
+                              let loop_cond = analyze_simple_loop w fn.e param_types local_types bb in
+                              let loop_vars = vars_of_expr_tree loop_cond in
+                              let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock fn.e bb) in
+                              String.concat [ "Simple brif loop condition in bblock ";
+                                              string_of_int bb.bbindex;
+                                              ":\t";
+                                              string_of_expr_tree loop_cond;
+                                              "\n";
+                                              "Loop condition variables: ";
+                                              (String.concat ~sep:", " loop_vars);
+                                              "\n";
+                                              "SSA of loop:\n";
+                                              (string_of_ssa_list loop_ssa "\n" true);
+                                              "\nLoop variable calculations:\n";
+                                              (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars) "\n" true);
+                                              "\n"])
+
+*)
