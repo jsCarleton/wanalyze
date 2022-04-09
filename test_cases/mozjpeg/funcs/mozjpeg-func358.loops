@@ -2,10 +2,10 @@ Loops found in function 358 in these bblocks: 1.
 Simple br_if conditions in: 1.
 Simple br conditions in: .
 Loop block: [0 1 2]
-  Loop path: [0 1 2]
-  Loop path: [0 1]
-  Looping path: [0 1]
-  Path to loop: []
+  Loop exits: [2]
+  Looping path: [1]
+  Looping path: [1]
+  Path to loop: [0]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0] 14
 cost:    14; 

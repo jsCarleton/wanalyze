@@ -653,6 +653,7 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
   let cps           = code_paths_of_bblocks bblocks [[List.hd_exn bblocks]] [] in
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
+  Printf.printf "working on cost of function %d\n%!" fnum;
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     print_function oc w true bblocks fidx type_idx;
@@ -674,6 +675,7 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
   (* loop analysis *)
   (match has_loop bblocks with
   | true ->
+      Printf.printf "loop analysis 1\n%!";
       (* print loop summary info *)
       let loop_cps = List.dedup_and_sort ~compare:compare_cps (loop_code_paths bblocks cps) in
       let loops = loops_of_bblocks bblocks in
@@ -722,16 +724,18 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
         Out_channel.close oc
   | false -> ());
   (* costs *)
+  Printf.printf "cost analysis 1\n%!";
   Out_channel.output_string oc_costs
     (String.concat 
       [ string_of_int fnum;
         " ";
         (let loops = loops_of_bblocks bblocks in
+        Printf.printf "cost analysis 2, # loops: %d\n%!" (List.length loops);
         match List.length loops with
           (*  no loops
               cost is the max cost over all possible code paths (if we can compute it) *)
           | 0 -> let c = max_cost_of_code_paths cps (-1) in
-                 if c >= 0 then string_of_int c else "too many paths"
+                 if c >= 0 then string_of_int c else "-5 too many paths"
           (*  exactly one loop
               the function is divided into 4 disjoint sets of code paths that either:
               1. start at the function entry, end at the function exit and don't enter the loop
@@ -745,30 +749,36 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
               combinations of path *)
           | 1 -> (  let l = List.hd_exn loops in
                     let exit_bbs = exit_bblocks_of_loop l in
+                    Printf.printf "cost analysis 3, # exits: %d\n%!" (List.length exit_bbs);
                     match List.length exit_bbs with
                       | 0 -> failwith "Loop has no exits"
                       | 1 -> (
                           let bbacks = l.branchbacks in
+                          Printf.printf "cost analysis 4, # branchbacks: %d\n%!" (List.length bbacks);
                           match List.length bbacks with
                           | 0 -> failwith "Loop has no branchbacks"
                           | 1 ->
                             (* 1 loop, 1 loop exit, 1 loop branchback *)
                             let bback = List.hd_exn bbacks in
                             let prefixes = (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) in
-                            Printf.printf "\n\n%d\n" fnum;
-                            Printf.printf "branchback: %d\n" bback.bbindex;
-                            Printf.printf "exit bb: %d\n" (List.hd_exn exit_bbs).bbindex;
-                            Printf.printf "Prefix paths\n";
-                            Printf.printf "%s" (string_of_code_paths prefixes);
-                            Printf.printf "\nLooping paths\n";
-                            Printf.printf "%s" (string_of_code_paths l.looping_paths);
-                            let col = cost_of_loops w fn.e param_types local_types prefixes l.looping_paths bback in
-                            String.concat["max("; 
-                              string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
-                              ", ";
-                              string_of_cost_of_loops col; " + ";
-                              string_of_int (max_cost_of_code_paths (paths_from_bblocks exit_bbs) 0);
-                              ")"]
+                            if List.length prefixes = 0 then
+                              "-4 too many prefixes"
+                            else (
+                              Printf.printf "cost analysis 5, # prefixes: %d\n%!" (List.length prefixes);
+                              Printf.printf "\n\n%d\n" fnum;
+                              Printf.printf "branchback: %d\n" bback.bbindex;
+                              Printf.printf "exit bb: %d\n" (List.hd_exn exit_bbs).bbindex;
+                              Printf.printf "Prefix paths\n";
+                              Printf.printf "%s" (string_of_code_paths prefixes);
+                              Printf.printf "\nLooping paths\n";
+                              Printf.printf "%s" (string_of_code_paths l.looping_paths);
+                              let col = cost_of_loops w fn.e param_types local_types prefixes l.looping_paths bback in
+                              String.concat["max("; 
+                                string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
+                                ", ";
+                                string_of_cost_of_loops col; " + ";
+                                string_of_int (max_cost_of_code_paths (paths_from_bblocks exit_bbs) 0);
+                                ")"])
                           | _ -> "-1 multiple branchbacks")
                       | _ -> "-2 multiple exits")
           | _ -> "-3 multiple loops");

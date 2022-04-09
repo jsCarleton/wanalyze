@@ -2,17 +2,15 @@ Loops found in function 374 in these bblocks: 4 5.
 Simple br_if conditions in: 5.
 Simple br conditions in: .
 Loop block: [3 4 5 6 7 8]
-  Loop path: [3 4 5 6 7 8]
-  Loop path: [3 4 5 6 7]
-  Loop path: [3 4 5]
-  Looping path: [3 4 5 6 7]
-  Looping path: [3 4 5]
-  Path to loop: [0 1 2]
-Loop block: [4 5 6]
-  Loop path: [4 5 6]
-  Loop path: [4 5]
-  Looping path: [4 5]
+  Loop exits: [8]
+  Looping path: [4 5 6 7]
+  Looping path: [4 5 6 7]
   Path to loop: [0 1 2 3]
+Loop block: [4 5 6]
+  Loop exits: [6]
+  Looping path: [5]
+  Looping path: [5]
+  Path to loop: [0 1 2 3 4]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 3] 14
 cost:    14; 

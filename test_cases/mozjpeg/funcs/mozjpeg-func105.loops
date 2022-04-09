@@ -2,11 +2,11 @@ Loops found in function 105 in these bblocks: 11.
 Simple br_if conditions in: .
 Simple br conditions in: .
 Loop block: [10 11 12 13]
-  Loop path: [10 11 12 13]
-  Loop path: [10 11 12]
-  Looping path: [10 11 12]
-  Path to loop: [0 1 2 5 8 9]
-  Path to loop: [0 1 3 4 5 8 9]
+  Loop exits: [13]
+  Looping path: [11 12]
+  Looping path: [11 12]
+  Path to loop: [0 1 2 5 8 9 10]
+  Path to loop: [0 1 3 4 5 8 9 10]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 5 8 9 10] 23
 cost:    23; 

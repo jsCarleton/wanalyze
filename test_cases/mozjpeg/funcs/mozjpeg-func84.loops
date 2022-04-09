@@ -2,16 +2,16 @@ Loops found in function 84 in these bblocks: 10 26.
 Simple br_if conditions in: 10 26.
 Simple br conditions in: .
 Loop block: [9 10 11]
-  Loop path: [9 10 11]
-  Loop path: [9 10]
-  Looping path: [9 10]
-  Path to loop: [0 6 7]
+  Loop exits: [11]
+  Looping path: [10]
+  Looping path: [10]
+  Path to loop: [0 6 7 9]
 Loop block: [25 26 27]
-  Loop path: [25 26 27]
-  Loop path: [25 26]
-  Looping path: [25 26]
-  Path to loop: [0 6 22 23 24]
-  Path to loop: [0 6 22 24]
+  Loop exits: [27]
+  Looping path: [26]
+  Looping path: [26]
+  Path to loop: [0 6 22 23 24 25]
+  Path to loop: [0 6 22 24 25]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 6 7 9] 35
 cost:    35; 

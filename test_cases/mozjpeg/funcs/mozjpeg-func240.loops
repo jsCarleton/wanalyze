@@ -2,10 +2,10 @@ Loops found in function 240 in these bblocks: 3.
 Simple br_if conditions in: .
 Simple br conditions in: .
 Loop block: [2 3 4 5]
-  Loop path: [2 3 4 5]
-  Loop path: [2 3 4]
-  Looping path: [2 3 4]
-  Path to loop: [0 1]
+  Loop exits: [5]
+  Looping path: [3 4]
+  Looping path: [3 4]
+  Path to loop: [0 1 2]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2] 13
 cost:    13; 

@@ -67,6 +67,23 @@ type cond_site =
     sense:      bool;           (* if false then the condition must be negated *)
 }
 
+let site_of_nesting_if' (lp: Code_path.code_path): cond_site =
+  let cond_bb =
+    List.find_exn 
+      ~f:(fun bb -> match bb.bbtype with | BB_if | BB_else | BB_br_if | BB_br_table -> true | _ -> false)
+      (List.rev lp) in
+  match cond_bb.bbtype with 
+    | BB_if       -> {cond_bb; sense=true}
+    | BB_else     -> 
+        let cond_bb = 
+          List.find_exn 
+              ~f:(fun bb -> match bb.bbtype with | BB_if | BB_br_if -> true | _ -> false)
+              (List.rev lp) in
+          (* negate *) {cond_bb; sense=false}
+    | BB_br_if    ->  (* negate *) {cond_bb; sense=false}
+    | BB_br_table -> {cond_bb; sense=true}
+    | _           -> failwith "TODO handle this bbtype"
+
 let site_of_nesting_if (_: Code_path.code_path) (bb: Bblock.bblock): cond_site =
     if List.length bb.pred > 1 then
         failwith "TODO multiple predecessors"
@@ -85,8 +102,8 @@ let cost_of_loop w e param_types local_types (bback: Bblock.bblock) (lp: loop_pa
   let cs =
     (match bback.bbtype with
         | BB_br_if      -> {cond_bb = bback; sense = true}
-        | BB_br         -> site_of_nesting_if lp.loop_part bback
-        | BB_br_table   -> failwith "TODO handle this case"
+        | BB_br
+        | BB_br_table   -> site_of_nesting_if' lp.loop_part
         | _             -> failwith "Invalid branchback bblock"
     ) in
   (* TODO we're getting the loop cond by executing just the loop_part. is this right? couldn't it be the case

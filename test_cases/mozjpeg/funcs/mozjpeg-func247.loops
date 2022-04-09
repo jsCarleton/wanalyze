@@ -2,11 +2,11 @@ Loops found in function 247 in these bblocks: 7.
 Simple br_if conditions in: .
 Simple br conditions in: 8.
 Loop block: [6 7 8 9 10]
-  Loop path: [6 7 10]
-  Loop path: [6 7 8]
-  Looping path: [6 7 8]
-  Path to loop: [0 1 2 3]
-  Path to loop: [0 1 2 5]
+  Loop exits: [10]
+  Looping path: [7 8]
+  Looping path: [7 8]
+  Path to loop: [0 1 2 3 6]
+  Path to loop: [0 1 2 5 6]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 3 6] 19
 cost:    19; 
