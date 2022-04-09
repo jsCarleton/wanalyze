@@ -20,6 +20,11 @@ type loop = {
   looping_paths:  code_path list;     (* list of possible looping paths through the loop *)
   branchbacks:    Bblock.bblock list; (* list of bblocks that contain branchbacks *)
 }
+type loops_class = {
+  loops_series:   bool;
+  loops_parallel: bool;
+  loops_nested:   bool;
+}
 
 (* cost calculations *)
 val paths_with_no_loops             : code_path list -> code_path list
@@ -32,13 +37,17 @@ val conditions_of_paths             : Wasm_module.wasm_module -> Wasm_module.exp
 
 val expr_of_code_path               : Wasm_module.expr -> code_path -> Bblock.bblock -> Wasm_module.expr list -> Wasm_module.expr
 
+(* code paths*)
 val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_path list
 val code_paths_of_bblocks           : Bblock.bblock list -> code_path list -> code_path list -> code_path list
+
+(* loops *)
 val has_loop                        : Bblock.bblock list -> bool
 val compare_cps                     : code_path -> code_path -> int
 val loop_code_paths                 : Bblock.bblock list -> code_path list -> code_path list
 val loops_of_bblocks                : Bblock.bblock list -> loop list
 val ids_with_loops                  : Bblock.bblock list -> int list
+val classify_loops                  : loop list -> loops_class
 
 (* simple case analysis *)
 val analyze_simple_loop             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list -> Wasm_module.local_type list

@@ -485,6 +485,57 @@ let rec all_paths (cp1: code_path list) (cp2: code_path list) (cp2all: code_path
 let conditions_of_paths w e param_types local_types (prefixes: code_path list) (loop_paths: code_path list) (bback: bblock): expr_tree list =
   List.map ~f:(condition_of_loop w e param_types local_types bback) (all_paths prefixes loop_paths loop_paths [])
 
+(*
+  classify loops
+
+  Given a list of loops determine the classification of each of those loops
+
+  Parameters:
+    ls    the list of loops
+  Returns:
+    the list of loop classifications
+
+*)
+
+type loops_class = {
+  loops_series:   bool;
+  loops_parallel: bool;
+  loops_nested:   bool;
+}
+
+let loops_series    (_: loop list): bool = false
+let loops_parallel  (_: loop list): bool = false
+
+let loop_pair_nested (lp: loop*loop): bool =
+  let l1 = fst lp in
+  let l2 = snd lp in
+  let hd1_idx = (List.hd_exn l1.loop_bblocks).bbindex in
+  let hd2_idx = (List.hd_exn l2.loop_bblocks).bbindex in
+  let tl1_idx = (List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1)).bbindex in
+  let tl2_idx = (List.nth_exn l2.loop_bblocks ((List.length l2.loop_bblocks) - 1)).bbindex in
+    hd2_idx > hd1_idx && tl2_idx < tl1_idx
+
+
+let rec all_pairs (ls1: loop list) (ls2: loop list) (ls2_init: loop list) (acc: (loop*loop) list): (loop*loop) list =
+  match ls1, ls2 with
+  | [], _             -> acc
+  | _::tl1, []        -> all_pairs tl1 ls2_init ls2_init acc
+  | hd1::_, hd2::tl2  -> all_pairs ls1 tl2 ls2_init ((hd1, hd2)::acc)
+  
+let loops_nested (ls: loop list): bool =
+  match List.length ls with
+  | 0 -> false
+  | _ ->
+    match List.find ~f:loop_pair_nested (all_pairs ls ls ls []) with
+    | Some _  -> true
+    | _       -> false
+
+let classify_loops (ls: loop list): loops_class =
+  {
+    loops_series    = loops_series ls;
+    loops_parallel  = loops_parallel ls;
+    loops_nested    = loops_nested ls
+  }
 
 
 
@@ -493,8 +544,7 @@ let conditions_of_paths w e param_types local_types (prefixes: code_path list) (
 
 
 
-
-
+(* TODO deprecate all of this *)
 let rec has_loop (bblocks: bblock list): bool =
   match bblocks with
   | hd::tl ->

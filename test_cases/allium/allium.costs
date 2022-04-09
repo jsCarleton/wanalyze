@@ -24,10 +24,10 @@
 39 5716
 40 max(26, max(18 + 22*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0'), 18 + 28*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0'), 21 + 22*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0'), 21 + 28*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0')) + 8)
 41 max(116, max(89 + 80*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 89 + 83*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 89 + 87*c('ln3; ln5', 'ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 89 + 90*c('ln3; ln5', 'ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 92 + 80*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 92 + 83*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 92 + 87*c('ln3; ln5', 'ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 92 + 90*c('ln3; ln5', 'ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 96 + 80*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 96 + 83*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 96 + 87*c('ln3; ln5', 'ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 96 + 90*c('ln3; ln5', 'ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 99 + 80*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 99 + 83*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 99 + 87*c('ln3; ln5', 'ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 99 + 90*c('ln3; ln5', 'ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3')) + 37)
-42 -3 multiple loops
-43 -3 multiple loops
+42 -3 multiple loops, nested
+43 -3 multiple loops, nested
 44 max(5, 60 + 498*c('ln16; pN4', 'pN4 = pN4; ln16 = ln16', '(i64.extend_i32_u(ln16 + 1)) < pN4', 'pN4 = pN4; ln16 = ln16 + 1') + 2)
-45 -3 multiple loops
+45 -3 multiple loops, nested
 46 3
 47 26
 48 5

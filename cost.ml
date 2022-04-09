@@ -67,7 +67,7 @@ type cond_site =
     sense:      bool;           (* if false then the condition must be negated *)
 }
 
-let site_of_nesting_if' (lp: Code_path.code_path): cond_site =
+let site_of_nesting_if (lp: Code_path.code_path): cond_site =
   let cond_bb =
     List.find_exn 
       ~f:(fun bb -> match bb.bbtype with | BB_if | BB_else | BB_br_if | BB_br_table -> true | _ -> false)
@@ -84,18 +84,6 @@ let site_of_nesting_if' (lp: Code_path.code_path): cond_site =
     | BB_br_table -> {cond_bb; sense=true}
     | _           -> failwith "TODO handle this bbtype"
 
-let site_of_nesting_if (_: Code_path.code_path) (bb: Bblock.bblock): cond_site =
-    if List.length bb.pred > 1 then
-        failwith "TODO multiple predecessors"
-    (* TODO *)
-    else
-        let cond_bb = List.nth_exn bb.pred 0 in
-        match cond_bb.bbtype with
-        | BB_if     -> {cond_bb; sense=true}
-        | BB_else   -> (* negate *) failwith "TODO handle this bbtype"
-        | BB_br_if  -> (* negate *) {cond_bb; sense=false}
-        | _         -> failwith "TODO handle this bbtype"
-
 (* TODO do we need both symbolic execution and SSA to do this? *)
 let cost_of_loop w e param_types local_types (bback: Bblock.bblock) (lp: loop_path_parts): loop_metric_info =
   (* a key part of this is locating the bblock that the condition of the loop is tested ... *)
@@ -103,7 +91,7 @@ let cost_of_loop w e param_types local_types (bback: Bblock.bblock) (lp: loop_pa
     (match bback.bbtype with
         | BB_br_if      -> {cond_bb = bback; sense = true}
         | BB_br
-        | BB_br_table   -> site_of_nesting_if' lp.loop_part
+        | BB_br_table   -> site_of_nesting_if lp.loop_part
         | _             -> failwith "Invalid branchback bblock"
     ) in
   (* TODO we're getting the loop cond by executing just the loop_part. is this right? couldn't it be the case
@@ -123,31 +111,8 @@ let cost_of_loop w e param_types local_types (bback: Bblock.bblock) (lp: loop_pa
         lv_entry_vals;
         lv_loop_vals}
 
-let cost_of_loops w e param_types local_types (prefixes: Code_path.code_path list) (loop_paths: Code_path.code_path list) (bback: Bblock.bblock): loop_metric_info list =
-  let al = all_loops prefixes loop_paths loop_paths [] in
-  let ual = 
+let cost_of_loops w e param_types local_types (prefixes: Code_path.code_path list) (loop_paths: Code_path.code_path list)
+      (bback: Bblock.bblock): loop_metric_info list =
   List.dedup_and_sort ~compare:compare_metrics (* TODO is this dedup needed? *)
     (List.map ~f:(cost_of_loop w e param_types local_types bback)
-      (all_loops prefixes loop_paths loop_paths [])) in
-    Printf.printf "\nPrefixes: %d Loop paths: %d All: %d, unique: %d\n" (List.length prefixes) (List.length loop_paths)(List.length al) (List.length ual);
-    ual
-
-(*
-                              let loop_cond = analyze_simple_loop w fn.e param_types local_types bb in
-                              let loop_vars = vars_of_expr_tree loop_cond in
-                              let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock fn.e bb) in
-                              String.concat [ "Simple brif loop condition in bblock ";
-                                              string_of_int bb.bbindex;
-                                              ":\t";
-                                              string_of_expr_tree loop_cond;
-                                              "\n";
-                                              "Loop condition variables: ";
-                                              (String.concat ~sep:", " loop_vars);
-                                              "\n";
-                                              "SSA of loop:\n";
-                                              (string_of_ssa_list loop_ssa "\n" true);
-                                              "\nLoop variable calculations:\n";
-                                              (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars) "\n" true);
-                                              "\n"])
-
-*)
+      (all_loops prefixes loop_paths loop_paths []))
