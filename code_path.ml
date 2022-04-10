@@ -132,12 +132,71 @@ let rec code_paths_of_bblocks' (last_idx: int) (nterm: code_path list) (term: co
     | hd::tl    ->
         let n,t = step_code_path last_idx hd in
             code_paths_of_bblocks' last_idx (List.append n tl) (List.append t term)
-  
+
 let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: code_path list): code_path list =
   let last_idx = (List.nth_exn bblocks ((List.length bblocks)-1)).bbindex in
   match (mult_succ_count bblocks) < 24 with   (* hack to prevent this code from running for a very long time *)
     | true  -> List.map ~f:List.rev (code_paths_of_bblocks' last_idx nterm term)
-    | false -> []
+    | false -> []  
+
+(*
+    code_paths_from_to
+
+    Given a start bblock and an end bblock return the non-looping code paths between the two blocks
+
+    Parameters:
+      from_bb   a bblock
+      to_bb     a bblock
+
+    Returns:
+      the list containing all code paths from the first bblock to the second
+*)
+
+let succ_of_cp_to (to_bb: bblock) (cp: code_path): bblock list = 
+  List.filter ~f:(fun x -> x.bbindex <= to_bb.bbindex) (List.hd_exn cp).succ
+
+let term_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
+  match succ.bbindex = to_bb.bbindex with
+  | true  -> Some cp
+  |  _    -> None
+
+let terms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
+  List.filter_map ~f:(term_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
+
+let nterm_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
+  match       (succ.bbindex <= to_bb.bbindex) 
+          &&  (List.hd_exn cp).bbindex < succ.bbindex with
+  | true    -> Some (List.cons succ cp)
+  | _       -> None
+
+let nterms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
+  List.filter_map ~f:(nterm_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
+
+let bb_ends_cp (to_bb: bblock) (cp: code_path): bool =
+  (List.hd_exn cp).bbindex = to_bb.bbindex
+
+let step_to (to_bb: bblock) (cp: code_path): (code_path list)*(code_path list) =
+  match bb_ends_cp to_bb cp with
+  | true  -> [], [cp]
+  | _     -> (nterms_of_cp_to to_bb cp), (terms_of_cp_to to_bb cp)
+
+let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list): code_path list =
+  match nterm with
+    | []        -> term
+    | hd::tl    ->
+        let n,t = step_to to_bb hd in
+          code_paths_to to_bb (List.append n tl) (List.append t term)
+
+(* TODO do we want to include the to_bb in the code paths we find? *)
+let code_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list =
+  if from_bb.bbindex = to_bb.bbindex then
+    [[from_bb]]
+  else
+    code_paths_to to_bb [[from_bb]] [] 
+
+
+
+
     
 let bblock_is_loop (bb: bblock): bool =
   match bb.bbtype with
@@ -503,8 +562,24 @@ type loops_class = {
   loops_nested:   bool;
 }
 
-let loops_series    (_: loop list): bool = false
 let loops_parallel  (_: loop list): bool = false
+
+let all_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list =
+  code_paths_from_to from_bb to_bb
+
+let loop_pair_series (lp: loop*loop): bool =
+  let l1 = fst lp in
+  let l2 = snd lp in
+  let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
+  let loop2 = List.hd_exn l2.loop_bblocks in
+  let ap    = all_paths_from_to end1 loop2 in
+  match end1.bbindex < loop2.bbindex with
+  | true  ->  (List.exists 
+                ~f:(fun p ->
+                          List.exists ~f:(fun bb -> bb.bbindex = end1.bbindex) p
+                      &&  List.exists ~f:(fun bb -> bb.bbindex = loop2.bbindex) p)
+              ap)
+  | false ->  false
 
 let loop_pair_nested (lp: loop*loop): bool =
   let l1 = fst lp in
@@ -515,26 +590,26 @@ let loop_pair_nested (lp: loop*loop): bool =
   let tl2_idx = (List.nth_exn l2.loop_bblocks ((List.length l2.loop_bblocks) - 1)).bbindex in
     hd2_idx > hd1_idx && tl2_idx < tl1_idx
 
-
 let rec all_pairs (ls1: loop list) (ls2: loop list) (ls2_init: loop list) (acc: (loop*loop) list): (loop*loop) list =
   match ls1, ls2 with
   | [], _             -> acc
   | _::tl1, []        -> all_pairs tl1 ls2_init ls2_init acc
   | hd1::_, hd2::tl2  -> all_pairs ls1 tl2 ls2_init ((hd1, hd2)::acc)
-  
-let loops_nested (ls: loop list): bool =
+
+(* TODO we could improve the performance of this by not generating all pairs but a list of pair promises*)
+let loops_classify (loop_classifier: loop*loop -> bool) (ls: loop list): bool =
   match List.length ls with
-  | 0 -> false
-  | _ ->
-    match List.find ~f:loop_pair_nested (all_pairs ls ls ls []) with
+  | 0 | 1 -> false
+  | _     ->
+    match List.find ~f:loop_classifier (all_pairs ls ls ls []) with
     | Some _  -> true
     | _       -> false
 
 let classify_loops (ls: loop list): loops_class =
   {
-    loops_series    = loops_series ls;
+    loops_series    = loops_classify loop_pair_series ls;
     loops_parallel  = loops_parallel ls;
-    loops_nested    = loops_nested ls
+    loops_nested    = loops_classify loop_pair_nested ls
   }
 
 
