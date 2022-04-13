@@ -166,7 +166,7 @@ let terms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
 let nterm_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
   match       (succ.bbindex <= to_bb.bbindex) 
           &&  (List.hd_exn cp).bbindex < succ.bbindex with
-  | true    -> Some (List.cons succ cp)
+  | true    -> Some (succ::cp)
   | _       -> None
 
 let nterms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
@@ -180,19 +180,37 @@ let step_to (to_bb: bblock) (cp: code_path): (code_path list)*(code_path list) =
   | true  -> [], [cp]
   | _     -> (nterms_of_cp_to to_bb cp), (terms_of_cp_to to_bb cp)
 
-let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list): code_path list =
+let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (lt: int): code_path list =
+  if lt > 10000000 then
+    []
+  else
+    match nterm with
+      | []        -> term
+      | hd::tl    ->
+          let n,t = step_to to_bb hd in
+            code_paths_to to_bb (List.append n tl) (List.append t term) (lt + (List.length t))
+
+let rec xcode_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (lt: int): code_path list =
   match nterm with
-    | []        -> term
+    | []        -> Printf.printf "code_paths_to done\n%!"; term
     | hd::tl    ->
-        let n,t = step_to to_bb hd in
-          code_paths_to to_bb (List.append n tl) (List.append t term)
+        if lt >= 395000 && lt mod 4000000 = 0 then
+          Printf.printf "step_to - term paths: %d\n%!" lt; 
+        let n = nterms_of_cp_to to_bb hd in
+        let t = terms_of_cp_to to_bb hd in
+          if lt >= 395000 && lt mod 4000000 = 0 then
+            Printf.printf "code_paths_to to - term paths: %d\n%!" lt; 
+          xcode_paths_to to_bb (List.append n tl) (List.append t term) (lt + (List.length t))
 
 (* TODO do we want to include the to_bb in the code paths we find? *)
 let code_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list =
   if from_bb.bbindex = to_bb.bbindex then
     [[from_bb]]
   else
-    code_paths_to to_bb [[from_bb]] [] 
+    if to_bb.bbindex = -100 then
+      xcode_paths_to to_bb [[from_bb]] [] 0
+    else
+      code_paths_to to_bb [[from_bb]] [] 0
 
 
 
@@ -472,8 +490,17 @@ let paths_with_no_loops (cps: code_path list): code_path list =
     the list of exit bblocks
 **)
 
+(* TODO we have to generate all exiting paths in the loop to find the exit bbs *)
 let is_loop_exit_bblock last_index bb =
-  (List.fold_left ~f:(fun init' bb -> if bb.bbindex >= last_index then init' else init'+1) ~init:0 bb.succ) = 0
+  (List.length bb.pred > 0) && (* TODO this is a patch solution for the case in oxipng#401 *)
+  0 = 
+    List.fold_left
+      ~f:(fun init' succ_bb -> 
+            if succ_bb.bbindex >= last_index then 
+                init' 
+            else init'+1) 
+      ~init:0
+      bb.succ
 
 let exit_bblocks_of_loop (l: loop): bblock list =
   let lbb = l.loop_bblocks in
@@ -562,24 +589,14 @@ type loops_class = {
   loops_nested:   bool;
 }
 
-let loops_parallel  (_: loop list): bool = false
-
-let all_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list =
-  code_paths_from_to from_bb to_bb
-
-let loop_pair_series (lp: loop*loop): bool =
-  let l1 = fst lp in
-  let l2 = snd lp in
+(* TODO we have to handle the case where there are too many paths *)
+let paths_from_to_loops (l1: loop) (l2: loop): code_path list =
   let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
   let loop2 = List.hd_exn l2.loop_bblocks in
-  let ap    = all_paths_from_to end1 loop2 in
-  match end1.bbindex < loop2.bbindex with
-  | true  ->  (List.exists 
-                ~f:(fun p ->
-                          List.exists ~f:(fun bb -> bb.bbindex = end1.bbindex) p
-                      &&  List.exists ~f:(fun bb -> bb.bbindex = loop2.bbindex) p)
-              ap)
-  | false ->  false
+  code_paths_from_to end1 loop2
+
+let loop_hd_bbidx (l: loop): int =
+  (List.hd_exn l.loop_bblocks).bbindex
 
 let loop_pair_nested (lp: loop*loop): bool =
   let l1 = fst lp in
@@ -590,13 +607,43 @@ let loop_pair_nested (lp: loop*loop): bool =
   let tl2_idx = (List.nth_exn l2.loop_bblocks ((List.length l2.loop_bblocks) - 1)).bbindex in
     hd2_idx > hd1_idx && tl2_idx < tl1_idx
 
+let loop_pair_parallel (lp: loop*loop): bool =
+  if loop_pair_nested lp then
+    false
+  else 
+    (Printf.printf "parallel - looking for code paths from %d to %d\n%!" (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp));
+    let ap =  paths_from_to_loops (fst lp) (snd lp) in
+    Printf.printf "found %d code paths from %d to %d\n%!" (List.length ap) (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp));
+    match ap with
+    | []  -> Printf.printf "No path from %d to %d\n%!" (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp)); true
+    | _   -> false)
+
+let loop_pair_series (lp: loop*loop): bool =
+  let l1 = fst lp in
+  let l2 = snd lp in
+  let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
+  let loop2 = List.hd_exn l2.loop_bblocks in
+  Printf.printf "series - looking for code paths from %d to %d\n%!" (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp));
+  let ap    = paths_from_to_loops l1 l2 in
+  Printf.printf "found %d code paths from %d to %d\n%!" (List.length ap) (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp));
+  match end1.bbindex < loop2.bbindex with
+  | true  ->  (List.exists 
+                ~f:(fun p ->
+                          List.exists ~f:(fun bb -> bb.bbindex = end1.bbindex) p
+                      &&  List.exists ~f:(fun bb -> bb.bbindex = loop2.bbindex) p)
+              ap)
+  | false ->  false
+
 let rec all_pairs (ls1: loop list) (ls2: loop list) (ls2_init: loop list) (acc: (loop*loop) list): (loop*loop) list =
   match ls1, ls2 with
-  | [], _             -> acc
-  | _::tl1, []        -> all_pairs tl1 ls2_init ls2_init acc
-  | hd1::_, hd2::tl2  -> all_pairs ls1 tl2 ls2_init ((hd1, hd2)::acc)
+  | [], _             ->  acc
+  | _::tl1, []        ->  all_pairs tl1 ls2_init ls2_init acc
+  | hd1::_, hd2::tl2  ->  if (loop_hd_bbidx hd1) < (loop_hd_bbidx hd2) then
+                            all_pairs ls1 tl2 ls2_init ((hd1, hd2)::acc)
+                          else
+                            all_pairs ls1 tl2 ls2_init acc
 
-(* TODO we could improve the performance of this by not generating all pairs but a list of pair promises*)
+(* TODO we could improve the performance of this by not generating all pairs but a lazy list of pairs *)
 let loops_classify (loop_classifier: loop*loop -> bool) (ls: loop list): bool =
   match List.length ls with
   | 0 | 1 -> false
@@ -604,14 +651,42 @@ let loops_classify (loop_classifier: loop*loop -> bool) (ls: loop list): bool =
     match List.find ~f:loop_classifier (all_pairs ls ls ls []) with
     | Some _  -> true
     | _       -> false
+(* 
+let long_path (bbs: bblock list) (lp: loop*loop): bool =
+  let l1 = fst lp in
+  let l2 = snd lp in
+  let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
+  let loop2 = List.hd_exn l2.loop_bblocks in
+  let nsucc =
+  (List.fold_left
+      ~f:(fun acc bb ->
+        if bb.bbindex >= end1.bbindex && bb.bbindex <= loop2.bbindex then
+          acc + (List.length bb.succ)
+        else
+          acc)
+      ~init:0
+      bbs)
+    - (loop2.bbindex - end1.bbindex) in
+  Printf.printf "total # of successors is %d\n%!" nsucc;
+  nsucc > 120
 
-let classify_loops (ls: loop list): loops_class =
+let too_many (ls: loop list) (bbs: bblock list): bool =
+  List.exists ~f:(long_path bbs) (all_pairs ls ls ls [])
+
+let classify_loops (ls: loop list) (bbs: bblock list) : loops_class =
+  let too_many_paths = too_many ls bbs in
+  {
+    loops_series    = if too_many_paths then false else loops_classify loop_pair_series ls;
+    loops_parallel  = if too_many_paths then false else loops_classify loop_pair_parallel ls;
+    loops_nested    = loops_classify loop_pair_nested ls
+  } *)
+
+let classify_loops (ls: loop list) (bbs: bblock list) : loops_class =
   {
     loops_series    = loops_classify loop_pair_series ls;
-    loops_parallel  = loops_parallel ls;
+    loops_parallel  = loops_classify loop_pair_parallel ls;
     loops_nested    = loops_classify loop_pair_nested ls
   }
-
 
 
 

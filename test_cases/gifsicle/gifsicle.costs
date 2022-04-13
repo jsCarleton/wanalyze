@@ -1,16 +1,16 @@
-22 -3 multiple loops
+22 -3 multiple loops, in series
 23 51
-24 -3 multiple loops
+24 -3 multiple loops, in series, in parallel
 25 19
-26 -3 multiple loops
+26 -3 multiple loops, in series, in parallel
 27 max(150, 161 + 23*c('pn2', 'pn2 = ((pn2 - ((0 - pn0) && 3)) && -4) - (((pn0 + ((0 - pn0) && 3)) && 4) || 24)', '(pn2 + -32) > 31', 'pn2 = pn2 + -32') + 4)
-28 -3 multiple loops
+28 -3 multiple loops, in series, in parallel
 29 max(16, 13 + 20*c('pn0; pn1', 'pn1 = pn1; pn0 = pn0', '(i32.load8_u@(pn0)) == (i32.load8_u@(pn1))', 'pn1 = pn1 + 1; pn0 = pn0 + 1') + 6)
 30 -1 multiple branchbacks
 31 84
 32 614
 33 17
-34 -3 multiple loops
+34 -3 multiple loops, in series
 35 24
 36 7
 37 31
@@ -30,31 +30,31 @@
 51 max(26, max(20 + 9*c('ln1', 'ln1 = (35152)', 'i32.load@(ln1)', 'ln1 = (ln1)'), 20 + 17*c('ln1', 'ln1 = (35152)', 'i32.load@(ln1)', 'ln1 = (ln1)')) + 9)
 52 29
 53 10
-54 -3 multiple loops
+54 -3 multiple loops, nested, in series
 55 max(125, max(15 + 14*c('pn0', 'pn0 = pn0', '((i32.load8_u@(pn0)) && 192) == 128', 'pn0 = pn0 + 1'), 31 + 14*c('pn0', 'pn0 = pn0', '((i32.load8_u@(pn0)) && 192) == 128', 'pn0 = pn0 + 1'), 34 + 14*c('pn0', 'pn0 = pn0', '((i32.load8_u@(pn0)) && 192) == 128', 'pn0 = pn0 + 1'), 36 + 14*c('pn0', 'pn0 = pn0', '((i32.load8_u@(pn0)) && 192) == 128', 'pn0 = pn0 + 1'), 42 + 14*c('pn0', 'pn0 = pn0', '((i32.load8_u@(pn0)) && 192) == 128', 'pn0 = pn0 + 1'), 43 + 14*c('pn0', 'pn0 = pn0', '((i32.load8_u@(pn0)) && 192) == 128', 'pn0 = pn0 + 1'), 50 + 14*c('pn0', 'pn0 = pn0', '((i32.load8_u@(pn0)) && 192) == 128', 'pn0 = pn0 + 1'), 64 + 14*c('pn0', 'pn0 = pn0', '((i32.load8_u@(pn0)) && 192) == 128', 'pn0 = pn0 + 1'), 79 + 14*c('pn0', 'pn0 = pn0', '((i32.load8_u@(pn0)) && 192) == 128', 'pn0 = pn0 + 1')) + 12)
 56 19
-57 -3 multiple loops
+57 -3 multiple loops, in series
 58 54
 59 19
-60 -3 multiple loops
+60 -3 multiple loops, nested, in series
 61 -2 multiple exits
 62 17
 63 65
 64 76
 65 41
-66 -3 multiple loops
+66 -3 multiple loops, in parallel
 67 22
 68 6
 69 -2 multiple exits
 70 15
 71 max(16, max(10 + 18*c('pn0', 'pn0 = (36516)', 'i32.load@(pn0)', 'pn0 = (pn0)'), 10 + 24*c('pn0', 'pn0 = (36516)', 'i32.load@(pn0)', 'pn0 = (pn0)'), 15 + 18*c('pn0', 'pn0 = (36516)', 'i32.load@(pn0)', 'pn0 = (pn0)'), 15 + 24*c('pn0', 'pn0 = (36516)', 'i32.load@(pn0)', 'pn0 = (pn0)')) + 4)
 72 72
-73 -3 multiple loops
+73 -3 multiple loops, in series
 74 max(43, 11 + 37*c('ln4; ln5', 'ln5 = (pn0); ln4 = ln4', '(ln4 + 1) != ln5', 'ln5 = ln5; ln4 = ln4 + 1') + 40)
-75 -3 multiple loops
+75 -3 multiple loops, nested, in series
 76 112
 77 21
-78 -3 multiple loops
+78 -3 multiple loops, in series
 79 22
 80 5
 81 46
@@ -70,7 +70,7 @@
 91 -2 multiple exits
 92 11
 93 214
-94 -3 multiple loops
+94 -3 multiple loops, in series
 95 16
 96 -2 multiple exits
 97 31
@@ -82,21 +82,21 @@
 103 19
 104 20
 105 8
-106 -3 multiple loops
+106 -3 multiple loops, in series
 107 32
 108 4
 109 116
 110 max(158, max(85 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 85 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 89 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 89 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 93 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 93 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 97 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 97 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 101 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 101 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 105 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 105 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 109 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 109 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 110 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 110 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 114 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 114 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 116 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 116 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 118 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 118 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 120 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 120 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 122 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 122 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 124 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 124 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 126 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 126 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 128 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 128 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 130 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 130 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 132 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 132 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 134 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 134 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 136 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 136 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 138 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 138 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 140 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 140 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 142 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 142 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 144 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 144 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 146 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 146 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 148 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 148 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 152 + 19*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11'), 152 + 27*c('ln11; ln3', 'ln3 = 0; ln11 = ((pn0))', 'ln11 != (ln3 + 1)', 'ln3 = ln3 + 1; ln11 = ln11')) + 71)
-111 -3 multiple loops
-112 -3 multiple loops
-113 -3 multiple loops
-114 -3 multiple loops
-115 -3 multiple loops
+111 -3 multiple loops, nested, in series, in parallel
+112 -3 multiple loops, nested, in series, in parallel
+113 -3 multiple loops, nested, in series
+114 -3 multiple loops, nested, in parallel
+115 -3 multiple loops, in series
 116 107
-117 -3 multiple loops
-118 -3 multiple loops
+117 -3 multiple loops, nested, in series, in parallel
+118 -3 multiple loops, nested, in series, in parallel
 119 max(6, 6 + 23*c('ln2; pn1', 'pn1 = pn1; ln2 = ln2', '(ln2 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln2 = ln2 + 1') + 3)
-120 -3 multiple loops
+120 -3 multiple loops, nested, in series, in parallel
 121 -2 multiple exits
 122 max(122, max(74 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1'), 79 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1'), 83 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1'), 84 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1'), 88 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1'), 89 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1'), 92 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1'), 93 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1'), 97 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1'), 101 + 18*c('ln2; ln3', 'ln2 = (pn0); ln3 = 0', '(ln3 + 1) != ln2', 'ln2 = ln2; ln3 = ln3 + 1')) + 24)
 123 60
@@ -105,9 +105,9 @@
 126 50
 127 49
 128 19
-129 -2 multiple exits
+129 -6 infinite loop
 130 54
-131 -3 multiple loops
+131 -3 multiple loops, nested, in series, in parallel
 132 45
 133 8
 134 52
@@ -117,49 +117,49 @@
 138 max(42, max(23 + 14*c('ln4; pn0', 'ln4 = pn1; pn0 = pn0', '(i32.load8_u@(pn0 + (ln4 + -1))) != 10', 'ln4 = ln4 + -1; pn0 = pn0'), 27 + 14*c('ln4; pn0', 'ln4 = pn1; pn0 = pn0', '(i32.load8_u@(pn0 + (ln4 + -1))) != 10', 'ln4 = ln4 + -1; pn0 = pn0')) + 43)
 139 55
 140 109
-141 -3 multiple loops
-142 too many paths
-143 -3 multiple loops
-144 -3 multiple loops
+141 -3 multiple loops, in parallel
+142 -5 too many paths
+143 -3 multiple loops, nested, in series, in parallel
+144 -3 multiple loops, nested, in series, in parallel
 145 max(4, max(22 + 31*c('pn0; pn2', 'pn2 = pn2; pn0 = 0', '(pn0 + 1) != (i32.load16_u@(pn2))', 'pn2 = pn2; pn0 = pn0 + 1'), 22 + 124*c('pn0; pn2', 'pn2 = pn2; pn0 = 0', '(pn0 + 1) != (i32.load16_u@(pn2))', 'pn2 = pn2; pn0 = pn0 + 1'), 22 + 125*c('pn0; pn2', 'pn2 = pn2; pn0 = 0', '(pn0 + 1) != (i32.load16_u@(pn2))', 'pn2 = pn2; pn0 = pn0 + 1'), 22 + 126*c('pn0; pn2', 'pn2 = pn2; pn0 = 0', '(pn0 + 1) != (i32.load16_u@(pn2))', 'pn2 = pn2; pn0 = pn0 + 1'), 22 + 127*c('pn0; pn2', 'pn2 = pn2; pn0 = 0', '(pn0 + 1) != (i32.load16_u@(pn2))', 'pn2 = pn2; pn0 = pn0 + 1'), 22 + 148*c('pn0; pn2', 'pn2 = pn2; pn0 = 0', '(pn0 + 1) != (i32.load16_u@(pn2))', 'pn2 = pn2; pn0 = pn0 + 1'), 22 + 149*c('pn0; pn2', 'pn2 = pn2; pn0 = 0', '(pn0 + 1) != (i32.load16_u@(pn2))', 'pn2 = pn2; pn0 = pn0 + 1'), 22 + 150*c('pn0; pn2', 'pn2 = pn2; pn0 = 0', '(pn0 + 1) != (i32.load16_u@(pn2))', 'pn2 = pn2; pn0 = pn0 + 1'), 22 + 151*c('pn0; pn2', 'pn2 = pn2; pn0 = 0', '(pn0 + 1) != (i32.load16_u@(pn2))', 'pn2 = pn2; pn0 = pn0 + 1')) + 3)
-146 -3 multiple loops
-147 -3 multiple loops
+146 -3 multiple loops, nested, in series
+147 -3 multiple loops, nested, in series, in parallel
 148 max(33, max(19 + 39*c('pn1; pn2', 'pn2 = select(pn3, pn2, -1); pn1 = select(pn3, pn1, 0)', 'pn1 != pn2', 'pn2 = pn2; pn1 = pn1 + 1'), 19 + 45*c('pn1; pn2', 'pn2 = select(pn3, pn2, -1); pn1 = select(pn3, pn1, 0)', 'pn1 != pn2', 'pn2 = pn2; pn1 = pn1 + 1'), 19 + 51*c('pn1; pn2', 'pn2 = select(pn3, pn2, -1); pn1 = select(pn3, pn1, 0)', 'pn1 != pn2', 'pn2 = pn2; pn1 = pn1 + 1'), 19 + 57*c('pn1; pn2', 'pn2 = select(pn3, pn2, -1); pn1 = select(pn3, pn1, 0)', 'pn1 != pn2', 'pn2 = pn2; pn1 = pn1 + 1'), 25 + 39*c('pn1; pn2', 'pn2 = ((pn0)) + -1; pn1 = select(pn3, pn1, 0)', 'pn1 != pn2', 'pn2 = pn2; pn1 = pn1 + 1'), 25 + 45*c('pn1; pn2', 'pn2 = ((pn0)) + -1; pn1 = select(pn3, pn1, 0)', 'pn1 != pn2', 'pn2 = pn2; pn1 = pn1 + 1'), 25 + 51*c('pn1; pn2', 'pn2 = ((pn0)) + -1; pn1 = select(pn3, pn1, 0)', 'pn1 != pn2', 'pn2 = pn2; pn1 = pn1 + 1'), 25 + 57*c('pn1; pn2', 'pn2 = ((pn0)) + -1; pn1 = select(pn3, pn1, 0)', 'pn1 != pn2', 'pn2 = pn2; pn1 = pn1 + 1')) + 11)
 149 max(61, 18 + 19*c('ln3; pn0', 'pn0 = pn0; ln3 = (pn0)', 'ln3 >= (i32.load@(pn0))', 'pn0 = pn0; ln3 = ln3') + 45)
 150 183
 151 max(14, max(12 + 31*c('pn1', 'pn1 = pn1', 'pn1 + -1', 'pn1 = pn1 + -1'), 12 + 59*c('pn1', 'pn1 = pn1', 'pn1 + -1', 'pn1 = pn1 + -1'), 12 + 62*c('pn1', 'pn1 = pn1', 'pn1 + -1', 'pn1 = pn1 + -1'), 12 + 63*c('pn1', 'pn1 = pn1', 'pn1 + -1', 'pn1 = pn1 + -1'), 12 + 74*c('pn1', 'pn1 = pn1', 'pn1 + -1', 'pn1 = pn1 + -1'), 12 + 77*c('pn1', 'pn1 = pn1', 'pn1 + -1', 'pn1 = pn1 + -1'), 12 + 78*c('pn1', 'pn1 = pn1', 'pn1 + -1', 'pn1 = pn1 + -1')) + 18)
 152 48
-153 -3 multiple loops
-154 -3 multiple loops
-155 -3 multiple loops
-156 -3 multiple loops
-157 -3 multiple loops
+153 -3 multiple loops, nested
+154 -3 multiple loops, nested, in series
+155 -3 multiple loops, nested, in series
+156 -3 multiple loops, in parallel
+157 -3 multiple loops, in series
 158 max(0, 14 + 14*c('pn0', 'pn0 = 0', '(pn0 + 1) != 4093', 'pn0 = pn0 + 1') + 2)
 159 max(45, max(29 + 73*c('ln3; pn0', 'pn0 = pn0; ln3 = 0', '(ln3 + 1) < (i32.load@(pn0))', 'pn0 = pn0; ln3 = ln3 + 1'), 29 + 107*c('ln3; pn0', 'pn0 = pn0; ln3 = 0', '(ln3 + 1) < (i32.load@(pn0))', 'pn0 = pn0; ln3 = ln3 + 1'), 46 + 73*c('ln3; pn0', 'pn0 = pn0; ln3 = 0', '(ln3 + 1) < (i32.load@(pn0))', 'pn0 = pn0; ln3 = ln3 + 1'), 46 + 107*c('ln3; pn0', 'pn0 = pn0; ln3 = 0', '(ln3 + 1) < (i32.load@(pn0))', 'pn0 = pn0; ln3 = ln3 + 1')) + 7)
 160 max(11, 16 + 14*c('ln1; pn0', 'ln1 = (pn0); pn0 = 0', '(pn0 + 1) != ln1', 'ln1 = ln1; pn0 = pn0 + 1') + 3)
-161 -3 multiple loops
+161 -3 multiple loops, in parallel
 162 40
 163 4
-164 -3 multiple loops
-165 -3 multiple loops
-166 too many paths
+164 -3 multiple loops, in series
+165 -3 multiple loops, in series
+166 -5 too many paths
 167 129
 168 52
 169 36
-170 -3 multiple loops
+170 -3 multiple loops, in series, in parallel
 171 53
 172 7
 173 4
 174 57
-175 -3 multiple loops
+175 -3 multiple loops, nested
 176 18
 177 max(104, max(86 + 13*c('ln3', 'ln3 = select((rn0), ((rn0)) + 32, ((rn0)) + 36)', 'i32.load@(ln3)', 'ln3 = ((ln3)) + 32'), 104 + 13*c('ln3', 'ln3 = select((rn0), ((rn0)) + 32, ((rn0)) + 36)', 'i32.load@(ln3)', 'ln3 = ((ln3)) + 32')) + 13)
 178 17
-179 -3 multiple loops
-180 -3 multiple loops
+179 -3 multiple loops, in series
+180 -3 multiple loops, in series, in parallel
 181 80
 182 26
-183 -3 multiple loops
+183 -3 multiple loops, in series, in parallel
 184 34
 185 max(9, 8 + 22*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0') + 4)
 186 163
@@ -170,59 +170,59 @@
 191 max(0, max(14 + 81*c('rn0', 'rn0 = rn0', '(rn0 && 255) != 10', 'rn0 = rn0'), 14 + 84*c('pn1; rn0', 'pn1 = pn1; rn0 = rn0; pn1 = pn1', '((i32.load8_u@((i32.load@(pn1)) + ((rn0 - (i32.load@(pn1))) + 1))) && 255) != 10', 'pn1 = pn1; rn0 = rn0; pn1 = pn1')) + 12)
 192 4
 193 34
-194 -3 multiple loops
-195 -3 multiple loops
+194 -3 multiple loops, in series, in parallel
+195 -3 multiple loops, in series
 196 917
 197 250
 198 max(85, max(36 + 26*c('ln2; pn0', 'pn0 = pn0; ln2 = 255', '(ln2 + 255) < (i32.load@(pn0))', 'pn0 = pn0; ln2 = ln2 + 255'), 41 + 26*c('ln2; pn0', 'pn0 = pn0; ln2 = 255', '(ln2 + 255) < (i32.load@(pn0))', 'pn0 = pn0; ln2 = ln2 + 255'), 57 + 26*c('ln2; pn0', 'pn0 = pn0; ln2 = 255', '(ln2 + 255) < (i32.load@(pn0))', 'pn0 = pn0; ln2 = ln2 + 255')) + 33)
-199 -3 multiple loops
-200 max(0, max() + 121)
-201 -3 multiple loops
-202 too many paths
+199 -3 multiple loops, in parallel
+200 -4 too many prefixes
+201 -3 multiple loops, nested, in series, in parallel
+202 -5 too many paths
 203 74
-204 -3 multiple loops
+204 -3 multiple loops, nested, in series
 205 max(124, max(60 + 16*c('pn2; pn3', 'pn3 = pn2 * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 62 + 16*c('pn2; pn3', 'pn3 = pn2 * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 64 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 66 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 67 + 16*c('pn2; pn3', 'pn3 = pn2 * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 68 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * ((pn1)); pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 70 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * ((pn1)); pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 71 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 72 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 75 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * ((pn1)); pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 76 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * ((pn1)); pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 79 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 83 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * ((pn1)); pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 108 + 16*c('pn2; pn3', 'pn3 = pn2 * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 112 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 116 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * ((pn1)); pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 120 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * pn3; pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1'), 124 + 16*c('pn2; pn3', 'pn3 = ((pn1)) * ((pn1)); pn2 = 1', '(pn2 + 1) != pn3', 'pn3 = pn3; pn2 = pn2 + 1')) + 3)
 206 33
-207 -3 multiple loops
-208 -3 multiple loops
-209 -3 multiple loops
+207 -3 multiple loops, nested, in series, in parallel
+208 -3 multiple loops, nested, in parallel
+209 -3 multiple loops, nested
 210 max(5, max(6 + 15*c('ln2', 'ln2 = pn0', 'i32.load@(ln2)', 'ln2 = (ln2)'), 6 + 21*c('ln2', 'ln2 = pn0', 'i32.load@(ln2)', 'ln2 = (ln2)'), 6 + 27*c('ln2', 'ln2 = pn0', 'i32.load@(ln2)', 'ln2 = (ln2)')) + 3)
 211 9
-212 -3 multiple loops
+212 -3 multiple loops, nested
 213 24
-214 -3 multiple loops
+214 -3 multiple loops, nested
 215 192
-216 -3 multiple loops
+216 -3 multiple loops, nested, in series
 217 max(22, max(31 + 22*c('ln10; ln4', 'ln10 = select(((((pn1)) + -1) /s 4) > 0, 0, (((pn1)) + -1) /s 4); ln4 = 0', 'ln4 != ln10', 'ln10 = ln10; ln4 = ln4 + 1'), 31 + 61*c('ln10; ln4', 'ln10 = select(((((pn1)) + -1) /s 4) > 0, 0, (((pn1)) + -1) /s 4); ln4 = 0', 'ln4 != ln10', 'ln10 = ln10; ln4 = ln4 + 1'), 31 + 106*c('ln10; ln4', 'ln10 = select(((((pn1)) + -1) /s 4) > 0, 0, (((pn1)) + -1) /s 4); ln4 = 0', 'ln4 != ln10', 'ln10 = ln10; ln4 = ln4 + 1'), 31 + 151*c('ln10; ln4', 'ln10 = select(((((pn1)) + -1) /s 4) > 0, 0, (((pn1)) + -1) /s 4); ln4 = 0', 'ln4 != ln10', 'ln10 = ln10; ln4 = ln4 + 1'), 31 + 187*c('ln10; ln4', 'ln10 = select(((((pn1)) + -1) /s 4) > 0, 0, (((pn1)) + -1) /s 4); ln4 = 0', 'ln4 != ln10', 'ln10 = ln10; ln4 = ln4 + 1')) + 7)
-218 -3 multiple loops
-219 -3 multiple loops
-220 -3 multiple loops
-221 -3 multiple loops
-222 -3 multiple loops
+218 -3 multiple loops, nested, in series, in parallel
+219 -3 multiple loops, in parallel
+220 -3 multiple loops, nested, in series
+221 -3 multiple loops, nested, in series, in parallel
+222 -3 multiple loops, nested, in series
 223 10
-224 -3 multiple loops
+224 -3 multiple loops, nested, in series, in parallel
 225 13
 226 6
 227 6
 228 6
-229 -3 multiple loops
-230 -3 multiple loops
+229 -3 multiple loops, nested, in series
+230 -3 multiple loops, nested, in series
 231 max(8, max(7 + 20*c('ln1; ln4', 'ln4 = (pn0); ln1 = ln1', '(ln1 + 1) != ln4', 'ln4 = ln4; ln1 = ln1 + 1'), 7 + 28*c('ln1; ln4', 'ln4 = (pn0); ln1 = ln1', 'ln1 != ln4', 'ln4 = ln4; ln1 = ln1'), 7 + 43*c('ln1; pn0', 'pn0 = pn0; ln1 = ln1', '(ln1 + 1) != (i32.load@(pn0))', 'pn0 = pn0; ln1 = ln1 + 1')) + 6)
-232 -3 multiple loops
-233 -3 multiple loops
+232 -3 multiple loops, nested, in series
+233 -3 multiple loops, in series
 234 26
 235 25
 236 25
 237 max(113, max(58 + 16*c('ln5; pn1', 'ln5 = (pn3); pn1 = 0', '(pn1 + 1) != ln5', 'ln5 = ln5; pn1 = pn1 + 1'), 73 + 16*c('ln5; pn1', 'ln5 = (pn3); pn1 = 0', '(pn1 + 1) != ln5', 'ln5 = ln5; pn1 = pn1 + 1'), 77 + 16*c('ln5; pn1', 'ln5 = (pn3); pn1 = 0', '(pn1 + 1) != ln5', 'ln5 = ln5; pn1 = pn1 + 1'), 78 + 16*c('ln5; pn1', 'ln5 = (pn3); pn1 = 0', '(pn1 + 1) != ln5', 'ln5 = ln5; pn1 = pn1 + 1'), 82 + 16*c('ln5; pn1', 'ln5 = (pn3); pn1 = 0', '(pn1 + 1) != ln5', 'ln5 = ln5; pn1 = pn1 + 1'), 85 + 16*c('ln5; pn1', 'ln5 = (pn3); pn1 = 0', '(pn1 + 1) != ln5', 'ln5 = ln5; pn1 = pn1 + 1'), 89 + 16*c('ln5; pn1', 'ln5 = (pn3); pn1 = 0', '(pn1 + 1) != ln5', 'ln5 = ln5; pn1 = pn1 + 1')) + 29)
-238 -3 multiple loops
-239 -3 multiple loops
-240 -3 multiple loops
-241 -3 multiple loops
-242 -3 multiple loops
+238 -3 multiple loops, nested, in series, in parallel
+239 -3 multiple loops, nested, in series, in parallel
+240 -3 multiple loops, nested, in series
+241 -3 multiple loops, nested, in series
+242 -3 multiple loops, nested, in series
 243 max(7, 12 + 18*c('ln1; pn0', 'ln1 = (pn0); pn0 = 0', '(pn0 + 1) != ln1', 'ln1 = ln1; pn0 = pn0 + 1') + 3)
-244 -3 multiple loops
+244 -3 multiple loops, nested, in series, in parallel
 245 max(24, max(38 + 44*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 122*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 128*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 129*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 130*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 134*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 135*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 136*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 137*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 138*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 140*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 141*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 142*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 143*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 144*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 145*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 146*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 147*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 148*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 149*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 150*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 151*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 152*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 153*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 154*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 155*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 156*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 157*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 158*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 159*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 160*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 161*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 162*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 163*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 164*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 165*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 166*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 167*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 169*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 170*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 171*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 172*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 173*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 176*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 177*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 178*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 38 + 184*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 44*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 122*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 128*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 129*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 130*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 134*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 135*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 136*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 137*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 138*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 140*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 141*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 142*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 143*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 144*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 145*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 146*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 147*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 148*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 149*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 150*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 151*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 152*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 153*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 154*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 155*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 156*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 157*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 158*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 159*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 160*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 161*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 162*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 163*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 164*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 165*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 166*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 167*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 169*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 170*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 171*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 172*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 173*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 176*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 177*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 178*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1'), 46 + 184*c('ln6', 'ln6 = ln6', '(ln6 + 1) != 111', 'ln6 = ln6 + 1')) + 12)
-246 -3 multiple loops
+246 -3 multiple loops, nested, in series, in parallel
 247 19
 248 27
 249 13
@@ -233,39 +233,39 @@
 254 max(17, max(17 + 17*c('ln2; pn0', 'ln2 = (pn0); pn0 = 0', '(pn0 + 1) < ln2', 'ln2 = ln2; pn0 = pn0 + 1'), 17 + 23*c('ln2; pn0', 'ln2 = (pn0); pn0 = 0', '(pn0 + 1) < ln2', 'ln2 = ln2; pn0 = pn0 + 1')) + 4)
 255 21
 256 -2 multiple exits
-257 max(0, max() + 325)
-258 -3 multiple loops
+257 -4 too many prefixes
+258 -3 multiple loops, nested, in series, in parallel
 259 73
 260 25
 261 4
-262 -3 multiple loops
-263 -3 multiple loops
+262 -3 multiple loops, in series
+263 -3 multiple loops, nested, in series, in parallel
 264 max(26, max(25 + 17*c('ln2; ln4', 'ln4 = ln4; ln2 = (38604)', 'i32.load@(ln2 + ((ln4 + 1) shl 2))', 'ln4 = ln4 + 1; ln2 = ln2'), 25 + 26*c('ln2; ln4', 'ln4 = ln4; ln2 = (38604)', 'i32.load@(ln2 + ((ln4 + 1) shl 2))', 'ln4 = ln4 + 1; ln2 = ln2')) + 4)
 265 60
 266 max(31, 27 + 21*c('ln2; pn1', 'ln2 = ((pn0)) + -1; pn1 = pn1', '(pn1 + 1) < ln2', 'ln2 = ln2; pn1 = pn1 + 1') + 7)
 267 max(37, 27 + 23*c('', '', '(i32.load@(36444)) == 20', '') + 16)
 268 26
 269 max(0, 25 + 26*c('ln3', 'ln3 = ln3', '(ln3 + 1) != 6', 'ln3 = ln3 + 1') + 7)
-270 -3 multiple loops
-271 -2 multiple exits
-272 -2 multiple exits
+270 -3 multiple loops, nested, in series
+271 max(66, 57 + 23*c('ln3', 'ln3 = pn0 + 3', 'i32.load8_u@(ln3)', 'ln3 = ln3 + 1') + 8)
+272 max(57, 48 + 23*c('ln5', 'ln5 = pn0 + 2', 'i32.load8_u@(ln5)', 'ln5 = ln5 + 1') + 8)
 273 max(34, 34 + 25*c('ln3; ln5; pn1', 'ln5 = (pn2 && 255) || ((pn1 && 255) shl 8); pn1 = pn0 + 1; ln3 = (((pn0)) shl 8) || ((pn0))', '(((ln3 shl 8) && 65280) || (i32.load8_u@(pn1))) != ln5', 'ln5 = ln5; pn1 = pn1 + 1; ln3 = ((ln3 shl 8) && 65280) || ((pn1))') + 7)
 274 -2 multiple exits
-275 -3 multiple loops
-276 -3 multiple loops
-277 -3 multiple loops
+275 -3 multiple loops, in series
+276 -3 multiple loops, in series
+277 -3 multiple loops, in series
 278 75
 279 5
 280 42
 281 25
-282 -3 multiple loops
-283 -3 multiple loops
-284 -3 multiple loops
+282 -3 multiple loops, nested, in series, in parallel
+283 -3 multiple loops, nested, in series, in parallel
+284 -3 multiple loops, in series
 285 70
 286 58
 287 25
 288 19
-289 -3 multiple loops
+289 -3 multiple loops, nested, in series, in parallel
 290 max(6, 5 + 18*c('pN0', 'pN0 = pN0', '(pN0 shr_u 3) != 0', 'pN0 = pN0 shr_u 3') + 4)
 291 max(6, 5 + 21*c('pN0', 'pN0 = pN0', '(pN0 shr_u 4) != 0', 'pN0 = pN0 shr_u 4') + 4)
 292 71
@@ -283,7 +283,7 @@
 304 89
 305 58
 306 47
-307 -3 multiple loops
+307 -3 multiple loops, in series
 308 2
 309 126
 310 68
@@ -293,18 +293,18 @@
 314 27
 315 99
 316 52
-317 -3 multiple loops
-318 -3 multiple loops
+317 -3 multiple loops, nested, in series
+318 -3 multiple loops, in series
 319 5
 320 14
 321 5
-322 -3 multiple loops
+322 -3 multiple loops, nested, in series
 323 42
 324 max(30, 14 + 26*c('pn1; pn2', 'pn2 = pn2; pn1 = pn1; pn2 = pn2', '((i32.load@(pn2)) + pn1) >= (i32.load@(pn2))', 'pn2 = pn2; pn1 = pn1; pn2 = pn2') + 19)
-325 -3 multiple loops
+325 -3 multiple loops, nested, in series, in parallel
 326 max(40, max(33 + 17*c('pn1', 'pn1 = (35296)', 'pn1 != (i32.load@(35300))', 'pn1 = pn1 + ln3'), 33 + 26*c('pn1', 'pn1 = (35296)', 'pn1 != (i32.load@(35300))', 'pn1 = pn1 + ln3'), 33 + 54*c('pn1', 'pn1 = (35296)', 'pn1 != (i32.load@(35300))', 'pn1 = pn1 + ln3'), 33 + 55*c('pn1', 'pn1 = (35296)', 'pn1 != (i32.load@(35300))', 'pn1 = pn1 + ln3'), 33 + 59*c('pn1', 'pn1 = (35296)', 'pn1 != (i32.load@(35300))', 'pn1 = pn1 + ln3'), 33 + 61*c('pn1', 'pn1 = (35296)', 'pn1 != (i32.load@(35300))', 'pn1 = pn1 + ln3'), 33 + 65*c('pn1', 'pn1 = (35296)', 'pn1 != (i32.load@(35300))', 'pn1 = pn1 + ln3')) + 10)
 327 max(128, max(66 + 19*c('ln1', 'ln1 = (35296)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1'), 70 + 19*c('ln1', 'ln1 = (35300)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1'), 71 + 19*c('ln1', 'ln1 = (35296)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1'), 72 + 19*c('ln1', 'ln1 = (35296)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1'), 75 + 19*c('ln1', 'ln1 = (35300)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1'), 76 + 19*c('ln1', 'ln1 = (35300)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1'), 77 + 19*c('ln1', 'ln1 = (35296)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1'), 78 + 19*c('ln1', 'ln1 = (35296)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1'), 81 + 19*c('ln1', 'ln1 = (35300)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1'), 82 + 19*c('ln1', 'ln1 = (35300)', '(ln1 + 1) < (i32.load@(35300))', 'ln1 = ln1 + 1')) + 49)
-328 -3 multiple loops
+328 -3 multiple loops, in series
 329 176
 330 max(101, max(64 + 23*c('pn2; pn4', 'pn4 = pn4; pn2 = 0', '(pn2 + 1) != pn4', 'pn4 = pn4; pn2 = pn2 + 1'), 69 + 23*c('pn2; pn4', 'pn4 = pn4; pn2 = 0', '(pn2 + 1) != pn4', 'pn4 = pn4; pn2 = pn2 + 1'), 73 + 23*c('pn2; pn4', 'pn4 = pn4; pn2 = 0', '(pn2 + 1) != pn4', 'pn4 = pn4; pn2 = pn2 + 1')) + 34)
 331 38
@@ -314,21 +314,21 @@
 335 max(0, 106 + 35*c('pn0', 'pn0 = pn0; pn0 = pn0', '((i32.load@(i32.load@(pn0))) + 1) < (i32.load@(i32.load@(pn0)))', 'pn0 = pn0; pn0 = pn0') + 9)
 336 max(155, max(114 + 26*c('ln5; pn2', 'ln5 = (select((((((pn1))) - ((pn0))) + (((pn1)))) < ((pn0)), (pn0), ((((pn1))) - ((pn0))) + (((pn1))))) - (select(((((pn1))) - ((pn0))) > 0, 0, (((pn1))) - ((pn0)))); pn2 = 0', '(pn2 + 1) < ln5', 'ln5 = ln5; pn2 = pn2 + 1'), 122 + 26*c('ln5; pn2', 'ln5 = (select((((((pn1))) - ((pn0))) + (((pn1)))) < ((pn0)), (pn0), ((((pn1))) - ((pn0))) + (((pn1))))) - (select(((((pn1))) - ((pn0))) > 0, 0, (((pn1))) - ((pn0)))); pn2 = 0', '(pn2 + 1) < ln5', 'ln5 = ln5; pn2 = pn2 + 1'), 124 + 26*c('ln5; pn2', 'ln5 = 0; pn2 = 0', '(pn2 + 1) < ln5', 'ln5 = ln5; pn2 = pn2 + 1'), 132 + 26*c('ln5; pn2', 'ln5 = 0; pn2 = 0', '(pn2 + 1) < ln5', 'ln5 = ln5; pn2 = pn2 + 1')) + 40)
 337 103
-338 -3 multiple loops
-339 -3 multiple loops
-340 -3 multiple loops
+338 -3 multiple loops, in series
+339 -3 multiple loops, in series, in parallel
+340 -3 multiple loops, nested
 341 max(0, 17 + 8*c('pn1', 'pn1 = pn0', 'i32.load@(pn1)', 'pn1 = (pn1)') + 9)
-342 -3 multiple loops
+342 -3 multiple loops, nested, in series, in parallel
 343 2
 344 46
-345 -3 multiple loops
+345 -3 multiple loops, in series, in parallel
 346 164
 347 136
 348 59
 349 83
 350 max(68, max(43 + 11*c('ln6; pn3', 'pn3 = pn3; ln6 = 10000', '(ln6 * 10) < pn3', 'pn3 = pn3; ln6 = ln6 * 10'), 44 + 11*c('ln6; pn3', 'pn3 = pn3; ln6 = 10000', '(ln6 * 10) < pn3', 'pn3 = pn3; ln6 = ln6 * 10')) + 27)
 351 max(248, max(88 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 92 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 95 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 98 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 99 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 100 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 101 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 102 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 103 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 104 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 105 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 107 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 108 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 109 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 110 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 111 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 112 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 113 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 114 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 115 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 116 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 117 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 118 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 119 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 120 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 121 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 122 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 123 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 124 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 125 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 126 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 127 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 128 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 129 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 130 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 132 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 133 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 134 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 135 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 136 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 137 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 138 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 139 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 140 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 142 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 144 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 145 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 146 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 147 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 150 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1'), 157 + 32*c('ln5; pn1', 'pn1 = (pn2); ln5 = 0', '(ln5 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln5 = ln5 + 1')) + 96)
-352 -3 multiple loops
+352 -3 multiple loops, nested, in series
 353 52
 354 23
 355 21
@@ -337,15 +337,15 @@
 358 19
 359 19
 360 25
-361 -3 multiple loops
+361 -3 multiple loops, nested, in series, in parallel
 362 13
 363 26
-364 -3 multiple loops
-365 -3 multiple loops
+364 -3 multiple loops, nested, in series
+365 -3 multiple loops, nested, in series
 366 max(31, 29 + 22*c('ln3; pn1', 'pn1 = pn1; ln3 = ln3', '(ln3 + 1) < (i32.load@(pn1))', 'pn1 = pn1; ln3 = ln3 + 1') + 5)
 367 max(24, max(14 + 17*c('ln3; ln4', 'ln4 = ((pn0)); ln3 = ln3', '(ln3 + 1) < ln4', 'ln4 = ln4; ln3 = ln3 + 1'), 14 + 34*c('ln2; ln3', 'ln2 = (pn0); ln3 = ln3', '(ln3 + 1) < (i32.load@(ln2))', 'ln2 = ln2; ln3 = ln3 + 1')) + 13)
 368 18
-369 -3 multiple loops
+369 -3 multiple loops, nested, in series
 370 24
 371 5
 372 5

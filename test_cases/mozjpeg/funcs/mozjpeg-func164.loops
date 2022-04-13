@@ -2,7 +2,7 @@ Loops found in function 164 in these bblocks: 3 9 11 31 33.
 Simple br_if conditions in: 11 33.
 Simple br conditions in: .
 Loop block: [2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45]
-  Loop exits: [38 40 42 45]
+  Loop exits: [40 42 45]
   Looping path: [3 4 5 6 22 25 26 44]
   Looping path: [3 4 5 6 22 25 26 27 44]
   Looping path: [3 4 5 6 22 23 24 25 26 44]
@@ -37,7 +37,7 @@ Loop block: [10 11 12]
   Looping path: [11]
   Path to loop: [0 1 2 3 4 5 6 7 8 9 10]
 Loop block: [30 31 32 33 34 35 36 37 38 39]
-  Loop exits: [38 39]
+  Loop exits: []
   Looping path: [31 36 37]
   Looping path: [31 32 33 34 35 36 37]
   Looping path: [31 36 37]
