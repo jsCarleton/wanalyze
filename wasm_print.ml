@@ -647,12 +647,10 @@ let string_of_cost_of_loops col: string =
 
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = (fidx + w.last_import_func) in
-  Printf.printf "\n%d\n%!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = (List.nth_exn w.code_section fidx) in
   let bblocks       = bblocks_of_expr fn.e in
   let cps           = code_paths_of_bblocks bblocks [[List.hd_exn bblocks]] [] in
-  Printf.printf "# of code paths: %d\n%!" (List.length cps);
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
   (* function source code *)
@@ -760,12 +758,6 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
                             if List.length prefixes = 0 then
                               "-4 too many prefixes"
                             else (
-                              Printf.printf "branchback: %d\n" bback.bbindex;
-                              Printf.printf "exit bb: %d\n" (List.hd_exn exit_bbs).bbindex;
-                              Printf.printf "Prefix paths, weights\n";
-                              Printf.printf "%s" (string_of_code_paths prefixes);
-                              Printf.printf "\nLooping paths, weights\n";
-                              Printf.printf "%s\n" (string_of_code_paths l.looping_paths);
                               let col = cost_of_loops w fn.e param_types local_types prefixes l.looping_paths bback in
                               String.concat["max("; 
                                 string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
@@ -778,14 +770,14 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
           (* the function has more than 1 loop 
               we analyze the loops to determine whether there are 1) loops in series, 2) parallel loops or
               3) nested loops *)
-          | _ ->  Printf.printf "classifying loops in %d\n%!" fnum;
-                  let lc = classify_loops loops bblocks in
+          | _ ->  "-3 multiple loops");
+                 (*  let lc = classify_loops loops in
                     String.concat [
                       "-3 multiple loops"; 
                       if lc.loops_nested    then ", nested" else "";
                       if lc.loops_series    then ", in series" else "";
                       if lc.loops_parallel  then ", in parallel" else "";
-                    ]);
+                    ]); *)
         "\n"])
   (* execution trace of the function *)
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in

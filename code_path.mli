@@ -49,7 +49,7 @@ val compare_cps                     : code_path -> code_path -> int
 val loop_code_paths                 : Bblock.bblock list -> code_path list -> code_path list
 val loops_of_bblocks                : Bblock.bblock list -> loop list
 val ids_with_loops                  : Bblock.bblock list -> int list
-val classify_loops                  : loop list -> Bblock.bblock list -> loops_class
+val classify_loops                  : loop list -> loops_class
 
 (* simple case analysis *)
 val analyze_simple_loop             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list -> Wasm_module.local_type list

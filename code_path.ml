@@ -195,7 +195,7 @@ let rec xcode_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path 
      (Printf.printf "code_paths_to limit exceeded\n%!"; [])
   else
     match nterm with
-      | []        -> Printf.printf "code_paths_to done\n%!"; term
+      | []        -> term
       | hd::tl    ->
           let n = nterms_of_cp_to to_bb hd in
           let t = terms_of_cp_to to_bb hd in
@@ -207,8 +207,7 @@ let code_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list =
     [[from_bb]]
   else
     if to_bb.bbindex > 0 then
-      (Printf.printf "tracing\n%!";
-      xcode_paths_to to_bb [[from_bb]] [] 0)
+      xcode_paths_to to_bb [[from_bb]] [] 0
     else
       code_paths_to to_bb [[from_bb]] [] 0
 
@@ -611,21 +610,17 @@ let loop_pair_parallel (lp: loop*loop): bool =
   if loop_pair_nested lp then
     false
   else 
-    (Printf.printf "parallel - looking for code paths from %d to %d\n%!" (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp));
     let ap =  paths_from_to_loops (fst lp) (snd lp) in
-    Printf.printf "found %d code paths from %d to %d\n%!" (List.length ap) (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp));
     match ap with
-    | []  -> Printf.printf "No path from %d to %d\n%!" (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp)); true
-    | _   -> false)
+    | []  -> true
+    | _   -> false
 
 let loop_pair_series (lp: loop*loop): bool =
   let l1 = fst lp in
   let l2 = snd lp in
   let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
   let loop2 = List.hd_exn l2.loop_bblocks in
-  Printf.printf "series - looking for code paths from %d to %d\n%!" (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp));
   let ap    = paths_from_to_loops l1 l2 in
-  Printf.printf "found %d code paths from %d to %d\n%!" (List.length ap) (loop_hd_bbidx (fst lp)) (loop_hd_bbidx (snd lp));
   match end1.bbindex < loop2.bbindex with
   | true  ->  (List.exists 
                 ~f:(fun p ->
@@ -681,7 +676,7 @@ let classify_loops (ls: loop list) (bbs: bblock list) : loops_class =
     loops_nested    = loops_classify loop_pair_nested ls
   } *)
 
-let classify_loops (ls: loop list) (bbs: bblock list) : loops_class =
+let classify_loops (ls: loop list): loops_class =
   {
     loops_series    = loops_classify loop_pair_series ls;
     loops_parallel  = loops_classify loop_pair_parallel ls;
