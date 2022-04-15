@@ -181,7 +181,7 @@ let step_to (to_bb: bblock) (cp: code_path): (code_path list)*(code_path list) =
   | _     -> (nterms_of_cp_to to_bb cp), (terms_of_cp_to to_bb cp)
 
 let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (lt: int): code_path list =
-  if lt > 10000000 then
+  if lt > 100000 then
     []
   else
     match nterm with
@@ -190,25 +190,25 @@ let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path l
           let n,t = step_to to_bb hd in
             code_paths_to to_bb (List.append n tl) (List.append t term) (lt + (List.length t))
 
-let rec xcode_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (lt: int): code_path list =
-  match nterm with
-    | []        -> Printf.printf "code_paths_to done\n%!"; term
-    | hd::tl    ->
-        if lt >= 395000 && lt mod 4000000 = 0 then
-          Printf.printf "step_to - term paths: %d\n%!" lt; 
-        let n = nterms_of_cp_to to_bb hd in
-        let t = terms_of_cp_to to_bb hd in
-          if lt >= 395000 && lt mod 4000000 = 0 then
-            Printf.printf "code_paths_to to - term paths: %d\n%!" lt; 
-          xcode_paths_to to_bb (List.append n tl) (List.append t term) (lt + (List.length t))
+let rec xcode_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list =
+  if n_iters > 1_000_000_000 then
+     (Printf.printf "code_paths_to limit exceeded\n%!"; [])
+  else
+    match nterm with
+      | []        -> Printf.printf "code_paths_to done\n%!"; term
+      | hd::tl    ->
+          let n = nterms_of_cp_to to_bb hd in
+          let t = terms_of_cp_to to_bb hd in
+            xcode_paths_to to_bb (List.append n tl) (List.append t term) (n_iters + 1)
 
 (* TODO do we want to include the to_bb in the code paths we find? *)
 let code_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list =
   if from_bb.bbindex = to_bb.bbindex then
     [[from_bb]]
   else
-    if to_bb.bbindex = -100 then
-      xcode_paths_to to_bb [[from_bb]] [] 0
+    if to_bb.bbindex > 0 then
+      (Printf.printf "tracing\n%!";
+      xcode_paths_to to_bb [[from_bb]] [] 0)
     else
       code_paths_to to_bb [[from_bb]] [] 0
 
