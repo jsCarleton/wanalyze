@@ -18,8 +18,14 @@ type ebblock =
 let string_of_ebblock (ebb: ebblock): string =
   String.concat [string_of_bblocks ebb.bbs; " "; string_of_int (List.length ebb.exits)]
 
-let exit_bbs_of_bblocks (bbs: bblock list): bblock list =
+let ext_succ_of_bbs (bbs: bblock list): bblock list =
+  List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs)
+    (List.dedup_and_sort ~compare:compare_bbs 
+      (List.fold_left ~init:[] ~f:(fun acc bb -> List.append bb.succ acc) bbs))
+(*
+let edge_bbs_of_bblocks (bbs: bblock list): bblock list =
   List.filter ~f:(fun bb -> (List.exists ~f:(fun bb' -> bb_not_in_bblocks bb' bbs) bb.succ)) bbs
+*)
 
 let exits_of_bbs (entry_bb: bblock) (exit_bbs: bblock list): ebb_exit list =
   List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_to entry_bb exit_bb}) exit_bbs
@@ -27,9 +33,11 @@ let exits_of_bbs (entry_bb: bblock) (exit_bbs: bblock list): ebb_exit list =
 let ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
   let build_ebblock' (bbs: bblock list): ebblock =
     let entry_bb  = List.hd_exn bbs in
-    let exits     = exits_of_bbs entry_bb (exit_bbs_of_bblocks bbs) in
     Printf.printf "ebb entry: %d\n%!" entry_bb.bbindex;
     Printf.printf "  ebb blocks: %s\n%!" (string_of_bblocks bbs);
+    let exit_bbs  = ext_succ_of_bbs bbs in
+    Printf.printf "  ebb exits: %s\n%!" (string_of_bblocks exit_bbs);
+    let exits     = exits_of_bbs entry_bb (ext_succ_of_bbs bbs) in
     List.iter ~f:(fun e -> Printf.printf "  %d paths to exit %d\n%!" (List.length e.cps) e.exit_bb.bbindex) exits;
     {entry_bb; bbs; exits}
   in

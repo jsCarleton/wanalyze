@@ -43,6 +43,9 @@ let bb_type_of_opcode (op: int): bb_type =
   | (* return *)      0x0f -> BB_return
   | _                      -> failwith (sprintf "Invalid opcode for bb %x" op)
 
+let compare_bbs (b1: bblock) (b2: bblock): int =
+  Int.compare b1.bbindex b2.bbindex
+
 let bb_in_bblocks (bb: bblock) (bbs: bblock list): bool =
   List.exists ~f:(fun bb' -> bb.bbindex = bb'.bbindex) bbs
 
