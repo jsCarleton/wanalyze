@@ -4,7 +4,7 @@ digraph finite_state_machine {
     labelfontsize = 16
     labelfontcolor = black
     labelfontname = "Helvetica"
-    node [shape = doublecircle]; 0 160;
+    node [shape = doublecircle]; 0 E ;
     node [shape = circle];
     0 -> 1[label="block"];
     1 -> 2[label="~br_if"];
@@ -13,6 +13,7 @@ digraph finite_state_machine {
     3 -> 4[label="if"];
     3 -> 6[label="~if"];
     4 -> 9[label="br"];
+    5 -> 6[label="end"];
     6 -> 7[label="if"];
     6 -> 8[label="~if"];
     7 -> 8[label="end"];
@@ -35,6 +36,7 @@ digraph finite_state_machine {
     20 -> 21[label="if"];
     20 -> 23[label="~if"];
     21 -> 116[label="br"];
+    22 -> 23[label="end"];
     23 -> 24[label="loop"];
     24 -> 25[label="loop"];
     25 -> 26[label="~br_if"];
@@ -44,6 +46,7 @@ digraph finite_state_machine {
     28 -> 29[label="if"];
     28 -> 31[label="~if"];
     29 -> 32[label="br"];
+    30 -> 31[label="end"];
     31 -> 32[label="end"];
     32 -> 33[label="if"];
     32 -> 57[label="~if"];
@@ -74,6 +77,7 @@ digraph finite_state_machine {
     49 -> 47[color="red" fontcolor="red" label="br_if"];
     50 -> 51[label="end"];
     51 -> 54[label="br"];
+    52 -> 53[label="end"];
     53 -> 54[label="end"];
     54 -> 55[label="~br_if"];
     54 -> 34[color="red" fontcolor="red" label="br_if"];
@@ -84,6 +88,7 @@ digraph finite_state_machine {
     59 -> 60[label="if"];
     59 -> 62[label="~if"];
     60 -> 86[label="br"];
+    61 -> 62[label="end"];
     62 -> 63[label="if"];
     62 -> 85[label="~if"];
     63 -> 64[label="loop"];
@@ -116,6 +121,7 @@ digraph finite_state_machine {
     81 -> 68[color="red" fontcolor="red" label="br_if"];
     82 -> 83[label="end"];
     83 -> 86[label="br"];
+    84 -> 85[label="end"];
     85 -> 86[label="end"];
     86 -> 87[label="~br_if"];
     86 -> 58[color="red" fontcolor="red" label="br_if"];
@@ -218,5 +224,5 @@ digraph finite_state_machine {
     156 -> 156[color="red" fontcolor="red" label="br_if"];
     157 -> 158[label="end"];
     158 -> 159[label="end"];
-    159 -> 160[label="end"];
+    159 -> E[label="end"];
 }

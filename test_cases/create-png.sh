@@ -1,6 +1,6 @@
 for FILE in "$1"/funcs/*.bblocks; do
     nbb=$(wc -l <"$FILE")
-    if [ $nbb -gt 200 ]
+    if [ $nbb -gt 515 ]
     then
         echo "file too large $FILE"
     else

@@ -4,17 +4,19 @@ digraph finite_state_machine {
     labelfontsize = 16
     labelfontcolor = black
     labelfontname = "Helvetica"
-    node [shape = doublecircle]; 0 120;
+    node [shape = doublecircle]; 0 E U ;
     node [shape = circle];
     0 -> 1[label="block"];
     1 -> 2[label="block"];
     2 -> 3[label="if"];
     2 -> 5[label="~if"];
     3 -> 81[label="br"];
+    4 -> 5[label="end"];
     5 -> 6[label="block"];
     6 -> 7[label="if"];
     6 -> 9[label="~if"];
     7 -> 18[label="br"];
+    8 -> 9[label="end"];
     9 -> 10[label="loop"];
     10 -> 11[label="~br_if"];
     10 -> 81[label="br_if"];
@@ -44,6 +46,7 @@ digraph finite_state_machine {
     27 -> 28[label="if"];
     27 -> 30[label="~if"];
     28 -> 36[label="br"];
+    29 -> 30[label="end"];
     30 -> 31[label="loop"];
     31 -> 32[label="if"];
     31 -> 33[label="~if"];
@@ -88,7 +91,10 @@ digraph finite_state_machine {
     58 -> 59[label="~br_if"];
     58 -> 54[color="red" fontcolor="red" label="br_if"];
     59 -> 76[label="br"];
-    62 -> 120[label="unreachable"];
+    60 -> U[label="unreachable"];
+    61 -> 62[label="end"];
+    62 -> U[label="unreachable"];
+    63 -> 64[label="end"];
     64 -> 65[label="loop"];
     65 -> 66[label="block"];
     66 -> 67[label="~br_if"];
@@ -111,6 +117,7 @@ digraph finite_state_machine {
     77 -> 46[color="red" fontcolor="red" label="br_if"];
     78 -> 79[label="end"];
     79 -> 86[label="br"];
+    80 -> 81[label="end"];
     81 -> 82[label="~br_if"];
     81 -> 86[label="br_if"];
     82 -> 83[label="loop"];
@@ -128,6 +135,7 @@ digraph finite_state_machine {
     92 -> 93[label="~br_if"];
     92 -> 111[label="br_if"];
     93 -> 119[label="br"];
+    94 -> 95[label="end"];
     95 -> 96[label="~br_if"];
     95 -> 119[label="br_if"];
     96 -> 97[label="~br_if"];
@@ -154,12 +162,14 @@ digraph finite_state_machine {
     109 -> 119[label="br_if"];
     110 -> 111[label="end"];
     111 -> 119[label="br"];
+    112 -> 113[label="end"];
     113 -> 114[label="~br_if"];
     113 -> 118[label="br_if"];
     114 -> 119[label="br"];
+    115 -> 116[label="end"];
     116 -> 117[label="~br_if"];
     116 -> 119[label="br_if"];
     117 -> 118[label="end"];
     118 -> 119[label="end"];
-    119 -> 120[label="end"];
+    119 -> E[label="end"];
 }

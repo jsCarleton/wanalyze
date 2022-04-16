@@ -43,6 +43,21 @@ let bb_type_of_opcode (op: int): bb_type =
   | (* return *)      0x0f -> BB_return
   | _                      -> failwith (sprintf "Invalid opcode for bb %x" op)
 
+let bb_in_bblocks (bb: bblock) (bbs: bblock list): bool =
+  List.exists ~f:(fun bb' -> bb.bbindex = bb'.bbindex) bbs
+
+let bb_not_in_bblocks (bb: bblock) (bbs: bblock list): bool =
+  List.for_all ~f:(fun bb' -> bb.bbindex <> bb'.bbindex) bbs
+    
+let indexes_of_bblocks (bbs: bblock list): int list =
+  List.map ~f:(fun x -> x.bbindex) bbs
+
+let string_of_ints (ints: int list): string =
+    String.concat ~sep:" " (List.map ~f:string_of_int ints)
+
+let string_of_bblocks (bbs: bblock list): string =
+  String.concat ["["; string_of_ints (indexes_of_bblocks bbs); "]"]
+  
 let mult_succ_count (bblocks: bblock list): int =
   List.fold bblocks ~init:0 ~f:(fun a x -> match x.succ with |[] | [_] -> a | _ -> a+1)
 

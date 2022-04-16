@@ -191,7 +191,7 @@ let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path l
             code_paths_to to_bb (List.append n tl) (List.append t term) (lt + (List.length t))
 
 let rec xcode_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list =
-  if n_iters > 1_000_000_000 then
+  if n_iters > 1_000_000 then
      (Printf.printf "code_paths_to limit exceeded\n%!"; [])
   else
     match nterm with

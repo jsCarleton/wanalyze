@@ -15,6 +15,11 @@ type bblock =
   mutable br_dest:	bblock option;  (* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)
 }
 
+val bb_in_bblocks         : bblock -> bblock list-> bool
+val bb_not_in_bblocks     : bblock -> bblock list-> bool
+val string_of_ints        : int list -> string
+val indexes_of_bblocks    : bblock list -> int list
+val string_of_bblocks     : bblock list -> string
 val expr_of_bblock        : Wasm_module.expr -> bblock -> Wasm_module.expr
 val bblocks_of_expr       : Wasm_module.expr -> bblock list -> bblock -> bblock list
 val set_br_dest           : bblock list -> int -> unit

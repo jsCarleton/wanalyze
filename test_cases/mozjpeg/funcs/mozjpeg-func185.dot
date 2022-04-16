@@ -4,7 +4,7 @@ digraph finite_state_machine {
     labelfontsize = 16
     labelfontcolor = black
     labelfontname = "Helvetica"
-    node [shape = doublecircle]; 0 235;
+    node [shape = doublecircle]; 0 E U ;
     node [shape = circle];
     0 -> 1[label="block"];
     1 -> 2[label="block"];
@@ -51,6 +51,7 @@ digraph finite_state_machine {
     29 -> 30[label="if"];
     29 -> 32[label="~if"];
     30 -> 29[color="red" fontcolor="red" label="br"];
+    31 -> 32[label="end"];
     32 -> 33[label="end"];
     33 -> 34[label="end"];
     34 -> 35[label="block"];
@@ -60,6 +61,7 @@ digraph finite_state_machine {
     37 -> 38[label="if"];
     37 -> 40[label="~if"];
     38 -> 213[label="br"];
+    39 -> 40[label="end"];
     40 -> 41[label="block"];
     41 -> 42[label="block"];
     42 -> 43[label="block"];
@@ -79,6 +81,7 @@ digraph finite_state_machine {
     51 -> 51[color="red" fontcolor="red" label="br_if"];
     52 -> 53[label="end"];
     53 -> 57[label="br"];
+    54 -> 55[label="end"];
     55 -> 56[label="~br_if"];
     55 -> 57[label="br_if"];
     56 -> 57[label="end"];
@@ -92,6 +95,7 @@ digraph finite_state_machine {
     62 -> 63[label="~br_if"];
     62 -> 65[label="br_if"];
     63 -> 82[label="br"];
+    64 -> 65[label="end"];
     65 -> 66[label="block"];
     66 -> 67[label="if"];
     66 -> 69[label="~if"];
@@ -128,6 +132,7 @@ digraph finite_state_machine {
     88 -> 89[label="~br_if"];
     88 -> 93[label="br_if"];
     89 -> 93[label="br"];
+    90 -> 91[label="end"];
     91 -> 92[label="~br_if"];
     91 -> 93[label="br_if"];
     92 -> 93[label="end"];
@@ -147,7 +152,10 @@ digraph finite_state_machine {
     101 -> 102[label="~br_if"];
     101 -> 101[color="red" fontcolor="red" label="br_if"];
     102 -> 134[label="br"];
-    105 -> 235[label="unreachable"];
+    103 -> U[label="unreachable"];
+    104 -> 105[label="end"];
+    105 -> U[label="unreachable"];
+    106 -> 107[label="end"];
     107 -> 108[label="loop"];
     108 -> 109[label="if"];
     108 -> 110[label="~if"];
@@ -156,6 +164,7 @@ digraph finite_state_machine {
     110 -> 108[color="red" fontcolor="red" label="br_if"];
     111 -> 112[label="end"];
     112 -> 134[label="br"];
+    113 -> 114[label="end"];
     114 -> 115[label="if"];
     114 -> 128[label="~if"];
     115 -> 116[label="loop"];
@@ -165,11 +174,15 @@ digraph finite_state_machine {
     118 -> 119[label="~br_if"];
     118 -> 122[label="br_if"];
     119 -> 122[label="br"];
+    120 -> 121[label="end"];
     121 -> 122[label="end"];
     122 -> 123[label="~br_if"];
     122 -> 116[color="red" fontcolor="red" label="br_if"];
     123 -> 134[label="br"];
-    126 -> 235[label="unreachable"];
+    124 -> U[label="unreachable"];
+    125 -> 126[label="end"];
+    126 -> U[label="unreachable"];
+    127 -> 128[label="end"];
     128 -> 129[label="loop"];
     129 -> 130[label="if"];
     129 -> 131[label="~if"];
@@ -181,7 +194,10 @@ digraph finite_state_machine {
     134 -> 135[label="~br_if"];
     134 -> 96[color="red" fontcolor="red" label="br_if"];
     135 -> 194[label="br"];
-    138 -> 235[label="unreachable"];
+    136 -> U[label="unreachable"];
+    137 -> 138[label="end"];
+    138 -> U[label="unreachable"];
+    139 -> 140[label="end"];
     140 -> 141[label="loop"];
     141 -> 142[label="if"];
     141 -> 143[label="~if"];
@@ -200,7 +216,10 @@ digraph finite_state_machine {
     150 -> 151[label="~br_if"];
     150 -> 148[color="red" fontcolor="red" label="br_if"];
     151 -> 181[label="br"];
-    154 -> 235[label="unreachable"];
+    152 -> U[label="unreachable"];
+    153 -> 154[label="end"];
+    154 -> U[label="unreachable"];
+    155 -> 156[label="end"];
     156 -> 157[label="loop"];
     157 -> 158[label="block"];
     158 -> 159[label="if"];
@@ -208,11 +227,13 @@ digraph finite_state_machine {
     159 -> 160[label="~br_if"];
     159 -> 163[label="br_if"];
     160 -> 163[label="br"];
+    161 -> 162[label="end"];
     162 -> 163[label="end"];
     163 -> 164[label="~br_if"];
     163 -> 157[color="red" fontcolor="red" label="br_if"];
     164 -> 165[label="end"];
     165 -> 181[label="br"];
+    166 -> 167[label="end"];
     167 -> 168[label="if"];
     167 -> 177[label="~if"];
     168 -> 169[label="loop"];
@@ -222,7 +243,10 @@ digraph finite_state_machine {
     171 -> 172[label="~br_if"];
     171 -> 169[color="red" fontcolor="red" label="br_if"];
     172 -> 181[label="br"];
-    175 -> 235[label="unreachable"];
+    173 -> U[label="unreachable"];
+    174 -> 175[label="end"];
+    175 -> U[label="unreachable"];
+    176 -> 177[label="end"];
     177 -> 178[label="loop"];
     178 -> 179[label="~br_if"];
     178 -> 178[color="red" fontcolor="red" label="br_if"];
@@ -232,6 +256,7 @@ digraph finite_state_machine {
     181 -> 141[color="red" fontcolor="red" label="br_if"];
     182 -> 183[label="end"];
     183 -> 194[label="br"];
+    184 -> 185[label="end"];
     185 -> 186[label="if"];
     185 -> 187[label="~if"];
     186 -> 187[label="end"];
@@ -261,6 +286,7 @@ digraph finite_state_machine {
     202 -> 200[color="red" fontcolor="red" label="br_if"];
     203 -> 204[label="end"];
     204 -> 213[label="br"];
+    205 -> 206[label="end"];
     206 -> 207[label="~br_if"];
     206 -> 213[label="br_if"];
     207 -> 208[label="loop"];
@@ -276,11 +302,13 @@ digraph finite_state_machine {
     214 -> 215[label="~br_if"];
     214 -> 218[label="br_if"];
     215 -> 218[label="br"];
+    216 -> 217[label="end"];
     217 -> 218[label="end"];
     218 -> 219[label="block"];
     219 -> 220[label="if"];
     219 -> 222[label="~if"];
     220 -> 223[label="br"];
+    221 -> 222[label="end"];
     222 -> 223[label="end"];
     223 -> 224[label="if"];
     223 -> 230[label="~if"];
@@ -288,6 +316,7 @@ digraph finite_state_machine {
     225 -> 226[label="if"];
     225 -> 228[label="~if"];
     226 -> 229[label="br"];
+    227 -> 228[label="end"];
     228 -> 229[label="end"];
     229 -> 230[label="end"];
     230 -> 231[label="block"];
@@ -296,5 +325,5 @@ digraph finite_state_machine {
     232 -> 233[label="~br_if"];
     232 -> 234[label="br_if"];
     233 -> 234[label="end"];
-    234 -> 235[label="end"];
+    234 -> E[label="end"];
 }

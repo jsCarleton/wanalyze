@@ -4,7 +4,7 @@ digraph finite_state_machine {
     labelfontsize = 16
     labelfontcolor = black
     labelfontname = "Helvetica"
-    node [shape = doublecircle]; 0 73;
+    node [shape = doublecircle]; 0 E U R ;
     node [shape = circle];
     0 -> 1[label="if"];
     0 -> 70[label="~if"];
@@ -34,6 +34,7 @@ digraph finite_state_machine {
     16 -> 16[color="red" fontcolor="red" label="br_if"];
     17 -> 18[label="end"];
     18 -> 26[label="br"];
+    19 -> 20[label="end"];
     20 -> 21[label="~br_if"];
     20 -> 26[label="br_if"];
     21 -> 22[label="~br_if"];
@@ -50,7 +51,10 @@ digraph finite_state_machine {
     29 -> 30[label="~br_if"];
     29 -> 8[color="red" fontcolor="red" label="br_if"];
     30 -> 61[label="br"];
-    33 -> 73[label="unreachable"];
+    31 -> U[label="unreachable"];
+    32 -> 33[label="end"];
+    33 -> U[label="unreachable"];
+    34 -> 35[label="end"];
     35 -> 36[label="loop"];
     36 -> 37[label="if"];
     36 -> 58[label="~if"];
@@ -71,6 +75,7 @@ digraph finite_state_machine {
     46 -> 46[color="red" fontcolor="red" label="br_if"];
     47 -> 48[label="end"];
     48 -> 55[label="br"];
+    49 -> 50[label="end"];
     50 -> 51[label="~br_if"];
     50 -> 55[label="br_if"];
     51 -> 52[label="loop"];
@@ -88,7 +93,8 @@ digraph finite_state_machine {
     60 -> 61[label="end"];
     61 -> 62[label="if"];
     61 -> 64[label="~if"];
-    62 -> 73[label="return"];
+    62 -> R[label="return"];
+    63 -> 64[label="end"];
     64 -> 65[label="~br_if"];
     64 -> 4[color="red" fontcolor="red" label="br_if"];
     65 -> 66[label="end"];
@@ -100,5 +106,5 @@ digraph finite_state_machine {
     70 -> 71[label="if"];
     70 -> 72[label="~if"];
     71 -> 72[label="end"];
-    72 -> 73[label="end"];
+    72 -> E[label="end"];
 }

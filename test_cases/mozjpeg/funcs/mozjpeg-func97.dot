@@ -4,12 +4,12 @@ digraph finite_state_machine {
     labelfontsize = 16
     labelfontcolor = black
     labelfontname = "Helvetica"
-    node [shape = doublecircle]; 0 5;
+    node [shape = doublecircle]; 0 E ;
     node [shape = circle];
     0 -> 1[label="block"];
     1 -> 2[label="end"];
     2 -> 3[label="if"];
     2 -> 4[label="~if"];
     3 -> 4[label="end"];
-    4 -> 5[label="end"];
+    4 -> E[label="end"];
 }

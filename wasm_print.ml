@@ -7,6 +7,8 @@ open Symbolic_expr
 open Code_path
 open Execution
 open Cost
+open Cfg
+open Ebblock
 
 (* Part 1 *)
 (* Printable strings for basic types *)
@@ -275,12 +277,7 @@ let string_of_br_dest (bb: bblock option) : string =
   match bb with 
     | Some x -> string_of_int x.bbindex
     | _ -> ""
-let string_of_ints (ints: int list): string =
-    String.concat ~sep:" " (List.map ~f:string_of_int ints)
-let indexes_of_bblocks (bbs: bblock list): int list =
-  List.map ~f:(fun x -> x.bbindex) bbs
-let string_of_bblocks (bbs: bblock list): string =
-  String.concat ["["; string_of_ints (indexes_of_bblocks bbs); "]"]
+
 let string_of_bblock_detail (s: bblock) : string = 
   sprintf "%5d %5d %5d %5d   %-5s %6s %-11s s=%s p=%s\n" 
     s.bbindex
@@ -417,61 +414,6 @@ let string_of_state (print_locals: bool) (nparams: int) (state: program_state): 
 (* Part 4 *)
 (* creating the .dot file that contains the flow graph definition *)
 
-let graph_node (src: int) (label: string) (dest: int): string =
-  match src >= dest with
-  | true  -> 
-      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
-  | false -> 
-      String.concat ["    "; string_of_int src; " -> "; string_of_int dest; "[label=\""; label; "\"];\n"]
-
-let graph_bblock (index: int) (bbtype: bb_type) (succ: bblock list) (pred: bblock list) (last: int): string =
-  match List.length pred > 0 || index = 0 with
-  | true ->
-    (match bbtype with
-    | BB_unreachable  -> graph_node index "unreachable" last
-    | BB_end          -> 
-        (match succ with 
-          | []  -> graph_node index "end" last 
-          | _   -> graph_node index "end" (List.nth_exn succ 0).bbindex)
-    | BB_block        -> graph_node index "block" (List.nth_exn succ 0).bbindex
-    | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0).bbindex
-    | BB_if           ->
-        String.concat [
-          graph_node index "if" (List.nth_exn succ 0).bbindex;
-          graph_node index "~if" (List.nth_exn succ 1).bbindex;
-        ]
-    | BB_else         -> graph_node index "else" (List.nth_exn succ 0).bbindex
-    | BB_br_if        ->
-        String.concat [
-          graph_node index "~br_if" (List.nth_exn succ 0).bbindex;
-          graph_node index "br_if" (List.nth_exn succ 1).bbindex;
-        ]
-    | BB_br           -> graph_node index "br" (List.nth_exn succ 0).bbindex
-    | BB_br_table     -> String.concat (List.map ~f:(graph_node index "br_table") (indexes_of_bblocks succ))
-    | BB_return       -> graph_node index "return" last
-    | BB_unknown      -> failwith "Unknown bb type in graph_bblock")
-  | _ -> ""
-
-let graph_prefix (module_name: string) (func_idx: int) (last: int): string =
-  String.concat[
-          "digraph finite_state_machine {\n";
-          "    label = \""; module_name; " - function "; string_of_int func_idx; "\"\n";
-          "    labelloc =  t\n";
-          "    labelfontsize = 16\n";
-          "    labelfontcolor = black\n";
-          "    labelfontname = \"Helvetica\"\n";
-          "    node [shape = doublecircle]; 0 "; string_of_int last; ";\n";
-          "    node [shape = circle];\n"]
-let graph_suffix = "}\n"
-let rec graph_bblocks' (bblocks: bblock list) (last: int) (acc: string): string =
-  match bblocks with
-  | [] -> acc
-  | hd::tl -> graph_bblocks' tl last (String.concat [acc; graph_bblock hd.bbindex hd.bbtype hd.succ hd.pred last])
-let graph_bblocks (module_name: string) (func_idx: int) (bblocks: bblock list): string =
-  let last = (List.length bblocks) in
-  String.concat [ graph_prefix module_name func_idx last; 
-                  graph_bblocks' bblocks (List.length bblocks) "";
-                  graph_suffix]
 
 (* Part 5 *)
 (* printing analysis results *)
@@ -647,9 +589,12 @@ let string_of_cost_of_loops col: string =
 
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = (fidx + w.last_import_func) in
+  Printf.printf "function %d\n%!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = (List.nth_exn w.code_section fidx) in
   let bblocks       = bblocks_of_expr fn.e in
+  let _: ebblock list
+                    = ebblocks_of_bblocks bblocks in
   let cps           = code_paths_of_bblocks bblocks [[List.hd_exn bblocks]] [] in
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
