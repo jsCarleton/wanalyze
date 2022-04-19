@@ -149,7 +149,13 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
   let rec graph_node (ebb: ebblock): string  =
     match ebb.nested_ebbs with
     | []  -> String.concat["    node [shape = box] "  ; name_of_ebb ebb; "[label=\""; label_of_ebb ebb; "\"]\n"]
-    | _   -> String.concat (List.map ~f:graph_node ebb.nested_ebbs)
+    | _   -> String.concat [
+              "    subgraph cluster_"; name_of_ebb ebb; "{\n";
+              "    label = \"\";\n";
+              "    color = red;\n";
+              String.concat (List.map ~f:graph_node ebb.nested_ebbs);
+              "    }\n"
+             ]
   in
 
   let graph_terminal (src_ebb: ebblock) (dest: int): string =
