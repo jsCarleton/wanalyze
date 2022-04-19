@@ -593,8 +593,7 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = (List.nth_exn w.code_section fidx) in
   let bblocks       = bblocks_of_expr fn.e in
-  let _: ebblock list
-                    = ebblocks_of_bblocks bblocks in
+  let ebbs          = ebblocks_of_bblocks bblocks in
   let cps           = code_paths_of_bblocks bblocks [[List.hd_exn bblocks]] [] in
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
@@ -607,9 +606,13 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
   let oc = Out_channel.create (String.concat[fname; ".bblocks"]) in
     Out_channel.output_string oc (string_of_bblocks_detail bblocks);
     Out_channel.close oc;
-  (* graphviz command file for function flow graph *)
+  (* graphviz command file for bblock flow graph *)
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
-    Out_channel.output_string oc (graph_bblocks w.module_name fnum bblocks);
+    Out_channel.output_string oc (cfg_dot_of_bblocks w.module_name fnum bblocks);
+    Out_channel.close oc;
+  (* graphviz command file for ebblock flow graph *)
+  let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
+    Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
     Out_channel.close oc;
   (* code paths *)
   let oc = Out_channel.create (String.concat[fname; ".paths"]) in

@@ -1,46 +1,24 @@
 Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values
-allium,29,4,[0 3 4] 19,if
-allium,29,23,[0 3 23] 23,simple br,pn2 = (pn0 + pn2) - 4; pn0 = pn0,pn0 < pn2,pn0; pn2,pn2 = pn2; pn0 = pn0
+allium,29,4,[0 2 3 4] 20,if
+allium,29,23,[0 2 3 22 23] 25,simple br,pn2 = (pn0 + pn2) - 4; pn0 = pn0,pn0 < pn2,pn0; pn2,pn2 = pn2; pn0 = pn0
 allium,30,1,[0 1] 13,simple br,pn0 = pn0,pn0 && 3,pn0,pn0 = pn0
-allium,30,17,[0 17] 13,simple br,ln4 = pn0 + pn2; pn0 = pn0,pn0 < ln4,pn0; ln4,ln4 = ln4; pn0 = pn0
-allium,35,4,[0 3 4] 387,if
-allium,40,10,[0 1 6 7 9 10] 21,if
-allium,40,10,[0 1 6 8 9 10] 18,if
-allium,41,8,[0 1 2 3 4 5 7 8] 99,if
-allium,41,8,[0 1 2 3 4 6 7 8] 92,if
-allium,41,8,[0 2 3 4 5 7 8] 96,if
-allium,41,8,[0 2 3 4 6 7 8] 89,if
-allium,42,4,[0 3 4] 732,if
-allium,43,6,[0 1 2 5 6] 428,if
-allium,43,6,[0 2 5 6] 425,if
-allium,44,3,[0 3] 60,simple br_if,pN4 = pN4; ln16 = ln16,(i64.extend_i32_u(ln16 + 1)) < pN4,ln16; pN4,pN4 = pN4; ln16 = ln16 + 1
-allium,45,6,[0 3 6] 18,simple br_if,lN8 = lN8,(lN8 + 1) < 8,lN8,lN8 = lN8 + 1
+allium,30,17,[0 16 17] 14,simple br,ln4 = pn0 + pn2; pn0 = pn0,pn0 < ln4,pn0; ln4,ln4 = ln4; pn0 = pn0
+allium,35,4,[0 2 3 4] 388,if
+allium,40,10,[0 1 2 4 5 6 7 8 9 10] 34,if
+allium,40,10,[0 1 5 6 7 8 9 10] 27,if
+allium,41,8,[0 1 2 3 4 5 6 7 8] 101,if
+allium,42,4,[0 2 3 4] 733,if
+allium,43,6,[0 1 2 4 5 6] 429,if
+allium,44,3,[0 2 3] 61,simple br_if,pN4 = pN4; ln16 = ln16,(i64.extend_i32_u(ln16 + 1)) < pN4,ln16; pN4,pN4 = pN4; ln16 = ln16 + 1
+allium,45,6,[0 2 3 5 6] 20,simple br_if,lN8 = lN8,(lN8 + 1) < 8,lN8,lN8 = lN8 + 1
 allium,58,3,[0 1 2 3] 327,if
-allium,58,3,[0 1 3] 324,if
-allium,59,3,[0 3] 337,if
-allium,63,8,[0 1 2 3 5 6 8] 264,simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 1 2 3 5 7 8] 264,simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 1 2 4 5 6 8] 264,simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 1 2 4 5 7 8] 264,simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 2 3 5 6 8] 261,simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 2 3 5 7 8] 261,simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 2 4 5 6 8] 261,simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 2 4 5 7 8] 261,simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
+allium,59,3,[0 2 3] 338,if
+allium,63,8,[0 1 2 3 4 5 6 7 8] 268,simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
 allium,67,0,[0] 421,simple br,ln52 = ln52,(ln52 + 1) != 11,ln52,ln52 = ln52 + 1
-allium,68,4,[0 3 4] 367,if
-allium,71,11,[0 1 2 3 4 6 8 9 11] 144,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 3 4 6 8 10 11] 177,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 3 5 6 8 9 11] 148,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 3 5 6 8 10 11] 181,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 7 8 9 11] 139,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 7 8 10 11] 172,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 3 4 6 8 9 11] 141,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 3 4 6 8 10 11] 174,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 3 5 6 8 9 11] 145,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 3 5 6 8 10 11] 178,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 7 8 9 11] 136,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 7 8 10 11] 169,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,72,3,[0 3] 49,simple br_if,pN4 = pN4; ln17 = ln17,(i64.extend_i32_u(ln17 + 1)) < pN4,ln17; pN4,pN4 = pN4; ln17 = ln17 + 1
-allium,73,3,[0 3] 60,simple br_if,pN3 = pN3; ln15 = ln15,(i64.extend_i32_u(ln15 + 1)) < pN3,ln15; pN3,pN3 = pN3; ln15 = ln15 + 1
-allium,75,3,[0 3] 62,simple br_if,pN2 = pN2; pn1 = 0,(i64.extend_i32_u(pn1 + 1)) < pN2,pn1; pN2,pN2 = pN2; pn1 = pn1 + 1
-allium,78,3,[0 3] 9,simple br_if,ln3 = pn2 /u 96; ln4 = ln4,(ln4 + 1) < ln3,ln4; ln3,ln3 = ln3; ln4 = ln4 + 1
+allium,68,4,[0 2 3 4] 368,if
+allium,71,11,[0 1 2 3 4 5 6 7 8 9 10 11] 266,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 1 2 6 7 8 9 10 11] 242,simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,72,3,[0 2 3] 50,simple br_if,pN4 = pN4; ln17 = ln17,(i64.extend_i32_u(ln17 + 1)) < pN4,ln17; pN4,pN4 = pN4; ln17 = ln17 + 1
+allium,73,3,[0 2 3] 61,simple br_if,pN3 = pN3; ln15 = ln15,(i64.extend_i32_u(ln15 + 1)) < pN3,ln15; pN3,pN3 = pN3; ln15 = ln15 + 1
+allium,75,3,[0 2 3] 63,simple br_if,pN2 = pN2; pn1 = 0,(i64.extend_i32_u(pn1 + 1)) < pN2,pn1; pN2,pN2 = pN2; pn1 = pn1 + 1
+allium,78,3,[0 2 3] 10,simple br_if,ln3 = pn2 /u 96; ln4 = ln4,(ln4 + 1) < ln3,ln4; ln3,ln3 = ln3; ln4 = ln4 + 1

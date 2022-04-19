@@ -3,42 +3,28 @@ Simple br_if conditions in: 12 15.
 Simple br conditions in: .
 Loop block: [6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21]
   Loop exits: [21]
-  Looping path: [7 9 10 18 19]
-  Looping path: [7 9 10 11 12 13 14 15 16 17 18 19]
-  Looping path: [7 8 10 18 19]
-  Looping path: [7 8 10 11 12 13 14 15 16 17 18 19]
-  Looping path: [7 9 10 18 19]
-  Looping path: [7 9 10 11 12 13 14 15 16 17 18 19]
-  Looping path: [7 8 10 18 19]
-  Looping path: [7 8 10 11 12 13 14 15 16 17 18 19]
-  Path to loop: [0 1 2 5 6]
-  Path to loop: [0 2 5 6]
+  Looping path: [7 8 9 10 17 18 19]
+  Looping path: [7 8 9 10 11 12 13 14 15 16 17 18 19]
+  Looping path: [7 8 9 10 17 18 19]
+  Looping path: [7 8 9 10 11 12 13 14 15 16 17 18 19]
+  Looping path: [7 8 9 10 17 18 19]
+  Looping path: [7 8 9 10 11 12 13 14 15 16 17 18 19]
+  Looping path: [7 8 9 10 17 18 19]
+  Looping path: [7 8 9 10 11 12 13 14 15 16 17 18 19]
+  Path to loop: [0 1 2 4 5 6]
 Loop block: [11 12 13]
   Loop exits: [13]
   Looping path: [12]
   Looping path: [12]
-  Path to loop: [0 1 2 5 6 7 8 10 11]
-  Path to loop: [0 1 2 5 6 7 9 10 11]
-  Path to loop: [0 2 5 6 7 8 10 11]
-  Path to loop: [0 2 5 6 7 9 10 11]
+  Path to loop: [0 1 2 4 5 6 7 8 9 10 11]
 Loop block: [14 15 16]
   Loop exits: [16]
   Looping path: [15]
   Looping path: [15]
-  Path to loop: [0 1 2 5 6 7 8 10 11 12 13 14]
-  Path to loop: [0 1 2 5 6 7 9 10 11 12 13 14]
-  Path to loop: [0 2 5 6 7 8 10 11 12 13 14]
-  Path to loop: [0 2 5 6 7 9 10 11 12 13 14]
+  Path to loop: [0 1 2 4 5 6 7 8 9 10 11 12 13 14]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 5 6] 428
-cost:    428; 
-stack:   []; 
-params:  [pn0, pn1, pn2]; 
-locals:  [gn2 (STACKTOP) + 128, rn0, pn0 + 72, gn2 (STACKTOP), gn2 (STACKTOP) - -64, (gn2 (STACKTOP) - -64) + 8, (gn2 (STACKTOP) - -64) + 16, (gn2 (STACKTOP) - -64) + 24, (gn2 (STACKTOP) - -64) + 32, (gn2 (STACKTOP) - -64) + 40, (gn2 (STACKTOP) - -64) + 48, (gn2 (STACKTOP) - -64) + 56, (gn2 (STACKTOP) + 128) + 8, (gn2 (STACKTOP) + 128) + 16, (gn2 (STACKTOP) + 128) + 24, (gn2 (STACKTOP) + 128) + 32, (gn2 (STACKTOP) + 128) + 40, (gn2 (STACKTOP) + 128) + 48, (gn2 (STACKTOP) + 128) + 56, pn1, ln23, pn0 - -64, gn2 (STACKTOP) + 8, gn2 (STACKTOP) + 16, gn2 (STACKTOP) + 24, gn2 (STACKTOP) + 32, gn2 (STACKTOP) + 40, gn2 (STACKTOP) + 48, gn2 (STACKTOP) + 56, pn0 + 136, pn0 + 1, pn0 + 2, pn0 + 3, pn0 + 4, pn0 + 5, pn0 + 6, pn0 + 7, pn0 + 8, pn0 + 9, pn0 + 10, pn0 + 11, pn0 + 12, pn0 + 13, pn0 + 14, pn0 + 15, pn0 + 16, pn0 + 17, pn0 + 18, pn0 + 19, pn0 + 20, pn0 + 21, pn0 + 22, pn0 + 23, pn0 + 24, pn0 + 25, pn0 + 26, pn0 + 27, pn0 + 28, pn0 + 29, pn0 + 30, pn0 + 31, pn0 + 32, pn0 + 33, pn0 + 34, pn0 + 35, pn0 + 36, pn0 + 37, pn0 + 38, pn0 + 39, pn0 + 40, pn0 + 41, pn0 + 42, pn0 + 43, pn0 + 44, pn0 + 45, pn0 + 46, pn0 + 47, pn0 + 48, pn0 + 49, pn0 + 50, pn0 + 51, pn0 + 52, pn0 + 53, pn0 + 54, pn0 + 55, pn0 + 56, pn0 + 57, pn0 + 58, pn0 + 59, pn0 + 60, pn0 + 61, pn0 + 62, pn0 + 63, lN96, lN97, lN98, lN99, lN100, lN101, lN102, lN103, lN104, lN105, lN106, lN107, lN108, lN109, lN110, lN111]; 
-globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 192, gn3 (STACK_MAX), 0, 0, 0]
-
-[0 2 5 6] 425
-cost:    425; 
+[0 1 2 4 5 6] 429
+cost:    429; 
 stack:   []; 
 params:  [pn0, pn1, pn2]; 
 locals:  [gn2 (STACKTOP) + 128, rn0, pn0 + 72, gn2 (STACKTOP), gn2 (STACKTOP) - -64, (gn2 (STACKTOP) - -64) + 8, (gn2 (STACKTOP) - -64) + 16, (gn2 (STACKTOP) - -64) + 24, (gn2 (STACKTOP) - -64) + 32, (gn2 (STACKTOP) - -64) + 40, (gn2 (STACKTOP) - -64) + 48, (gn2 (STACKTOP) - -64) + 56, (gn2 (STACKTOP) + 128) + 8, (gn2 (STACKTOP) + 128) + 16, (gn2 (STACKTOP) + 128) + 24, (gn2 (STACKTOP) + 128) + 32, (gn2 (STACKTOP) + 128) + 40, (gn2 (STACKTOP) + 128) + 48, (gn2 (STACKTOP) + 128) + 56, pn1, ln23, pn0 - -64, gn2 (STACKTOP) + 8, gn2 (STACKTOP) + 16, gn2 (STACKTOP) + 24, gn2 (STACKTOP) + 32, gn2 (STACKTOP) + 40, gn2 (STACKTOP) + 48, gn2 (STACKTOP) + 56, pn0 + 136, pn0 + 1, pn0 + 2, pn0 + 3, pn0 + 4, pn0 + 5, pn0 + 6, pn0 + 7, pn0 + 8, pn0 + 9, pn0 + 10, pn0 + 11, pn0 + 12, pn0 + 13, pn0 + 14, pn0 + 15, pn0 + 16, pn0 + 17, pn0 + 18, pn0 + 19, pn0 + 20, pn0 + 21, pn0 + 22, pn0 + 23, pn0 + 24, pn0 + 25, pn0 + 26, pn0 + 27, pn0 + 28, pn0 + 29, pn0 + 30, pn0 + 31, pn0 + 32, pn0 + 33, pn0 + 34, pn0 + 35, pn0 + 36, pn0 + 37, pn0 + 38, pn0 + 39, pn0 + 40, pn0 + 41, pn0 + 42, pn0 + 43, pn0 + 44, pn0 + 45, pn0 + 46, pn0 + 47, pn0 + 48, pn0 + 49, pn0 + 50, pn0 + 51, pn0 + 52, pn0 + 53, pn0 + 54, pn0 + 55, pn0 + 56, pn0 + 57, pn0 + 58, pn0 + 59, pn0 + 60, pn0 + 61, pn0 + 62, pn0 + 63, lN96, lN97, lN98, lN99, lN100, lN101, lN102, lN103, lN104, lN105, lN106, lN107, lN108, lN109, lN110, lN111]; 

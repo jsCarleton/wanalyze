@@ -7,13 +7,13 @@ digraph finite_state_machine {
     node [shape = doublecircle]; 0 E R ;
     node [shape = circle];
     0 -> 1[label="if"];
-    0 -> 3[label="~if"];
+    0 -> 2[label="~if"];
     1 -> R[label="return"];
     2 -> 3[label="end"];
     3 -> 4[label="if"];
-    3 -> 8[label="~if"];
+    3 -> 7[label="~if"];
     4 -> 5[label="if"];
-    4 -> 7[label="~if"];
+    4 -> 6[label="~if"];
     5 -> R[label="return"];
     6 -> 7[label="end"];
     7 -> 8[label="end"];

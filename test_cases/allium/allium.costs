@@ -6,27 +6,27 @@
 21 21
 22 27
 23 26
-24 37
+24 53
 25 21
 26 21
-27 35
+27 37
 28 20
 29 -3 multiple loops
 30 -3 multiple loops
-31 37
+31 38
 32 4
 33 -3 multiple loops
 34 -3 multiple loops
-35 max(178, max(387 + 38*c('ln11; ln75', 'ln11 = rn0; ln75 = pn2', 'ln75 - (64 - ln11)', 'ln11 = (64 - ln11) + ln11; ln75 = ln75 - (64 - ln11)'), 387 + 38*c('ln75', 'ln75 = pn2; ln75 = pn2', 'ln75 - ln75', 'ln75 = ln75 - ln75; ln75 = ln75 - ln75'), 387 + 7253*c('ln11; ln75', 'ln11 = rn0; ln75 = pn2', 'ln75 - (64 - ln11)', 'ln11 = 0; ln75 = ln75 - (64 - ln11)'), 387 + 7253*c('ln75', 'ln75 = pn2; ln75 = pn2', 'ln75 - ln75', 'ln75 = ln75 - ln75; ln75 = ln75 - ln75')) + 63)
+35 max(180, 388 + 7258*c('ln11; ln75', 'ln11 = rn0; ln75 = pn2', 'ln75 - (64 - ln11)', 'ln11 = 0; ln75 = ln75 - (64 - ln11)') + 68)
 36 590
 37 20
 38 87
 39 5716
-40 max(26, max(18 + 22*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0'), 18 + 28*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0'), 21 + 22*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0'), 21 + 28*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0')) + 8)
-41 max(116, max(89 + 80*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 89 + 83*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 89 + 87*c('ln3; ln5', 'ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 89 + 90*c('ln3; ln5', 'ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 92 + 80*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 92 + 83*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 92 + 87*c('ln3; ln5', 'ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 92 + 90*c('ln3; ln5', 'ln3 = rn0; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 96 + 80*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 96 + 83*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 96 + 87*c('ln3; ln5', 'ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 96 + 90*c('ln3; ln5', 'ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 99 + 80*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 99 + 83*c('ln3; ln5; rn0', 'rn0 = rn0; ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == rn0)', 'rn0 = rn0; ln3 = rn0; ln5 = ln5 - ln3'), 99 + 87*c('ln3; ln5', 'ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3'), 99 + 90*c('ln3; ln5', 'ln3 = -1; ln5 = (rn0 - rn0) + pn2', 'not((ln5 - ln3) == -1)', 'ln3 = -1; ln5 = ln5 - ln3')) + 37)
+40 max(40, max(27 + 30*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0'), 34 + 30*c('rn0', 'rn0 = rn0', 'rn0', 'rn0 = rn0')) + 8)
+41 max(118, 101 + 94*c('', '', 'not(-1 == -1)', '') + 39)
 42 -3 multiple loops
 43 -3 multiple loops
-44 max(5, 60 + 498*c('ln16; pN4', 'pN4 = pN4; ln16 = ln16', '(i64.extend_i32_u(ln16 + 1)) < pN4', 'pN4 = pN4; ln16 = ln16 + 1') + 2)
+44 max(5, 61 + 498*c('ln16; pN4', 'pN4 = pN4; ln16 = ln16', '(i64.extend_i32_u(ln16 + 1)) < pN4', 'pN4 = pN4; ln16 = ln16 + 1') + 2)
 45 -3 multiple loops
 46 3
 47 26
@@ -34,33 +34,33 @@
 49 4
 50 9
 51 2
-52 67
+52 73
 53 61
 54 39
 55 46
 56 5
 57 43
-58 max(0, max(324 + 4524*c('ln2', 'ln2 = 0', '(ln2 + 1) != 2', 'ln2 = ln2 + 1'), 324 + 4563*c('ln2', 'ln2 = 0', '(ln2 + 1) != 2', 'ln2 = ln2 + 1'), 327 + 4524*c('ln2', 'ln2 = 0', '(ln2 + 1) != 2', 'ln2 = ln2 + 1'), 327 + 4563*c('ln2', 'ln2 = 0', '(ln2 + 1) != 2', 'ln2 = ln2 + 1')) + 378)
-59 max(26, max(337 + 34*c('pn1; pn2', 'pn1 = rn0; pn2 = pn2', 'pn2 - (64 - pn1)', 'pn1 = (64 - pn1) + pn1; pn2 = pn2 - (64 - pn1)'), 337 + 35*c('pn2', 'pn2 = pn2; pn2 = pn2', 'pn2 - pn2', 'pn2 = pn2 - pn2; pn2 = pn2 - pn2'), 337 + 4553*c('pn2', 'pn2 = pn2', 'pn2 - (64 - 0)', 'pn2 = pn2 - (64 - 0)'), 337 + 4554*c('pn2', 'pn2 = pn2; pn2 = pn2', 'pn2 - pn2', 'pn2 = pn2 - pn2; pn2 = pn2 - pn2')) + 42)
-60 380
+58 max(0, 327 + 4563*c('ln2', 'ln2 = 0', '(ln2 + 1) != 2', 'ln2 = ln2 + 1') + 378)
+59 max(26, 338 + 4560*c('pn2', 'pn2 = pn2; pn2 = pn2', 'pn2 - pn2', 'pn2 = pn2 - pn2; pn2 = pn2 - pn2') + 42)
+60 391
 61 43
 62 46
-63 max(0, max(261 + 1710*c('ln3', 'ln3 = 0', '(ln3 + 2) < 10', 'ln3 = ln3 + 2'), 264 + 1710*c('ln3', 'ln3 = 0', '(ln3 + 2) < 10', 'ln3 = ln3 + 2')) + 326)
+63 max(0, 268 + 1710*c('ln3', 'ln3 = 0', '(ln3 + 2) < 10', 'ln3 = ln3 + 2') + 326)
 64 109
 65 3
 66 106
 67 -3 multiple loops
-68 max(376, max(367 + 42*c('ln4; ln49', 'ln4 = rn0; ln49 = pn2', 'ln49 - (32 - ln4)', 'ln4 = (32 - ln4) + ln4; ln49 = ln49 - (32 - ln4)'), 367 + 42*c('ln49', 'ln49 = pn2; ln49 = pn2', 'ln49 - ln49', 'ln49 = ln49 - ln49; ln49 = ln49 - ln49'), 367 + 6772*c('ln4; ln49', 'ln4 = rn0; ln49 = pn2', 'ln49 - (32 - ln4)', 'ln4 = 0; ln49 = ln49 - (32 - ln4)'), 367 + 6772*c('ln49', 'ln49 = pn2; ln49 = pn2', 'ln49 - ln49', 'ln49 = ln49 - ln49; ln49 = ln49 - ln49')) + 135)
+68 max(378, 368 + 6779*c('ln4; ln49', 'ln4 = rn0; ln49 = pn2', 'ln49 - (32 - ln4)', 'ln4 = 0; ln49 = ln49 - (32 - ln4)') + 140)
 69 52
 70 49
-71 max(0, max(136 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 139 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 141 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 144 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 145 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 148 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 169 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 172 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 174 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 177 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 178 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 181 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1')) + 4)
-72 max(5, 49 + 498*c('ln17; pN4', 'pN4 = pN4; ln17 = ln17', '(i64.extend_i32_u(ln17 + 1)) < pN4', 'pN4 = pN4; ln17 = ln17 + 1') + 2)
-73 max(5, 60 + 293*c('ln15; pN3', 'pN3 = pN3; ln15 = ln15', '(i64.extend_i32_u(ln15 + 1)) < pN3', 'pN3 = pN3; ln15 = ln15 + 1') + 2)
+71 max(0, max(242 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1'), 266 + 43*c('ln3', 'ln3 = 0', '(ln3 + 1) != 8', 'ln3 = ln3 + 1')) + 4)
+72 max(5, 50 + 498*c('ln17; pN4', 'pN4 = pN4; ln17 = ln17', '(i64.extend_i32_u(ln17 + 1)) < pN4', 'pN4 = pN4; ln17 = ln17 + 1') + 2)
+73 max(5, 61 + 293*c('ln15; pN3', 'pN3 = pN3; ln15 = ln15', '(i64.extend_i32_u(ln15 + 1)) < pN3', 'pN3 = pN3; ln15 = ln15 + 1') + 2)
 74 2
-75 max(5, 62 + 88*c('pN2; pn1', 'pN2 = pN2; pn1 = 0', '(i64.extend_i32_u(pn1 + 1)) < pN2', 'pN2 = pN2; pn1 = pn1 + 1') + 2)
+75 max(5, 63 + 88*c('pN2; pn1', 'pN2 = pN2; pn1 = 0', '(i64.extend_i32_u(pn1 + 1)) < pN2', 'pN2 = pN2; pn1 = pn1 + 1') + 2)
 76 104
 77 158
-78 max(18, 9 + 89*c('ln3; ln4', 'ln3 = pn2 /u 96; ln4 = ln4', '(ln4 + 1) < ln3', 'ln3 = ln3; ln4 = ln4 + 1') + 11)
+78 max(18, 10 + 89*c('ln3; ln4', 'ln3 = pn2 /u 96; ln4 = ln4', '(ln4 + 1) < ln3', 'ln3 = ln3; ln4 = ln4 + 1') + 11)
 79 67
 80 113
 81 27

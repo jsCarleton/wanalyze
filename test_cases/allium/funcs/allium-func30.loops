@@ -10,18 +10,18 @@ Loop block: [6 7 8 9 10]
   Loop exits: [10]
   Looping path: [7 8]
   Looping path: [7 8]
-  Path to loop: [0 1 2 5 6]
+  Path to loop: [0 1 2 4 5 6]
 Loop block: [11 12 13 14 15]
   Loop exits: [15]
   Looping path: [12 13]
   Looping path: [12 13]
-  Path to loop: [0 1 2 5 6 7 10 11]
+  Path to loop: [0 1 2 4 5 6 7 9 10 11]
 Loop block: [17 18 19 20 21]
   Loop exits: [21]
   Looping path: [18 19]
   Looping path: [18 19]
-  Path to loop: [0 1 2 5 6 7 10 11 12 15 16 17]
-  Path to loop: [0 17]
+  Path to loop: [0 1 2 4 5 6 7 9 10 11 12 14 15 16 17]
+  Path to loop: [0 16 17]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1] 13
 cost:    13; 
@@ -30,8 +30,8 @@ params:  [pn0, pn1 && 255, pn2];
 locals:  [ln3, pn0 + pn2, ln5, ln6]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
-[0 17] 13
-cost:    13; 
+[0 16 17] 14
+cost:    14; 
 stack:   []; 
 params:  [pn0, pn1 && 255, pn2]; 
 locals:  [ln3, pn0 + pn2, ln5, ln6]; 
