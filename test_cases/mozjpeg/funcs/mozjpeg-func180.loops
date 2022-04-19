@@ -6,56 +6,17 @@ Loop block: [4 5 6]
   Looping path: [5]
   Looping path: [5]
   Path to loop: [0 1 2 3 4]
-  Path to loop: [0 1 2 4]
-  Path to loop: [0 2 3 4]
-  Path to loop: [0 2 4]
 Loop block: [11 12 13]
   Loop exits: [13]
   Looping path: [12]
   Looping path: [12]
   Path to loop: [0 1 2 3 4 5 6 7 8 9 10 11]
-  Path to loop: [0 1 2 3 4 5 6 7 8 9 11]
-  Path to loop: [0 1 2 3 4 5 6 7 9 10 11]
-  Path to loop: [0 1 2 3 4 5 6 7 9 11]
-  Path to loop: [0 1 2 4 5 6 7 8 9 10 11]
-  Path to loop: [0 1 2 4 5 6 7 8 9 11]
-  Path to loop: [0 1 2 4 5 6 7 9 10 11]
-  Path to loop: [0 1 2 4 5 6 7 9 11]
-  Path to loop: [0 2 3 4 5 6 7 8 9 10 11]
-  Path to loop: [0 2 3 4 5 6 7 8 9 11]
-  Path to loop: [0 2 3 4 5 6 7 9 10 11]
-  Path to loop: [0 2 3 4 5 6 7 9 11]
-  Path to loop: [0 2 4 5 6 7 8 9 10 11]
-  Path to loop: [0 2 4 5 6 7 8 9 11]
-  Path to loop: [0 2 4 5 6 7 9 10 11]
-  Path to loop: [0 2 4 5 6 7 9 11]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 3 4] 42
 cost:    42; 
 stack:   [pn0, i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
 params:  [pn0]; 
 locals:  [0, rn0, (i32.load@(i32.load@(pn0))) shl 8, ln4]; 
-globals: [5400608]
-
-[0 1 2 4] 36
-cost:    36; 
-stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
-params:  [pn0]; 
-locals:  [0, i32.load@(pn0), (i32.load@(i32.load@(pn0))) shl 8, ln4]; 
-globals: [5400608]
-
-[0 2 3 4] 28
-cost:    28; 
-stack:   [pn0]; 
-params:  [pn0]; 
-locals:  [0, rn0, (i32.load@(i32.load@(pn0))) shl 8, ln4]; 
-globals: [5400608]
-
-[0 2 4] 22
-cost:    22; 
-stack:   []; 
-params:  [pn0]; 
-locals:  [0, i32.load@(pn0), (i32.load@(i32.load@(pn0))) shl 8, ln4]; 
 globals: [5400608]
 
 Simple brif loop condition in bblock 5:	(ln1 + 1) != 64

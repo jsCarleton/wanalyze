@@ -7,19 +7,19 @@ digraph finite_state_machine {
     node [shape = doublecircle]; 0 E U R ;
     node [shape = circle];
     0 -> 1[label="if"];
-    0 -> 70[label="~if"];
+    0 -> 69[label="~if"];
     1 -> 2[label="loop"];
     2 -> 3[label="if"];
-    2 -> 67[label="~if"];
+    2 -> 66[label="~if"];
     3 -> 4[label="loop"];
     4 -> 5[label="block"];
     5 -> 6[label="~br_if"];
     5 -> 61[label="br_if"];
     6 -> 7[label="if"];
-    6 -> 35[label="~if"];
+    6 -> 34[label="~if"];
     7 -> 8[label="loop"];
     8 -> 9[label="if"];
-    8 -> 29[label="~if"];
+    8 -> 28[label="~if"];
     9 -> 10[label="loop"];
     10 -> 11[label="block"];
     11 -> 12[label="block"];
@@ -34,7 +34,6 @@ digraph finite_state_machine {
     16 -> 16[color="red" fontcolor="red" label="br_if"];
     17 -> 18[label="end"];
     18 -> 26[label="br"];
-    19 -> 20[label="end"];
     20 -> 21[label="~br_if"];
     20 -> 26[label="br_if"];
     21 -> 22[label="~br_if"];
@@ -51,18 +50,16 @@ digraph finite_state_machine {
     29 -> 30[label="~br_if"];
     29 -> 8[color="red" fontcolor="red" label="br_if"];
     30 -> 61[label="br"];
-    31 -> U[label="unreachable"];
-    32 -> 33[label="end"];
     33 -> U[label="unreachable"];
     34 -> 35[label="end"];
     35 -> 36[label="loop"];
     36 -> 37[label="if"];
-    36 -> 58[label="~if"];
+    36 -> 57[label="~if"];
     37 -> 38[label="loop"];
     38 -> 39[label="block"];
     39 -> 40[label="block"];
     40 -> 41[label="if"];
-    40 -> 43[label="~if"];
+    40 -> 42[label="~if"];
     41 -> 42[label="~br_if"];
     41 -> 50[label="br_if"];
     42 -> 43[label="end"];
@@ -75,7 +72,6 @@ digraph finite_state_machine {
     46 -> 46[color="red" fontcolor="red" label="br_if"];
     47 -> 48[label="end"];
     48 -> 55[label="br"];
-    49 -> 50[label="end"];
     50 -> 51[label="~br_if"];
     50 -> 55[label="br_if"];
     51 -> 52[label="loop"];
@@ -92,7 +88,7 @@ digraph finite_state_machine {
     59 -> 60[label="end"];
     60 -> 61[label="end"];
     61 -> 62[label="if"];
-    61 -> 64[label="~if"];
+    61 -> 63[label="~if"];
     62 -> R[label="return"];
     63 -> 64[label="end"];
     64 -> 65[label="~br_if"];
@@ -104,7 +100,7 @@ digraph finite_state_machine {
     68 -> 69[label="end"];
     69 -> 70[label="end"];
     70 -> 71[label="if"];
-    70 -> 72[label="~if"];
+    70 -> 71[label="~if"];
     71 -> 72[label="end"];
     72 -> E[label="end"];
 }

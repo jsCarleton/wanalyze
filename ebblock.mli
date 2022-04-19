@@ -8,10 +8,11 @@ type ebb_type = EBB_loop | EBB_block
 
 type ebblock = 
   {
-    ebbtype:  ebb_type;
-    entry_bb: Bblock.bblock;
-    bbs:      Bblock.bblock list;
-    exits:    ebb_exit list;
+    ebbtype:      ebb_type;
+    entry_bb:     Bblock.bblock;
+    bbs:          Bblock.bblock list;
+    exits:        ebb_exit list;
+    nested_ebbs:  ebblock list;
   }
 
 val string_of_ebblock:      ebblock -> string

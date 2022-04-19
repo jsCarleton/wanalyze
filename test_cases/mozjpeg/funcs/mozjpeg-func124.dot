@@ -19,13 +19,9 @@ digraph finite_state_machine {
     6 -> 12[label="br_table"];
     6 -> 15[label="br_table"];
     6 -> 14[label="br_table"];
-    7 -> 8[label="end"];
     8 -> R[label="return"];
-    9 -> 10[label="end"];
     10 -> R[label="return"];
-    11 -> 12[label="end"];
     12 -> R[label="return"];
-    13 -> 14[label="end"];
     14 -> 15[label="end"];
     15 -> E[label="end"];
 }

@@ -7,11 +7,11 @@ digraph finite_state_machine {
     node [shape = doublecircle]; 0 E ;
     node [shape = circle];
     0 -> 1[label="if"];
-    0 -> 46[label="~if"];
+    0 -> 45[label="~if"];
     1 -> 2[label="loop"];
     2 -> 3[label="block"];
     3 -> 4[label="if"];
-    3 -> 6[label="~if"];
+    3 -> 5[label="~if"];
     4 -> 7[label="br"];
     5 -> 6[label="end"];
     6 -> 7[label="end"];
@@ -19,7 +19,7 @@ digraph finite_state_machine {
     8 -> 9[label="~br_if"];
     8 -> 22[label="br_if"];
     9 -> 10[label="if"];
-    9 -> 18[label="~if"];
+    9 -> 17[label="~if"];
     10 -> 11[label="loop"];
     11 -> 12[label="loop"];
     12 -> 13[label="~br_if"];
@@ -41,10 +41,10 @@ digraph finite_state_machine {
     24 -> 25[label="~br_if"];
     24 -> 43[label="br_if"];
     25 -> 26[label="if"];
-    25 -> 39[label="~if"];
+    25 -> 38[label="~if"];
     26 -> 27[label="loop"];
     27 -> 28[label="if"];
-    27 -> 35[label="~if"];
+    27 -> 34[label="~if"];
     28 -> 29[label="loop"];
     29 -> 30[label="loop"];
     30 -> 31[label="~br_if"];

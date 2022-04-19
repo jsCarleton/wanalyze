@@ -8,9 +8,9 @@ digraph finite_state_machine {
     node [shape = circle];
     0 -> 1[label="block"];
     1 -> 2[label="if"];
-    1 -> 8[label="~if"];
+    1 -> 7[label="~if"];
     2 -> 3[label="if"];
-    2 -> 5[label="~if"];
+    2 -> 4[label="~if"];
     3 -> 18[label="br"];
     4 -> 5[label="end"];
     5 -> 6[label="~br_if"];
@@ -18,7 +18,7 @@ digraph finite_state_machine {
     6 -> 18[label="br"];
     7 -> 8[label="end"];
     8 -> 9[label="if"];
-    8 -> 11[label="~if"];
+    8 -> 10[label="~if"];
     9 -> 18[label="br"];
     10 -> 11[label="end"];
     11 -> 12[label="~br_if"];
@@ -26,7 +26,7 @@ digraph finite_state_machine {
     12 -> 13[label="~br_if"];
     12 -> 18[label="br_if"];
     13 -> 14[label="if"];
-    13 -> 16[label="~if"];
+    13 -> 15[label="~if"];
     14 -> 18[label="br"];
     15 -> 16[label="end"];
     16 -> 17[label="~br_if"];

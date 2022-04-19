@@ -10,6 +10,5 @@ digraph finite_state_machine {
     1 -> 2[label="~br_if"];
     1 -> 4[label="br_if"];
     2 -> U[label="unreachable"];
-    3 -> 4[label="end"];
     4 -> E[label="end"];
 }

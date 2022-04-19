@@ -12,14 +12,29 @@ type ebb_type = EBB_loop | EBB_block
 
 type ebblock = 
   {
-    ebbtype:  ebb_type;
-    entry_bb: bblock;
-    bbs:      bblock list;
-    exits:    ebb_exit list;
+    ebbtype:      ebb_type;
+    entry_bb:     bblock;
+    bbs:          bblock list;
+    exits:        ebb_exit list;
+    nested_ebbs:  ebblock list;
   }
 
 let string_of_ebblock (ebb: ebblock): string =
-  String.concat [string_of_bblocks ebb.bbs; " "; string_of_int (List.length ebb.exits)]
+
+  let string_of_ebblock' (ebb: ebblock) (indent: int) =
+    String.concat [
+      sprintf "%sebb entry: %d\n%!"   (String.make indent ' ') ebb.entry_bb.bbindex;
+      sprintf "%sebb blocks: %s\n%!"  (String.make (indent+2) ' ') (string_of_bblocks ebb.bbs);
+      sprintf "%sebb exits: %s\n%!"   (String.make (indent+2) ' ') (string_of_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
+      String.concat
+        (List.map 
+          ~f:(fun e -> sprintf "%s%d paths to exit %d\n%!" (String.make (indent+2) ' ') (List.length e.cps) e.exit_bb.bbindex) 
+          ebb.exits);
+    ]
+  in
+
+  string_of_ebblock' ebb 0
+  
 
 let ebb_to_unreachable (ebb: ebblock): bool =
   List.exists ~f:(fun bb -> match bb.bbtype with | BB_unreachable -> true | _ -> false) ebb.bbs
@@ -39,17 +54,21 @@ let edge_bbs_of_bblocks (bbs: bblock list): bblock list =
 let exits_of_bbs (entry_bb: bblock) (exit_bbs: bblock list): ebb_exit list =
   List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_to entry_bb exit_bb}) exit_bbs
 
-let ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
+let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
+
+  let sub_ebbs_of_bblocks (sub_bbs: bblock list): ebblock list =
+    if List.exists ~f:(fun bb -> match bb.bbtype with | BB_loop -> true | _ -> false) sub_bbs then
+      ebblocks_of_bblocks sub_bbs
+    else
+      []
+  in
 
   let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
-    let entry_bb  = List.hd_exn bbs in
-    Printf.printf "ebb entry: %d\n%!" entry_bb.bbindex;
-    Printf.printf "  ebb blocks: %s\n%!" (string_of_bblocks bbs);
-    let exit_bbs  = ext_succ_of_bbs bbs in
-    Printf.printf "  ebb exits: %s\n%!" (string_of_bblocks exit_bbs);
-    let exits     = exits_of_bbs entry_bb (ext_succ_of_bbs bbs) in
-    List.iter ~f:(fun e -> Printf.printf "  %d paths to exit %d\n%!" (List.length e.cps) e.exit_bb.bbindex) exits;
-    {ebbtype; entry_bb; bbs; exits}
+    let entry_bb    = List.hd_exn bbs in
+    let exits       = exits_of_bbs entry_bb (ext_succ_of_bbs bbs) in
+    (* only a loop can have a nested loop *)
+    let nested_ebbs = match ebbtype with | EBB_loop -> sub_ebbs_of_bblocks bbs | _ -> [] in
+    {ebbtype; entry_bb; bbs; exits; nested_ebbs}
   in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bblock list): ebblock =

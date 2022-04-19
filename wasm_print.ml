@@ -610,6 +610,10 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
     Out_channel.output_string oc (cfg_dot_of_bblocks w.module_name fnum bblocks);
     Out_channel.close oc;
+  (* ebblocks in function *)
+  let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
+    List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
+    Out_channel.close oc;
   (* graphviz command file for ebblock flow graph *)
   let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
