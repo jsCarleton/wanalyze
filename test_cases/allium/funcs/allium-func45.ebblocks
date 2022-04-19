@@ -30,6 +30,19 @@ ebb entry: 25
   ebb blocks: [25 26 27 28 29 30 31 32 33 34]
   ebb exits: [35]
   2 paths to exit 35
+  ebb entry: 25
+    ebb blocks: [25 26 27 28]
+    ebb exits: [29]
+    4 paths to exit 29
+  ebb entry: 29
+    ebb blocks: [29 30]
+    ebb exits: [31]
+    1 paths to exit 31
+  ebb entry: 31
+    ebb blocks: [31 32 33 34]
+    ebb exits: [25 35]
+    0 paths to exit 25
+    1 paths to exit 35
 ebb entry: 35
   ebb blocks: [35]
   ebb exits: []

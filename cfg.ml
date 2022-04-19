@@ -93,7 +93,6 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
                   graph_bblocks' bbs "";
                   graph_suffix]
 
-
 (**
   cfg_dot_of_ebblocks
 
@@ -130,21 +129,6 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
             "    node [shape = box];\n"]
   in
 
-  let graph_node (src: int) (dest: int) (label: string): string  =
-    let src_name = string_of_int src in
-    let dest_name = 
-      (match dest with
-        | -1 -> "E"
-        | -2 -> "U"
-        | -3 -> "R"
-        |  _ -> string_of_int dest) in
-    String.concat [
-      "    node [shape = box] "; src_name; "[label=\""; label; "\"]\n";
-      "    "; src_name; " -> "; dest_name; "[label=\""; 
-                                            if dest >= 0 then dest_name else "" ; "\"];\n"
-    ]
-  in
-
   let label_of_ebb (ebb: ebblock): string =
     match ebb.bbs with
     | hd::[] -> String.concat["["; string_of_int hd.bbindex; "]"]
@@ -154,32 +138,59 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
     | _ -> failwith "invalid bbs in ebb"
   in
 
-  let graph_ebb (ebb: ebblock): string =
-    let idx       = ebb.entry_bb.bbindex in
-    let label     = label_of_ebb ebb in
-    let src_type  = ebb.ebbtype in
-    let src_name  = string_of_int idx in
-    String.concat [
-      if not (List.exists ~f:(fun _ -> true) ebb.exits) then graph_node idx (-1) label else "";
-      if ebb_to_unreachable ebb                         then graph_node idx (-2) label else "";
-      if ebb_to_return ebb                              then graph_node idx (-3) label else "";
-      String.concat
-        (List.map ~f:(fun e -> graph_node idx (e.exit_bb.bbindex) label) ebb.exits);
-      (match src_type with
-        | EBB_loop ->      
-        String.concat ["    "; src_name; " -> "; src_name; "[color=\"red\"];\n"]
-        | _ -> "")
-    ]
+  let name_of_bb (bb: bblock): string =
+    string_of_int bb.bbindex
+  in
+  
+  let name_of_ebb (ebb: ebblock): string = 
+    name_of_bb ebb.entry_bb
   in
 
-  let rec graph_ebblocks' (ebbs: ebblock list) (acc: string): string =
-    match ebbs with
-    | [] -> acc
-    | hd::tl -> graph_ebblocks' tl (String.concat [acc; graph_ebb hd])
+  let rec graph_node (ebb: ebblock): string  =
+    match ebb.nested_ebbs with
+    | []  -> String.concat["    node [shape = box] "  ; name_of_ebb ebb; "[label=\""; label_of_ebb ebb; "\"]\n"]
+    | _   -> String.concat (List.map ~f:graph_node ebb.nested_ebbs)
+  in
+
+  let graph_terminal (src_ebb: ebblock) (dest: int): string =
+    let dest_name = 
+    (match dest with
+      | -1 -> "E"
+      | -2 -> "U"
+      | -3 -> "R"
+      |  _ -> failwith "invalid terminal") in
+    String.concat ["    "; name_of_ebb src_ebb; " -> "; dest_name; ";\n"]
+  in
+
+  let graph_edge (src_ebb: ebblock) (dest_exit: ebb_exit): string =
+    if src_ebb.entry_bb.bbindex < dest_exit.exit_bb.bbindex then
+      String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bb dest_exit.exit_bb; ";\n"]
+    else
+      String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bb dest_exit.exit_bb; "[color=\"red\"];\n"]
+  in
+
+  let rec graph_edges (ebb: ebblock): string =
+    String.concat [
+      if not (List.exists ~f:(fun _ -> true) ebb.exits) then graph_terminal ebb (-1) else "";
+      if ebb_to_unreachable ebb                         then graph_terminal ebb (-2) else "";
+      if ebb_to_return ebb                              then graph_terminal ebb (-3) else "";
+      (match ebb.nested_ebbs with
+        | []  ->
+            String.concat[
+              String.concat (List.map ~f:(graph_edge ebb) ebb.exits);
+              if ebb_has_branchback ebb then
+                String.concat ["    "; name_of_ebb ebb; " -> "; name_of_ebb ebb; "[color=\"red\"];\n"]
+              else 
+                ""
+            ]
+        | _   ->
+            String.concat (List.map ~f:graph_edges ebb.nested_ebbs))
+    ]
   in
 
   let graph_suffix = "}\n" in
 
   String.concat [ graph_prefix module_name func_idx ebbs; 
-                  graph_ebblocks' ebbs "";
+                  String.concat (List.map ~f:graph_node  ebbs);
+                  String.concat (List.map ~f:graph_edges ebbs);
                   graph_suffix]

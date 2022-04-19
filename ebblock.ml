@@ -21,7 +21,7 @@ type ebblock =
 
 let string_of_ebblock (ebb: ebblock): string =
 
-  let string_of_ebblock' (ebb: ebblock) (indent: int) =
+  let rec string_of_ebblock' (indent: int) (ebb: ebblock) =
     String.concat [
       sprintf "%sebb entry: %d\n%!"   (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb blocks: %s\n%!"  (String.make (indent+2) ' ') (string_of_bblocks ebb.bbs);
@@ -30,10 +30,13 @@ let string_of_ebblock (ebb: ebblock): string =
         (List.map 
           ~f:(fun e -> sprintf "%s%d paths to exit %d\n%!" (String.make (indent+2) ' ') (List.length e.cps) e.exit_bb.bbindex) 
           ebb.exits);
+      match ebb.nested_ebbs with
+      | []  -> "";
+      | _   -> String.concat (List.map ~f:(string_of_ebblock' (indent+2)) ebb.nested_ebbs);
     ]
   in
 
-  string_of_ebblock' ebb 0
+  string_of_ebblock' 0 ebb
   
 
 let ebb_to_unreachable (ebb: ebblock): bool =
@@ -41,6 +44,14 @@ let ebb_to_unreachable (ebb: ebblock): bool =
 
 let ebb_to_return (ebb: ebblock): bool =
   List.exists ~f:(fun bb -> match bb.bbtype with | BB_return -> true | _ -> false) ebb.bbs
+
+let ebb_has_branchback (ebb: ebblock): bool =
+  let ebb_head_idx = ebb.entry_bb.bbindex in
+  List.exists 
+    ~f:(fun bb -> List.exists 
+                    ~f:(fun bb' -> bb'.bbindex < bb.bbindex && bb'.bbindex >= ebb_head_idx)
+                    bb.succ) 
+    ebb.bbs
 
 let ext_succ_of_bbs (bbs: bblock list): bblock list =
   List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs)

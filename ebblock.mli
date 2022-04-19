@@ -18,4 +18,5 @@ type ebblock =
 val string_of_ebblock:      ebblock -> string
 val ebb_to_unreachable:     ebblock -> bool
 val ebb_to_return:          ebblock -> bool
+val ebb_has_branchback:     ebblock -> bool
 val ebblocks_of_bblocks:    Bblock.bblock list -> ebblock list

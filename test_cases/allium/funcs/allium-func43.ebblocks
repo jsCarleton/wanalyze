@@ -7,6 +7,28 @@ ebb entry: 7
   ebb blocks: [7 8 9 10 11 12 13 14 15 16 17 18 19 20 21]
   ebb exits: [22]
   4 paths to exit 22
+  ebb entry: 7
+    ebb blocks: [7 8 9 10 11]
+    ebb exits: [12 17]
+    4 paths to exit 12
+    4 paths to exit 17
+  ebb entry: 12
+    ebb blocks: [12 13]
+    ebb exits: [14]
+    1 paths to exit 14
+  ebb entry: 14
+    ebb blocks: [14]
+    ebb exits: [15]
+    2 paths to exit 15
+  ebb entry: 15
+    ebb blocks: [15 16]
+    ebb exits: [17]
+    1 paths to exit 17
+  ebb entry: 17
+    ebb blocks: [17 18 19 20 21]
+    ebb exits: [7 22]
+    0 paths to exit 7
+    1 paths to exit 22
 ebb entry: 22
   ebb blocks: [22 23 24]
   ebb exits: []
