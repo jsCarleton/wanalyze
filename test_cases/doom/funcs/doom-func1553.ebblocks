@@ -1,0 +1,99 @@
+ebb entry: 0
+  ebb blocks: [0 1]
+  ebb exits: [2 19]
+  1 paths to exit 2
+  1 paths to exit 19
+ebb entry: 2
+  ebb blocks: [2]
+  ebb exits: [3]
+  2 paths to exit 3
+ebb entry: 3
+  ebb blocks: [3 4]
+  ebb exits: [5]
+  1 paths to exit 5
+ebb entry: 5
+  ebb blocks: [5]
+  ebb exits: [6 20]
+  1 paths to exit 6
+  4 paths to exit 20
+ebb entry: 6
+  ebb blocks: [6]
+  ebb exits: [7]
+  1 paths to exit 7
+ebb entry: 7
+  ebb blocks: [7 8 9 10 11 12 13 14 15 16]
+  ebb exits: [17]
+  3 paths to exit 17
+  ebb entry: 7
+    ebb blocks: [7 8 9 10]
+    ebb exits: [11 15]
+    2 paths to exit 11
+    3 paths to exit 15
+  ebb entry: 11
+    ebb blocks: [11]
+    ebb exits: [12]
+    2 paths to exit 12
+  ebb entry: 12
+    ebb blocks: [12 13]
+    ebb exits: [14]
+    1 paths to exit 14
+  ebb entry: 14
+    ebb blocks: [14]
+    ebb exits: [15]
+    1 paths to exit 15
+  ebb entry: 15
+    ebb blocks: [15 16]
+    ebb exits: [7 17]
+    1 paths to exit 7
+    1 paths to exit 17
+ebb entry: 17
+  ebb blocks: [17 18]
+  ebb exits: [19 20]
+  0 paths to exit 19
+  1 paths to exit 20
+ebb entry: 19
+  ebb blocks: [19]
+  ebb exits: [20]
+  1 paths to exit 20
+ebb entry: 20
+  ebb blocks: [20]
+  ebb exits: [21 30]
+  1 paths to exit 21
+  3 paths to exit 30
+ebb entry: 21
+  ebb blocks: [21]
+  ebb exits: [22]
+  1 paths to exit 22
+ebb entry: 22
+  ebb blocks: [22 23 24 25 26 27 28]
+  ebb exits: [29]
+  2 paths to exit 29
+  ebb entry: 22
+    ebb blocks: [22]
+    ebb exits: [23 27]
+    1 paths to exit 23
+    2 paths to exit 27
+  ebb entry: 23
+    ebb blocks: [23]
+    ebb exits: [24]
+    2 paths to exit 24
+  ebb entry: 24
+    ebb blocks: [24 25]
+    ebb exits: [26]
+    1 paths to exit 26
+  ebb entry: 26
+    ebb blocks: [26]
+    ebb exits: [27]
+    1 paths to exit 27
+  ebb entry: 27
+    ebb blocks: [27 28]
+    ebb exits: [22 29]
+    1 paths to exit 22
+    1 paths to exit 29
+ebb entry: 29
+  ebb blocks: [29]
+  ebb exits: [30]
+  1 paths to exit 30
+ebb entry: 30
+  ebb blocks: [30]
+  ebb exits: []

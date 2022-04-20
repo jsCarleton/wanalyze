@@ -9,9 +9,8 @@ digraph finite_state_machine {
     0 -> 1[label="loop"];
     1 -> 2[label="block"];
     2 -> 3[label="if"];
-    2 -> 5[label="~if"];
+    2 -> 5[label="else"];
     3 -> 6[label="br"];
-    4 -> 5[label="end"];
     5 -> 6[label="end"];
     6 -> 7[label="~br_if"];
     6 -> 1[color="red" fontcolor="red" label="br_if"];

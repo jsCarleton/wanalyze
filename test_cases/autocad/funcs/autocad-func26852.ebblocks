@@ -1,0 +1,20 @@
+ebb entry: 0
+  ebb blocks: [0]
+  ebb exits: [1]
+  1 paths to exit 1
+ebb entry: 1
+  ebb blocks: [1]
+  ebb exits: [2]
+  1 paths to exit 2
+ebb entry: 2
+  ebb blocks: [2 3 4]
+  ebb exits: [5 6]
+  1 paths to exit 5
+  2 paths to exit 6
+ebb entry: 5
+  ebb blocks: [5]
+  ebb exits: [6]
+  1 paths to exit 6
+ebb entry: 6
+  ebb blocks: [6]
+  ebb exits: []

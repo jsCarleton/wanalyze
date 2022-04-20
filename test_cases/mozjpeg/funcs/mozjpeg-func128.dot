@@ -37,9 +37,8 @@ digraph finite_state_machine {
     19 -> 20[label="end"];
     20 -> 21[label="loop"];
     21 -> 22[label="if"];
-    21 -> 23[label="~if"];
+    21 -> 24[label="else"];
     22 -> R[label="return"];
-    23 -> 24[label="end"];
     24 -> 25[label="~br_if"];
     24 -> 21[color="red" fontcolor="red" label="br_if"];
     25 -> 26[label="end"];

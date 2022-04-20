@@ -6,11 +6,25 @@ Loop block: [8 9 10 11 12]
   Looping path: [9]
   Looping path: [9]
   Path to loop: [0 1 2 3 4 5 6 7 8]
+  Path to loop: [0 1 2 3 4 6 7 8]
+  Path to loop: [0 1 2 4 5 6 7 8]
+  Path to loop: [0 1 2 4 6 7 8]
+  Path to loop: [0 2 3 4 5 6 7 8]
+  Path to loop: [0 2 3 4 6 7 8]
+  Path to loop: [0 2 4 5 6 7 8]
+  Path to loop: [0 2 4 6 7 8]
 Loop block: [15 16 17]
   Loop exits: [17]
   Looping path: [16]
   Looping path: [16]
-  Path to loop: [0 1 2 3 4 5 6 7 14 15]
+  Path to loop: [0 1 2 3 4 5 6 7 15]
+  Path to loop: [0 1 2 3 4 6 7 15]
+  Path to loop: [0 1 2 4 5 6 7 15]
+  Path to loop: [0 1 2 4 6 7 15]
+  Path to loop: [0 2 3 4 5 6 7 15]
+  Path to loop: [0 2 3 4 6 7 15]
+  Path to loop: [0 2 4 5 6 7 15]
+  Path to loop: [0 2 4 6 7 15]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2 3 4 5 6 7 8] 63
 cost:    63; 
@@ -19,11 +33,109 @@ params:  [0, rn0, pn2, pn3, pn4];
 locals:  [pn0 + (pn1 shl 2), i32.load@(pn0)]; 
 globals: [5400608]
 
-[0 1 2 3 4 5 6 7 14 15] 64
-cost:    64; 
+[0 1 2 3 4 5 6 7 15] 63
+cost:    63; 
 stack:   [pn0 + (pn1 shl 2), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
 params:  [0, rn0, pn2, pn3, pn4]; 
 locals:  [pn0 + (pn1 shl 2), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 1 2 3 4 6 7 8] 57
+cost:    57; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, i32.load@((pn0 + (pn1 shl 2)) + 72), pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 1 2 3 4 6 7 15] 57
+cost:    57; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, i32.load@((pn0 + (pn1 shl 2)) + 72), pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 1 2 4 5 6 7 8] 49
+cost:    49; 
+stack:   [pn0 + (pn1 shl 2), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, rn0, pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 1 2 4 5 6 7 15] 49
+cost:    49; 
+stack:   [pn0 + (pn1 shl 2), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, rn0, pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 1 2 4 6 7 8] 43
+cost:    43; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, i32.load@((pn0 + (pn1 shl 2)) + 72), pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 1 2 4 6 7 15] 43
+cost:    43; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, i32.load@((pn0 + (pn1 shl 2)) + 72), pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), i32.load@(pn0)]; 
+globals: [5400608]
+
+[0 2 3 4 5 6 7 8] 49
+cost:    49; 
+stack:   [pn0 + (pn1 shl 2), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, rn0, pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), ln6]; 
+globals: [5400608]
+
+[0 2 3 4 5 6 7 15] 49
+cost:    49; 
+stack:   [pn0 + (pn1 shl 2), i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, rn0, pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), ln6]; 
+globals: [5400608]
+
+[0 2 3 4 6 7 8] 43
+cost:    43; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, i32.load@((pn0 + (pn1 shl 2)) + 72), pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), ln6]; 
+globals: [5400608]
+
+[0 2 3 4 6 7 15] 43
+cost:    43; 
+stack:   [i32.load@(i32.load@(pn0)), pn0, i32.load@(pn0), i32.load@(pn0)]; 
+params:  [0, i32.load@((pn0 + (pn1 shl 2)) + 72), pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), ln6]; 
+globals: [5400608]
+
+[0 2 4 5 6 7 8] 35
+cost:    35; 
+stack:   [pn0 + (pn1 shl 2)]; 
+params:  [0, rn0, pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), ln6]; 
+globals: [5400608]
+
+[0 2 4 5 6 7 15] 35
+cost:    35; 
+stack:   [pn0 + (pn1 shl 2)]; 
+params:  [0, rn0, pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), ln6]; 
+globals: [5400608]
+
+[0 2 4 6 7 8] 29
+cost:    29; 
+stack:   []; 
+params:  [0, i32.load@((pn0 + (pn1 shl 2)) + 72), pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), ln6]; 
+globals: [5400608]
+
+[0 2 4 6 7 15] 29
+cost:    29; 
+stack:   []; 
+params:  [0, i32.load@((pn0 + (pn1 shl 2)) + 72), pn2, pn3, pn4]; 
+locals:  [pn0 + (pn1 shl 2), ln6]; 
 globals: [5400608]
 
 Simple brif loop condition in bblock 16:	(pn0 + 1) != 64

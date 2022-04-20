@@ -7,5 +7,4 @@ digraph finite_state_machine {
     node [shape = doublecircle]; 0 E U ;
     node [shape = circle];
     0 -> U[label="unreachable"];
-    1 -> E[label="end"];
 }

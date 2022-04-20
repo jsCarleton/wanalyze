@@ -7,9 +7,8 @@ digraph finite_state_machine {
     node [shape = doublecircle]; 0 E R ;
     node [shape = circle];
     0 -> 1[label="if"];
-    0 -> 3[label="~if"];
+    0 -> 3[label="else"];
     1 -> R[label="return"];
-    2 -> 3[label="end"];
     3 -> 4[label="block"];
     4 -> 5[label="~br_if"];
     4 -> 19[label="br_if"];
@@ -18,13 +17,12 @@ digraph finite_state_machine {
     6 -> 19[label="br_if"];
     7 -> 8[label="block"];
     8 -> 9[label="if"];
-    8 -> 13[label="~if"];
+    8 -> 13[label="else"];
     9 -> 10[label="~br_if"];
     9 -> 19[label="br_if"];
     10 -> 11[label="~br_if"];
     10 -> 16[label="br_if"];
     11 -> 19[label="br"];
-    12 -> 13[label="end"];
     13 -> 14[label="~br_if"];
     13 -> 16[label="br_if"];
     14 -> 15[label="~br_if"];

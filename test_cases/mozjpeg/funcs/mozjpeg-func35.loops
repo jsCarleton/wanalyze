@@ -8,13 +8,13 @@ Loop block: [2 3 4]
   Path to loop: [0 1 2]
 Loop block: [8 9 10 11 12]
   Loop exits: [12]
+  Looping path: [9 11]
   Looping path: [9 10 11]
-  Looping path: [9 10 11]
-  Looping path: [9 10 11]
+  Looping path: [9 11]
   Looping path: [9 10 11]
   Path to loop: [0 1 2 3 4 5 6 7 8]
-  Path to loop: [0 1 5 6 7 8]
-  Path to loop: [0 6 7 8]
+  Path to loop: [0 1 6 7 8]
+  Path to loop: [0 7 8]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
 [0 1 2] 47
 cost:    47; 
@@ -23,16 +23,16 @@ params:  [pn0, pn1];
 locals:  [ln2, 5400608 - 48, i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4484), i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4228), i32.load@(154560), pn1 * 36, i32.load@(pn0), i32.load@(pn0)]; 
 globals: [5400608 - 48]
 
-[0 1 5 6 7 8] 97
-cost:    97; 
+[0 1 6 7 8] 96
+cost:    96; 
 stack:   [5400608 - 48, 5400608 - 48, 5400608 - 48]; 
 params:  [pn0, i32.load@(i32.load@(pn0))]; 
 locals:  [i32.load@(i32.load@(pn0)), 5400608 - 48, i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4484), i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4228), i32.load@(154560), pn1 * 36, i32.load@(pn0), i32.load@(pn0)]; 
 globals: [5400608 - 48]
 
-[0 6 7 8] 78
-cost:    78; 
-stack:   [5400608 - 48, 5400608 - 48, 5400608 - 48]; 
+[0 7 8] 40
+cost:    40; 
+stack:   []; 
 params:  [pn0, i32.load@(i32.load@(pn0))]; 
 locals:  [i32.load@(i32.load@(pn0)), 5400608 - 48, i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4484), i32.load@(((i32.load@(pn0)) + (pn1 shl 2)) + 4228), ln6, ln7, ln8, i32.load@(pn0)]; 
 globals: [5400608 - 48]

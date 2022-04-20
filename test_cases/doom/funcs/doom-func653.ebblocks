@@ -1,0 +1,36 @@
+ebb entry: 0
+  ebb blocks: [0 1 2]
+  ebb exits: [3 9 14]
+  1 paths to exit 3
+  1 paths to exit 9
+  5 paths to exit 14
+ebb entry: 3
+  ebb blocks: [3]
+  ebb exits: [4]
+  1 paths to exit 4
+ebb entry: 4
+  ebb blocks: [4 5 6]
+  ebb exits: [7 14]
+  1 paths to exit 7
+  2 paths to exit 14
+ebb entry: 7
+  ebb blocks: [7 8]
+  ebb exits: [9 14]
+  0 paths to exit 9
+  1 paths to exit 14
+ebb entry: 9
+  ebb blocks: [9]
+  ebb exits: [10]
+  1 paths to exit 10
+ebb entry: 10
+  ebb blocks: [10 11 12]
+  ebb exits: [13 14]
+  1 paths to exit 13
+  2 paths to exit 14
+ebb entry: 13
+  ebb blocks: [13]
+  ebb exits: [14]
+  1 paths to exit 14
+ebb entry: 14
+  ebb blocks: [14]
+  ebb exits: []

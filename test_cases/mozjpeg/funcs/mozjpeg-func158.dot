@@ -17,13 +17,12 @@ digraph finite_state_machine {
     5 -> 6[label="end"];
     6 -> 7[label="end"];
     7 -> 8[label="if"];
-    7 -> 16[label="~if"];
+    7 -> 17[label="else"];
     8 -> 9[label="loop"];
     9 -> 10[label="loop"];
     10 -> 11[label="if"];
-    10 -> 12[label="~if"];
+    10 -> 13[label="else"];
     11 -> 10[color="red" fontcolor="red" label="br"];
-    12 -> 13[label="end"];
     13 -> 14[label="end"];
     14 -> 15[label="~br_if"];
     14 -> 9[color="red" fontcolor="red" label="br_if"];

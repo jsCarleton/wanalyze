@@ -7,7 +7,7 @@ digraph finite_state_machine {
     node [shape = doublecircle]; 0 E ;
     node [shape = circle];
     0 -> 1[label="if"];
-    0 -> 1[label="~if"];
+    0 -> 2[label="else"];
     1 -> 2[label="end"];
     2 -> 3[label="block"];
     3 -> 4[label="block"];

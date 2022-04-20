@@ -23,13 +23,13 @@ digraph finite_state_machine {
     8 -> 10[label="br_if"];
     9 -> 10[label="end"];
     10 -> 11[label="if"];
-    10 -> 26[label="~if"];
+    10 -> 27[label="else"];
     11 -> 12[label="loop"];
     12 -> 13[label="block"];
     13 -> 14[label="block"];
     14 -> 15[label="block"];
     15 -> 16[label="if"];
-    15 -> 18[label="~if"];
+    15 -> 19[label="else"];
     16 -> 17[label="~br_if"];
     16 -> 21[label="br_if"];
     17 -> 18[label="~br_if"];

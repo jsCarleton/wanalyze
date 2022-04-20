@@ -13,7 +13,7 @@ digraph finite_state_machine {
     4 -> 5[label="block"];
     5 -> 6[label="block"];
     6 -> 7[label="if"];
-    6 -> 11[label="~if"];
+    6 -> 12[label="else"];
     7 -> 8[label="~br_if"];
     7 -> 17[label="br_if"];
     8 -> 9[label="~br_if"];
@@ -21,7 +21,6 @@ digraph finite_state_machine {
     9 -> 10[label="~br_if"];
     9 -> 27[label="br_if"];
     10 -> R[label="return"];
-    11 -> 12[label="end"];
     12 -> 13[label="~br_if"];
     12 -> 22[label="br_if"];
     13 -> 14[label="~br_if"];

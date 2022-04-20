@@ -1,0 +1,93 @@
+ebb entry: 0
+  ebb blocks: [0 1 2]
+  ebb exits: [3 21 39]
+  1 paths to exit 3
+  1 paths to exit 21
+  22 paths to exit 39
+ebb entry: 3
+  ebb blocks: [3]
+  ebb exits: [4]
+  1 paths to exit 4
+ebb entry: 4
+  ebb blocks: [4 5 6 7 8 9 10 11 12 13 14 15 16 17 18]
+  ebb exits: [19]
+  10 paths to exit 19
+  ebb entry: 4
+    ebb blocks: [4 5 6]
+    ebb exits: [7 13 17]
+    1 paths to exit 7
+    3 paths to exit 13
+    10 paths to exit 17
+  ebb entry: 7
+    ebb blocks: [7]
+    ebb exits: [8]
+    1 paths to exit 8
+  ebb entry: 8
+    ebb blocks: [8 9 10 11]
+    ebb exits: [12]
+    2 paths to exit 12
+  ebb entry: 12
+    ebb blocks: [12]
+    ebb exits: [13]
+    1 paths to exit 13
+  ebb entry: 13
+    ebb blocks: [13 14 15 16]
+    ebb exits: [17]
+    3 paths to exit 17
+  ebb entry: 17
+    ebb blocks: [17 18]
+    ebb exits: [4 19]
+    1 paths to exit 4
+    1 paths to exit 19
+ebb entry: 19
+  ebb blocks: [19 20]
+  ebb exits: [21 39]
+  0 paths to exit 21
+  1 paths to exit 39
+ebb entry: 21
+  ebb blocks: [21]
+  ebb exits: [22 39]
+  1 paths to exit 22
+  11 paths to exit 39
+ebb entry: 22
+  ebb blocks: [22]
+  ebb exits: [23]
+  1 paths to exit 23
+ebb entry: 23
+  ebb blocks: [23 24 25 26 27 28 29 30 31 32 33 34 35 36 37]
+  ebb exits: [38]
+  10 paths to exit 38
+  ebb entry: 23
+    ebb blocks: [23 24 25]
+    ebb exits: [26 32 36]
+    1 paths to exit 26
+    3 paths to exit 32
+    10 paths to exit 36
+  ebb entry: 26
+    ebb blocks: [26]
+    ebb exits: [27]
+    1 paths to exit 27
+  ebb entry: 27
+    ebb blocks: [27 28 29 30]
+    ebb exits: [31]
+    2 paths to exit 31
+  ebb entry: 31
+    ebb blocks: [31]
+    ebb exits: [32]
+    1 paths to exit 32
+  ebb entry: 32
+    ebb blocks: [32 33 34 35]
+    ebb exits: [36]
+    3 paths to exit 36
+  ebb entry: 36
+    ebb blocks: [36 37]
+    ebb exits: [23 38]
+    1 paths to exit 23
+    1 paths to exit 38
+ebb entry: 38
+  ebb blocks: [38]
+  ebb exits: [39]
+  1 paths to exit 39
+ebb entry: 39
+  ebb blocks: [39]
+  ebb exits: []

@@ -1,0 +1,234 @@
+ebb entry: 0
+  ebb blocks: [0 1 2 3]
+  ebb exits: [4 8]
+  1 paths to exit 4
+  2 paths to exit 8
+ebb entry: 4
+  ebb blocks: [4]
+  ebb exits: [5]
+  2 paths to exit 5
+ebb entry: 5
+  ebb blocks: [5 6]
+  ebb exits: [7]
+  1 paths to exit 7
+ebb entry: 7
+  ebb blocks: [7]
+  ebb exits: [8]
+  1 paths to exit 8
+ebb entry: 8
+  ebb blocks: [8 9 10 11 12 13 14 15]
+  ebb exits: [16 20 35]
+  2 paths to exit 16
+  4 paths to exit 20
+  26 paths to exit 35
+ebb entry: 16
+  ebb blocks: [16]
+  ebb exits: [17]
+  2 paths to exit 17
+ebb entry: 17
+  ebb blocks: [17 18]
+  ebb exits: [19]
+  1 paths to exit 19
+ebb entry: 19
+  ebb blocks: [19]
+  ebb exits: [20]
+  1 paths to exit 20
+ebb entry: 20
+  ebb blocks: [20 21]
+  ebb exits: [22 35]
+  1 paths to exit 22
+  6 paths to exit 35
+ebb entry: 22
+  ebb blocks: [22]
+  ebb exits: [23]
+  1 paths to exit 23
+ebb entry: 23
+  ebb blocks: [23 24 25 26 27 28 29 30 31 32]
+  ebb exits: [33 34]
+  3 paths to exit 33
+  5 paths to exit 34
+ebb entry: 33
+  ebb blocks: [33]
+  ebb exits: [34]
+  1 paths to exit 34
+ebb entry: 34
+  ebb blocks: [34]
+  ebb exits: [35]
+  1 paths to exit 35
+ebb entry: 35
+  ebb blocks: [35 36 37 38]
+  ebb exits: [39 46 206]
+  1 paths to exit 39
+  1 paths to exit 46
+  0 paths to exit 206
+ebb entry: 39
+  ebb blocks: [39]
+  ebb exits: [40]
+  2 paths to exit 40
+ebb entry: 40
+  ebb blocks: [40 41]
+  ebb exits: [42]
+  1 paths to exit 42
+ebb entry: 42
+  ebb blocks: [42 43 44 45]
+  ebb exits: [46 48 206]
+  0 paths to exit 46
+  2 paths to exit 48
+  0 paths to exit 206
+ebb entry: 46
+  ebb blocks: [46 47]
+  ebb exits: [48 206]
+  1 paths to exit 48
+  0 paths to exit 206
+ebb entry: 48
+  ebb blocks: [48 49 50 51 52 53]
+  ebb exits: [54 65]
+  2 paths to exit 54
+  10 paths to exit 65
+ebb entry: 54
+  ebb blocks: [54]
+  ebb exits: [55]
+  1 paths to exit 55
+ebb entry: 55
+  ebb blocks: [55 56 57 58 59 60 61 62 63]
+  ebb exits: [64 65]
+  2 paths to exit 64
+  4 paths to exit 65
+  ebb entry: 55
+    ebb blocks: [55]
+    ebb exits: [56]
+    1 paths to exit 56
+  ebb entry: 56
+    ebb blocks: [56 57 58 59 60]
+    ebb exits: [61]
+    2 paths to exit 61
+  ebb entry: 61
+    ebb blocks: [61 62 63]
+    ebb exits: [55 64 65]
+    0 paths to exit 55
+    1 paths to exit 64
+    2 paths to exit 65
+ebb entry: 64
+  ebb blocks: [64]
+  ebb exits: [65]
+  1 paths to exit 65
+ebb entry: 65
+  ebb blocks: [65 66 67 68 69 70 71 72 73 74]
+  ebb exits: [75 83 206]
+  3 paths to exit 75
+  6 paths to exit 83
+  0 paths to exit 206
+ebb entry: 75
+  ebb blocks: [75]
+  ebb exits: [76]
+  1 paths to exit 76
+ebb entry: 76
+  ebb blocks: [76 77 78 79 80 81]
+  ebb exits: [82 206]
+  1 paths to exit 82
+  0 paths to exit 206
+ebb entry: 82
+  ebb blocks: [82]
+  ebb exits: [83]
+  1 paths to exit 83
+ebb entry: 83
+  ebb blocks: [83 84 85 86 87]
+  ebb exits: [88 97]
+  1 paths to exit 88
+  2 paths to exit 97
+ebb entry: 88
+  ebb blocks: [88]
+  ebb exits: [89]
+  1 paths to exit 89
+ebb entry: 89
+  ebb blocks: [89 90 91 92 93]
+  ebb exits: [94]
+  2 paths to exit 94
+ebb entry: 94
+  ebb blocks: [94 95 96]
+  ebb exits: [97 98 205]
+  0 paths to exit 97
+  1 paths to exit 98
+  78625 paths to exit 205
+ebb entry: 97
+  ebb blocks: [97]
+  ebb exits: [98]
+  1 paths to exit 98
+ebb entry: 98
+  ebb blocks: [98]
+  ebb exits: [99]
+  1 paths to exit 99
+ebb entry: 99
+  ebb blocks: [99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203]
+  ebb exits: [204 205 206]
+  78623 paths to exit 204
+  78624 paths to exit 205
+  157319 paths to exit 206
+  ebb entry: 99
+    ebb blocks: [99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186]
+    ebb exits: [187 191 197 201 205 206]
+    7854 paths to exit 187
+    15708 paths to exit 191
+    39270 paths to exit 197
+    39353 paths to exit 201
+    78624 paths to exit 205
+    157319 paths to exit 206
+  ebb entry: 187
+    ebb blocks: [187]
+    ebb exits: [188]
+    2 paths to exit 188
+  ebb entry: 188
+    ebb blocks: [188 189]
+    ebb exits: [190]
+    1 paths to exit 190
+  ebb entry: 190
+    ebb blocks: [190]
+    ebb exits: [191]
+    1 paths to exit 191
+  ebb entry: 191
+    ebb blocks: [191]
+    ebb exits: [192 196]
+    1 paths to exit 192
+    2 paths to exit 196
+  ebb entry: 192
+    ebb blocks: [192]
+    ebb exits: [193]
+    2 paths to exit 193
+  ebb entry: 193
+    ebb blocks: [193 194]
+    ebb exits: [195]
+    1 paths to exit 195
+  ebb entry: 195
+    ebb blocks: [195]
+    ebb exits: [196]
+    1 paths to exit 196
+  ebb entry: 196
+    ebb blocks: [196]
+    ebb exits: [197]
+    1 paths to exit 197
+  ebb entry: 197
+    ebb blocks: [197 198 199 200]
+    ebb exits: [201 202 206]
+    1 paths to exit 201
+    2 paths to exit 202
+    4 paths to exit 206
+  ebb entry: 201
+    ebb blocks: [201]
+    ebb exits: [202]
+    1 paths to exit 202
+  ebb entry: 202
+    ebb blocks: [202 203]
+    ebb exits: [99 204]
+    1 paths to exit 99
+    1 paths to exit 204
+ebb entry: 204
+  ebb blocks: [204]
+  ebb exits: [205]
+  1 paths to exit 205
+ebb entry: 205
+  ebb blocks: [205]
+  ebb exits: [206]
+  1 paths to exit 206
+ebb entry: 206
+  ebb blocks: [206]
+  ebb exits: []
