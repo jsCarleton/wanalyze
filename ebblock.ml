@@ -49,7 +49,7 @@ let ebb_has_branchback (ebb: ebblock): bool =
   let ebb_head_idx = ebb.entry_bb.bbindex in
   List.exists 
     ~f:(fun bb -> List.exists 
-                    ~f:(fun bb' -> bb'.bbindex < bb.bbindex && bb'.bbindex >= ebb_head_idx)
+                    ~f:(fun bb' -> bb'.bbindex <= bb.bbindex && bb'.bbindex >= ebb_head_idx)
                     bb.succ) 
     ebb.bbs
 
@@ -104,15 +104,30 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
     match all_bbs with
       (* do we still have bblocks to process ? *)
       | hd::tl  ->
-          (* yes, are we in a loop ? *)
+          (* are we in a loop ? *)
           if lnest < 0 then
-            (* no, are we starting a loop ? *)
+            (* no, not in a loop *)
             (match hd.bbtype with
+              (* are we starting a loop ? *)
               | BB_loop -> 
-                  (* yes, close off the current ebb *)
-                  eblock_of_bblocks' tl [] ((build_ebblock EBB_block hd bbs_acc)::ebbs_acc) hd.nesting None
-              | _       ->
-                  (* does this bblock have a pred that's before the current ebb? *)
+                  (* TODO not sure that this is quite right. should it be: always start a bb after an else? *)
+                  (* we make the loop bb an ebb with just that bb *)
+                  (match bbs_acc with
+                    (* have we already started to build an ebb? *)
+                    | [] ->
+                        (* no, just build an ebb for the loop *)
+                        eblock_of_bblocks' tl [] ((build_ebblock EBB_block hd bbs_acc)::ebbs_acc) hd.nesting None
+                    | _ ->
+                        (* yes, close it off and create one containing just the loop *)
+                        eblock_of_bblocks' tl [] 
+                          ((finish_ebblock EBB_block [hd])
+                              ::(finish_ebblock EBB_block bbs_acc)
+                              ::ebbs_acc) hd.nesting None
+                  )
+              | _  ->
+                  (* does this bblock have a pred that's before the current ebb? 
+                      i.e. does some earlier ebb enter this bblock? if so it needs to be
+                      the head of a new ebb *)
                   if pred_before_ebb entry_bb hd.pred then
                     (* yes, start a new ebb *)
                     eblock_of_bblocks' tl [hd] ((finish_ebblock EBB_block bbs_acc)::ebbs_acc) lnest (Some hd)

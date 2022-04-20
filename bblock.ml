@@ -110,8 +110,8 @@ match e with
 
 let rec get_end_else_bblock (bblocks: bblock list) (index: int) (nesting: int): bblock =
   match (List.nth_exn bblocks index).bbtype with
-  | BB_else when (List.nth_exn bblocks index).nesting = nesting -> (List.nth_exn bblocks index)
-  | BB_end  when (List.nth_exn bblocks index).nesting = nesting -> (List.nth_exn bblocks index)
+  | BB_else when (List.nth_exn bblocks index).nesting = nesting -> (List.nth_exn bblocks (index+1))
+  | BB_end  when (List.nth_exn bblocks index).nesting = nesting -> (List.nth_exn bblocks (index+1))
   | _ -> get_end_else_bblock bblocks (index+1) nesting
 
 let rec get_end_bblock (bblocks: bblock list) (index: int) (nesting: int): bblock =
@@ -160,11 +160,12 @@ let set_successor (bblocks: bblock list) (index: int) =
           | true  -> s.succ <- []
           | false -> s.succ <- [List.nth_exn bblocks (index+1)])
     | BB_block
-    | BB_loop 
-    | BB_else ->
+    | BB_loop ->
         s.succ <- [List.nth_exn bblocks (index+1)]
     | BB_if ->
         s.succ <- [List.nth_exn bblocks (index+1); get_end_else_bblock bblocks index s.nesting]
+    | BB_else ->
+        s.succ <- [get_end_bblock bblocks index s.nesting]
     | BB_br_if ->
         s.succ <- List.cons (List.nth_exn bblocks (index+1)) (List.map ~f:(br_target bblocks index s.nesting) s.labels)
     | BB_br

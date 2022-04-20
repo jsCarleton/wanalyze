@@ -1,8 +1,12 @@
 ebb entry: 0
-  ebb blocks: [0 1]
-  ebb exits: [2 16]
+  ebb blocks: [0]
+  ebb exits: [1 17]
+  1 paths to exit 1
+  2 paths to exit 17
+ebb entry: 1
+  ebb blocks: [1]
+  ebb exits: [2]
   1 paths to exit 2
-  2 paths to exit 16
 ebb entry: 2
   ebb blocks: [2 3 4 5]
   ebb exits: [6]
@@ -24,7 +28,11 @@ ebb entry: 12
   ebb exits: [16]
   1 paths to exit 16
 ebb entry: 16
-  ebb blocks: [16 17]
+  ebb blocks: [16]
+  ebb exits: [17]
+  1 paths to exit 17
+ebb entry: 17
+  ebb blocks: [17]
   ebb exits: [18]
   1 paths to exit 18
 ebb entry: 18

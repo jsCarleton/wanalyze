@@ -8,11 +8,11 @@ digraph finite_state_machine {
     node [shape = circle];
     0 -> 1[label="block"];
     1 -> 2[label="if"];
-    1 -> 2[label="~if"];
+    1 -> 3[label="else"];
     2 -> 3[label="end"];
     3 -> 4[label="loop"];
     4 -> 5[label="if"];
-    4 -> 5[label="~if"];
+    4 -> 6[label="else"];
     5 -> 6[label="end"];
     6 -> 7[label="~br_if"];
     6 -> 4[color="red" fontcolor="red" label="br_if"];

@@ -5,11 +5,67 @@ Loop block: [8 9 10]
   Loop exits: [10]
   Looping path: [9]
   Looping path: [9]
-  Path to loop: [0 1 2 3 4 5 6 7 8]
+  Path to loop: [0 1 2 3 5 6 8]
+  Path to loop: [0 1 2 3 5 7 8]
+  Path to loop: [0 1 2 4 5 6 8]
+  Path to loop: [0 1 2 4 5 7 8]
+  Path to loop: [0 2 3 5 6 8]
+  Path to loop: [0 2 3 5 7 8]
+  Path to loop: [0 2 4 5 6 8]
+  Path to loop: [0 2 4 5 7 8]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 3 4 5 6 7 8] 268
-cost:    268; 
-stack:   [(gn2 (STACKTOP) + 128) + 1, rN0]; 
+[0 1 2 3 5 6 8] 264
+cost:    264; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (64 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
+
+[0 1 2 3 5 7 8] 264
+cost:    264; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (128 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
+
+[0 1 2 4 5 6 8] 264
+cost:    264; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (64 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
+
+[0 1 2 4 5 7 8] 264
+cost:    264; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (128 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
+
+[0 2 3 5 6 8] 261
+cost:    261; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (64 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
+
+[0 2 3 5 7 8] 261
+cost:    261; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (128 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
+
+[0 2 4 5 6 8] 261
+cost:    261; 
+stack:   []; 
+params:  [pn0, pn1]; 
+locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (64 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
+globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]
+
+[0 2 4 5 7 8] 261
+cost:    261; 
+stack:   []; 
 params:  [pn0, pn1]; 
 locals:  [gn2 (STACKTOP) + 128, 0, pn0 + 72, gn2 (STACKTOP), (gn2 (STACKTOP) + 128) + (128 - rn0), gn2 (STACKTOP) - -64, pn0 - -64, pn0 + 136, rN0, rN0, rN0, rN0, rN0, rN0, rN0, rN0, lN18, lN19, lN20, lN21, lN22, lN23, lN24]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP) + 208, gn3 (STACK_MAX), 0, 0, 0]

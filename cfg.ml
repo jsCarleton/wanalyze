@@ -49,9 +49,9 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
       | BB_if           ->
           String.concat [
             graph_node index "if" (List.nth_exn succ 0).bbindex;
-            graph_node index "~if" (List.nth_exn succ 1).bbindex;
+            graph_node index "else" (List.nth_exn succ 1).bbindex;
           ]
-      | BB_else         -> graph_node index "else" (List.nth_exn succ 0).bbindex
+      | BB_else         -> graph_node index "end" (List.nth_exn succ 0).bbindex
       | BB_br_if        ->
           String.concat [
             graph_node index "~br_if" (List.nth_exn succ 0).bbindex;

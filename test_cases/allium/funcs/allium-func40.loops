@@ -3,27 +3,27 @@ Simple br_if conditions in: .
 Simple br conditions in: .
 Loop block: [10 11 12 13 14 15 16 17]
   Loop exits: [17]
-  Looping path: [11 12 13 14 15 16]
-  Looping path: [11 12 13 14 15 16]
-  Looping path: [11 12 13 14 15 16]
-  Looping path: [11 12 13 14 15 16]
-  Looping path: [11 12 13 14 15 16]
-  Looping path: [11 12 13 14 15 16]
-  Looping path: [11 12 13 14 15 16]
-  Looping path: [11 12 13 14 15 16]
-  Path to loop: [0 1 2 4 5 6 7 8 9 10]
-  Path to loop: [0 1 5 6 7 8 9 10]
+  Looping path: [11 13 14 16]
+  Looping path: [11 13 14 15 16]
+  Looping path: [11 12 14 16]
+  Looping path: [11 12 14 15 16]
+  Looping path: [11 13 14 16]
+  Looping path: [11 13 14 15 16]
+  Looping path: [11 12 14 16]
+  Looping path: [11 12 14 15 16]
+  Path to loop: [0 1 6 7 9 10]
+  Path to loop: [0 1 6 8 9 10]
 Code paths from the root bblock to a loop bblock and the VM state at the conclusion of the loop bblock:
-[0 1 2 4 5 6 7 8 9 10] 34
-cost:    34; 
-stack:   [rn0]; 
-params:  [0]; 
+[0 1 6 7 9 10] 21
+cost:    21; 
+stack:   []; 
+params:  [rn0]; 
 locals:  [rn0, ln2]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
 
-[0 1 5 6 7 8 9 10] 27
-cost:    27; 
-stack:   [rn0]; 
+[0 1 6 8 9 10] 18
+cost:    18; 
+stack:   []; 
 params:  [0]; 
 locals:  [rn0, ln2]; 
 globals: [gn0 (tableBase), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), gn1 (DYNAMICTOP_PTR), gn2 (STACKTOP), gn3 (STACK_MAX), 0, 0, 0]
