@@ -15,7 +15,6 @@ type loop_path_parts =
 }
 
 val cost_of_code_path       : Code_path.code_path -> int
-val cost_of_code_paths      : Code_path.code_path list -> int
 val max_cost_of_code_paths  : Code_path.code_path list -> int -> int
 val cost_of_loop            : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list
         -> Wasm_module.local_type list -> Bblock.bblock -> loop_path_parts -> loop_metric_info

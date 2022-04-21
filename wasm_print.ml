@@ -419,8 +419,6 @@ let string_of_state (print_locals: bool) (nparams: int) (state: program_state): 
 (* printing analysis results *)
 
 let string_of_code_path (cp: code_path): string = String.concat[string_of_bblocks cp; " "; (string_of_int (cost_of_code_path cp))]
-let string_of_code_paths (cps: code_path list) =
-  String.concat ~sep:"\n" (List.map ~f:string_of_code_path cps)
 
 let execute_bblock (w: wasm_module) (e: expr) (state: program_state)
       (bb: bblock) =
@@ -616,11 +614,6 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
   (* graphviz command file for ebblock flow graph *)
   let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
-    Out_channel.close oc;
-  (* code paths *)
-  let oc = Out_channel.create (String.concat[fname; ".paths"]) in
-    Out_channel.output_string oc (string_of_code_paths cps);
-    Out_channel.output_string oc (sprintf "\n%d\n" (cost_of_code_paths cps));
     Out_channel.close oc;
   (* loop analysis *)
   (match has_loop bblocks with
