@@ -172,14 +172,6 @@ let nterm_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path opt
 let nterms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
   List.filter_map ~f:(nterm_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
 
-let bb_ends_cp (to_bb: bblock) (cp: code_path): bool =
-  (List.hd_exn cp).bbindex = to_bb.bbindex
-
-let step_to (to_bb: bblock) (cp: code_path): (code_path list)*(code_path list) =
-  match bb_ends_cp to_bb cp with
-  | true  -> [], [cp]
-  | _     -> (nterms_of_cp_to to_bb cp), (terms_of_cp_to to_bb cp)
-
 let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list =
   if n_iters > 1_000_000 then
     []
