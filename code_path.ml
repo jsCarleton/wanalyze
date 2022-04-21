@@ -180,40 +180,22 @@ let step_to (to_bb: bblock) (cp: code_path): (code_path list)*(code_path list) =
   | true  -> [], [cp]
   | _     -> (nterms_of_cp_to to_bb cp), (terms_of_cp_to to_bb cp)
 
-let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (lt: int): code_path list =
-  if lt > 100000 then
-    []
-  else
-    match nterm with
-      | []        -> term
-      | hd::tl    ->
-          let n,t = step_to to_bb hd in
-            code_paths_to to_bb (List.append n tl) (List.append t term) (lt + (List.length t))
-
-let rec xcode_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list =
+let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list =
   if n_iters > 1_000_000 then
-     (Printf.printf "code_paths_to limit exceeded\n%!"; [])
+    []
   else
     match nterm with
       | []        -> term
       | hd::tl    ->
           let n = nterms_of_cp_to to_bb hd in
           let t = terms_of_cp_to to_bb hd in
-            xcode_paths_to to_bb (List.append n tl) (List.append t term) (n_iters + 1)
+            code_paths_to to_bb (List.append n tl) (List.append t term) (n_iters + 1)
 
-(* TODO do we want to include the to_bb in the code paths we find? *)
 let code_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list =
   if from_bb.bbindex = to_bb.bbindex then
     [[from_bb]]
   else
-    if to_bb.bbindex > 0 then
-      xcode_paths_to to_bb [[from_bb]] [] 0
-    else
-      code_paths_to to_bb [[from_bb]] [] 0
-
-
-
-
+    code_paths_to to_bb [[from_bb]] [] 0
     
 let bblock_is_loop (bb: bblock): bool =
   match bb.bbtype with
