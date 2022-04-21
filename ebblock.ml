@@ -5,7 +5,7 @@ open Code_path
 type ebb_exit =
   {
     exit_bb:  bblock;
-    cps:      code_path list;
+    cps:      code_path list option;
   }
 
 type ebb_type = EBB_loop | EBB_block
@@ -23,12 +23,15 @@ let string_of_ebblock (ebb: ebblock): string =
 
   let rec string_of_ebblock' (indent: int) (ebb: ebblock) =
     String.concat [
-      sprintf "%sebb entry: %d\n%!"   (String.make indent ' ') ebb.entry_bb.bbindex;
-      sprintf "%sebb blocks: %s\n%!"  (String.make (indent+2) ' ') (string_of_bblocks ebb.bbs);
-      sprintf "%sebb exits: %s\n%!"   (String.make (indent+2) ' ') (string_of_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
+      sprintf "%sebb entry: %d\n"   (String.make indent ' ') ebb.entry_bb.bbindex;
+      sprintf "%sebb blocks: %s\n"  (String.make (indent+2) ' ') (string_of_bblocks ebb.bbs);
+      sprintf "%sebb exits: %s\n"   (String.make (indent+2) ' ') (string_of_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       String.concat
         (List.map 
-          ~f:(fun e -> sprintf "%s%d paths to exit %d\n%!" (String.make (indent+2) ' ') (List.length e.cps) e.exit_bb.bbindex) 
+          ~f:(fun e -> sprintf "%s%s paths to exit %d\n" 
+                          (String.make (indent+2) ' ') 
+                          (match e.cps with | None -> "unknown number of " | Some cps -> (string_of_int (List.length cps)))
+                          e.exit_bb.bbindex) 
           ebb.exits);
       match ebb.nested_ebbs with
       | []  -> "";
@@ -52,6 +55,9 @@ let ebb_has_branchback (ebb: ebblock): bool =
                     ~f:(fun bb' -> bb'.bbindex <= bb.bbindex && bb'.bbindex >= ebb_head_idx)
                     bb.succ) 
     ebb.bbs
+
+let ebb_too_many_paths (ebb: ebblock): bool =
+  List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) ebb.exits
 
 let ext_succ_of_bbs (bbs: bblock list): bblock list =
   List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs)

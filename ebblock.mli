@@ -1,7 +1,7 @@
 type ebb_exit =
   {
     exit_bb:  Bblock.bblock;
-    cps:      Code_path.code_path list;
+    cps:      Code_path.code_path list option;
   }
 
 type ebb_type = EBB_loop | EBB_block
@@ -19,4 +19,5 @@ val string_of_ebblock:      ebblock -> string
 val ebb_to_unreachable:     ebblock -> bool
 val ebb_to_return:          ebblock -> bool
 val ebb_has_branchback:     ebblock -> bool
+val ebb_too_many_paths:     ebblock -> bool
 val ebblocks_of_bblocks:    Bblock.bblock list -> ebblock list

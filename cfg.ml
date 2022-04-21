@@ -148,7 +148,14 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
 
   let rec graph_node (ebb: ebblock): string  =
     match ebb.nested_ebbs with
-    | []  -> String.concat["    node [shape = box] "  ; name_of_ebb ebb; "[label=\""; label_of_ebb ebb; "\"]\n"]
+    | []  -> String.concat[ if ebb_too_many_paths ebb then
+                                "    node [shape=box, fontcolor=white, style=filled, fillcolor=red] "
+                            else
+                                "    node [shape=box, fontcolor=black, style=\"\"] ";
+                            name_of_ebb ebb; 
+                            "[label=\""; 
+                            label_of_ebb ebb;
+                            "\"]\n"]
     | _   -> String.concat [
               "    subgraph cluster_"; name_of_ebb ebb; "{\n";
               "    label = \"\";\n";

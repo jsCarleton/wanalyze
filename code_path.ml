@@ -172,20 +172,20 @@ let nterm_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path opt
 let nterms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
   List.filter_map ~f:(nterm_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
 
-let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list =
+let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list option =
   if n_iters > 1_000_000 then
-    []
+    None
   else
     match nterm with
-      | []        -> term
+      | []        -> Some term
       | hd::tl    ->
           let n = nterms_of_cp_to to_bb hd in
           let t = terms_of_cp_to to_bb hd in
             code_paths_to to_bb (List.append n tl) (List.append t term) (n_iters + 1)
 
-let code_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list =
+let code_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list option =
   if from_bb.bbindex = to_bb.bbindex then
-    [[from_bb]]
+    Some [[from_bb]]
   else
     code_paths_to to_bb [[from_bb]] [] 0
     
@@ -562,8 +562,7 @@ type loops_class = {
   loops_nested:   bool;
 }
 
-(* TODO we have to handle the case where there are too many paths *)
-let paths_from_to_loops (l1: loop) (l2: loop): code_path list =
+let paths_from_to_loops (l1: loop) (l2: loop): code_path list option =
   let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
   let loop2 = List.hd_exn l2.loop_bblocks in
   code_paths_from_to end1 loop2
@@ -586,8 +585,8 @@ let loop_pair_parallel (lp: loop*loop): bool =
   else 
     let ap =  paths_from_to_loops (fst lp) (snd lp) in
     match ap with
-    | []  -> true
-    | _   -> false
+    | Some [] -> true
+    | _       -> false
 
 let loop_pair_series (lp: loop*loop): bool =
   let l1 = fst lp in
@@ -595,13 +594,16 @@ let loop_pair_series (lp: loop*loop): bool =
   let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
   let loop2 = List.hd_exn l2.loop_bblocks in
   let ap    = paths_from_to_loops l1 l2 in
-  match end1.bbindex < loop2.bbindex with
-  | true  ->  (List.exists 
-                ~f:(fun p ->
-                          List.exists ~f:(fun bb -> bb.bbindex = end1.bbindex) p
-                      &&  List.exists ~f:(fun bb -> bb.bbindex = loop2.bbindex) p)
-              ap)
-  | false ->  false
+  match ap with
+  | None -> false
+  | Some ap' ->
+      (match end1.bbindex < loop2.bbindex with
+      | true  ->  (List.exists 
+                    ~f:(fun p ->
+                              List.exists ~f:(fun bb -> bb.bbindex = end1.bbindex) p
+                          &&  List.exists ~f:(fun bb -> bb.bbindex = loop2.bbindex) p)
+                  ap')
+      | false ->  false)
 
 let rec all_pairs (ls1: loop list) (ls2: loop list) (ls2_init: loop list) (acc: (loop*loop) list): (loop*loop) list =
   match ls1, ls2 with
