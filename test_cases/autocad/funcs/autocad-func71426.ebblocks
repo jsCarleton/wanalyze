@@ -3,9 +3,9 @@ ebb entry: 0
   ebb exits: [42 48 246 290 309]
   1 paths to exit 42
   2 paths to exit 48
-  0 paths to exit 246
-  0 paths to exit 290
-  0 paths to exit 309
+  unknown number of  paths to exit 246
+  unknown number of  paths to exit 290
+  unknown number of  paths to exit 309
 ebb entry: 42
   ebb blocks: [42]
   ebb exits: [43]
@@ -14,22 +14,22 @@ ebb entry: 43
   ebb blocks: [43 44 45]
   ebb exits: [46 290]
   1 paths to exit 46
-  0 paths to exit 290
+  unknown number of  paths to exit 290
 ebb entry: 46
   ebb blocks: [46 47]
   ebb exits: [48 290]
   1 paths to exit 48
-  0 paths to exit 290
+  unknown number of  paths to exit 290
 ebb entry: 48
   ebb blocks: [48 49 50 51 52 53 54 55 56 57 58 59 60 61]
   ebb exits: [62 68 88 248 250 275 309]
   1 paths to exit 62
   2 paths to exit 68
   18 paths to exit 88
-  0 paths to exit 248
-  0 paths to exit 250
-  0 paths to exit 275
-  0 paths to exit 309
+  unknown number of  paths to exit 248
+  unknown number of  paths to exit 250
+  unknown number of  paths to exit 275
+  unknown number of  paths to exit 309
 ebb entry: 62
   ebb blocks: [62]
   ebb exits: [63]
@@ -51,7 +51,7 @@ ebb entry: 68
   2 paths to exit 81
   6 paths to exit 88
   6175 paths to exit 275
-  0 paths to exit 309
+  unknown number of  paths to exit 309
 ebb entry: 75
   ebb blocks: [75]
   ebb exits: [76]

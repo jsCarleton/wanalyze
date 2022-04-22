@@ -3,7 +3,7 @@ ebb entry: 0
   ebb exits: [16 22 499]
   4 paths to exit 16
   8 paths to exit 22
-  0 paths to exit 499
+  unknown number of  paths to exit 499
 ebb entry: 16
   ebb blocks: [16]
   ebb exits: [17]
@@ -12,12 +12,12 @@ ebb entry: 17
   ebb blocks: [17 18 19]
   ebb exits: [20 499]
   1 paths to exit 20
-  0 paths to exit 499
+  unknown number of  paths to exit 499
 ebb entry: 20
   ebb blocks: [20 21]
   ebb exits: [22 499]
   1 paths to exit 22
-  0 paths to exit 499
+  unknown number of  paths to exit 499
 ebb entry: 22
   ebb blocks: [22 23 24 25 26 27 28 29 30 31 32 33 34]
   ebb exits: [35 41 42]
@@ -48,7 +48,7 @@ ebb entry: 42
   4 paths to exit 67
   12 paths to exit 71
   225002 paths to exit 153
-  0 paths to exit 499
+  unknown number of  paths to exit 499
 ebb entry: 67
   ebb blocks: [67]
   ebb exits: [68]
@@ -145,18 +145,18 @@ ebb entry: 101
   ebb exits: [137 176 446 501 503]
   48 paths to exit 137
   1 paths to exit 176
-  0 paths to exit 446
-  0 paths to exit 501
-  0 paths to exit 503
+  unknown number of  paths to exit 446
+  unknown number of  paths to exit 501
+  unknown number of  paths to exit 503
   ebb entry: 101
     ebb blocks: [101 102 103 104 105 106 107 108 109]
     ebb exits: [110 114 176 446 501 503]
     1 paths to exit 110
     2 paths to exit 114
     1 paths to exit 176
-    0 paths to exit 446
-    0 paths to exit 501
-    0 paths to exit 503
+    unknown number of  paths to exit 446
+    unknown number of  paths to exit 501
+    unknown number of  paths to exit 503
   ebb entry: 110
     ebb blocks: [110]
     ebb exits: [111]
@@ -236,8 +236,8 @@ ebb entry: 153
   0 paths to exit 176
   36 paths to exit 178
   216 paths to exit 179
-  0 paths to exit 299
-  0 paths to exit 300
+  unknown number of  paths to exit 299
+  unknown number of  paths to exit 300
 ebb entry: 176
   ebb blocks: [176 177]
   ebb exits: [178 501]
@@ -256,11 +256,11 @@ ebb entry: 180
   ebb exits: [297 299 448 496 497 503 505]
   0 paths to exit 297
   1 paths to exit 299
-  0 paths to exit 448
-  0 paths to exit 496
-  0 paths to exit 497
-  0 paths to exit 503
-  0 paths to exit 505
+  unknown number of  paths to exit 448
+  unknown number of  paths to exit 496
+  unknown number of  paths to exit 497
+  unknown number of  paths to exit 503
+  unknown number of  paths to exit 505
   ebb entry: 180
     ebb blocks: [180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199]
     ebb exits: [200 206 208 232 299 497]
@@ -269,7 +269,7 @@ ebb entry: 180
     2 paths to exit 208
     84 paths to exit 232
     1 paths to exit 299
-    0 paths to exit 497
+    unknown number of  paths to exit 497
   ebb entry: 200
     ebb blocks: [200]
     ebb exits: [201]
@@ -389,7 +389,7 @@ ebb entry: 300
   108 paths to exit 329
   324 paths to exit 335
   1032 paths to exit 340
-  0 paths to exit 420
+  unknown number of  paths to exit 420
 ebb entry: 329
   ebb blocks: [329]
   ebb exits: [330]
@@ -411,8 +411,8 @@ ebb entry: 340
   ebb exits: [352 420 450 503]
   6 paths to exit 352
   27446 paths to exit 420
-  0 paths to exit 450
-  0 paths to exit 503
+  unknown number of  paths to exit 450
+  unknown number of  paths to exit 503
 ebb entry: 352
   ebb blocks: [352]
   ebb exits: [353]

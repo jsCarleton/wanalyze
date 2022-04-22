@@ -12,7 +12,7 @@ ebb entry: 13
   ebb exits: [25 30 202]
   4 paths to exit 25
   1 paths to exit 30
-  0 paths to exit 202
+  unknown number of  paths to exit 202
 ebb entry: 25
   ebb blocks: [25]
   ebb exits: [26]
@@ -23,7 +23,7 @@ ebb entry: 26
   0 paths to exit 30
   1 paths to exit 36
   9 paths to exit 48
-  0 paths to exit 202
+  unknown number of  paths to exit 202
 ebb entry: 30
   ebb blocks: [30 31 32 33 34 35]
   ebb exits: [36 153]
@@ -40,8 +40,8 @@ ebb entry: 48
   1 paths to exit 55
   1 paths to exit 63
   3520 paths to exit 148
-  0 paths to exit 194
-  0 paths to exit 202
+  unknown number of  paths to exit 194
+  unknown number of  paths to exit 202
 ebb entry: 55
   ebb blocks: [55]
   ebb exits: [56]

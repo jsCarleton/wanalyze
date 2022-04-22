@@ -2,7 +2,7 @@ ebb entry: 0
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
   ebb exits: [17 373]
   1 paths to exit 17
-  0 paths to exit 373
+  unknown number of  paths to exit 373
 ebb entry: 17
   ebb blocks: [17]
   ebb exits: [18]
@@ -13,15 +13,15 @@ ebb entry: 18
   0 paths to exit 42
   2 paths to exit 46
   1 paths to exit 48
-  0 paths to exit 341
-  0 paths to exit 371
+  unknown number of  paths to exit 341
+  unknown number of  paths to exit 371
 ebb entry: 42
   ebb blocks: [42 43 44 45]
   ebb exits: [46 48 360 371]
   0 paths to exit 46
   1 paths to exit 48
-  0 paths to exit 360
-  0 paths to exit 371
+  unknown number of  paths to exit 360
+  unknown number of  paths to exit 371
 ebb entry: 46
   ebb blocks: [46 47]
   ebb exits: [48 360]
@@ -33,10 +33,10 @@ ebb entry: 48
   6 paths to exit 74
   12 paths to exit 80
   2 paths to exit 84
-  0 paths to exit 336
-  0 paths to exit 339
-  0 paths to exit 341
-  0 paths to exit 371
+  unknown number of  paths to exit 336
+  unknown number of  paths to exit 339
+  unknown number of  paths to exit 341
+  unknown number of  paths to exit 371
 ebb entry: 74
   ebb blocks: [74]
   ebb exits: [75]
@@ -64,8 +64,8 @@ ebb entry: 84
   1 paths to exit 94
   2 paths to exit 98
   5 paths to exit 104
-  0 paths to exit 360
-  0 paths to exit 371
+  unknown number of  paths to exit 360
+  unknown number of  paths to exit 371
 ebb entry: 94
   ebb blocks: [94]
   ebb exits: [95]
@@ -113,7 +113,7 @@ ebb entry: 106
   ebb exits: [125 305 371]
   4 paths to exit 125
   61371 paths to exit 305
-  0 paths to exit 371
+  unknown number of  paths to exit 371
   ebb entry: 106
     ebb blocks: [106 107 108]
     ebb exits: [109 116]
@@ -138,7 +138,7 @@ ebb entry: 106
     0 paths to exit 122
     1 paths to exit 123
     15343 paths to exit 305
-    0 paths to exit 371
+    unknown number of  paths to exit 371
   ebb entry: 122
     ebb blocks: [122]
     ebb exits: [123]
@@ -165,7 +165,7 @@ ebb entry: 127
   680 paths to exit 292
   737 paths to exit 304
   15300 paths to exit 305
-  0 paths to exit 371
+  unknown number of  paths to exit 371
   ebb entry: 127
     ebb blocks: [127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147]
     ebb exits: [148 154 158 218 292 304 305 371]
@@ -176,7 +176,7 @@ ebb entry: 127
     680 paths to exit 292
     737 paths to exit 304
     15300 paths to exit 305
-    0 paths to exit 371
+    unknown number of  paths to exit 371
   ebb entry: 148
     ebb blocks: [148]
     ebb exits: [149]
@@ -206,7 +206,7 @@ ebb entry: 127
     54 paths to exit 223
     367 paths to exit 304
     7645 paths to exit 305
-    0 paths to exit 371
+    unknown number of  paths to exit 371
   ebb entry: 218
     ebb blocks: [218 219]
     ebb exits: [220 292]

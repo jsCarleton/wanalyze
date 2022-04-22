@@ -3,7 +3,7 @@ ebb entry: 0
   ebb exits: [14 20 299]
   4 paths to exit 14
   8 paths to exit 20
-  0 paths to exit 299
+  unknown number of  paths to exit 299
 ebb entry: 14
   ebb blocks: [14]
   ebb exits: [15]
@@ -12,20 +12,20 @@ ebb entry: 15
   ebb blocks: [15 16 17]
   ebb exits: [18 299]
   1 paths to exit 18
-  0 paths to exit 299
+  unknown number of  paths to exit 299
 ebb entry: 18
   ebb blocks: [18 19]
   ebb exits: [20 299]
   1 paths to exit 20
-  0 paths to exit 299
+  unknown number of  paths to exit 299
 ebb entry: 20
   ebb blocks: [20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50]
   ebb exits: [51 57 59 270 298]
   4 paths to exit 51
   20 paths to exit 57
   14 paths to exit 59
-  0 paths to exit 270
-  0 paths to exit 298
+  unknown number of  paths to exit 270
+  unknown number of  paths to exit 298
 ebb entry: 51
   ebb blocks: [51]
   ebb exits: [52]
@@ -51,8 +51,8 @@ ebb entry: 59
   2 paths to exit 71
   4 paths to exit 86
   1134 paths to exit 135
-  0 paths to exit 286
-  0 paths to exit 291
+  unknown number of  paths to exit 286
+  unknown number of  paths to exit 291
 ebb entry: 71
   ebb blocks: [71]
   ebb exits: [72]
@@ -62,7 +62,7 @@ ebb entry: 72
   ebb exits: [84 179 286]
   6 paths to exit 84
   6 paths to exit 179
-  0 paths to exit 286
+  unknown number of  paths to exit 286
 ebb entry: 84
   ebb blocks: [84 85]
   ebb exits: [86 135]
@@ -76,8 +76,8 @@ ebb entry: 86
   10 paths to exit 109
   52 paths to exit 123
   56 paths to exit 124
-  0 paths to exit 286
-  0 paths to exit 291
+  unknown number of  paths to exit 286
+  unknown number of  paths to exit 291
 ebb entry: 100
   ebb blocks: [100]
   ebb exits: [101]
@@ -195,9 +195,9 @@ ebb entry: 137
   ebb exits: [177 264 276 277 286]
   4 paths to exit 177
   118345 paths to exit 264
-  0 paths to exit 276
-  0 paths to exit 277
-  0 paths to exit 286
+  unknown number of  paths to exit 276
+  unknown number of  paths to exit 277
+  unknown number of  paths to exit 286
 ebb entry: 177
   ebb blocks: [177 178]
   ebb exits: [179 181]
@@ -223,7 +223,7 @@ ebb entry: 183
   1848 paths to exit 247
   27 paths to exit 274
   7407 paths to exit 277
-  0 paths to exit 286
+  unknown number of  paths to exit 286
 ebb entry: 247
   ebb blocks: [247]
   ebb exits: [248]

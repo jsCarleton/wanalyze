@@ -3,7 +3,7 @@ ebb entry: 0
   ebb exits: [22 28 404]
   4 paths to exit 22
   8 paths to exit 28
-  0 paths to exit 404
+  unknown number of  paths to exit 404
 ebb entry: 22
   ebb blocks: [22]
   ebb exits: [23]
@@ -12,12 +12,12 @@ ebb entry: 23
   ebb blocks: [23 24 25]
   ebb exits: [26 404]
   1 paths to exit 26
-  0 paths to exit 404
+  unknown number of  paths to exit 404
 ebb entry: 26
   ebb blocks: [26 27]
   ebb exits: [28 404]
   1 paths to exit 28
-  0 paths to exit 404
+  unknown number of  paths to exit 404
 ebb entry: 28
   ebb blocks: [28]
   ebb exits: [29]
@@ -32,7 +32,7 @@ ebb entry: 31
   2 paths to exit 41
   8 paths to exit 52
   1 paths to exit 59
-  0 paths to exit 436
+  unknown number of  paths to exit 436
 ebb entry: 41
   ebb blocks: [41]
   ebb exits: [42]
@@ -59,7 +59,7 @@ ebb entry: 55
   0 paths to exit 59
   1 paths to exit 74
   8 paths to exit 89
-  0 paths to exit 436
+  unknown number of  paths to exit 436
 ebb entry: 59
   ebb blocks: [59 60 61]
   ebb exits: [62 452]
@@ -83,7 +83,7 @@ ebb entry: 74
   ebb exits: [78 89 438]
   2 paths to exit 78
   7 paths to exit 89
-  0 paths to exit 438
+  unknown number of  paths to exit 438
 ebb entry: 78
   ebb blocks: [78]
   ebb exits: [79]
@@ -109,8 +109,8 @@ ebb entry: 92
   ebb exits: [99 110 436 438]
   2 paths to exit 99
   8 paths to exit 110
-  0 paths to exit 436
-  0 paths to exit 438
+  unknown number of  paths to exit 436
+  unknown number of  paths to exit 438
 ebb entry: 99
   ebb blocks: [99]
   ebb exits: [100]
@@ -136,8 +136,8 @@ ebb entry: 113
   ebb exits: [125 136 436 438]
   2 paths to exit 125
   8 paths to exit 136
-  0 paths to exit 436
-  0 paths to exit 438
+  unknown number of  paths to exit 436
+  unknown number of  paths to exit 438
 ebb entry: 125
   ebb blocks: [125]
   ebb exits: [126]
@@ -181,9 +181,9 @@ ebb entry: 151
   8 paths to exit 182
   48 paths to exit 188
   16 paths to exit 203
-  0 paths to exit 342
-  0 paths to exit 420
-  0 paths to exit 436
+  unknown number of  paths to exit 342
+  unknown number of  paths to exit 420
+  unknown number of  paths to exit 436
 ebb entry: 182
   ebb blocks: [182]
   ebb exits: [183]
@@ -204,8 +204,8 @@ ebb entry: 188
   1 paths to exit 195
   2 paths to exit 201
   4870 paths to exit 329
-  0 paths to exit 420
-  0 paths to exit 436
+  unknown number of  paths to exit 420
+  unknown number of  paths to exit 436
 ebb entry: 195
   ebb blocks: [195]
   ebb exits: [196]
@@ -233,8 +233,8 @@ ebb entry: 203
   2 paths to exit 236
   7 paths to exit 237
   389 paths to exit 262
-  0 paths to exit 420
-  0 paths to exit 436
+  unknown number of  paths to exit 420
+  unknown number of  paths to exit 436
 ebb entry: 226
   ebb blocks: [226]
   ebb exits: [227]
@@ -254,8 +254,8 @@ ebb entry: 232
   ebb exits: [236 262 420 436]
   0 paths to exit 236
   1 paths to exit 262
-  0 paths to exit 420
-  0 paths to exit 436
+  unknown number of  paths to exit 420
+  unknown number of  paths to exit 436
 ebb entry: 236
   ebb blocks: [236]
   ebb exits: [237]
@@ -264,15 +264,15 @@ ebb entry: 237
   ebb blocks: [237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256 257 258 259 260 261]
   ebb exits: [262 408 436]
   54 paths to exit 262
-  0 paths to exit 408
-  0 paths to exit 436
+  unknown number of  paths to exit 408
+  unknown number of  paths to exit 436
 ebb entry: 262
   ebb blocks: [262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 281 282 283 284 285 286 287 288 289 290 291 292 293 294 295 296 297 298 299 300]
   ebb exits: [301 306 420 436]
   16 paths to exit 301
   64 paths to exit 306
-  0 paths to exit 420
-  0 paths to exit 436
+  unknown number of  paths to exit 420
+  unknown number of  paths to exit 436
 ebb entry: 301
   ebb blocks: [301]
   ebb exits: [302]
@@ -291,8 +291,8 @@ ebb entry: 306
   ebb exits: [329 333 420 436]
   38 paths to exit 329
   2 paths to exit 333
-  0 paths to exit 420
-  0 paths to exit 436
+  unknown number of  paths to exit 420
+  unknown number of  paths to exit 436
 ebb entry: 329
   ebb blocks: [329 330 331 332]
   ebb exits: [333 335 336 337]
