@@ -22,4 +22,5 @@ index start   end nesting dest  labels type        succ/pred
    19   177   186     2              1 br          s=[18] p=[18]
    20   186   187     1                end         s=[21] p=[]
    21   187   188     0                end         s=[22] p=[20 18]
-   22   188   192    -1                end         s=[] p=[21]
+   22   188   192    -1                end         s=[-1] p=[21]
+   -1    -1    -1    -1                fn exit     s=[] p=[22]

@@ -1,5 +1,9 @@
+val exit_final_end    : int
+val exit_return       : int
+val exit_unreachable  : int
+
 type bb_type =
-  BB_unknown
+  BB_unknown | BB_exit
   | BB_unreachable | BB_block | BB_loop | BB_if | BB_else | BB_end | BB_br | BB_br_if | BB_br_table | BB_return
 
 type bblock =

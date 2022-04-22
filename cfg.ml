@@ -24,9 +24,9 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
   let graph_node (src: int) (label: string) (dest: int): string =
     let dest_name = 
       (match dest with
-        | -1 -> "E"
-        | -2 -> "R"
-        | -3 -> "U"
+        | -1  -> "E"
+        | -2  -> "R"
+        | -3  -> "U"
         |  _ -> string_of_int dest) in
     match dest >= 0 && src >= dest with
     | true  -> 
@@ -39,11 +39,6 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
     match List.length pred > 0 || index = 0 with
     | true ->
       (match bbtype with
-      | BB_unreachable  -> graph_node index "unreachable" (-3)
-      | BB_end          -> 
-          (match succ with 
-            | []  -> graph_node index "end" (-1) 
-            | _   -> graph_node index "end" (List.nth_exn succ 0).bbindex)
       | BB_block        -> graph_node index "block" (List.nth_exn succ 0).bbindex
       | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0).bbindex
       | BB_if           ->
@@ -57,9 +52,12 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
             graph_node index "~br_if" (List.nth_exn succ 0).bbindex;
             graph_node index "br_if" (List.nth_exn succ 1).bbindex;
           ]
-      | BB_br           -> graph_node index "br" (List.nth_exn succ 0).bbindex
       | BB_br_table     -> String.concat (List.map ~f:(graph_node index "br_table") (indexes_of_bblocks succ))
-      | BB_return       -> graph_node index "return" (-2)
+      | BB_end          -> graph_node index "end"         (List.nth_exn succ 0).bbindex
+      | BB_return       -> graph_node index "return"      (List.nth_exn succ 0).bbindex
+      | BB_unreachable  -> graph_node index "unreachable" (List.nth_exn succ 0).bbindex
+      | BB_br           -> graph_node index "br"          (List.nth_exn succ 0).bbindex
+      | BB_exit         -> ""
       | BB_unknown      -> failwith "Unknown bb type in graph_bblock")
     | _ -> ""
   in

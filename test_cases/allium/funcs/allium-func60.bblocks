@@ -5,4 +5,5 @@ index start   end nesting dest  labels type        succ/pred
     2    13    23     0   5            if          s=[3 4] p=[1 0]
     3    23    34     0                else        s=[5] p=[2]
     4    34    60     0                end         s=[5] p=[2]
-    5    60   391    -1                end         s=[] p=[4 3]
+    5    60   391    -1                end         s=[-1] p=[4 3]
+   -1    -1    -1    -1                fn exit     s=[] p=[5]

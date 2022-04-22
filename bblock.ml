@@ -6,13 +6,17 @@ open Symbolic_expr
 (* basic blocks and code paths are supplementary information that we store as part of the func definition to
     facilitate analysis *)
 (* basic blocks have a type that's determined by the control instruction that terminates the bblock *)
+let exit_final_end    = -1
+let exit_return       = -2
+let exit_unreachable  = -3
+
 type bb_type =
-  BB_unknown
+  BB_unknown | BB_exit
   | BB_unreachable | BB_block | BB_loop | BB_if | BB_else | BB_end | BB_br | BB_br_if | BB_br_table | BB_return
 
 let string_of_bb_type b =
   match b with
-  BB_unknown -> "unknown"
+  BB_unknown -> "unknown" | BB_exit -> "exit"
   | BB_unreachable -> "unreachable" | BB_block -> "block" | BB_loop -> "loop" | BB_if -> "if" | BB_else -> "else"
   | BB_end -> "end" | BB_br -> "br" | BB_br_if -> "if" | BB_br_table -> "br_table" | BB_return -> "return"
 
@@ -43,20 +47,7 @@ let bb_type_of_opcode (op: int): bb_type =
   | (* return *)      0x0f -> BB_return
   | _                      -> failwith (sprintf "Invalid opcode for bb %x" op)
 
-let cost_of_bblock (bb: bblock): int =
-  match bb.bbtype with
-  | BB_unreachable
-  | BB_block
-  | BB_loop
-  | BB_if
-  | BB_else
-  | BB_end
-  | BB_br
-  | BB_br_if
-  | BB_br_table
-  | BB_return
-      -> bb.end_op - bb.start_op
-  | BB_unknown -> failwith "Unknown bblock type in cost"
+let cost_of_bblock (bb: bblock): int = bb.end_op - bb.start_op
 
 let compare_bbs (b1: bblock) (b2: bblock): int =
   Int.compare b1.bbindex b2.bbindex
@@ -80,11 +71,37 @@ let mult_succ_count (bblocks: bblock list): int =
   List.fold bblocks ~init:0 ~f:(fun a x -> match x.succ with |[] | [_] -> a | _ -> a+1)
 
 let expr_of_bblock (e: expr) (bb: bblock): expr =
-  (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op))
+  if bb.start_op >= 0 then
+    (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op))
+  else
+    []
 
+let exit_bblock (exit_type: int) : bblock = 
+      { bbindex     = exit_type;
+        start_op    = -1; 
+        end_op      = -1;
+        succ        = [];
+        pred        = [];
+        bbtype      = BB_exit;
+        nesting     = -1;
+        labels      = [];
+        br_dest     = None}
+
+let return_bblock (bbs: bblock list): bblock list =
+  if List.exists ~f:(fun bb -> match bb.bbtype with | BB_return -> true | _ -> false) bbs then
+    (exit_bblock exit_return)::bbs
+  else
+    bbs
+
+let unreachable_bblock (bbs: bblock list): bblock list =
+  if List.exists ~f:(fun bb -> match bb.bbtype with | BB_unreachable -> true | _ -> false) bbs then
+    (exit_bblock exit_unreachable)::bbs
+  else
+    bbs
+  
 let rec bblocks_of_expr' (e: expr) (bb_acc: bblock list) (current: bblock): bblock list =
 match e with
-| [] -> bb_acc
+| [] -> List.rev (unreachable_bblock (return_bblock ((exit_bblock exit_final_end)::bb_acc)))
 | _  ->
   match (List.hd_exn e).opcode with
     (* 1. each of these control instructions cause the current bblock to end *)
@@ -108,7 +125,7 @@ match e with
       current.bbtype <- bb_type_of_opcode (List.hd_exn e).opcode;
       current.nesting <- (List.hd_exn e).opnesting;
       (* the new block doesn't have a correct type until we discover what it is*)
-      bblocks_of_expr' (List.tl_exn e) (List.append bb_acc [current]) 
+      bblocks_of_expr' (List.tl_exn e) (current::bb_acc) 
                     {bbindex    = current.bbindex+1;
                     start_op    = current.end_op; 
                     end_op      = current.end_op+1;
@@ -194,8 +211,11 @@ let set_successor (bblocks: bblock list) (index: int) =
     | BB_br
     | BB_br_table ->
         s.succ <- List.map ~f:(br_target bblocks index s.nesting) s.labels
-    | BB_unreachable
+    | BB_unreachable ->
+        s.succ <- [List.find_exn ~f:(fun bb -> bb.bbindex = exit_unreachable) bblocks]
     | BB_return ->
+        s.succ <- [List.find_exn ~f:(fun bb -> bb.bbindex = exit_return) bblocks]
+    | BB_exit ->
         s.succ <- []
     | BB_unknown ->
         failwith "Unknown bb block type in set_successor"
