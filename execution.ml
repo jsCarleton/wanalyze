@@ -269,22 +269,6 @@ let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
   let s = succ_cond_of_bblock w f e Empty in
   f,s
 
-let set_pred' (bblocks: bblock list) (src: bblock) (dest: bblock) =
-  match dest.bbindex < List.length bblocks with 
-  | true -> dest.pred <- List.cons src dest.pred
-  | _ -> ()
-let set_pred (bblocks: bblock list) (bb: bblock) =
-  List.iter ~f:(set_pred' bblocks bb) bb.succ
-
-let bblocks_of_expr (e: expr) : bblock list =
-  let bblocks = bblocks_of_expr e [] {bbindex=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;
-                                     labels=[]; br_dest= None} in
-  (Logging.get_logger "wanalyze")#info "# bblocks: %d" (List.length bblocks);
-  set_br_dest bblocks 0;
-  set_successors bblocks 0;
-  List.iter ~f:(set_pred bblocks) bblocks;
-  bblocks
-
 let rec reduce_expr (w: wasm_module) (e: expr) (s: program_state): expr_tree =
   match e with
   | []      ->  List.hd_exn s.value_stack

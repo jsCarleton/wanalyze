@@ -82,7 +82,7 @@ let mult_succ_count (bblocks: bblock list): int =
 let expr_of_bblock (e: expr) (bb: bblock): expr =
   (List.sub e ~pos:bb.start_op ~len:(bb.end_op - bb.start_op))
 
-let rec bblocks_of_expr (e: expr) (bb_acc: bblock list) (current: bblock): bblock list =
+let rec bblocks_of_expr' (e: expr) (bb_acc: bblock list) (current: bblock): bblock list =
 match e with
 | [] -> bb_acc
 | _  ->
@@ -108,7 +108,7 @@ match e with
       current.bbtype <- bb_type_of_opcode (List.hd_exn e).opcode;
       current.nesting <- (List.hd_exn e).opnesting;
       (* the new block doesn't have a correct type until we discover what it is*)
-      bblocks_of_expr (List.tl_exn e) (List.append bb_acc [current]) 
+      bblocks_of_expr' (List.tl_exn e) (List.append bb_acc [current]) 
                     {bbindex    = current.bbindex+1;
                     start_op    = current.end_op; 
                     end_op      = current.end_op+1;
@@ -121,8 +121,16 @@ match e with
     (* 2. all other opcodes get added to the current bblock *)
     | _ ->
       current.end_op <- current.end_op + 1;
-      bblocks_of_expr (List.tl_exn e) bb_acc current
+      bblocks_of_expr' (List.tl_exn e) bb_acc current
 
+let set_pred' (bblocks: bblock list) (src: bblock) (dest: bblock) =
+  match dest.bbindex < List.length bblocks with 
+  | true -> dest.pred <- List.cons src dest.pred
+  | _ -> ()
+
+let set_pred (bblocks: bblock list) (bb: bblock) =
+  List.iter ~f:(set_pred' bblocks bb) bb.succ
+ 
 let rec get_end_else_bblock (bblocks: bblock list) (index: int) (nesting: int): bblock =
   match (List.nth_exn bblocks index).bbtype with
   | BB_else when (List.nth_exn bblocks index).nesting = nesting -> (List.nth_exn bblocks (index+1))
@@ -210,6 +218,16 @@ match index < List.length bblocks with
     );
   set_br_dest bblocks (index+1)
 
+let bblocks_of_expr (e: expr) : bblock list =
+
+  let bblocks = bblocks_of_expr' e [] {bbindex=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;
+                                      labels=[]; br_dest= None} in
+  (Logging.get_logger "wanalyze")#info "# bblocks: %d" (List.length bblocks);
+  set_br_dest bblocks 0;
+  set_successors bblocks 0;
+  List.iter ~f:(set_pred bblocks) bblocks;
+  bblocks
+  
 let loop_count_of_bblocks (bblocks: bblock list) (init: int): int =
   List.fold_left ~f:(fun init bb -> init + (match bb.bbtype with | BB_loop -> 1 | _ -> 0)) 
                   ~init:init

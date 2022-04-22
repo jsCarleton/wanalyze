@@ -23,9 +23,7 @@ val string_of_ints        : int list -> string
 val indexes_of_bblocks    : bblock list -> int list
 val string_of_bblocks     : bblock list -> string
 val expr_of_bblock        : Wasm_module.expr -> bblock -> Wasm_module.expr
-val bblocks_of_expr       : Wasm_module.expr -> bblock list -> bblock -> bblock list
-val set_br_dest           : bblock list -> int -> unit
-val set_successors        : bblock list -> int -> unit
+val bblocks_of_expr       : Wasm_module.expr -> bblock list
 val mult_succ_count       : bblock list -> int
 val string_of_bb_type     : bb_type -> string
 val loop_count_of_bblocks : bblock list -> int -> int
