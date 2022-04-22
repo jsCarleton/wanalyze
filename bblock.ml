@@ -43,6 +43,21 @@ let bb_type_of_opcode (op: int): bb_type =
   | (* return *)      0x0f -> BB_return
   | _                      -> failwith (sprintf "Invalid opcode for bb %x" op)
 
+let cost_of_bblock (bb: bblock): int =
+  match bb.bbtype with
+  | BB_unreachable
+  | BB_block
+  | BB_loop
+  | BB_if
+  | BB_else
+  | BB_end
+  | BB_br
+  | BB_br_if
+  | BB_br_table
+  | BB_return
+      -> bb.end_op - bb.start_op
+  | BB_unknown -> failwith "Unknown bblock type in cost"
+
 let compare_bbs (b1: bblock) (b2: bblock): int =
   Int.compare b1.bbindex b2.bbindex
 

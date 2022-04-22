@@ -5,10 +5,12 @@ type ebb_exit =
   }
 
 type ebb_type = EBB_loop | EBB_block
+type ebb_cost = EBB_loop_cost of Symbolic_expr.expr_tree | EBB_block_cost of int
 
 type ebblock = 
   {
     ebbtype:      ebb_type;
+    cost:         ebb_cost;
     entry_bb:     Bblock.bblock;
     bbs:          Bblock.bblock list;
     exits:        ebb_exit list;

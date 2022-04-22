@@ -1,26 +1,5 @@
 open Core
 
-let cost_of_bblock (bb: Bblock.bblock): int =
-    match bb.bbtype with
-    | BB_unreachable
-    | BB_block
-    | BB_loop
-    | BB_if
-    | BB_else
-    | BB_end
-    | BB_br
-    | BB_br_if
-    | BB_br_table
-    | BB_return
-        -> bb.end_op - bb.start_op
-    | BB_unknown -> failwith "Unknown bblock type in cost"
-
-let cost_of_code_path (cp: Code_path.code_path): int =
-    List.fold ~f:(+) (List.map ~f:cost_of_bblock cp) ~init:0
-
-let max_cost_of_code_paths (cps: Code_path.code_path list) (init: int): int =
-  List.fold (List.map ~f:cost_of_code_path cps) ~init:init ~f:(fun acc x -> if acc > x then acc else x)
-
 type loop_metric_info =
 {
   prefix_cost:      int;            (* the cost of the prefix portion of the loop *)
@@ -95,8 +74,8 @@ let cost_of_loop w e param_types local_types (bback: Bblock.bblock) (lp: loop_pa
   let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
   let loop_ssa      = Ssa.ssa_of_code_path w e param_types local_types lp.loop_part in
   let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
-    {prefix_cost = cost_of_code_path lp.prefix_part;
-        loop_cost = cost_of_code_path lp.loop_part;
+    {prefix_cost = Code_path.cost_of_code_path lp.prefix_part;
+        loop_cost = Code_path.cost_of_code_path lp.loop_part;
         loop_cond = if cs.sense then loop_cond else Node { op = "not"; arg1 = loop_cond; arg2 = Empty; arg3 = Empty};
         loop_vars;
         lv_entry_vals;

@@ -9,10 +9,12 @@ type ebb_exit =
   }
 
 type ebb_type = EBB_loop | EBB_block
+type ebb_cost = EBB_loop_cost of Symbolic_expr.expr_tree | EBB_block_cost of int
 
 type ebblock = 
   {
     ebbtype:      ebb_type;
+    cost:         ebb_cost;
     entry_bb:     bblock;
     bbs:          bblock list;
     exits:        ebb_exit list;
@@ -25,7 +27,9 @@ let string_of_ebblock (ebb: ebblock): string =
     String.concat [
       sprintf "%sebb entry: %d\n"   (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb blocks: %s\n"  (String.make (indent+2) ' ') (string_of_bblocks ebb.bbs);
-      sprintf "%sebb exits: %s\n"   (String.make (indent+2) ' ') (string_of_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
+      sprintf "%sebb cost:   %s\n"  (String.make (indent+2) ' ') 
+                                      (match ebb.cost with | EBB_block_cost c -> string_of_int c | _ -> "loop");
+      sprintf "%sebb exits:  %s\n"  (String.make (indent+2) ' ') (string_of_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       String.concat
         (List.map 
           ~f:(fun e -> sprintf "%s%s paths to exit %d\n" 
@@ -40,7 +44,6 @@ let string_of_ebblock (ebb: ebblock): string =
   in
 
   string_of_ebblock' 0 ebb
-  
 
 let ebb_to_unreachable (ebb: ebblock): bool =
   List.exists ~f:(fun bb -> match bb.bbtype with | BB_unreachable -> true | _ -> false) ebb.bbs
@@ -73,6 +76,20 @@ let exits_of_bbs (entry_bb: bblock) (exit_bbs: bblock list): ebb_exit list =
 
 let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
 
+  let cost_of_block_ebb (exits: ebb_exit list): int =
+    if List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) exits then
+      -1
+    else
+      List.fold_left 
+        ~init:0 
+        ~f:(fun acc e ->  match e.cps with
+                            | Some cps' ->
+                                let cps_cost = max_cost_of_code_paths cps' 0 in 
+                                if cps_cost > acc then cps_cost else acc
+                            | None -> failwith "no code paths for cost")
+        exits
+  in
+
   let sub_ebbs_of_bblocks (sub_bbs: bblock list): ebblock list =
     if List.exists ~f:(fun bb -> match bb.bbtype with | BB_loop -> true | _ -> false) sub_bbs then
       ebblocks_of_bblocks sub_bbs
@@ -83,9 +100,12 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
   let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
     let entry_bb    = List.hd_exn bbs in
     let exits       = exits_of_bbs entry_bb (ext_succ_of_bbs bbs) in
+    let cost        = match ebbtype with 
+                        | EBB_block -> EBB_block_cost (cost_of_block_ebb exits) 
+                        | _         -> EBB_loop_cost Empty in
     (* only a loop can have a nested loop *)
     let nested_ebbs = match ebbtype with | EBB_loop -> sub_ebbs_of_bblocks bbs | _ -> [] in
-    {ebbtype; entry_bb; bbs; exits; nested_ebbs}
+    {ebbtype; cost; entry_bb; bbs; exits; nested_ebbs}
   in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bblock list): ebblock =

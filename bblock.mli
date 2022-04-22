@@ -15,6 +15,7 @@ type bblock =
   mutable br_dest:	bblock option;  (* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)
 }
 
+val cost_of_bblock        : bblock -> int
 val compare_bbs           : bblock -> bblock -> int
 val bb_in_bblocks         : bblock -> bblock list-> bool
 val bb_not_in_bblocks     : bblock -> bblock list-> bool

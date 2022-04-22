@@ -7,6 +7,13 @@ open Execution
 
 type code_path = bblock list
 
+let cost_of_code_path (cp: code_path): int =
+  List.fold ~f:(+) (List.map ~f:cost_of_bblock cp) ~init:0
+
+let max_cost_of_code_paths (cps: code_path list) (init: int): int =
+  List.fold (List.map ~f:cost_of_code_path cps) ~init:init ~f:(fun acc x -> if acc > x then acc else x)
+  
+  
 (*
   succ_of_cp
     Takes the index of the last block in the code fragment we're working with and a code path and
