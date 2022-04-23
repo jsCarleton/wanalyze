@@ -26,6 +26,7 @@ val bb_not_in_bblocks     : bblock -> bblock list-> bool
 val string_of_ints        : int list -> string
 val indexes_of_bblocks    : bblock list -> int list
 val string_of_bblocks     : bblock list -> string
+val string_of_raw_bblocks : bblock list -> string
 val expr_of_bblock        : Wasm_module.expr -> bblock -> Wasm_module.expr
 val bblocks_of_expr       : Wasm_module.expr -> bblock list
 val mult_succ_count       : bblock list -> int

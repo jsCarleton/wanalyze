@@ -171,8 +171,8 @@ let terms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
   List.filter_map ~f:(term_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
 
 let nterm_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
-  if (to_bb.bbindex < 0)
-      || (succ.bbindex <= to_bb.bbindex &&  (List.hd_exn cp).bbindex < succ.bbindex) then
+  if      succ.bbindex <= to_bb.bbindex 
+      &&  (to_bb.bbindex < 0 || (List.hd_exn cp).bbindex < succ.bbindex) then
     Some (succ::cp)
   else
     None
@@ -182,7 +182,8 @@ let nterms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
 
 let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list option =
   if n_iters > 1_000_000 then
-    None
+    (Printf.printf "too many paths\n%!";
+    None)
   else
     match nterm with
       | []        -> Some term

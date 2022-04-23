@@ -289,8 +289,8 @@ let string_of_bblock_detail (s: bblock) : string =
     (string_of_br_dest s.br_dest)
     (string_of_ints s.labels)
     (string_of_bbtype s.bbtype)
-    (string_of_bblocks s.succ)
-    (string_of_bblocks s.pred)
+    (string_of_raw_bblocks s.succ)
+    (string_of_raw_bblocks s.pred)
 let string_of_bblocks_detail (s: bblock list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_bblock_detail s)]
@@ -403,7 +403,7 @@ let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string
 (* Part 5 *)
 (* printing analysis results *)
 
-let string_of_code_path (cp: code_path): string = String.concat[string_of_bblocks cp; " "; (string_of_int (cost_of_code_path cp))]
+let string_of_code_path (cp: code_path): string = String.concat[string_of_raw_bblocks cp; " "; (string_of_int (cost_of_code_path cp))]
 
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
@@ -455,6 +455,7 @@ let string_of_cost_of_loops col: string =
 
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = (fidx + w.last_import_func) in
+  Printf.printf "function: %d\n%!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = (List.nth_exn w.code_section fidx) in
   let bblocks       = bblocks_of_expr fn.e in

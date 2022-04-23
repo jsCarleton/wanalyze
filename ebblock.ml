@@ -26,10 +26,10 @@ let string_of_ebblock (ebb: ebblock): string =
   let rec string_of_ebblock' (indent: int) (ebb: ebblock) =
     String.concat [
       sprintf "%sebb entry: %d\n"   (String.make indent ' ') ebb.entry_bb.bbindex;
-      sprintf "%sebb blocks: %s\n"  (String.make (indent+2) ' ') (string_of_bblocks ebb.bbs);
+      sprintf "%sebb blocks: %s\n"  (String.make (indent+2) ' ') (string_of_raw_bblocks ebb.bbs);
       sprintf "%sebb cost:   %s\n"  (String.make (indent+2) ' ') 
                                       (match ebb.cost with | EBB_block_cost c -> string_of_int c | _ -> "loop");
-      sprintf "%sebb exits:  %s\n"  (String.make (indent+2) ' ') (string_of_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
+      sprintf "%sebb exits:  %s\n"  (String.make (indent+2) ' ') (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       String.concat
         (List.map 
           ~f:(fun e -> sprintf "%s%s paths to exit %d\n" 
@@ -55,7 +55,7 @@ let ebb_has_branchback (ebb: ebblock): bool =
   let ebb_head_idx = ebb.entry_bb.bbindex in
   List.exists 
     ~f:(fun bb -> List.exists 
-                    ~f:(fun bb' -> bb'.bbindex <= bb.bbindex && bb'.bbindex >= ebb_head_idx)
+                    ~f:(fun bb' -> bb'.bbindex >= 0 && bb'.bbindex <= bb.bbindex && bb'.bbindex >= ebb_head_idx)
                     bb.succ) 
     ebb.bbs
 

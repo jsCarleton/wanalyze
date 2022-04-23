@@ -65,6 +65,9 @@ let string_of_ints (ints: int list): string =
     String.concat ~sep:" " (List.map ~f:string_of_int ints)
 
 let string_of_bblocks (bbs: bblock list): string =
+  String.concat ["["; string_of_ints (List.filter ~f:(fun idx -> idx >= 0) (indexes_of_bblocks bbs)); "]"]
+
+let string_of_raw_bblocks (bbs: bblock list): string =
   String.concat ["["; string_of_ints (indexes_of_bblocks bbs); "]"]
   
 let mult_succ_count (bblocks: bblock list): int =

@@ -128,16 +128,26 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
   in
 
   let label_of_ebb (ebb: ebblock): string =
-    match ebb.bbs with
+    let bbs = List.filter ~f:(fun b -> b.bbindex >= 0) ebb.bbs in
+    match bbs with
     | hd::[] -> String.concat["["; string_of_int hd.bbindex; "]"]
     | hd::tl -> String.concat["["; string_of_int hd.bbindex; " ... ";
-                      string_of_int (List.nth_exn tl ((List.length tl) -1)).bbindex;
-                      "]"]
+                  string_of_int (List.nth_exn tl ((List.length tl) -1)).bbindex;
+                  "]"]
     | _ -> failwith "invalid bbs in ebb"
   in
 
   let name_of_bb (bb: bblock): string =
-    string_of_int bb.bbindex
+    if bb.bbindex >= 0 then
+      string_of_int bb.bbindex
+    else if bb.bbindex = -1 then
+      "E"
+    else if bb.bbindex = -2 then
+      "R"
+    else if bb.bbindex = -3 then
+      "U"
+    else
+      failwith "invalid bb index"
   in
   
   let name_of_ebb (ebb: ebblock): string = 
@@ -163,29 +173,16 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
              ]
   in
 
-  let graph_terminal (src_ebb: ebblock) (dest: int): string =
-    let dest_name = 
-    (match dest with
-      | -1 -> "E"
-      | -2 -> "U"
-      | -3 -> "R"
-      |  _ -> failwith "invalid terminal") in
-    String.concat ["    "; name_of_ebb src_ebb; " -> "; dest_name; ";\n"]
-  in
-
   let graph_edge (src_ebb: ebblock) (dest_exit: ebb_exit): string =
-    if src_ebb.entry_bb.bbindex < dest_exit.exit_bb.bbindex then
-      String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bb dest_exit.exit_bb; ";\n"]
-    else
+    if dest_exit.exit_bb.bbindex >= 0 && src_ebb.entry_bb.bbindex >= dest_exit.exit_bb.bbindex then
       String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bb dest_exit.exit_bb; "[color=\"red\"];\n"]
+    else
+      String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bb dest_exit.exit_bb; ";\n"]
   in
 
   let rec graph_edges (ebb: ebblock): string =
     String.concat [
-      if not (List.exists ~f:(fun _ -> true) ebb.exits) then graph_terminal ebb (-1) else "";
-      if ebb_to_unreachable ebb                         then graph_terminal ebb (-2) else "";
-      if ebb_to_return ebb                              then graph_terminal ebb (-3) else "";
-      (match ebb.nested_ebbs with
+      match ebb.nested_ebbs with
         | []  ->
             String.concat[
               String.concat (List.map ~f:(graph_edge ebb) ebb.exits);
@@ -195,13 +192,13 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
                 ""
             ]
         | _   ->
-            String.concat (List.map ~f:graph_edges ebb.nested_ebbs))
+            String.concat (List.map ~f:graph_edges ebb.nested_ebbs)
     ]
   in
 
   let graph_suffix = "}\n" in
 
   String.concat [ graph_prefix module_name func_idx ebbs; 
-                  String.concat (List.map ~f:graph_node  ebbs);
-                  String.concat (List.map ~f:graph_edges ebbs);
+                  String.concat (List.map ~f:graph_node  (List.filter ~f:(fun ebb -> ebb.entry_bb.bbindex >= 0) ebbs));
+                  String.concat (List.map ~f:graph_edges (List.filter ~f:(fun ebb -> ebb.entry_bb.bbindex >= 0) ebbs));
                   graph_suffix]
