@@ -160,7 +160,7 @@ let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: 
 *)
 
 let succ_of_cp_to (to_bb: bblock) (cp: code_path): bblock list = 
-  List.filter ~f:(fun x -> x.bbindex <= to_bb.bbindex) (List.hd_exn cp).succ
+  List.filter ~f:(fun x -> to_bb.bbindex < 0 || x.bbindex <= to_bb.bbindex) (List.hd_exn cp).succ
 
 let term_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
   match succ.bbindex = to_bb.bbindex with
@@ -171,10 +171,11 @@ let terms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
   List.filter_map ~f:(term_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
 
 let nterm_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
-  match       (succ.bbindex <= to_bb.bbindex) 
-          &&  (List.hd_exn cp).bbindex < succ.bbindex with
-  | true    -> Some (succ::cp)
-  | _       -> None
+  if (to_bb.bbindex < 0)
+      || (succ.bbindex <= to_bb.bbindex &&  (List.hd_exn cp).bbindex < succ.bbindex) then
+    Some (succ::cp)
+  else
+    None
 
 let nterms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
   List.filter_map ~f:(nterm_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)

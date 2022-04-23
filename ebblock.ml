@@ -62,8 +62,10 @@ let ebb_has_branchback (ebb: ebblock): bool =
 let ebb_too_many_paths (ebb: ebblock): bool =
   List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) ebb.exits
 
-let ext_succ_of_bbs (bbs: bblock list): bblock list =
-  List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs)
+let exit_bbs_of_bbs (bbs: bblock list): bblock list =
+  (* an exit of a list of bbs is a successor of one of the bb of the bbs that's not in the
+      bbs or an exit bb *)
+  List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs || bb.bbindex < 0)
     (List.dedup_and_sort ~compare:compare_bbs 
       (List.fold_left ~init:[] ~f:(fun acc bb -> List.append bb.succ acc) bbs))
 (*
@@ -99,7 +101,7 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
 
   let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
     let entry_bb    = List.hd_exn bbs in
-    let exits       = exits_of_bbs entry_bb (ext_succ_of_bbs bbs) in
+    let exits       = exits_of_bbs entry_bb (exit_bbs_of_bbs bbs) in
     let cost        = match ebbtype with 
                         | EBB_block -> EBB_block_cost (cost_of_block_ebb exits) 
                         | _         -> EBB_loop_cost Empty in
