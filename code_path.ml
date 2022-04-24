@@ -172,7 +172,7 @@ let terms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
 
 let nterm_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
   if      succ.bbindex <= to_bb.bbindex 
-      &&  (to_bb.bbindex < 0 || (List.hd_exn cp).bbindex < succ.bbindex) then
+      &&  (List.hd_exn cp).bbindex < succ.bbindex then
     Some (succ::cp)
   else
     None

@@ -221,9 +221,9 @@ let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
   let op = List.nth_exn e idx in
   string_of_opcode' op idx annotate
 
-let bblock_sep annotate index =
-  if annotate && index >= 0 then
-    String.concat ["\n"; string_of_int index; " ------------------------------------------------------------"]
+let bblock_sep annotate bb =
+  if annotate && (not (bb_is_exit bb)) then
+    String.concat ["\n"; string_of_int bb.bbindex; " ------------------------------------------------------------"]
   else
     ""
 
@@ -233,7 +233,7 @@ let rec string_of_expr' e annotate (bblocks: bblock list) idx acc =
     (match bblocks with
     | hd::tl ->
       (match hd.start_op = idx with
-        | true  -> string_of_expr' e annotate tl (idx+1) (String.concat [acc ; (bblock_sep annotate hd.bbindex); (string_of_opcode e idx annotate)])
+        | true  -> string_of_expr' e annotate tl (idx+1) (String.concat [acc ; (bblock_sep annotate hd); (string_of_opcode e idx annotate)])
         | false -> string_of_expr' e annotate bblocks (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
       )
     | _ -> string_of_expr' e annotate bblocks (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
@@ -247,7 +247,7 @@ let print_expr'' oc annotate base idx op =
   Out_channel.output_string oc (string_of_opcode' op (base+idx) annotate)
 
 let print_bblock oc e annotate (bb: bblock) =
-  Out_channel.output_string oc (bblock_sep annotate bb.bbindex);
+  Out_channel.output_string oc (bblock_sep annotate bb);
   List.iteri ~f:(print_expr'' oc annotate bb.start_op) (expr_of_bblock e bb)
 
 let print_expr oc e bblocks annotate =
@@ -262,18 +262,20 @@ let print_code oc (w: wasm_module) idx annotate bbs =
 
 let string_of_bbtype (bbtype: bb_type) : string =
   match bbtype with
-  | BB_unknown      -> "unknown"
-  | BB_unreachable  -> "unreachable"
-  | BB_block        -> "block"
-  | BB_loop         -> "loop"
-  | BB_if           -> "if"
-  | BB_else         -> "else"
-  | BB_end          -> "end"
-  | BB_br           -> "br"
-  | BB_br_if        -> "br_if"
-  | BB_br_table     -> "br_table"
-  | BB_return       -> "return"
-  | BB_exit         -> "fn exit"
+  | BB_unknown          -> "unknown"
+  | BB_unreachable      -> "unreachable"
+  | BB_block            -> "block"
+  | BB_loop             -> "loop"
+  | BB_if               -> "if"
+  | BB_else             -> "else"
+  | BB_end              -> "end"
+  | BB_br               -> "br"
+  | BB_br_if            -> "br_if"
+  | BB_br_table         -> "br_table"
+  | BB_return           -> "return"
+  | BB_exit_end         -> "exit end"
+  | BB_exit_return      -> "exit return"
+  | BB_exit_unreachable -> "exit unreachable"
 
 let string_of_br_dest (bb: bblock option) : string =
   match bb with 

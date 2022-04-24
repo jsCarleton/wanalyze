@@ -55,7 +55,7 @@ let ebb_has_branchback (ebb: ebblock): bool =
   let ebb_head_idx = ebb.entry_bb.bbindex in
   List.exists 
     ~f:(fun bb -> List.exists 
-                    ~f:(fun bb' -> bb'.bbindex >= 0 && bb'.bbindex <= bb.bbindex && bb'.bbindex >= ebb_head_idx)
+                    ~f:(fun bb' -> bb'.bbindex <= bb.bbindex && bb'.bbindex >= ebb_head_idx)
                     bb.succ) 
     ebb.bbs
 
@@ -65,7 +65,7 @@ let ebb_too_many_paths (ebb: ebblock): bool =
 let exit_bbs_of_bbs (bbs: bblock list): bblock list =
   (* an exit of a list of bbs is a successor of one of the bb of the bbs that's not in the
       bbs or an exit bb *)
-  List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs || bb.bbindex < 0)
+  List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs || bb_is_exit bb)
     (List.dedup_and_sort ~compare:compare_bbs 
       (List.fold_left ~init:[] ~f:(fun acc bb -> List.append bb.succ acc) bbs))
 (*
