@@ -14,7 +14,7 @@ do
     nc=$(grep -v ' -1' "$f".costs | wc -l)
     np=$(grep "loop" "$f""$WATSUFFIX" | wc -l)
     lf=$(find ./funcs -name "*.wat" -print0 | xargs -0 grep -l loop | wc -l)
-    lf=$(find ./funcs -name "*.ebblocks" -print0 | xargs -0 grep -l 'unknown number' | wc -l)
+    nb=$(find ./funcs -name "*.ebblocks" -print0 | xargs -0 grep -l 'unknown number' | wc -l)
     # Print the result
     echo "lines of code: $nl"
     echo "# of functions: $nf"
