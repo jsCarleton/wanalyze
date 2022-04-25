@@ -73,8 +73,8 @@ let edge_bbs_of_bblocks (bbs: bblock list): bblock list =
   List.filter ~f:(fun bb -> (List.exists ~f:(fun bb' -> bb_not_in_bblocks bb' bbs) bb.succ)) bbs
 *)
 
-let exits_of_bbs (entry_bb: bblock) (exit_bbs: bblock list): ebb_exit list =
-  List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_to_bb entry_bb exit_bb}) exit_bbs
+let exits_of_bbs (bbs: bblock list) (exit_bbs: bblock list): ebb_exit list =
+  List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_bbs_to_bb bbs exit_bb}) exit_bbs
 
 let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
 
@@ -101,7 +101,7 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
 
   let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
     let entry_bb    = List.hd_exn bbs in
-    let exits       = exits_of_bbs entry_bb (exit_bbs_of_bbs bbs) in
+    let exits       = exits_of_bbs bbs (exit_bbs_of_bbs bbs) in
     let cost        = match ebbtype with 
                         | EBB_block -> EBB_block_cost (cost_of_block_ebb exits) 
                         | _         -> EBB_loop_cost Empty in

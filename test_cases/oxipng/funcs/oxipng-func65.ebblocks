@@ -1,92 +1,123 @@
 ebb entry: 0
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21]
-  ebb exits: [22 30 31 44 60 61]
+  ebb cost:   75
+  ebb exits:  [22 30 31 44 60 61]
   1 paths to exit 22
-  2 paths to exit 30
-  3 paths to exit 31
+  1 paths to exit 30
+  1 paths to exit 31
   1 paths to exit 44
   1 paths to exit 60
-  18 paths to exit 61
+  1 paths to exit 61
 ebb entry: 22
   ebb blocks: [22]
-  ebb exits: [23]
+  ebb cost:   9
+  ebb exits:  [23]
   1 paths to exit 23
 ebb entry: 23
   ebb blocks: [23 24 25 26 27]
-  ebb exits: [28 30 46 48]
+  ebb cost:   loop
+  ebb exits:  [28 30 46 48]
   0 paths to exit 28
   1 paths to exit 30
   1 paths to exit 46
   1 paths to exit 48
 ebb entry: 28
   ebb blocks: [28 29]
-  ebb exits: [30]
+  ebb cost:   1
+  ebb exits:  [30 63]
   0 paths to exit 30
+  1 paths to exit 63
 ebb entry: 30
   ebb blocks: [30]
-  ebb exits: [31]
+  ebb cost:   13
+  ebb exits:  [31]
   1 paths to exit 31
 ebb entry: 31
   ebb blocks: [31 32 33 34 35]
-  ebb exits: [36 50 52 54]
+  ebb cost:   59
+  ebb exits:  [36 50 52 54]
   2 paths to exit 36
   1 paths to exit 50
   1 paths to exit 52
-  4 paths to exit 54
+  2 paths to exit 54
 ebb entry: 36
   ebb blocks: [36]
-  ebb exits: [37]
+  ebb cost:   12
+  ebb exits:  [37]
   1 paths to exit 37
 ebb entry: 37
   ebb blocks: [37 38 39 40 41]
-  ebb exits: [42 54 56 58]
+  ebb cost:   loop
+  ebb exits:  [42 54 56 58]
   0 paths to exit 42
   1 paths to exit 54
   1 paths to exit 56
   1 paths to exit 58
 ebb entry: 42
   ebb blocks: [42 43]
-  ebb exits: [44]
+  ebb cost:   1
+  ebb exits:  [44 63]
   0 paths to exit 44
+  1 paths to exit 63
 ebb entry: 44
   ebb blocks: [44 45]
-  ebb exits: [46 61]
+  ebb cost:   34
+  ebb exits:  [46 61]
   0 paths to exit 46
   1 paths to exit 61
 ebb entry: 46
   ebb blocks: [46 47]
-  ebb exits: [48]
+  ebb cost:   5
+  ebb exits:  [48 63]
   0 paths to exit 48
+  1 paths to exit 63
 ebb entry: 48
   ebb blocks: [48 49]
-  ebb exits: [50]
+  ebb cost:   5
+  ebb exits:  [50 63]
   0 paths to exit 50
+  1 paths to exit 63
 ebb entry: 50
   ebb blocks: [50 51]
-  ebb exits: [52 61]
+  ebb cost:   34
+  ebb exits:  [52 61]
   0 paths to exit 52
   1 paths to exit 61
 ebb entry: 52
   ebb blocks: [52 53]
-  ebb exits: [54]
+  ebb cost:   2
+  ebb exits:  [54 63]
   0 paths to exit 54
+  1 paths to exit 63
 ebb entry: 54
   ebb blocks: [54 55]
-  ebb exits: [56 61]
+  ebb cost:   17
+  ebb exits:  [56 61]
   0 paths to exit 56
   1 paths to exit 61
 ebb entry: 56
   ebb blocks: [56 57]
-  ebb exits: [58]
+  ebb cost:   7
+  ebb exits:  [58 63]
   0 paths to exit 58
+  1 paths to exit 63
 ebb entry: 58
   ebb blocks: [58 59]
-  ebb exits: [60]
+  ebb cost:   5
+  ebb exits:  [60 63]
   0 paths to exit 60
+  1 paths to exit 63
 ebb entry: 60
   ebb blocks: [60]
-  ebb exits: [61]
+  ebb cost:   34
+  ebb exits:  [61]
   1 paths to exit 61
 ebb entry: 61
-  ebb blocks: [61]
-  ebb exits: []
+  ebb blocks: [61 62]
+  ebb cost:   5
+  ebb exits:  [62]
+  1 paths to exit 62
+ebb entry: 63
+  ebb blocks: [63]
+  ebb cost:   0
+  ebb exits:  []

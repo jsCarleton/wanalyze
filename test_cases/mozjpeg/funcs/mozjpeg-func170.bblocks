@@ -123,4 +123,5 @@ index start   end nesting dest  labels type        succ/pred
   120   799   801     1                else        s=[122] p=[119]
   121   801   814     1                end         s=[122] p=[119]
   122   814   818     0                end         s=[123] p=[121 120]
-  123   818   824    -1                end         s=[] p=[122 118]
+  123   818   824    -1                end         s=[124] p=[122 118]
+  124    -1    -1    -1                exit end    s=[] p=[123]

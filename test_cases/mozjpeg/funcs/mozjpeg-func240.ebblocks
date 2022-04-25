@@ -1,21 +1,27 @@
 ebb entry: 0
   ebb blocks: [0 1]
-  ebb exits: [2 7]
+  ebb cost:   12
+  ebb exits:  [2 7]
   1 paths to exit 2
-  3 paths to exit 7
+  1 paths to exit 7
 ebb entry: 2
   ebb blocks: [2]
-  ebb exits: [3]
+  ebb cost:   1
+  ebb exits:  [3]
   1 paths to exit 3
 ebb entry: 3
   ebb blocks: [3 4 5]
-  ebb exits: [6 7]
+  ebb cost:   loop
+  ebb exits:  [6 7]
   1 paths to exit 6
-  2 paths to exit 7
+  1 paths to exit 7
 ebb entry: 6
   ebb blocks: [6]
-  ebb exits: [7]
+  ebb cost:   1
+  ebb exits:  [7]
   1 paths to exit 7
 ebb entry: 7
-  ebb blocks: [7]
-  ebb exits: []
+  ebb blocks: [7 8]
+  ebb cost:   4
+  ebb exits:  [8]
+  1 paths to exit 8

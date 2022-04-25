@@ -149,7 +149,7 @@ let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: 
 (*
     code_paths_from_to_bb
 
-    Given a start bblock and an end bblock return the non-looping code paths between the two blocks
+    Given a start bblock and an end bblock return the non-looping code paths between the two bblocks
 
     Parameters:
       from_bb   a bblock
@@ -187,7 +187,7 @@ let code_paths_from_to_bb (from_bb: bblock) (to_bb: bblock): code_path list opti
     List.filter_map ~f:(nterm_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
   in
   
-  let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list option =
+  let rec code_paths_to_bb (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list option =
     if n_iters > 1_000_000 then
       (Printf.printf "too many paths\n%!";
       None)
@@ -197,13 +197,80 @@ let code_paths_from_to_bb (from_bb: bblock) (to_bb: bblock): code_path list opti
         | hd::tl    ->
             let n = nterms_of_cp_to to_bb hd in
             let t = terms_of_cp_to to_bb hd in
-              code_paths_to to_bb (List.append n tl) (List.append t term) (n_iters + 1)
+              code_paths_to_bb to_bb (List.append n tl) (List.append t term) (n_iters + 1)
   in
 
   if from_bb.bbindex = to_bb.bbindex then
     Some [[from_bb]]
   else
-    code_paths_to to_bb [[from_bb]] [] 0
+    code_paths_to_bb to_bb [[from_bb]] [] 0
+    
+(*
+    code_paths_from_bbs_to_bb
+
+    Given a bblock list and an end bblock return the non-looping code paths that
+    - start at the beginning of the bblock list
+    - end at the end bblock
+    - stay in the bblock list until they reach the end bblock
+
+    Parameters:
+      from_bbs    a bblock list
+      to_bb       a bblock
+
+    Returns:
+      code_path list option which is either:
+          Some code_path list       the list of possible code paths
+          None                      too many paths
+*)
+
+let code_paths_from_bbs_to_bb (from_bbs: bblock list) (to_bb: bblock): code_path list option =
+
+  let bb_in_bbs (bb: bblock) (bbs: bblock list): bool =
+    List.exists ~f:(fun bb' -> bb.bbindex = bb'.bbindex) bbs
+  in
+
+  let succ_of_cp_from_to (from_bbs: bblock list) (to_bb: bblock) (cp: code_path): bblock list = 
+    List.filter ~f:(fun bb -> (bb_in_bbs bb from_bbs) || (bb.bbindex = to_bb.bbindex)) (List.hd_exn cp).succ
+  in
+  
+  let term_of_cp_from_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
+    match succ.bbindex = to_bb.bbindex with
+    | true  -> Some cp
+    |  _    -> None
+  in
+  
+  let terms_of_cp_from_to (from_bbs: bblock list) (to_bb: bblock) (cp: code_path): code_path list =
+    List.filter_map ~f:(term_of_cp_from_to to_bb cp) (succ_of_cp_from_to from_bbs to_bb cp)
+  in
+  
+  let nterm_of_cp_from_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
+    if      succ.bbindex <= to_bb.bbindex 
+        &&  (List.hd_exn cp).bbindex < succ.bbindex then
+      Some (succ::cp)
+    else
+      None
+  in
+  
+  let nterms_of_cp_from_to (from_bbs: bblock list) (to_bb: bblock) (cp: code_path): code_path list =
+    List.filter_map ~f:(nterm_of_cp_from_to to_bb cp) (succ_of_cp_from_to from_bbs to_bb cp)
+  in
+  
+  let rec code_paths_from_to_ebb' (from_bbs: bblock list) (to_bb: bblock) (nterm: code_path list)
+      (term: code_path list) (n_iters: int): code_path list option =
+    if n_iters > 1_000_000 then
+      (Printf.printf "too many paths\n%!";
+      None)
+    else
+      match nterm with
+        | []        -> Some term
+        | hd::tl    ->
+            let n = nterms_of_cp_from_to from_bbs to_bb hd in
+            let t = terms_of_cp_from_to from_bbs to_bb hd in
+              code_paths_from_to_ebb' from_bbs to_bb (List.append n tl) (List.append t term) (n_iters + 1)
+  in
+
+  code_paths_from_to_ebb' from_bbs to_bb [[List.hd_exn from_bbs]] [] 0
+    
     
 let bblock_is_loop (bb: bblock): bool =
   match bb.bbtype with
@@ -268,7 +335,7 @@ type loop_path = {
 type loop = {
   loop_bblocks:   bblock list;     (* list of consecutive bblocks that comprise the loop *)
   looping_paths:  code_path list;  (* list of possible looping paths through the loop *)
-  branchbacks:    Bblock.bblock list; (* list of bblocks that contain branchbacks *)
+  branchbacks:    bblock list;     (* list of bblocks that contain branchbacks *)
 }
 
 (**

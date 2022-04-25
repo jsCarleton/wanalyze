@@ -131,4 +131,5 @@ index start   end nesting dest  labels type        succ/pred
   128   604   607     1   130          if          s=[129 130] p=[127 118 71]
   129   607   614     1                end         s=[130] p=[128]
   130   614   622     0                end         s=[131] p=[129 128]
-  131   622   629    -1                end         s=[] p=[130 44 36]
+  131   622   629    -1                end         s=[132] p=[130 44 36]
+  132    -1    -1    -1                exit end    s=[] p=[131]

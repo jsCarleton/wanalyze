@@ -63,4 +63,5 @@ index start   end nesting dest  labels type        succ/pred
    60   312   316     0                end         s=[61] p=[59]
    61   316   320     0   63           if          s=[62 63] p=[60 35]
    62   320   336     0                end         s=[63] p=[61]
-   63   336   338    -1                end         s=[] p=[62 61]
+   63   336   338    -1                end         s=[64] p=[62 61]
+   64    -1    -1    -1                exit end    s=[] p=[63]

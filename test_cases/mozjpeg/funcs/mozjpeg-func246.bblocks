@@ -8,4 +8,5 @@ index start   end nesting dest  labels type        succ/pred
     5    16    23     2              1 br          s=[8] p=[4 2]
     6    23    24     1                end         s=[7] p=[]
     7    24    29     0                end         s=[8] p=[6 3]
-    8    29    31    -1                end         s=[] p=[7 5]
+    8    29    31    -1                end         s=[9] p=[7 5]
+    9    -1    -1    -1                exit end    s=[] p=[8]

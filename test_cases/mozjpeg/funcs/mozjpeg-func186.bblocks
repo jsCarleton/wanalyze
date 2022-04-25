@@ -62,4 +62,5 @@ index start   end nesting dest  labels type        succ/pred
    59   556   568     2              0 br_if       s=[60 47] p=[58 57 56]
    60   568   569     1                end         s=[61] p=[59]
    61   569   570     0                end         s=[62] p=[60]
-   62   570   571    -1                end         s=[] p=[61 45]
+   62   570   571    -1                end         s=[63] p=[61 45]
+   63    -1    -1    -1                exit end    s=[] p=[62]

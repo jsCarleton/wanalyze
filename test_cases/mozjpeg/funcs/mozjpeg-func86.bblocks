@@ -37,4 +37,5 @@ index start   end nesting dest  labels type        succ/pred
    34   244   261     1   36           if          s=[35 36] p=[33 6]
    35   261   277     1                end         s=[36] p=[34]
    36   277   284     0                end         s=[37] p=[35 34]
-   37   284   290    -1                end         s=[] p=[36 26]
+   37   284   290    -1                end         s=[38] p=[36 26]
+   38    -1    -1    -1                exit end    s=[] p=[37]

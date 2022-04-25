@@ -27,4 +27,5 @@ index start   end nesting dest  labels type        succ/pred
    24   180   188     2              0 br_if       s=[25 12] p=[23 21]
    25   188   189     1                end         s=[26] p=[24]
    26   189   190     0                end         s=[27] p=[25]
-   27   190   200    -1                end         s=[] p=[26 10]
+   27   190   200    -1                end         s=[28] p=[26 10]
+   28    -1    -1    -1                exit end    s=[] p=[27]

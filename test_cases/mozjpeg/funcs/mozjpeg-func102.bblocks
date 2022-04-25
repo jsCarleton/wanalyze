@@ -161,4 +161,5 @@ index start   end nesting dest  labels type        succ/pred
   158  1566  1604     2              0 br_if       s=[159 158] p=[158 157]
   159  1604  1605     1                end         s=[160] p=[158]
   160  1605  1606     0                end         s=[161] p=[159]
-  161  1606  1611    -1                end         s=[] p=[160 148 1]
+  161  1606  1611    -1                end         s=[162] p=[160 148 1]
+  162    -1    -1    -1                exit end    s=[] p=[161]

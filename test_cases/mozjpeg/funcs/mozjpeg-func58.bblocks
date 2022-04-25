@@ -2,6 +2,8 @@
 index start   end nesting dest  labels type        succ/pred
     0     0     6     0   4            block       s=[1] p=[]
     1     6    10     1              0 br_if       s=[2 4] p=[0]
-    2    10    12     1                unreachable s=[] p=[1]
+    2    10    12     1                unreachable s=[6] p=[1]
     3    12    13     0                end         s=[4] p=[]
-    4    13    15    -1                end         s=[] p=[3 1]
+    4    13    15    -1                end         s=[5] p=[3 1]
+    5    -1    -1    -1                exit end    s=[] p=[4]
+    6    -1    -1    -1                exit unreachable s=[] p=[2]

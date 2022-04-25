@@ -47,4 +47,5 @@ index start   end nesting dest  labels type        succ/pred
    44   336   362     2              1 br          s=[47] p=[43]
    45   362   363     1                end         s=[46] p=[]
    46   363   375     0                end         s=[47] p=[45 43]
-   47   375   386    -1                end         s=[] p=[46 44 36 25 13 11 7]
+   47   375   386    -1                end         s=[48] p=[46 44 36 25 13 11 7]
+   48    -1    -1    -1                exit end    s=[] p=[47]

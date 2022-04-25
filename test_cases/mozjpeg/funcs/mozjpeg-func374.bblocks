@@ -10,4 +10,5 @@ index start   end nesting dest  labels type        succ/pred
     7    50    66     2              0 br_if       s=[8 4] p=[6]
     8    66    67     1                end         s=[9] p=[7]
     9    67    68     0                end         s=[10] p=[8]
-   10    68    69    -1                end         s=[] p=[9 2 1]
+   10    68    69    -1                end         s=[11] p=[9 2 1]
+   11    -1    -1    -1                exit end    s=[] p=[10]
