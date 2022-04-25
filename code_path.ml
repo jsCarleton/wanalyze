@@ -189,8 +189,7 @@ let code_paths_from_to_bb (from_bb: bblock) (to_bb: bblock): code_path list opti
   
   let rec code_paths_to_bb (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list option =
     if n_iters > 1_000_000 then
-      (Printf.printf "too many paths\n%!";
-      None)
+      None
     else
       match nterm with
         | []        -> Some term
@@ -258,8 +257,7 @@ let code_paths_from_bbs_to_bb (from_bbs: bblock list) (to_bb: bblock): code_path
   let rec code_paths_from_to_ebb' (from_bbs: bblock list) (to_bb: bblock) (nterm: code_path list)
       (term: code_path list) (n_iters: int): code_path list option =
     if n_iters > 1_000_000 then
-      (Printf.printf "too many paths\n%!";
-      None)
+      None
     else
       match nterm with
         | []        -> Some term
