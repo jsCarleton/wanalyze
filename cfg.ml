@@ -2,6 +2,13 @@ open Core
 open Bblock
 open Ebblock
 
+let name_of_bblock (bb: bblock): string =
+  match bb.bbtype with
+  | BB_exit_end         -> "E"
+  | BB_exit_return      -> "R"
+  | BB_exit_unreachable -> "U"
+  | _                   -> string_of_int bb.bbindex
+
 (**
   cfg_dot_of_bblocks
 
@@ -21,45 +28,40 @@ open Ebblock
 
 let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list): string =
 
-  let graph_node (src: int) (label: string) (dest: int): string =
-    let dest_name = 
-      (match dest with
-        | -1  -> "E"
-        | -2  -> "R"
-        | -3  -> "U"
-        |  _ -> string_of_int dest) in
-    match dest >= 0 && src >= dest with
-    | true  -> 
-        String.concat ["    "; string_of_int src; " -> "; dest_name; "[color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
-    | false -> 
-        String.concat ["    "; string_of_int src; " -> "; dest_name; "[label=\""; label; "\"];\n"]
+  let graph_node (src: bblock) (label: string) (dest: bblock): string =
+    if src.bbindex >= dest.bbindex then
+        String.concat ["    "; name_of_bblock src; " -> "; name_of_bblock dest; "[color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
+    else
+        String.concat ["    "; name_of_bblock src; " -> "; name_of_bblock dest; "[label=\""; label; "\"];\n"]
   in
 
-  let graph_bblock (index: int) (bbtype: bb_type) (succ: bblock list) (pred: bblock list): string =
-    match List.length pred > 0 || index = 0 with
-    | true ->
-      (match bbtype with
-      | BB_block        -> graph_node index "block" (List.nth_exn succ 0).bbindex
-      | BB_loop         -> graph_node index "loop" (List.nth_exn succ 0).bbindex
+  let graph_bblock (bb: bblock): string =
+    if List.length bb.pred > 0 || bb.bbindex = 0 then
+      (match bb.bbtype with
+      | BB_block        -> graph_node bb "block" (List.nth_exn bb.succ 0)
+      | BB_loop         -> graph_node bb "loop" (List.nth_exn bb.succ 0)
       | BB_if           ->
           String.concat [
-            graph_node index "if" (List.nth_exn succ 0).bbindex;
-            graph_node index "else" (List.nth_exn succ 1).bbindex;
+            graph_node bb "if" (List.nth_exn bb.succ 0);
+            graph_node bb "else" (List.nth_exn bb.succ 1);
           ]
-      | BB_else         -> graph_node index "end" (List.nth_exn succ 0).bbindex
+      | BB_else         -> graph_node bb "end" (List.nth_exn bb.succ 0)
       | BB_br_if        ->
           String.concat [
-            graph_node index "~br_if" (List.nth_exn succ 0).bbindex;
-            graph_node index "br_if" (List.nth_exn succ 1).bbindex;
+            graph_node bb "~br_if" (List.nth_exn bb.succ 0);
+            graph_node bb "br_if" (List.nth_exn bb.succ 1);
           ]
-      | BB_br_table     -> String.concat (List.map ~f:(graph_node index "br_table") (indexes_of_bblocks succ))
-      | BB_end          -> graph_node index "end"         (List.nth_exn succ 0).bbindex
-      | BB_return       -> graph_node index "return"      (List.nth_exn succ 0).bbindex
-      | BB_unreachable  -> graph_node index "unreachable" (List.nth_exn succ 0).bbindex
-      | BB_br           -> graph_node index "br"          (List.nth_exn succ 0).bbindex
-      | BB_exit         -> ""
-      | BB_unknown      -> failwith "Unknown bb type in graph_bblock")
-    | _ -> ""
+      | BB_br_table         -> String.concat (List.map ~f:(graph_node bb "br_table") bb.succ)
+      | BB_end              -> graph_node bb "end"         (List.nth_exn bb.succ 0)
+      | BB_return           -> graph_node bb "return"      (List.nth_exn bb.succ 0)
+      | BB_unreachable      -> graph_node bb "unreachable" (List.nth_exn bb.succ 0)
+      | BB_br               -> graph_node bb "br"          (List.nth_exn bb.succ 0)
+      | BB_exit_end
+      | BB_exit_return
+      | BB_exit_unreachable -> ""
+      | BB_unknown          -> failwith "Unknown bb type in graph_bblock")
+    else
+      ""
   in
 
   let graph_prefix (module_name: string) (func_idx: int) (bblocks: bblock list): string =
@@ -84,7 +86,7 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
   let rec graph_bblocks' (bblocks: bblock list) (acc: string): string =
     match bblocks with
     | [] -> acc
-    | hd::tl -> graph_bblocks' tl (String.concat [acc; graph_bblock hd.bbindex hd.bbtype hd.succ hd.pred])
+    | hd::tl -> graph_bblocks' tl (String.concat [acc; graph_bblock hd])
   in
 
   String.concat [ graph_prefix module_name func_idx bbs; 
@@ -110,7 +112,7 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
 
 let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock list): string =
 
-  let graph_prefix (module_name: string) (func_idx: int) (ebbs: ebblock list): string =
+  let graph_prefix (module_name: string) (func_idx: int): string =
     let terminals = 
       String.concat ["E ";
         if List.exists ~f:ebb_to_unreachable ebbs  then "U " else "";
@@ -129,31 +131,41 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
 
   let label_of_ebb (ebb: ebblock): string =
     match ebb.bbs with
-    | hd::[] -> String.concat["["; string_of_int hd.bbindex; "]"]
-    | hd::tl -> String.concat["["; string_of_int hd.bbindex; " ... ";
-                      string_of_int (List.nth_exn tl ((List.length tl) -1)).bbindex;
-                      "]"]
-    | _ -> failwith "invalid bbs in ebb"
+    | hd::[] -> if bb_is_exit hd then
+                  name_of_bblock hd
+                else
+                  String.concat["["; name_of_bblock hd; "]"]
+    | _      -> let bbs = non_exit_bbs ebb.bbs in
+                match bbs with
+                | [] -> "" (* TODO under what circumstances does this happen? *)
+                | hd::[] -> if bb_is_exit hd then
+                              name_of_bblock hd
+                            else
+                              String.concat["["; name_of_bblock hd; "]"]
+                | hd::tl -> String.concat["["; name_of_bblock hd; " ... ";
+                              name_of_bblock (List.nth_exn (non_exit_bbs tl) ((List.length tl) -1));
+                              "]"]
   in
 
-  let name_of_bb (bb: bblock): string =
-    string_of_int bb.bbindex
-  in
-  
   let name_of_ebb (ebb: ebblock): string = 
-    name_of_bb ebb.entry_bb
+    name_of_bblock ebb.entry_bb
+  in
+
+  let node_of_ebb (ebb: ebblock): string =
+    String.concat[ 
+      if ebb_too_many_paths ebb then
+        "    node [shape=box, fontcolor=white, style=filled, fillcolor=red] "
+      else
+        "    node [shape=box, fontcolor=black, style=\"\"] ";
+      name_of_ebb ebb; 
+      "[label=\""; 
+      label_of_ebb ebb;
+      "\"]\n"]
   in
 
   let rec graph_node (ebb: ebblock): string  =
     match ebb.nested_ebbs with
-    | []  -> String.concat[ if ebb_too_many_paths ebb then
-                                "    node [shape=box, fontcolor=white, style=filled, fillcolor=red] "
-                            else
-                                "    node [shape=box, fontcolor=black, style=\"\"] ";
-                            name_of_ebb ebb; 
-                            "[label=\""; 
-                            label_of_ebb ebb;
-                            "\"]\n"]
+    | []  -> node_of_ebb ebb
     | _   -> String.concat [
               "    subgraph cluster_"; name_of_ebb ebb; "{\n";
               "    label = \"\";\n";
@@ -163,29 +175,16 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
              ]
   in
 
-  let graph_terminal (src_ebb: ebblock) (dest: int): string =
-    let dest_name = 
-    (match dest with
-      | -1 -> "E"
-      | -2 -> "U"
-      | -3 -> "R"
-      |  _ -> failwith "invalid terminal") in
-    String.concat ["    "; name_of_ebb src_ebb; " -> "; dest_name; ";\n"]
-  in
-
   let graph_edge (src_ebb: ebblock) (dest_exit: ebb_exit): string =
-    if src_ebb.entry_bb.bbindex < dest_exit.exit_bb.bbindex then
-      String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bb dest_exit.exit_bb; ";\n"]
+    if src_ebb.entry_bb.bbindex >= dest_exit.exit_bb.bbindex then
+      String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bblock dest_exit.exit_bb; "[color=\"red\"];\n"]
     else
-      String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bb dest_exit.exit_bb; "[color=\"red\"];\n"]
+      String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bblock dest_exit.exit_bb; ";\n"]
   in
 
   let rec graph_edges (ebb: ebblock): string =
     String.concat [
-      if not (List.exists ~f:(fun _ -> true) ebb.exits) then graph_terminal ebb (-1) else "";
-      if ebb_to_unreachable ebb                         then graph_terminal ebb (-2) else "";
-      if ebb_to_return ebb                              then graph_terminal ebb (-3) else "";
-      (match ebb.nested_ebbs with
+      match ebb.nested_ebbs with
         | []  ->
             String.concat[
               String.concat (List.map ~f:(graph_edge ebb) ebb.exits);
@@ -195,13 +194,13 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
                 ""
             ]
         | _   ->
-            String.concat (List.map ~f:graph_edges ebb.nested_ebbs))
+            String.concat (List.map ~f:graph_edges ebb.nested_ebbs)
     ]
   in
 
   let graph_suffix = "}\n" in
 
-  String.concat [ graph_prefix module_name func_idx ebbs; 
+  String.concat [ graph_prefix module_name func_idx; 
                   String.concat (List.map ~f:graph_node  ebbs);
                   String.concat (List.map ~f:graph_edges ebbs);
                   graph_suffix]

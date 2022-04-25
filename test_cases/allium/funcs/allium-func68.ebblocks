@@ -1,10 +1,10 @@
 ebb entry: 0
   ebb blocks: [0 1 2 3]
   ebb cost:   238
-  ebb exits:  [-2 4 16]
-  0 paths to exit -2
+  ebb exits:  [4 16 19]
   1 paths to exit 4
   1 paths to exit 16
+  1 paths to exit 19
 ebb entry: 4
   ebb blocks: [4]
   ebb cost:   129
@@ -26,10 +26,11 @@ ebb entry: 16
   ebb exits:  [17]
   1 paths to exit 17
 ebb entry: 17
-  ebb blocks: [17 -1]
-  ebb cost:   0
-  ebb exits:  []
-ebb entry: -2
-  ebb blocks: [-2]
+  ebb blocks: [17 18]
+  ebb cost:   133
+  ebb exits:  [18]
+  1 paths to exit 18
+ebb entry: 19
+  ebb blocks: [19]
   ebb cost:   0
   ebb exits:  []

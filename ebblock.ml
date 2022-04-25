@@ -26,10 +26,10 @@ let string_of_ebblock (ebb: ebblock): string =
   let rec string_of_ebblock' (indent: int) (ebb: ebblock) =
     String.concat [
       sprintf "%sebb entry: %d\n"   (String.make indent ' ') ebb.entry_bb.bbindex;
-      sprintf "%sebb blocks: %s\n"  (String.make (indent+2) ' ') (string_of_bblocks ebb.bbs);
+      sprintf "%sebb blocks: %s\n"  (String.make (indent+2) ' ') (string_of_raw_bblocks ebb.bbs);
       sprintf "%sebb cost:   %s\n"  (String.make (indent+2) ' ') 
                                       (match ebb.cost with | EBB_block_cost c -> string_of_int c | _ -> "loop");
-      sprintf "%sebb exits:  %s\n"  (String.make (indent+2) ' ') (string_of_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
+      sprintf "%sebb exits:  %s\n"  (String.make (indent+2) ' ') (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       String.concat
         (List.map 
           ~f:(fun e -> sprintf "%s%s paths to exit %d\n" 
@@ -62,8 +62,10 @@ let ebb_has_branchback (ebb: ebblock): bool =
 let ebb_too_many_paths (ebb: ebblock): bool =
   List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) ebb.exits
 
-let ext_succ_of_bbs (bbs: bblock list): bblock list =
-  List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs)
+let exit_bbs_of_bbs (bbs: bblock list): bblock list =
+  (* an exit of a list of bbs is a successor of one of the bb of the bbs that's not in the
+      bbs or an exit bb *)
+  List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs || bb_is_exit bb)
     (List.dedup_and_sort ~compare:compare_bbs 
       (List.fold_left ~init:[] ~f:(fun acc bb -> List.append bb.succ acc) bbs))
 (*
@@ -72,7 +74,7 @@ let edge_bbs_of_bblocks (bbs: bblock list): bblock list =
 *)
 
 let exits_of_bbs (entry_bb: bblock) (exit_bbs: bblock list): ebb_exit list =
-  List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_to entry_bb exit_bb}) exit_bbs
+  List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_to_bb entry_bb exit_bb}) exit_bbs
 
 let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
 
@@ -99,7 +101,7 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
 
   let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
     let entry_bb    = List.hd_exn bbs in
-    let exits       = exits_of_bbs entry_bb (ext_succ_of_bbs bbs) in
+    let exits       = exits_of_bbs entry_bb (exit_bbs_of_bbs bbs) in
     let cost        = match ebbtype with 
                         | EBB_block -> EBB_block_cost (cost_of_block_ebb exits) 
                         | _         -> EBB_loop_cost Empty in

@@ -6,17 +6,15 @@ open Symbolic_expr
 (* basic blocks and code paths are supplementary information that we store as part of the func definition to
     facilitate analysis *)
 (* basic blocks have a type that's determined by the control instruction that terminates the bblock *)
-let exit_final_end    = -1
-let exit_return       = -2
-let exit_unreachable  = -3
-
 type bb_type =
-  BB_unknown | BB_exit
+  BB_unknown 
+  | BB_exit_end | BB_exit_return | BB_exit_unreachable
   | BB_unreachable | BB_block | BB_loop | BB_if | BB_else | BB_end | BB_br | BB_br_if | BB_br_table | BB_return
 
 let string_of_bb_type b =
   match b with
-  BB_unknown -> "unknown" | BB_exit -> "exit"
+  BB_unknown -> "unknown" 
+  | BB_exit_end -> "exit end" | BB_exit_return -> "exit return" | BB_exit_unreachable -> "exit unreachable"
   | BB_unreachable -> "unreachable" | BB_block -> "block" | BB_loop -> "loop" | BB_if -> "if" | BB_else -> "else"
   | BB_end -> "end" | BB_br -> "br" | BB_br_if -> "if" | BB_br_table -> "br_table" | BB_return -> "return"
 
@@ -65,6 +63,9 @@ let string_of_ints (ints: int list): string =
     String.concat ~sep:" " (List.map ~f:string_of_int ints)
 
 let string_of_bblocks (bbs: bblock list): string =
+  String.concat ["["; string_of_ints (List.filter ~f:(fun idx -> idx >= 0) (indexes_of_bblocks bbs)); "]"]
+
+let string_of_raw_bblocks (bbs: bblock list): string =
   String.concat ["["; string_of_ints (indexes_of_bblocks bbs); "]"]
   
 let mult_succ_count (bblocks: bblock list): int =
@@ -76,32 +77,38 @@ let expr_of_bblock (e: expr) (bb: bblock): expr =
   else
     []
 
-let exit_bblock (exit_type: int) : bblock = 
-      { bbindex     = exit_type;
+let exit_bblock (idx: int) (exit_type: bb_type): bblock = 
+      { bbindex     = idx;
         start_op    = -1; 
         end_op      = -1;
         succ        = [];
         pred        = [];
-        bbtype      = BB_exit;
+        bbtype      = exit_type;
         nesting     = -1;
         labels      = [];
         br_dest     = None}
 
 let return_bblock (bbs: bblock list): bblock list =
   if List.exists ~f:(fun bb -> match bb.bbtype with | BB_return -> true | _ -> false) bbs then
-    (exit_bblock exit_return)::bbs
+    (exit_bblock (List.length bbs) BB_exit_return)::bbs
   else
     bbs
 
 let unreachable_bblock (bbs: bblock list): bblock list =
   if List.exists ~f:(fun bb -> match bb.bbtype with | BB_unreachable -> true | _ -> false) bbs then
-    (exit_bblock exit_unreachable)::bbs
+    (exit_bblock (List.length bbs) BB_exit_unreachable)::bbs
   else
     bbs
   
+let bb_is_exit (bb: bblock): bool =
+  match bb.bbtype with | BB_exit_end | BB_exit_return | BB_exit_unreachable -> true | _ -> false
+
+let non_exit_bbs (bbs: bblock list): bblock list =
+  List.filter ~f:(fun bb -> not (bb_is_exit bb)) bbs
+
 let rec bblocks_of_expr' (e: expr) (bb_acc: bblock list) (current: bblock): bblock list =
 match e with
-| [] -> List.rev (unreachable_bblock (return_bblock ((exit_bblock exit_final_end)::bb_acc)))
+| [] -> List.rev (unreachable_bblock (return_bblock ((exit_bblock (List.length bb_acc) BB_exit_end)::bb_acc)))
 | _  ->
   match (List.hd_exn e).opcode with
     (* 1. each of these control instructions cause the current bblock to end *)
@@ -212,11 +219,13 @@ let set_successor (bblocks: bblock list) (index: int) =
     | BB_br_table ->
         s.succ <- List.map ~f:(br_target bblocks index s.nesting) s.labels
     | BB_unreachable ->
-        s.succ <- [List.find_exn ~f:(fun bb -> bb.bbindex = exit_unreachable) bblocks]
+        s.succ <- [List.find_exn ~f:(fun bb -> match bb.bbtype with | BB_exit_unreachable -> true | _ -> false) bblocks]
     | BB_return ->
-        s.succ <- [List.find_exn ~f:(fun bb -> bb.bbindex = exit_return) bblocks]
-    | BB_exit ->
-        s.succ <- []
+        s.succ <- [List.find_exn ~f:(fun bb -> match bb.bbtype with | BB_exit_return -> true | _ -> false) bblocks]
+    | BB_exit_end
+    | BB_exit_return
+    | BB_exit_unreachable ->
+              s.succ <- []
     | BB_unknown ->
         failwith "Unknown bb block type in set_successor"
  

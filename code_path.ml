@@ -147,7 +147,7 @@ let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: 
     | false -> []  
 
 (*
-    code_paths_from_to
+    code_paths_from_to_bb
 
     Given a start bblock and an end bblock return the non-looping code paths between the two blocks
 
@@ -159,38 +159,47 @@ let code_paths_of_bblocks (bblocks: bblock list) (nterm: code_path list) (term: 
       the list containing all code paths from the first bblock to the second
 *)
 
-let succ_of_cp_to (to_bb: bblock) (cp: code_path): bblock list = 
-  List.filter ~f:(fun x -> x.bbindex <= to_bb.bbindex) (List.hd_exn cp).succ
+let code_paths_from_to_bb (from_bb: bblock) (to_bb: bblock): code_path list option =
 
-let term_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
-  match succ.bbindex = to_bb.bbindex with
-  | true  -> Some cp
-  |  _    -> None
+  let succ_of_cp_to (to_bb: bblock) (cp: code_path): bblock list = 
+    List.filter ~f:(fun x -> to_bb.bbindex < 0 || x.bbindex <= to_bb.bbindex) (List.hd_exn cp).succ
+  in
+  
+  let term_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
+    match succ.bbindex = to_bb.bbindex with
+    | true  -> Some cp
+    |  _    -> None
+  in
+  
+  let terms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
+    List.filter_map ~f:(term_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
+  in
+  
+  let nterm_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
+    if      succ.bbindex <= to_bb.bbindex 
+        &&  (List.hd_exn cp).bbindex < succ.bbindex then
+      Some (succ::cp)
+    else
+      None
+  in
+  
+  let nterms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
+    List.filter_map ~f:(nterm_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
+  in
+  
+  let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list option =
+    if n_iters > 1_000_000 then
+      (Printf.printf "too many paths\n%!";
+      None)
+    else
+      match nterm with
+        | []        -> Some term
+        | hd::tl    ->
+            let n = nterms_of_cp_to to_bb hd in
+            let t = terms_of_cp_to to_bb hd in
+              code_paths_to to_bb (List.append n tl) (List.append t term) (n_iters + 1)
+  in
 
-let terms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
-  List.filter_map ~f:(term_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
-
-let nterm_of_cp_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
-  match       (succ.bbindex <= to_bb.bbindex) 
-          &&  (List.hd_exn cp).bbindex < succ.bbindex with
-  | true    -> Some (succ::cp)
-  | _       -> None
-
-let nterms_of_cp_to (to_bb: bblock) (cp: code_path): code_path list =
-  List.filter_map ~f:(nterm_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
-
-let rec code_paths_to (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list option =
-  if n_iters > 1_000_000 then
-    None
-  else
-    match nterm with
-      | []        -> Some term
-      | hd::tl    ->
-          let n = nterms_of_cp_to to_bb hd in
-          let t = terms_of_cp_to to_bb hd in
-            code_paths_to to_bb (List.append n tl) (List.append t term) (n_iters + 1)
-
-let code_paths_from_to (from_bb: bblock) (to_bb: bblock): code_path list option =
   if from_bb.bbindex = to_bb.bbindex then
     Some [[from_bb]]
   else
@@ -572,7 +581,7 @@ type loops_class = {
 let paths_from_to_loops (l1: loop) (l2: loop): code_path list option =
   let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
   let loop2 = List.hd_exn l2.loop_bblocks in
-  code_paths_from_to end1 loop2
+  code_paths_from_to_bb end1 loop2
 
 let loop_hd_bbidx (l: loop): int =
   (List.hd_exn l.loop_bblocks).bbindex

@@ -221,9 +221,9 @@ let string_of_opcode (e: expr) (idx: int) (annotate:bool) =
   let op = List.nth_exn e idx in
   string_of_opcode' op idx annotate
 
-let bblock_sep annotate index =
-  if annotate && index >= 0 then
-    String.concat ["\n"; string_of_int index; " ------------------------------------------------------------"]
+let bblock_sep annotate bb =
+  if annotate && (not (bb_is_exit bb)) then
+    String.concat ["\n"; string_of_int bb.bbindex; " ------------------------------------------------------------"]
   else
     ""
 
@@ -233,7 +233,7 @@ let rec string_of_expr' e annotate (bblocks: bblock list) idx acc =
     (match bblocks with
     | hd::tl ->
       (match hd.start_op = idx with
-        | true  -> string_of_expr' e annotate tl (idx+1) (String.concat [acc ; (bblock_sep annotate hd.bbindex); (string_of_opcode e idx annotate)])
+        | true  -> string_of_expr' e annotate tl (idx+1) (String.concat [acc ; (bblock_sep annotate hd); (string_of_opcode e idx annotate)])
         | false -> string_of_expr' e annotate bblocks (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
       )
     | _ -> string_of_expr' e annotate bblocks (idx+1) (String.concat [acc ; (string_of_opcode e idx annotate)])
@@ -247,7 +247,7 @@ let print_expr'' oc annotate base idx op =
   Out_channel.output_string oc (string_of_opcode' op (base+idx) annotate)
 
 let print_bblock oc e annotate (bb: bblock) =
-  Out_channel.output_string oc (bblock_sep annotate bb.bbindex);
+  Out_channel.output_string oc (bblock_sep annotate bb);
   List.iteri ~f:(print_expr'' oc annotate bb.start_op) (expr_of_bblock e bb)
 
 let print_expr oc e bblocks annotate =
@@ -262,18 +262,20 @@ let print_code oc (w: wasm_module) idx annotate bbs =
 
 let string_of_bbtype (bbtype: bb_type) : string =
   match bbtype with
-  | BB_unknown      -> "unknown"
-  | BB_unreachable  -> "unreachable"
-  | BB_block        -> "block"
-  | BB_loop         -> "loop"
-  | BB_if           -> "if"
-  | BB_else         -> "else"
-  | BB_end          -> "end"
-  | BB_br           -> "br"
-  | BB_br_if        -> "br_if"
-  | BB_br_table     -> "br_table"
-  | BB_return       -> "return"
-  | BB_exit         -> "fn exit"
+  | BB_unknown          -> "unknown"
+  | BB_unreachable      -> "unreachable"
+  | BB_block            -> "block"
+  | BB_loop             -> "loop"
+  | BB_if               -> "if"
+  | BB_else             -> "else"
+  | BB_end              -> "end"
+  | BB_br               -> "br"
+  | BB_br_if            -> "br_if"
+  | BB_br_table         -> "br_table"
+  | BB_return           -> "return"
+  | BB_exit_end         -> "exit end"
+  | BB_exit_return      -> "exit return"
+  | BB_exit_unreachable -> "exit unreachable"
 
 let string_of_br_dest (bb: bblock option) : string =
   match bb with 
@@ -289,8 +291,8 @@ let string_of_bblock_detail (s: bblock) : string =
     (string_of_br_dest s.br_dest)
     (string_of_ints s.labels)
     (string_of_bbtype s.bbtype)
-    (string_of_bblocks s.succ)
-    (string_of_bblocks s.pred)
+    (string_of_raw_bblocks s.succ)
+    (string_of_raw_bblocks s.pred)
 let string_of_bblocks_detail (s: bblock list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_bblock_detail s)]
@@ -403,7 +405,7 @@ let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string
 (* Part 5 *)
 (* printing analysis results *)
 
-let string_of_code_path (cp: code_path): string = String.concat[string_of_bblocks cp; " "; (string_of_int (cost_of_code_path cp))]
+let string_of_code_path (cp: code_path): string = String.concat[string_of_raw_bblocks cp; " "; (string_of_int (cost_of_code_path cp))]
 
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
@@ -455,6 +457,7 @@ let string_of_cost_of_loops col: string =
 
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = (fidx + w.last_import_func) in
+  Printf.printf "function: %d\n%!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = (List.nth_exn w.code_section fidx) in
   let bblocks       = bblocks_of_expr fn.e in

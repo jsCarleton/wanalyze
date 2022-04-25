@@ -1,9 +1,6 @@
-val exit_final_end    : int
-val exit_return       : int
-val exit_unreachable  : int
-
 type bb_type =
-  BB_unknown | BB_exit
+  BB_unknown
+  | BB_exit_end | BB_exit_return | BB_exit_unreachable
   | BB_unreachable | BB_block | BB_loop | BB_if | BB_else | BB_end | BB_br | BB_br_if | BB_br_table | BB_return
 
 type bblock =
@@ -19,6 +16,8 @@ type bblock =
   mutable br_dest:	bblock option;  (* for LOOP, BLOCK and IF instructions the bblock that's the target of a branch for this instruction  *)
 }
 
+val bb_is_exit            : bblock -> bool
+val non_exit_bbs          : bblock list -> bblock list
 val cost_of_bblock        : bblock -> int
 val compare_bbs           : bblock -> bblock -> int
 val bb_in_bblocks         : bblock -> bblock list-> bool
@@ -26,6 +25,7 @@ val bb_not_in_bblocks     : bblock -> bblock list-> bool
 val string_of_ints        : int list -> string
 val indexes_of_bblocks    : bblock list -> int list
 val string_of_bblocks     : bblock list -> string
+val string_of_raw_bblocks : bblock list -> string
 val expr_of_bblock        : Wasm_module.expr -> bblock -> Wasm_module.expr
 val bblocks_of_expr       : Wasm_module.expr -> bblock list
 val mult_succ_count       : bblock list -> int
