@@ -74,7 +74,7 @@ let edge_bbs_of_bblocks (bbs: bblock list): bblock list =
 *)
 
 let exits_of_bbs (entry_bb: bblock) (exit_bbs: bblock list): ebb_exit list =
-  List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_to entry_bb exit_bb}) exit_bbs
+  List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_to_bb entry_bb exit_bb}) exit_bbs
 
 let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
 

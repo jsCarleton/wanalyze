@@ -43,7 +43,7 @@ val expr_of_code_path               : Wasm_module.expr -> code_path -> Bblock.bb
 (* code paths*)
 val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_path list
 val code_paths_of_bblocks           : Bblock.bblock list -> code_path list -> code_path list -> code_path list
-val code_paths_from_to              : Bblock.bblock -> Bblock.bblock -> code_path list option
+val code_paths_from_to_bb           : Bblock.bblock -> Bblock.bblock -> code_path list option
 
 (* loops *)
 val has_loop                        : Bblock.bblock list -> bool
