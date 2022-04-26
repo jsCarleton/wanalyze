@@ -18,3 +18,4 @@ val cost_of_loop            : Wasm_module.wasm_module -> Wasm_module.expr -> Was
         -> Wasm_module.local_type list -> Bblock.bblock -> loop_path_parts -> loop_metric_info
 val cost_of_loops           : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list
         -> Wasm_module.local_type list -> Code_path.code_path list -> Code_path.code_path list -> Bblock.bblock -> loop_metric_info list
+val cost_of_function        : Wasm_module.func -> Symbolic_expr.expr_tree

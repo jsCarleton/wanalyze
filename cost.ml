@@ -86,3 +86,6 @@ let cost_of_loops w e param_types local_types (prefixes: Code_path.code_path lis
   List.dedup_and_sort ~compare:compare_metrics (* TODO is this dedup needed? *)
     (List.map ~f:(cost_of_loop w e param_types local_types bback)
       (all_loops prefixes loop_paths loop_paths []))
+
+let cost_of_function (_: Wasm_module.func): Symbolic_expr.expr_tree =
+  Empty

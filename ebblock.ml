@@ -1,24 +1,28 @@
 open Core
 open Bblock
 open Code_path
+open Symbolic_expr
 
 type ebb_exit =
   {
-    exit_bb:  bblock;
-    cps:      code_path list option;
+    exit_bb:  bblock;                 (* bb external to the ebb to which it can exit *)
+    cps:      code_path list option;  (* corresponding code paths to the exit bb *)
   }
 
 type ebb_type = EBB_loop | EBB_block
-type ebb_cost = EBB_loop_cost of Symbolic_expr.expr_tree | EBB_block_cost of int
 
 type ebblock = 
   {
-    ebbtype:      ebb_type;
-    cost:         ebb_cost;
-    entry_bb:     bblock;
-    bbs:          bblock list;
-    exits:        ebb_exit list;
-    nested_ebbs:  ebblock list;
+    ebbtype:      ebb_type;       (* either a block or a loop*)
+    cost:         expr_tree;      (* cost of executing this ebb *)
+    entry_bb:     bblock;         (* bb that's the entry to the ebb *)
+    bbs:          bblock list;    (* list of bbs that make up the ebb *)
+    exits:        ebb_exit list;  (* info about how the ebb is exitted *)
+    (* these properties are used when the ebb contains a loop *)
+    loop_cps:     code_path list; (* code_paths in the ebb that loop *)
+    exit_cps:     code_path list; (* code_paths in the ebb after the loop *)
+    loop_iters:   expr_tree;      (* the number of iterations the loop with loop for *)
+    nested_ebbs:  ebblock list;   (* ebbs containing nested loops *)
   }
 
 let string_of_ebblock (ebb: ebblock): string =
@@ -28,7 +32,7 @@ let string_of_ebblock (ebb: ebblock): string =
       sprintf "%sebb entry: %d\n"   (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb blocks: %s\n"  (String.make (indent+2) ' ') (string_of_raw_bblocks ebb.bbs);
       sprintf "%sebb cost:   %s\n"  (String.make (indent+2) ' ') 
-                                      (match ebb.cost with | EBB_block_cost c -> string_of_int c | _ -> "loop");
+                                      (match ebb.cost with | Constant c -> c | _ -> "loop");
       sprintf "%sebb exits:  %s\n"  (String.make (indent+2) ' ') (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       String.concat
         (List.map 
@@ -103,11 +107,22 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
     let entry_bb    = List.hd_exn bbs in
     let exits       = exits_of_bbs bbs (exit_bbs_of_bbs bbs) in
     let cost        = match ebbtype with 
-                        | EBB_block -> EBB_block_cost (cost_of_block_ebb exits) 
-                        | _         -> EBB_loop_cost Empty in
+                        | EBB_block -> Constant (string_of_int (cost_of_block_ebb exits)) 
+                        | _         -> Empty in
     (* only a loop can have a nested loop *)
-    let nested_ebbs = match ebbtype with | EBB_loop -> sub_ebbs_of_bblocks bbs | _ -> [] in
-    {ebbtype; cost; entry_bb; bbs; exits; nested_ebbs}
+    match ebbtype with
+    | EBB_loop ->
+        let loop_cps = [] in
+        let exit_cps = [] in
+        let loop_iters = Empty in
+        let nested_ebbs = sub_ebbs_of_bblocks bbs in
+        {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
+    | _ ->
+        let loop_cps = [] in
+        let exit_cps = [] in
+        let loop_iters = Empty in
+        let nested_ebbs = [] in
+        {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
   in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bblock list): ebblock =

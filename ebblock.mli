@@ -1,20 +1,23 @@
 type ebb_exit =
   {
-    exit_bb:  Bblock.bblock;
-    cps:      Code_path.code_path list option;
+    exit_bb:  Bblock.bblock;                    (* bb external to the ebb to which it can exit *)
+    cps:      Code_path.code_path list option;  (* corresponding code paths to the exit bb *)
   }
 
 type ebb_type = EBB_loop | EBB_block
-type ebb_cost = EBB_loop_cost of Symbolic_expr.expr_tree | EBB_block_cost of int
 
 type ebblock = 
   {
-    ebbtype:      ebb_type;
-    cost:         ebb_cost;
-    entry_bb:     Bblock.bblock;
-    bbs:          Bblock.bblock list;
-    exits:        ebb_exit list;
-    nested_ebbs:  ebblock list;
+    ebbtype:      ebb_type;                 (* either a block or a loop*)
+    cost:         Symbolic_expr.expr_tree;  (* cost of executing this ebb *)
+    entry_bb:     Bblock.bblock;            (* bb that's the entry to the ebb *)
+    bbs:          Bblock.bblock list;       (* list of bbs that make up the ebb *)
+    exits:        ebb_exit list;            (* info about how the ebb is exitted *)
+    (* these properties are used when the ebb contains a loop *)
+    loop_cps:     Code_path.code_path list; (* code_paths in the ebb that loop *)
+    exit_cps:     Code_path.code_path list; (* code_paths in the ebb after the loop *)
+    loop_iters:   Symbolic_expr.expr_tree;  (* the number of iterations the loop with loop for *)
+    nested_ebbs:  ebblock list;             (* ebbs containing nested loops *)
   }
 
 val string_of_ebblock:      ebblock -> string

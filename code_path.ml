@@ -340,7 +340,8 @@ type loop = {
   loop_bblocks_of_bblocks
 
   Given the bblocks of a function return a list of loop bblocks
-  The loop bblocks are comprised of the the set
+  The loop bblocks are comprised of the the set of bblocks that
+  make up the body of the loop but not including the loop bblock itself
 
   Parameters:
     bblocks   the list of basic blocks
@@ -367,8 +368,8 @@ let rec loop_bblocks_of_bblocks'
                   loop_bblocks_of_bblocks' tl acc_lbs (hd::acc_lb) true nesting)
           | false ->
             (match bblock_is_loop hd with
-              | true ->
-                  loop_bblocks_of_bblocks' tl acc_lbs [hd] true hd.nesting
+              | true -> (* don't include this bblock *)
+                  loop_bblocks_of_bblocks' tl acc_lbs [] true hd.nesting
               | _ ->
                   loop_bblocks_of_bblocks' tl acc_lbs [] false (-1)))
 
@@ -405,10 +406,8 @@ let is_looping_path (cp: code_path): bool =
 **)
 
 let looping_paths_of_loop_bblocks (loop_bblocks: bblock list): code_path list =
-  (* the first bblock is a loop and is never part of a looping path *)
-  let tl = List.tl_exn loop_bblocks in
-    List.filter ~f:is_looping_path
-      (code_paths_of_bblocks tl [[List.hd_exn tl]] [])
+  List.filter ~f:is_looping_path
+    (code_paths_of_bblocks loop_bblocks [[List.hd_exn loop_bblocks]] [])
 
 (*
   branchbacks_of_loop
@@ -423,9 +422,9 @@ let looping_paths_of_loop_bblocks (loop_bblocks: bblock list): code_path list =
 *)
 
 let branchbacks_of_loop (lbb: bblock list): bblock list =
-  (* get the index of the second bblock in the loop, the loop head *)
+  (* get the index of the loop head *)
   (* any branchback with have this bblock in its list of successors *)
-  let lh = (List.nth_exn lbb 1).bbindex in
+  let lh = (List.hd_exn lbb).bbindex in
   List.filter_map ~f:(fun bb -> if is_branchback bb lh then Some bb else None) lbb
 
 (**
@@ -466,7 +465,7 @@ let cp_has_bb (bb: bblock) (cp: code_path) : bool =
   prefix_of_code_path
 
   Given a bblock and a code path that contains that bblock
-  return the prefix of the code path up to and including the
+  return the prefix of the code path up to but not including the
   bblock
 
   Parameters:
@@ -482,7 +481,7 @@ let rec prefix_of_code_path (bb: bblock) (acc: code_path) (cp: code_path): code_
     | []      -> failwith "Bblock not found"
     | hd::tl  ->
         (match hd.bbindex = bb.bbindex with
-          | true -> (List.rev (hd::acc))
+          | true -> (List.rev acc)
           | _    -> prefix_of_code_path bb (hd::acc) tl)
   
 (**
@@ -490,7 +489,7 @@ let rec prefix_of_code_path (bb: bblock) (acc: code_path) (cp: code_path): code_
 
   Given a bblock and a list of code paths that contains that bblock
   return a list of the code paths that are the prefixes of the code path up to
-  and including the  bblock
+  and not including the bblock
 
   Parameters:
     cps   list of code paths that contain the bb
@@ -506,7 +505,7 @@ let prefixes_of_code_paths (cps: code_path list) (bb: bblock): code_path list =
   unique_paths_to_bblock
 
   Given a list of code paths and a bblock return the list of unique prefixes of the
-  bblock, including the bblock, in the list of code paths
+  bblock, not including the bblock, in the list of code paths
 
   Parameters:
     cps   list of code paths that may or may not contain the bb
