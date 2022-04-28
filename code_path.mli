@@ -45,6 +45,7 @@ val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_pa
 val code_paths_of_bblocks           : Bblock.bblock list -> code_path list -> code_path list -> code_path list
 val code_paths_from_to_bb           : Bblock.bblock -> Bblock.bblock -> code_path list option
 val code_paths_from_bbs_to_bb       : Bblock.bblock list -> Bblock.bblock -> code_path list option
+val looping_paths_of_loop_bblocks   : Bblock.bblock list -> code_path list
 
 (* loops *)
 val has_loop                        : Bblock.bblock list -> bool

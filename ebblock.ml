@@ -112,7 +112,7 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
-        let loop_cps = [] in
+        let loop_cps = looping_paths_of_loop_bblocks bbs in
         let exit_cps = [] in
         let loop_iters = Empty in
         let nested_ebbs = sub_ebbs_of_bblocks bbs in
