@@ -15,7 +15,7 @@ type ebblock =
     exits:        ebb_exit list;            (* info about how the ebb is exitted *)
     (* these properties are used when the ebb contains a loop *)
     loop_cps:     Code_path.code_path list; (* code_paths in the ebb that loop *)
-    exit_cps:     Code_path.code_path list; (* code_paths in the ebb after the loop *)
+    exit_cps:     Code_path.code_path list; (* code_paths in the ebb that aren't the loop *)
     loop_iters:   Symbolic_expr.expr_tree;  (* the number of iterations the loop with loop for *)
     nested_ebbs:  ebblock list;             (* ebbs containing nested loops *)
   }

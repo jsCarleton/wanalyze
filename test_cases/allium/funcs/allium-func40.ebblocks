@@ -3,36 +3,55 @@ ebb entry: 0
   ebb cost:   20
   ebb exits:  [10 19 20 21]
   2 paths to exit 10
+  [0 1 6 8 9]
+  [0 1 6 7 9]
   2 paths to exit 19
+  [0 1 6 8 9]
+  [0 1 6 7 9]
   1 paths to exit 20
+  [0 1 2 5]
   1 paths to exit 21
+  [0 1 2 3]
 ebb entry: 10
   ebb blocks: [10]
   ebb cost:   1
   ebb exits:  [11]
   1 paths to exit 11
+  [10]
 ebb entry: 11
   ebb blocks: [11 12 13 14 15 16 17]
-  ebb cost:   loop
+  ebb cost:   28*n + 1
   ebb exits:  [18]
   4 paths to exit 18
+  [11 13 14 16 17]
+  [11 13 14 15 16 17]
+  [11 12 14 16 17]
+  [11 12 14 15 16 17]
+  4 loop paths
+  [11 13 14 16]  [11 13 14 15 16]  [11 12 14 16]  [11 12 14 15 16]
+  4 post loop exit paths
+  [17]  [17]  [17]  [17]
 ebb entry: 18
   ebb blocks: [18]
   ebb cost:   1
   ebb exits:  [19]
   1 paths to exit 19
+  [18]
 ebb entry: 19
   ebb blocks: [19]
   ebb cost:   3
   ebb exits:  [20]
   1 paths to exit 20
+  [19]
 ebb entry: 20
   ebb blocks: [20]
   ebb cost:   1
   ebb exits:  [21]
   1 paths to exit 21
+  [20]
 ebb entry: 21
   ebb blocks: [21 22]
   ebb cost:   2
   ebb exits:  [22]
   1 paths to exit 22
+  [21]

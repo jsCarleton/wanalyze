@@ -239,7 +239,7 @@ let code_paths_from_bbs_to_bb (from_bbs: bblock list) (to_bb: bblock): code_path
   in
   
   let terms_of_cp_from_to (from_bbs: bblock list) (to_bb: bblock) (cp: code_path): code_path list =
-    List.filter_map ~f:(term_of_cp_from_to to_bb cp) (succ_of_cp_from_to from_bbs to_bb cp)
+    List.map ~f:List.rev (List.filter_map ~f:(term_of_cp_from_to to_bb cp) (succ_of_cp_from_to from_bbs to_bb cp))
   in
   
   let nterm_of_cp_from_to (to_bb: bblock) (cp: code_path) (succ: bblock): code_path option =
@@ -408,6 +408,40 @@ let is_looping_path (cp: code_path): bool =
 let looping_paths_of_loop_bblocks (loop_bblocks: bblock list): code_path list =
   List.filter ~f:is_looping_path
     (code_paths_of_bblocks loop_bblocks [[List.hd_exn loop_bblocks]] [])
+
+(**
+  exit_paths
+
+  Given two lists of code paths return the code paths that are suffixes
+  of the code paths in the first list with leading occurrences of bblocks
+  in the second list of code paths removed
+
+  Parameters:
+    cps1, cps2   two lists of code paths
+  Returns:
+    the suffix code paths
+**)
+
+let exit_paths (cps1: code_path list) (cps2: code_path list): code_path list =
+
+  let bbs_of_cps (cps: code_path list): bblock list =
+    List.dedup_and_sort ~compare:compare_bbs (List.concat cps)
+  in
+
+  let bb_in_bbs (bb: bblock) (bbs: bblock list): bool =
+    List.exists ~f:(fun bb' -> bb.bbindex = bb'.bbindex) bbs
+  in
+
+  let rec remove_suffix (bbs: bblock list) (cp: code_path): code_path option =
+    match cp with
+    | []      -> None
+    | hd::tl  -> if bb_in_bbs hd bbs then
+                  remove_suffix bbs tl
+                else
+                  Some cp
+  in
+
+  List.filter_map ~f:(remove_suffix (bbs_of_cps cps2)) cps1
 
 (*
   branchbacks_of_loop

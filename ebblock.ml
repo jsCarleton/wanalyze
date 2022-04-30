@@ -20,7 +20,7 @@ type ebblock =
     exits:        ebb_exit list;  (* info about how the ebb is exitted *)
     (* these properties are used when the ebb contains a loop *)
     loop_cps:     code_path list; (* code_paths in the ebb that loop *)
-    exit_cps:     code_path list; (* code_paths in the ebb after the loop *)
+    exit_cps:     code_path list; (* code_paths in the ebb that aren't in the loop *)
     loop_iters:   expr_tree;      (* the number of iterations the loop with loop for *)
     nested_ebbs:  ebblock list;   (* ebbs containing nested loops *)
   }
@@ -28,22 +28,38 @@ type ebblock =
 let string_of_ebblock (ebb: ebblock): string =
 
   let rec string_of_ebblock' (indent: int) (ebb: ebblock) =
+    let spaces = (String.make (indent+2) ' ') in
     String.concat [
       sprintf "%sebb entry: %d\n"   (String.make indent ' ') ebb.entry_bb.bbindex;
-      sprintf "%sebb blocks: %s\n"  (String.make (indent+2) ' ') (string_of_raw_bblocks ebb.bbs);
-      sprintf "%sebb cost:   %s\n"  (String.make (indent+2) ' ') 
+      sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bbs);
+      sprintf "%sebb cost:   %s\n"  spaces 
                                       (match ebb.cost with | Constant c -> c | _ -> "loop");
-      sprintf "%sebb exits:  %s\n"  (String.make (indent+2) ' ') (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
+      sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       String.concat
         (List.map 
-          ~f:(fun e -> sprintf "%s%s paths to exit %d\n" 
-                          (String.make (indent+2) ' ') 
-                          (match e.cps with | None -> "unknown number of " | Some cps -> (string_of_int (List.length cps)))
-                          e.exit_bb.bbindex) 
+          ~f:(fun e -> match e.cps with
+                        | None ->
+                            sprintf "%sunknown number of paths to exit %d\n"
+                              spaces 
+                              e.exit_bb.bbindex
+                        | Some cps  ->
+                            sprintf "%s%d paths to exit %d\n%s\n"
+                              (String.make (indent+2) ' ') 
+                              (List.length cps)
+                              e.exit_bb.bbindex
+                              (String.concat ~sep:"\n" (List.map ~f:(fun cp -> String.concat[spaces; string_of_raw_bblocks cp]) cps))) 
           ebb.exits);
-      match ebb.nested_ebbs with
-      | []  -> "";
-      | _   -> String.concat (List.map ~f:(string_of_ebblock' (indent+2)) ebb.nested_ebbs);
+      (match ebb.loop_cps with
+        | []  -> ""
+        | _   -> sprintf "%s%d loop paths\n%s\n" spaces (List.length ebb.loop_cps) 
+                  (String.concat (List.map ~f:(fun cp -> String.concat[spaces; string_of_raw_bblocks cp]) ebb.loop_cps)));
+      (match ebb.exit_cps with
+        | []  -> ""
+        | _   -> sprintf "%s%d post loop exit paths\n%s\n" spaces (List.length ebb.exit_cps) 
+                  (String.concat (List.map ~f:(fun cp -> String.concat[spaces; string_of_raw_bblocks cp]) ebb.exit_cps)));
+      (match ebb.nested_ebbs with
+        | []  -> ""
+        | _   -> String.concat (List.map ~f:(string_of_ebblock' (indent+2)) ebb.nested_ebbs))
     ]
   in
 
@@ -104,24 +120,36 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
   in
 
   let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
+
+    let exit_cps (exits: ebb_exit list): code_path list =
+      List.fold_left  ~init:[] 
+                      ~f:(fun acc e ->
+                        match e.cps with
+                        | None -> acc
+                        | Some cps -> List.append acc cps)
+                      exits
+    in
+
     let entry_bb    = List.hd_exn bbs in
     let exits       = exits_of_bbs bbs (exit_bbs_of_bbs bbs) in
-    let cost        = match ebbtype with 
-                        | EBB_block -> Constant (string_of_int (cost_of_block_ebb exits)) 
-                        | _         -> Empty in
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
-        let loop_cps = looping_paths_of_loop_bblocks bbs in
-        let exit_cps = [] in
-        let loop_iters = Empty in
+        let loop_cps    = looping_paths_of_loop_bblocks bbs in
+        let exit_cps    = exit_paths (exit_cps exits) loop_cps in
+        let loop_iters  = Empty in
         let nested_ebbs = sub_ebbs_of_bblocks bbs in
+        let cost        = Constant 
+                            (String.concat[ (string_of_int (max_cost_of_code_paths loop_cps 0));
+                                            "*n + ";
+                                            (string_of_int (max_cost_of_code_paths exit_cps 0))]) in
         {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
     | _ ->
-        let loop_cps = [] in
-        let exit_cps = [] in
-        let loop_iters = Empty in
+        let loop_cps    = [] in
+        let exit_cps    = [] in
+        let loop_iters  = Empty in
         let nested_ebbs = [] in
+        let cost        = Constant (string_of_int (cost_of_block_ebb exits)) in
         {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
   in
 
