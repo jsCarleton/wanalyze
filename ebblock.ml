@@ -32,8 +32,7 @@ let string_of_ebblock (ebb: ebblock): string =
     String.concat [
       sprintf "%sebb entry: %d\n"   (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bbs);
-      sprintf "%sebb cost:   %s\n"  spaces 
-                                      (match ebb.cost with | Constant c -> c | _ -> "loop");
+      sprintf "%sebb cost:   %s\n"  spaces (Execution.string_of_expr_tree ebb.cost);
       sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       String.concat
         (List.map 
@@ -137,12 +136,15 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
     | EBB_loop ->
         let loop_cps    = looping_paths_of_loop_bblocks bbs in
         let exit_cps    = exit_paths (exit_cps exits) loop_cps in
-        let loop_iters  = Empty in
+        let loop_iters  = Constant (String.concat ["n_"; string_of_int entry_bb.bbindex]) in
         let nested_ebbs = sub_ebbs_of_bblocks bbs in
-        let cost        = Constant 
-                            (String.concat[ (string_of_int (max_cost_of_code_paths loop_cps 0));
-                                            "*n + ";
-                                            (string_of_int (max_cost_of_code_paths exit_cps 0))]) in
+        let cost        = Node {op = "+";
+                                arg1 = Node {op = "*";
+                                              arg1 = Constant (string_of_int (max_cost_of_code_paths loop_cps 0));
+                                              arg2 = loop_iters;
+                                              arg3 = Empty};
+                                arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
+                                arg3 = Empty} in
         {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
     | _ ->
         let loop_cps    = [] in

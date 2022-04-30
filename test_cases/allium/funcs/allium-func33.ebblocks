@@ -28,7 +28,7 @@ ebb entry: 30
   [30]
 ebb entry: 31
   ebb blocks: [31 32 33 34 35 36 37]
-  ebb cost:   25*n + 1
+  ebb cost:   (25 * n_31) + 1
   ebb exits:  [38]
   1 paths to exit 38
   [31 32 33 37]
@@ -112,7 +112,7 @@ ebb entry: 91
   [91]
 ebb entry: 92
   ebb blocks: [92 93 94 95 96 97 98]
-  ebb cost:   25*n + 1
+  ebb cost:   (25 * n_92) + 1
   ebb exits:  [99]
   1 paths to exit 99
   [92 93 94 98]
@@ -204,7 +204,7 @@ ebb entry: 144
   [144]
 ebb entry: 145
   ebb blocks: [145 146 147 148 149]
-  ebb cost:   29*n + 1
+  ebb cost:   (29 * n_145) + 1
   ebb exits:  [150 153]
   1 paths to exit 150
   [145 149]
@@ -263,7 +263,7 @@ ebb entry: 159
   [159]
 ebb entry: 160
   ebb blocks: [160 161]
-  ebb cost:   9*n + 1
+  ebb cost:   (9 * n_160) + 1
   ebb exits:  [162]
   1 paths to exit 162
   [160 161]
