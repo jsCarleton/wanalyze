@@ -204,6 +204,12 @@ let code_paths_from_to_bb (from_bb: bblock) (to_bb: bblock): code_path list opti
   else
     code_paths_to_bb to_bb [[from_bb]] [] 0
     
+let code_paths_from_to_bb_exn (from_bb: bblock) (to_bb: bblock): code_path list =
+  let cps_o = code_paths_from_to_bb from_bb to_bb in
+  match cps_o with
+    | None      -> []
+    | Some cps  -> cps
+
 (*
     code_paths_from_bbs_to_bb
 
@@ -640,10 +646,12 @@ let rec expr_of_code_path e (cp: code_path) (bb: bblock) (acc: expr list): expr 
                 then  List.concat (List.rev ((expr_of_bblock e hd)::acc))
                 else  expr_of_code_path e tl bb ((expr_of_bblock e hd)::acc)
 
-let condition_of_loop w e param_types local_types (bback: bblock) (cp: code_path): expr_tree =
+let condition_of_loop ctx (bback: bblock) (cp: code_path): expr_tree =
   match bback.bbtype with
   | BB_br_if ->
-      let _,loop_cond = reduce_bblock w (expr_of_code_path e cp bback []) (empty_program_state w param_types local_types) in
+      let _,loop_cond = reduce_bblock ctx.w 
+                                      (expr_of_code_path ctx.w_e cp bback []) 
+                                      (empty_program_state ctx.w ctx.param_types ctx.local_types) in
         loop_cond
   | BB_br_table ->  Empty (* TODO *)
   | BB_br ->        Empty (* TODO *)
@@ -655,8 +663,9 @@ let rec all_paths (cp1: code_path list) (cp2: code_path list) (cp2all: code_path
     | _::tl1, []          -> all_paths tl1 cp2all cp2all acc
     | hd1::tl1, hd2::tl2  -> all_paths tl1 tl2 cp2all ((List.concat [hd1; hd2])::acc)
   
-let conditions_of_paths w e param_types local_types (prefixes: code_path list) (loop_paths: code_path list) (bback: bblock): expr_tree list =
-  List.map ~f:(condition_of_loop w e param_types local_types bback) (all_paths prefixes loop_paths loop_paths [])
+let conditions_of_paths (ctx: execution_context) (prefixes: code_path list) (loop_paths: code_path list) (bback: bblock): 
+      expr_tree list =
+  List.map ~f:(condition_of_loop ctx bback) (all_paths prefixes loop_paths loop_paths [])
 
 (*
   classify loops
@@ -828,16 +837,12 @@ let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
   determine the branch condition
 
   Parameters:
-    w           wasm module
-    e           code of the function that the bblock is from
-    param_types types of the parameters to this function
-    local_types types of the local variable in this function
+    ctx         execution context
     bb          brif loop bblock
   Returns:
     the loop condition in the form of an expr_tree
 **)
 
-let analyze_simple_loop (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-      (bb: bblock): expr_tree =
-  let _,loop_cond = reduce_bblock w (expr_of_bblock e bb) (empty_program_state w param_types local_types) in
+let analyze_simple_loop (ctx: execution_context) (bb: bblock): expr_tree =
+  let _,loop_cond = reduce_bblock ctx.w (expr_of_bblock ctx.w_e bb) (empty_program_state ctx.w ctx.param_types ctx.local_types) in
     loop_cond

@@ -25,4 +25,4 @@ val ebb_to_unreachable:     ebblock -> bool
 val ebb_to_return:          ebblock -> bool
 val ebb_has_branchback:     ebblock -> bool
 val ebb_too_many_paths:     ebblock -> bool
-val ebblocks_of_bblocks:    Bblock.bblock list -> ebblock list
+val ebblocks_of_bblocks:    Execution.execution_context -> Bblock.bblock list -> ebblock list

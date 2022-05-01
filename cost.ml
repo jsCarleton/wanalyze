@@ -55,7 +55,7 @@ let site_of_nesting_if (lp: Code_path.code_path): cond_site =
     | _           -> failwith "TODO handle this bbtype"
 
 (* TODO do we need both symbolic execution and SSA to do this? *)
-let cost_of_loop w e param_types local_types (bback: Bblock.bblock) (lp: loop_path_parts): loop_metric_info =
+let cost_of_loop (ctx: Execution.execution_context) (bback: Bblock.bblock) (lp: loop_path_parts): loop_metric_info =
   (* a key part of this is locating the bblock that the condition of the loop is tested ... *)
   let cs =
     (match bback.bbtype with
@@ -66,13 +66,13 @@ let cost_of_loop w e param_types local_types (bback: Bblock.bblock) (lp: loop_pa
     ) in
   (* TODO we're getting the loop cond by executing just the loop_part. is this right? couldn't it be the case
     that there's a side effect of the prefix_part that the loop needs? *)
-  let _, loop_cond = Execution.reduce_bblock w 
-            (Code_path.expr_of_code_path e lp.loop_part cs.cond_bb [])
-            (Execution.empty_program_state w param_types local_types) in
+  let _, loop_cond = Execution.reduce_bblock ctx.w 
+            (Code_path.expr_of_code_path ctx.w_e lp.loop_part cs.cond_bb [])
+            (Execution.empty_program_state ctx.w ctx.param_types ctx.local_types) in
   let loop_vars     = Symbolic_expr.vars_of_expr_tree loop_cond in
-  let prefix_ssa    = Ssa.ssa_of_code_path w e param_types local_types lp.prefix_part in
+  let prefix_ssa    = Ssa.ssa_of_code_path ctx lp.prefix_part in
   let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
-  let loop_ssa      = Ssa.ssa_of_code_path w e param_types local_types lp.loop_part in
+  let loop_ssa      = Ssa.ssa_of_code_path ctx lp.loop_part in
   let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
     {prefix_cost = Code_path.cost_of_code_path lp.prefix_part;
         loop_cost = Code_path.cost_of_code_path lp.loop_part;
@@ -81,10 +81,10 @@ let cost_of_loop w e param_types local_types (bback: Bblock.bblock) (lp: loop_pa
         lv_entry_vals;
         lv_loop_vals}
 
-let cost_of_loops w e param_types local_types (prefixes: Code_path.code_path list) (loop_paths: Code_path.code_path list)
+let cost_of_loops (ctx: Execution.execution_context) (prefixes: Code_path.code_path list) (loop_paths: Code_path.code_path list)
       (bback: Bblock.bblock): loop_metric_info list =
   List.dedup_and_sort ~compare:compare_metrics (* TODO is this dedup needed? *)
-    (List.map ~f:(cost_of_loop w e param_types local_types bback)
+    (List.map ~f:(cost_of_loop ctx bback)
       (all_loops prefixes loop_paths loop_paths []))
 
 let cost_of_function (_: Wasm_module.func): Symbolic_expr.expr_tree =

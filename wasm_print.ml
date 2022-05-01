@@ -410,11 +410,15 @@ let string_of_code_path (cp: code_path): string = String.concat[string_of_raw_bb
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
 
-let loop_info w e param_types local_types cp_ssa bbs (bb_idx: int) loop_type =
+let loop_info ctx cp_ssa bbs (bb_idx: int) loop_type =
   let bb_next = List.nth_exn bbs (bb_idx+1) in
-  let loop_cond = analyze_simple_loop w e param_types local_types bb_next in
+  let loop_cond = analyze_simple_loop ctx bb_next in
   let loop_vars = vars_of_expr_tree loop_cond in
-  let loop_ssa = ssa_of_expr w param_types local_types (expr_of_bblock e bb_next) in
+  let loop_ssa = ssa_of_expr {w           = ctx.w; 
+                              w_e         = (expr_of_bblock ctx.w_e bb_next); 
+                              w_state     = empty_program_state ctx.w ctx.param_types ctx.local_types;
+                              param_types = ctx.param_types;
+                              local_types = ctx.local_types} in
   String.concat[  loop_type;
                   ",";
                   (string_of_ssa_list (List.map ~f:(explode_var cp_ssa) loop_vars) "; " false);
@@ -425,22 +429,22 @@ let loop_info w e param_types local_types cp_ssa bbs (bb_idx: int) loop_type =
                   ",";
                   (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars) "; " false)]
 
-let loop_type w e param_types local_types cp_ssa bbs (bb_idx: int) =
+let loop_type ctx cp_ssa bbs (bb_idx: int) =
   let bb = List.nth_exn bbs bb_idx in
   let bb_next = List.nth_exn bbs (bb_idx+1) in
   match simple_brif_loop bbs bb with
-  | Some _ -> loop_info w e param_types local_types cp_ssa bbs bb_idx "simple br_if"
+  | Some _ -> loop_info ctx cp_ssa bbs bb_idx "simple br_if"
   | _ -> (match simple_br_loop bbs bb with
-            | Some _ ->  loop_info w e param_types local_types cp_ssa bbs bb_idx "simple br"
+            | Some _ ->  loop_info ctx cp_ssa bbs bb_idx "simple br"
             | _ -> (string_of_bb_type bb_next.bbtype))
 
 (* TODO more convenient to store code paths in reverse order? *)
-let print_summary oc_summary w e param_types local_types m fnum bbs (cp: code_path) =
-  let cp_ssa = ssa_of_code_path w e param_types local_types cp in
+let print_summary oc_summary ctx m fnum bbs (cp: code_path) =
+  let cp_ssa = ssa_of_code_path ctx cp in
   let bb = List.hd_exn (List.rev cp) in
   Out_channel.output_string oc_summary
     (sprintf "%s,%d,%d,%s,%s\n"
-        m fnum bb.bbindex (string_of_code_path cp) (loop_type w e param_types local_types cp_ssa bbs bb.bbindex));
+        m fnum bb.bbindex (string_of_code_path cp) (loop_type ctx cp_ssa bbs bb.bbindex));
   ()
 
 let string_of_vars vs =
@@ -456,14 +460,18 @@ let string_of_cost_of_loops col: string =
     String.concat["max("; String.concat ~sep:", " (List.map ~f:string_of_loop_cost_fn col); ")"]
 
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
-  let fnum          = (fidx + w.last_import_func) in
+  let fnum          = fidx + w.last_import_func in
+  Printf.printf "function %d\n" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
-  let fn            = (List.nth_exn w.code_section fidx) in
-  let bblocks       = bblocks_of_expr fn.e in
-  let ebbs          = ebblocks_of_bblocks bblocks in
+  let fn            = List.nth_exn w.code_section fidx in
+  let w_e           = fn.e in
+  let bblocks       = bblocks_of_expr w_e in
   let cps           = code_paths_of_bblocks bblocks [[List.hd_exn bblocks]] [] in
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
+  let w_state       = empty_program_state w param_types local_types in
+  let ctx           = {w; w_e; w_state; param_types; local_types} in
+  let ebbs          = ebblocks_of_bblocks ctx bblocks in
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     print_function oc w true bblocks fidx type_idx;
@@ -491,7 +499,7 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
       (* print loop summary info *)
       let loop_cps = List.dedup_and_sort ~compare:compare_cps (loop_code_paths bblocks cps) in
       List.iter 
-        ~f:(print_summary oc_summary w fn.e param_types local_types (Filename.chop_extension w.module_name) fnum bblocks) 
+        ~f:(print_summary oc_summary ctx (Filename.chop_extension w.module_name) fnum bblocks) 
         loop_cps
   | false -> ());
   (* costs *)
@@ -531,7 +539,7 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
                             if List.length prefixes = 0 then
                               "-4 too many prefixes"
                             else (
-                              let col = cost_of_loops w fn.e param_types local_types prefixes l.looping_paths bback in
+                              let col = cost_of_loops ctx prefixes l.looping_paths bback in
                               String.concat["max("; 
                                 string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
                                 ", ";

@@ -3,6 +3,16 @@ open Easy_logging
 open Wasm_module
 open Symbolic_expr
 open Bblock
+
+type execution_context =
+  {
+      w:              Wasm_module.wasm_module;
+      w_e:            Wasm_module.expr;
+      w_state:        Wasm_module.program_state;
+      param_types:    Wasm_module.resulttype list;
+      local_types:    Wasm_module.local_type list;
+  }
+
 (* 
     n_iglobals
     return the number of globals that are imported by the module
@@ -310,9 +320,9 @@ let count_locals (ll: local_type list): int = List.fold_left ~f:sum_nlocals ~ini
 *)
 
 let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_types: local_type list): program_state =
-  let n_i = n_iglobals w.import_section 0 in    (* globals that are imported*)
-  let n_m = n_mglobals w.global_section in      (* globals defined in the module *)
-  let global_values = create_globals            (* we need a state to create the local variables*)
+  let n_i = n_iglobals w.import_section 0 in  (* globals that are imported*)
+  let n_m = n_mglobals w.global_section in    (* globals defined in the module *)
+  let global_values = create_globals              (* we need a state to create the local variables*)
                       w
                       { instr_count = 0;
                         value_stack = [];

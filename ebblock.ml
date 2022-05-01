@@ -95,7 +95,7 @@ let edge_bbs_of_bblocks (bbs: bblock list): bblock list =
 let exits_of_bbs (bbs: bblock list) (exit_bbs: bblock list): ebb_exit list =
   List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_bbs_to_bb bbs exit_bb}) exit_bbs
 
-let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
+let rec ebblocks_of_bblocks (ctx: Execution.execution_context) (all_bbs: bblock list): ebblock list =
 
   let cost_of_block_ebb (exits: ebb_exit list): int =
     if List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) exits then
@@ -113,7 +113,7 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
 
   let sub_ebbs_of_bblocks (sub_bbs: bblock list): ebblock list =
     if List.exists ~f:(fun bb -> match bb.bbtype with | BB_loop -> true | _ -> false) sub_bbs then
-      ebblocks_of_bblocks sub_bbs
+      ebblocks_of_bblocks ctx sub_bbs
     else
       []
   in
@@ -145,6 +145,25 @@ let rec ebblocks_of_bblocks (all_bbs: bblock list): ebblock list =
                                               arg3 = Empty};
                                 arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
                                 arg3 = Empty} in
+        (* TODO prefix is wrong, need to iterate over all prefixes, all loop_cps *)
+        let bback = (List.hd_exn (Code_path.branchbacks_of_loop bbs)) in
+        let root_bb = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
+        Printf.printf "ebb: %d bback: %d root: %d\n" entry_bb.bbindex bback.bbindex root_bb.bbindex;
+        let cps = Code_path.code_paths_from_to_bb_exn root_bb (List.hd_exn entry_bb.pred) in
+        Printf.printf "# cps: %d\n" (List.length cps);
+        if List.length cps > 0 then
+          let cp = List.rev (List.hd_exn cps) in (* TODO this reverse should be done earlier *)
+          Printf.printf "cp: %s\n" (string_of_raw_bblocks cp);
+          let lmi = Cost.cost_of_loop ctx 
+                                      bback 
+                                      { prefix_part = cp; 
+                                        loop_part   = List.hd_exn loop_cps} in
+          Printf.printf "cond:  %s\n" (Execution.string_of_expr_tree lmi.loop_cond);
+          Printf.printf "vars:  %s\n" (String.concat ~sep:";" lmi.loop_vars);
+          Printf.printf "entry: %s\n" (Ssa.string_of_ssa_list lmi.lv_entry_vals ";" false);
+          Printf.printf "loop:  %s\n" (Ssa.string_of_ssa_list lmi.lv_loop_vals ";" false);
+        else
+          Printf.printf "too many paths\n";
         {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
     | _ ->
         let loop_cps    = [] in

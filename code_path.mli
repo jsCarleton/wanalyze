@@ -33,17 +33,16 @@ val max_cost_of_code_paths          : code_path list -> int -> int
 val paths_with_no_loops             : code_path list -> code_path list
 val exit_bblocks_of_loop            : loop -> Bblock.bblock list
 val paths_from_bblocks              : Bblock.bblock list -> code_path list
-val condition_of_loop               : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list 
-        -> Wasm_module.local_type list -> Bblock.bblock -> code_path -> Symbolic_expr.expr_tree
-val conditions_of_paths             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list 
-        -> Wasm_module.local_type list -> code_path list -> code_path list -> Bblock.bblock -> Symbolic_expr.expr_tree list
-
+val condition_of_loop               : Execution.execution_context -> Bblock.bblock -> code_path -> Symbolic_expr.expr_tree
+val conditions_of_paths             : Execution.execution_context -> code_path list -> code_path list -> Bblock.bblock
+      -> Symbolic_expr.expr_tree list
 val expr_of_code_path               : Wasm_module.expr -> code_path -> Bblock.bblock -> Wasm_module.expr list -> Wasm_module.expr
 
 (* code paths*)
 val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_path list
 val code_paths_of_bblocks           : Bblock.bblock list -> code_path list -> code_path list -> code_path list
 val code_paths_from_to_bb           : Bblock.bblock -> Bblock.bblock -> code_path list option
+val code_paths_from_to_bb_exn       : Bblock.bblock -> Bblock.bblock -> code_path list
 val code_paths_from_bbs_to_bb       : Bblock.bblock list -> Bblock.bblock -> code_path list option
 val looping_paths_of_loop_bblocks   : Bblock.bblock list -> code_path list
 val exit_paths                      : code_path list -> code_path list -> code_path list
@@ -55,10 +54,10 @@ val loop_code_paths                 : Bblock.bblock list -> code_path list -> co
 val loops_of_bblocks                : Bblock.bblock list -> loop list
 val ids_with_loops                  : Bblock.bblock list -> int list
 val classify_loops                  : loop list -> loops_class
+val branchbacks_of_loop             : Bblock.bblock list -> Bblock.bblock list
 
 (* simple case analysis *)
-val analyze_simple_loop             : Wasm_module.wasm_module -> Wasm_module.expr -> Wasm_module.resulttype list -> Wasm_module.local_type list
-                        -> Bblock.bblock -> Symbolic_expr.expr_tree
+val analyze_simple_loop             : Execution.execution_context -> Bblock.bblock -> Symbolic_expr.expr_tree
 val simple_brif_loop                : Bblock.bblock list -> Bblock.bblock -> int option
 val simple_br_loop                  : Bblock.bblock list -> Bblock.bblock -> int option
 val ids_with_simple_brif_loops      : Bblock.bblock list -> int list

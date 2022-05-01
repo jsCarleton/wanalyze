@@ -54,8 +54,7 @@ let string_of_ssa (alive: bool) (s: ssa): string =
 let string_of_ssa_list (sl: ssa list) (sep: string) (alive: bool): string =
   (String.concat ~sep:sep (List.map ~f:(string_of_ssa alive) (List.rev sl)))
 
-let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (acc: ssa list)
-      (op: op_type): ssa list =
+let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
   match op.instrtype with
   | Control  ->
       (match opcode_of_int op.opcode with
@@ -66,18 +65,18 @@ let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: loca
         (match op.arg with
         | Funcidx fidx ->
             (* mark the arguments to the function dead *)
-            mark_dead acc (nparams w fidx);
+            mark_dead acc (nparams ctx.w fidx);
             (* create SSAs for each of the return values *)
-            let retvals = (List.mapi ~f:(ssa_of_rt (List.length acc)) (ret_types w fidx)) in
+            let retvals = (List.mapi ~f:(ssa_of_rt (List.length acc)) (ret_types ctx.w fidx)) in
             List.append retvals acc
         | _ -> failwith "Invalid call argument")
       | OP_call_indirect ->
         (match op.arg with
           | CallIndirect c ->
               (* mark the arguments to the function dead *)
-              mark_dead acc (List.length (List.nth_exn w.type_section c.y).rt1);
+              mark_dead acc (List.length (List.nth_exn ctx.w.type_section c.y).rt1);
               (* create SSAs for each of the return values *)
-              List.append (List.mapi ~f:(ssa_of_rt (List.length acc)) (List.nth_exn w.type_section c.y).rt2) acc
+              List.append (List.mapi ~f:(ssa_of_rt (List.length acc)) (List.nth_exn ctx.w.type_section c.y).rt2) acc
           | _ -> failwith "Invalid call_indirect argument")
       | _ -> failwith (sprintf "Invalid control opcode %x" op.opcode))
   | Reference  -> failwith "Reference"
@@ -96,14 +95,14 @@ let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: loca
         | _ -> failwith (sprintf "Invalid parametric opcode %x" op.opcode))
   | VariableGL ->
       { result = name_of_tvar (List.length acc);
-        etree = Variable (string_of_local_value param_types local_types (int_of_get_argL op.arg));
+        etree = Variable (string_of_local_value ctx.param_types ctx.local_types (int_of_get_argL op.arg));
         alive = true} :: acc         
   | VariableSL  ->
-      { result = string_of_local_value param_types local_types (int_of_get_argL op.arg);
+      { result = string_of_local_value ctx.param_types ctx.local_types (int_of_get_argL op.arg);
         etree = find_and_kill acc;
         alive = false} :: acc
   | VariableTL  ->
-      { result = string_of_local_value param_types local_types (int_of_get_argL op.arg);
+      { result = string_of_local_value ctx.param_types ctx.local_types (int_of_get_argL op.arg);
         etree = find_alive acc;
         alive = false} :: acc
   | VariableGG  ->
@@ -151,8 +150,8 @@ let ssa_of_op (w: wasm_module) (param_types: resulttype list) (local_types: loca
         etree = Node {op = op.opname; arg1 = find_and_kill acc; arg2 = Empty; arg3 = Empty};
         alive = true} :: acc         
 
-let ssa_of_expr (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (e: expr): ssa list =
- List.fold_left ~f:(ssa_of_op w param_types local_types) ~init:[] e
+let ssa_of_expr (ctx: execution_context): ssa list =
+ List.fold_left ~f:(ssa_of_op ctx) ~init:[] ctx.w_e
 
 let ssa_of_local (ll: local_type list) (i: int) (_: local_type): ssa =
   { result = local_name ll 0 i; etree = Constant (local_value ll 0 i); alive = true}
@@ -160,16 +159,14 @@ let ssa_of_local (ll: local_type list) (i: int) (_: local_type): ssa =
 let ssa_of_locals (ll: local_type list): ssa list =
   List.mapi ~f:(ssa_of_local ll) ll
 
-let ssa_of_expr' (w: wasm_module) (param_types: resulttype list) (local_types: local_type list) (e: expr) acc: ssa list =
-  List.fold_left ~f:(ssa_of_op w param_types local_types) ~init:acc e
+let ssa_of_expr' (ctx: execution_context) (e: expr) acc: ssa list =
+  List.fold_left ~f:(ssa_of_op ctx) ~init:acc e
 
-let ssa_of_bblock (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-    acc (bb: Bblock.bblock): ssa list =
-  ssa_of_expr' w param_types local_types (expr_of_bblock e bb) acc
+let ssa_of_bblock (ctx: execution_context) acc (bb: Bblock.bblock): ssa list =
+  ssa_of_expr' ctx (expr_of_bblock ctx.w_e bb) acc
 
-let ssa_of_code_path (w: wasm_module) (e: expr) (param_types: resulttype list) (local_types: local_type list) 
-      (cp: Code_path.code_path): ssa list =
-  List.fold ~f:(ssa_of_bblock w e param_types local_types) ~init:(ssa_of_locals local_types) cp
+let ssa_of_code_path (ctx: execution_context) (cp: Code_path.code_path): ssa list =
+  List.fold ~f:(ssa_of_bblock ctx) ~init:(ssa_of_locals ctx.local_types) cp
 
 let rec expand_expr_tree (e: expr_tree) (s_src: ssa): expr_tree =
   match e with 
