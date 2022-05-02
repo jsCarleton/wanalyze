@@ -13,6 +13,8 @@ type ebblock =
     entry_bb:     Bblock.bblock;            (* bb that's the entry to the ebb *)
     bbs:          Bblock.bblock list;       (* list of bbs that make up the ebb *)
     exits:        ebb_exit list;            (* info about how the ebb is exitted *)
+    mutable
+    succ_ebbs:    ebblock list;             (* list of ebblocks directly reachable from this one*)
     (* these properties are used when the ebb contains a loop *)
     loop_cps:     Code_path.code_path list; (* code_paths in the ebb that loop *)
     exit_cps:     Code_path.code_path list; (* code_paths in the ebb that aren't the loop *)
@@ -26,3 +28,4 @@ val ebb_to_return:          ebblock -> bool
 val ebb_has_branchback:     ebblock -> bool
 val ebb_too_many_paths:     ebblock -> bool
 val ebblocks_of_bblocks:    Execution.execution_context -> Bblock.bblock list -> ebblock list
+val paths_of_ebblocks:      ebblock list -> ebblock list list

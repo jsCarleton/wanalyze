@@ -2,6 +2,7 @@ ebb entry: 0
   ebb blocks: [0 1 2]
   ebb cost:   5
   ebb exits:  [3 8]
+  ebb succs:  [8 3]
   1 paths to exit 3
   [0]
   1 paths to exit 8
@@ -10,6 +11,7 @@ ebb entry: 3
   ebb blocks: [3]
   ebb cost:   543
   ebb exits:  [4]
+  ebb succs:  [4]
   2 paths to exit 4
   [3 4]
   [3]
@@ -17,6 +19,7 @@ ebb entry: 4
   ebb blocks: [4 5]
   ebb cost:   (498 * I((i64.extend_i32_u(ln17 + 1)) < pN4, pN4 = pN4;ln17 = ln17 + 1, pN4 = pN4;ln17 = ln17 + 1)) + 1
   ebb exits:  [6]
+  ebb succs:  [6]
   1 paths to exit 6
   [4 5]
   1 loop paths
@@ -27,9 +30,11 @@ ebb entry: 6
   ebb blocks: [6 7]
   ebb cost:   1
   ebb exits:  [7]
+  ebb succs:  []
   1 paths to exit 7
   [6]
 ebb entry: 8
   ebb blocks: [8]
   ebb cost:   0
   ebb exits:  []
+  ebb succs:  []

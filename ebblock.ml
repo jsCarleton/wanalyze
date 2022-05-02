@@ -18,12 +18,17 @@ type ebblock =
     entry_bb:     bblock;         (* bb that's the entry to the ebb *)
     bbs:          bblock list;    (* list of bbs that make up the ebb *)
     exits:        ebb_exit list;  (* info about how the ebb is exitted *)
+    mutable
+    succ_ebbs:    ebblock list;   (* list of ebblocks directly reachable from this one*)
     (* these properties are used when the ebb contains a loop *)
     loop_cps:     code_path list; (* code_paths in the ebb that loop *)
     exit_cps:     code_path list; (* code_paths in the ebb that aren't in the loop *)
     loop_iters:   expr_tree;      (* the number of iterations the loop with loop for *)
     nested_ebbs:  ebblock list;   (* ebbs containing nested loops *)
   }
+
+let string_of_ebblocks (ebbs: ebblock list): string =
+  string_of_raw_bblocks (List.map ~f:(fun e -> e.entry_bb) ebbs)
 
 let string_of_ebblock (ebb: ebblock): string =
 
@@ -34,6 +39,7 @@ let string_of_ebblock (ebb: ebblock): string =
       sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bbs);
       sprintf "%sebb cost:   %s\n"  spaces (Execution.string_of_expr_tree ebb.cost);
       sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
+      sprintf "%sebb succs:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.entry_bb) ebb.succ_ebbs));
       String.concat
         (List.map 
           ~f:(fun e -> match e.cps with
@@ -95,6 +101,64 @@ let edge_bbs_of_bblocks (bbs: bblock list): bblock list =
 let exits_of_bbs (bbs: bblock list) (exit_bbs: bblock list): ebb_exit list =
   List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_bbs_to_bb bbs exit_bb}) exit_bbs
 
+(*
+    paths_of_ebblocks
+
+    Given a list of ebblocks return the paths through those ebblocks. Each path is a list
+    of ebblocks on the path
+
+    Parameters:
+      ebbs      list of ebblocks
+
+    Returns:
+      list of list of ebblocks
+*)
+
+let paths_of_ebblocks (ebbs: ebblock list): ebblock list list =
+
+  let succ_of_ebbs (ebbs: ebblock list): ebblock list list =
+      List.map ~f:(fun ebb -> ebb::ebbs) (List.hd_exn ebbs).succ_ebbs
+  in
+  
+  let is_term (ebbs: ebblock list): bool =
+    match (List.hd_exn ebbs).succ_ebbs with
+    | []  -> true
+    | _   -> false
+  in 
+
+  let step_ebb (ebbs: ebblock list): (ebblock list list)*(ebblock list list) =
+    match is_term ebbs with
+    | true  -> [], [ebbs]
+    | _     -> succ_of_ebbs ebbs, []
+  in
+
+  let rec paths_of_ebblocks' (nterm: ebblock list list) (term: ebblock list list): ebblock list list =
+    match nterm with
+      | []        -> term
+      | hd::tl    ->
+          let n,t = step_ebb hd in
+            paths_of_ebblocks' (List.append n tl) (List.append t term)
+  in
+
+  List.map ~f:List.rev (paths_of_ebblocks' [[List.hd_exn ebbs]] [])
+
+(*
+    ebblocks_of_bblocks
+
+    Takes a list of consecutive basic blocks and returns the corresponding list of
+    ebblocks
+
+    Parameters:
+      ctx       execution context
+      all_bbs   basic blocks
+
+    Returns:
+      list of ebblocks
+
+    Note, the execution context is required since part of the ebblock definition includes
+    its cost and an execution context is required to determine the cost of a loop ebblock 
+*)
+
 let rec ebblocks_of_bblocks (ctx: Execution.execution_context) (all_bbs: bblock list): ebblock list =
 
   let cost_of_block_ebb (exits: ebb_exit list): int =
@@ -131,6 +195,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context) (all_bbs: bblock 
 
     let entry_bb    = List.hd_exn bbs in
     let exits       = exits_of_bbs bbs (exit_bbs_of_bbs bbs) in
+    let succ_ebbs   = [] in
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
@@ -158,18 +223,18 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context) (all_bbs: bblock 
                                                 arg3 = Empty};
                                   arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
                                   arg3 = Empty} in
-          {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
+          {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; loop_iters; nested_ebbs}
         else (
           let cost = Constant "INF" in
           let loop_iters = Constant "INF" in
-          {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs})
+          {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; loop_iters; nested_ebbs})
     | _ ->
         let loop_cps    = [] in
         let exit_cps    = [] in
         let loop_iters  = Empty in
         let nested_ebbs = [] in
         let cost        = Constant (string_of_int (cost_of_block_ebb exits)) in
-        {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
+        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; loop_iters; nested_ebbs}
   in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bblock list): ebblock =
@@ -245,4 +310,28 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context) (all_bbs: bblock 
           | _   -> List.rev (finish_ebblock' EBB_block (List.rev bbs_acc)::ebbs_acc) 
     in
 
-  eblock_of_bblocks' all_bbs [] [] (-1) None
+    let ebb_of_bblock (ebbs: ebblock list) (bb: bblock): ebblock option =
+      List.find ~f:(fun ebb -> ebb.entry_bb.bbindex = bb.bbindex) ebbs
+    in
+
+    let update_succ'' (ebbs: ebblock list) (ebb: ebblock) (e: ebb_exit) =
+      let s = ebb_of_bblock ebbs e.exit_bb in
+      match s with
+      | Some succ   -> ebb.succ_ebbs <- succ::ebb.succ_ebbs
+      | None        -> ()
+    in
+
+    let update_succ' (ebbs: ebblock list) (ebb: ebblock) =
+      List.iter ~f:(update_succ'' ebbs ebb) ebb.exits;
+    in
+
+    let update_succ (ebbs: ebblock list) =
+      List.iter ~f:(update_succ' ebbs) ebbs;
+    in
+
+  let ebbs = eblock_of_bblocks' all_bbs [] [] (-1) None in
+  update_succ ebbs;
+  Printf.printf 
+    "%s\n%!" 
+    (String.concat ~sep:"\n" (List.map ~f:string_of_ebblocks (paths_of_ebblocks ebbs)));
+  ebbs

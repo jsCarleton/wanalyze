@@ -2,6 +2,7 @@ ebb entry: 0
   ebb blocks: [0 1 2 3 4 5 6 7]
   ebb cost:   54
   ebb exits:  [8]
+  ebb succs:  [8]
   8 paths to exit 8
   [0 2 4 5 7]
   [0 2 4 5 6]
@@ -15,6 +16,7 @@ ebb entry: 8
   ebb blocks: [8]
   ebb cost:   1920
   ebb exits:  [9]
+  ebb succs:  [9]
   2 paths to exit 9
   [8 9]
   [8]
@@ -22,6 +24,7 @@ ebb entry: 9
   ebb blocks: [9 10]
   ebb cost:   (1710 * I((ln3 + 2) < 10, ln3 = 0 + 2, ln3 = ln3 + 2)) + 1
   ebb exits:  [11]
+  ebb succs:  [11]
   1 paths to exit 11
   [9 10]
   1 loop paths
@@ -32,5 +35,6 @@ ebb entry: 11
   ebb blocks: [11 12]
   ebb cost:   325
   ebb exits:  [12]
+  ebb succs:  []
   1 paths to exit 12
   [11]
