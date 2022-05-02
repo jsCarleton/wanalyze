@@ -20,7 +20,7 @@ ebb entry: 8
   [8]
 ebb entry: 9
   ebb blocks: [9 10]
-  ebb cost:   (1710 * n_9) + 1
+  ebb cost:   (1710 * I((ln3 + 2) < 10, ln3 = 0 + 2, ln3 = ln3 + 2)) + 1
   ebb exits:  [11]
   1 paths to exit 11
   [9 10]

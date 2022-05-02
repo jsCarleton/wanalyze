@@ -15,7 +15,7 @@ ebb entry: 3
   [3]
 ebb entry: 4
   ebb blocks: [4 5]
-  ebb cost:   (498 * n_4) + 1
+  ebb cost:   (498 * I((i64.extend_i32_u(ln17 + 1)) < pN4, pN4 = pN4;ln17 = ln17 + 1, pN4 = pN4;ln17 = ln17 + 1)) + 1
   ebb exits:  [6]
   1 paths to exit 6
   [4 5]

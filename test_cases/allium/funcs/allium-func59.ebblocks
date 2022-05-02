@@ -14,7 +14,7 @@ ebb entry: 3
   [3]
 ebb entry: 4
   ebb blocks: [4 5 6 7 8 9 10 11]
-  ebb cost:   (4554 * n_4) + 1
+  ebb cost:   (4554 * I(pn2 - (64 - pn1), pn1 = rn0;pn2 = pn2, pn1 = (64 - pn1) + pn1;pn2 = pn2 - (64 - pn1))) + 1
   ebb exits:  [12]
   4 paths to exit 12
   [4 6 7 9 10 11]

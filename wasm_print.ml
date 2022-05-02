@@ -461,7 +461,6 @@ let string_of_cost_of_loops col: string =
 
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = fidx + w.last_import_func in
-  Printf.printf "function %d\n" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = List.nth_exn w.code_section fidx in
   let w_e           = fn.e in

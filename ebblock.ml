@@ -136,35 +136,33 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context) (all_bbs: bblock 
     | EBB_loop ->
         let loop_cps    = looping_paths_of_loop_bblocks bbs in
         let exit_cps    = exit_paths (exit_cps exits) loop_cps in
-        let loop_iters  = Constant (String.concat ["n_"; string_of_int entry_bb.bbindex]) in
         let nested_ebbs = sub_ebbs_of_bblocks bbs in
-        let cost        = Node {op = "+";
-                                arg1 = Node {op = "*";
-                                              arg1 = Constant (string_of_int (max_cost_of_code_paths loop_cps 0));
-                                              arg2 = loop_iters;
-                                              arg3 = Empty};
-                                arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
-                                arg3 = Empty} in
         (* TODO prefix is wrong, need to iterate over all prefixes, all loop_cps *)
         let bback = (List.hd_exn (Code_path.branchbacks_of_loop bbs)) in
         let root_bb = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
-        Printf.printf "ebb: %d bback: %d root: %d\n" entry_bb.bbindex bback.bbindex root_bb.bbindex;
         let cps = Code_path.code_paths_from_to_bb_exn root_bb (List.hd_exn entry_bb.pred) in
-        Printf.printf "# cps: %d\n" (List.length cps);
         if List.length cps > 0 then
           let cp = List.rev (List.hd_exn cps) in (* TODO this reverse should be done earlier *)
-          Printf.printf "cp: %s\n" (string_of_raw_bblocks cp);
           let lmi = Cost.cost_of_loop ctx 
                                       bback 
                                       { prefix_part = cp; 
                                         loop_part   = List.hd_exn loop_cps} in
-          Printf.printf "cond:  %s\n" (Execution.string_of_expr_tree lmi.loop_cond);
-          Printf.printf "vars:  %s\n" (String.concat ~sep:";" lmi.loop_vars);
-          Printf.printf "entry: %s\n" (Ssa.string_of_ssa_list lmi.lv_entry_vals ";" false);
-          Printf.printf "loop:  %s\n" (Ssa.string_of_ssa_list lmi.lv_loop_vals ";" false);
-        else
-          Printf.printf "too many paths\n";
-        {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
+          let loop_iters  = Constant (String.concat [ "I(";
+                                                      Execution.string_of_expr_tree lmi.loop_cond; ", ";
+                                                      Ssa.string_of_ssa_list lmi.lv_entry_vals ";" false; ", ";
+                                                      Ssa.string_of_ssa_list lmi.lv_loop_vals ";" false; ")"]) in
+          let cost        = Node {op = "+";
+                                  arg1 = Node {op = "*";
+                                                arg1 = Constant (string_of_int (max_cost_of_code_paths loop_cps 0));
+                                                arg2 = loop_iters;
+                                                arg3 = Empty};
+                                  arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
+                                  arg3 = Empty} in
+          {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs}
+        else (
+          let cost = Constant "INF" in
+          let loop_iters = Constant "INF" in
+          {ebbtype; cost; entry_bb; bbs; exits; loop_cps; exit_cps; loop_iters; nested_ebbs})
     | _ ->
         let loop_cps    = [] in
         let exit_cps    = [] in
