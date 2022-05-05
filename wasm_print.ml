@@ -447,21 +447,21 @@ let print_summary oc_summary ctx m fnum bbs (cp: code_path) =
         m fnum bb.bbindex (string_of_code_path cp) (loop_type ctx cp_ssa bbs bb.bbindex));
   ()
 
-let string_of_vars vs =
+(*let string_of_vars vs =
   String.concat ~sep:"; " (List.dedup_and_sort ~compare:String.compare vs)
 
 let string_of_loop_cost_fn c =
   sprintf "%d + %d*c('%s', '%s', '%s', '%s')" c.prefix_cost c.loop_cost (string_of_vars c.loop_vars) (string_of_ssa_list c.lv_entry_vals "; " false) (string_of_expr_tree c.loop_cond) (string_of_ssa_list c.lv_loop_vals "; " false) 
 
-let string_of_cost_of_loops col: string =
+ let string_of_cost_of_loops col: string =
   if List.length col = 1 then
     string_of_loop_cost_fn (List.hd_exn col)
   else
     String.concat["max("; String.concat ~sep:", " (List.map ~f:string_of_loop_cost_fn col); ")"]
-
+ *)
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = fidx + w.last_import_func in
-  Printf.printf "function %d\n%!" fnum;
+  Printf.printf "function: %d\n%!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = List.nth_exn w.code_section fidx in
   let w_e           = fn.e in
@@ -472,6 +472,7 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
   let w_state       = empty_program_state w param_types local_types in
   let ctx           = {w; w_e; w_state; param_types; local_types} in
   let ebbs          = ebblocks_of_bblocks ctx bblocks in
+  let ebb_paths     = paths_of_ebblocks ebbs in
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     print_function oc w true bblocks fidx type_idx;
@@ -493,6 +494,18 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
   let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
     Out_channel.close oc;
+  (* costs *)
+  (match List.length ebb_paths with
+  | 0 -> Out_channel.output_string oc_costs (sprintf "|f%d| = Inf\n" fnum)
+  | 1 -> Out_channel.output_string oc_costs 
+          (sprintf "|f%d| = %s\n" 
+            fnum 
+            (string_of_expr_tree (ebb_path_cost (List.hd_exn ebb_paths))))
+  | _ -> Out_channel.output_string oc_costs 
+          (sprintf "|f%d| = %s\n" 
+            fnum 
+            (string_of_expr_tree (ebb_paths_max_cost ebb_paths))));
+  (* TODO everything after this is diagnostics, not required *)
   (* loop analysis *)
   (match has_loop bblocks with
   | true ->
@@ -501,9 +514,9 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
       List.iter 
         ~f:(print_summary oc_summary ctx (Filename.chop_extension w.module_name) fnum bblocks) 
         loop_cps
-  | false -> ());
+  | false -> ())
   (* costs *)
-  Out_channel.output_string oc_costs
+(*    Out_channel.output_string oc_costs
     (String.concat 
       [ string_of_int fnum;
         " ";
@@ -560,7 +573,7 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
                       if lc.loops_parallel  then ", in parallel" else "";
                     ]); *)
         "\n"])
-  (* execution trace of the function *)
+ *)   (* execution trace of the function *)
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
     Out_channel.output_string oc (string_of_executions (execute_bblocks w bblocks (fidx + w.last_import_func) code.e) bblocks);
     Out_channel.close oc; *)

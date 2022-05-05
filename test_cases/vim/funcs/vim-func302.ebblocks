@@ -1,20 +1,55 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0]
-  ebb exits: [1 8]
+  ebb cost:   4
+  ebb exits:  [1 8]
+  ebb succs:  [8 1]
   1 paths to exit 1
-  2 paths to exit 8
-ebb entry: 1
-  ebb blocks: [1]
-  ebb exits: [2]
-  2 paths to exit 2
-ebb entry: 2
-  ebb blocks: [2 3]
-  ebb exits: [4]
-  1 paths to exit 4
-ebb entry: 4
-  ebb blocks: [4 5 6 7]
-  ebb exits: [8]
+  [0]
   1 paths to exit 8
-ebb entry: 8
-  ebb blocks: [8]
-  ebb exits: []
+  [0]
+ebb entry:  1
+  ebb type:   block
+  ebb blocks: [1]
+  ebb cost:   6
+  ebb exits:  [2]
+  ebb succs:  [2]
+  2 paths to exit 2
+  [1 2]
+  [1]
+ebb entry:  2
+  ebb type:   loop
+  ebb blocks: [2 3]
+  ebb cost:   (5 * I(rn0, rn0 = rn0, rn0 = rn0)) + 1
+  ebb exits:  [4]
+  ebb succs:  [4]
+  1 paths to exit 4
+  [2 3]
+  1 loop paths
+  [2]
+  1 post loop exit paths
+  [3]
+ebb entry:  4
+  ebb type:   block
+  ebb blocks: [4 5 6 7]
+  ebb cost:   29
+  ebb exits:  [8 10]
+  ebb succs:  [10 8]
+  1 paths to exit 8
+  [4 7]
+  1 paths to exit 10
+  [4 5]
+ebb entry:  8
+  ebb type:   block
+  ebb blocks: [8 9]
+  ebb cost:   1
+  ebb exits:  [9]
+  ebb succs:  []
+  1 paths to exit 9
+  [8]
+ebb entry:  10
+  ebb type:   block
+  ebb blocks: [10]
+  ebb cost:   0
+  ebb exits:  []
+  ebb succs:  []

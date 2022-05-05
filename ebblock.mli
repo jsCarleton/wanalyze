@@ -29,3 +29,5 @@ val ebb_has_branchback:     ebblock -> bool
 val ebb_too_many_paths:     ebblock -> bool
 val ebblocks_of_bblocks:    Execution.execution_context -> Bblock.bblock list -> ebblock list
 val paths_of_ebblocks:      ebblock list -> ebblock list list
+val ebb_path_cost:          ebblock list -> Symbolic_expr.expr_tree
+val ebb_paths_max_cost:     ebblock list list -> Symbolic_expr.expr_tree

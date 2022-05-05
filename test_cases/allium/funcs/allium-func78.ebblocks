@@ -1,4 +1,5 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2]
   ebb cost:   18
   ebb exits:  [3 8]
@@ -7,7 +8,8 @@ ebb entry: 0
   [0]
   1 paths to exit 8
   [0 1]
-ebb entry: 3
+ebb entry:  3
+  ebb type:   block
   ebb blocks: [3]
   ebb cost:   90
   ebb exits:  [4]
@@ -15,7 +17,8 @@ ebb entry: 3
   2 paths to exit 4
   [3 4]
   [3]
-ebb entry: 4
+ebb entry:  4
+  ebb type:   loop
   ebb blocks: [4 5]
   ebb cost:   (89 * I((ln4 + 1) < ln3, ln3 = pn2 /u 96;ln4 = ln4 + 1, ln3 = ln3;ln4 = ln4 + 1)) + 1
   ebb exits:  [6]
@@ -26,14 +29,16 @@ ebb entry: 4
   [4]
   1 post loop exit paths
   [5]
-ebb entry: 6
+ebb entry:  6
+  ebb type:   block
   ebb blocks: [6 7]
   ebb cost:   10
   ebb exits:  [7]
   ebb succs:  []
   1 paths to exit 7
   [6]
-ebb entry: 8
+ebb entry:  8
+  ebb type:   block
   ebb blocks: [8]
   ebb cost:   0
   ebb exits:  []

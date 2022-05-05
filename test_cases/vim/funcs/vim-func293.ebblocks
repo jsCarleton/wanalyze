@@ -1,45 +1,112 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3 4 5]
-  ebb exits: [6 21 23]
+  ebb cost:   10
+  ebb exits:  [6 21 23]
+  ebb succs:  [23 21 6]
   1 paths to exit 6
-  3 paths to exit 21
-  3 paths to exit 23
-ebb entry: 6
-  ebb blocks: [6]
-  ebb exits: [7]
-  1 paths to exit 7
-ebb entry: 7
-  ebb blocks: [7 8 9 10 11 12 13 14 15 16 17 18 19]
-  ebb exits: [20 23]
-  2 paths to exit 20
-  2 paths to exit 23
-  ebb entry: 7
-    ebb blocks: [7]
-    ebb exits: [8]
-    1 paths to exit 8
-  ebb entry: 8
-    ebb blocks: [8 9 10 11 12 13 14 15 16 17 18]
-    ebb exits: [7 19 23]
-    0 paths to exit 7
-    2 paths to exit 19
-    2 paths to exit 23
-  ebb entry: 19
-    ebb blocks: [19]
-    ebb exits: [20]
-    1 paths to exit 20
-ebb entry: 20
-  ebb blocks: [20]
-  ebb exits: [21]
+  [0 1 2 5]
   1 paths to exit 21
-ebb entry: 21
+  [0 1 2 5]
+  1 paths to exit 23
+  [0 1 2 3]
+ebb entry:  6
+  ebb type:   block
+  ebb blocks: [6]
+  ebb cost:   1
+  ebb exits:  [7]
+  ebb succs:  [7]
+  1 paths to exit 7
+  [6]
+ebb entry:  7
+  ebb type:   loop
+  ebb blocks: [7 8 9 10 11 12 13 14 15 16 17 18 19]
+  ebb cost:   (47 * I(i32.load8_u@(pn0 + (1 + rn0)), rn0 = rn0;pn0 = pn0, rn0 = rn0;pn0 = pn0 + (1 + rn0))) + 13
+  ebb exits:  [20 23]
+  ebb succs:  [23 20]
+  2 paths to exit 20
+  [7 8 9 17 18 19]
+  [7 8 9 10 11 12 17 18 19]
+  2 paths to exit 23
+  [7 8 9 10 11 14 15]
+  [7 8 9 10 11 12 13 14 15]
+  2 loop paths
+  [7 8 9 10 11 14]  [7 8 9 10 11 12 13 14]
+  4 post loop exit paths
+  [17 18 19]  [17 18 19]  [15]  [15]
+  ebb entry:  7
+    ebb type:   block
+    ebb blocks: [7]
+    ebb cost:   5
+    ebb exits:  [8]
+    ebb succs:  [8]
+    1 paths to exit 8
+    [7]
+  ebb entry:  8
+    ebb type:   loop
+    ebb blocks: [8 9 10 11 12 13 14 15 16 17 18]
+    ebb cost:   (36 * I(i32.load@(pn1 + ((ln6 + 1) shl 2)), ln6 = 0;pn1 = pn1, ln6 = ln6 + 1;pn1 = pn1)) + 18
+    ebb exits:  [7 19 23]
+    ebb succs:  [19 7]
+    0 paths to exit 7
+
+    2 paths to exit 19
+    [8 9 17 18]
+    [8 9 10 11 12 17 18]
+    2 paths to exit 23
+    [8 9 10 11 14 15]
+    [8 9 10 11 12 13 14 15]
+    2 loop paths
+    [8 9 17]    [8 9 10 11 12 17]
+    4 post loop exit paths
+    [18]    [18]    [14 15]    [13 14 15]
+  ebb entry:  19
+    ebb type:   block
+    ebb blocks: [19]
+    ebb cost:   1
+    ebb exits:  [20]
+    ebb succs:  []
+    1 paths to exit 20
+    [19]
+ebb entry:  20
+  ebb type:   block
+  ebb blocks: [20]
+  ebb cost:   1
+  ebb exits:  [21]
+  ebb succs:  [21]
+  1 paths to exit 21
+  [20]
+ebb entry:  21
+  ebb type:   block
   ebb blocks: [21 22]
-  ebb exits: [23 26]
+  ebb cost:   3
+  ebb exits:  [23 26]
+  ebb succs:  [26 23]
   0 paths to exit 23
+
   1 paths to exit 26
-ebb entry: 23
+  [21]
+ebb entry:  23
+  ebb type:   block
   ebb blocks: [23 24 25]
-  ebb exits: [26]
+  ebb cost:   10
+  ebb exits:  [26 28]
+  ebb succs:  [28 26]
   1 paths to exit 26
-ebb entry: 26
-  ebb blocks: [26]
-  ebb exits: []
+  [23]
+  1 paths to exit 28
+  [23 24]
+ebb entry:  26
+  ebb type:   block
+  ebb blocks: [26 27]
+  ebb cost:   2
+  ebb exits:  [27]
+  ebb succs:  []
+  1 paths to exit 27
+  [26]
+ebb entry:  28
+  ebb type:   block
+  ebb blocks: [28]
+  ebb cost:   0
+  ebb exits:  []
+  ebb succs:  []

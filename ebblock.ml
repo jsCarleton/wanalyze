@@ -27,6 +27,11 @@ type ebblock =
     nested_ebbs:  ebblock list;   (* ebbs containing nested loops *)
   }
 
+let string_of_ebb_type (t: ebb_type): string =
+  match t with
+  | EBB_block -> "block"
+  | EBB_loop  -> "loop"
+
 let string_of_ebblocks (ebbs: ebblock list): string =
   string_of_raw_bblocks (List.map ~f:(fun e -> e.entry_bb) ebbs)
 
@@ -35,11 +40,12 @@ let string_of_ebblock (ebb: ebblock): string =
   let rec string_of_ebblock' (indent: int) (ebb: ebblock) =
     let spaces = (String.make (indent+2) ' ') in
     String.concat [
-      sprintf "%sebb entry: %d\n"   (String.make indent ' ') ebb.entry_bb.bbindex;
+      sprintf "%sebb entry:  %d\n"  (String.make indent ' ') ebb.entry_bb.bbindex;
+      sprintf "%sebb type:   %s\n"  spaces (string_of_ebb_type ebb.ebbtype);
       sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bbs);
       sprintf "%sebb cost:   %s\n"  spaces (Execution.string_of_expr_tree ebb.cost);
       sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
-      sprintf "%sebb succs:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.entry_bb) ebb.succ_ebbs));
+      sprintf "%sebb succs:  %s\n"  spaces (string_of_ebblocks ebb.succ_ebbs);
       String.concat
         (List.map 
           ~f:(fun e -> match e.cps with
@@ -132,15 +138,18 @@ let paths_of_ebblocks (ebbs: ebblock list): ebblock list list =
     | _     -> succ_of_ebbs ebbs, []
   in
 
-  let rec paths_of_ebblocks' (nterm: ebblock list list) (term: ebblock list list): ebblock list list =
-    match nterm with
-      | []        -> term
-      | hd::tl    ->
-          let n,t = step_ebb hd in
-            paths_of_ebblocks' (List.append n tl) (List.append t term)
+  let rec paths_of_ebblocks' (nterm: ebblock list list) (term: ebblock list list) (iters: int): ebblock list list =
+    if iters > 1_000_000 then
+      []
+    else 
+      match nterm with
+        | []        -> term
+        | hd::tl    ->
+            let n,t = step_ebb hd in
+              paths_of_ebblocks' (List.append n tl) (List.append t term) (iters + 1)
   in
 
-  List.map ~f:List.rev (paths_of_ebblocks' [[List.hd_exn ebbs]] [])
+  List.map ~f:List.rev (paths_of_ebblocks' [[List.hd_exn ebbs]] [] 0)
 
 (*
     ebblocks_of_bblocks
@@ -159,7 +168,8 @@ let paths_of_ebblocks (ebbs: ebblock list): ebblock list list =
     its cost and an execution context is required to determine the cost of a loop ebblock 
 *)
 
-let rec ebblocks_of_bblocks (ctx: Execution.execution_context) (all_bbs: bblock list): ebblock list =
+let rec ebblocks_of_bblocks (ctx: Execution.execution_context) 
+          (all_bbs: bblock list): ebblock list =
 
   let cost_of_block_ebb (exits: ebb_exit list): int =
     if List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) exits then
@@ -183,6 +193,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context) (all_bbs: bblock 
   in
 
   let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
+    Printf.printf "finishing %d\n%!" (List.hd_exn bbs).bbindex;
 
     let exit_cps (exits: ebb_exit list): code_path list =
       List.fold_left  ~init:[] 
@@ -331,7 +342,36 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context) (all_bbs: bblock 
 
   let ebbs = eblock_of_bblocks' all_bbs [] [] (-1) None in
   update_succ ebbs;
-  Printf.printf 
-    "%s\n%!" 
-    (String.concat ~sep:"\n" (List.map ~f:string_of_ebblocks (paths_of_ebblocks ebbs)));
   ebbs
+
+(*
+    ebb_path_cost
+
+    Takes an ebb path and returns the cost as a symbolic expr tree
+
+    Parameters:
+      ebb_path  ebblock list list
+
+    Returns:
+      cost
+*)
+
+let ebb_path_cost (ebb_path: ebblock list): expr_tree =
+  
+  let string_of_costs (ebb_path: ebblock list): string =
+    String.concat ~sep:"; " (List.map ~f:(fun ebb -> Execution.string_of_expr_tree ebb.cost) ebb_path)
+  in
+
+  match List.length ebb_path with
+  | 0 -> Constant "0"
+  | 1 -> (List.hd_exn ebb_path).cost
+  | _ -> Node {op = "list_sum"; arg1 = Constant (String.concat["["; (string_of_costs ebb_path); "]"]); arg2 = Empty; arg3 = Empty}
+
+
+let ebb_paths_max_cost (ebb_paths: ebblock list list): expr_tree =
+  Node {op = "list_max"; 
+        arg1 = Constant (String.concat["["; 
+                                      String.concat ~sep:"; " (List.map ~f:(fun ebb_path -> Execution.string_of_expr_tree (ebb_path_cost ebb_path)) ebb_paths);
+                                      "]"]); 
+        arg2 = Empty; 
+        arg3 = Empty}

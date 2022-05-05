@@ -1,35 +1,89 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10]
-  ebb exits: [11 18 19 21]
+  ebb cost:   51
+  ebb exits:  [11 18 19 21 23]
+  ebb succs:  [23 21 19 18 11]
   1 paths to exit 11
-  5 paths to exit 18
+  [0 1 2 3 6 7 8 9 10]
+  3 paths to exit 18
+  [0 1 2 3 6 7 8 9 10]
+  [0 1 2 3 6 7 8 9]
+  [0 1 2 3 6 7]
   1 paths to exit 19
-  8 paths to exit 21
-ebb entry: 11
+  [0 1]
+  2 paths to exit 21
+  [0 1 2 3 6 7 8]
+  [0 1 2]
+  1 paths to exit 23
+  [0 1 2 3 4]
+ebb entry:  11
+  ebb type:   block
   ebb blocks: [11]
-  ebb exits: [12]
+  ebb cost:   1
+  ebb exits:  [12]
+  ebb succs:  [12]
   1 paths to exit 12
-ebb entry: 12
+  [11]
+ebb entry:  12
+  ebb type:   loop
   ebb blocks: [12 13 14]
-  ebb exits: [15 18]
+  ebb cost:   (13 * I(pn1 - 1, pn1 = (((rn0))) - (((rn0))), pn1 = pn1 - 1)) + 1
+  ebb exits:  [15 18]
+  ebb succs:  [18 15]
   1 paths to exit 15
-  2 paths to exit 18
-ebb entry: 15
-  ebb blocks: [15 16 17]
-  ebb exits: [18]
+  [12 13 14]
   1 paths to exit 18
-ebb entry: 18
+  [12]
+  1 loop paths
+  [12 13]
+  1 post loop exit paths
+  [14]
+ebb entry:  15
+  ebb type:   block
+  ebb blocks: [15 16 17]
+  ebb cost:   6
+  ebb exits:  [18 23]
+  ebb succs:  [23 18]
+  1 paths to exit 18
+  [15]
+  1 paths to exit 23
+  [15 16]
+ebb entry:  18
+  ebb type:   block
   ebb blocks: [18]
-  ebb exits: [20]
+  ebb cost:   7
+  ebb exits:  [20]
+  ebb succs:  [20]
   1 paths to exit 20
-ebb entry: 19
+  [18]
+ebb entry:  19
+  ebb type:   block
   ebb blocks: [19]
-  ebb exits: [20]
+  ebb cost:   2
+  ebb exits:  [20]
+  ebb succs:  [20]
   1 paths to exit 20
-ebb entry: 20
+  [19]
+ebb entry:  20
+  ebb type:   block
   ebb blocks: [20]
-  ebb exits: [21]
+  ebb cost:   5
+  ebb exits:  [21]
+  ebb succs:  [21]
   1 paths to exit 21
-ebb entry: 21
-  ebb blocks: [21]
-  ebb exits: []
+  [20]
+ebb entry:  21
+  ebb type:   block
+  ebb blocks: [21 22]
+  ebb cost:   2
+  ebb exits:  [22]
+  ebb succs:  []
+  1 paths to exit 22
+  [21]
+ebb entry:  23
+  ebb type:   block
+  ebb blocks: [23]
+  ebb cost:   0
+  ebb exits:  []
+  ebb succs:  []

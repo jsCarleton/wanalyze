@@ -1,11 +1,28 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0]
-  ebb exits: [1]
+  ebb cost:   1
+  ebb exits:  [1]
+  ebb succs:  [1]
   1 paths to exit 1
-ebb entry: 1
+  [0]
+ebb entry:  1
+  ebb type:   loop
   ebb blocks: [1 2 3 4]
-  ebb exits: [5]
+  ebb cost:   (19 * I(i32.eqz(((i32.eqz(i32.load8_u@(pn0))) || ((i32.load8_u@(pn0)) == 9)) || ((i32.load8_u@(pn0)) == 32)), pn0 = pn0;pn0 = pn0;pn0 = pn0, pn0 = pn0 + 1;pn0 = pn0 + 1;pn0 = pn0 + 1)) + 1
+  ebb exits:  [5]
+  ebb succs:  [5]
   1 paths to exit 5
-ebb entry: 5
-  ebb blocks: [5]
-  ebb exits: []
+  [1 4]
+  1 loop paths
+  [1 2]
+  1 post loop exit paths
+  [4]
+ebb entry:  5
+  ebb type:   block
+  ebb blocks: [5 6]
+  ebb cost:   2
+  ebb exits:  [6]
+  ebb succs:  []
+  1 paths to exit 6
+  [5]
