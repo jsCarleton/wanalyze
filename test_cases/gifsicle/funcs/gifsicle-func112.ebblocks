@@ -28,7 +28,7 @@ ebb entry:  17
 ebb entry:  18
   ebb type:   loop
   ebb blocks: [18 19]
-  ebb cost:   (15 * I((ln0 + 1) != ln4, ln4 = ((35408));ln0 = 0 + 1, ln4 = ln4;ln0 = 0 + 1)) + 1
+  ebb cost:   15*I((ln0 + 1) != ln4, ln4 = ((35408));ln0 = 0 + 1, ln4 = ln4;ln0 = 0 + 1) + 1
   ebb exits:  [20]
   ebb succs:  [20]
   1 paths to exit 20
@@ -48,7 +48,7 @@ ebb entry:  20
 ebb entry:  21
   ebb type:   loop
   ebb blocks: [21 22 23 24 25 26 27 28 29 30 31 32 33]
-  ebb cost:   (85 * I(not((ln3 + 1) >= ln4), ln4 = ((35408));ln3 = ln3 + 1, ln4 = ln4;ln3 = ln3 + 1)) + 0
+  ebb cost:   (list_max([24*I(not((ln3 + 1) >= ln4), ln4 = ((35408));ln3 = ln3 + 1, ln4 = ln4;ln3 = ln3 + 1); 47*I(not((ln3 + 1) >= (i32.load@(i32.load@(35408)))), ln3 = ln3 + 1, ln3 = ln3 + 1); 70*I(not((ln3 + 1) >= (i32.load@(i32.load@(35408)))), ln3 = ln3 + 1, ln3 = ln3 + 1); 85*I(not((ln3 + 1) >= (i32.load@(i32.load@(35408)))), ln3 = ln3 + 1, ln3 = ln3 + 1)])) + 0
   ebb exits:  [34 36 63]
   ebb succs:  [63 36 34]
   0 paths to exit 34
@@ -84,7 +84,7 @@ ebb entry:  21
   ebb entry:  25
     ebb type:   loop
     ebb blocks: [25 26 27 28]
-    ebb cost:   (35 * I((ln0 + 1) < (i32.load@(ln1)), ln1 = (35408);ln0 = ln3, ln1 = ln1;ln0 = 0 + 1)) + 1
+    ebb cost:   (list_max([20*I((ln0 + 1) < (i32.load@(ln1)), ln1 = (35408);ln0 = ln3, ln1 = ln1;ln0 = 0 + 1); 35*I((ln0 + 1) < (i32.load@(i32.load@(35408))), ln0 = ln3, ln0 = 0 + 1)])) + 1
     ebb exits:  [29]
     ebb succs:  [29]
     2 paths to exit 29
@@ -171,7 +171,7 @@ ebb entry:  48
 ebb entry:  49
   ebb type:   loop
   ebb blocks: [49 50]
-  ebb cost:   (21 * I((ln0 + 1) != ln2, ln2 = ((35408));ln0 = 0 + 1, ln2 = ln2;ln0 = 0 + 1)) + 1
+  ebb cost:   21*I((ln0 + 1) != ln2, ln2 = ((35408));ln0 = 0 + 1, ln2 = ln2;ln0 = 0 + 1) + 1
   ebb exits:  [51]
   ebb succs:  [51]
   1 paths to exit 51
@@ -191,7 +191,7 @@ ebb entry:  51
 ebb entry:  52
   ebb type:   loop
   ebb blocks: [52 53 54 55 56 57]
-  ebb cost:   (46 * I((ln0 + 1) < (i32.load@(i32.load@(35408))), ln0 = 0, ln0 = 0 + 1)) + 1
+  ebb cost:   (list_max([37*I((ln0 + 1) < (i32.load@(i32.load@(35408))), ln0 = 0, ln0 = 0 + 1); 41*I((ln0 + 1) < (i32.load@(i32.load@(35408))), ln0 = 0, ln0 = 0 + 1); 46*I((ln0 + 1) < (i32.load@(i32.load@(35408))), ln0 = 0, ln0 = 0 + 1)])) + 1
   ebb exits:  [58]
   ebb succs:  [58]
   3 paths to exit 58

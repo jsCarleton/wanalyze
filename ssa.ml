@@ -124,7 +124,7 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
       let result = String.concat["@("; string_of_expr_tree (find_and_kill acc); ")"] in
       { result; etree = Node { op = ""; arg1; arg2 = Empty; arg3 = Empty}; alive = false} :: acc
   | MemoryM  ->
-      failwith "MemoryM"
+        acc
   | Constop  ->
       { result = name_of_tvar (List.length acc);
         etree = Constant (string_of_const_arg op.arg);

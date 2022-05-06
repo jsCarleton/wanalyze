@@ -20,7 +20,7 @@ ebb entry:  3
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5]
-  ebb cost:   (293 * I((i64.extend_i32_u(ln15 + 1)) < pN3, pN3 = pN3;ln15 = ln15 + 1, pN3 = pN3;ln15 = ln15 + 1)) + 1
+  ebb cost:   293*I((i64.extend_i32_u(ln15 + 1)) < pN3, pN3 = pN3;ln15 = ln15 + 1, pN3 = pN3;ln15 = ln15 + 1) + 1
   ebb exits:  [6]
   ebb succs:  [6]
   1 paths to exit 6

@@ -24,7 +24,7 @@ ebb entry:  9
 ebb entry:  10
   ebb type:   loop
   ebb blocks: [10 11 12 13 14 15 16]
-  ebb cost:   (24 * I(i32.load@(pn0), pn0 = (36516), pn0 = (pn0))) + 1
+  ebb cost:   (list_max([18*I(i32.load@(pn0), pn0 = (36516), pn0 = (pn0)); 24*I(i32.load@(pn0), pn0 = (36516), pn0 = (pn0)); 18*I(i32.load@(pn0), pn0 = (36516), pn0 = (pn0)); 24*I(i32.load@(pn0), pn0 = (36516), pn0 = (pn0))])) + 1
   ebb exits:  [17]
   ebb succs:  [17]
   4 paths to exit 17

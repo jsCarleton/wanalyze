@@ -622,49 +622,55 @@ let paths_from_bblocks (bbs: bblock list): code_path list =
   List.concat (List.map ~f:(paths_from_bblock [[]]) bbs)
 
 (*
-  condition_of_code_path
+  expr_of_code_path
 
-  Given a code path and a branchback bblock in the code path, return the loop condition
-  as a string
+  Given an the code of a function, a code path through the function and a 
+  branchback bblock in the code path return the code from the beginning
+  of the code path up to and including the branchback
 
   Parameters:
-    w           wasm module
     e           code of the function
-    param_types function parameter types
-    local_types function local variable types
-    cp          the code path
-    bback       the branchback bblock
+    cp          code path
+    bback       branchback bblock
+
   Returns:
-    the condition of the loop
+    code on the code path up to and including the branchback
 
 *)
 
-let rec expr_of_code_path e (cp: code_path) (bb: bblock) (acc: expr list): expr =
-  match cp with
-  | [] ->       failwith "Branchback block not found"
-  | hd::tl ->   if    hd.bbindex = bb.bbindex 
-                then  List.concat (List.rev ((expr_of_bblock e hd)::acc))
-                else  expr_of_code_path e tl bb ((expr_of_bblock e hd)::acc)
+let expr_of_code_path (e: expr) (cp: code_path) (bb: bblock): expr =
+
+  let rec expr_of_code_path' (e: expr) (cp: code_path) (bb: bblock) (acc: expr list): expr =
+    match cp with
+    | [] ->       failwith "Branchback block not found"
+    | hd::tl ->   if    hd.bbindex = bb.bbindex 
+                  then  List.concat (List.rev ((expr_of_bblock e hd)::acc))
+                  else  expr_of_code_path' e tl bb ((expr_of_bblock e hd)::acc)
+  in
+
+  expr_of_code_path' e cp bb []
 
 let condition_of_loop ctx (bback: bblock) (cp: code_path): expr_tree =
   match bback.bbtype with
   | BB_br_if ->
       let _,loop_cond = reduce_bblock ctx.w 
-                                      (expr_of_code_path ctx.w_e cp bback []) 
+                                      (expr_of_code_path ctx.w_e cp bback) 
                                       (empty_program_state ctx.w ctx.param_types ctx.local_types) in
         loop_cond
   | BB_br_table ->  Empty (* TODO *)
   | BB_br ->        Empty (* TODO *)
   | _ ->            failwith "Invalid branchback"
+                    
+let conditions_of_paths (ctx: execution_context) (prefixes: code_path list) (loop_paths: code_path list) (bback: bblock): 
+      expr_tree list =
 
-let rec all_paths (cp1: code_path list) (cp2: code_path list) (cp2all: code_path list) (acc: code_path list): code_path list =
+  let rec all_paths (cp1: code_path list) (cp2: code_path list) (cp2all: code_path list) (acc: code_path list): code_path list =
     match cp1, cp2 with
     | [], _               -> acc
     | _::tl1, []          -> all_paths tl1 cp2all cp2all acc
     | hd1::tl1, hd2::tl2  -> all_paths tl1 tl2 cp2all ((List.concat [hd1; hd2])::acc)
-  
-let conditions_of_paths (ctx: execution_context) (prefixes: code_path list) (loop_paths: code_path list) (bback: bblock): 
-      expr_tree list =
+  in
+
   List.map ~f:(condition_of_loop ctx bback) (all_paths prefixes loop_paths loop_paths [])
 
 (*

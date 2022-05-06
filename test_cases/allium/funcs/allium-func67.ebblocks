@@ -9,7 +9,7 @@ ebb entry:  0
 ebb entry:  1
   ebb type:   loop
   ebb blocks: [1 2 3 4]
-  ebb cost:   (6453 * I((ln52 + 1) != 11, ln52 = ln52 + 1, ln52 = ln52 + 1)) + 1
+  ebb cost:   6453*I((ln52 + 1) != 11, ln52 = ln52 + 1, ln52 = ln52 + 1) + 1
   ebb exits:  [5]
   ebb succs:  [5]
   1 paths to exit 5
@@ -30,7 +30,7 @@ ebb entry:  5
 ebb entry:  6
   ebb type:   loop
   ebb blocks: [6 7]
-  ebb cost:   (43 * I((ln52 + 1) != 8, ln52 = 1 + 1, ln52 = ln52 + 1)) + 1
+  ebb cost:   43*I((ln52 + 1) != 8, ln52 = 1 + 1, ln52 = ln52 + 1) + 1
   ebb exits:  [8]
   ebb succs:  [8]
   1 paths to exit 8

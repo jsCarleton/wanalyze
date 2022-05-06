@@ -19,7 +19,7 @@ ebb entry:  2
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4 5]
-  ebb cost:   (20 * I((i32.load8_u@(pn0)) == (i32.load8_u@(pn1)), pn1 = pn1;pn0 = pn0, pn1 = pn1 + 1;pn0 = pn0 + 1)) + 1
+  ebb cost:   20*I((i32.load8_u@(pn0)) == (i32.load8_u@(pn1)), pn1 = pn1;pn0 = pn0, pn1 = pn1 + 1;pn0 = pn0 + 1) + 1
   ebb exits:  [6 7]
   ebb succs:  [7 6]
   1 paths to exit 6

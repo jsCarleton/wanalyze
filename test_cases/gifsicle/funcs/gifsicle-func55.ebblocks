@@ -31,7 +31,7 @@ ebb entry:  26
 ebb entry:  27
   ebb type:   loop
   ebb blocks: [27 28]
-  ebb cost:   (14 * I(((i32.load8_u@(pn0)) && 192) == 128, pn0 = pn0 + 1, pn0 = pn0 + 1)) + 1
+  ebb cost:   14*I(((i32.load8_u@(pn0)) && 192) == 128, pn0 = pn0 + 1, pn0 = pn0 + 1) + 1
   ebb exits:  [29]
   ebb succs:  [29]
   1 paths to exit 29

@@ -22,7 +22,7 @@ ebb entry:  2
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4]
-  ebb cost:   (18 * I((ln2 + 1) < (i32.load@(pn0)), pn0 = pn0;ln2 = ln2 + 1, pn0 = pn0;ln2 = ln2 + 1)) + 1
+  ebb cost:   18*I((ln2 + 1) < (i32.load@(pn0)), pn0 = pn0;ln2 = ln2 + 1, pn0 = pn0;ln2 = ln2 + 1) + 1
   ebb exits:  [5]
   ebb succs:  [5]
   1 paths to exit 5

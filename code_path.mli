@@ -36,7 +36,7 @@ val paths_from_bblocks              : Bblock.bblock list -> code_path list
 val condition_of_loop               : Execution.execution_context -> Bblock.bblock -> code_path -> Symbolic_expr.expr_tree
 val conditions_of_paths             : Execution.execution_context -> code_path list -> code_path list -> Bblock.bblock
       -> Symbolic_expr.expr_tree list
-val expr_of_code_path               : Wasm_module.expr -> code_path -> Bblock.bblock -> Wasm_module.expr list -> Wasm_module.expr
+val expr_of_code_path               : Wasm_module.expr -> code_path -> Bblock.bblock -> Wasm_module.expr
 
 (* code paths*)
 val unique_paths_to_bblock          : code_path list -> Bblock.bblock -> code_path list

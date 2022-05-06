@@ -22,7 +22,7 @@ ebb entry:  2
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4]
-  ebb cost:   (11 * I((pn2 + -256) > 255, pn2 = (pn2 - pn3) + -256, pn2 = pn2 + -256)) + 1
+  ebb cost:   11*I((pn2 + -256) > 255, pn2 = (pn2 - pn3) + -256, pn2 = pn2 + -256) + 1
   ebb exits:  [5]
   ebb succs:  [5]
   1 paths to exit 5

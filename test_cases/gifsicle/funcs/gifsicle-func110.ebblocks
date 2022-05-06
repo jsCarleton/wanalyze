@@ -98,7 +98,7 @@ ebb entry:  33
 ebb entry:  34
   ebb type:   loop
   ebb blocks: [34 35 36 37 38 39]
-  ebb cost:   (27 * I(ln11 != (ln3 + 1), ln3 = 0 + 1;ln11 = ((pn0)), ln3 = ln3 + 1;ln11 = ln11)) + 1
+  ebb cost:   (list_max([19*I(ln11 != (ln3 + 1), ln3 = 0 + 1;ln11 = ((pn0)), ln3 = ln3 + 1;ln11 = ln11); 27*I(ln11 != (ln3 + 1), ln3 = 0 + 1;ln11 = ((pn0)), ln3 = ln3 + 1;ln11 = ln11)])) + 1
   ebb exits:  [40]
   ebb succs:  [40]
   2 paths to exit 40

@@ -25,7 +25,7 @@ ebb entry:  8
 ebb entry:  9
   ebb type:   loop
   ebb blocks: [9 10 11 12 13 14 15 16 17 18 19 20 21]
-  ebb cost:   (90 * I(not((ln5 - ln3) == rn0), rn0 = rn0;ln3 = rn0;ln5 = ((rn0 - rn0) + pn2) - rn0, rn0 = rn0;ln3 = rn0;ln5 = ln5 - ln3)) + 1
+  ebb cost:   (list_max([80*I(not((ln5 - ln3) == rn0), rn0 = rn0;ln3 = rn0;ln5 = ((rn0 - rn0) + pn2) - rn0, rn0 = rn0;ln3 = rn0;ln5 = ln5 - ln3); 87*I(not((ln5 - ln3) == -1), ln3 = rn0;ln5 = ((rn0 - rn0) + pn2) - rn0, ln3 = -1;ln5 = ln5 - ln3); 80*I(not((ln5 - ln3) == rn0), rn0 = rn0;ln3 = rn0;ln5 = ((rn0 - rn0) + pn2) - rn0, rn0 = rn0;ln3 = rn0;ln5 = ln5 - ln3); 87*I(not((ln5 - ln3) == -1), ln3 = rn0;ln5 = ((rn0 - rn0) + pn2) - rn0, ln3 = -1;ln5 = ln5 - ln3); 83*I(not((ln5 - ln3) == rn0), rn0 = rn0;ln3 = rn0;ln5 = ((rn0 - rn0) + pn2) - rn0, rn0 = rn0;ln3 = rn0;ln5 = ln5 - ln3); 90*I(not((ln5 - ln3) == -1), ln3 = rn0;ln5 = ((rn0 - rn0) + pn2) - rn0, ln3 = -1;ln5 = ln5 - ln3); 83*I(not((ln5 - ln3) == rn0), rn0 = rn0;ln3 = rn0;ln5 = ((rn0 - rn0) + pn2) - rn0, rn0 = rn0;ln3 = rn0;ln5 = ln5 - ln3); 90*I(not((ln5 - ln3) == -1), ln3 = rn0;ln5 = ((rn0 - rn0) + pn2) - rn0, ln3 = -1;ln5 = ln5 - ln3)])) + 1
   ebb exits:  [22 27]
   ebb succs:  [27 22]
   1 paths to exit 22

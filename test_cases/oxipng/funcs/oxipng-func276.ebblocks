@@ -1,25 +1,45 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0]
   ebb cost:   1
   ebb exits:  [1]
+  ebb succs:  [1]
   1 paths to exit 1
-ebb entry: 1
+  [0]
+ebb entry:  1
+  ebb type:   loop
   ebb blocks: [1 2 3 4 5 6 7 8 9 10 11 12]
-  ebb cost:   loop
+  ebb cost:   (list_max([22*I((i32.load8_u@(pn1)) >= 7, pn1 = pn1, pn1 = pn1); 27*I((i32.load8_u@(pn1)) >= 7, pn1 = pn1, pn1 = pn1)])) + 4
   ebb exits:  [13 15 16]
+  ebb succs:  [16 15 13]
   1 paths to exit 13
+  [1 2 3 12]
   2 paths to exit 15
+  [1 2 5 6]
+  [1 2 3 4 5 6]
   0 paths to exit 16
-ebb entry: 13
+
+  2 loop paths
+  [1 2 5 8]  [1 2 3 4 5 8]
+  3 post loop exit paths
+  [12]  [6]  [6]
+ebb entry:  13
+  ebb type:   block
   ebb blocks: [13 14]
   ebb cost:   23
   ebb exits:  [14]
+  ebb succs:  []
   1 paths to exit 14
-ebb entry: 15
+  [13]
+ebb entry:  15
+  ebb type:   block
   ebb blocks: [15]
   ebb cost:   0
   ebb exits:  []
-ebb entry: 16
+  ebb succs:  []
+ebb entry:  16
+  ebb type:   block
   ebb blocks: [16]
   ebb cost:   0
   ebb exits:  []
+  ebb succs:  []

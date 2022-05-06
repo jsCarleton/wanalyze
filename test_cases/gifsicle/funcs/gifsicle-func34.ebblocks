@@ -24,7 +24,7 @@ ebb entry:  6
 ebb entry:  7
   ebb type:   loop
   ebb blocks: [7 8]
-  ebb cost:   (7 * I((pn2 shl 1) < ln6, ln6 = rn0;pn2 = 256 shl 1, ln6 = ln6;pn2 = pn2 shl 1)) + 1
+  ebb cost:   7*I((pn2 shl 1) < ln6, ln6 = rn0;pn2 = 256 shl 1, ln6 = ln6;pn2 = pn2 shl 1) + 1
   ebb exits:  [9]
   ebb succs:  [9]
   1 paths to exit 9
@@ -75,7 +75,7 @@ ebb entry:  16
 ebb entry:  17
   ebb type:   loop
   ebb blocks: [17 18]
-  ebb cost:   (7 * I((pn2 shl 1) < ln8, ln8 = ((((g0 - 288)) + rn0) - ((g0 - 288))) + 2;pn2 = (((g0 - 288)) - ((g0 - 288))) shl 1, ln8 = ln8;pn2 = pn2 shl 1)) + 1
+  ebb cost:   7*I((pn2 shl 1) < ln8, ln8 = ((((g0 - 288)) + rn0) - ((g0 - 288))) + 2;pn2 = (((g0 - 288)) - ((g0 - 288))) shl 1, ln8 = ln8;pn2 = pn2 shl 1) + 1
   ebb exits:  [19]
   ebb succs:  [19]
   1 paths to exit 19
@@ -128,7 +128,7 @@ ebb entry:  35
 ebb entry:  36
   ebb type:   loop
   ebb blocks: [36 37]
-  ebb cost:   (7 * I((pn2 shl 1) < ln6, ln6 = (((g0 - 288)) - ((g0 - 288))) + 1;pn2 = (((g0 - 288)) - ((g0 - 288))) shl 1, ln6 = ln6;pn2 = pn2 shl 1)) + 1
+  ebb cost:   7*I((pn2 shl 1) < ln6, ln6 = (((g0 - 288)) - ((g0 - 288))) + 1;pn2 = (((g0 - 288)) - ((g0 - 288))) shl 1, ln6 = ln6;pn2 = pn2 shl 1) + 1
   ebb exits:  [38]
   ebb succs:  [38]
   1 paths to exit 38

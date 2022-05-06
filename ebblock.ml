@@ -23,7 +23,6 @@ type ebblock =
     (* these properties are used when the ebb contains a loop *)
     loop_cps:     code_path list; (* code_paths in the ebb that loop *)
     exit_cps:     code_path list; (* code_paths in the ebb that aren't in the loop *)
-    loop_iters:   expr_tree;      (* the number of iterations the loop with loop for *)
     nested_ebbs:  ebblock list;   (* ebbs containing nested loops *)
   }
 
@@ -192,17 +191,43 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
       []
   in
 
-  let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
-    Printf.printf "finishing %d\n%!" (List.hd_exn bbs).bbindex;
+  let exit_cps (exits: ebb_exit list): code_path list =
+    List.fold_left  ~init:[] 
+                    ~f:(fun acc e ->
+                      match e.cps with
+                      | None -> acc
+                      | Some cps -> List.append acc cps)
+                    exits
+  in
 
-    let exit_cps (exits: ebb_exit list): code_path list =
-      List.fold_left  ~init:[] 
-                      ~f:(fun acc e ->
-                        match e.cps with
-                        | None -> acc
-                        | Some cps -> List.append acc cps)
-                      exits
-    in
+  let bback_of_cp (cp: code_path) (bbs: bblock list): bblock =
+    List.find_exn ~f:(fun bb -> List.exists ~f:(fun bb' -> bb'.bbindex = bb.bbindex) cp) bbs
+  in
+
+  let looping_parts_costs (bbacks: bblock list) (loop_cps: code_path list) (prefix_part: code_path):
+        Cost.loop_metric list =
+    List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
+  in
+
+  let string_of_lm (lm: Cost.loop_metric): string =
+    match lm with
+    | Infinite  -> "Infinite"
+    | LMI lmi   ->
+        String.concat [
+                  string_of_int lmi.loop_cost;
+                  "*I(";
+                  Execution.string_of_expr_tree lmi.loop_cond; ", ";
+                  Ssa.string_of_ssa_list lmi.lv_entry_vals ";" false; ", ";
+                  Ssa.string_of_ssa_list lmi.lv_loop_vals ";" false; ")"]
+  in
+
+  let loop_path_costs (lms: Cost.loop_metric list): string =
+    String.concat [ "["; 
+                    String.concat ~sep:"; " (List.map ~f:string_of_lm lms);
+                    "]"]
+  in
+  
+  let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
 
     let entry_bb    = List.hd_exn bbs in
     let exits       = exits_of_bbs bbs (exit_bbs_of_bbs bbs) in
@@ -210,42 +235,58 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
-        let loop_cps    = looping_paths_of_loop_bblocks bbs in
-        let exit_cps    = exit_paths (exit_cps exits) loop_cps in
-        let nested_ebbs = sub_ebbs_of_bblocks bbs in
-        (* TODO prefix is wrong, need to iterate over all prefixes, all loop_cps *)
-        let bback = (List.hd_exn (Code_path.branchbacks_of_loop bbs)) in
-        let root_bb = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
-        let cps = Code_path.code_paths_from_to_bb_exn root_bb (List.hd_exn entry_bb.pred) in
-        if List.length cps > 0 then
-          let cp = List.rev (List.hd_exn cps) in (* TODO this reverse should be done earlier *)
-          let lmi = Cost.cost_of_loop ctx 
-                                      bback 
-                                      { prefix_part = cp; 
-                                        loop_part   = List.hd_exn loop_cps} in
-          let loop_iters  = Constant (String.concat [ "I(";
-                                                      Execution.string_of_expr_tree lmi.loop_cond; ", ";
-                                                      Ssa.string_of_ssa_list lmi.lv_entry_vals ";" false; ", ";
-                                                      Ssa.string_of_ssa_list lmi.lv_loop_vals ";" false; ")"]) in
-          let cost        = Node {op = "+";
-                                  arg1 = Node {op = "*";
-                                                arg1 = Constant (string_of_int (max_cost_of_code_paths loop_cps 0));
-                                                arg2 = loop_iters;
-                                                arg3 = Empty};
-                                  arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
-                                  arg3 = Empty} in
-          {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; loop_iters; nested_ebbs}
-        else (
-          let cost = Constant "INF" in
-          let loop_iters = Constant "INF" in
-          {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; loop_iters; nested_ebbs})
-    | _ ->
+        let loop_cps = looping_paths_of_loop_bblocks bbs in
+        if List.length loop_cps > 0 then
+          begin
+            let exit_cps    = exit_paths (exit_cps exits) loop_cps in
+            let nested_ebbs = sub_ebbs_of_bblocks bbs in
+            let root_bb = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
+            let cps = Code_path.code_paths_from_to_bb_exn root_bb (List.hd_exn entry_bb.pred) in
+            if List.length cps > 0 then
+              begin
+                let cp = List.rev (List.hd_exn cps) in (* TODO this reverse should be done earlier *)
+                let bbacks = Code_path.branchbacks_of_loop bbs in 
+                let lms = looping_parts_costs bbacks loop_cps cp in
+                if List.length lms > 1 then
+                  begin
+                    let cost = Node {op = "+";
+                                arg1 = Node {op = "list_max";
+                                              arg1 = Constant (loop_path_costs lms);
+                                              arg2 = Empty;
+                                              arg3 = Empty};
+                                arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
+                                arg3 = Empty} in
+                    {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                  end
+                else
+                  begin
+                    let cost = Node {op = "+";
+                                arg1 = Constant (string_of_lm (List.hd_exn lms));
+                                arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
+                                arg3 = Empty} in
+                    {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                  end
+              end
+            else
+              begin
+                let cost       = Constant "INF" in
+                {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+              end
+          end
+        else
+          (* this happens when there are too many looping paths and we give up trying to enumerate them *)
+          begin 
+            let cost        = Constant "INF" in
+            let exit_cps    = [] in
+            let nested_ebbs = [] in
+            {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+          end
+    | EBB_block ->
         let loop_cps    = [] in
         let exit_cps    = [] in
-        let loop_iters  = Empty in
         let nested_ebbs = [] in
         let cost        = Constant (string_of_int (cost_of_block_ebb exits)) in
-        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; loop_iters; nested_ebbs}
+        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
   in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bblock list): ebblock =
@@ -318,7 +359,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
           (* no, close off the current ebb if there is one *)
           match bbs_acc with
           | []  -> List.rev ebbs_acc
-          | _   -> List.rev (finish_ebblock' EBB_block (List.rev bbs_acc)::ebbs_acc) 
+          | _   -> List.rev (finish_ebblock' EBB_block (List.rev bbs_acc)::ebbs_acc)
     in
 
     let ebb_of_bblock (ebbs: ebblock list) (bb: bblock): ebblock option =

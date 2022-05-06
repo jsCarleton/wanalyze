@@ -8,13 +8,15 @@ type loop_metric_info =
   lv_loop_vals:     Ssa.ssa list;   (* loop variable values, in sss form, when the branchback block has been executed *)
 }
 
+type loop_metric = Infinite | LMI of loop_metric_info
+
 type loop_path_parts =
 {
   prefix_part:  Code_path.code_path;  (* the code path that leads to the loop *)
   loop_part:    Code_path.code_path;  (* the code path inside the loop *)
 }
 
-val cost_of_loop            : Execution.execution_context -> Bblock.bblock -> loop_path_parts -> loop_metric_info
+val cost_of_loop            : Execution.execution_context -> Bblock.bblock -> loop_path_parts -> loop_metric
 val cost_of_loops           : Execution.execution_context -> Code_path.code_path list -> Code_path.code_path list
-      -> Bblock.bblock -> loop_metric_info list
+      -> Bblock.bblock -> loop_metric list
 val cost_of_function        : Wasm_module.func -> Symbolic_expr.expr_tree

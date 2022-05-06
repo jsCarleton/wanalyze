@@ -1,6 +1,12 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7]
   ebb cost:   52
   ebb exits:  [6 7]
+  ebb succs:  []
   2 paths to exit 6
+  [0 2 5]
+  [0 1 2 5]
   2 paths to exit 7
+  [0 2 3]
+  [0 1 2 3]

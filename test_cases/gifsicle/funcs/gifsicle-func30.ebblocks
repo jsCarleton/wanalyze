@@ -43,7 +43,7 @@ ebb entry:  50
 ebb entry:  51
   ebb type:   loop
   ebb blocks: [51 52 53]
-  ebb cost:   (18 * I(i32.load@(ln3 + 20), ln3 = (((((((pn0 + -4)) && -8) + (pn0 + -8)) + 20)) + 20), ln3 = (ln3))) + 1
+  ebb cost:   (list_max([18*I(i32.load@(ln3 + 20), ln3 = (((((((pn0 + -4)) && -8) + (pn0 + -8)) + 20)) + 20), ln3 = (ln3)); 10*I(i32.load@(ln3 + 20), ln3 = (((((((pn0 + -4)) && -8) + (pn0 + -8)) + 20)) + 20), ln3 = (ln3 + 20))])) + 1
   ebb exits:  [54]
   ebb succs:  [54]
   1 paths to exit 54
