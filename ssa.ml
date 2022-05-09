@@ -90,7 +90,7 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
           let val2 = find_and_kill acc in
           let val1 = find_and_kill acc in
             { result = name_of_tvar (List.length acc); 
-              etree = Node {op = "select"; arg1 = c; arg2 = val2; arg3 = val1}; alive = true}
+              etree = Node {op = "select"; args = [c; val2; val1]}; alive = true}
               :: acc
         | _ -> failwith (sprintf "Invalid parametric opcode %x" op.opcode))
   | VariableGL ->
@@ -117,12 +117,12 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
       failwith "Table"
   | MemoryL  ->
       { result = name_of_tvar (List.length acc); 
-        etree = Node {op = ""; arg1 = find_and_kill acc; arg2 = Empty; arg3 = Empty};
+        etree = Node {op = ""; args = [find_and_kill acc]};
         alive = true} :: acc
   | MemoryS  ->
       let arg1 = find_and_kill acc in
       let result = String.concat["@("; string_of_expr_tree (find_and_kill acc); ")"] in
-      { result; etree = Node { op = ""; arg1; arg2 = Empty; arg3 = Empty}; alive = false} :: acc
+      { result; etree = Node { op = ""; args = [arg1]}; alive = false} :: acc
   | MemoryM  ->
         acc
   | Constop  ->
@@ -132,22 +132,22 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
   | Unop ->
       let arg1 = find_and_kill acc in
         { result = name_of_tvar (List.length acc); 
-          etree = Node {op = op.opname; arg1; arg2 = Empty; arg3 = Empty};
+          etree = Node {op = op.opname; args = [arg1]};
           alive = true} :: acc         
   | Binop op
   | Relop op  ->
       let arg2 = find_and_kill acc in
       let arg1 = find_and_kill acc in
         { result = name_of_tvar (List.length acc); 
-          etree = Node {op; arg1; arg2; arg3 = Empty};
+          etree = Node {op; args = [arg1; arg2]};
           alive = true} :: acc         
   | Testop ->
       { result = name_of_tvar (List.length acc);
-        etree = Node {op = op.opname; arg1 = find_and_kill acc; arg2 = Empty; arg3 = Empty};
+        etree = Node {op = op.opname; args = [find_and_kill acc]};
         alive = true} :: acc
   | Cvtop   ->
       { result = name_of_tvar (List.length acc);
-        etree = Node {op = op.opname; arg1 = find_and_kill acc; arg2 = Empty; arg3 = Empty};
+        etree = Node {op = op.opname; args = [find_and_kill acc]};
         alive = true} :: acc         
 
 let ssa_of_expr (ctx: execution_context): ssa list =
@@ -168,16 +168,13 @@ let ssa_of_bblock (ctx: execution_context) acc (bb: Bblock.bblock): ssa list =
 let ssa_of_code_path (ctx: execution_context) (cp: Code_path.code_path): ssa list =
   List.fold ~f:(ssa_of_bblock ctx) ~init:(ssa_of_locals ctx.local_types) cp
 
-let rec expand_expr_tree (e: expr_tree) (s_src: ssa): expr_tree =
+let rec expand_expr_tree (e: expr_tree) (s_src: ssa) : expr_tree =
   match e with 
   | Variable v
       -> (match (String.compare v s_src.result) with 
             | 0 -> s_src.etree
             | _ -> e)
-  | Node n -> Node {op = n.op;
-                    arg1 = expand_expr_tree (n.arg1) s_src;
-                    arg2 = expand_expr_tree (n.arg2) s_src;
-                    arg3 = expand_expr_tree (n.arg3) s_src;}
+  | Node n -> Node {op = n.op; args = List.map ~f:(fun e' -> expand_expr_tree e' s_src) n.args}
   | _ -> e
 
 let explode_var (s: ssa list) (result: string): ssa =

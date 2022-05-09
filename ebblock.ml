@@ -250,20 +250,16 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                 if List.length lms > 1 then
                   begin
                     let cost = Node {op = "+";
-                                arg1 = Node {op = "list_max";
-                                              arg1 = Constant (loop_path_costs lms);
-                                              arg2 = Empty;
-                                              arg3 = Empty};
-                                arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
-                                arg3 = Empty} in
+                                args = [Node { op   = "list_max";
+                                               args = [Constant (loop_path_costs lms)]};
+                                        Constant (string_of_int (max_cost_of_code_paths exit_cps 0))]} in
                     {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
                   begin
                     let cost = Node {op = "+";
-                                arg1 = Constant (string_of_lm (List.hd_exn lms));
-                                arg2 = Constant (string_of_int (max_cost_of_code_paths exit_cps 0));
-                                arg3 = Empty} in
+                                args = [Constant (string_of_lm (List.hd_exn lms));
+                                        Constant (string_of_int (max_cost_of_code_paths exit_cps 0))]} in
                     {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
               end
@@ -406,13 +402,14 @@ let ebb_path_cost (ebb_path: ebblock list): expr_tree =
   match List.length ebb_path with
   | 0 -> Constant "0"
   | 1 -> (List.hd_exn ebb_path).cost
-  | _ -> Node {op = "list_sum"; arg1 = Constant (String.concat["["; (string_of_costs ebb_path); "]"]); arg2 = Empty; arg3 = Empty}
+  | _ -> Node { op = "list_sum"; 
+                args = [Constant (String.concat["["; (string_of_costs ebb_path); "]"])]}
 
 
 let ebb_paths_max_cost (ebb_paths: ebblock list list): expr_tree =
   Node {op = "list_max"; 
-        arg1 = Constant (String.concat["["; 
-                                      String.concat ~sep:"; " (List.map ~f:(fun ebb_path -> Execution.string_of_expr_tree (ebb_path_cost ebb_path)) ebb_paths);
-                                      "]"]); 
-        arg2 = Empty; 
-        arg3 = Empty}
+        args = [Constant
+                  (String.concat["["; 
+                    String.concat ~sep:"; " 
+                      (List.map ~f:(fun ebb_path -> Execution.string_of_expr_tree (ebb_path_cost ebb_path)) ebb_paths);
+                    "]"])]}

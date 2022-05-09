@@ -91,7 +91,7 @@ let cost_of_loop (ctx: Execution.execution_context) (bback: Bblock.bblock) (lp: 
     let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
       LMI { prefix_cost = Code_path.cost_of_code_path lp.prefix_part;
             loop_cost = Code_path.cost_of_code_path lp.loop_part;
-            loop_cond = if cs.sense then loop_cond else Node { op = "not"; arg1 = loop_cond; arg2 = Empty; arg3 = Empty};
+            loop_cond = if cs.sense then loop_cond else Node { op = "not"; args = [loop_cond]};
             loop_vars;
             lv_entry_vals;
             lv_loop_vals}

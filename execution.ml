@@ -82,38 +82,48 @@ let expr_tree_of_retval (index: int) (rt: resulttype): expr_tree =
   Variable (String.concat ["r"; (string_of_resulttype rt); (string_of_int index)])
 
 let expr_tree_of_unop (op: string) (arg1: expr_tree): expr_tree =
-  Node {op = op; arg1; arg2 = Empty; arg3 = Empty}
+  Node {op = op; args = [arg1]}
 
 let expr_tree_of_binop (op: string) (arg1: expr_tree) (arg2: expr_tree): expr_tree =
-  Node {op = op; arg1; arg2; arg3 = Empty}
+  Node {op = op; args = [arg1; arg2]}
 
 let rec string_of_expr_tree (e: expr_tree): string =
   match e with
     | Empty   -> "" (* empty expression *)
     | Constant s | Variable s -> s
     | Node n  ->
-      (match n.arg1, n.arg2, n.arg3 with
-        | Empty, Empty, Empty -> failwith "Invalid expr tree"
-        | _, Empty, Empty (* unary operator *)
-            -> String.concat[n.op; "("; string_of_expr_tree n.arg1; ")"]
-        | Variable _, Variable _, Empty (* binary *)
-        | Variable _, Constant _, Empty
-        | Constant _, Variable _, Empty
-        | Constant _, Constant _, Empty
-            -> String.concat[string_of_expr_tree n.arg1; " "; n.op; " "; string_of_expr_tree n.arg2]
-        | Node _, Node _, Empty
-            -> String.concat["("; string_of_expr_tree n.arg1; ") "; n.op; " ("; string_of_expr_tree n.arg2; ")"]
-        | _, Node _, Empty
-          -> String.concat[string_of_expr_tree n.arg1; " "; n.op; " ("; string_of_expr_tree n.arg2; ")"]
-        | Node _, _, Empty
-          -> String.concat["("; string_of_expr_tree n.arg1; ") "; n.op; " "; string_of_expr_tree n.arg2]
-        | _, _, Empty
-            -> String.concat["("; string_of_expr_tree n.arg1; ") "; n.op; " ("; string_of_expr_tree n.arg2; ")"]
-        | _, _, _ (* ternary operator *)
-            ->String.concat[n.op; "(";  string_of_expr_tree n.arg1; ", ";
-                                        string_of_expr_tree n.arg2; ", ";
-                                        string_of_expr_tree n.arg3; ")"]
-        )
+      begin
+        match List.length n.args with 
+          | 1 ->  (* unary operator *)
+                  String.concat[n.op; "("; string_of_expr_tree (List.hd_exn n.args); ")"]
+          | 2 ->  (* binary operator *)
+                  let arg1 = List.hd_exn n.args in
+                  let arg2 = List.hd_exn (List.tl_exn n.args) in
+                  begin
+                    match arg1, arg2 with
+                    | Variable _, Variable _ (* binary *)
+                    | Variable _, Constant _
+                    | Constant _, Variable _
+                    | Constant _, Constant _
+                        -> String.concat[string_of_expr_tree arg1; " "; n.op; " "; string_of_expr_tree arg2]
+                    | Node _, Node _
+                        -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " ("; string_of_expr_tree arg2; ")"]
+                    | _, Node _
+                      -> String.concat[string_of_expr_tree arg1; " "; n.op; " ("; string_of_expr_tree arg2; ")"]
+                    | Node _, _
+                      -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " "; string_of_expr_tree arg2]
+                    | _, _
+                        -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " ("; string_of_expr_tree arg2; ")"]
+                  end
+          | 3 ->  (* ternary operator *)
+                  let arg1 = List.hd_exn n.args in
+                  let arg2 = List.hd_exn (List.tl_exn n.args) in
+                  let arg3 = List.hd_exn (List.tl_exn (List.tl_exn n.args)) in
+                  String.concat[n.op; "(";  string_of_expr_tree arg1; ", ";
+                                            string_of_expr_tree arg2; ", ";
+                                            string_of_expr_tree arg3; ")"]
+          | _ ->  failwith "Invalid expr tree"
+      end
 
 (* Parametric operators *)
 let update_state_parametricop (op: op_type) (s: program_state) = 
