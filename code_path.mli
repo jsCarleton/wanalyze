@@ -28,8 +28,8 @@ type loops_class = {
 }
 
 (* cost calculations *)
-val cost_of_code_path               : code_path -> int
-val max_cost_of_code_paths          : code_path list -> int -> int
+val cost_of_code_path               : Wasm_module.expr -> code_path -> Symbolic_expr.expr_tree
+val max_cost_of_code_paths          : Wasm_module.expr -> code_path list -> Symbolic_expr.expr_tree
 val paths_with_no_loops             : code_path list -> code_path list
 val exit_bblocks_of_loop            : loop -> Bblock.bblock list
 val paths_from_bblocks              : Bblock.bblock list -> code_path list

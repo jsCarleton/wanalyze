@@ -170,18 +170,16 @@ let paths_of_ebblocks (ebbs: ebblock list): ebblock list list =
 let rec ebblocks_of_bblocks (ctx: Execution.execution_context) 
           (all_bbs: bblock list): ebblock list =
 
-  let cost_of_block_ebb (exits: ebb_exit list): int =
+  let cost_of_block_ebb (exits: ebb_exit list): expr_tree =
     if List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) exits then
-      -1
+      Constant "Infinite"
     else
-      List.fold_left 
-        ~init:0 
-        ~f:(fun acc e ->  match e.cps with
-                            | Some cps' ->
-                                let cps_cost = max_cost_of_code_paths cps' 0 in 
-                                if cps_cost > acc then cps_cost else acc
-                            | None -> failwith "no code paths for cost")
-        exits
+      max_cost_of_code_paths 
+        ctx.w_e 
+        (List.concat 
+          (List.map 
+            ~f:(fun e -> match e.cps with Some cps' -> cps' | None -> failwith "no code paths for cost")
+            exits))
   in
 
   let sub_ebbs_of_bblocks (sub_bbs: bblock list): ebblock list =
@@ -214,7 +212,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
     | Infinite  -> "Infinite"
     | LMI lmi   ->
         String.concat [
-                  string_of_int lmi.loop_cost;
+                  Execution.string_of_expr_tree lmi.loop_cost;
                   "*I(";
                   Execution.string_of_expr_tree lmi.loop_cond; ", ";
                   Ssa.string_of_ssa_list lmi.lv_entry_vals ";" false; ", ";
@@ -251,14 +249,14 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                   begin
                     let cost = Node {op = "+";
                                 args = [Node {op = "list_max"; args = [Constant (loop_path_costs lms)]};
-                                        Constant (string_of_int (max_cost_of_code_paths exit_cps 0))]} in
+                                        max_cost_of_code_paths ctx.w_e exit_cps]} in
                     {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
                   begin
                     let cost = Node {op = "+";
                                 args = [Constant (string_of_lm (List.hd_exn lms));
-                                        Constant (string_of_int (max_cost_of_code_paths exit_cps 0))]} in
+                                        max_cost_of_code_paths ctx.w_e exit_cps]} in
                     {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
               end
@@ -280,7 +278,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
         let loop_cps    = [] in
         let exit_cps    = [] in
         let nested_ebbs = [] in
-        let cost        = Constant (string_of_int (cost_of_block_ebb exits)) in
+        let cost        = cost_of_block_ebb exits in
         {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
   in
 
@@ -393,22 +391,13 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
 *)
 
 let ebb_path_cost (ebb_path: ebblock list): expr_tree =
-  
-  let string_of_costs (ebb_path: ebblock list): string =
-    String.concat ~sep:"; " (List.map ~f:(fun ebb -> Execution.string_of_expr_tree ebb.cost) ebb_path)
-  in
-
-  match List.length ebb_path with
-  | 0 -> Constant "0"
-  | 1 -> (List.hd_exn ebb_path).cost
-  | _ -> Node { op = "list_sum"; 
-                args = [Constant (String.concat["["; (string_of_costs ebb_path); "]"])]}
-
+  match ebb_path with
+  | []    -> Constant "0"
+  | [hd]  -> hd.cost
+  | _     -> Node { op = "list_sum"; args = List.map ~f:(fun ebb -> ebb.cost) ebb_path}
 
 let ebb_paths_max_cost (ebb_paths: ebblock list list): expr_tree =
-  Node {op = "list_max"; 
-        args = [Constant
-                  (String.concat["["; 
-                    String.concat ~sep:"; " 
-                      (List.map ~f:(fun ebb_path -> Execution.string_of_expr_tree (ebb_path_cost ebb_path)) ebb_paths);
-                    "]"])]}
+  match ebb_paths with
+  | []    -> Empty
+  | [hd]  -> ebb_path_cost hd
+  | _     -> Node {op = "list_max"; args = List.map ~f:ebb_path_cost ebb_paths}

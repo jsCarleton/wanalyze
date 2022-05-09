@@ -1,18 +1,51 @@
 open Core
 open Easy_logging
+open Opcode
 open Wasm_module
 open Symbolic_expr
 open Bblock
 open Execution
 
+
 type code_path = bblock list
 
-let cost_of_code_path (cp: code_path): int =
-  List.fold ~f:(+) (List.map ~f:cost_of_bblock cp) ~init:0
+let cost_of_code_path (e: expr) (cp: code_path): expr_tree =
 
-let max_cost_of_code_paths (cps: code_path list) (init: int): int =
-  List.fold (List.map ~f:cost_of_code_path cps) ~init:init ~f:(fun acc x -> if acc > x then acc else x)
-  
+  let cost_of_code_path_body (cp: code_path): expr_tree =
+    Constant (string_of_int (List.fold  ~init:0 ~f:(+) (List.map ~f:cost_of_bblock cp)))
+  in
+
+  let cost_of_fn (fn: int): expr_tree =
+    Constant (sprintf "|f%d|" fn)
+  in
+
+  let cost_of_calls (fns: int list): expr_tree =
+    match fns with
+    | []    -> Empty
+    | [hd]  -> cost_of_fn hd
+    | _     -> Node {op = "list_max"; args = List.map ~f:cost_of_fn fns}
+  in
+
+  let fns_of_cp (e: expr) (cp: code_path): int list =
+
+    let fns_of_bb (e: expr) (bb: bblock): int list =
+      List.map ~f:(fun op -> match op.arg with | Funcidx idx -> idx | _ -> failwith "invalid argument in call op")
+        (List.filter ~f:(fun op -> match opcode_of_int op.opcode with | OP_call -> true | _ -> false) (expr_of_bblock e bb))
+    in
+
+    List.dedup_and_sort ~compare:Int.compare (List.concat (List.map ~f:(fns_of_bb e) cp))
+  in
+
+  let fns = fns_of_cp e cp in
+    match fns with
+    | []    -> cost_of_code_path_body cp
+    | _     -> Node {op = "+"; args = [cost_of_code_path_body cp; cost_of_calls fns]}
+     
+let max_cost_of_code_paths (e: expr) (cps: code_path list): expr_tree =
+  match cps with
+  | []    -> Empty
+  | [hd]  -> cost_of_code_path e hd
+  | _     -> Node {op = "list_max"; args = List.map ~f:(cost_of_code_path e) cps}
   
 (*
   succ_of_cp

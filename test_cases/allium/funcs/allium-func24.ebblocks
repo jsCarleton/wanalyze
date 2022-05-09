@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]
-  ebb cost:   37
+  ebb cost:   list_max([31 + (list_max([|f20|; |f81|])); 33 + (list_max([|f1|; |f20|; |f81|])); 27 + (list_max([|f20|; |f25|])); 26 + (list_max([|f17|; |f20|])); 28 + (list_max([|f1|; |f17|; |f20|])); 33 + (list_max([|f0|; |f20|; |f81|])); 35 + (list_max([|f0|; |f1|; |f20|; |f81|])); 29 + (list_max([|f0|; |f20|; |f25|])); 28 + (list_max([|f0|; |f17|; |f20|])); 30 + (list_max([|f0|; |f1|; |f17|; |f20|])); 33 + (list_max([|f0|; |f20|; |f81|])); 35 + (list_max([|f0|; |f1|; |f20|; |f81|])); 29 + (list_max([|f0|; |f20|; |f25|])); 28 + (list_max([|f0|; |f17|; |f20|])); 30 + (list_max([|f0|; |f1|; |f17|; |f20|])); 35 + (list_max([|f0|; |f20|; |f81|])); 37 + (list_max([|f0|; |f1|; |f20|; |f81|])); 31 + (list_max([|f0|; |f20|; |f25|])); 30 + (list_max([|f0|; |f17|; |f20|])); 32 + (list_max([|f0|; |f1|; |f17|; |f20|]))])
   ebb exits:  [15]
   ebb succs:  []
   20 paths to exit 15

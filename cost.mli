@@ -1,6 +1,6 @@
 type loop_metric_info =
 {
-  prefix_cost:      int;            (* the cost of the prefix portion of the loop *)
+  prefix_cost:      Symbolic_expr.expr_tree;  (* cost of the prefix portion of the loop *)
   loop_cost:        Symbolic_expr.expr_tree;  (* cost of the loop portion of the loop *)
   loop_cond:        Symbolic_expr.expr_tree;  (* the condition under which the loop iterates *)
   loop_vars:        string list;    (* the names of the variables that appear in the loop_cond *)

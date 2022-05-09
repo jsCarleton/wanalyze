@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11]
-  ebb cost:   24
+  ebb cost:   list_max([24; 13; 13; 13; 13; 13; 13; 13; 13; 13; 24; 17])
   ebb exits:  [12 21 32 43 54 65 85]
   ebb succs:  [85 65 54 43 32 21 12]
   1 paths to exit 12
@@ -48,7 +48,7 @@ ebb entry:  13
   ebb entry:  13
     ebb type:   block
     ebb blocks: [13]
-    ebb cost:   58
+    ebb cost:   list_max([58; 14])
     ebb exits:  [14]
     ebb succs:  [14]
     2 paths to exit 14
@@ -69,7 +69,7 @@ ebb entry:  13
   ebb entry:  16
     ebb type:   block
     ebb blocks: [16 17 18]
-    ebb cost:   19
+    ebb cost:   list_max([18; 19])
     ebb exits:  [13 19 85]
     ebb succs:  [13]
     1 paths to exit 13
@@ -91,7 +91,7 @@ ebb entry:  19
 ebb entry:  21
   ebb type:   block
   ebb blocks: [21 22]
-  ebb cost:   11
+  ebb cost:   list_max([11; 11; 4])
   ebb exits:  [23 85]
   ebb succs:  [85 23]
   1 paths to exit 23
@@ -124,7 +124,7 @@ ebb entry:  24
   ebb entry:  24
     ebb type:   block
     ebb blocks: [24]
-    ebb cost:   58
+    ebb cost:   list_max([58; 14])
     ebb exits:  [25]
     ebb succs:  [25]
     2 paths to exit 25
@@ -145,7 +145,7 @@ ebb entry:  24
   ebb entry:  27
     ebb type:   block
     ebb blocks: [27 28 29]
-    ebb cost:   19
+    ebb cost:   list_max([18; 19])
     ebb exits:  [24 30 85]
     ebb succs:  [24]
     1 paths to exit 24
@@ -167,7 +167,7 @@ ebb entry:  30
 ebb entry:  32
   ebb type:   block
   ebb blocks: [32 33]
-  ebb cost:   11
+  ebb cost:   list_max([11; 11; 4])
   ebb exits:  [34 85]
   ebb succs:  [85 34]
   1 paths to exit 34
@@ -200,7 +200,7 @@ ebb entry:  35
   ebb entry:  35
     ebb type:   block
     ebb blocks: [35]
-    ebb cost:   58
+    ebb cost:   list_max([58; 14])
     ebb exits:  [36]
     ebb succs:  [36]
     2 paths to exit 36
@@ -221,7 +221,7 @@ ebb entry:  35
   ebb entry:  38
     ebb type:   block
     ebb blocks: [38 39 40]
-    ebb cost:   19
+    ebb cost:   list_max([18; 19])
     ebb exits:  [35 41 85]
     ebb succs:  [35]
     1 paths to exit 35
@@ -243,7 +243,7 @@ ebb entry:  41
 ebb entry:  43
   ebb type:   block
   ebb blocks: [43 44]
-  ebb cost:   11
+  ebb cost:   list_max([11; 11; 4])
   ebb exits:  [45 85]
   ebb succs:  [85 45]
   1 paths to exit 45
@@ -276,7 +276,7 @@ ebb entry:  46
   ebb entry:  46
     ebb type:   block
     ebb blocks: [46]
-    ebb cost:   58
+    ebb cost:   list_max([58; 14])
     ebb exits:  [47]
     ebb succs:  [47]
     2 paths to exit 47
@@ -297,7 +297,7 @@ ebb entry:  46
   ebb entry:  49
     ebb type:   block
     ebb blocks: [49 50 51]
-    ebb cost:   19
+    ebb cost:   list_max([18; 19])
     ebb exits:  [46 52 85]
     ebb succs:  [46]
     1 paths to exit 46
@@ -319,7 +319,7 @@ ebb entry:  52
 ebb entry:  54
   ebb type:   block
   ebb blocks: [54 55]
-  ebb cost:   11
+  ebb cost:   list_max([11; 11; 4])
   ebb exits:  [56 85]
   ebb succs:  [85 56]
   1 paths to exit 56
@@ -352,7 +352,7 @@ ebb entry:  57
   ebb entry:  57
     ebb type:   block
     ebb blocks: [57]
-    ebb cost:   58
+    ebb cost:   list_max([58; 14])
     ebb exits:  [58]
     ebb succs:  [58]
     2 paths to exit 58
@@ -373,7 +373,7 @@ ebb entry:  57
   ebb entry:  60
     ebb type:   block
     ebb blocks: [60 61 62]
-    ebb cost:   19
+    ebb cost:   list_max([18; 19])
     ebb exits:  [57 63 85]
     ebb succs:  [57]
     1 paths to exit 57
@@ -395,7 +395,7 @@ ebb entry:  63
 ebb entry:  65
   ebb type:   block
   ebb blocks: [65 66]
-  ebb cost:   11
+  ebb cost:   list_max([11; 11; 4])
   ebb exits:  [67 85]
   ebb succs:  [85 67]
   1 paths to exit 67
@@ -428,7 +428,7 @@ ebb entry:  68
   ebb entry:  68
     ebb type:   block
     ebb blocks: [68]
-    ebb cost:   58
+    ebb cost:   list_max([58; 14])
     ebb exits:  [69]
     ebb succs:  [69]
     2 paths to exit 69
@@ -449,7 +449,7 @@ ebb entry:  68
   ebb entry:  71
     ebb type:   block
     ebb blocks: [71 72 73]
-    ebb cost:   19
+    ebb cost:   list_max([18; 19])
     ebb exits:  [68 74 85]
     ebb succs:  [68]
     1 paths to exit 68
@@ -493,7 +493,7 @@ ebb entry:  79
   ebb entry:  79
     ebb type:   block
     ebb blocks: [79]
-    ebb cost:   58
+    ebb cost:   list_max([58; 14])
     ebb exits:  [80]
     ebb succs:  [80]
     2 paths to exit 80
@@ -514,7 +514,7 @@ ebb entry:  79
   ebb entry:  82
     ebb type:   block
     ebb blocks: [82 83]
-    ebb cost:   19
+    ebb cost:   list_max([18; 19])
     ebb exits:  [79 84]
     ebb succs:  [79]
     1 paths to exit 79
@@ -540,6 +540,6 @@ ebb entry:  85
 ebb entry:  87
   ebb type:   block
   ebb blocks: [87]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

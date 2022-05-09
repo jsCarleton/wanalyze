@@ -405,7 +405,8 @@ let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string
 (* Part 5 *)
 (* printing analysis results *)
 
-let string_of_code_path (cp: code_path): string = String.concat[string_of_raw_bblocks cp; " "; (string_of_int (cost_of_code_path cp))]
+let string_of_code_path (ctx: execution_context) (cp: code_path): string = 
+  String.concat[string_of_raw_bblocks cp; " "; (string_of_expr_tree (cost_of_code_path ctx.w_e cp))]
 
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
@@ -444,7 +445,7 @@ let print_summary oc_summary ctx m fnum bbs (cp: code_path) =
   let bb = List.hd_exn (List.rev cp) in
   Out_channel.output_string oc_summary
     (sprintf "%s,%d,%d,%s,%s\n"
-        m fnum bb.bbindex (string_of_code_path cp) (loop_type ctx cp_ssa bbs bb.bbindex));
+        m fnum bb.bbindex (string_of_code_path ctx cp) (loop_type ctx cp_ssa bbs bb.bbindex));
   ()
 
 (*let string_of_vars vs =
@@ -461,6 +462,7 @@ let string_of_loop_cost_fn c =
  *)
 let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
   let fnum          = fidx + w.last_import_func in
+  Printf.printf "function %d\n%!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = List.nth_exn w.code_section fidx in
   let w_e           = fn.e in

@@ -2,7 +2,7 @@ open Core
 
 type loop_metric_info =
 {
-  prefix_cost:      int;            (* the cost of the prefix portion of the loop *)
+  prefix_cost:      Symbolic_expr.expr_tree;  (* the cost of the prefix portion of the loop *)
   loop_cost:        Symbolic_expr.expr_tree;  (* cost of the loop portion of the loop *)
   loop_cond:        Symbolic_expr.expr_tree;  (* the condition under which the loop iterates *)
   loop_vars:        string list;    (* the names of the variables that appear in the loop_cond *)
@@ -18,19 +18,20 @@ type loop_path_parts =
   loop_part:    Code_path.code_path;  (* the code path inside the loop *)
 }
 
+(* TODO this isn't right and might not be needed *)
 let compare_metrics (lm1: loop_metric) (lm2: loop_metric): int =
   match lm1, lm2 with
   | Infinite, Infinite  -> 0
   | Infinite, _         -> 1
   | _, Infinite         -> -1
   | LMI m1, LMI m2      ->
-      if  m1.prefix_cost = m2.prefix_cost then
+      if String.compare (Execution.string_of_expr_tree m1.prefix_cost) (Execution.string_of_expr_tree m2.prefix_cost) = 0 then
         if String.compare (Execution.string_of_expr_tree m1.loop_cost) (Execution.string_of_expr_tree m2.loop_cost) = 0 then
           String.compare (Execution.string_of_expr_tree m1.loop_cond) (Execution.string_of_expr_tree m2.loop_cond)
         else
           String.compare (Execution.string_of_expr_tree m1.loop_cost) (Execution.string_of_expr_tree m2.loop_cost) 
       else
-        Int.compare m1.prefix_cost m2.prefix_cost
+        String.compare (Execution.string_of_expr_tree m1.prefix_cost) (Execution.string_of_expr_tree m2.prefix_cost)
 
 let rec all_loops (cp1: Code_path.code_path list) (cp2: Code_path.code_path list) (cp2all: Code_path.code_path list) (acc: loop_path_parts list): loop_path_parts list =
     match cp1, cp2 with
@@ -89,8 +90,8 @@ let cost_of_loop (ctx: Execution.execution_context) (bback: Bblock.bblock) (lp: 
     let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
     let loop_ssa      = Ssa.ssa_of_code_path ctx lp.loop_part in
     let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
-      LMI { prefix_cost = Code_path.cost_of_code_path lp.prefix_part;
-            loop_cost = Code_path.cost_of_code_path lp.loop_part;
+      LMI { prefix_cost = Code_path.cost_of_code_path ctx.w_e lp.prefix_part;
+            loop_cost = Code_path.cost_of_code_path ctx.w_e lp.loop_part;
             loop_cond = if cs.sense then loop_cond else Node { op = "not"; args = [loop_cond]};
             loop_vars;
             lv_entry_vals;
