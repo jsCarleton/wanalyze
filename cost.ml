@@ -3,7 +3,7 @@ open Core
 type loop_metric_info =
 {
   prefix_cost:      int;            (* the cost of the prefix portion of the loop *)
-  loop_cost:        int;            (* the static cost of the loop portion of the loop *)
+  loop_cost:        Symbolic_expr.expr_tree;  (* cost of the loop portion of the loop *)
   loop_cond:        Symbolic_expr.expr_tree;  (* the condition under which the loop iterates *)
   loop_vars:        string list;    (* the names of the variables that appear in the loop_cond *)
   lv_entry_vals:    Ssa.ssa list;   (* loop variable values, in ssa form, at the beginning of the loop *)
@@ -25,10 +25,10 @@ let compare_metrics (lm1: loop_metric) (lm2: loop_metric): int =
   | _, Infinite         -> -1
   | LMI m1, LMI m2      ->
       if  m1.prefix_cost = m2.prefix_cost then
-        if m1.loop_cost = m2.loop_cost then
+        if String.compare (Execution.string_of_expr_tree m1.loop_cost) (Execution.string_of_expr_tree m2.loop_cost) = 0 then
           String.compare (Execution.string_of_expr_tree m1.loop_cond) (Execution.string_of_expr_tree m2.loop_cond)
         else
-          Int.compare m1.loop_cost m2.loop_cost
+          String.compare (Execution.string_of_expr_tree m1.loop_cost) (Execution.string_of_expr_tree m2.loop_cost) 
       else
         Int.compare m1.prefix_cost m2.prefix_cost
 

@@ -250,8 +250,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                 if List.length lms > 1 then
                   begin
                     let cost = Node {op = "+";
-                                args = [Node { op   = "list_max";
-                                               args = [Constant (loop_path_costs lms)]};
+                                args = [Node {op = "list_max"; args = [Constant (loop_path_costs lms)]};
                                         Constant (string_of_int (max_cost_of_code_paths exit_cps 0))]} in
                     {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
