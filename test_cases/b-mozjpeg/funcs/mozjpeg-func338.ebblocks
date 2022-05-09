@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0]
-  ebb cost:   17
+  ebb cost:   17 + |f339|
   ebb exits:  [1]
   ebb succs:  [1]
   1 paths to exit 1
@@ -17,7 +17,7 @@ ebb entry:  1
 ebb entry:  2
   ebb type:   loop
   ebb blocks: [2 3 4]
-  ebb cost:   24*I(not(i32.eqz(((i32.load@(ln1)) < 3) && 1)), ln1 = g0 - 16, ln1 = ln1) + 0
+  ebb cost:   (24*I(not(i32.eqz(((i32.load@(ln1)) < 3) && 1)), ln1 = g0 - 16, ln1 = ln1)) + ()
   ebb exits:  [5 7]
   ebb succs:  [7 5]
   0 paths to exit 5
@@ -47,6 +47,6 @@ ebb entry:  7
 ebb entry:  9
   ebb type:   block
   ebb blocks: [9]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

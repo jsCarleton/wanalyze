@@ -17,7 +17,7 @@ ebb entry:  1
 ebb entry:  2
   ebb type:   loop
   ebb blocks: [2 3 4 5 6 7]
-  ebb cost:   (list_max([22*I(not(ln2 > 214748364), ln2 = 0 * 10, ln2 = -1); 40*I(not(ln2 > 214748364), ln2 = 0 * 10, ln2 = select((((0)) + -48) > (2147483647 - (0 * 10)), (((0)) + -48) + (0 * 10), -1))])) + 0
+  ebb cost:   (list_max([[22 + |f375|*I(not(ln2 > 214748364), ln2 = 0 * 10, ln2 = -1); 40 + |f375|*I(not(ln2 > 214748364), ln2 = 0 * 10, ln2 = select((((0)) + -48) > (2147483647 - (0 * 10)), (((0)) + -48) + (0 * 10), -1))]])) + 
   ebb exits:  [8 10]
   ebb succs:  [10 8]
   0 paths to exit 8
@@ -47,6 +47,6 @@ ebb entry:  10
 ebb entry:  12
   ebb type:   block
   ebb blocks: [12]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

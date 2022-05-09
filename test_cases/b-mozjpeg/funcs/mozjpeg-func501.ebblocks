@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5]
-  ebb cost:   63
+  ebb cost:   list_max([63 + (list_max([|f484|; |f498|])); 63 + (list_max([|f484|; |f498|])); 14 + (list_max([|f484|; |f488|]))])
   ebb exits:  [6 21 23]
   ebb succs:  [23 21 6]
   1 paths to exit 6
@@ -21,7 +21,7 @@ ebb entry:  6
 ebb entry:  7
   ebb type:   loop
   ebb blocks: [7 8 9 10 11 12 13 14 15 16 17 18 19]
-  ebb cost:   (list_max([49*I((ln6 + 8) < ln7, ln7 = (pn0 + 16) + (((pn0)) shl 3);ln6 = pn0 + 24, ln7 = ln7;ln6 = 0 + 8); 56*I((ln6 + 8) < ln7, ln7 = (pn0 + 16) + (((pn0)) shl 3);ln6 = pn0 + 24, ln7 = ln7;ln6 = 0 + 8); 54*I((ln6 + 8) < ln7, ln7 = (pn0 + 16) + (((pn0)) shl 3);ln6 = pn0 + 24, ln7 = ln7;ln6 = 0 + 8)])) + 1
+  ebb cost:   (list_max([[49 + |f498|*I((ln6 + 8) < ln7, ln7 = (pn0 + 16) + (((pn0)) shl 3);ln6 = pn0 + 24, ln7 = ln7;ln6 = 0 + 8); 56 + |f498|*I((ln6 + 8) < ln7, ln7 = (pn0 + 16) + (((pn0)) shl 3);ln6 = pn0 + 24, ln7 = ln7;ln6 = 0 + 8); 54 + |f498|*I((ln6 + 8) < ln7, ln7 = (pn0 + 16) + (((pn0)) shl 3);ln6 = pn0 + 24, ln7 = ln7;ln6 = 0 + 8)]])) + (list_max([1; 1; 1; 1]))
   ebb exits:  [20 21]
   ebb succs:  [21 20]
   3 paths to exit 20
@@ -56,6 +56,6 @@ ebb entry:  21
 ebb entry:  23
   ebb type:   block
   ebb blocks: [23]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

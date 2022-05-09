@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11]
-  ebb cost:   95
+  ebb cost:   list_max([21 + |f169|; 44 + |f169|; 49 + |f169|; 59 + |f169|; 42 + |f169|; 65 + |f169|; 70 + |f169|; 80 + |f169|; 47 + |f169|; 70 + |f169|; 75 + |f169|; 85 + |f169|; 57 + |f169|; 80 + |f169|; 85 + |f169|; 95 + |f169|; 21 + |f169|; 44 + |f169|; 49 + |f169|; 59 + |f169|; 42 + |f169|; 65 + |f169|; 70 + |f169|; 80 + |f169|; 47 + |f169|; 70 + |f169|; 75 + |f169|; 85 + |f169|; 57 + |f169|; 80 + |f169|; 85 + |f169|; 95 + |f169|])
   ebb exits:  [12 29]
   ebb succs:  [29 12]
   16 paths to exit 12
@@ -49,7 +49,7 @@ ebb entry:  12
 ebb entry:  13
   ebb type:   loop
   ebb blocks: [13 14 15 16 17 18 19 20 21 22 23 24 25 26 27]
-  ebb cost:   (list_max([104*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 95*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 110*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 33*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 48*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 36*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 51*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 111*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 102*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 117*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1)])) + 1
+  ebb cost:   (list_max([[104 + |f204|*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 95*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 110 + |f204|*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 33*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 48 + |f204|*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 36*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 51 + |f204|*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 111 + |f204|*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 102*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1); 117 + |f204|*I((pn1 + 1) < (i32.load@(pn0)), pn0 = pn0;pn1 = 0, pn0 = pn0;pn1 = pn1 + 1)]])) + (list_max([1; 1; 1; 1; 1; 1; 1; 1; 1; 1]))
   ebb exits:  [28]
   ebb succs:  [28]
   10 paths to exit 28
