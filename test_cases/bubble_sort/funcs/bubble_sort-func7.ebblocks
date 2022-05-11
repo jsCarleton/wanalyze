@@ -1,0 +1,54 @@
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0]
+  ebb cost:   90 + (list_max([|f0|; |f8|; |f9|; |f17|; |f52|]))
+  ebb exits:  [1]
+  ebb succs:  [1]
+  1 paths to exit 1
+  [0]
+ebb entry:  1
+  ebb type:   block
+  ebb blocks: [1]
+  ebb cost:   1
+  ebb exits:  [2]
+  ebb succs:  [2]
+  1 paths to exit 2
+  [1]
+ebb entry:  2
+  ebb type:   loop
+  ebb blocks: [2 3 4]
+  ebb cost:   (57 + |f10|*I(not(i32.eqz(((i32.load@(ln4)) < (i32.load@(ln4))) && 1)), ln4 = g0 - 32;ln4 = g0 - 32, ln4 = ln4;ln4 = ln4)) + ()
+  ebb exits:  [5 7]
+  ebb succs:  [7 5]
+  0 paths to exit 5
+
+  1 paths to exit 7
+  [2]
+  1 loop paths
+  [2 3]
+ebb entry:  5
+  ebb type:   block
+  ebb blocks: [5 6]
+  ebb cost:   1
+  ebb exits:  [7 11]
+  ebb succs:  [11 7]
+  0 paths to exit 7
+
+  1 paths to exit 11
+  [5]
+ebb entry:  7
+  ebb type:   block
+  ebb blocks: [7 8 9 10]
+  ebb cost:   22 + |f6|
+  ebb exits:  [9 10]
+  ebb succs:  []
+  0 paths to exit 9
+
+  1 paths to exit 10
+  [7]
+ebb entry:  11
+  ebb type:   block
+  ebb blocks: [11]
+  ebb cost:   
+  ebb exits:  []
+  ebb succs:  []

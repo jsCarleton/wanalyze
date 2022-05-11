@@ -47,8 +47,10 @@ _opam/
 test_cases/*/funcs/*.wat
 test_cases/*/funcs/*.costs
 !test_cases/allium/funcs/*.costs
+!test_cases/bubble_sort/funcs/*.costs
 test_cases/*/funcs/*.ebblocks
 !test_cases/allium/funcs/*.ebblocks
+!test_cases/bubble_sort/funcs/*.ebblocks
 test_cases/oxipng/oxipng.costs
 test_cases/gifsicle/gifsicle.costs
 test_cases/oxipng/oxipng.costs
