@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6]
-  ebb cost:   37
+  ebb cost:   list_max([37; 31; 36])
   ebb exits:  [7 23]
   ebb succs:  [23 7]
   2 paths to exit 7
@@ -12,7 +12,7 @@ ebb entry:  0
 ebb entry:  7
   ebb type:   block
   ebb blocks: [7]
-  ebb cost:   20
+  ebb cost:   list_max([20; 4])
   ebb exits:  [8]
   ebb succs:  [8]
   2 paths to exit 8
@@ -33,7 +33,7 @@ ebb entry:  8
 ebb entry:  10
   ebb type:   block
   ebb blocks: [10]
-  ebb cost:   20
+  ebb cost:   list_max([20 + |f23|; 20 + |f23|])
   ebb exits:  [11 15]
   ebb succs:  [15 11]
   1 paths to exit 11
@@ -43,7 +43,7 @@ ebb entry:  10
 ebb entry:  11
   ebb type:   block
   ebb blocks: [11]
-  ebb cost:   15
+  ebb cost:   list_max([15; 1])
   ebb exits:  [12]
   ebb succs:  [12]
   2 paths to exit 12
@@ -72,7 +72,7 @@ ebb entry:  14
 ebb entry:  15
   ebb type:   block
   ebb blocks: [15]
-  ebb cost:   2
+  ebb cost:   list_max([2; 2])
   ebb exits:  [16 22]
   ebb succs:  [22 16]
   1 paths to exit 16
@@ -90,7 +90,7 @@ ebb entry:  16
 ebb entry:  17
   ebb type:   loop
   ebb blocks: [17 18 19 20]
-  ebb cost:   (list_max([16*I((pn1 + 1) != ln5, ln5 = (pn0);pn1 = 0, ln5 = ln5;pn1 = pn1 + 1); 30*I((pn1 + 1) != ln5, ln5 = (pn0);pn1 = 0, ln5 = ln5;pn1 = pn1 + 1)])) + 1
+  ebb cost:   (list_max([[16*I((pn1 + 1) != ln5, ln5 = (pn0);pn1 = 0, ln5 = ln5;pn1 = pn1 + 1); 30 + |f73|*I((pn1 + 1) != ln5, ln5 = (pn0);pn1 = 0, ln5 = ln5;pn1 = pn1 + 1)]])) + (list_max([1; 1]))
   ebb exits:  [21]
   ebb succs:  [21]
   2 paths to exit 21
@@ -111,7 +111,7 @@ ebb entry:  21
 ebb entry:  22
   ebb type:   block
   ebb blocks: [22]
-  ebb cost:   6
+  ebb cost:   6 + |f22|
   ebb exits:  [23]
   ebb succs:  [23]
   1 paths to exit 23
@@ -119,7 +119,7 @@ ebb entry:  22
 ebb entry:  23
   ebb type:   block
   ebb blocks: [23 24 25 26]
-  ebb cost:   49
+  ebb cost:   list_max([49; 43; 49])
   ebb exits:  [27 35 36]
   ebb succs:  [36 35 27]
   1 paths to exit 27
@@ -139,7 +139,7 @@ ebb entry:  27
 ebb entry:  28
   ebb type:   loop
   ebb blocks: [28 29 30 31 32]
-  ebb cost:   (list_max([34*I((i64.load@(ln10 + (((ln3 + ln7) - 0) shl 4))) != (i64.load@(ln4)), ln4 = g0 - 16;ln7 = (0 + ((((((g0 - 16)) shr_u 5) && 1023) || (((((g0 - 16)) && 32736) shl 5) || ((((g0 - 16)) && 32736) shl 15))) rem_s ((pn0)))) - (select((0 + ((((((g0 - 16)) shr_u 5) && 1023) || (((((g0 - 16)) && 32736) shl 5) || ((((g0 - 16)) && 32736) shl 15))) rem_s ((pn0)))) < ((pn0)), (pn0), 0));ln3 = 0;ln10 = (pn0), ln4 = ln4;ln7 = (ln3 + ln7) - (select((ln3 + ln7) < ln5, ln5, 0));ln3 = ln3;ln10 = ln10); 43*I((i64.load@(ln10 + ((((ln8 rem_s ln5) + ln7) - 0) shl 4))) != (i64.load@(ln4)), ln4 = g0 - 16;ln7 = (0 + ((((((g0 - 16)) shr_u 5) && 1023) || (((((g0 - 16)) && 32736) shl 5) || ((((g0 - 16)) && 32736) shl 15))) rem_s ((pn0)))) - (select((0 + ((((((g0 - 16)) shr_u 5) && 1023) || (((((g0 - 16)) && 32736) shl 5) || ((((g0 - 16)) && 32736) shl 15))) rem_s ((pn0)))) < ((pn0)), (pn0), 0));ln5 = (pn0);ln8 = (((g0 - 16)) && 1023) || (((((g0 - 16)) && 1023) shl 10) || ((((g0 - 16)) && 1023) shl 20));ln10 = (pn0), ln4 = ln4;ln7 = ((select(ln8 rem_s ln5, 1, ln8 rem_s ln5)) + ln7) - (select(((select(ln8 rem_s ln5, 1, ln8 rem_s ln5)) + ln7) < ln5, ln5, 0));ln5 = ln5;ln8 = ln8;ln10 = ln10)])) + 1
+  ebb cost:   (list_max([[34*I((i64.load@(ln10 + (((ln3 + ln7) - 0) shl 4))) != (i64.load@(ln4)), ln4 = g0 - 16;ln7 = (0 + ((((((g0 - 16)) shr_u 5) && 1023) || (((((g0 - 16)) && 32736) shl 5) || ((((g0 - 16)) && 32736) shl 15))) rem_s ((pn0)))) - (select((0 + ((((((g0 - 16)) shr_u 5) && 1023) || (((((g0 - 16)) && 32736) shl 5) || ((((g0 - 16)) && 32736) shl 15))) rem_s ((pn0)))) < ((pn0)), (pn0), 0));ln3 = 0;ln10 = (pn0), ln4 = ln4;ln7 = (ln3 + ln7) - (select((ln3 + ln7) < ln5, ln5, 0));ln3 = ln3;ln10 = ln10); 43*I((i64.load@(ln10 + ((((ln8 rem_s ln5) + ln7) - 0) shl 4))) != (i64.load@(ln4)), ln4 = g0 - 16;ln7 = (0 + ((((((g0 - 16)) shr_u 5) && 1023) || (((((g0 - 16)) && 32736) shl 5) || ((((g0 - 16)) && 32736) shl 15))) rem_s ((pn0)))) - (select((0 + ((((((g0 - 16)) shr_u 5) && 1023) || (((((g0 - 16)) && 32736) shl 5) || ((((g0 - 16)) && 32736) shl 15))) rem_s ((pn0)))) < ((pn0)), (pn0), 0));ln5 = (pn0);ln8 = (((g0 - 16)) && 1023) || (((((g0 - 16)) && 1023) shl 10) || ((((g0 - 16)) && 1023) shl 20));ln10 = (pn0), ln4 = ln4;ln7 = ((select(ln8 rem_s ln5, 1, ln8 rem_s ln5)) + ln7) - (select(((select(ln8 rem_s ln5, 1, ln8 rem_s ln5)) + ln7) < ln5, ln5, 0));ln5 = ln5;ln8 = ln8;ln10 = ln10)]])) + (list_max([1; 1]))
   ebb exits:  [33 35]
   ebb succs:  [35 33]
   2 paths to exit 33

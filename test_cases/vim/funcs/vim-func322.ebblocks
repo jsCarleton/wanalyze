@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3]
-  ebb cost:   10
+  ebb cost:   list_max([10; 10; 4])
   ebb exits:  [4 19 22]
   ebb succs:  [22 19 4]
   1 paths to exit 4
@@ -21,7 +21,7 @@ ebb entry:  4
 ebb entry:  5
   ebb type:   loop
   ebb blocks: [5 6 7 8 9 10 11 12 13 14 15 16 17]
-  ebb cost:   (49 * I((ln4 + (pn2 - ln4)) < pn2, pn2 = pn2;ln4 = ln4;pn2 = pn2;ln4 = ln4, pn2 = pn2;ln4 = ln4 + (select(rn0 > (pn2 - ln4), rn0, pn2 - ln4));pn2 = pn2;ln4 = ln4 + (select(rn0 > (pn2 - ln4), rn0, pn2 - ln4)))) + 1
+  ebb cost:   (list_max([[41 + |f104|*I((ln4 + (pn2 - ln4)) < pn2, pn2 = pn2;ln4 = ln4;pn2 = pn2;ln4 = ln4, pn2 = pn2;ln4 = ln4 + (select(rn0 > (pn2 - ln4), rn0, pn2 - ln4));pn2 = pn2;ln4 = ln4 + (select(rn0 > (pn2 - ln4), rn0, pn2 - ln4))); 33*I((ln4 + (i32.load@(215940))) < pn2, pn2 = pn2;ln4 = ln4, pn2 = pn2;ln4 = ln4 + rn0); 42 + |f227|*I((ln4 + (i32.load@(215940))) < pn2, pn2 = pn2;ln4 = ln4, pn2 = pn2;ln4 = ln4 + rn0); 48 + |f104|*I((ln4 + (pn2 - ln4)) < pn2, pn2 = pn2;ln4 = ln4;pn2 = pn2;ln4 = ln4, pn2 = pn2;ln4 = ln4 + (select(rn0 > (pn2 - ln4), rn0, pn2 - ln4));pn2 = pn2;ln4 = ln4 + (select(rn0 > (pn2 - ln4), rn0, pn2 - ln4))); 40*I((ln4 + (i32.load@(215940))) < pn2, pn2 = pn2;ln4 = ln4, pn2 = pn2;ln4 = ln4 + rn0); 49 + |f227|*I((ln4 + (i32.load@(215940))) < pn2, pn2 = pn2;ln4 = ln4, pn2 = pn2;ln4 = ln4 + rn0)]])) + (list_max([1; 1; 1; 1; 1; 1; 1; 1]))
   ebb exits:  [18 19 20]
   ebb succs:  [20 19 18]
   6 paths to exit 18
@@ -71,7 +71,7 @@ ebb entry:  20
 ebb entry:  22
   ebb type:   block
   ebb blocks: [22 23]
-  ebb cost:   6
+  ebb cost:   6 + |f4459|
   ebb exits:  [23]
   ebb succs:  []
   1 paths to exit 23
@@ -79,6 +79,6 @@ ebb entry:  22
 ebb entry:  24
   ebb type:   block
   ebb blocks: [24]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

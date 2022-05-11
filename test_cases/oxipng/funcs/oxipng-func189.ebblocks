@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0]
-  ebb cost:   35
+  ebb cost:   list_max([35 + |f197|; 35 + |f197|])
   ebb exits:  [1 7]
   ebb succs:  [7 1]
   1 paths to exit 1
@@ -19,7 +19,7 @@ ebb entry:  1
 ebb entry:  2
   ebb type:   loop
   ebb blocks: [2 3 4 5]
-  ebb cost:   56*I(i32.eqz(ln2 == ln6), ln6 = ((((pn1)) shr_u 3) + ((((pn1)) && 7) != 0)) + -1;ln2 = 0, ln6 = ln6;ln2 = ln2 + 1) + 1
+  ebb cost:   56 + |f296|*I(i32.eqz(ln2 == ln6), ln6 = ((((pn1)) shr_u 3) + ((((pn1)) && 7) != 0)) + -1;ln2 = 0, ln6 = ln6;ln2 = ln2 + 1) + 1
   ebb exits:  [6]
   ebb succs:  [6]
   1 paths to exit 6

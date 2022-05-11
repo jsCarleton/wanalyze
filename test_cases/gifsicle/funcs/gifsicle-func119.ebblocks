@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0]
-  ebb cost:   5
+  ebb cost:   list_max([5; 5])
   ebb exits:  [1 5]
   ebb succs:  [5 1]
   1 paths to exit 1
@@ -11,7 +11,7 @@ ebb entry:  0
 ebb entry:  1
   ebb type:   block
   ebb blocks: [1]
-  ebb cost:   24
+  ebb cost:   list_max([24 + |f97|; 1])
   ebb exits:  [2]
   ebb succs:  [2]
   2 paths to exit 2
@@ -20,7 +20,7 @@ ebb entry:  1
 ebb entry:  2
   ebb type:   loop
   ebb blocks: [2 3]
-  ebb cost:   23*I((ln2 + 1) < (i32.load@(pn1)), pn1 = pn1;ln2 = ln2 + 1, pn1 = pn1;ln2 = ln2 + 1) + 1
+  ebb cost:   23 + |f97|*I((ln2 + 1) < (i32.load@(pn1)), pn1 = pn1;ln2 = ln2 + 1, pn1 = pn1;ln2 = ln2 + 1) + 1
   ebb exits:  [4]
   ebb succs:  [4]
   1 paths to exit 4

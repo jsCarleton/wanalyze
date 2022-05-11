@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2]
-  ebb cost:   34
+  ebb cost:   list_max([32 + |f115|; 34 + |f115|; 14])
   ebb exits:  [3 7 8]
   ebb succs:  [8 7 3]
   1 paths to exit 3
@@ -13,7 +13,7 @@ ebb entry:  0
 ebb entry:  3
   ebb type:   block
   ebb blocks: [3]
-  ebb cost:   16
+  ebb cost:   list_max([16 + |f340|; 5])
   ebb exits:  [4]
   ebb succs:  [4]
   2 paths to exit 4
@@ -22,7 +22,7 @@ ebb entry:  3
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5]
-  ebb cost:   (11 * I((pn4 + -256) > 255, pn4 = (pn2 - pn3) + -256, pn4 = pn4 + -256)) + 1
+  ebb cost:   11 + |f340|*I((pn4 + -256) > 255, pn4 = (pn2 - pn3) + -256, pn4 = pn4 + -256) + 1
   ebb exits:  [6]
   ebb succs:  [6]
   1 paths to exit 6
@@ -42,7 +42,7 @@ ebb entry:  6
 ebb entry:  7
   ebb type:   block
   ebb blocks: [7]
-  ebb cost:   2
+  ebb cost:   2 + |f340|
   ebb exits:  [8]
   ebb succs:  [8]
   1 paths to exit 8

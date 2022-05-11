@@ -1,3 +1,13 @@
-ebb entry: 0
-  ebb blocks: [0 1 2 3 4 5 6 7 8]
-  ebb exits: []
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0 1 2 3 4 5 6 7 8 9]
+  ebb cost:   list_max([37 + (list_max([|f764|; |f868|])); 42 + (list_max([|f764|; |f868|; |f2386|])); 26 + |f868|; 41 + (list_max([|f764|; |f868|])); 46 + (list_max([|f764|; |f868|; |f2386|])); 30 + |f868|])
+  ebb exits:  [9]
+  ebb succs:  []
+  6 paths to exit 9
+  [0 2 3 6 8]
+  [0 2 3 6 7 8]
+  [0 2 3 4 8]
+  [0 1 2 3 6 8]
+  [0 1 2 3 6 7 8]
+  [0 1 2 3 4 8]

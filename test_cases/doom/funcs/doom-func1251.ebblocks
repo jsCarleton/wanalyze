@@ -1,21 +1,54 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3]
-  ebb exits: [4 19]
+  ebb cost:   list_max([41 + (list_max([|f1260|; |f2849|; |f2855|; |f2874|])); 41 + (list_max([|f1260|; |f2849|; |f2855|; |f2874|])); 32 + (list_max([|f1260|; |f2855|])); 26 + (list_max([|f1260|; |f2855|]))])
+  ebb exits:  [4 19]
+  ebb succs:  [19 4]
   1 paths to exit 4
-  9 paths to exit 19
-ebb entry: 4
+  [0 1 2 3]
+  3 paths to exit 19
+  [0 1 2 3]
+  [0 1 2]
+  [0 1]
+ebb entry:  4
+  ebb type:   block
   ebb blocks: [4]
-  ebb exits: [5]
+  ebb cost:   5 + |f2855|
+  ebb exits:  [5]
+  ebb succs:  [5]
   1 paths to exit 5
-ebb entry: 5
+  [4]
+ebb entry:  5
+  ebb type:   loop
   ebb blocks: [5 6 7 8 9 10 11 12 13 14 15 16 17]
-  ebb exits: [18 19]
+  ebb cost:   (list_max([[27 + (list_max([|f1307|; |f2849|; |f2855|]))*I(rn0, rn0 = rn0, rn0 = rn0); 33 + (list_max([|f1307|; |f2849|; |f2855|]))*I(rn0, rn0 = rn0, rn0 = rn0); 53 + (list_max([|f1255|; |f1259|; |f1280|; |f1307|; |f2849|; |f2855|]))*I(rn0, rn0 = rn0, rn0 = rn0); 53 + (list_max([|f1255|; |f1259|; |f1280|; |f1307|; |f2849|; |f2855|]))*I(rn0, rn0 = rn0, rn0 = rn0); 47 + (list_max([|f1257|; |f1259|; |f1307|; |f2849|; |f2855|]))*I(rn0, rn0 = rn0, rn0 = rn0)]])) + (list_max([1; 1; 1; 1; 1]))
+  ebb exits:  [18 19]
+  ebb succs:  [19 18]
   5 paths to exit 18
-  6 paths to exit 19
-ebb entry: 18
-  ebb blocks: [18]
-  ebb exits: [19]
+  [5 6 7 16 17]
+  [5 6 7 8 16 17]
+  [5 6 7 8 9 12 15 16 17]
+  [5 6 7 8 9 12 13 16 17]
+  [5 6 7 8 9 10 16 17]
   1 paths to exit 19
-ebb entry: 19
-  ebb blocks: [19]
-  ebb exits: []
+  [5]
+  5 loop paths
+  [5 6 7 16]  [5 6 7 8 16]  [5 6 7 8 9 12 15 16]  [5 6 7 8 9 12 13 16]  [5 6 7 8 9 10 16]
+  5 post loop exit paths
+  [17]  [17]  [17]  [17]  [17]
+ebb entry:  18
+  ebb type:   block
+  ebb blocks: [18]
+  ebb cost:   1
+  ebb exits:  [19]
+  ebb succs:  [19]
+  1 paths to exit 19
+  [18]
+ebb entry:  19
+  ebb type:   block
+  ebb blocks: [19 20]
+  ebb cost:   17 + (list_max([|f1259|; |f1308|; |f2855|]))
+  ebb exits:  [20]
+  ebb succs:  []
+  1 paths to exit 20
+  [19]

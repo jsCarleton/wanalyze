@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5]
-  ebb cost:   50
+  ebb cost:   list_max([12; 23; 39; 50; 12; 23; 39; 50])
   ebb exits:  [6 15]
   ebb succs:  [15 6]
   4 paths to exit 6
@@ -17,7 +17,7 @@ ebb entry:  0
 ebb entry:  6
   ebb type:   block
   ebb blocks: [6]
-  ebb cost:   13
+  ebb cost:   13 + |f2794|
   ebb exits:  [7]
   ebb succs:  [7]
   1 paths to exit 7
@@ -25,7 +25,7 @@ ebb entry:  6
 ebb entry:  7
   ebb type:   loop
   ebb blocks: [7 8 9 10 11 12 13]
-  ebb cost:   (17 * I(rn0 != 47, rn0 = rn0, rn0 = rn0)) + 4
+  ebb cost:   17 + |f2849|*I(rn0 != 47, rn0 = rn0, rn0 = rn0) + (list_max([2; 4]))
   ebb exits:  [14]
   ebb succs:  [14]
   2 paths to exit 14
@@ -38,7 +38,7 @@ ebb entry:  7
 ebb entry:  14
   ebb type:   block
   ebb blocks: [14]
-  ebb cost:   9
+  ebb cost:   9 + |f2878|
   ebb exits:  [15]
   ebb succs:  [15]
   1 paths to exit 15
@@ -54,7 +54,7 @@ ebb entry:  15
 ebb entry:  16
   ebb type:   loop
   ebb blocks: [16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36]
-  ebb cost:   (83 * I(i32.eqz(0), , )) + 5
+  ebb cost:   (list_max([[44 + (list_max([|f2581|; |f2869|]))*I(i32.eqz(0), , ); 57 + (list_max([|f2581|; |f2789|; |f2869|]))*I(i32.eqz(0), , ); 39 + (list_max([|f2581|; |f2869|]))*I(i32.eqz(0), , ); 43 + (list_max([|f2581|; |f2869|]))*I(i32.eqz(0), , ); 43 + (list_max([|f2581|; |f2869|]))*I(i32.eqz(0), , ); 63 + (list_max([|f2581|; |f2869|; |f2874|]))*I(i32.eqz(0), , ); 76 + (list_max([|f2581|; |f2789|; |f2869|; |f2874|]))*I(i32.eqz(0), , ); 51 + (list_max([|f2581|; |f2849|; |f2869|]))*I(i32.eqz(0), , ); 64 + (list_max([|f2581|; |f2789|; |f2849|; |f2869|]))*I(i32.eqz(0), , ); 46 + (list_max([|f2581|; |f2849|; |f2869|]))*I(i32.eqz(0), , ); 50 + (list_max([|f2581|; |f2849|; |f2869|]))*I(i32.eqz(0), , ); 50 + (list_max([|f2581|; |f2849|; |f2869|]))*I(i32.eqz(0), , ); 70 + (list_max([|f2581|; |f2849|; |f2869|; |f2874|]))*I(i32.eqz(0), , ); 83 + (list_max([|f2581|; |f2789|; |f2849|; |f2869|; |f2874|]))*I(i32.eqz(0), , )]])) + (list_max([1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 5; 5; 5; 5; 5; 5; 5; 5; 5; 5; 5; 5]))
   ebb exits:  [37 39 41]
   ebb succs:  [41 39 37]
   14 paths to exit 37
@@ -115,6 +115,6 @@ ebb entry:  39
 ebb entry:  41
   ebb type:   block
   ebb blocks: [41]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

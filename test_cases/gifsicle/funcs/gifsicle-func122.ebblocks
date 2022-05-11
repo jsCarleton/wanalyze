@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
-  ebb cost:   102
+  ebb cost:   list_max([73 + (list_max([|f22|; |f23|])); 78 + (list_max([|f22|; |f23|])); 82 + (list_max([|f22|; |f23|])); 78 + (list_max([|f22|; |f23|])); 83 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 82 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 91 + (list_max([|f22|; |f23|])); 78 + (list_max([|f22|; |f23|])); 83 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 83 + (list_max([|f22|; |f23|])); 88 + (list_max([|f22|; |f23|])); 92 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 92 + (list_max([|f22|; |f23|])); 96 + (list_max([|f22|; |f23|])); 82 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 91 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 92 + (list_max([|f22|; |f23|])); 96 + (list_max([|f22|; |f23|])); 91 + (list_max([|f22|; |f23|])); 96 + (list_max([|f22|; |f23|])); 100 + (list_max([|f22|; |f23|])); 73 + (list_max([|f22|; |f23|])); 78 + (list_max([|f22|; |f23|])); 82 + (list_max([|f22|; |f23|])); 78 + (list_max([|f22|; |f23|])); 83 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 82 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 91 + (list_max([|f22|; |f23|])); 78 + (list_max([|f22|; |f23|])); 83 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 83 + (list_max([|f22|; |f23|])); 88 + (list_max([|f22|; |f23|])); 92 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 92 + (list_max([|f22|; |f23|])); 96 + (list_max([|f22|; |f23|])); 82 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 91 + (list_max([|f22|; |f23|])); 87 + (list_max([|f22|; |f23|])); 92 + (list_max([|f22|; |f23|])); 96 + (list_max([|f22|; |f23|])); 91 + (list_max([|f22|; |f23|])); 96 + (list_max([|f22|; |f23|])); 100 + (list_max([|f22|; |f23|])); 75 + (list_max([|f22|; |f23|])); 80 + (list_max([|f22|; |f23|])); 84 + (list_max([|f22|; |f23|])); 80 + (list_max([|f22|; |f23|])); 85 + (list_max([|f22|; |f23|])); 89 + (list_max([|f22|; |f23|])); 84 + (list_max([|f22|; |f23|])); 89 + (list_max([|f22|; |f23|])); 93 + (list_max([|f22|; |f23|])); 80 + (list_max([|f22|; |f23|])); 85 + (list_max([|f22|; |f23|])); 89 + (list_max([|f22|; |f23|])); 85 + (list_max([|f22|; |f23|])); 90 + (list_max([|f22|; |f23|])); 94 + (list_max([|f22|; |f23|])); 89 + (list_max([|f22|; |f23|])); 94 + (list_max([|f22|; |f23|])); 98 + (list_max([|f22|; |f23|])); 84 + (list_max([|f22|; |f23|])); 89 + (list_max([|f22|; |f23|])); 93 + (list_max([|f22|; |f23|])); 89 + (list_max([|f22|; |f23|])); 94 + (list_max([|f22|; |f23|])); 98 + (list_max([|f22|; |f23|])); 93 + (list_max([|f22|; |f23|])); 98 + (list_max([|f22|; |f23|])); 102 + (list_max([|f22|; |f23|]))])
   ebb exits:  [17 21 22]
   ebb succs:  [22 21 17]
   27 paths to exit 17
@@ -91,7 +91,7 @@ ebb entry:  0
 ebb entry:  17
   ebb type:   block
   ebb blocks: [17]
-  ebb cost:   19
+  ebb cost:   list_max([19; 1])
   ebb exits:  [18]
   ebb succs:  [18]
   2 paths to exit 18

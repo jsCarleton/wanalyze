@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5]
-  ebb cost:   74
+  ebb cost:   list_max([74 + (list_max([|f331|; |f359|])); 74 + (list_max([|f331|; |f359|]))])
   ebb exits:  [6 162]
   ebb succs:  [162 6]
   1 paths to exit 6
@@ -36,7 +36,7 @@ ebb entry:  161
 ebb entry:  162
   ebb type:   block
   ebb blocks: [162]
-  ebb cost:   10
+  ebb cost:   10 + |f295|
   ebb exits:  [163]
   ebb succs:  [163]
   1 paths to exit 163
@@ -44,7 +44,7 @@ ebb entry:  162
 ebb entry:  163
   ebb type:   block
   ebb blocks: [163 164 165]
-  ebb cost:   45
+  ebb cost:   list_max([45 + (list_max([|f249|; |f368|])); 45 + (list_max([|f249|; |f368|])); 5; 40 + (list_max([|f249|; |f368|]))])
   ebb exits:  [166 172 175 182]
   ebb succs:  [182 175 172 166]
   1 paths to exit 166
@@ -98,7 +98,7 @@ ebb entry:  172
 ebb entry:  173
   ebb type:   block
   ebb blocks: [173 174]
-  ebb cost:   35
+  ebb cost:   35 + |f359|
   ebb exits:  [175 184]
   ebb succs:  [184 175]
   0 paths to exit 175
@@ -108,7 +108,7 @@ ebb entry:  173
 ebb entry:  175
   ebb type:   block
   ebb blocks: [175 176 177 178 179]
-  ebb cost:   67
+  ebb cost:   list_max([12; 63 + (list_max([|f331|; |f347|])); 67 + (list_max([|f53|; |f331|; |f347|]))])
   ebb exits:  [180 184 185]
   ebb succs:  [185 184 180]
   0 paths to exit 180
@@ -121,7 +121,7 @@ ebb entry:  175
 ebb entry:  180
   ebb type:   block
   ebb blocks: [180 181]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [182 187]
   ebb succs:  [187 182]
   0 paths to exit 182
@@ -131,7 +131,7 @@ ebb entry:  180
 ebb entry:  182
   ebb type:   block
   ebb blocks: [182 183]
-  ebb cost:   13
+  ebb cost:   13 + |f265|
   ebb exits:  [184 187]
   ebb succs:  [187 184]
   0 paths to exit 184
@@ -141,7 +141,7 @@ ebb entry:  182
 ebb entry:  184
   ebb type:   block
   ebb blocks: [184]
-  ebb cost:   18
+  ebb cost:   18 + |f255|
   ebb exits:  [185]
   ebb succs:  [185]
   1 paths to exit 185
@@ -157,6 +157,6 @@ ebb entry:  185
 ebb entry:  187
   ebb type:   block
   ebb blocks: [187]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

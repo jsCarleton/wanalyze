@@ -1,36 +1,106 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12]
-  ebb exits: [13 18 41 42]
+  ebb cost:   list_max([57 + (list_max([|f96|; |f108|; |f667|; |f738|])); 57 + (list_max([|f96|; |f108|; |f667|; |f738|])); 47 + (list_max([|f96|; |f108|; |f667|])); 39 + (list_max([|f96|; |f108|])); 35 + (list_max([|f96|; |f108|])); 31 + (list_max([|f96|; |f108|])); 22 + (list_max([|f96|; |f108|])); 33 + (list_max([|f96|; |f108|; |f584|])); 20 + (list_max([|f96|; |f108|]))])
+  ebb exits:  [13 18 41 42]
+  ebb succs:  [42 41 18 13]
   1 paths to exit 13
+  [0 1 2 3 6 7 8 9 10 11 12]
   5 paths to exit 18
-  109 paths to exit 41
-  147 paths to exit 42
-ebb entry: 13
+  [0 1 2 3 6 7 8 9 10 11 12]
+  [0 1 2 3 6 7 8 9 10 11]
+  [0 1 2 3 6 7 8 9 10]
+  [0 1 2 3 6 7 8 9]
+  [0 1 2 3 6 7 8]
+  1 paths to exit 41
+  [0 1 2]
+  2 paths to exit 42
+  [0 1 2 3 4]
+  [0 1]
+ebb entry:  13
+  ebb type:   block
   ebb blocks: [13]
-  ebb exits: [14]
+  ebb cost:   list_max([15 + (list_max([|f152|; |f169|; |f171|])); 1])
+  ebb exits:  [14]
+  ebb succs:  [14]
   2 paths to exit 14
-ebb entry: 14
+  [13 14]
+  [13]
+ebb entry:  14
+  ebb type:   loop
   ebb blocks: [14 15]
-  ebb exits: [16]
+  ebb cost:   14 + (list_max([|f152|; |f169|; |f171|]))*I(rn0, rn0 = rn0, rn0 = rn0) + 1
+  ebb exits:  [16]
+  ebb succs:  [16]
   1 paths to exit 16
-ebb entry: 16
+  [14 15]
+  1 loop paths
+  [14]
+  1 post loop exit paths
+  [15]
+ebb entry:  16
+  ebb type:   block
   ebb blocks: [16 17]
-  ebb exits: [18 19]
+  ebb cost:   3
+  ebb exits:  [18 19]
+  ebb succs:  [19 18]
   0 paths to exit 18
+
   1 paths to exit 19
-ebb entry: 18
+  [16]
+ebb entry:  18
+  ebb type:   block
   ebb blocks: [18]
-  ebb exits: [19]
+  ebb cost:   3
+  ebb exits:  [19]
+  ebb succs:  [19]
   1 paths to exit 19
-ebb entry: 19
+  [18]
+ebb entry:  19
+  ebb type:   block
   ebb blocks: [19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40]
-  ebb exits: [41 42]
+  ebb cost:   list_max([71 + (list_max([|f106|; |f1993|])); 94 + (list_max([|f106|; |f1993|])); 73 + (list_max([|f102|; |f106|; |f240|; |f1993|])); 74 + (list_max([|f106|; |f1993|])); 97 + (list_max([|f106|; |f1993|])); 76 + (list_max([|f102|; |f106|; |f240|; |f1993|])); 79 + (list_max([|f106|; |f1993|])); 102 + (list_max([|f106|; |f1993|])); 81 + (list_max([|f102|; |f106|; |f240|; |f1993|])); 95 + (list_max([|f106|; |f1993|])); 118 + (list_max([|f106|; |f1993|])); 97 + (list_max([|f102|; |f106|; |f240|; |f1993|])); 112 + (list_max([|f106|; |f1993|])); 135 + (list_max([|f106|; |f1993|])); 114 + (list_max([|f102|; |f106|; |f240|; |f1993|])); 65 + (list_max([|f106|; |f1993|])); 88 + (list_max([|f106|; |f1993|])); 67 + (list_max([|f102|; |f106|; |f240|; |f1993|])); 46 + |f102|; 49 + |f102|; 54 + |f102|; 70 + |f102|; 87 + |f102|; 40 + |f102|])
+  ebb exits:  [41 42]
+  ebb succs:  [42 41]
   18 paths to exit 41
-  24 paths to exit 42
-ebb entry: 41
+  [19 20 23 24 29 30 31 37 39 40]
+  [19 20 23 24 29 30 31 37 38 39 40]
+  [19 20 23 24 29 30 31 32 35 40]
+  [19 20 23 24 25 29 30 31 37 39 40]
+  [19 20 23 24 25 29 30 31 37 38 39 40]
+  [19 20 23 24 25 29 30 31 32 35 40]
+  [19 20 23 24 25 26 29 30 31 37 39 40]
+  [19 20 23 24 25 26 29 30 31 37 38 39 40]
+  [19 20 23 24 25 26 29 30 31 32 35 40]
+  [19 20 23 24 25 26 27 29 30 31 37 39 40]
+  [19 20 23 24 25 26 27 29 30 31 37 38 39 40]
+  [19 20 23 24 25 26 27 29 30 31 32 35 40]
+  [19 20 23 24 25 26 27 28 29 30 31 37 39 40]
+  [19 20 23 24 25 26 27 28 29 30 31 37 38 39 40]
+  [19 20 23 24 25 26 27 28 29 30 31 32 35 40]
+  [19 20 21 30 31 37 39 40]
+  [19 20 21 30 31 37 38 39 40]
+  [19 20 21 30 31 32 35 40]
+  6 paths to exit 42
+  [19 20 23 24 29 30 31 32 33]
+  [19 20 23 24 25 29 30 31 32 33]
+  [19 20 23 24 25 26 29 30 31 32 33]
+  [19 20 23 24 25 26 27 29 30 31 32 33]
+  [19 20 23 24 25 26 27 28 29 30 31 32 33]
+  [19 20 21 30 31 32 33]
+ebb entry:  41
+  ebb type:   block
   ebb blocks: [41]
-  ebb exits: [42]
+  ebb cost:   3
+  ebb exits:  [42]
+  ebb succs:  [42]
   1 paths to exit 42
-ebb entry: 42
-  ebb blocks: [42]
-  ebb exits: []
+  [41]
+ebb entry:  42
+  ebb type:   block
+  ebb blocks: [42 43]
+  ebb cost:   6
+  ebb exits:  [43]
+  ebb succs:  []
+  1 paths to exit 43
+  [42]

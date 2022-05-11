@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21]
-  ebb cost:   28
+  ebb cost:   list_max([28; 8])
   ebb exits:  [22 141]
   ebb succs:  [141 22]
   1 paths to exit 22
@@ -239,7 +239,7 @@ ebb entry:  85
 ebb entry:  87
   ebb type:   block
   ebb blocks: [87 88 89 90 91]
-  ebb cost:   13
+  ebb cost:   list_max([4; 8; 12; 13])
   ebb exits:  [92 111 113 115 146]
   ebb succs:  [146 115 113 111 92]
   0 paths to exit 92
@@ -255,7 +255,7 @@ ebb entry:  87
 ebb entry:  92
   ebb type:   block
   ebb blocks: [92 93 94 95 96]
-  ebb cost:   32
+  ebb cost:   list_max([4; 8; 12; 32])
   ebb exits:  [97 117 119 121 147]
   ebb succs:  [147 121 119 117 97]
   0 paths to exit 97
@@ -271,7 +271,7 @@ ebb entry:  92
 ebb entry:  97
   ebb type:   block
   ebb blocks: [97 98]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [99 150]
   ebb succs:  [150 99]
   0 paths to exit 99
@@ -281,7 +281,7 @@ ebb entry:  97
 ebb entry:  99
   ebb type:   block
   ebb blocks: [99 100]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [101 150]
   ebb succs:  [150 101]
   0 paths to exit 101
@@ -291,7 +291,7 @@ ebb entry:  99
 ebb entry:  101
   ebb type:   block
   ebb blocks: [101 102]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [103 150]
   ebb succs:  [150 103]
   0 paths to exit 103
@@ -301,7 +301,7 @@ ebb entry:  101
 ebb entry:  103
   ebb type:   block
   ebb blocks: [103 104]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [105 150]
   ebb succs:  [150 105]
   0 paths to exit 105
@@ -311,7 +311,7 @@ ebb entry:  103
 ebb entry:  105
   ebb type:   block
   ebb blocks: [105 106]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [107 150]
   ebb succs:  [150 107]
   0 paths to exit 107
@@ -321,7 +321,7 @@ ebb entry:  105
 ebb entry:  107
   ebb type:   block
   ebb blocks: [107 108]
-  ebb cost:   5
+  ebb cost:   5 + |f290|
   ebb exits:  [109 150]
   ebb succs:  [150 109]
   0 paths to exit 109
@@ -331,7 +331,7 @@ ebb entry:  107
 ebb entry:  109
   ebb type:   block
   ebb blocks: [109 110]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [111 150]
   ebb succs:  [150 111]
   0 paths to exit 111
@@ -341,7 +341,7 @@ ebb entry:  109
 ebb entry:  111
   ebb type:   block
   ebb blocks: [111 112]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [113 150]
   ebb succs:  [150 113]
   0 paths to exit 113
@@ -351,7 +351,7 @@ ebb entry:  111
 ebb entry:  113
   ebb type:   block
   ebb blocks: [113 114]
-  ebb cost:   5
+  ebb cost:   5 + |f290|
   ebb exits:  [115 150]
   ebb succs:  [150 115]
   0 paths to exit 115
@@ -361,7 +361,7 @@ ebb entry:  113
 ebb entry:  115
   ebb type:   block
   ebb blocks: [115 116]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [117 150]
   ebb succs:  [150 117]
   0 paths to exit 117
@@ -371,7 +371,7 @@ ebb entry:  115
 ebb entry:  117
   ebb type:   block
   ebb blocks: [117 118]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [119 150]
   ebb succs:  [150 119]
   0 paths to exit 119
@@ -381,7 +381,7 @@ ebb entry:  117
 ebb entry:  119
   ebb type:   block
   ebb blocks: [119 120]
-  ebb cost:   5
+  ebb cost:   5 + |f290|
   ebb exits:  [121 150]
   ebb succs:  [150 121]
   0 paths to exit 121
@@ -391,7 +391,7 @@ ebb entry:  119
 ebb entry:  121
   ebb type:   block
   ebb blocks: [121 122]
-  ebb cost:   5
+  ebb cost:   5 + |f289|
   ebb exits:  [123 150]
   ebb succs:  [150 123]
   0 paths to exit 123
@@ -401,7 +401,7 @@ ebb entry:  121
 ebb entry:  123
   ebb type:   block
   ebb blocks: [123 124 125 126 127 128 129 130 131]
-  ebb cost:   14
+  ebb cost:   list_max([10; 10 + |f289|; 14 + |f289|])
   ebb exits:  [132 143 150]
   ebb succs:  [150 143 132]
   0 paths to exit 132
@@ -414,7 +414,7 @@ ebb entry:  123
 ebb entry:  132
   ebb type:   block
   ebb blocks: [132 133 134 135 136 137 138 139 140]
-  ebb cost:   14
+  ebb cost:   list_max([10; 10 + |f289|; 14 + |f289|])
   ebb exits:  [141 143 150]
   ebb succs:  [150 143 141]
   0 paths to exit 141
@@ -471,12 +471,12 @@ ebb entry:  147
 ebb entry:  149
   ebb type:   block
   ebb blocks: [149]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []
 ebb entry:  150
   ebb type:   block
   ebb blocks: [150]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

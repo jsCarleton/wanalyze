@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21]
-  ebb cost:   98
+  ebb cost:   list_max([95 + (list_max([|f80|; |f222|; |f266|; |f354|])); 98 + (list_max([|f80|; |f222|; |f266|; |f354|])); 98 + (list_max([|f80|; |f222|; |f266|; |f354|])); 98 + (list_max([|f80|; |f222|; |f266|; |f354|])); 19; 69 + |f266|; 72 + |f266|; 72 + |f266|; 72 + |f266|; 95 + (list_max([|f80|; |f222|; |f266|; |f354|])); 98 + (list_max([|f80|; |f222|; |f266|; |f354|])); 98 + (list_max([|f80|; |f222|; |f266|; |f354|])); 98 + (list_max([|f80|; |f222|; |f266|; |f354|]))])
   ebb exits:  [22 93 95 99]
   ebb succs:  [99 95 93 22]
   4 paths to exit 22
@@ -108,7 +108,7 @@ ebb entry:  91
 ebb entry:  93
   ebb type:   block
   ebb blocks: [93 94]
-  ebb cost:   2
+  ebb cost:   2 + |f417|
   ebb exits:  [95 180]
   ebb succs:  [180 95]
   0 paths to exit 95
@@ -126,7 +126,7 @@ ebb entry:  95
 ebb entry:  96
   ebb type:   block
   ebb blocks: [96 97 98]
-  ebb cost:   9
+  ebb cost:   list_max([9 + |f53|; 5])
   ebb exits:  [99 174]
   ebb succs:  [174 99]
   0 paths to exit 99
@@ -137,7 +137,7 @@ ebb entry:  96
 ebb entry:  99
   ebb type:   block
   ebb blocks: [99 100]
-  ebb cost:   28
+  ebb cost:   list_max([28 + (list_max([|f80|; |f222|; |f354|])); 28 + (list_max([|f80|; |f222|; |f354|]))])
   ebb exits:  [101 147]
   ebb succs:  [147 101]
   1 paths to exit 101
@@ -155,7 +155,7 @@ ebb entry:  101
 ebb entry:  102
   ebb type:   loop
   ebb blocks: [102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145]
-  ebb cost:   (list_max([118*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 122*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 131*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 135*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 157*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 161*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 170*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 174*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 174*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 178*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 187*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 191*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 121*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 125*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 134*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 138*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 160*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 164*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 173*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 177*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 177*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 181*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 190*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 194*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 155*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 159*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 168*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 172*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 194*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 198*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 207*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 211*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 211*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 215*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 224*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 228*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 158*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 162*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 171*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 175*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 197*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 201*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 210*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 214*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 214*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 218*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 227*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 231*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 137*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 141*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 150*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 154*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 176*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 180*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 189*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 193*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 193*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 197*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 206*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 210*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 140*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 144*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 153*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 157*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 179*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 183*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 192*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 196*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 196*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 200*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 209*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 213*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 174*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 178*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 187*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 191*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 213*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 217*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 226*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 230*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 230*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 234*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 243*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 247*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 177*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 181*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 190*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 194*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 216*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 220*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 229*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 233*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 233*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 237*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 246*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 250*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3)])) + 5
+  ebb cost:   (list_max([[118 + (list_max([|f80|; |f86|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 122 + (list_max([|f53|; |f80|; |f86|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 131 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 135 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 157 + (list_max([|f80|; |f86|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 161 + (list_max([|f53|; |f80|; |f86|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 170 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 174 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 174 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 178 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 187 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 191 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 121 + (list_max([|f53|; |f80|; |f86|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 125 + (list_max([|f53|; |f80|; |f86|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 134 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 138 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 160 + (list_max([|f53|; |f80|; |f86|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 164 + (list_max([|f53|; |f80|; |f86|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 173 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 177 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 177 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 181 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 190 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 194 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 155 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 159 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 168 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 172 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 194 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 198 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 207 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 211 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 211 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 215 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 224 + (list_max([|f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 228 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 158 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 162 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 171 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 175 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 197 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 201 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 210 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 214 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 214 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 218 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 227 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 231 + (list_max([|f53|; |f80|; |f86|; |f125|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 137 + (list_max([|f80|; |f86|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 141 + (list_max([|f53|; |f80|; |f86|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 150 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 154 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 176 + (list_max([|f80|; |f86|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 180 + (list_max([|f53|; |f80|; |f86|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 189 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 193 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 193 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 197 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 206 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 210 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 140 + (list_max([|f53|; |f80|; |f86|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 144 + (list_max([|f53|; |f80|; |f86|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 153 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 157 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 179 + (list_max([|f53|; |f80|; |f86|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 183 + (list_max([|f53|; |f80|; |f86|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 192 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 196 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 196 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 200 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 209 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 213 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 174 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 178 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 187 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 191 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 213 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 217 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 226 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 230 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 230 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 234 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 243 + (list_max([|f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 247 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 177 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 181 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 190 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 194 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 216 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 220 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 229 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 233 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 233 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 237 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 246 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3); 250 + (list_max([|f53|; |f80|; |f86|; |f125|; |f179|]))*I((i32.load8_u@(ln3)) != 2, ln3 = g0 - 208, ln3 = ln3)]])) + (list_max([1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 5 + |f289|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|; 5 + |f339|]))
   ebb exits:  [146 147 180]
   ebb succs:  [180 147 146]
   96 paths to exit 146
@@ -285,7 +285,7 @@ ebb entry:  102
   ebb entry:  102
     ebb type:   block
     ebb blocks: [102 103 104 105 106 107 108 109 110 111]
-    ebb cost:   97
+    ebb cost:   list_max([78 + |f86|; 97 + (list_max([|f86|; |f179|])); 78 + |f86|; 97 + (list_max([|f86|; |f179|])); 14; 30; 36])
     ebb exits:  [112 117 134 136 147]
     ebb succs:  [136 134 117 112]
     2 paths to exit 112
@@ -311,7 +311,7 @@ ebb entry:  102
   ebb entry:  113
     ebb type:   loop
     ebb blocks: [113 114 115]
-    ebb cost:   32*I(ln5 != (pn1 + 1), pn1 = 0;ln5 = (ln3), pn1 = pn1 + 1;ln5 = ln5) + 1
+    ebb cost:   32 + |f125|*I(ln5 != (pn1 + 1), pn1 = 0;ln5 = (ln3), pn1 = pn1 + 1;ln5 = ln5) + 1
     ebb exits:  [116 138]
     ebb succs:  [138 116]
     1 paths to exit 116
@@ -333,7 +333,7 @@ ebb entry:  102
   ebb entry:  117
     ebb type:   block
     ebb blocks: [117 118 119]
-    ebb cost:   20
+    ebb cost:   list_max([17 + |f86|; 20 + (list_max([|f53|; |f86|])); 17 + |f86|; 20 + (list_max([|f53|; |f86|]))])
     ebb exits:  [120 128]
     ebb succs:  [128 120]
     2 paths to exit 120
@@ -353,7 +353,7 @@ ebb entry:  102
   ebb entry:  121
     ebb type:   loop
     ebb blocks: [121 122 123 124 125 126]
-    ebb cost:   (list_max([28*I(ln4 != (pn1 + 1), pn1 = 0;ln4 = (ln3), pn1 = pn1 + 1;ln4 = ln4); 45*I(ln4 != (pn1 + 1), pn1 = 0;ln4 = (ln3), pn1 = pn1 + 1;ln4 = ln4)])) + 1
+    ebb cost:   (list_max([[28*I(ln4 != (pn1 + 1), pn1 = 0;ln4 = (ln3), pn1 = pn1 + 1;ln4 = ln4); 45 + |f125|*I(ln4 != (pn1 + 1), pn1 = 0;ln4 = (ln3), pn1 = pn1 + 1;ln4 = ln4)]])) + (list_max([1; 1]))
     ebb exits:  [127 140]
     ebb succs:  [140 127]
     2 paths to exit 127
@@ -377,7 +377,7 @@ ebb entry:  102
   ebb entry:  128
     ebb type:   block
     ebb blocks: [128]
-    ebb cost:   6
+    ebb cost:   list_max([6; 6])
     ebb exits:  [129 142]
     ebb succs:  [142 129]
     1 paths to exit 129
@@ -387,7 +387,7 @@ ebb entry:  102
   ebb entry:  129
     ebb type:   block
     ebb blocks: [129]
-    ebb cost:   11
+    ebb cost:   list_max([11 + |f125|; 1])
     ebb exits:  [130]
     ebb succs:  [130]
     2 paths to exit 130
@@ -396,7 +396,7 @@ ebb entry:  102
   ebb entry:  130
     ebb type:   loop
     ebb blocks: [130 131]
-    ebb cost:   10*I((i32.load8_u@(ln3)) && 7, ln3 = ln3, ln3 = ln3) + 1
+    ebb cost:   10 + |f125|*I((i32.load8_u@(ln3)) && 7, ln3 = ln3, ln3 = ln3) + 1
     ebb exits:  [132]
     ebb succs:  [132]
     1 paths to exit 132
@@ -418,7 +418,7 @@ ebb entry:  102
   ebb entry:  134
     ebb type:   block
     ebb blocks: [134 135]
-    ebb cost:   5
+    ebb cost:   5 + |f289|
     ebb exits:  [136 180]
     ebb succs:  [136]
     0 paths to exit 136
@@ -428,7 +428,7 @@ ebb entry:  102
   ebb entry:  136
     ebb type:   block
     ebb blocks: [136 137]
-    ebb cost:   5
+    ebb cost:   5 + |f339|
     ebb exits:  [138 180]
     ebb succs:  [138]
     0 paths to exit 138
@@ -438,7 +438,7 @@ ebb entry:  102
   ebb entry:  138
     ebb type:   block
     ebb blocks: [138 139]
-    ebb cost:   5
+    ebb cost:   5 + |f339|
     ebb exits:  [140 180]
     ebb succs:  [140]
     0 paths to exit 140
@@ -448,7 +448,7 @@ ebb entry:  102
   ebb entry:  140
     ebb type:   block
     ebb blocks: [140 141]
-    ebb cost:   5
+    ebb cost:   5 + |f339|
     ebb exits:  [142 180]
     ebb succs:  [142]
     0 paths to exit 142
@@ -458,7 +458,7 @@ ebb entry:  102
   ebb entry:  142
     ebb type:   block
     ebb blocks: [142 143 144 145]
-    ebb cost:   22
+    ebb cost:   list_max([18 + |f80|; 22 + (list_max([|f53|; |f80|]))])
     ebb exits:  [102 146]
     ebb succs:  [102]
     0 paths to exit 102
@@ -477,7 +477,7 @@ ebb entry:  146
 ebb entry:  147
   ebb type:   block
   ebb blocks: [147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173]
-  ebb cost:   239
+  ebb cost:   list_max([239 + (list_max([|f53|; |f73|; |f189|; |f283|; |f333|; |f354|])); 235 + (list_max([|f73|; |f189|; |f283|; |f333|; |f354|])); 235 + (list_max([|f53|; |f73|; |f189|; |f283|; |f354|])); 231 + (list_max([|f73|; |f189|; |f283|; |f354|])); 232 + (list_max([|f53|; |f73|; |f189|; |f333|; |f354|])); 228 + (list_max([|f73|; |f189|; |f333|; |f354|])); 228 + (list_max([|f53|; |f73|; |f189|; |f354|])); 224 + (list_max([|f73|; |f189|; |f354|])); 239 + (list_max([|f53|; |f73|; |f189|; |f283|; |f333|; |f354|])); 235 + (list_max([|f73|; |f189|; |f283|; |f333|; |f354|])); 235 + (list_max([|f53|; |f73|; |f189|; |f283|; |f354|])); 231 + (list_max([|f73|; |f189|; |f283|; |f354|])); 232 + (list_max([|f53|; |f73|; |f189|; |f333|; |f354|])); 228 + (list_max([|f73|; |f189|; |f333|; |f354|])); 228 + (list_max([|f53|; |f73|; |f189|; |f354|])); 224 + (list_max([|f73|; |f189|; |f354|])); 239 + (list_max([|f53|; |f73|; |f189|; |f283|; |f333|; |f354|])); 235 + (list_max([|f73|; |f189|; |f283|; |f333|; |f354|])); 235 + (list_max([|f53|; |f73|; |f189|; |f283|; |f354|])); 231 + (list_max([|f73|; |f189|; |f283|; |f354|])); 232 + (list_max([|f53|; |f73|; |f189|; |f333|; |f354|])); 228 + (list_max([|f73|; |f189|; |f333|; |f354|])); 228 + (list_max([|f53|; |f73|; |f189|; |f354|])); 224 + (list_max([|f73|; |f189|; |f354|])); 234 + (list_max([|f53|; |f73|; |f189|; |f283|; |f333|; |f354|])); 230 + (list_max([|f73|; |f189|; |f283|; |f333|; |f354|])); 230 + (list_max([|f53|; |f73|; |f189|; |f283|; |f354|])); 226 + (list_max([|f73|; |f189|; |f283|; |f354|])); 227 + (list_max([|f53|; |f73|; |f189|; |f333|; |f354|])); 223 + (list_max([|f73|; |f189|; |f333|; |f354|])); 223 + (list_max([|f53|; |f73|; |f189|; |f354|])); 219 + (list_max([|f73|; |f189|; |f354|])); 27 + |f189|; 27 + |f189|; 27 + |f189|; 27 + |f189|; 22 + |f189|])
   ebb exits:  [174 176]
   ebb succs:  [176 174]
   32 paths to exit 174
@@ -532,7 +532,7 @@ ebb entry:  174
 ebb entry:  176
   ebb type:   block
   ebb blocks: [176 177 178]
-  ebb cost:   2
+  ebb cost:   2 + |f417|
   ebb exits:  [178 180]
   ebb succs:  [180]
   0 paths to exit 178
@@ -542,12 +542,12 @@ ebb entry:  176
 ebb entry:  179
   ebb type:   block
   ebb blocks: [179]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []
 ebb entry:  180
   ebb type:   block
   ebb blocks: [180]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

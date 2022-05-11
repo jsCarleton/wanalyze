@@ -1,39 +1,90 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6]
-  ebb exits: [7 11 19]
+  ebb cost:   list_max([21 + (list_max([|f2848|; |f2849|; |f2855|])); 24 + (list_max([|f2848|; |f2849|; |f2855|])); 15 + (list_max([|f2848|; |f2855|])); 8 + |f2855|])
+  ebb exits:  [7 11 19]
+  ebb succs:  [19 11 7]
   1 paths to exit 7
-  3 paths to exit 11
-  10 paths to exit 19
-ebb entry: 7
-  ebb blocks: [7]
-  ebb exits: [8]
-  2 paths to exit 8
-ebb entry: 8
-  ebb blocks: [8 9]
-  ebb exits: [10]
-  1 paths to exit 10
-ebb entry: 10
-  ebb blocks: [10]
-  ebb exits: [11]
-  1 paths to exit 11
-ebb entry: 11
-  ebb blocks: [11]
-  ebb exits: [12 19]
-  1 paths to exit 12
-  3 paths to exit 19
-ebb entry: 12
-  ebb blocks: [12]
-  ebb exits: [13]
-  1 paths to exit 13
-ebb entry: 13
-  ebb blocks: [13 14 15 16 17]
-  ebb exits: [18 19]
-  1 paths to exit 18
-  2 paths to exit 19
-ebb entry: 18
-  ebb blocks: [18]
-  ebb exits: [19]
+  [0 1 2 3 4]
+  2 paths to exit 11
+  [0 1 2 3 4 5]
+  [0 1 2 3]
   1 paths to exit 19
-ebb entry: 19
-  ebb blocks: [19]
-  ebb exits: []
+  [0 1]
+ebb entry:  7
+  ebb type:   block
+  ebb blocks: [7]
+  ebb cost:   list_max([27 + |f2849|; 7])
+  ebb exits:  [8]
+  ebb succs:  [8]
+  2 paths to exit 8
+  [7 8]
+  [7]
+ebb entry:  8
+  ebb type:   loop
+  ebb blocks: [8 9]
+  ebb cost:   20 + |f2849|*I(rn0, rn0 = rn0, rn0 = rn0) + 1
+  ebb exits:  [10]
+  ebb succs:  [10]
+  1 paths to exit 10
+  [8 9]
+  1 loop paths
+  [8]
+  1 post loop exit paths
+  [9]
+ebb entry:  10
+  ebb type:   block
+  ebb blocks: [10]
+  ebb cost:   1
+  ebb exits:  [11]
+  ebb succs:  [11]
+  1 paths to exit 11
+  [10]
+ebb entry:  11
+  ebb type:   block
+  ebb blocks: [11]
+  ebb cost:   list_max([17 + |f2855|; 17 + |f2855|])
+  ebb exits:  [12 19]
+  ebb succs:  [19 12]
+  1 paths to exit 12
+  [11]
+  1 paths to exit 19
+  [11]
+ebb entry:  12
+  ebb type:   block
+  ebb blocks: [12]
+  ebb cost:   1
+  ebb exits:  [13]
+  ebb succs:  [13]
+  1 paths to exit 13
+  [12]
+ebb entry:  13
+  ebb type:   loop
+  ebb blocks: [13 14 15 16 17]
+  ebb cost:   20 + (list_max([|f2730|; |f2855|]))*I(rn0, rn0 = rn0, rn0 = rn0) + (list_max([1; 1]))
+  ebb exits:  [18 19]
+  ebb succs:  [19 18]
+  1 paths to exit 18
+  [13 17]
+  1 paths to exit 19
+  [13 14 15]
+  1 loop paths
+  [13 14]
+  2 post loop exit paths
+  [17]  [15]
+ebb entry:  18
+  ebb type:   block
+  ebb blocks: [18]
+  ebb cost:   5 + |f2855|
+  ebb exits:  [19]
+  ebb succs:  [19]
+  1 paths to exit 19
+  [18]
+ebb entry:  19
+  ebb type:   block
+  ebb blocks: [19 20]
+  ebb cost:   2
+  ebb exits:  [20]
+  ebb succs:  []
+  1 paths to exit 20
+  [19]

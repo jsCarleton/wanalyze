@@ -17,7 +17,7 @@ ebb entry:  1
 ebb entry:  2
   ebb type:   loop
   ebb blocks: [2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19]
-  ebb cost:   (list_max([38*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3); 78*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3); 85*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3); 92*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3); 100*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3)])) + 6
+  ebb cost:   (list_max([[38*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3); 78*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3); 85*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3); 92*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3); 100*I(i32.eqz(((i32.load@(pn1 + ln5)) && ((i32.load@(pn1 + ln5)) shl 1)) && -2139062144), ln5 = (pn0);pn1 = ((pn0)) && pn1;ln5 = (pn0);pn1 = ((pn0)) && pn1, ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3;ln5 = ln5;pn1 = ((ln6 + 4) + pn1) && ln3)]])) + (list_max([1; 1; 1; 1; 1; 6 + |f288|]))
   ebb exits:  [20 21 23]
   ebb succs:  [23 21 20]
   5 paths to exit 20
@@ -37,7 +37,7 @@ ebb entry:  2
   ebb entry:  2
     ebb type:   block
     ebb blocks: [2 3]
-    ebb cost:   20
+    ebb cost:   list_max([20; 20])
     ebb exits:  [4 18]
     ebb succs:  [18 4]
     1 paths to exit 4
@@ -55,7 +55,7 @@ ebb entry:  2
   ebb entry:  5
     ebb type:   loop
     ebb blocks: [5 6 7 8 9 10 11 12 13 14 15]
-    ebb cost:   (list_max([38*I((pn2 + -1) && pn2, pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144;pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144, pn2 = (pn2 + -1) && pn2;pn2 = (pn2 + -1) && pn2); 45*I((pn2 + -1) && pn2, pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144;pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144, pn2 = (pn2 + -1) && pn2;pn2 = (pn2 + -1) && pn2); 52*I((pn2 + -1) && pn2, pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144;pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144, pn2 = (pn2 + -1) && pn2;pn2 = (pn2 + -1) && pn2); 60*I((pn2 + -1) && pn2, pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144;pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144, pn2 = (pn2 + -1) && pn2;pn2 = (pn2 + -1) && pn2)])) + 1
+    ebb cost:   (list_max([[38*I((pn2 + -1) && pn2, pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144;pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144, pn2 = (pn2 + -1) && pn2;pn2 = (pn2 + -1) && pn2); 45*I((pn2 + -1) && pn2, pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144;pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144, pn2 = (pn2 + -1) && pn2;pn2 = (pn2 + -1) && pn2); 52*I((pn2 + -1) && pn2, pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144;pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144, pn2 = (pn2 + -1) && pn2;pn2 = (pn2 + -1) && pn2); 60*I((pn2 + -1) && pn2, pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144;pn2 = (((((pn1 + ln5)) xor ln9) xor -1) && ((((pn1 + ln5)) xor ln9) + -16843009)) && -2139062144, pn2 = (pn2 + -1) && pn2;pn2 = (pn2 + -1) && pn2)]])) + (list_max([1; 1; 1; 1; 1]))
     ebb exits:  [16 18 21]
     ebb succs:  [18 16]
     1 paths to exit 16
@@ -74,7 +74,7 @@ ebb entry:  2
   ebb entry:  16
     ebb type:   block
     ebb blocks: [16 17]
-    ebb cost:   5
+    ebb cost:   5 + |f288|
     ebb exits:  [18 23]
     ebb succs:  [18]
     0 paths to exit 18
@@ -84,7 +84,7 @@ ebb entry:  2
   ebb entry:  18
     ebb type:   block
     ebb blocks: [18 19]
-    ebb cost:   19
+    ebb cost:   list_max([18; 19])
     ebb exits:  [2 20]
     ebb succs:  [2]
     1 paths to exit 2
@@ -110,6 +110,6 @@ ebb entry:  21
 ebb entry:  23
   ebb type:   block
   ebb blocks: [23]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

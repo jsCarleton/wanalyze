@@ -189,7 +189,7 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
             String.concat[
               String.concat (List.map ~f:(graph_edge ebb) ebb.exits);
               if ebb_has_branchback ebb then
-                String.concat ["    "; name_of_ebb ebb; " -> "; name_of_ebb ebb; "[color=\"red\"];\n"]
+                String.concat ["    "; name_of_ebb ebb; " -> "; name_of_ebb ebb; "[color=\"red\" dir=back];\n"]
               else 
                 ""
             ]

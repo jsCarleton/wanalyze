@@ -1,48 +1,145 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13]
-  ebb exits: [14 18 23 25 26]
+  ebb cost:   list_max([61 + |f2855|; 78 + (list_max([|f474|; |f2855|])); 72 + |f2855|; 89 + (list_max([|f474|; |f2855|])); 61 + |f2855|; 78 + (list_max([|f474|; |f2855|])); 72 + |f2855|; 89 + (list_max([|f474|; |f2855|])); 44 + |f2855|; 61 + (list_max([|f474|; |f2855|])); 55 + |f2855|; 72 + (list_max([|f474|; |f2855|])); 31; 24; 17; 13; 42; 35; 28; 24; 8; 19])
+  ebb exits:  [14 18 23 25 26]
+  ebb succs:  [26 25 23 18 14]
   4 paths to exit 14
-  8 paths to exit 18
-  20 paths to exit 23
+  [0 1 3 4 5 6 7 8 9 11 12 13]
+  [0 1 3 4 5 6 7 8 9 10 11 12 13]
+  [0 1 2 3 4 5 6 7 8 9 11 12 13]
+  [0 1 2 3 4 5 6 7 8 9 10 11 12 13]
+  4 paths to exit 18
+  [0 1 3 4 5 6 7 8 9 11 12 13]
+  [0 1 3 4 5 6 7 8 9 10 11 12 13]
+  [0 1 2 3 4 5 6 7 8 9 11 12 13]
+  [0 1 2 3 4 5 6 7 8 9 10 11 12 13]
+  4 paths to exit 23
+  [0 1 3 4 5 6 7 8 9 11 12]
+  [0 1 3 4 5 6 7 8 9 10 11 12]
+  [0 1 2 3 4 5 6 7 8 9 11 12]
+  [0 1 2 3 4 5 6 7 8 9 10 11 12]
   8 paths to exit 25
-  10 paths to exit 26
-ebb entry: 14
+  [0 1 3 4 5 6 7 8]
+  [0 1 3 4 5 6 7]
+  [0 1 3 4 5 6]
+  [0 1 3 4 5]
+  [0 1 2 3 4 5 6 7 8]
+  [0 1 2 3 4 5 6 7]
+  [0 1 2 3 4 5 6]
+  [0 1 2 3 4 5]
+  2 paths to exit 26
+  [0 1 3]
+  [0 1 2 3]
+ebb entry:  14
+  ebb type:   block
   ebb blocks: [14]
-  ebb exits: [15]
+  ebb cost:   list_max([21 + |f2782|; 1])
+  ebb exits:  [15]
+  ebb succs:  [15]
   2 paths to exit 15
-ebb entry: 15
+  [14 15]
+  [14]
+ebb entry:  15
+  ebb type:   loop
   ebb blocks: [15 16]
-  ebb exits: [17]
+  ebb cost:   20 + |f2782|*I(pn1 - 1, pn1 = (pn3 && 3) - 1, pn1 = pn1 - 1) + 1
+  ebb exits:  [17]
+  ebb succs:  [17]
   1 paths to exit 17
-ebb entry: 17
+  [15 16]
+  1 loop paths
+  [15]
+  1 post loop exit paths
+  [16]
+ebb entry:  17
+  ebb type:   block
   ebb blocks: [17]
-  ebb exits: [18]
+  ebb cost:   1
+  ebb exits:  [18]
+  ebb succs:  [18]
   1 paths to exit 18
-ebb entry: 18
+  [17]
+ebb entry:  18
+  ebb type:   block
   ebb blocks: [18]
-  ebb exits: [19 23]
+  ebb cost:   list_max([4; 4])
+  ebb exits:  [19 23]
+  ebb succs:  [23 19]
   1 paths to exit 19
-  2 paths to exit 23
-ebb entry: 19
-  ebb blocks: [19]
-  ebb exits: [20]
-  2 paths to exit 20
-ebb entry: 20
-  ebb blocks: [20 21]
-  ebb exits: [22]
-  1 paths to exit 22
-ebb entry: 22
-  ebb blocks: [22]
-  ebb exits: [23]
+  [18]
   1 paths to exit 23
-ebb entry: 23
+  [18]
+ebb entry:  19
+  ebb type:   block
+  ebb blocks: [19]
+  ebb cost:   list_max([48 + |f2782|; 1])
+  ebb exits:  [20]
+  ebb succs:  [20]
+  2 paths to exit 20
+  [19 20]
+  [19]
+ebb entry:  20
+  ebb type:   loop
+  ebb blocks: [20 21]
+  ebb cost:   47 + |f2782|*I(pn3 - 4, pn3 = pn3 - 4, pn3 = pn3 - 4) + 1
+  ebb exits:  [22]
+  ebb succs:  [22]
+  1 paths to exit 22
+  [20 21]
+  1 loop paths
+  [20]
+  1 post loop exit paths
+  [21]
+ebb entry:  22
+  ebb type:   block
+  ebb blocks: [22]
+  ebb cost:   1
+  ebb exits:  [23]
+  ebb succs:  [23]
+  1 paths to exit 23
+  [22]
+ebb entry:  23
+  ebb type:   block
   ebb blocks: [23 24]
-  ebb exits: [25]
+  ebb cost:   1
+  ebb exits:  [25 36]
+  ebb succs:  [36 25]
   0 paths to exit 25
-ebb entry: 25
+
+  1 paths to exit 36
+  [23]
+ebb entry:  25
+  ebb type:   block
   ebb blocks: [25]
-  ebb exits: [26]
+  ebb cost:   1
+  ebb exits:  [26]
+  ebb succs:  [26]
   1 paths to exit 26
-ebb entry: 26
-  ebb blocks: [26 27 28 29 30 31 32 33 34]
-  ebb exits: []
+  [25]
+ebb entry:  26
+  ebb type:   block
+  ebb blocks: [26 27 28 29 30 31 32 33 34 35]
+  ebb cost:   list_max([26 + |f264|; 10; 20 + |f264|; 10; 20 + |f264|])
+  ebb exits:  [35 36 37]
+  ebb succs:  [37 36]
+  1 paths to exit 35
+  [26 27 34]
+  2 paths to exit 36
+  [26 29 32]
+  [26 27 28 29 32]
+  2 paths to exit 37
+  [26 29 30]
+  [26 27 28 29 30]
+ebb entry:  36
+  ebb type:   block
+  ebb blocks: [36]
+  ebb cost:   
+  ebb exits:  []
+  ebb succs:  []
+ebb entry:  37
+  ebb type:   block
+  ebb blocks: [37]
+  ebb cost:   
+  ebb exits:  []
+  ebb succs:  []

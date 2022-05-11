@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3]
-  ebb cost:   7
+  ebb cost:   list_max([7; 7; 5])
   ebb exits:  [4 18 20]
   ebb succs:  [20 18 4]
   1 paths to exit 4
@@ -21,7 +21,7 @@ ebb entry:  4
 ebb entry:  5
   ebb type:   loop
   ebb blocks: [5 6 7 8 9 10 11 12 13 14 15 16]
-  ebb cost:   (list_max([35*I((pn0 + (ln6 - pn0)) != ln6, ln6 = pn0 + pn1;pn0 = pn0 + 1;ln6 = pn0 + pn1;pn0 = pn0 + 1, ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0));ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0))); 53*I((pn0 + (ln6 - pn0)) != ln6, ln6 = pn0 + pn1;pn0 = pn0 + 1;ln6 = pn0 + pn1;pn0 = pn0 + 1, ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0));ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0))); 87*I((pn0 + (ln6 - pn0)) != ln6, ln6 = pn0 + pn1;pn0 = pn0 + 1;ln6 = pn0 + pn1;pn0 = pn0 + 1, ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0));ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0))); 105*I((pn0 + (ln6 - pn0)) != ln6, ln6 = pn0 + pn1;pn0 = pn0 + 1;ln6 = pn0 + pn1;pn0 = pn0 + 1, ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0));ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0)))])) + 1
+  ebb cost:   (list_max([[35*I((pn0 + (ln6 - pn0)) != ln6, ln6 = pn0 + pn1;pn0 = pn0 + 1;ln6 = pn0 + pn1;pn0 = pn0 + 1, ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0));ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0))); 53*I((pn0 + (ln6 - pn0)) != ln6, ln6 = pn0 + pn1;pn0 = pn0 + 1;ln6 = pn0 + pn1;pn0 = pn0 + 1, ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0));ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0))); 87*I((pn0 + (ln6 - pn0)) != ln6, ln6 = pn0 + pn1;pn0 = pn0 + 1;ln6 = pn0 + pn1;pn0 = pn0 + 1, ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0));ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0))); 105*I((pn0 + (ln6 - pn0)) != ln6, ln6 = pn0 + pn1;pn0 = pn0 + 1;ln6 = pn0 + pn1;pn0 = pn0 + 1, ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0));ln6 = ln6;pn0 = pn0 + (select((ln6 - pn0) < 5552, 5552, ln6 - pn0)))]])) + (list_max([1; 1; 1; 1]))
   ebb exits:  [17]
   ebb succs:  [17]
   4 paths to exit 17
@@ -36,7 +36,7 @@ ebb entry:  5
   ebb entry:  5
     ebb type:   block
     ebb blocks: [5]
-    ebb cost:   18
+    ebb cost:   list_max([18; 18])
     ebb exits:  [6 10]
     ebb succs:  [10 6]
     1 paths to exit 6
@@ -46,7 +46,7 @@ ebb entry:  5
   ebb entry:  6
     ebb type:   block
     ebb blocks: [6]
-    ebb cost:   44
+    ebb cost:   list_max([44; 3])
     ebb exits:  [7]
     ebb succs:  [7]
     2 paths to exit 7
@@ -75,7 +75,7 @@ ebb entry:  5
   ebb entry:  10
     ebb type:   block
     ebb blocks: [10]
-    ebb cost:   4
+    ebb cost:   list_max([4; 4])
     ebb exits:  [11 15]
     ebb succs:  [15 11]
     1 paths to exit 11
@@ -85,7 +85,7 @@ ebb entry:  5
   ebb entry:  11
     ebb type:   block
     ebb blocks: [11]
-    ebb cost:   16
+    ebb cost:   list_max([16; 1])
     ebb exits:  [12]
     ebb succs:  [12]
     2 paths to exit 12
@@ -114,7 +114,7 @@ ebb entry:  5
   ebb entry:  15
     ebb type:   block
     ebb blocks: [15 16]
-    ebb cost:   14
+    ebb cost:   list_max([13; 14])
     ebb exits:  [5 17]
     ebb succs:  [5]
     1 paths to exit 5
@@ -140,6 +140,6 @@ ebb entry:  18
 ebb entry:  20
   ebb type:   block
   ebb blocks: [20]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

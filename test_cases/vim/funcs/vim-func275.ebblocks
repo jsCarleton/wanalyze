@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1]
-  ebb cost:   10
+  ebb cost:   list_max([10; 10])
   ebb exits:  [2 14]
   ebb succs:  [14 2]
   1 paths to exit 2
@@ -19,7 +19,7 @@ ebb entry:  2
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4 5 6 7 8 9 10 11 12]
-  ebb cost:   (36 * I((((pn0 + ln3) /s 2) + 1) <= pn0, pn0 = ((pn0)) + -1;ln3 = (((((pn0)) + -1) + ln3) /s 2) + 1;pn0 = ((pn0)) + -1, pn0 = pn0;ln3 = ((pn0 + ln3) /s 2) + 1;pn0 = pn0)) + 3
+  ebb cost:   (list_max([[36*I((((pn0 + ln3) /s 2) + 1) <= pn0, pn0 = ((pn0)) + -1;ln3 = (((((pn0)) + -1) + ln3) /s 2) + 1;pn0 = ((pn0)) + -1, pn0 = pn0;ln3 = ((pn0 + ln3) /s 2) + 1;pn0 = pn0); 27*I(ln3 <= (((pn0 + ln3) /s 2) + -1), ln3 = (((((pn0)) + -1) + ln3) /s 2) + 1;pn0 = ((pn0)) + -1;ln3 = (((((pn0)) + -1) + ln3) /s 2) + 1, ln3 = ln3;pn0 = ((pn0 + ln3) /s 2) + -1;ln3 = ln3)]])) + (list_max([1; 1; 3]))
   ebb exits:  [13 15]
   ebb succs:  [15 13]
   2 paths to exit 13

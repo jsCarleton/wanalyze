@@ -460,9 +460,9 @@ let string_of_loop_cost_fn c =
   else
     String.concat["max("; String.concat ~sep:", " (List.map ~f:string_of_loop_cost_fn col); ")"]
  *)
-let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx type_idx =
+let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx =
   let fnum          = fidx + w.last_import_func in
-  Printf.printf "function %d\n%!" fnum;
+  Printf.printf "function %d\r%!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = List.nth_exn w.code_section fidx in
   let w_e           = fn.e in
@@ -496,16 +496,18 @@ let print_function_details (w: wasm_module) oc_summary oc_costs dir prefix fidx 
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
     Out_channel.close oc;
   (* costs *)
-  (match List.length ebb_paths with
-  | 0 -> Out_channel.output_string oc_costs (sprintf "|f%d| = Inf\n" fnum)
-  | 1 -> Out_channel.output_string oc_costs 
-          (sprintf "|f%d| = %s\n" 
-            fnum 
-            (string_of_expr_tree (ebb_path_cost (List.hd_exn ebb_paths))))
-  | _ -> Out_channel.output_string oc_costs 
-          (sprintf "|f%d| = %s\n" 
-            fnum 
-            (string_of_expr_tree (ebb_paths_max_cost ebb_paths))));
+  let oc = Out_channel.create (String.concat[fname; ".costs"]) in
+    (match List.length ebb_paths with
+    | 0 -> Out_channel.output_string oc (sprintf "|f%d| = Inf\n" fnum)
+    | 1 -> Out_channel.output_string oc 
+            (sprintf "|f%d| = %s\n" 
+              fnum 
+              (string_of_expr_tree (ebb_path_cost (List.hd_exn ebb_paths))))
+    | _ -> Out_channel.output_string oc 
+            (sprintf "|f%d| = %s\n" 
+              fnum 
+              (string_of_expr_tree (ebb_paths_max_cost ebb_paths))));
+    Out_channel.close oc;
   (* TODO everything after this is diagnostics, not required *)
   (* loop analysis *)
   (match has_loop bblocks with
@@ -585,12 +587,11 @@ let print_functions w fnum =
   match fnum with
   | -1 -> Out_channel.output_string oc_summary "Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values\n";
           List.iteri 
-            ~f:(print_function_details w oc_summary oc_costs "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
+            ~f:(print_function_details w oc_summary "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
             (List.drop w.function_section w.last_import_func)
   | _  -> print_function_details
             w
             oc_summary
-            oc_costs
             "funcs/"
             (String.concat[Filename.chop_extension w.module_name; "-func"])
             fnum

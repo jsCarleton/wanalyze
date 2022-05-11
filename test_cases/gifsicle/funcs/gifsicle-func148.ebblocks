@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4]
-  ebb cost:   24
+  ebb cost:   list_max([18; 24; 18; 24])
   ebb exits:  [5 15]
   ebb succs:  [15 5]
   2 paths to exit 5
@@ -21,7 +21,7 @@ ebb entry:  5
 ebb entry:  6
   ebb type:   loop
   ebb blocks: [6 7 8 9 10 11 12 13]
-  ebb cost:   (list_max([39*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 45*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 45*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 51*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 51*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 57*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1)])) + 1
+  ebb cost:   (list_max([[39 + (list_max([|f60|; |f88|]))*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 45 + (list_max([|f60|; |f88|; |f148|]))*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 45 + (list_max([|f60|; |f88|]))*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 51 + (list_max([|f60|; |f88|; |f148|]))*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 51 + (list_max([|f60|; |f88|]))*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1); 57 + (list_max([|f60|; |f88|; |f148|]))*I(pn1 != pn2, pn2 = select(pn3, pn2, -1);pn1 = select(pn3, pn1, 0), pn2 = pn2;pn1 = pn1 + 1)]])) + (list_max([1; 1; 1; 1; 1; 1]))
   ebb exits:  [14]
   ebb succs:  [14]
   6 paths to exit 14
@@ -46,7 +46,7 @@ ebb entry:  14
 ebb entry:  15
   ebb type:   block
   ebb blocks: [15 16 17 18]
-  ebb cost:   9
+  ebb cost:   list_max([3; 9 + |f22|])
   ebb exits:  [18]
   ebb succs:  []
   2 paths to exit 18

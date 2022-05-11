@@ -1,68 +1,158 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3 4]
-  ebb exits: [5 11]
+  ebb cost:   list_max([16; 16])
+  ebb exits:  [5 11]
+  ebb succs:  [11 5]
   1 paths to exit 5
-  3 paths to exit 11
-ebb entry: 5
-  ebb blocks: [5]
-  ebb exits: [6]
-  1 paths to exit 6
-ebb entry: 6
-  ebb blocks: [6 7 8 9]
-  ebb exits: [10 11 13]
-  1 paths to exit 10
-  2 paths to exit 11
-  3 paths to exit 13
-ebb entry: 10
-  ebb blocks: [10]
-  ebb exits: [11]
+  [0 1 2 3 4]
   1 paths to exit 11
-ebb entry: 11
-  ebb blocks: [11 12]
-  ebb exits: [13 28]
+  [0 1 2 3 4]
+ebb entry:  5
+  ebb type:   block
+  ebb blocks: [5]
+  ebb cost:   5
+  ebb exits:  [6]
+  ebb succs:  [6]
+  1 paths to exit 6
+  [5]
+ebb entry:  6
+  ebb type:   loop
+  ebb blocks: [6 7 8 9]
+  ebb cost:   23*I((pn0 + 1) && 3, pn0 = pn0 + 1, pn0 = pn0 + 1) + 1
+  ebb exits:  [10 11 13]
+  ebb succs:  [13 11 10]
+  1 paths to exit 10
+  [6 7 8 9]
+  1 paths to exit 11
+  [6 7]
   1 paths to exit 13
-  6 paths to exit 28
-ebb entry: 13
-  ebb blocks: [13 14 15]
-  ebb exits: [16 21 30]
-  1 paths to exit 16
-  2 paths to exit 21
-  4 paths to exit 30
-ebb entry: 16
-  ebb blocks: [16]
-  ebb exits: [17]
-  1 paths to exit 17
-ebb entry: 17
-  ebb blocks: [17 18 19]
-  ebb exits: [20 23]
-  1 paths to exit 20
-  2 paths to exit 23
-ebb entry: 20
-  ebb blocks: [20]
-  ebb exits: [21]
-  1 paths to exit 21
-ebb entry: 21
-  ebb blocks: [21 22]
-  ebb exits: [23 28]
-  1 paths to exit 23
-  2 paths to exit 28
-ebb entry: 23
-  ebb blocks: [23]
-  ebb exits: [24]
-  1 paths to exit 24
-ebb entry: 24
-  ebb blocks: [24 25 26]
-  ebb exits: [27 30]
-  1 paths to exit 27
-  1 paths to exit 30
-ebb entry: 27
-  ebb blocks: [27]
-  ebb exits: [28]
+  [6]
+  1 loop paths
+  [6 7 8]
+  1 post loop exit paths
+  [9]
+ebb entry:  10
+  ebb type:   block
+  ebb blocks: [10]
+  ebb cost:   1
+  ebb exits:  [11]
+  ebb succs:  [11]
+  1 paths to exit 11
+  [10]
+ebb entry:  11
+  ebb type:   block
+  ebb blocks: [11 12]
+  ebb cost:   list_max([4; 3])
+  ebb exits:  [13 28]
+  ebb succs:  [28 13]
+  1 paths to exit 13
+  [11 12]
   1 paths to exit 28
-ebb entry: 28
+  [11]
+ebb entry:  13
+  ebb type:   block
+  ebb blocks: [13 14 15]
+  ebb cost:   list_max([12; 12; 7])
+  ebb exits:  [16 21 30]
+  ebb succs:  [30 21 16]
+  1 paths to exit 16
+  [13 14 15]
+  1 paths to exit 21
+  [13 14 15]
+  1 paths to exit 30
+  [13]
+ebb entry:  16
+  ebb type:   block
+  ebb blocks: [16]
+  ebb cost:   23
+  ebb exits:  [17]
+  ebb succs:  [17]
+  1 paths to exit 17
+  [16]
+ebb entry:  17
+  ebb type:   loop
+  ebb blocks: [17 18 19]
+  ebb cost:   25*I((pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1
+  ebb exits:  [20 23]
+  ebb succs:  [23 20]
+  1 paths to exit 20
+  [17 18 19]
+  1 paths to exit 23
+  [17]
+  1 loop paths
+  [17 18]
+  1 post loop exit paths
+  [19]
+ebb entry:  20
+  ebb type:   block
+  ebb blocks: [20]
+  ebb cost:   5
+  ebb exits:  [21]
+  ebb succs:  [21]
+  1 paths to exit 21
+  [20]
+ebb entry:  21
+  ebb type:   block
+  ebb blocks: [21 22]
+  ebb cost:   list_max([4; 3])
+  ebb exits:  [23 28]
+  ebb succs:  [28 23]
+  1 paths to exit 23
+  [21 22]
+  1 paths to exit 28
+  [21]
+ebb entry:  23
+  ebb type:   block
+  ebb blocks: [23]
+  ebb cost:   5
+  ebb exits:  [24]
+  ebb succs:  [24]
+  1 paths to exit 24
+  [23]
+ebb entry:  24
+  ebb type:   loop
+  ebb blocks: [24 25 26]
+  ebb cost:   14*I(pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + 1
+  ebb exits:  [27 30]
+  ebb succs:  [30 27]
+  1 paths to exit 27
+  [24 25 26]
+  1 paths to exit 30
+  [24]
+  1 loop paths
+  [24 25]
+  1 post loop exit paths
+  [26]
+ebb entry:  27
+  ebb type:   block
+  ebb blocks: [27]
+  ebb cost:   1
+  ebb exits:  [28]
+  ebb succs:  [28]
+  1 paths to exit 28
+  [27]
+ebb entry:  28
+  ebb type:   block
   ebb blocks: [28 29]
-  ebb exits: [30]
+  ebb cost:   2
+  ebb exits:  [30 32]
+  ebb succs:  [32 30]
   0 paths to exit 30
-ebb entry: 30
-  ebb blocks: [30]
-  ebb exits: []
+
+  1 paths to exit 32
+  [28]
+ebb entry:  30
+  ebb type:   block
+  ebb blocks: [30 31]
+  ebb cost:   2
+  ebb exits:  [31]
+  ebb succs:  []
+  1 paths to exit 31
+  [30]
+ebb entry:  32
+  ebb type:   block
+  ebb blocks: [32]
+  ebb cost:   
+  ebb exits:  []
+  ebb succs:  []

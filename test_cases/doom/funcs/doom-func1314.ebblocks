@@ -1,35 +1,152 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12]
-  ebb exits: [13 17 18 19 21]
+  ebb cost:   list_max([43 + (list_max([|f2855|; |f2874|])); 53 + (list_max([|f2855|; |f2874|])); 50 + (list_max([|f2855|; |f2874|])); 60 + (list_max([|f2855|; |f2874|])); 54 + (list_max([|f2855|; |f2874|])); 64 + (list_max([|f2855|; |f2874|])); 61 + (list_max([|f2855|; |f2874|])); 71 + (list_max([|f2855|; |f2874|])); 58 + (list_max([|f2855|; |f2874|])); 68 + (list_max([|f2855|; |f2874|])); 65 + (list_max([|f2855|; |f2874|])); 75 + (list_max([|f2855|; |f2874|])); 69 + (list_max([|f2855|; |f2874|])); 79 + (list_max([|f2855|; |f2874|])); 76 + (list_max([|f2855|; |f2874|])); 86 + (list_max([|f2855|; |f2874|])); 43 + (list_max([|f2855|; |f2874|])); 53 + (list_max([|f2855|; |f2874|])); 50 + (list_max([|f2855|; |f2874|])); 60 + (list_max([|f2855|; |f2874|])); 54 + (list_max([|f2855|; |f2874|])); 64 + (list_max([|f2855|; |f2874|])); 61 + (list_max([|f2855|; |f2874|])); 71 + (list_max([|f2855|; |f2874|])); 58 + (list_max([|f2855|; |f2874|])); 68 + (list_max([|f2855|; |f2874|])); 65 + (list_max([|f2855|; |f2874|])); 75 + (list_max([|f2855|; |f2874|])); 69 + (list_max([|f2855|; |f2874|])); 79 + (list_max([|f2855|; |f2874|])); 76 + (list_max([|f2855|; |f2874|])); 86 + (list_max([|f2855|; |f2874|])); 37 + (list_max([|f2855|; |f2874|])); 47 + (list_max([|f2855|; |f2874|])); 44 + (list_max([|f2855|; |f2874|])); 54 + (list_max([|f2855|; |f2874|])); 48 + (list_max([|f2855|; |f2874|])); 58 + (list_max([|f2855|; |f2874|])); 55 + (list_max([|f2855|; |f2874|])); 65 + (list_max([|f2855|; |f2874|])); 52 + (list_max([|f2855|; |f2874|])); 62 + (list_max([|f2855|; |f2874|])); 59 + (list_max([|f2855|; |f2874|])); 69 + (list_max([|f2855|; |f2874|])); 63 + (list_max([|f2855|; |f2874|])); 73 + (list_max([|f2855|; |f2874|])); 70 + (list_max([|f2855|; |f2874|])); 80 + (list_max([|f2855|; |f2874|])); 21; 31; 28 + |f2855|; 38 + |f2855|; 32; 42; 39 + |f2855|; 49 + |f2855|; 36; 46; 43 + |f2855|; 53 + |f2855|; 47; 57; 54 + |f2855|; 64 + |f2855|; 26; 33 + |f2855|; 37; 44 + |f2855|; 41; 48 + |f2855|; 52; 59 + |f2855|])
+  ebb exits:  [13 17 18 19 21]
+  ebb succs:  [21 19 18 17 13]
   16 paths to exit 13
-  32 paths to exit 17
-  48 paths to exit 18
-  64 paths to exit 19
+  [0 2 3 5 7 10 11 12]
+  [0 2 3 5 7 8 9 10 11 12]
+  [0 2 3 5 6 7 10 11 12]
+  [0 2 3 5 6 7 8 9 10 11 12]
+  [0 2 3 4 5 7 10 11 12]
+  [0 2 3 4 5 7 8 9 10 11 12]
+  [0 2 3 4 5 6 7 10 11 12]
+  [0 2 3 4 5 6 7 8 9 10 11 12]
+  [0 1 2 3 5 7 10 11 12]
+  [0 1 2 3 5 7 8 9 10 11 12]
+  [0 1 2 3 5 6 7 10 11 12]
+  [0 1 2 3 5 6 7 8 9 10 11 12]
+  [0 1 2 3 4 5 7 10 11 12]
+  [0 1 2 3 4 5 7 8 9 10 11 12]
+  [0 1 2 3 4 5 6 7 10 11 12]
+  [0 1 2 3 4 5 6 7 8 9 10 11 12]
+  16 paths to exit 17
+  [0 2 3 5 7 10 11 12]
+  [0 2 3 5 7 8 9 10 11 12]
+  [0 2 3 5 6 7 10 11 12]
+  [0 2 3 5 6 7 8 9 10 11 12]
+  [0 2 3 4 5 7 10 11 12]
+  [0 2 3 4 5 7 8 9 10 11 12]
+  [0 2 3 4 5 6 7 10 11 12]
+  [0 2 3 4 5 6 7 8 9 10 11 12]
+  [0 1 2 3 5 7 10 11 12]
+  [0 1 2 3 5 7 8 9 10 11 12]
+  [0 1 2 3 5 6 7 10 11 12]
+  [0 1 2 3 5 6 7 8 9 10 11 12]
+  [0 1 2 3 4 5 7 10 11 12]
+  [0 1 2 3 4 5 7 8 9 10 11 12]
+  [0 1 2 3 4 5 6 7 10 11 12]
+  [0 1 2 3 4 5 6 7 8 9 10 11 12]
+  16 paths to exit 18
+  [0 2 3 5 7 10 11]
+  [0 2 3 5 7 8 9 10 11]
+  [0 2 3 5 6 7 10 11]
+  [0 2 3 5 6 7 8 9 10 11]
+  [0 2 3 4 5 7 10 11]
+  [0 2 3 4 5 7 8 9 10 11]
+  [0 2 3 4 5 6 7 10 11]
+  [0 2 3 4 5 6 7 8 9 10 11]
+  [0 1 2 3 5 7 10 11]
+  [0 1 2 3 5 7 8 9 10 11]
+  [0 1 2 3 5 6 7 10 11]
+  [0 1 2 3 5 6 7 8 9 10 11]
+  [0 1 2 3 4 5 7 10 11]
+  [0 1 2 3 4 5 7 8 9 10 11]
+  [0 1 2 3 4 5 6 7 10 11]
+  [0 1 2 3 4 5 6 7 8 9 10 11]
+  16 paths to exit 19
+  [0 2 3 5 7 10]
+  [0 2 3 5 7 8 9 10]
+  [0 2 3 5 6 7 10]
+  [0 2 3 5 6 7 8 9 10]
+  [0 2 3 4 5 7 10]
+  [0 2 3 4 5 7 8 9 10]
+  [0 2 3 4 5 6 7 10]
+  [0 2 3 4 5 6 7 8 9 10]
+  [0 1 2 3 5 7 10]
+  [0 1 2 3 5 7 8 9 10]
+  [0 1 2 3 5 6 7 10]
+  [0 1 2 3 5 6 7 8 9 10]
+  [0 1 2 3 4 5 7 10]
+  [0 1 2 3 4 5 7 8 9 10]
+  [0 1 2 3 4 5 6 7 10]
+  [0 1 2 3 4 5 6 7 8 9 10]
   8 paths to exit 21
-ebb entry: 13
+  [0 2 3 5 7 8]
+  [0 2 3 5 6 7 8]
+  [0 2 3 4 5 7 8]
+  [0 2 3 4 5 6 7 8]
+  [0 1 2 3 5 7 8]
+  [0 1 2 3 5 6 7 8]
+  [0 1 2 3 4 5 7 8]
+  [0 1 2 3 4 5 6 7 8]
+ebb entry:  13
+  ebb type:   block
   ebb blocks: [13]
-  ebb exits: [14]
+  ebb cost:   list_max([22 + (list_max([|f2769|; |f2855|])); 3])
+  ebb exits:  [14]
+  ebb succs:  [14]
   2 paths to exit 14
-ebb entry: 14
+  [13 14]
+  [13]
+ebb entry:  14
+  ebb type:   loop
   ebb blocks: [14 15]
-  ebb exits: [16]
+  ebb cost:   19 + (list_max([|f2769|; |f2855|]))*I(rn0 > (ln2 + 1), ln2 = 0 + 1;rn0 = rn0, ln2 = ln2 + 1;rn0 = rn0) + 1
+  ebb exits:  [16]
+  ebb succs:  [16]
   1 paths to exit 16
-ebb entry: 16
+  [14 15]
+  1 loop paths
+  [14]
+  1 post loop exit paths
+  [15]
+ebb entry:  16
+  ebb type:   block
   ebb blocks: [16]
-  ebb exits: [17]
+  ebb cost:   1
+  ebb exits:  [17]
+  ebb succs:  [17]
   1 paths to exit 17
-ebb entry: 17
+  [16]
+ebb entry:  17
+  ebb type:   block
   ebb blocks: [17]
-  ebb exits: [18]
+  ebb cost:   7 + (list_max([|f2769|; |f2855|]))
+  ebb exits:  [18]
+  ebb succs:  [18]
   1 paths to exit 18
-ebb entry: 18
+  [17]
+ebb entry:  18
+  ebb type:   block
   ebb blocks: [18]
-  ebb exits: [19]
+  ebb cost:   3 + |f2769|
+  ebb exits:  [19]
+  ebb succs:  [19]
   1 paths to exit 19
-ebb entry: 19
+  [18]
+ebb entry:  19
+  ebb type:   block
   ebb blocks: [19 20]
-  ebb exits: [21]
+  ebb cost:   1
+  ebb exits:  [21 23]
+  ebb succs:  [23 21]
   0 paths to exit 21
-ebb entry: 21
-  ebb blocks: [21]
-  ebb exits: []
+
+  1 paths to exit 23
+  [19]
+ebb entry:  21
+  ebb type:   block
+  ebb blocks: [21 22]
+  ebb cost:   26
+  ebb exits:  [22]
+  ebb succs:  []
+  1 paths to exit 22
+  [21]
+ebb entry:  23
+  ebb type:   block
+  ebb blocks: [23]
+  ebb cost:   
+  ebb exits:  []
+  ebb succs:  []

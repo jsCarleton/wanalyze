@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2]
-  ebb cost:   17
+  ebb cost:   list_max([17; 8])
   ebb exits:  [3 21]
   ebb succs:  [21 3]
   1 paths to exit 3
@@ -19,7 +19,7 @@ ebb entry:  3
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7 8 9 10 11]
-  ebb cost:   (list_max([36*I(pn1 - (i32.load16_u@(pn2 + (pn1 shl 1))), pn1 = pn1;pn2 = pn2;pn1 = pn1, pn1 = pn1 - ((pn2 + (pn1 shl 1)));pn2 = pn2;pn1 = pn1 - ((pn2 + (pn1 shl 1)))); 47*I(pn1 - (i32.load16_u@(pn2 + (pn1 shl 1))), pn1 = pn1;pn2 = pn2;pn1 = pn1, pn1 = pn1 - ((pn2 + (pn1 shl 1)));pn2 = pn2;pn1 = pn1 - ((pn2 + (pn1 shl 1))))])) + 1
+  ebb cost:   (list_max([[36*I(pn1 - (i32.load16_u@(pn2 + (pn1 shl 1))), pn1 = pn1;pn2 = pn2;pn1 = pn1, pn1 = pn1 - ((pn2 + (pn1 shl 1)));pn2 = pn2;pn1 = pn1 - ((pn2 + (pn1 shl 1)))); 47 + |f188|*I(pn1 - (i32.load16_u@(pn2 + (pn1 shl 1))), pn1 = pn1;pn2 = pn2;pn1 = pn1, pn1 = pn1 - ((pn2 + (pn1 shl 1)));pn2 = pn2;pn1 = pn1 - ((pn2 + (pn1 shl 1))))]])) + (list_max([1; 1; 1]))
   ebb exits:  [12 14]
   ebb succs:  [14 12]
   1 paths to exit 12
@@ -34,7 +34,7 @@ ebb entry:  4
 ebb entry:  12
   ebb type:   block
   ebb blocks: [12 13]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [14 24]
   ebb succs:  [24 14]
   0 paths to exit 14
@@ -44,7 +44,7 @@ ebb entry:  12
 ebb entry:  14
   ebb type:   block
   ebb blocks: [14]
-  ebb cost:   5
+  ebb cost:   list_max([5; 5])
   ebb exits:  [15 19]
   ebb succs:  [19 15]
   1 paths to exit 15
@@ -54,7 +54,7 @@ ebb entry:  14
 ebb entry:  15
   ebb type:   block
   ebb blocks: [15]
-  ebb cost:   30
+  ebb cost:   list_max([30; 7])
   ebb exits:  [16]
   ebb succs:  [16]
   2 paths to exit 16
@@ -109,6 +109,6 @@ ebb entry:  22
 ebb entry:  24
   ebb type:   block
   ebb blocks: [24]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

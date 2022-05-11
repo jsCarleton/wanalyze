@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21]
-  ebb cost:   75
+  ebb cost:   list_max([75; 75; 34; 40; 67; 54 + (list_max([|f331|; |f359|]))])
   ebb exits:  [22 30 31 44 60 61]
   ebb succs:  [61 60 44 31 30 22]
   1 paths to exit 22
@@ -27,7 +27,7 @@ ebb entry:  22
 ebb entry:  23
   ebb type:   loop
   ebb blocks: [23 24 25 26 27]
-  ebb cost:   35*I(not(ln5 == ln12), ln12 = ((select(((pn2 + ((pn1))) && 65535) < (pn3 && 65535), pn3, pn2 + ((pn1)))) && 65535) + -1;ln5 = (pn1), ln12 = ln12;ln5 = ln5 + 1) + 0
+  ebb cost:   (35*I(not(ln5 == ln12), ln12 = ((select(((pn2 + ((pn1))) && 65535) < (pn3 && 65535), pn3, pn2 + ((pn1)))) && 65535) + -1;ln5 = (pn1), ln12 = ln12;ln5 = ln5 + 1)) + ()
   ebb exits:  [28 30 46 48]
   ebb succs:  [48 46 30 28]
   0 paths to exit 28
@@ -61,7 +61,7 @@ ebb entry:  30
 ebb entry:  31
   ebb type:   block
   ebb blocks: [31 32 33 34 35]
-  ebb cost:   59
+  ebb cost:   list_max([49; 59; 32; 45; 49; 59])
   ebb exits:  [36 50 52 54]
   ebb succs:  [54 52 50 36]
   2 paths to exit 36
@@ -85,7 +85,7 @@ ebb entry:  36
 ebb entry:  37
   ebb type:   loop
   ebb blocks: [37 38 39 40 41]
-  ebb cost:   34*I(not(ln5 == ln6), ln6 = ((select(((((select(((pn2 + ((pn1))) && 65535) > (pn3 && 65535), pn3 && 65535, (pn2 + ((pn1))) && 65535)) - (pn3 && 65535)) + (select(((pn2 + ((pn1))) && 65535) < (pn3 && 65535), pn3, pn2 + ((pn1))))) && 65535) > (((pn1)) && 65535), ((select(((pn2 + ((pn1))) && 65535) > (pn3 && 65535), pn3 && 65535, (pn2 + ((pn1))) && 65535)) - (pn3 && 65535)) + (select(((pn2 + ((pn1))) && 65535) < (pn3 && 65535), pn3, pn2 + ((pn1)))), (pn1))) && 65535) + -1;ln5 = (select(((pn2 + ((pn1))) && 65535) < (pn3 && 65535), pn3, pn2 + ((pn1)))) && 65535, ln6 = ln6;ln5 = ln5 + 1) + 0
+  ebb cost:   (34*I(not(ln5 == ln6), ln6 = ((select(((((select(((pn2 + ((pn1))) && 65535) > (pn3 && 65535), pn3 && 65535, (pn2 + ((pn1))) && 65535)) - (pn3 && 65535)) + (select(((pn2 + ((pn1))) && 65535) < (pn3 && 65535), pn3, pn2 + ((pn1))))) && 65535) > (((pn1)) && 65535), ((select(((pn2 + ((pn1))) && 65535) > (pn3 && 65535), pn3 && 65535, (pn2 + ((pn1))) && 65535)) - (pn3 && 65535)) + (select(((pn2 + ((pn1))) && 65535) < (pn3 && 65535), pn3, pn2 + ((pn1)))), (pn1))) && 65535) + -1;ln5 = (select(((pn2 + ((pn1))) && 65535) < (pn3 && 65535), pn3, pn2 + ((pn1)))) && 65535, ln6 = ln6;ln5 = ln5 + 1)) + ()
   ebb exits:  [42 54 56 58]
   ebb succs:  [58 56 54 42]
   0 paths to exit 42
@@ -111,7 +111,7 @@ ebb entry:  42
 ebb entry:  44
   ebb type:   block
   ebb blocks: [44 45]
-  ebb cost:   34
+  ebb cost:   34 + (list_max([|f331|; |f359|]))
   ebb exits:  [46 61]
   ebb succs:  [61 46]
   0 paths to exit 46
@@ -121,7 +121,7 @@ ebb entry:  44
 ebb entry:  46
   ebb type:   block
   ebb blocks: [46 47]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [48 63]
   ebb succs:  [63 48]
   0 paths to exit 48
@@ -131,7 +131,7 @@ ebb entry:  46
 ebb entry:  48
   ebb type:   block
   ebb blocks: [48 49]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [50 63]
   ebb succs:  [63 50]
   0 paths to exit 50
@@ -141,7 +141,7 @@ ebb entry:  48
 ebb entry:  50
   ebb type:   block
   ebb blocks: [50 51]
-  ebb cost:   34
+  ebb cost:   34 + (list_max([|f331|; |f359|]))
   ebb exits:  [52 61]
   ebb succs:  [61 52]
   0 paths to exit 52
@@ -151,7 +151,7 @@ ebb entry:  50
 ebb entry:  52
   ebb type:   block
   ebb blocks: [52 53]
-  ebb cost:   2
+  ebb cost:   2 + |f417|
   ebb exits:  [54 63]
   ebb succs:  [63 54]
   0 paths to exit 54
@@ -171,7 +171,7 @@ ebb entry:  54
 ebb entry:  56
   ebb type:   block
   ebb blocks: [56 57]
-  ebb cost:   7
+  ebb cost:   7 + |f288|
   ebb exits:  [58 63]
   ebb succs:  [63 58]
   0 paths to exit 58
@@ -181,7 +181,7 @@ ebb entry:  56
 ebb entry:  58
   ebb type:   block
   ebb blocks: [58 59]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [60 63]
   ebb succs:  [63 60]
   0 paths to exit 60
@@ -191,7 +191,7 @@ ebb entry:  58
 ebb entry:  60
   ebb type:   block
   ebb blocks: [60]
-  ebb cost:   34
+  ebb cost:   34 + (list_max([|f331|; |f359|]))
   ebb exits:  [61]
   ebb succs:  [61]
   1 paths to exit 61
@@ -207,6 +207,6 @@ ebb entry:  61
 ebb entry:  63
   ebb type:   block
   ebb blocks: [63]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

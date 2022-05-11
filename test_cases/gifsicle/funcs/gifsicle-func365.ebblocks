@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0]
-  ebb cost:   14
+  ebb cost:   list_max([14; 14])
   ebb exits:  [1 7]
   ebb succs:  [7 1]
   1 paths to exit 1
@@ -19,7 +19,7 @@ ebb entry:  1
 ebb entry:  2
   ebb type:   loop
   ebb blocks: [2 3 4 5]
-  ebb cost:   (list_max([68*I((ln7 + 1) != ln8, ln8 = (pn2);ln7 = ln7, ln8 = ln8;ln7 = ln7 + 1); 74*I((ln7 + 1) != ln8, ln8 = (pn2);ln7 = ln7, ln8 = ln8;ln7 = ln7 + 1)])) + 1
+  ebb cost:   (list_max([[68 + |f85|*I((ln7 + 1) != ln8, ln8 = (pn2);ln7 = ln7, ln8 = ln8;ln7 = ln7 + 1); 74 + |f85|*I((ln7 + 1) != ln8, ln8 = (pn2);ln7 = ln7, ln8 = ln8;ln7 = ln7 + 1)]])) + (list_max([1; 1]))
   ebb exits:  [6]
   ebb succs:  [6]
   2 paths to exit 6
@@ -40,7 +40,7 @@ ebb entry:  6
 ebb entry:  7
   ebb type:   block
   ebb blocks: [7]
-  ebb cost:   3
+  ebb cost:   list_max([3; 3])
   ebb exits:  [8 22]
   ebb succs:  [22 8]
   1 paths to exit 8
@@ -58,7 +58,7 @@ ebb entry:  8
 ebb entry:  9
   ebb type:   loop
   ebb blocks: [9 10 11 12 13 14 15 16 17 18 19 20]
-  ebb cost:   (list_max([51*I((ln5 + 1) < (i32.load16_u@(pn0)), pn0 = pn0;ln5 = 0, pn0 = pn0;ln5 = ln5 + 1); 77*I((ln5 + 1) < (i32.load16_u@(pn0)), pn0 = pn0;ln5 = 0, pn0 = pn0;ln5 = ln5 + 1); 17*I((ln5 + 1) < (i32.load16_u@(pn0)), pn0 = pn0;ln5 = 0, pn0 = pn0;ln5 = ln5 + 1)])) + 1
+  ebb cost:   (list_max([[51*I((ln5 + 1) < (i32.load16_u@(pn0)), pn0 = pn0;ln5 = 0, pn0 = pn0;ln5 = ln5 + 1); 77*I((ln5 + 1) < (i32.load16_u@(pn0)), pn0 = pn0;ln5 = 0, pn0 = pn0;ln5 = ln5 + 1); 17*I((ln5 + 1) < (i32.load16_u@(pn0)), pn0 = pn0;ln5 = 0, pn0 = pn0;ln5 = ln5 + 1)]])) + (list_max([1; 1; 1]))
   ebb exits:  [21]
   ebb succs:  [21]
   3 paths to exit 21
@@ -72,7 +72,7 @@ ebb entry:  9
   ebb entry:  9
     ebb type:   block
     ebb blocks: [9 10 11 12]
-    ebb cost:   9
+    ebb cost:   list_max([6; 9])
     ebb exits:  [13 19]
     ebb succs:  [19 13]
     1 paths to exit 13
@@ -90,7 +90,7 @@ ebb entry:  9
   ebb entry:  14
     ebb type:   loop
     ebb blocks: [14 15 16 17]
-    ebb cost:   (list_max([24*I((ln8 + 1) < (ln7 && 65535), ln7 = (pn0);ln8 = 0, ln7 = ln7;ln8 = ln8 + 1); 50*I((ln8 + 1) < ((i32.load16_u@(pn0)) && 65535), pn0 = pn0;ln8 = 0, pn0 = pn0;ln8 = ln8 + 1)])) + 1
+    ebb cost:   (list_max([[24*I((ln8 + 1) < (ln7 && 65535), ln7 = (pn0);ln8 = 0, ln7 = ln7;ln8 = ln8 + 1); 50*I((ln8 + 1) < ((i32.load16_u@(pn0)) && 65535), pn0 = pn0;ln8 = 0, pn0 = pn0;ln8 = ln8 + 1)]])) + (list_max([1; 1]))
     ebb exits:  [18]
     ebb succs:  [18]
     2 paths to exit 18
@@ -111,7 +111,7 @@ ebb entry:  9
   ebb entry:  19
     ebb type:   block
     ebb blocks: [19 20]
-    ebb cost:   9
+    ebb cost:   list_max([8; 9])
     ebb exits:  [9 21]
     ebb succs:  [9]
     1 paths to exit 9

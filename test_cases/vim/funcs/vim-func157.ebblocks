@@ -9,7 +9,7 @@ ebb entry:  0
 ebb entry:  1
   ebb type:   loop
   ebb blocks: [1 2 3 4]
-  ebb cost:   (19 * I(i32.eqz(((i32.eqz(i32.load8_u@(pn0))) || ((i32.load8_u@(pn0)) == 9)) || ((i32.load8_u@(pn0)) == 32)), pn0 = pn0;pn0 = pn0;pn0 = pn0, pn0 = pn0 + 1;pn0 = pn0 + 1;pn0 = pn0 + 1)) + 1
+  ebb cost:   19*I(i32.eqz(((i32.eqz(i32.load8_u@(pn0))) || ((i32.load8_u@(pn0)) == 9)) || ((i32.load8_u@(pn0)) == 32)), pn0 = pn0;pn0 = pn0;pn0 = pn0, pn0 = pn0 + 1;pn0 = pn0 + 1;pn0 = pn0 + 1) + 1
   ebb exits:  [5]
   ebb succs:  [5]
   1 paths to exit 5

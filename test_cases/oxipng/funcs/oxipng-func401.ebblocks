@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0]
-  ebb cost:   5
+  ebb cost:   list_max([5; 4])
   ebb exits:  [1]
   ebb succs:  [1]
   2 paths to exit 1
@@ -10,7 +10,7 @@ ebb entry:  0
 ebb entry:  1
   ebb type:   loop
   ebb blocks: [1 2]
-  ebb cost:   Infinite + 0
+  ebb cost:   (Infinite) + ()
   ebb exits:  [3]
   ebb succs:  [3]
   0 paths to exit 3

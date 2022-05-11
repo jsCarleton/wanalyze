@@ -1,48 +1,111 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
-  ebb exits: [17 22 29]
+  ebb cost:   list_max([40 + (list_max([|f2570|; |f2855|])); 63 + (list_max([|f2570|; |f2855|])); 43 + (list_max([|f2570|; |f2855|])); 39 + (list_max([|f2570|; |f2855|])); 66 + (list_max([|f2570|; |f2855|])); 62 + (list_max([|f2570|; |f2855|])); 41 + (list_max([|f2570|; |f2848|; |f2855|]))])
+  ebb exits:  [17 22 29]
+  ebb succs:  [29 22 17]
   2 paths to exit 17
-  8 paths to exit 22
-  17 paths to exit 29
-ebb entry: 17
-  ebb blocks: [17]
-  ebb exits: [18]
-  1 paths to exit 18
-ebb entry: 18
-  ebb blocks: [18 19 20]
-  ebb exits: [21 22]
-  1 paths to exit 21
-  2 paths to exit 22
-ebb entry: 21
-  ebb blocks: [21]
-  ebb exits: [22]
-  1 paths to exit 22
-ebb entry: 22
-  ebb blocks: [22 23]
-  ebb exits: [24 28 30]
-  1 paths to exit 24
-  2 paths to exit 28
-  3 paths to exit 30
-ebb entry: 24
-  ebb blocks: [24]
-  ebb exits: [25]
-  2 paths to exit 25
-ebb entry: 25
-  ebb blocks: [25 26]
-  ebb exits: [27]
-  1 paths to exit 27
-ebb entry: 27
-  ebb blocks: [27]
-  ebb exits: [28]
-  1 paths to exit 28
-ebb entry: 28
-  ebb blocks: [28]
-  ebb exits: [29]
+  [0 1 2 3 9 10 11 14]
+  [0 1 2 3 4 7 10 11 14]
+  4 paths to exit 22
+  [0 1 2 3 9 10 11 14 15]
+  [0 1 2 3 9 10 11 12]
+  [0 1 2 3 4 7 10 11 14 15]
+  [0 1 2 3 4 7 10 11 12]
   1 paths to exit 29
-ebb entry: 29
-  ebb blocks: [29]
-  ebb exits: [30]
+  [0 1 2 3 4 5]
+ebb entry:  17
+  ebb type:   block
+  ebb blocks: [17]
+  ebb cost:   1
+  ebb exits:  [18]
+  ebb succs:  [18]
+  1 paths to exit 18
+  [17]
+ebb entry:  18
+  ebb type:   loop
+  ebb blocks: [18 19 20]
+  ebb cost:   22 + |f2570|*I(ln3 > 2, ln3 = rn0, ln3 = ln3 - 1) + 1
+  ebb exits:  [21 22]
+  ebb succs:  [22 21]
+  1 paths to exit 21
+  [18 19 20]
+  1 paths to exit 22
+  [18]
+  1 loop paths
+  [18 19]
+  1 post loop exit paths
+  [20]
+ebb entry:  21
+  ebb type:   block
+  ebb blocks: [21]
+  ebb cost:   1
+  ebb exits:  [22]
+  ebb succs:  [22]
+  1 paths to exit 22
+  [21]
+ebb entry:  22
+  ebb type:   block
+  ebb blocks: [22 23]
+  ebb cost:   list_max([9; 9; 2])
+  ebb exits:  [24 28 30]
+  ebb succs:  [30 28 24]
+  1 paths to exit 24
+  [22 23]
+  1 paths to exit 28
+  [22 23]
   1 paths to exit 30
-ebb entry: 30
-  ebb blocks: [30]
-  ebb exits: []
+  [22]
+ebb entry:  24
+  ebb type:   block
+  ebb blocks: [24]
+  ebb cost:   list_max([98 + |f2855|; 64 + |f2855|])
+  ebb exits:  [25]
+  ebb succs:  [25]
+  2 paths to exit 25
+  [24 25]
+  [24]
+ebb entry:  25
+  ebb type:   loop
+  ebb blocks: [25 26]
+  ebb cost:   34 + |f2855|*I(((ln8 - (ln3 shr_u 1)) - (ln5 + 0)) > 1, ln5 = ln5 + (select(rn0 > (((((((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shr_u 2) && 858993459) || (((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shl 2) && -858993460)) shr_u 1) && 1431655765) || ((((((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shr_u 2) && 858993459) || (((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shl 2) && -858993460)) shl 1) && -1431655766)), (rn0 - ln5) shr_u 1, 0));ln3 = (rn0 - (select(rn0 > (((((((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shr_u 2) && 858993459) || (((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shl 2) && -858993460)) shr_u 1) && 1431655765) || ((((((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shr_u 2) && 858993459) || (((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shl 2) && -858993460)) shl 1) && -1431655766)), 0, (rn0 - ln5) shr_u 1))) - (ln5 + (select(rn0 > (((((((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shr_u 2) && 858993459) || (((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shl 2) && -858993460)) shr_u 1) && 1431655765) || ((((((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shr_u 2) && 858993459) || (((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shl 2) && -858993460)) shl 1) && -1431655766)), (rn0 - ln5) shr_u 1, 0)));ln8 = rn0 - (select(rn0 > (((((((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shr_u 2) && 858993459) || (((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shl 2) && -858993460)) shr_u 1) && 1431655765) || ((((((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shr_u 2) && 858993459) || (((((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shr_u 4) && 252645135) || ((((((rn0 shr_u 8) && 65280) || (rn0 shr_u 24)) || (((rn0 shl 8) && 16711680) || (rn0 shl 24))) shl 4) && -252645136)) shl 2) && -858993460)) shl 1) && -1431655766)), 0, (rn0 - ln5) shr_u 1)), ln5 = ln5 + (select(rn0 > ln9, ln3 shr_u 1, 0));ln3 = (ln8 - (select(rn0 > ln9, 0, ln3 shr_u 1))) - (ln5 + (select(rn0 > ln9, ln3 shr_u 1, 0)));ln8 = ln8 - (select(rn0 > ln9, 0, ln3 shr_u 1))) + 1
+  ebb exits:  [27]
+  ebb succs:  [27]
+  1 paths to exit 27
+  [25 26]
+  1 loop paths
+  [25]
+  1 post loop exit paths
+  [26]
+ebb entry:  27
+  ebb type:   block
+  ebb blocks: [27]
+  ebb cost:   1
+  ebb exits:  [28]
+  ebb succs:  [28]
+  1 paths to exit 28
+  [27]
+ebb entry:  28
+  ebb type:   block
+  ebb blocks: [28]
+  ebb cost:   20 + (list_max([|f2848|; |f2855|]))
+  ebb exits:  [29]
+  ebb succs:  [29]
+  1 paths to exit 29
+  [28]
+ebb entry:  29
+  ebb type:   block
+  ebb blocks: [29]
+  ebb cost:   2 + |f2571|
+  ebb exits:  [30]
+  ebb succs:  [30]
+  1 paths to exit 30
+  [29]
+ebb entry:  30
+  ebb type:   block
+  ebb blocks: [30 31]
+  ebb cost:   2
+  ebb exits:  [31]
+  ebb succs:  []
+  1 paths to exit 31
+  [30]

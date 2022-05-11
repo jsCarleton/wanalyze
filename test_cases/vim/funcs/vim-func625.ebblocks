@@ -1,20 +1,47 @@
-ebb entry: 0
+ebb entry:  0
+  ebb type:   block
   ebb blocks: [0]
-  ebb exits: [1 7]
+  ebb cost:   list_max([4; 4])
+  ebb exits:  [1 7]
+  ebb succs:  [7 1]
   1 paths to exit 1
-  3 paths to exit 7
-ebb entry: 1
-  ebb blocks: [1]
-  ebb exits: [2]
-  1 paths to exit 2
-ebb entry: 2
-  ebb blocks: [2 3 4 5]
-  ebb exits: [6]
-  2 paths to exit 6
-ebb entry: 6
-  ebb blocks: [6]
-  ebb exits: [7]
+  [0]
   1 paths to exit 7
-ebb entry: 7
-  ebb blocks: [7]
-  ebb exits: []
+  [0]
+ebb entry:  1
+  ebb type:   block
+  ebb blocks: [1]
+  ebb cost:   1
+  ebb exits:  [2]
+  ebb succs:  [2]
+  1 paths to exit 2
+  [1]
+ebb entry:  2
+  ebb type:   loop
+  ebb blocks: [2 3 4 5]
+  ebb cost:   (list_max([[9*I(i32.load@(ln2), ln2 = (242548), ln2 = (ln2)); 13 + |f221|*I(i32.load@(ln2), ln2 = (242548), ln2 = (ln2))]])) + (list_max([1; 1]))
+  ebb exits:  [6]
+  ebb succs:  [6]
+  2 paths to exit 6
+  [2 4 5]
+  [2 3 4 5]
+  2 loop paths
+  [2 4]  [2 3 4]
+  2 post loop exit paths
+  [5]  [5]
+ebb entry:  6
+  ebb type:   block
+  ebb blocks: [6]
+  ebb cost:   1
+  ebb exits:  [7]
+  ebb succs:  [7]
+  1 paths to exit 7
+  [6]
+ebb entry:  7
+  ebb type:   block
+  ebb blocks: [7 8]
+  ebb cost:   1
+  ebb exits:  [8]
+  ebb succs:  []
+  1 paths to exit 8
+  [7]

@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6]
-  ebb cost:   21
+  ebb cost:   list_max([21; 21; 19; 19])
   ebb exits:  [7 287]
   ebb succs:  [287 7]
   2 paths to exit 7
@@ -48,7 +48,7 @@ ebb entry:  284
 ebb entry:  285
   ebb type:   block
   ebb blocks: [285 286]
-  ebb cost:   8
+  ebb cost:   list_max([8 + |f22|; 3])
   ebb exits:  [287]
   ebb succs:  [287]
   2 paths to exit 287
@@ -65,6 +65,6 @@ ebb entry:  287
 ebb entry:  289
   ebb type:   block
   ebb blocks: [289]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

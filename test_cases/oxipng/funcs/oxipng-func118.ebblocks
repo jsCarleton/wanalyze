@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7]
-  ebb cost:   21
+  ebb cost:   list_max([21; 6])
   ebb exits:  [8 40]
   ebb succs:  [40 8]
   1 paths to exit 8
@@ -83,7 +83,7 @@ ebb entry:  19
 ebb entry:  23
   ebb type:   block
   ebb blocks: [23 24 25]
-  ebb cost:   9
+  ebb cost:   list_max([4; 9])
   ebb exits:  [26 38 42]
   ebb succs:  [42 38 26]
   0 paths to exit 26
@@ -95,7 +95,7 @@ ebb entry:  23
 ebb entry:  26
   ebb type:   block
   ebb blocks: [26 27]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [28 43]
   ebb succs:  [43 28]
   0 paths to exit 28
@@ -105,7 +105,7 @@ ebb entry:  26
 ebb entry:  28
   ebb type:   block
   ebb blocks: [28 29]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [30 43]
   ebb succs:  [43 30]
   0 paths to exit 30
@@ -115,7 +115,7 @@ ebb entry:  28
 ebb entry:  30
   ebb type:   block
   ebb blocks: [30 31]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [32 43]
   ebb succs:  [43 32]
   0 paths to exit 32
@@ -125,7 +125,7 @@ ebb entry:  30
 ebb entry:  32
   ebb type:   block
   ebb blocks: [32 33]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [34 43]
   ebb succs:  [43 34]
   0 paths to exit 34
@@ -135,7 +135,7 @@ ebb entry:  32
 ebb entry:  34
   ebb type:   block
   ebb blocks: [34 35]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [36 43]
   ebb succs:  [43 36]
   0 paths to exit 36
@@ -145,7 +145,7 @@ ebb entry:  34
 ebb entry:  36
   ebb type:   block
   ebb blocks: [36 37]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [38 43]
   ebb succs:  [43 38]
   0 paths to exit 38
@@ -155,7 +155,7 @@ ebb entry:  36
 ebb entry:  38
   ebb type:   block
   ebb blocks: [38 39]
-  ebb cost:   5
+  ebb cost:   5 + |f288|
   ebb exits:  [40 43]
   ebb succs:  [43 40]
   0 paths to exit 40
@@ -165,7 +165,7 @@ ebb entry:  38
 ebb entry:  40
   ebb type:   block
   ebb blocks: [40 41]
-  ebb cost:   9
+  ebb cost:   9 + |f119|
   ebb exits:  [41]
   ebb succs:  []
   1 paths to exit 41
@@ -173,12 +173,12 @@ ebb entry:  40
 ebb entry:  42
   ebb type:   block
   ebb blocks: [42]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []
 ebb entry:  43
   ebb type:   block
   ebb blocks: [43]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []

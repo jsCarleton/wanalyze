@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17]
-  ebb cost:   55
+  ebb cost:   list_max([31; 40 + |f34|; 35; 44 + |f34|; 33; 42 + (list_max([|f53|; |f77|])); 51 + (list_max([|f34|; |f53|; |f77|])); 46 + (list_max([|f53|; |f77|])); 55 + (list_max([|f34|; |f53|; |f77|])); 44 + (list_max([|f53|; |f77|])); 36 + |f53|; 45 + (list_max([|f34|; |f53|])); 40 + |f53|; 49 + (list_max([|f34|; |f53|])); 38 + |f53|])
   ebb exits:  [17]
   ebb succs:  []
   15 paths to exit 17

@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11]
-  ebb cost:   29
+  ebb cost:   list_max([26; 29; 24; 16; 11 + |f13|])
   ebb exits:  [12 17 30 47]
   ebb succs:  [47 30 17 12]
   1 paths to exit 12
@@ -46,7 +46,7 @@ ebb entry:  16
 ebb entry:  17
   ebb type:   block
   ebb blocks: [17 18 19]
-  ebb cost:   15
+  ebb cost:   list_max([15; 15; 8])
   ebb exits:  [20 24]
   ebb succs:  [24 20]
   1 paths to exit 20
@@ -57,7 +57,7 @@ ebb entry:  17
 ebb entry:  20
   ebb type:   block
   ebb blocks: [20]
-  ebb cost:   76
+  ebb cost:   list_max([76; 1])
   ebb exits:  [21]
   ebb succs:  [21]
   2 paths to exit 21
@@ -86,7 +86,7 @@ ebb entry:  23
 ebb entry:  24
   ebb type:   block
   ebb blocks: [24]
-  ebb cost:   4
+  ebb cost:   list_max([4; 4])
   ebb exits:  [25 40]
   ebb succs:  [40 25]
   1 paths to exit 25
@@ -96,7 +96,7 @@ ebb entry:  24
 ebb entry:  25
   ebb type:   block
   ebb blocks: [25]
-  ebb cost:   16
+  ebb cost:   list_max([16; 1])
   ebb exits:  [26]
   ebb succs:  [26]
   2 paths to exit 26
@@ -127,7 +127,7 @@ ebb entry:  28
 ebb entry:  30
   ebb type:   block
   ebb blocks: [30 31 32 33 34 35]
-  ebb cost:   14
+  ebb cost:   list_max([11; 14; 7])
   ebb exits:  [36 40]
   ebb succs:  [40 36]
   1 paths to exit 36
@@ -138,7 +138,7 @@ ebb entry:  30
 ebb entry:  36
   ebb type:   block
   ebb blocks: [36]
-  ebb cost:   30
+  ebb cost:   list_max([30; 3])
   ebb exits:  [37]
   ebb succs:  [37]
   2 paths to exit 37
@@ -167,7 +167,7 @@ ebb entry:  39
 ebb entry:  40
   ebb type:   block
   ebb blocks: [40]
-  ebb cost:   4
+  ebb cost:   list_max([4; 4])
   ebb exits:  [41 45]
   ebb succs:  [45 41]
   1 paths to exit 41
@@ -177,7 +177,7 @@ ebb entry:  40
 ebb entry:  41
   ebb type:   block
   ebb blocks: [41]
-  ebb cost:   16
+  ebb cost:   list_max([16; 1])
   ebb exits:  [42]
   ebb succs:  [42]
   2 paths to exit 42
@@ -214,6 +214,6 @@ ebb entry:  45
 ebb entry:  47
   ebb type:   block
   ebb blocks: [47]
-  ebb cost:   0
+  ebb cost:   
   ebb exits:  []
   ebb succs:  []
