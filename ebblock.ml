@@ -93,15 +93,18 @@ let ebb_too_many_paths (ebb: ebblock): bool =
   List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) ebb.exits
 
 let exit_bbs_of_bbs (bbs: bblock list): bblock list =
-  (* an exit of a list of bbs is a successor of one of the bb of the bbs that's not in the
-      bbs or an exit bb *)
-  List.filter ~f:(fun bb -> bb_not_in_bblocks bb bbs || bb_is_exit bb)
+  (* to be an exit bb of a list of bbs a bb must meet each these conditions:
+      - it's a successor of some bb in the given list of bbs,
+      - it's not in the given list of bbs,
+      - it's not an unreachable bb
+    or it's one of our special exit bbs ("E", "U" or "R")
+  *)
+  let bb_not_unreachable (bb: bblock): bool = 
+    match bb.bbtype with | BB_unreachable -> false | _ -> true
+  in
+  List.filter ~f:(fun bb -> (bb_not_unreachable bb) && (bb_not_in_bblocks bb bbs || bb_is_exit bb))
     (List.dedup_and_sort ~compare:compare_bbs 
       (List.fold_left ~init:[] ~f:(fun acc bb -> List.append bb.succ acc) bbs))
-(*
-let edge_bbs_of_bblocks (bbs: bblock list): bblock list =
-  List.filter ~f:(fun bb -> (List.exists ~f:(fun bb' -> bb_not_in_bblocks bb' bbs) bb.succ)) bbs
-*)
 
 let exits_of_bbs (bbs: bblock list) (exit_bbs: bblock list): ebb_exit list =
   List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_bbs_to_bb bbs exit_bb}) exit_bbs
@@ -367,19 +370,19 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
       List.find ~f:(fun ebb -> ebb.entry_bb.bbindex = bb.bbindex) ebbs
     in
 
-    let update_succ'' (ebbs: ebblock list) (ebb: ebblock) (e: ebb_exit) =
-      let s = ebb_of_bblock ebbs e.exit_bb in
-      match s with
-      | Some succ   -> ebb.succ_ebbs <- succ::ebb.succ_ebbs
-      | None        -> ()
-    in
-
-    let update_succ' (ebbs: ebblock list) (ebb: ebblock) =
-      List.iter ~f:(update_succ'' ebbs ebb) ebb.exits;
-    in
-
+    (* update the successor ebbs for all ebbs *)
     let update_succ (ebbs: ebblock list) =
-      List.iter ~f:(update_succ' ebbs) ebbs;
+
+      let update_succ' (ebbs: ebblock list) (ebb: ebblock) =
+        let update_succ'' (ebbs: ebblock list) (ebb: ebblock) (e: ebb_exit) =
+          let s = ebb_of_bblock ebbs e.exit_bb in
+          match s with
+          | Some succ   -> ebb.succ_ebbs <- succ::ebb.succ_ebbs
+          | None        -> ()
+        in
+      List.iter ~f:(update_succ'' ebbs ebb) ebb.exits;
+     in
+     List.iter ~f:(update_succ' ebbs) ebbs;
     in
 
   let ebbs = eblock_of_bblocks' all_bbs [] [] (-1) None in

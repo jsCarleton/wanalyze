@@ -1,5 +1,6 @@
 open Core
 
+(* expression tree *)
 type expr_tree = Empty | Constant of string | Variable of string | Node of node
       and node = { op: string; args: expr_tree list}
 

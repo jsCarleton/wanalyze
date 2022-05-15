@@ -295,9 +295,6 @@
     local.get 39
     local.get 40
     call 6
-    drop
-    local.get 4
-    i32.load offset=28
     local.set 41
     i32.const 32
     local.set 42

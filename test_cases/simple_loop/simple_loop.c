@@ -27,5 +27,5 @@ int main(int argc, char** argv) {
   }
 
   // sum it
-  sum(n, data);
+  return sum(n, data);
 }

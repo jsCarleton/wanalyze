@@ -8,17 +8,17 @@ type ebb_type = EBB_loop | EBB_block
 
 type ebblock = 
   {
-    ebbtype:      ebb_type;                 (* either a block or a loop*)
-    cost:         Symbolic_expr.expr_tree;  (* cost of executing this ebb *)
-    entry_bb:     Bblock.bblock;            (* bb that's the entry to the ebb *)
-    bbs:          Bblock.bblock list;       (* list of bbs that make up the ebb *)
-    exits:        ebb_exit list;            (* info about how the ebb is exitted *)
+    ebbtype:      ebb_type;                   (* either a block or a loop*)
+    cost:         Symbolic_expr.expr_tree;    (* cost of executing this ebb *)
+    entry_bb:     Bblock.bblock;              (* bb that's the entry to the ebb *)
+    bbs:          Bblock.bblock list;         (* list of bbs that make up the ebb *)
+    exits:        ebb_exit list;              (* info about how the ebb is exitted *)
     mutable
-    succ_ebbs:    ebblock list;             (* list of ebblocks directly reachable from this one*)
+    succ_ebbs:    ebblock list;               (* list of ebblocks directly reachable from this one*)
     (* these properties are used when the ebb contains a loop *)
-    loop_cps:     Code_path.code_path list; (* code_paths in the ebb that loop *)
-    exit_cps:     Code_path.code_path list; (* code_paths in the ebb that aren't the loop *)
-    nested_ebbs:  ebblock list;             (* ebbs containing nested loops *)
+    loop_cps:     Code_path.code_path list;   (* code_paths in the ebb that loop *)
+    exit_cps:     Code_path.code_path list;   (* code_paths in the ebb that aren't the loop *)
+    nested_ebbs:  ebblock list;               (* ebbs containing nested loops *)
   }
 
 val string_of_ebblock:      ebblock -> string
