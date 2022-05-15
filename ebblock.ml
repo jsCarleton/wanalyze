@@ -245,19 +245,27 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                 let cp = List.rev (List.hd_exn cps) in (* TODO this reverse should be done earlier *)
                 let bbacks = Code_path.branchbacks_of_loop bbs in 
                 let lms = looping_parts_costs bbacks loop_cps cp in
+                let exit_cost = max_cost_of_code_paths ctx.w_e exit_cps in
                 if List.length lms > 1 then
                   begin
-                    let cost = Node {op = "+";
-                                args = [Node {op = "list_max"; args = [Constant (loop_path_costs lms)]};
-                                        max_cost_of_code_paths ctx.w_e exit_cps]} in
-                    {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                    match exit_cost with
+                    | Empty ->
+                        let cost = Node {op = "list_max"; args = [Constant (loop_path_costs lms)]} in
+                        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                    | _     ->
+                        let cost = Node {op = "+";
+                                         args = [Node {op = "list_max"; args = [Constant (loop_path_costs lms)]}; exit_cost]} in
+                        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
                   begin
-                    let cost = Node {op = "+";
-                                args = [Constant (string_of_lm (List.hd_exn lms));
-                                        max_cost_of_code_paths ctx.w_e exit_cps]} in
-                    {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                    match exit_cost with
+                    | Empty ->
+                        let cost = Constant (string_of_lm (List.hd_exn lms)) in
+                        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+        | _     ->
+                        let cost = Node {op = "+"; args = [Constant (string_of_lm (List.hd_exn lms)); exit_cost]} in
+                        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
               end
             else

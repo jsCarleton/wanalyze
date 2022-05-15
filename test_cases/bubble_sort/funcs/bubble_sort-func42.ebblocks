@@ -33,7 +33,7 @@ ebb entry:  27
 ebb entry:  28
   ebb type:   loop
   ebb blocks: [28 29 30 31 32 33 34 35]
-  ebb cost:   (list_max([[31*I(((pF1 - (f64.convert_i32_u(0))) * 1000000000.) != 0., pF1 = rF0 + rF0, pF1 = (pF1 - (f64.convert_i32_u(0))) * 1000000000.); 32*I(((pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.) != 0., pF1 = rF0 + rF0;pF1 = rF0 + rF0, pF1 = (pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.;pF1 = (pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.)]])) + (list_max([1; 1]))
+  ebb cost:   (list_max([[31*I(((pF1 - (f64.convert_i32_u(0))) * 1000000000.) != 0., pF1 = rF0 + rF0, pF1 = (pF1 - (f64.convert_i32_u(0))) * 1000000000.); 32*I(((pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.) != 0., pF1 = rF0 + rF0, pF1 = (pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.)]])) + (list_max([1; 1]))
   ebb exits:  [36]
   ebb succs:  [36]
   2 paths to exit 36
@@ -228,7 +228,7 @@ ebb entry:  61
   ebb entry:  67
     ebb type:   loop
     ebb blocks: [67 68]
-    ebb cost:   22*I((ln11 + 4) < ln10, ln10 = ln10;ln11 = ln18 + 4, ln10 = ln10;ln11 = ln11 + 4) + 1
+    ebb cost:   22*I((ln11 + 4) < ln10, ln11 = ln18 + 4;ln10 = ln10, ln11 = ln11 + 4;ln10 = ln10) + 1
     ebb exits:  [69]
     ebb succs:  [69]
     1 paths to exit 69
@@ -287,7 +287,7 @@ ebb entry:  77
 ebb entry:  78
   ebb type:   loop
   ebb blocks: [78 79]
-  ebb cost:   11*I(ln12 >= (ln11 * 10), ln11 = 10 * 10;ln12 = (select(((g0 - 560)) < 0, (g0 - 560) + 336, (g0 - 560) + 48)), ln11 = ln11 * 10;ln12 = ln12) + 1
+  ebb cost:   11*I(ln12 >= (ln11 * 10), ln12 = (select(((g0 - 560)) < 0, (g0 - 560) + 336, (g0 - 560) + 48));ln11 = 10 * 10, ln12 = ln12;ln11 = ln11 * 10) + 1
   ebb exits:  [80]
   ebb succs:  [80]
   1 paths to exit 80
