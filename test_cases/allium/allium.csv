@@ -2,7 +2,7 @@ Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Va
 allium,29,4,[0 3 4] 19,if
 allium,29,23,[0 3 23] 23,simple br,pn2 = (pn0 + pn2) - 4; pn0 = pn0,pn0 < pn2,pn0; pn2,pn2 = pn2; pn0 = pn0
 allium,30,1,[0 1] 13,simple br,pn0 = pn0,pn0 && 3,pn0,pn0 = pn0
-allium,30,17,[0 17] 13,simple br,ln4 = pn0 + pn2; pn0 = pn0,pn0 < ln4,pn0; ln4,ln4 = ln4; pn0 = pn0
+allium,30,17,[0 17] 13,simple br,pn0 = pn0; ln4 = pn0 + pn2,pn0 < ln4,ln4; pn0,pn0 = pn0; ln4 = ln4
 allium,35,4,[0 3 4] 387 + |f20|,if
 allium,40,10,[0 1 6 7 9 10] 21 + (list_max([|f5|; |f20|; |f40|])),if
 allium,40,10,[0 1 6 8 9 10] 18 + (list_max([|f5|; |f20|])),if
@@ -42,5 +42,5 @@ allium,71,11,[0 2 7 8 9 11] 136 + (list_max([|f17|; |f20|; |f25|; |f30|; |f35|; 
 allium,71,11,[0 2 7 8 10 11] 169 + (list_max([|f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
 allium,72,3,[0 3] 49,simple br_if,pN4 = pN4; ln17 = ln17,(i64.extend_i32_u(ln17 + 1)) < pN4,ln17; pN4,pN4 = pN4; ln17 = ln17 + 1
 allium,73,3,[0 3] 60,simple br_if,pN3 = pN3; ln15 = ln15,(i64.extend_i32_u(ln15 + 1)) < pN3,ln15; pN3,pN3 = pN3; ln15 = ln15 + 1
-allium,75,3,[0 3] 62,simple br_if,pN2 = pN2; pn1 = 0,(i64.extend_i32_u(pn1 + 1)) < pN2,pn1; pN2,pN2 = pN2; pn1 = pn1 + 1
-allium,78,3,[0 3] 9,simple br_if,ln3 = pn2 /u 96; ln4 = ln4,(ln4 + 1) < ln3,ln4; ln3,ln3 = ln3; ln4 = ln4 + 1
+allium,75,3,[0 3] 62,simple br_if,pn1 = 0; pN2 = pN2,(i64.extend_i32_u(pn1 + 1)) < pN2,pN2; pn1,pn1 = pn1 + 1; pN2 = pN2
+allium,78,3,[0 3] 9,simple br_if,ln4 = ln4; ln3 = pn2 /u 96,(ln4 + 1) < ln3,ln3; ln4,ln4 = ln4 + 1; ln3 = ln3

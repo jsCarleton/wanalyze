@@ -20,7 +20,7 @@ ebb entry:  3
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5]
-  ebb cost:   89 + (list_max([|f26|; |f28|; |f39|]))*I((ln4 + 1) < ln3, ln3 = pn2 /u 96;ln4 = ln4 + 1, ln3 = ln3;ln4 = ln4 + 1) + 1
+  ebb cost:   89 + (list_max([|f26|; |f28|; |f39|]))*I((ln4 + 1) < ln3, ln4 = ln4 + 1;ln3 = pn2 /u 96, ln4 = ln4 + 1;ln3 = ln3) + 1
   ebb exits:  [6]
   ebb succs:  [6]
   1 paths to exit 6

@@ -371,6 +371,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
     in
 
     (* update the successor ebbs for all ebbs *)
+    (* TODO what's the difference between exits and succs? *)
     let update_succ (ebbs: ebblock list) =
 
       let update_succ' (ebbs: ebblock list) (ebb: ebblock) =

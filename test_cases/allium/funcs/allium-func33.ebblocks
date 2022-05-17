@@ -243,7 +243,7 @@ ebb entry:  144
 ebb entry:  145
   ebb type:   loop
   ebb blocks: [145 146 147 148 149]
-  ebb cost:   29 + |f20|*I(not((rn0 && -8) == ln3), ln3 = (rn0 && -8) + (rn0 + (rn0 && -8));rn0 = rn0, ln3 = ln3;rn0 = rn0) + 1
+  ebb cost:   29 + |f20|*I(not((rn0 && -8) == ln3), rn0 = rn0;ln3 = (rn0 && -8) + (rn0 + (rn0 && -8)), rn0 = rn0;ln3 = ln3) + 1
   ebb exits:  [150 153]
   ebb succs:  [153 150]
   1 paths to exit 150
