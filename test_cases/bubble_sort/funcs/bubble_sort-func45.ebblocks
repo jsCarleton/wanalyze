@@ -1,10 +1,8 @@
 ebb entry:  0
   ebb type:   block
-  ebb blocks: [0 1 2 3 4 5 6]
-  ebb cost:   list_max([8 + |f14|; 5])
-  ebb exits:  [5 6]
+  ebb blocks: [0 1]
+  ebb cost:   4
+  ebb exits:  [1]
   ebb succs:  []
-  1 paths to exit 5
-  [0 1 4]
-  1 paths to exit 6
-  [0 1 2]
+  1 paths to exit 1
+  [0]

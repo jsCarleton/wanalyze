@@ -112,11 +112,11 @@ let rec string_of_expr_tree (e: expr_tree): string =
                     | Constant _, Constant _
                         -> String.concat[string_of_expr_tree arg1; " "; n.op; " "; string_of_expr_tree arg2]
                     | Node _, Node _
-                        -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " ("; string_of_expr_tree arg2; ")"]
+                        -> String.concat["("; string_of_expr_tree arg1; ")"; n.op; " ("; string_of_expr_tree arg2; ")"]
                     | _, Node _
-                      -> String.concat[string_of_expr_tree arg1; " "; n.op; " ("; string_of_expr_tree arg2; ")"]
+                        -> String.concat[string_of_expr_tree arg1; " "; n.op; " ("; string_of_expr_tree arg2; ")"]
                     | Node _, _
-                      -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " "; string_of_expr_tree arg2]
+                        -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " "; string_of_expr_tree arg2]
                     | _, _
                         -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " ("; string_of_expr_tree arg2; ")"]
                   end

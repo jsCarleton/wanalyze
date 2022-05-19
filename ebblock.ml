@@ -226,9 +226,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
   in
 
   let loop_path_costs (lms: Cost.loop_metric list): string =
-    String.concat [ "["; 
-                    String.concat ~sep:"; " (List.map ~f:string_of_lm lms);
-                    "]"]
+    String.concat [ String.concat ~sep:"; " (List.map ~f:string_of_lm lms) ]
   in
   
   let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
@@ -262,7 +260,8 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                         {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
                         let cost = Node {op = "+";
-                                         args = [Node {op = "list_max"; args = [Constant (loop_path_costs lms)]}; exit_cost]} in
+                                         args = [Node {op = "list_max"; args = [Constant (loop_path_costs lms)]};
+                                                 exit_cost]} in
                         {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
