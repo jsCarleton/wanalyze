@@ -1,0 +1,29 @@
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0]
+  ebb cost:   list_max([56; 39])
+  ebb exits:  [1]
+  ebb succs:  [1]
+  2 paths to exit 1
+  [0 1]
+  [0]
+ebb entry:  1
+  ebb type:   loop
+  ebb blocks: [1 2]
+  ebb cost:   (17)*I(ln6;pn0, pn0 != ln6, pn0 = (pn2 + 5) + 1;ln6 = pn2 + 6, pn0 = pn0 + 1;ln6 = ln6) + 1
+  ebb exits:  [3]
+  ebb succs:  [3]
+  1 paths to exit 3
+  [1 2]
+  1 loop paths
+  [1]
+  1 post loop exit paths
+  [2]
+ebb entry:  3
+  ebb type:   block
+  ebb blocks: [3 4]
+  ebb cost:   35
+  ebb exits:  [4]
+  ebb succs:  []
+  1 paths to exit 4
+  [3]
