@@ -1,40 +1,39 @@
 Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values
-simple_loop,6,1,[0 1] 26,if
-simple_loop,7,1,[0 1] 91 + (list_max([|f9|; |f10|; |f11|; |f18|; |f53|])),if
-simple_loop,13,8,[0 1 2 3 4 5 8] 54 + (list_max([|f1|; |f46|])),if
-simple_loop,17,33,[0 1 2 3 4 5 6 21 22 23 24 25 26 27 32 33] 61,block
-simple_loop,17,33,[0 1 2 3 4 5 6 21 22 23 24 25 26 29 32 33] 64,block
-simple_loop,17,33,[0 1 2 3 4 5 6 21 22 23 24 31 32 33] 52,block
-simple_loop,17,33,[0 1 2 3 4 5 6 21 22 23 31 32 33] 47,block
-simple_loop,17,11,[0 1 2 3 4 5 10 11] 23,if
-simple_loop,19,8,[0 1 2 3 4 5 6 7 8] 158,simple br_if,pn2 = ((pn2 - ((0 - pn0) && 3)) && -4) - (((pn0 + ((0 - pn0) && 3)) && 4) || 24),(pn2 + -32) > 31,pn2,pn2 = pn2 + -32
-simple_loop,24,2,[0 1 2] 7 + |f23|,simple br_if,ln0 = (rn0),i32.load@(ln0),ln0,ln0 = (ln0)
-simple_loop,28,5,[0 1 2 3 4 5] 20,if
-simple_loop,28,17,[0 1 2 3 4 11 12 13 14 15 16 17] 39,if
-simple_loop,28,24,[0 1 2 3 4 11 12 13 14 15 16 22 23 24] 41,block
-simple_loop,28,24,[0 1 2 3 4 11 12 13 14 15 22 23 24] 37,block
-simple_loop,28,17,[0 1 2 3 11 12 13 14 15 16 17] 36,if
-simple_loop,28,24,[0 1 2 3 11 12 13 14 15 16 22 23 24] 38,block
-simple_loop,28,24,[0 1 2 3 11 12 13 14 15 22 23 24] 34,block
-simple_loop,31,24,[0 1 4 5 6 7 8 9 10 21 22 23 24] 42,simple br_if,pn2 = pn0; ln5 = ((pn0 + pn2) && -4) + -64,(pn2 + 64) <= ln5,ln5; pn2,pn2 = pn2 + 64; ln5 = ln5
-simple_loop,31,29,[0 1 4 5 6 7 8 9 10 21 22 23 28 29] 46,if
-simple_loop,31,49,[0 1 4 5 6 7 8 9 10 21 22 23 28 47 48 49] 51,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
-simple_loop,31,29,[0 1 4 5 6 7 8 9 10 21 22 28 29] 39,if
-simple_loop,31,49,[0 1 4 5 6 7 8 9 10 21 22 28 47 48 49] 44,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
-simple_loop,31,24,[0 1 4 5 6 7 8 9 12 13 14 21 22 23 24] 45,simple br_if,pn2 = pn0; ln5 = ((pn0 + pn2) && -4) + -64,(pn2 + 64) <= ln5,ln5; pn2,pn2 = pn2 + 64; ln5 = ln5
-simple_loop,31,29,[0 1 4 5 6 7 8 9 12 13 14 21 22 23 28 29] 49,if
-simple_loop,31,49,[0 1 4 5 6 7 8 9 12 13 14 21 22 23 28 47 48 49] 54,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
-simple_loop,31,29,[0 1 4 5 6 7 8 9 12 13 14 21 22 28 29] 42,if
-simple_loop,31,49,[0 1 4 5 6 7 8 9 12 13 14 21 22 28 47 48 49] 47,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
-simple_loop,31,16,[0 1 4 5 6 7 8 9 12 13 16] 29,if
-simple_loop,31,49,[0 1 4 5 6 35 36 37 47 48 49] 31,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
-simple_loop,31,49,[0 1 4 5 6 35 36 39 40 41 47 48 49] 39,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
-simple_loop,31,43,[0 1 4 5 6 35 36 39 40 43] 33,simple br_if,pn2 = pn0; ln4 = (pn0 + pn2) + -4,(pn2 + 4) <= ln4,ln4; pn2,pn2 = pn2 + 4; ln4 = ln4
-simple_loop,32,14,[0 1 2 3 4 5 6 9 10 11 14] 34 + |f26|,block
-simple_loop,32,14,[0 1 2 5 6 9 10 11 14] 25,block
-simple_loop,36,4,[0 1 4] 9 + |f27|,block
-simple_loop,38,2,[0 1 2] 5,simple br_if,pN0 = pN0,pN0 > 15,pN0,pN0 = pN0 shr_u 4
-simple_loop,39,2,[0 1 2] 5,simple br_if,pN0 = pN0,pN0 > 7,pN0,pN0 = pN0 shr_u 3
-simple_loop,40,11,[0 1 2 3 9 10 11] 16,simple br_if,ln3 = i32.wrap_i64(pN0),ln3 > 9,ln3,ln3 = ln3 /u 10
-simple_loop,40,5,[0 1 2 5] 7,simple br_if,pN0 = pN0,pN0 > 42949672959,pN0,pN0 = pN0 /u 10
-simple_loop,41,5,[0 1 2 3 4 5] 34 + |f19|,simple br_if,pn2 = pn2 - pn3,(pn2 + -256) > 255,pn2,pn2 = pn2 + -256
+simple_loop,6,2,[0 1 2] 38 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|])),simple br_if,pn1 = rn0; ln3 = 0,(ln3 + 1) != pn1,ln3; pn1,pn1 = pn1; ln3 = ln3 + 1
+simple_loop,6,8,[0 1 6 7 8] 47 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|])),simple br_if,pn1 = rn0; ln3 = 0,(ln3 + 1) != pn1,ln3; pn1,pn1 = pn1; ln3 = ln3 + 1
+simple_loop,12,8,[0 1 2 3 4 5 8] 54 + (list_sum([|f1|; |f37|])),if
+simple_loop,16,33,[0 1 2 3 4 5 6 21 22 23 24 25 26 27 32 33] 61,block
+simple_loop,16,33,[0 1 2 3 4 5 6 21 22 23 24 25 26 29 32 33] 64,block
+simple_loop,16,33,[0 1 2 3 4 5 6 21 22 23 24 31 32 33] 52,block
+simple_loop,16,33,[0 1 2 3 4 5 6 21 22 23 31 32 33] 47,block
+simple_loop,16,11,[0 1 2 3 4 5 10 11] 23,if
+simple_loop,18,8,[0 1 2 3 4 5 6 7 8] 158,simple br_if,pn2 = ((pn2 - ((0 - pn0) && 3)) && -4) - (((pn0 + ((0 - pn0) && 3)) && 4) || 24),(pn2 + -32) > 31,pn2,pn2 = pn2 + -32
+simple_loop,23,5,[0 1 2 3 4 5] 20,if
+simple_loop,23,17,[0 1 2 3 4 11 12 13 14 15 16 17] 39,if
+simple_loop,23,24,[0 1 2 3 4 11 12 13 14 15 16 22 23 24] 41,block
+simple_loop,23,24,[0 1 2 3 4 11 12 13 14 15 22 23 24] 37,block
+simple_loop,23,17,[0 1 2 3 11 12 13 14 15 16 17] 36,if
+simple_loop,23,24,[0 1 2 3 11 12 13 14 15 16 22 23 24] 38,block
+simple_loop,23,24,[0 1 2 3 11 12 13 14 15 22 23 24] 34,block
+simple_loop,25,24,[0 1 4 5 6 7 8 9 10 21 22 23 24] 42,simple br_if,pn2 = pn0; ln5 = ((pn0 + pn2) && -4) + -64,(pn2 + 64) <= ln5,ln5; pn2,pn2 = pn2 + 64; ln5 = ln5
+simple_loop,25,29,[0 1 4 5 6 7 8 9 10 21 22 23 28 29] 46,if
+simple_loop,25,49,[0 1 4 5 6 7 8 9 10 21 22 23 28 47 48 49] 51,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+simple_loop,25,29,[0 1 4 5 6 7 8 9 10 21 22 28 29] 39,if
+simple_loop,25,49,[0 1 4 5 6 7 8 9 10 21 22 28 47 48 49] 44,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+simple_loop,25,24,[0 1 4 5 6 7 8 9 12 13 14 21 22 23 24] 45,simple br_if,pn2 = pn0; ln5 = ((pn0 + pn2) && -4) + -64,(pn2 + 64) <= ln5,ln5; pn2,pn2 = pn2 + 64; ln5 = ln5
+simple_loop,25,29,[0 1 4 5 6 7 8 9 12 13 14 21 22 23 28 29] 49,if
+simple_loop,25,49,[0 1 4 5 6 7 8 9 12 13 14 21 22 23 28 47 48 49] 54,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+simple_loop,25,29,[0 1 4 5 6 7 8 9 12 13 14 21 22 28 29] 42,if
+simple_loop,25,49,[0 1 4 5 6 7 8 9 12 13 14 21 22 28 47 48 49] 47,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+simple_loop,25,16,[0 1 4 5 6 7 8 9 12 13 16] 29,if
+simple_loop,25,49,[0 1 4 5 6 35 36 37 47 48 49] 31,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+simple_loop,25,49,[0 1 4 5 6 35 36 39 40 41 47 48 49] 39,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+simple_loop,25,43,[0 1 4 5 6 35 36 39 40 43] 33,simple br_if,pn2 = pn0; ln4 = (pn0 + pn2) + -4,(pn2 + 4) <= ln4,ln4; pn2,pn2 = pn2 + 4; ln4 = ln4
+simple_loop,26,14,[0 1 2 3 4 5 6 9 10 11 14] 34 + |f21|,block
+simple_loop,26,14,[0 1 2 5 6 9 10 11 14] 25,block
+simple_loop,30,4,[0 1 4] 9 + |f22|,block
+simple_loop,32,2,[0 1 2] 5,simple br_if,pN0 = pN0,pN0 > 15,pN0,pN0 = pN0 shr_u 4
+simple_loop,33,2,[0 1 2] 5,simple br_if,pN0 = pN0,pN0 > 7,pN0,pN0 = pN0 shr_u 3
+simple_loop,34,11,[0 1 2 3 9 10 11] 16,simple br_if,ln3 = i32.wrap_i64(pN0),ln3 > 9,ln3,ln3 = ln3 /u 10
+simple_loop,34,5,[0 1 2 5] 7,simple br_if,pN0 = pN0,pN0 > 42949672959,pN0,pN0 = pN0 /u 10
+simple_loop,35,5,[0 1 2 3 4 5] 34 + |f18|,simple br_if,pn2 = pn2 - pn3,(pn2 + -256) > 255,pn2,pn2 = pn2 + -256

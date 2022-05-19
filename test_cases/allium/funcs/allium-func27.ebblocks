@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17]
-  ebb cost:   list_max([29 + (list_max([|f20|; |f47|])); 31 + (list_max([|f1|; |f20|; |f47|])); 31 + (list_max([|f0|; |f20|; |f47|])); 33 + (list_max([|f0|; |f1|; |f20|; |f47|])); 31 + (list_max([|f0|; |f20|; |f47|])); 33 + (list_max([|f0|; |f1|; |f20|; |f47|])); 33 + (list_max([|f0|; |f20|; |f47|])); 35 + (list_max([|f0|; |f1|; |f20|; |f47|])); 24 + (list_max([|f20|; |f37|])); 24 + |f20|; 26 + (list_max([|f1|; |f20|])); 26 + (list_max([|f0|; |f20|; |f37|])); 26 + (list_max([|f0|; |f20|])); 28 + (list_max([|f0|; |f1|; |f20|])); 26 + (list_max([|f0|; |f20|; |f37|])); 26 + (list_max([|f0|; |f20|])); 28 + (list_max([|f0|; |f1|; |f20|])); 28 + (list_max([|f0|; |f20|; |f37|])); 28 + (list_max([|f0|; |f20|])); 30 + (list_max([|f0|; |f1|; |f20|]))])
+  ebb cost:   list_max([29 + (list_sum([|f20|; |f47|])); 31 + (list_sum([|f1|; |f20|; |f47|])); 31 + (list_sum([|f0|; |f20|; |f47|])); 33 + (list_sum([|f0|; |f1|; |f20|; |f47|])); 31 + (list_sum([|f0|; |f20|; |f47|])); 33 + (list_sum([|f0|; |f1|; |f20|; |f47|])); 33 + (list_sum([|f0|; |f20|; |f47|])); 35 + (list_sum([|f0|; |f1|; |f20|; |f47|])); 24 + (list_sum([|f20|; |f37|])); 24 + |f20|; 26 + (list_sum([|f1|; |f20|])); 26 + (list_sum([|f0|; |f20|; |f37|])); 26 + (list_sum([|f0|; |f20|])); 28 + (list_sum([|f0|; |f1|; |f20|])); 26 + (list_sum([|f0|; |f20|; |f37|])); 26 + (list_sum([|f0|; |f20|])); 28 + (list_sum([|f0|; |f1|; |f20|])); 28 + (list_sum([|f0|; |f20|; |f37|])); 28 + (list_sum([|f0|; |f20|])); 30 + (list_sum([|f0|; |f1|; |f20|]))])
   ebb exits:  [16 17]
   ebb succs:  []
   8 paths to exit 16

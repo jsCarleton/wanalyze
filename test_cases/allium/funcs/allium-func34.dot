@@ -60,7 +60,7 @@ digraph finite_state_machine {
     39 -> 40[label="if"];
     39 -> 41[label="else"];
     40 -> 41[label="end"];
-    41 -> 32[color="red" fontcolor="red" label="br"];
+    41 -> 32[color="red" dir=back fontcolor="red" label="br"];
     43 -> 44[label="end"];
     44 -> 45[label="if"];
     44 -> 91[label="else"];
@@ -80,7 +80,7 @@ digraph finite_state_machine {
     55 -> 56[label="~br_if"];
     55 -> 59[label="br_if"];
     56 -> 57[label="end"];
-    57 -> 53[color="red" fontcolor="red" label="br"];
+    57 -> 53[color="red" dir=back fontcolor="red" label="br"];
     59 -> 60[label="end"];
     60 -> 62[label="end"];
     61 -> 62[label="end"];
@@ -157,7 +157,7 @@ digraph finite_state_machine {
     116 -> 118[label="else"];
     117 -> 118[label="end"];
     118 -> 119[label="~br_if"];
-    118 -> 110[color="red" fontcolor="red" label="br_if"];
+    118 -> 110[color="red" dir=back fontcolor="red" label="br_if"];
     119 -> 120[label="end"];
     120 -> 122[label="end"];
     121 -> 122[label="end"];
@@ -184,7 +184,7 @@ digraph finite_state_machine {
     137 -> 138[label="end"];
     138 -> 139[label="if"];
     138 -> 141[label="else"];
-    139 -> 130[color="red" fontcolor="red" label="br"];
+    139 -> 130[color="red" dir=back fontcolor="red" label="br"];
     141 -> 142[label="end"];
     142 -> 143[label="end"];
     143 -> 144[label="end"];
@@ -210,7 +210,7 @@ digraph finite_state_machine {
     157 -> 158[label="~br_if"];
     157 -> 161[label="br_if"];
     158 -> 159[label="end"];
-    159 -> 155[color="red" fontcolor="red" label="br"];
+    159 -> 155[color="red" dir=back fontcolor="red" label="br"];
     161 -> 162[label="end"];
     162 -> 164[label="end"];
     163 -> 164[label="end"];
@@ -275,7 +275,7 @@ digraph finite_state_machine {
     210 -> 214[label="else"];
     211 -> 212[label="~br_if"];
     211 -> 218[label="br_if"];
-    212 -> 210[color="red" fontcolor="red" label="br"];
+    212 -> 210[color="red" dir=back fontcolor="red" label="br"];
     214 -> 215[label="end"];
     215 -> 220[label="br"];
     217 -> 218[label="end"];
@@ -329,7 +329,7 @@ digraph finite_state_machine {
     259 -> 264[label="br_if"];
     260 -> 261[label="end"];
     261 -> 262[label="~br_if"];
-    261 -> 257[color="red" fontcolor="red" label="br_if"];
+    261 -> 257[color="red" dir=back fontcolor="red" label="br_if"];
     262 -> 275[label="br"];
     264 -> 265[label="end"];
     265 -> 266[label="if"];
@@ -400,7 +400,7 @@ digraph finite_state_machine {
     322 -> 323[label="~br_if"];
     322 -> 327[label="br_if"];
     323 -> 324[label="~br_if"];
-    323 -> 322[color="red" fontcolor="red" label="br_if"];
+    323 -> 322[color="red" dir=back fontcolor="red" label="br_if"];
     324 -> 325[label="end"];
     325 -> 336[label="br"];
     327 -> 328[label="if"];
@@ -423,7 +423,7 @@ digraph finite_state_machine {
     341 -> 342[label="~br_if"];
     341 -> 346[label="br_if"];
     342 -> 343[label="~br_if"];
-    342 -> 341[color="red" fontcolor="red" label="br_if"];
+    342 -> 341[color="red" dir=back fontcolor="red" label="br_if"];
     343 -> 344[label="end"];
     344 -> 438[label="br"];
     346 -> 347[label="if"];
@@ -470,7 +470,7 @@ digraph finite_state_machine {
     377 -> 378[label="~br_if"];
     377 -> 381[label="br_if"];
     378 -> 379[label="end"];
-    379 -> 375[color="red" fontcolor="red" label="br"];
+    379 -> 375[color="red" dir=back fontcolor="red" label="br"];
     381 -> 382[label="end"];
     382 -> 384[label="end"];
     383 -> 384[label="end"];
@@ -530,7 +530,7 @@ digraph finite_state_machine {
     425 -> 429[label="else"];
     426 -> 427[label="~br_if"];
     426 -> 433[label="br_if"];
-    427 -> 425[color="red" fontcolor="red" label="br"];
+    427 -> 425[color="red" dir=back fontcolor="red" label="br"];
     429 -> 430[label="end"];
     430 -> 435[label="br"];
     432 -> 433[label="end"];
@@ -545,7 +545,7 @@ digraph finite_state_machine {
     441 -> 442[label="~br_if"];
     441 -> 445[label="br_if"];
     442 -> 443[label="end"];
-    443 -> 439[color="red" fontcolor="red" label="br"];
+    443 -> 439[color="red" dir=back fontcolor="red" label="br"];
     445 -> 446[label="end"];
     446 -> 447[label="if"];
     446 -> 448[label="else"];
@@ -564,7 +564,7 @@ digraph finite_state_machine {
     457 -> 458[label="loop"];
     458 -> 459[label="if"];
     458 -> 461[label="else"];
-    459 -> 458[color="red" fontcolor="red" label="br"];
+    459 -> 458[color="red" dir=back fontcolor="red" label="br"];
     461 -> 462[label="end"];
     462 -> 463[label="if"];
     462 -> 494[label="else"];
@@ -599,7 +599,7 @@ digraph finite_state_machine {
     485 -> 489[label="else"];
     486 -> 487[label="~br_if"];
     486 -> 493[label="br_if"];
-    487 -> 485[color="red" fontcolor="red" label="br"];
+    487 -> 485[color="red" dir=back fontcolor="red" label="br"];
     489 -> 490[label="end"];
     490 -> 502[label="br"];
     492 -> 493[label="end"];

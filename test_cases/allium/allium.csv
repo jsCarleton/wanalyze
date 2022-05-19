@@ -4,42 +4,42 @@ allium,29,23,[0 3 23] 23,simple br,pn2 = (pn0 + pn2) - 4; pn0 = pn0,pn0 < pn2,pn
 allium,30,1,[0 1] 13,simple br,pn0 = pn0,pn0 && 3,pn0,pn0 = pn0
 allium,30,17,[0 17] 13,simple br,pn0 = pn0; ln4 = pn0 + pn2,pn0 < ln4,ln4; pn0,pn0 = pn0; ln4 = ln4
 allium,35,4,[0 3 4] 387 + |f20|,if
-allium,40,10,[0 1 6 7 9 10] 21 + (list_max([|f5|; |f20|; |f40|])),if
-allium,40,10,[0 1 6 8 9 10] 18 + (list_max([|f5|; |f20|])),if
-allium,41,8,[0 1 2 3 4 5 7 8] 99 + (list_max([|f2|; |f4|; |f17|; |f20|])),if
-allium,41,8,[0 1 2 3 4 6 7 8] 92 + (list_max([|f2|; |f4|; |f17|; |f20|])),if
-allium,41,8,[0 2 3 4 5 7 8] 96 + (list_max([|f4|; |f17|; |f20|])),if
-allium,41,8,[0 2 3 4 6 7 8] 89 + (list_max([|f4|; |f17|; |f20|])),if
-allium,42,4,[0 3 4] 732 + (list_max([|f16|; |f20|])),if
-allium,43,6,[0 1 2 5 6] 428 + (list_max([|f2|; |f16|; |f18|; |f20|])),if
-allium,43,6,[0 2 5 6] 425 + (list_max([|f16|; |f18|; |f20|])),if
+allium,40,10,[0 1 6 7 9 10] 21 + (list_sum([|f5|; |f20|; |f40|])),if
+allium,40,10,[0 1 6 8 9 10] 18 + (list_sum([|f5|; |f20|])),if
+allium,41,8,[0 1 2 3 4 5 7 8] 99 + (list_sum([|f2|; |f4|; |f17|; |f20|])),if
+allium,41,8,[0 1 2 3 4 6 7 8] 92 + (list_sum([|f2|; |f4|; |f17|; |f20|])),if
+allium,41,8,[0 2 3 4 5 7 8] 96 + (list_sum([|f4|; |f17|; |f20|])),if
+allium,41,8,[0 2 3 4 6 7 8] 89 + (list_sum([|f4|; |f17|; |f20|])),if
+allium,42,4,[0 3 4] 732 + (list_sum([|f16|; |f20|])),if
+allium,43,6,[0 1 2 5 6] 428 + (list_sum([|f2|; |f16|; |f18|; |f20|])),if
+allium,43,6,[0 2 5 6] 425 + (list_sum([|f16|; |f18|; |f20|])),if
 allium,44,3,[0 3] 60,simple br_if,pN4 = pN4; ln16 = ln16,(i64.extend_i32_u(ln16 + 1)) < pN4,ln16; pN4,pN4 = pN4; ln16 = ln16 + 1
-allium,45,6,[0 3 6] 18 + (list_max([|f30|; |f34|])),simple br_if,lN8 = lN8,(lN8 + 1) < 8,lN8,lN8 = lN8 + 1
-allium,58,3,[0 1 2 3] 327 + (list_max([|f2|; |f16|; |f20|; |f30|])),if
-allium,58,3,[0 1 3] 324 + (list_max([|f16|; |f20|; |f30|])),if
-allium,59,3,[0 3] 337 + (list_max([|f16|; |f20|])),if
-allium,63,8,[0 1 2 3 5 6 8] 264 + (list_max([|f2|; |f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 1 2 3 5 7 8] 264 + (list_max([|f2|; |f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 1 2 4 5 6 8] 264 + (list_max([|f2|; |f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 1 2 4 5 7 8] 264 + (list_max([|f2|; |f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 2 3 5 6 8] 261 + (list_max([|f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 2 3 5 7 8] 261 + (list_max([|f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 2 4 5 6 8] 261 + (list_max([|f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,63,8,[0 2 4 5 7 8] 261 + (list_max([|f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
-allium,67,0,[0] 421 + (list_max([|f19|; |f20|; |f25|; |f30|])),simple br,ln52 = ln52,(ln52 + 1) != 11,ln52,ln52 = ln52 + 1
+allium,45,6,[0 3 6] 18 + (list_sum([|f30|; |f34|])),simple br_if,lN8 = lN8,(lN8 + 1) < 8,lN8,lN8 = lN8 + 1
+allium,58,3,[0 1 2 3] 327 + (list_sum([|f2|; |f16|; |f20|; |f30|])),if
+allium,58,3,[0 1 3] 324 + (list_sum([|f16|; |f20|; |f30|])),if
+allium,59,3,[0 3] 337 + (list_sum([|f16|; |f20|])),if
+allium,63,8,[0 1 2 3 5 6 8] 264 + (list_sum([|f2|; |f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
+allium,63,8,[0 1 2 3 5 7 8] 264 + (list_sum([|f2|; |f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
+allium,63,8,[0 1 2 4 5 6 8] 264 + (list_sum([|f2|; |f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
+allium,63,8,[0 1 2 4 5 7 8] 264 + (list_sum([|f2|; |f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
+allium,63,8,[0 2 3 5 6 8] 261 + (list_sum([|f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
+allium,63,8,[0 2 3 5 7 8] 261 + (list_sum([|f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
+allium,63,8,[0 2 4 5 6 8] 261 + (list_sum([|f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
+allium,63,8,[0 2 4 5 7 8] 261 + (list_sum([|f16|; |f18|; |f20|; |f21|; |f25|; |f30|; |f43|])),simple br_if,ln3 = 0,(ln3 + 2) < 10,ln3,ln3 = ln3 + 2
+allium,67,0,[0] 421 + (list_sum([|f19|; |f20|; |f25|; |f30|])),simple br,ln52 = ln52,(ln52 + 1) != 11,ln52,ln52 = ln52 + 1
 allium,68,4,[0 3 4] 367 + |f20|,if
-allium,71,11,[0 1 2 3 4 6 8 9 11] 144 + (list_max([|f2|; |f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 3 4 6 8 10 11] 177 + (list_max([|f2|; |f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 3 5 6 8 9 11] 148 + (list_max([|f2|; |f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 3 5 6 8 10 11] 181 + (list_max([|f2|; |f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 7 8 9 11] 139 + (list_max([|f2|; |f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 1 2 7 8 10 11] 172 + (list_max([|f2|; |f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 3 4 6 8 9 11] 141 + (list_max([|f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 3 4 6 8 10 11] 174 + (list_max([|f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 3 5 6 8 9 11] 145 + (list_max([|f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 3 5 6 8 10 11] 178 + (list_max([|f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 7 8 9 11] 136 + (list_max([|f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
-allium,71,11,[0 2 7 8 10 11] 169 + (list_max([|f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 1 2 3 4 6 8 9 11] 144 + (list_sum([|f2|; |f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 1 2 3 4 6 8 10 11] 177 + (list_sum([|f2|; |f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 1 2 3 5 6 8 9 11] 148 + (list_sum([|f2|; |f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 1 2 3 5 6 8 10 11] 181 + (list_sum([|f2|; |f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 1 2 7 8 9 11] 139 + (list_sum([|f2|; |f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 1 2 7 8 10 11] 172 + (list_sum([|f2|; |f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 2 3 4 6 8 9 11] 141 + (list_sum([|f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 2 3 4 6 8 10 11] 174 + (list_sum([|f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 2 3 5 6 8 9 11] 145 + (list_sum([|f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 2 3 5 6 8 10 11] 178 + (list_sum([|f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 2 7 8 9 11] 136 + (list_sum([|f17|; |f20|; |f25|; |f30|; |f35|; |f37|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
+allium,71,11,[0 2 7 8 10 11] 169 + (list_sum([|f17|; |f20|; |f22|; |f25|; |f30|; |f35|])),simple br_if,ln3 = 0,(ln3 + 1) != 8,ln3,ln3 = ln3 + 1
 allium,72,3,[0 3] 49,simple br_if,pN4 = pN4; ln17 = ln17,(i64.extend_i32_u(ln17 + 1)) < pN4,ln17; pN4,pN4 = pN4; ln17 = ln17 + 1
 allium,73,3,[0 3] 60,simple br_if,pN3 = pN3; ln15 = ln15,(i64.extend_i32_u(ln15 + 1)) < pN3,ln15; pN3,pN3 = pN3; ln15 = ln15 + 1
 allium,75,3,[0 3] 62,simple br_if,pn1 = 0; pN2 = pN2,(i64.extend_i32_u(pn1 + 1)) < pN2,pN2; pn1,pn1 = pn1 + 1; pN2 = pN2

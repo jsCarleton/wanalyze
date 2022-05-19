@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30]
-  ebb cost:   list_max([61 + |f20|; 61 + |f20|; 64 + (list_max([|f2|; |f20|])); 64 + (list_max([|f2|; |f20|])); 61 + |f20|; 61 + |f20|; 64 + (list_max([|f2|; |f20|])); 64 + (list_max([|f2|; |f20|])); 54 + |f20|; 54 + |f20|; 57 + (list_max([|f2|; |f20|])); 57 + (list_max([|f2|; |f20|])); 22; 25 + |f2|; 199 + (list_max([|f17|; |f20|])); 249 + (list_max([|f17|; |f20|])); 244 + (list_max([|f17|; |f20|])); 200 + (list_max([|f17|; |f20|])); 250 + (list_max([|f17|; |f20|])); 245 + (list_max([|f17|; |f20|])); 110 + (list_max([|f17|; |f20|])); 112 + (list_max([|f17|; |f20|])); 199 + (list_max([|f17|; |f20|])); 249 + (list_max([|f17|; |f20|])); 244 + (list_max([|f17|; |f20|])); 200 + (list_max([|f17|; |f20|])); 250 + (list_max([|f17|; |f20|])); 245 + (list_max([|f17|; |f20|])); 110 + (list_max([|f17|; |f20|])); 112 + (list_max([|f17|; |f20|])); 202 + (list_max([|f2|; |f17|; |f20|])); 252 + (list_max([|f2|; |f17|; |f20|])); 247 + (list_max([|f2|; |f17|; |f20|])); 203 + (list_max([|f2|; |f17|; |f20|])); 253 + (list_max([|f2|; |f17|; |f20|])); 248 + (list_max([|f2|; |f17|; |f20|])); 113 + (list_max([|f2|; |f17|; |f20|])); 115 + (list_max([|f2|; |f17|; |f20|])); 202 + (list_max([|f2|; |f17|; |f20|])); 252 + (list_max([|f2|; |f17|; |f20|])); 247 + (list_max([|f2|; |f17|; |f20|])); 203 + (list_max([|f2|; |f17|; |f20|])); 253 + (list_max([|f2|; |f17|; |f20|])); 248 + (list_max([|f2|; |f17|; |f20|])); 113 + (list_max([|f2|; |f17|; |f20|])); 115 + (list_max([|f2|; |f17|; |f20|]))])
+  ebb cost:   list_max([61 + |f20|; 61 + |f20|; 64 + (list_sum([|f2|; |f20|])); 64 + (list_sum([|f2|; |f20|])); 61 + |f20|; 61 + |f20|; 64 + (list_sum([|f2|; |f20|])); 64 + (list_sum([|f2|; |f20|])); 54 + |f20|; 54 + |f20|; 57 + (list_sum([|f2|; |f20|])); 57 + (list_sum([|f2|; |f20|])); 22; 25 + |f2|; 199 + (list_sum([|f17|; |f20|])); 249 + (list_sum([|f17|; |f20|])); 244 + (list_sum([|f17|; |f20|])); 200 + (list_sum([|f17|; |f20|])); 250 + (list_sum([|f17|; |f20|])); 245 + (list_sum([|f17|; |f20|])); 110 + (list_sum([|f17|; |f20|])); 112 + (list_sum([|f17|; |f20|])); 199 + (list_sum([|f17|; |f20|])); 249 + (list_sum([|f17|; |f20|])); 244 + (list_sum([|f17|; |f20|])); 200 + (list_sum([|f17|; |f20|])); 250 + (list_sum([|f17|; |f20|])); 245 + (list_sum([|f17|; |f20|])); 110 + (list_sum([|f17|; |f20|])); 112 + (list_sum([|f17|; |f20|])); 202 + (list_sum([|f2|; |f17|; |f20|])); 252 + (list_sum([|f2|; |f17|; |f20|])); 247 + (list_sum([|f2|; |f17|; |f20|])); 203 + (list_sum([|f2|; |f17|; |f20|])); 253 + (list_sum([|f2|; |f17|; |f20|])); 248 + (list_sum([|f2|; |f17|; |f20|])); 113 + (list_sum([|f2|; |f17|; |f20|])); 115 + (list_sum([|f2|; |f17|; |f20|])); 202 + (list_sum([|f2|; |f17|; |f20|])); 252 + (list_sum([|f2|; |f17|; |f20|])); 247 + (list_sum([|f2|; |f17|; |f20|])); 203 + (list_sum([|f2|; |f17|; |f20|])); 253 + (list_sum([|f2|; |f17|; |f20|])); 248 + (list_sum([|f2|; |f17|; |f20|])); 113 + (list_sum([|f2|; |f17|; |f20|])); 115 + (list_sum([|f2|; |f17|; |f20|]))])
   ebb exits:  [31 92 93 94 513]
   ebb succs:  [513 94 93 92 31]
   4 paths to exit 31
@@ -66,7 +66,7 @@ ebb entry:  31
 ebb entry:  32
   ebb type:   loop
   ebb blocks: [32 33 34 35 36 37 38 39 40 41 42 43]
-  ebb cost:   (list_max([[31 + |f20|*I(((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); 34 + |f20|*I(((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); 34 + |f20|*I(((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); 37 + |f20|*I(((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); 27 + |f20|*I(((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); 30 + |f20|*I(((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); 30 + |f20|*I(((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); 33 + |f20|*I(((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4)]])) + 1
+  ebb cost:   (list_max([[(31 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (34 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (34 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); (37 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); (27 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (30 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (30 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); (33 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4)]])) + 1
   ebb exits:  [44]
   ebb succs:  [44]
   1 paths to exit 44
@@ -101,7 +101,7 @@ ebb entry:  52
 ebb entry:  53
   ebb type:   loop
   ebb blocks: [53 54 55 56 57 58 59]
-  ebb cost:   (list_max([[15 + |f20|*I(i32.eqz(rn0), rn0 = rn0, rn0 = rn0); 25 + |f20|*I(not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)]])) + 1
+  ebb cost:   (list_max([[(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)]])) + 1
   ebb exits:  [60]
   ebb succs:  [60]
   1 paths to exit 60
@@ -121,7 +121,7 @@ ebb entry:  60
 ebb entry:  61
   ebb type:   block
   ebb blocks: [61]
-  ebb cost:   12 + (list_max([|f17|; |f20|]))
+  ebb cost:   12 + (list_sum([|f17|; |f20|]))
   ebb exits:  [62]
   ebb succs:  [62]
   1 paths to exit 62
@@ -137,7 +137,7 @@ ebb entry:  62
 ebb entry:  63
   ebb type:   block
   ebb blocks: [63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90]
-  ebb cost:   list_max([43 + |f17|; 93 + (list_max([|f17|; |f20|])); 88 + (list_max([|f17|; |f20|])); 37 + (list_max([|f17|; |f20|])); 77 + (list_max([|f17|; |f20|])); 127 + (list_max([|f17|; |f20|])); 122 + (list_max([|f17|; |f20|])); 71 + (list_max([|f17|; |f20|])); 94 + (list_max([|f17|; |f20|])); 144 + (list_max([|f17|; |f20|])); 139 + (list_max([|f17|; |f20|])); 88 + (list_max([|f17|; |f20|])); 103 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 148 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 103 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 148 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 112 + (list_max([|f17|; |f20|])); 162 + (list_max([|f17|; |f20|])); 157 + (list_max([|f17|; |f20|])); 106 + (list_max([|f17|; |f20|])); 77 + (list_max([|f17|; |f20|])); 127 + (list_max([|f17|; |f20|])); 122 + (list_max([|f17|; |f20|])); 71 + (list_max([|f17|; |f20|])); 94 + (list_max([|f17|; |f20|])); 144 + (list_max([|f17|; |f20|])); 139 + (list_max([|f17|; |f20|])); 88 + (list_max([|f17|; |f20|])); 103 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 148 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 103 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 148 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 112 + (list_max([|f17|; |f20|])); 162 + (list_max([|f17|; |f20|])); 157 + (list_max([|f17|; |f20|])); 106 + (list_max([|f17|; |f20|])); 80 + (list_max([|f17|; |f20|])); 130 + (list_max([|f17|; |f20|])); 125 + (list_max([|f17|; |f20|])); 74 + (list_max([|f17|; |f20|])); 89 + (list_max([|f17|; |f20|])); 139 + (list_max([|f17|; |f20|])); 134 + (list_max([|f17|; |f20|])); 83 + (list_max([|f17|; |f20|])); 89 + (list_max([|f17|; |f20|])); 139 + (list_max([|f17|; |f20|])); 134 + (list_max([|f17|; |f20|])); 83 + (list_max([|f17|; |f20|])); 98 + (list_max([|f17|; |f20|])); 148 + (list_max([|f17|; |f20|])); 143 + (list_max([|f17|; |f20|])); 92 + (list_max([|f17|; |f20|])); 74 + (list_max([|f17|; |f20|])); 124 + (list_max([|f17|; |f20|])); 119 + (list_max([|f17|; |f20|])); 68 + (list_max([|f17|; |f20|]))])
+  ebb cost:   list_max([43 + |f17|; 93 + (list_sum([|f17|; |f20|])); 88 + (list_sum([|f17|; |f20|])); 37 + (list_sum([|f17|; |f20|])); 77 + (list_sum([|f17|; |f20|])); 127 + (list_sum([|f17|; |f20|])); 122 + (list_sum([|f17|; |f20|])); 71 + (list_sum([|f17|; |f20|])); 94 + (list_sum([|f17|; |f20|])); 144 + (list_sum([|f17|; |f20|])); 139 + (list_sum([|f17|; |f20|])); 88 + (list_sum([|f17|; |f20|])); 103 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 148 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 103 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 148 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 112 + (list_sum([|f17|; |f20|])); 162 + (list_sum([|f17|; |f20|])); 157 + (list_sum([|f17|; |f20|])); 106 + (list_sum([|f17|; |f20|])); 77 + (list_sum([|f17|; |f20|])); 127 + (list_sum([|f17|; |f20|])); 122 + (list_sum([|f17|; |f20|])); 71 + (list_sum([|f17|; |f20|])); 94 + (list_sum([|f17|; |f20|])); 144 + (list_sum([|f17|; |f20|])); 139 + (list_sum([|f17|; |f20|])); 88 + (list_sum([|f17|; |f20|])); 103 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 148 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 103 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 148 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 112 + (list_sum([|f17|; |f20|])); 162 + (list_sum([|f17|; |f20|])); 157 + (list_sum([|f17|; |f20|])); 106 + (list_sum([|f17|; |f20|])); 80 + (list_sum([|f17|; |f20|])); 130 + (list_sum([|f17|; |f20|])); 125 + (list_sum([|f17|; |f20|])); 74 + (list_sum([|f17|; |f20|])); 89 + (list_sum([|f17|; |f20|])); 139 + (list_sum([|f17|; |f20|])); 134 + (list_sum([|f17|; |f20|])); 83 + (list_sum([|f17|; |f20|])); 89 + (list_sum([|f17|; |f20|])); 139 + (list_sum([|f17|; |f20|])); 134 + (list_sum([|f17|; |f20|])); 83 + (list_sum([|f17|; |f20|])); 98 + (list_sum([|f17|; |f20|])); 148 + (list_sum([|f17|; |f20|])); 143 + (list_sum([|f17|; |f20|])); 92 + (list_sum([|f17|; |f20|])); 74 + (list_sum([|f17|; |f20|])); 124 + (list_sum([|f17|; |f20|])); 119 + (list_sum([|f17|; |f20|])); 68 + (list_sum([|f17|; |f20|]))])
   ebb exits:  [91 513]
   ebb succs:  [513 91]
   0 paths to exit 91
@@ -263,7 +263,7 @@ ebb entry:  109
 ebb entry:  110
   ebb type:   loop
   ebb blocks: [110 111 112 113 114 115 116 117 118 119]
-  ebb cost:   (list_max([[39 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 42 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 47 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 50 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0)]])) + (list_max([1; 1; 1; 1; 5]))
+  ebb cost:   (list_max([[(39 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (42 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (47 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (50 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0)]])) + (list_max([1; 1; 1; 1; 5]))
   ebb exits:  [120 129]
   ebb succs:  [129 120]
   4 paths to exit 120
@@ -318,7 +318,7 @@ ebb entry:  129
 ebb entry:  130
   ebb type:   loop
   ebb blocks: [130 131 132 133 134 135 136 137 138 139 140 141 142]
-  ebb cost:   (list_max([[35 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 38 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 38 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 41 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 40 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 43 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 43 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0); 46 + |f20|*I(rn0, rn0 = rn0, rn0 = rn0)]])) + (list_max([6; 6; 6; 6; 6; 6; 6; 6]))
+  ebb cost:   (list_max([[(35 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (38 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (38 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (41 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (40 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (43 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (43 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (46 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0)]])) + (list_max([6; 6; 6; 6; 6; 6; 6; 6]))
   ebb exits:  [143]
   ebb succs:  [143]
   8 paths to exit 143
@@ -372,7 +372,7 @@ ebb entry:  154
 ebb entry:  155
   ebb type:   loop
   ebb blocks: [155 156 157 158 159 160 161]
-  ebb cost:   (list_max([[15 + |f20|*I(i32.eqz(rn0), rn0 = rn0, rn0 = rn0); 25 + |f20|*I(not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)]])) + 1
+  ebb cost:   (list_max([[(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)]])) + 1
   ebb exits:  [162]
   ebb succs:  [162]
   1 paths to exit 162
@@ -392,7 +392,7 @@ ebb entry:  162
 ebb entry:  163
   ebb type:   block
   ebb blocks: [163]
-  ebb cost:   12 + (list_max([|f17|; |f20|]))
+  ebb cost:   12 + (list_sum([|f17|; |f20|]))
   ebb exits:  [164]
   ebb succs:  [164]
   1 paths to exit 164
@@ -408,7 +408,7 @@ ebb entry:  164
 ebb entry:  165
   ebb type:   block
   ebb blocks: [165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208]
-  ebb cost:   list_max([98 + (list_max([|f17|; |f20|])); 98 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 103 + (list_max([|f17|; |f20|])); 103 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 204 + (list_max([|f17|; |f20|])); 204 + (list_max([|f17|; |f20|])); 154 + (list_max([|f17|; |f20|])); 154 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 213 + (list_max([|f17|; |f20|])); 213 + (list_max([|f17|; |f20|])); 163 + (list_max([|f17|; |f20|])); 163 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 213 + (list_max([|f17|; |f20|])); 213 + (list_max([|f17|; |f20|])); 163 + (list_max([|f17|; |f20|])); 163 + (list_max([|f17|; |f20|])); 167 + (list_max([|f17|; |f20|])); 167 + (list_max([|f17|; |f20|])); 222 + (list_max([|f17|; |f20|])); 222 + (list_max([|f17|; |f20|])); 172 + (list_max([|f17|; |f20|])); 172 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 188 + (list_max([|f17|; |f20|])); 188 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 204 + (list_max([|f17|; |f20|])); 204 + (list_max([|f17|; |f20|])); 154 + (list_max([|f17|; |f20|])); 154 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 213 + (list_max([|f17|; |f20|])); 213 + (list_max([|f17|; |f20|])); 163 + (list_max([|f17|; |f20|])); 163 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 213 + (list_max([|f17|; |f20|])); 213 + (list_max([|f17|; |f20|])); 163 + (list_max([|f17|; |f20|])); 163 + (list_max([|f17|; |f20|])); 167 + (list_max([|f17|; |f20|])); 167 + (list_max([|f17|; |f20|])); 222 + (list_max([|f17|; |f20|])); 222 + (list_max([|f17|; |f20|])); 172 + (list_max([|f17|; |f20|])); 172 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 188 + (list_max([|f17|; |f20|])); 188 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 135 + (list_max([|f17|; |f20|])); 135 + (list_max([|f17|; |f20|])); 190 + (list_max([|f17|; |f20|])); 190 + (list_max([|f17|; |f20|])); 140 + (list_max([|f17|; |f20|])); 140 + (list_max([|f17|; |f20|])); 144 + (list_max([|f17|; |f20|])); 144 + (list_max([|f17|; |f20|])); 199 + (list_max([|f17|; |f20|])); 199 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 144 + (list_max([|f17|; |f20|])); 144 + (list_max([|f17|; |f20|])); 199 + (list_max([|f17|; |f20|])); 199 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 208 + (list_max([|f17|; |f20|])); 208 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 158 + (list_max([|f17|; |f20|])); 128 + (list_max([|f17|; |f20|])); 128 + (list_max([|f17|; |f20|])); 183 + (list_max([|f17|; |f20|])); 183 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 87 + (list_max([|f17|; |f20|])); 142 + (list_max([|f17|; |f20|])); 92 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 193 + (list_max([|f17|; |f20|])); 143 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 202 + (list_max([|f17|; |f20|])); 152 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 202 + (list_max([|f17|; |f20|])); 152 + (list_max([|f17|; |f20|])); 156 + (list_max([|f17|; |f20|])); 211 + (list_max([|f17|; |f20|])); 161 + (list_max([|f17|; |f20|])); 122 + (list_max([|f17|; |f20|])); 177 + (list_max([|f17|; |f20|])); 127 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 193 + (list_max([|f17|; |f20|])); 143 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 202 + (list_max([|f17|; |f20|])); 152 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 202 + (list_max([|f17|; |f20|])); 152 + (list_max([|f17|; |f20|])); 156 + (list_max([|f17|; |f20|])); 211 + (list_max([|f17|; |f20|])); 161 + (list_max([|f17|; |f20|])); 122 + (list_max([|f17|; |f20|])); 177 + (list_max([|f17|; |f20|])); 127 + (list_max([|f17|; |f20|])); 124 + (list_max([|f17|; |f20|])); 179 + (list_max([|f17|; |f20|])); 129 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 188 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 188 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 142 + (list_max([|f17|; |f20|])); 197 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 117 + (list_max([|f17|; |f20|])); 172 + (list_max([|f17|; |f20|])); 122 + (list_max([|f17|; |f20|])); 34 + (list_max([|f17|; |f20|])); 85 + (list_max([|f17|; |f20|])); 94 + (list_max([|f17|; |f20|])); 94 + (list_max([|f17|; |f20|])); 103 + (list_max([|f17|; |f20|])); 69 + (list_max([|f17|; |f20|])); 85 + (list_max([|f17|; |f20|])); 94 + (list_max([|f17|; |f20|])); 94 + (list_max([|f17|; |f20|])); 103 + (list_max([|f17|; |f20|])); 69 + (list_max([|f17|; |f20|])); 71 + (list_max([|f17|; |f20|])); 80 + (list_max([|f17|; |f20|])); 80 + (list_max([|f17|; |f20|])); 89 + (list_max([|f17|; |f20|])); 64 + (list_max([|f17|; |f20|])); 96 + |f17|; 151 + |f17|; 101 + |f17|; 83 + (list_max([|f17|; |f20|])); 78 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 202 + (list_max([|f17|; |f20|])); 152 + (list_max([|f17|; |f20|])); 134 + (list_max([|f17|; |f20|])); 129 + (list_max([|f17|; |f20|])); 156 + (list_max([|f17|; |f20|])); 211 + (list_max([|f17|; |f20|])); 161 + (list_max([|f17|; |f20|])); 143 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 156 + (list_max([|f17|; |f20|])); 211 + (list_max([|f17|; |f20|])); 161 + (list_max([|f17|; |f20|])); 143 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 165 + (list_max([|f17|; |f20|])); 220 + (list_max([|f17|; |f20|])); 170 + (list_max([|f17|; |f20|])); 152 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 131 + (list_max([|f17|; |f20|])); 186 + (list_max([|f17|; |f20|])); 136 + (list_max([|f17|; |f20|])); 118 + (list_max([|f17|; |f20|])); 113 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 202 + (list_max([|f17|; |f20|])); 152 + (list_max([|f17|; |f20|])); 134 + (list_max([|f17|; |f20|])); 129 + (list_max([|f17|; |f20|])); 156 + (list_max([|f17|; |f20|])); 211 + (list_max([|f17|; |f20|])); 161 + (list_max([|f17|; |f20|])); 143 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 156 + (list_max([|f17|; |f20|])); 211 + (list_max([|f17|; |f20|])); 161 + (list_max([|f17|; |f20|])); 143 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 165 + (list_max([|f17|; |f20|])); 220 + (list_max([|f17|; |f20|])); 170 + (list_max([|f17|; |f20|])); 152 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 131 + (list_max([|f17|; |f20|])); 186 + (list_max([|f17|; |f20|])); 136 + (list_max([|f17|; |f20|])); 118 + (list_max([|f17|; |f20|])); 113 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 188 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 120 + (list_max([|f17|; |f20|])); 115 + (list_max([|f17|; |f20|])); 142 + (list_max([|f17|; |f20|])); 197 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 129 + (list_max([|f17|; |f20|])); 124 + (list_max([|f17|; |f20|])); 142 + (list_max([|f17|; |f20|])); 197 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 129 + (list_max([|f17|; |f20|])); 124 + (list_max([|f17|; |f20|])); 151 + (list_max([|f17|; |f20|])); 206 + (list_max([|f17|; |f20|])); 156 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 133 + (list_max([|f17|; |f20|])); 126 + (list_max([|f17|; |f20|])); 181 + (list_max([|f17|; |f20|])); 131 + (list_max([|f17|; |f20|])); 113 + (list_max([|f17|; |f20|])); 108 + (list_max([|f17|; |f20|]))])
+  ebb cost:   list_max([98 + (list_sum([|f17|; |f20|])); 98 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 103 + (list_sum([|f17|; |f20|])); 103 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 204 + (list_sum([|f17|; |f20|])); 204 + (list_sum([|f17|; |f20|])); 154 + (list_sum([|f17|; |f20|])); 154 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 213 + (list_sum([|f17|; |f20|])); 213 + (list_sum([|f17|; |f20|])); 163 + (list_sum([|f17|; |f20|])); 163 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 213 + (list_sum([|f17|; |f20|])); 213 + (list_sum([|f17|; |f20|])); 163 + (list_sum([|f17|; |f20|])); 163 + (list_sum([|f17|; |f20|])); 167 + (list_sum([|f17|; |f20|])); 167 + (list_sum([|f17|; |f20|])); 222 + (list_sum([|f17|; |f20|])); 222 + (list_sum([|f17|; |f20|])); 172 + (list_sum([|f17|; |f20|])); 172 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 188 + (list_sum([|f17|; |f20|])); 188 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 204 + (list_sum([|f17|; |f20|])); 204 + (list_sum([|f17|; |f20|])); 154 + (list_sum([|f17|; |f20|])); 154 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 213 + (list_sum([|f17|; |f20|])); 213 + (list_sum([|f17|; |f20|])); 163 + (list_sum([|f17|; |f20|])); 163 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 213 + (list_sum([|f17|; |f20|])); 213 + (list_sum([|f17|; |f20|])); 163 + (list_sum([|f17|; |f20|])); 163 + (list_sum([|f17|; |f20|])); 167 + (list_sum([|f17|; |f20|])); 167 + (list_sum([|f17|; |f20|])); 222 + (list_sum([|f17|; |f20|])); 222 + (list_sum([|f17|; |f20|])); 172 + (list_sum([|f17|; |f20|])); 172 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 188 + (list_sum([|f17|; |f20|])); 188 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 135 + (list_sum([|f17|; |f20|])); 135 + (list_sum([|f17|; |f20|])); 190 + (list_sum([|f17|; |f20|])); 190 + (list_sum([|f17|; |f20|])); 140 + (list_sum([|f17|; |f20|])); 140 + (list_sum([|f17|; |f20|])); 144 + (list_sum([|f17|; |f20|])); 144 + (list_sum([|f17|; |f20|])); 199 + (list_sum([|f17|; |f20|])); 199 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 144 + (list_sum([|f17|; |f20|])); 144 + (list_sum([|f17|; |f20|])); 199 + (list_sum([|f17|; |f20|])); 199 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 208 + (list_sum([|f17|; |f20|])); 208 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 158 + (list_sum([|f17|; |f20|])); 128 + (list_sum([|f17|; |f20|])); 128 + (list_sum([|f17|; |f20|])); 183 + (list_sum([|f17|; |f20|])); 183 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 87 + (list_sum([|f17|; |f20|])); 142 + (list_sum([|f17|; |f20|])); 92 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 193 + (list_sum([|f17|; |f20|])); 143 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 202 + (list_sum([|f17|; |f20|])); 152 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 202 + (list_sum([|f17|; |f20|])); 152 + (list_sum([|f17|; |f20|])); 156 + (list_sum([|f17|; |f20|])); 211 + (list_sum([|f17|; |f20|])); 161 + (list_sum([|f17|; |f20|])); 122 + (list_sum([|f17|; |f20|])); 177 + (list_sum([|f17|; |f20|])); 127 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 193 + (list_sum([|f17|; |f20|])); 143 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 202 + (list_sum([|f17|; |f20|])); 152 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 202 + (list_sum([|f17|; |f20|])); 152 + (list_sum([|f17|; |f20|])); 156 + (list_sum([|f17|; |f20|])); 211 + (list_sum([|f17|; |f20|])); 161 + (list_sum([|f17|; |f20|])); 122 + (list_sum([|f17|; |f20|])); 177 + (list_sum([|f17|; |f20|])); 127 + (list_sum([|f17|; |f20|])); 124 + (list_sum([|f17|; |f20|])); 179 + (list_sum([|f17|; |f20|])); 129 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 188 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 188 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 142 + (list_sum([|f17|; |f20|])); 197 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 117 + (list_sum([|f17|; |f20|])); 172 + (list_sum([|f17|; |f20|])); 122 + (list_sum([|f17|; |f20|])); 34 + (list_sum([|f17|; |f20|])); 85 + (list_sum([|f17|; |f20|])); 94 + (list_sum([|f17|; |f20|])); 94 + (list_sum([|f17|; |f20|])); 103 + (list_sum([|f17|; |f20|])); 69 + (list_sum([|f17|; |f20|])); 85 + (list_sum([|f17|; |f20|])); 94 + (list_sum([|f17|; |f20|])); 94 + (list_sum([|f17|; |f20|])); 103 + (list_sum([|f17|; |f20|])); 69 + (list_sum([|f17|; |f20|])); 71 + (list_sum([|f17|; |f20|])); 80 + (list_sum([|f17|; |f20|])); 80 + (list_sum([|f17|; |f20|])); 89 + (list_sum([|f17|; |f20|])); 64 + (list_sum([|f17|; |f20|])); 96 + |f17|; 151 + |f17|; 101 + |f17|; 83 + (list_sum([|f17|; |f20|])); 78 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 202 + (list_sum([|f17|; |f20|])); 152 + (list_sum([|f17|; |f20|])); 134 + (list_sum([|f17|; |f20|])); 129 + (list_sum([|f17|; |f20|])); 156 + (list_sum([|f17|; |f20|])); 211 + (list_sum([|f17|; |f20|])); 161 + (list_sum([|f17|; |f20|])); 143 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 156 + (list_sum([|f17|; |f20|])); 211 + (list_sum([|f17|; |f20|])); 161 + (list_sum([|f17|; |f20|])); 143 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 165 + (list_sum([|f17|; |f20|])); 220 + (list_sum([|f17|; |f20|])); 170 + (list_sum([|f17|; |f20|])); 152 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 131 + (list_sum([|f17|; |f20|])); 186 + (list_sum([|f17|; |f20|])); 136 + (list_sum([|f17|; |f20|])); 118 + (list_sum([|f17|; |f20|])); 113 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 202 + (list_sum([|f17|; |f20|])); 152 + (list_sum([|f17|; |f20|])); 134 + (list_sum([|f17|; |f20|])); 129 + (list_sum([|f17|; |f20|])); 156 + (list_sum([|f17|; |f20|])); 211 + (list_sum([|f17|; |f20|])); 161 + (list_sum([|f17|; |f20|])); 143 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 156 + (list_sum([|f17|; |f20|])); 211 + (list_sum([|f17|; |f20|])); 161 + (list_sum([|f17|; |f20|])); 143 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 165 + (list_sum([|f17|; |f20|])); 220 + (list_sum([|f17|; |f20|])); 170 + (list_sum([|f17|; |f20|])); 152 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 131 + (list_sum([|f17|; |f20|])); 186 + (list_sum([|f17|; |f20|])); 136 + (list_sum([|f17|; |f20|])); 118 + (list_sum([|f17|; |f20|])); 113 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 188 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 120 + (list_sum([|f17|; |f20|])); 115 + (list_sum([|f17|; |f20|])); 142 + (list_sum([|f17|; |f20|])); 197 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 129 + (list_sum([|f17|; |f20|])); 124 + (list_sum([|f17|; |f20|])); 142 + (list_sum([|f17|; |f20|])); 197 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 129 + (list_sum([|f17|; |f20|])); 124 + (list_sum([|f17|; |f20|])); 151 + (list_sum([|f17|; |f20|])); 206 + (list_sum([|f17|; |f20|])); 156 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 133 + (list_sum([|f17|; |f20|])); 126 + (list_sum([|f17|; |f20|])); 181 + (list_sum([|f17|; |f20|])); 131 + (list_sum([|f17|; |f20|])); 113 + (list_sum([|f17|; |f20|])); 108 + (list_sum([|f17|; |f20|]))])
   ebb exits:  [209 217 219 220]
   ebb succs:  [220 219 217 209]
   96 paths to exit 209
@@ -698,7 +698,7 @@ ebb entry:  217
 ebb entry:  218
   ebb type:   block
   ebb blocks: [218]
-  ebb cost:   27 + (list_max([|f17|; |f20|]))
+  ebb cost:   27 + (list_sum([|f17|; |f20|]))
   ebb exits:  [219]
   ebb succs:  [219]
   1 paths to exit 219
@@ -772,7 +772,7 @@ ebb entry:  227
 ebb entry:  228
   ebb type:   block
   ebb blocks: [228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255]
-  ebb cost:   list_max([94 + (list_max([|f17|; |f20|])); 109 + (list_max([|f17|; |f20|])); 64 + |f20|; 79 + |f20|; 94 + (list_max([|f17|; |f20|])); 109 + (list_max([|f17|; |f20|])); 64 + |f20|; 79 + |f20|; 88 + (list_max([|f17|; |f20|])); 103 + (list_max([|f17|; |f20|])); 58 + |f20|; 73 + |f20|; 22 + (list_max([|f17|; |f20|])); 47 + (list_max([|f17|; |f20|])); 49 + (list_max([|f17|; |f20|])); 88 + (list_max([|f17|; |f20|])); 69 + (list_max([|f17|; |f20|])); 58 + |f20|; 39 + |f20|])
+  ebb cost:   list_max([94 + (list_sum([|f17|; |f20|])); 109 + (list_sum([|f17|; |f20|])); 64 + |f20|; 79 + |f20|; 94 + (list_sum([|f17|; |f20|])); 109 + (list_sum([|f17|; |f20|])); 64 + |f20|; 79 + |f20|; 88 + (list_sum([|f17|; |f20|])); 103 + (list_sum([|f17|; |f20|])); 58 + |f20|; 73 + |f20|; 22 + (list_sum([|f17|; |f20|])); 47 + (list_sum([|f17|; |f20|])); 49 + (list_sum([|f17|; |f20|])); 88 + (list_sum([|f17|; |f20|])); 69 + (list_sum([|f17|; |f20|])); 58 + |f20|; 39 + |f20|])
   ebb exits:  [256 275 308 508 509 511]
   ebb succs:  [511 509 508 308 275 256]
   4 paths to exit 256
@@ -826,7 +826,7 @@ ebb entry:  257
 ebb entry:  265
   ebb type:   block
   ebb blocks: [265 266 267 268 269 270 271 272 273 274]
-  ebb cost:   list_max([22 + (list_max([|f20|; |f31|])); 13; 28 + (list_max([|f20|; |f31|])); 25 + (list_max([|f20|; |f31|]))])
+  ebb cost:   list_max([22 + (list_sum([|f20|; |f31|])); 13; 28 + (list_sum([|f20|; |f31|])); 25 + (list_sum([|f20|; |f31|]))])
   ebb exits:  [275 293 307 315]
   ebb succs:  [315 307 293 275]
   0 paths to exit 275
@@ -841,7 +841,7 @@ ebb entry:  265
 ebb entry:  275
   ebb type:   block
   ebb blocks: [275 276 277 278 279 280 281 282 283 284 285 286 287 288 289 290 291 292]
-  ebb cost:   list_max([59 + (list_max([|f20|; |f31|])); 68 + (list_max([|f20|; |f31|])); 59 + (list_max([|f20|; |f31|])); 68 + (list_max([|f20|; |f31|])); 50 + (list_max([|f20|; |f31|])); 61 + (list_max([|f20|; |f31|])); 50 + (list_max([|f20|; |f31|])); 61 + (list_max([|f20|; |f31|])); 10 + |f31|; 56 + (list_max([|f20|; |f31|])); 65 + (list_max([|f20|; |f31|])); 56 + (list_max([|f20|; |f31|])); 65 + (list_max([|f20|; |f31|]))])
+  ebb cost:   list_max([59 + (list_sum([|f20|; |f31|])); 68 + (list_sum([|f20|; |f31|])); 59 + (list_sum([|f20|; |f31|])); 68 + (list_sum([|f20|; |f31|])); 50 + (list_sum([|f20|; |f31|])); 61 + (list_sum([|f20|; |f31|])); 50 + (list_sum([|f20|; |f31|])); 61 + (list_sum([|f20|; |f31|])); 10 + |f31|; 56 + (list_sum([|f20|; |f31|])); 65 + (list_sum([|f20|; |f31|])); 56 + (list_sum([|f20|; |f31|])); 65 + (list_sum([|f20|; |f31|]))])
   ebb exits:  [293 307 315]
   ebb succs:  [315 307 293]
   4 paths to exit 293
@@ -863,7 +863,7 @@ ebb entry:  275
 ebb entry:  293
   ebb type:   block
   ebb blocks: [293 294 295 296 297 298 299 300 301 302 303 304 305 306]
-  ebb cost:   list_max([45 + (list_max([|f20|; |f31|])); 20; 43 + (list_max([|f20|; |f31|])); 29 + |f20|; 18])
+  ebb cost:   list_max([45 + (list_sum([|f20|; |f31|])); 20; 43 + (list_sum([|f20|; |f31|])); 29 + |f20|; 18])
   ebb exits:  [307 315 514]
   ebb succs:  [514 315 307]
   2 paths to exit 307
@@ -878,7 +878,7 @@ ebb entry:  293
 ebb entry:  307
   ebb type:   block
   ebb blocks: [307]
-  ebb cost:   9 + (list_max([|f17|; |f20|]))
+  ebb cost:   9 + (list_sum([|f17|; |f20|]))
   ebb exits:  [308]
   ebb succs:  [308]
   1 paths to exit 308
@@ -899,7 +899,7 @@ ebb entry:  308
 ebb entry:  315
   ebb type:   block
   ebb blocks: [315 316 317 318 319 320]
-  ebb cost:   list_max([25 + (list_max([|f17|; |f20|])); 30 + (list_max([|f17|; |f20|])); 21 + (list_max([|f17|; |f20|])); 26 + (list_max([|f17|; |f20|]))])
+  ebb cost:   list_max([25 + (list_sum([|f17|; |f20|])); 30 + (list_sum([|f17|; |f20|])); 21 + (list_sum([|f17|; |f20|])); 26 + (list_sum([|f17|; |f20|]))])
   ebb exits:  [321 495]
   ebb succs:  [495 321]
   2 paths to exit 321
@@ -943,7 +943,7 @@ ebb entry:  325
 ebb entry:  327
   ebb type:   block
   ebb blocks: [327 328 329 330 331 332 333 334 335]
-  ebb cost:   list_max([12 + |f20|; 21 + |f20|; 79 + (list_max([|f17|; |f20|])); 78 + (list_max([|f17|; |f20|]))])
+  ebb cost:   list_max([12 + |f20|; 21 + |f20|; 79 + (list_sum([|f17|; |f20|])); 78 + (list_sum([|f17|; |f20|]))])
   ebb exits:  [336 502]
   ebb succs:  [502 336]
   2 paths to exit 336
@@ -955,7 +955,7 @@ ebb entry:  327
 ebb entry:  336
   ebb type:   block
   ebb blocks: [336 337 338 339]
-  ebb cost:   list_max([14 + |f20|; 19 + (list_max([|f17|; |f20|]))])
+  ebb cost:   list_max([14 + |f20|; 19 + (list_sum([|f17|; |f20|]))])
   ebb exits:  [340]
   ebb succs:  [340]
   2 paths to exit 340
@@ -996,7 +996,7 @@ ebb entry:  344
 ebb entry:  346
   ebb type:   block
   ebb blocks: [346 347 348 349 350 351 352 353 354 355 356 357 358 359 360 361 362 363 364 365 366 367 368 369 370 371 372 373]
-  ebb cost:   list_max([135 + (list_max([|f17|; |f20|])); 131 + (list_max([|f17|; |f20|])); 135 + (list_max([|f17|; |f20|])); 131 + (list_max([|f17|; |f20|])); 135 + (list_max([|f17|; |f20|])); 131 + (list_max([|f17|; |f20|])); 135 + (list_max([|f17|; |f20|])); 131 + (list_max([|f17|; |f20|])); 117 + (list_max([|f17|; |f20|])); 117 + (list_max([|f17|; |f20|])); 117 + (list_max([|f17|; |f20|])); 117 + (list_max([|f17|; |f20|])); 137 + (list_max([|f17|; |f20|])); 137 + (list_max([|f17|; |f20|])); 137 + (list_max([|f17|; |f20|])); 137 + (list_max([|f17|; |f20|])); 125 + (list_max([|f17|; |f20|])); 129 + (list_max([|f17|; |f20|])); 125 + (list_max([|f17|; |f20|])); 129 + (list_max([|f17|; |f20|])); 125 + (list_max([|f17|; |f20|])); 129 + (list_max([|f17|; |f20|])); 125 + (list_max([|f17|; |f20|])); 129 + (list_max([|f17|; |f20|])); 92 + (list_max([|f17|; |f20|])); 92 + (list_max([|f17|; |f20|])); 92 + (list_max([|f17|; |f20|])); 92 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 109 + (list_max([|f17|; |f20|])); 109 + (list_max([|f17|; |f20|])); 109 + (list_max([|f17|; |f20|])); 109 + (list_max([|f17|; |f20|])); 7 + |f20|])
+  ebb cost:   list_max([135 + (list_sum([|f17|; |f20|])); 131 + (list_sum([|f17|; |f20|])); 135 + (list_sum([|f17|; |f20|])); 131 + (list_sum([|f17|; |f20|])); 135 + (list_sum([|f17|; |f20|])); 131 + (list_sum([|f17|; |f20|])); 135 + (list_sum([|f17|; |f20|])); 131 + (list_sum([|f17|; |f20|])); 117 + (list_sum([|f17|; |f20|])); 117 + (list_sum([|f17|; |f20|])); 117 + (list_sum([|f17|; |f20|])); 117 + (list_sum([|f17|; |f20|])); 137 + (list_sum([|f17|; |f20|])); 137 + (list_sum([|f17|; |f20|])); 137 + (list_sum([|f17|; |f20|])); 137 + (list_sum([|f17|; |f20|])); 125 + (list_sum([|f17|; |f20|])); 129 + (list_sum([|f17|; |f20|])); 125 + (list_sum([|f17|; |f20|])); 129 + (list_sum([|f17|; |f20|])); 125 + (list_sum([|f17|; |f20|])); 129 + (list_sum([|f17|; |f20|])); 125 + (list_sum([|f17|; |f20|])); 129 + (list_sum([|f17|; |f20|])); 92 + (list_sum([|f17|; |f20|])); 92 + (list_sum([|f17|; |f20|])); 92 + (list_sum([|f17|; |f20|])); 92 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 109 + (list_sum([|f17|; |f20|])); 109 + (list_sum([|f17|; |f20|])); 109 + (list_sum([|f17|; |f20|])); 109 + (list_sum([|f17|; |f20|])); 7 + |f20|])
   ebb exits:  [374 383 385 401 403 434 435 437]
   ebb succs:  [437 435 434 403 401 385 383 374]
   8 paths to exit 374
@@ -1075,7 +1075,7 @@ ebb entry:  382
 ebb entry:  383
   ebb type:   block
   ebb blocks: [383]
-  ebb cost:   12 + (list_max([|f17|; |f20|]))
+  ebb cost:   12 + (list_sum([|f17|; |f20|]))
   ebb exits:  [384]
   ebb succs:  [384]
   1 paths to exit 384
@@ -1091,7 +1091,7 @@ ebb entry:  384
 ebb entry:  385
   ebb type:   block
   ebb blocks: [385 386 387 388 389 390 391 392 393 394 395 396 397 398 399 400]
-  ebb cost:   list_max([68 + (list_max([|f17|; |f20|])); 77 + (list_max([|f17|; |f20|])); 68 + (list_max([|f17|; |f20|])); 77 + (list_max([|f17|; |f20|])); 51 + (list_max([|f17|; |f20|])); 60 + (list_max([|f17|; |f20|])); 59 + (list_max([|f17|; |f20|])); 68 + (list_max([|f17|; |f20|])); 39 + (list_max([|f17|; |f20|])); 59 + (list_max([|f17|; |f20|])); 68 + (list_max([|f17|; |f20|])); 39 + (list_max([|f17|; |f20|])); 42 + (list_max([|f17|; |f20|])); 51 + (list_max([|f17|; |f20|])); 37 + (list_max([|f17|; |f20|])); 3])
+  ebb cost:   list_max([68 + (list_sum([|f17|; |f20|])); 77 + (list_sum([|f17|; |f20|])); 68 + (list_sum([|f17|; |f20|])); 77 + (list_sum([|f17|; |f20|])); 51 + (list_sum([|f17|; |f20|])); 60 + (list_sum([|f17|; |f20|])); 59 + (list_sum([|f17|; |f20|])); 68 + (list_sum([|f17|; |f20|])); 39 + (list_sum([|f17|; |f20|])); 59 + (list_sum([|f17|; |f20|])); 68 + (list_sum([|f17|; |f20|])); 39 + (list_sum([|f17|; |f20|])); 42 + (list_sum([|f17|; |f20|])); 51 + (list_sum([|f17|; |f20|])); 37 + (list_sum([|f17|; |f20|])); 3])
   ebb exits:  [401 402]
   ebb succs:  [402 401]
   6 paths to exit 401
@@ -1131,7 +1131,7 @@ ebb entry:  402
 ebb entry:  403
   ebb type:   block
   ebb blocks: [403 404 405 406 407 408 409 410 411 412 413 414 415 416 417 418 419 420 421 422 423]
-  ebb cost:   list_max([97 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 99 + (list_max([|f17|; |f20|])); 99 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 153 + (list_max([|f17|; |f20|])); 86 + (list_max([|f17|; |f20|])); 88 + (list_max([|f17|; |f20|])); 142 + (list_max([|f17|; |f20|])); 95 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 151 + (list_max([|f17|; |f20|])); 77 + (list_max([|f17|; |f20|])); 72 + (list_max([|f17|; |f20|]))])
+  ebb cost:   list_max([97 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 99 + (list_sum([|f17|; |f20|])); 99 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 153 + (list_sum([|f17|; |f20|])); 86 + (list_sum([|f17|; |f20|])); 88 + (list_sum([|f17|; |f20|])); 142 + (list_sum([|f17|; |f20|])); 95 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 151 + (list_sum([|f17|; |f20|])); 77 + (list_sum([|f17|; |f20|])); 72 + (list_sum([|f17|; |f20|]))])
   ebb exits:  [424 432 435]
   ebb succs:  [435 432 424]
   6 paths to exit 424
@@ -1194,7 +1194,7 @@ ebb entry:  432
 ebb entry:  433
   ebb type:   block
   ebb blocks: [433]
-  ebb cost:   27 + (list_max([|f17|; |f20|]))
+  ebb cost:   27 + (list_sum([|f17|; |f20|]))
   ebb exits:  [434]
   ebb succs:  [434]
   1 paths to exit 434
@@ -1248,7 +1248,7 @@ ebb entry:  439
 ebb entry:  446
   ebb type:   block
   ebb blocks: [446 447 448 449 450 451 452 453 454 455 456]
-  ebb cost:   list_max([125 + (list_max([|f17|; |f20|; |f22|; |f23|])); 124 + (list_max([|f17|; |f20|; |f22|; |f23|])); 126 + (list_max([|f17|; |f20|; |f22|; |f23|])); 125 + (list_max([|f17|; |f20|; |f22|; |f23|])); 125 + (list_max([|f17|; |f20|; |f22|; |f23|])); 124 + (list_max([|f17|; |f20|; |f22|; |f23|])); 126 + (list_max([|f17|; |f20|; |f22|; |f23|])); 125 + (list_max([|f17|; |f20|; |f22|; |f23|]))])
+  ebb cost:   list_max([125 + (list_sum([|f17|; |f20|; |f22|; |f23|])); 124 + (list_sum([|f17|; |f20|; |f22|; |f23|])); 126 + (list_sum([|f17|; |f20|; |f22|; |f23|])); 125 + (list_sum([|f17|; |f20|; |f22|; |f23|])); 125 + (list_sum([|f17|; |f20|; |f22|; |f23|])); 124 + (list_sum([|f17|; |f20|; |f22|; |f23|])); 126 + (list_sum([|f17|; |f20|; |f22|; |f23|])); 125 + (list_sum([|f17|; |f20|; |f22|; |f23|]))])
   ebb exits:  [457]
   ebb succs:  [457]
   8 paths to exit 457
@@ -1283,7 +1283,7 @@ ebb entry:  458
 ebb entry:  462
   ebb type:   block
   ebb blocks: [462 463 464 465 466 467 468 469 470 471 472 473 474 475 476 477 478 479 480 481 482 483]
-  ebb cost:   list_max([94 + (list_max([|f17|; |f20|])); 94 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 149 + (list_max([|f17|; |f20|])); 99 + (list_max([|f17|; |f20|])); 99 + (list_max([|f17|; |f20|])); 83 + (list_max([|f17|; |f20|])); 138 + (list_max([|f17|; |f20|])); 88 + (list_max([|f17|; |f20|])); 4; 92 + (list_max([|f17|; |f20|])); 147 + (list_max([|f17|; |f20|])); 97 + (list_max([|f17|; |f20|])); 79 + (list_max([|f17|; |f20|])); 74 + (list_max([|f17|; |f20|]))])
+  ebb cost:   list_max([94 + (list_sum([|f17|; |f20|])); 94 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 149 + (list_sum([|f17|; |f20|])); 99 + (list_sum([|f17|; |f20|])); 99 + (list_sum([|f17|; |f20|])); 83 + (list_sum([|f17|; |f20|])); 138 + (list_sum([|f17|; |f20|])); 88 + (list_sum([|f17|; |f20|])); 4; 92 + (list_sum([|f17|; |f20|])); 147 + (list_sum([|f17|; |f20|])); 97 + (list_sum([|f17|; |f20|])); 79 + (list_sum([|f17|; |f20|])); 74 + (list_sum([|f17|; |f20|]))])
   ebb exits:  [484 492 494 502]
   ebb succs:  [502 494 492 484]
   6 paths to exit 484
@@ -1348,7 +1348,7 @@ ebb entry:  492
 ebb entry:  493
   ebb type:   block
   ebb blocks: [493]
-  ebb cost:   27 + (list_max([|f17|; |f20|]))
+  ebb cost:   27 + (list_sum([|f17|; |f20|]))
   ebb exits:  [494]
   ebb succs:  [494]
   1 paths to exit 494
@@ -1364,7 +1364,7 @@ ebb entry:  494
 ebb entry:  495
   ebb type:   block
   ebb blocks: [495 496 497 498 499 500]
-  ebb cost:   list_max([340 + (list_max([|f17|; |f20|])); 339 + (list_max([|f17|; |f20|])); 345 + (list_max([|f17|; |f20|])); 344 + (list_max([|f17|; |f20|]))])
+  ebb cost:   list_max([340 + (list_sum([|f17|; |f20|])); 339 + (list_sum([|f17|; |f20|])); 345 + (list_sum([|f17|; |f20|])); 344 + (list_sum([|f17|; |f20|]))])
   ebb exits:  [501]
   ebb succs:  [501]
   4 paths to exit 501
@@ -1383,7 +1383,7 @@ ebb entry:  501
 ebb entry:  502
   ebb type:   block
   ebb blocks: [502 503 504 505]
-  ebb cost:   list_max([8 + |f20|; 15 + (list_max([|f17|; |f20|]))])
+  ebb cost:   list_max([8 + |f20|; 15 + (list_sum([|f17|; |f20|]))])
   ebb exits:  [506 508]
   ebb succs:  [508 506]
   1 paths to exit 506
@@ -1403,7 +1403,7 @@ ebb entry:  506
 ebb entry:  508
   ebb type:   block
   ebb blocks: [508]
-  ebb cost:   23 + (list_max([|f17|; |f20|]))
+  ebb cost:   23 + (list_sum([|f17|; |f20|]))
   ebb exits:  [509]
   ebb succs:  [509]
   1 paths to exit 509

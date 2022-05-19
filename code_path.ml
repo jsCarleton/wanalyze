@@ -23,7 +23,7 @@ let cost_of_code_path (e: expr) (cp: code_path): expr_tree =
     match fns with
     | []    -> Empty
     | [hd]  -> cost_of_fn hd
-    | _     -> Node {op = "list_max"; args = List.map ~f:cost_of_fn fns}
+    | _     -> Node {op = "list_sum"; args = List.map ~f:cost_of_fn fns}
   in
 
   let fns_of_cp (e: expr) (cp: code_path): int list =

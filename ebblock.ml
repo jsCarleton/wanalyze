@@ -215,8 +215,11 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
     | Infinite  -> "Infinite"
     | LMI lmi   ->
         String.concat [
+                  "(";
                   Execution.string_of_expr_tree lmi.loop_cost;
+                  ")";
                   "*I(";
+                  String.concat ~sep:";" lmi.loop_vars; ", ";
                   Execution.string_of_expr_tree lmi.loop_cond; ", ";
                   Ssa.string_of_ssa_list lmi.lv_entry_vals ";" false; ", ";
                   Ssa.string_of_ssa_list lmi.lv_loop_vals ";" false; ")"]
@@ -249,7 +252,9 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                 let bbacks = Code_path.branchbacks_of_loop bbs in 
                 let lms = looping_parts_costs bbacks loop_cps cp in
                 let exit_cost = max_cost_of_code_paths ctx.w_e exit_cps in
+                (* do we have more than 1 set of loop metrics to consider? *)
                 if List.length lms > 1 then
+                  (* yes, we need a max operation *)
                   begin
                     match exit_cost with
                     | Empty ->
@@ -261,6 +266,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                         {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
+                  (* no, we need use the cost of the single path through the loop *)
                   begin
                     match exit_cost with
                     | Empty ->

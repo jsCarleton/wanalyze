@@ -11,7 +11,7 @@ digraph finite_state_machine {
     1 -> R[label="return"];
     3 -> 4[label="loop"];
     4 -> 5[label="~br_if"];
-    4 -> 4[color="red" fontcolor="red" label="br_if"];
+    4 -> 4[color="red" dir=back fontcolor="red" label="br_if"];
     5 -> 6[label="end"];
     6 -> E[label="end"];
 }

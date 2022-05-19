@@ -30,7 +30,7 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
 
   let graph_node (src: bblock) (label: string) (dest: bblock): string =
     if src.bbindex >= dest.bbindex then
-        String.concat ["    "; name_of_bblock src; " -> "; name_of_bblock dest; "[color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
+        String.concat ["    "; name_of_bblock src; " -> "; name_of_bblock dest; "[color=\"red\" dir=back fontcolor=\"red\" label=\""; label; "\"];\n"]
     else
         String.concat ["    "; name_of_bblock src; " -> "; name_of_bblock dest; "[label=\""; label; "\"];\n"]
   in

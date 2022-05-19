@@ -1,7 +1,7 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1]
-  ebb cost:   49 + (list_max([|f17|; |f22|; |f23|]))
+  ebb cost:   49 + (list_sum([|f17|; |f22|; |f23|]))
   ebb exits:  [1]
   ebb succs:  []
   1 paths to exit 1
