@@ -66,7 +66,7 @@ ebb entry:  31
 ebb entry:  32
   ebb type:   loop
   ebb blocks: [32 33 34 35 36 37 38 39 40 41 42 43]
-  ebb cost:   (list_max([[(31 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (34 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (34 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); (37 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); (27 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (30 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (30 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); (33 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8) - ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4)]])) + 1
+  ebb cost:   (list_max([(31 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8)- ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (34 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8)- ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (34 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8)- ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); (37 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8)- ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); (27 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8)- ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (30 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8)- ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = (rn0 && -8) - pn0); (30 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8)- ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4); (33 + |f20|)*I(ln4;pn0;rn0, ((rn0 && -8) - pn0) < ln4, rn0 = rn0;pn0 = (pn0 + 11) && -8;ln4 = (rn0 && -8)- ((pn0 + 11) && -8), rn0 = rn0;pn0 = pn0;ln4 = ln4)])) + 1
   ebb exits:  [44]
   ebb succs:  [44]
   1 paths to exit 44
@@ -101,7 +101,7 @@ ebb entry:  52
 ebb entry:  53
   ebb type:   loop
   ebb blocks: [53 54 55 56 57 58 59]
-  ebb cost:   (list_max([[(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)]])) + 1
+  ebb cost:   (list_max([(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)])) + 1
   ebb exits:  [60]
   ebb succs:  [60]
   1 paths to exit 60
@@ -263,7 +263,7 @@ ebb entry:  109
 ebb entry:  110
   ebb type:   loop
   ebb blocks: [110 111 112 113 114 115 116 117 118 119]
-  ebb cost:   (list_max([[(39 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (42 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (47 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (50 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0)]])) + (list_max([1; 1; 1; 1; 5]))
+  ebb cost:   (list_max([(39 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (42 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (47 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (50 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0)]))+ (list_max([1; 1; 1; 1; 5]))
   ebb exits:  [120 129]
   ebb succs:  [129 120]
   4 paths to exit 120
@@ -318,7 +318,7 @@ ebb entry:  129
 ebb entry:  130
   ebb type:   loop
   ebb blocks: [130 131 132 133 134 135 136 137 138 139 140 141 142]
-  ebb cost:   (list_max([[(35 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (38 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (38 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (41 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (40 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (43 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (43 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (46 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0)]])) + (list_max([6; 6; 6; 6; 6; 6; 6; 6]))
+  ebb cost:   (list_max([(35 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (38 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (38 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (41 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (40 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (43 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (43 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (46 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0)]))+ (list_max([6; 6; 6; 6; 6; 6; 6; 6]))
   ebb exits:  [143]
   ebb succs:  [143]
   8 paths to exit 143
@@ -372,7 +372,7 @@ ebb entry:  154
 ebb entry:  155
   ebb type:   loop
   ebb blocks: [155 156 157 158 159 160 161]
-  ebb cost:   (list_max([[(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)]])) + 1
+  ebb cost:   (list_max([(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)])) + 1
   ebb exits:  [162]
   ebb succs:  [162]
   1 paths to exit 162

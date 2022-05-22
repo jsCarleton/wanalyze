@@ -4,5 +4,6 @@ type expr_tree = Empty | Constant of string | Variable of string | Node of node
 
 type assignment = {v_assign: string; e_assign: expr_tree}
 
-val vars_of_expr_tree:  expr_tree -> string list
-val compare:            expr_tree -> expr_tree -> int
+val string_of_expr_tree:  expr_tree -> string
+val vars_of_expr_tree:    expr_tree -> string list
+val compare:              expr_tree -> expr_tree -> int

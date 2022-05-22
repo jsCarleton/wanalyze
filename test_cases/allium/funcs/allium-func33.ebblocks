@@ -33,7 +33,7 @@ ebb entry:  30
 ebb entry:  31
   ebb type:   loop
   ebb blocks: [31 32 33 34 35 36 37]
-  ebb cost:   (list_max([[(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)]])) + 1
+  ebb cost:   (list_max([(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)])) + 1
   ebb exits:  [38]
   ebb succs:  [38]
   1 paths to exit 38
@@ -133,7 +133,7 @@ ebb entry:  91
 ebb entry:  92
   ebb type:   loop
   ebb blocks: [92 93 94 95 96 97 98]
-  ebb cost:   (list_max([[(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)]])) + 1
+  ebb cost:   (list_max([(15 + |f20|)*I(rn0, i32.eqz(rn0), rn0 = rn0, rn0 = rn0); (25 + |f20|)*I(rn0, not(i32.eqz(rn0)), rn0 = rn0, rn0 = rn0)])) + 1
   ebb exits:  [99]
   ebb succs:  [99]
   1 paths to exit 99
@@ -243,7 +243,7 @@ ebb entry:  144
 ebb entry:  145
   ebb type:   loop
   ebb blocks: [145 146 147 148 149]
-  ebb cost:   (29 + |f20|)*I(ln3;rn0, not((rn0 && -8) == ln3), rn0 = rn0;ln3 = (rn0 && -8) + (rn0 + (rn0 && -8)), rn0 = rn0;ln3 = ln3) + 1
+  ebb cost:   (29 + |f20|)*I(ln3;rn0, not((rn0 && -8) == ln3), rn0 = rn0;ln3 = (rn0 && -8)+ (rn0 + (rn0 && -8)), rn0 = rn0;ln3 = ln3) + 1
   ebb exits:  [150 153]
   ebb succs:  [153 150]
   1 paths to exit 150

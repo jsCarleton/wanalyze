@@ -25,13 +25,13 @@ let compare_metrics (lm1: loop_metric) (lm2: loop_metric): int =
   | Infinite, _         -> 1
   | _, Infinite         -> -1
   | LMI m1, LMI m2      ->
-      if String.compare (Execution.string_of_expr_tree m1.prefix_cost) (Execution.string_of_expr_tree m2.prefix_cost) = 0 then
-        if String.compare (Execution.string_of_expr_tree m1.loop_cost) (Execution.string_of_expr_tree m2.loop_cost) = 0 then
-          String.compare (Execution.string_of_expr_tree m1.loop_cond) (Execution.string_of_expr_tree m2.loop_cond)
+      if String.compare (Symbolic_expr.string_of_expr_tree m1.prefix_cost) (Symbolic_expr.string_of_expr_tree m2.prefix_cost) = 0 then
+        if String.compare (Symbolic_expr.string_of_expr_tree m1.loop_cost) (Symbolic_expr.string_of_expr_tree m2.loop_cost) = 0 then
+          String.compare (Symbolic_expr.string_of_expr_tree m1.loop_cond) (Symbolic_expr.string_of_expr_tree m2.loop_cond)
         else
-          String.compare (Execution.string_of_expr_tree m1.loop_cost) (Execution.string_of_expr_tree m2.loop_cost) 
+          String.compare (Symbolic_expr.string_of_expr_tree m1.loop_cost) (Symbolic_expr.string_of_expr_tree m2.loop_cost) 
       else
-        String.compare (Execution.string_of_expr_tree m1.prefix_cost) (Execution.string_of_expr_tree m2.prefix_cost)
+        String.compare (Symbolic_expr.string_of_expr_tree m1.prefix_cost) (Symbolic_expr.string_of_expr_tree m2.prefix_cost)
 
 let rec all_loops (cp1: Code_path.code_path list) (cp2: Code_path.code_path list) (cp2all: Code_path.code_path list) (acc: loop_path_parts list): loop_path_parts list =
     match cp1, cp2 with

@@ -42,7 +42,7 @@ let string_of_ebblock (ebb: ebblock): string =
       sprintf "%sebb entry:  %d\n"  (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb type:   %s\n"  spaces (string_of_ebb_type ebb.ebbtype);
       sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bbs);
-      sprintf "%sebb cost:   %s\n"  spaces (Execution.string_of_expr_tree ebb.cost);
+      sprintf "%sebb cost:   %s\n"  spaces (string_of_expr_tree ebb.cost);
       sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       sprintf "%sebb succs:  %s\n"  spaces (string_of_ebblocks ebb.succ_ebbs);
       String.concat
@@ -216,11 +216,11 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
     | LMI lmi   ->
         String.concat [
                   "(";
-                  Execution.string_of_expr_tree lmi.loop_cost;
+                  string_of_expr_tree lmi.loop_cost;
                   ")";
                   "*I(";
                   String.concat ~sep:";" lmi.loop_vars; ", ";
-                  Execution.string_of_expr_tree lmi.loop_cond; ", ";
+                  string_of_expr_tree lmi.loop_cond; ", ";
                   Ssa.string_of_ssa_list lmi.lv_entry_vals ";" false; ", ";
                   Ssa.string_of_ssa_list lmi.lv_loop_vals ";" false; ")"]
   in

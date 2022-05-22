@@ -25,7 +25,7 @@ ebb entry:  10
 ebb entry:  11
   ebb type:   loop
   ebb blocks: [11 12 13 14 15 16 17]
-  ebb cost:   (list_max([[(22 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (28 + (list_sum([|f20|; |f38|])))*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (22 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (28 + (list_sum([|f20|; |f38|])))*I(rn0, rn0, rn0 = rn0, rn0 = rn0)]])) + (list_max([1; 1; 1; 1]))
+  ebb cost:   (list_max([(22 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (28 + (list_sum([|f20|; |f38|])))*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (22 + |f20|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (28 + (list_sum([|f20|; |f38|])))*I(rn0, rn0, rn0 = rn0, rn0 = rn0)]))+ (list_max([1; 1; 1; 1]))
   ebb exits:  [18]
   ebb succs:  [18]
   4 paths to exit 18

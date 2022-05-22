@@ -6,6 +6,51 @@ type expr_tree = Empty | Constant of string | Variable of string | Node of node
 
 type assignment = {v_assign: string; e_assign: expr_tree}
 
+let rec string_of_expr_tree (e: expr_tree): string =
+  match e with
+    | Empty   -> "" (* empty expression *)
+    | Constant s | Variable s -> s
+    | Node n  ->
+      begin
+        if String.is_prefix ~prefix:"list_" n.op then
+          String.concat [n.op; "(["; String.concat ~sep:"; " (List.map ~f:string_of_expr_tree n.args); "])"]
+        else
+        begin
+          match List.length n.args with 
+          | 0 ->  failwith "Invalid expr tree"
+          | 1 ->  (* unary operator *)
+                    String.concat[n.op; "("; string_of_expr_tree (List.hd_exn n.args); ")"]
+          | 2 ->  (* binary operator *)
+                  let arg1 = List.hd_exn n.args in
+                  let arg2 = List.hd_exn (List.tl_exn n.args) in
+                  begin
+                    match arg1, arg2 with
+                    | Variable _, Variable _ (* binary *)
+                    | Variable _, Constant _
+                    | Constant _, Variable _
+                    | Constant _, Constant _
+                        -> String.concat[string_of_expr_tree arg1; " "; n.op; " "; string_of_expr_tree arg2]
+                    | Node _, Node _
+                        -> String.concat["("; string_of_expr_tree arg1; ")"; n.op; " ("; string_of_expr_tree arg2; ")"]
+                    | _, Node _
+                        -> String.concat[string_of_expr_tree arg1; " "; n.op; " ("; string_of_expr_tree arg2; ")"]
+                    | Node _, _
+                        -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " "; string_of_expr_tree arg2]
+                    | _, _
+                        -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " ("; string_of_expr_tree arg2; ")"]
+                  end
+          | 3 ->  (* ternary operator *)
+                  let arg1 = List.hd_exn n.args in
+                  let arg2 = List.hd_exn (List.tl_exn n.args) in
+                  let arg3 = List.hd_exn (List.tl_exn (List.tl_exn n.args)) in
+                  String.concat[n.op; "(";  string_of_expr_tree arg1; ", ";
+                                            string_of_expr_tree arg2; ", ";
+                                            string_of_expr_tree arg3; ")"]
+          | _ ->  (* list of operands *)
+                  String.concat [n.op; "(["; String.concat ~sep:"; " (List.map ~f:string_of_expr_tree n.args); "])"]
+        end
+      end
+
 let vars_of_expr_tree (tree: expr_tree): string list =
 
   let rec vars_of_expr_tree' (tree: expr_tree): string list =
