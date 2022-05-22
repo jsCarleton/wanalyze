@@ -141,7 +141,7 @@ let paths_of_ebblocks (ebbs: ebblock list): ebblock list list =
   in
 
   let rec paths_of_ebblocks' (nterm: ebblock list list) (term: ebblock list list) (iters: int): ebblock list list =
-    if iters > 1_000_000 then
+    if iters > 500_000 then
       []
     else 
       match nterm with

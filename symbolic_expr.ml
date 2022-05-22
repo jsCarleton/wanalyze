@@ -8,7 +8,7 @@ type assignment = {v_assign: string; e_assign: expr_tree}
 
 let rec string_of_expr_tree (e: expr_tree): string =
   match e with
-    | Empty   -> "" (* empty expression *)
+    | Empty   -> "Empty" (* empty expression *)
     | Constant s | Variable s -> s
     | Node n  ->
       begin
@@ -50,6 +50,37 @@ let rec string_of_expr_tree (e: expr_tree): string =
                   String.concat [n.op; "(["; String.concat ~sep:"; " (List.map ~f:string_of_expr_tree n.args); "])"]
         end
       end
+
+let format_expr_tree (e: expr_tree): string =
+
+  let const_args (args: expr_tree list): bool =
+    List.for_all ~f:(fun e -> match e with Constant _ -> true | _ -> false) args
+  in
+
+  let rec format_expr_tree' (indent: int) (e:expr_tree): string =
+    let spaces = (String.make indent ' ') in
+    match e with
+    | Node n ->
+      (* if it's a list operator we handle the arguments differently *)
+      if String.is_prefix ~prefix:"list_" n.op then
+        (* if the arguments are all constants then we print them on a single line *)
+        if const_args n.args then
+          String.concat [spaces; string_of_expr_tree e] 
+        else
+          String.concat [ spaces; 
+                          n.op;
+                          "([\n"; 
+                          String.concat ~sep:";\n"
+                                        (List.map ~f:(format_expr_tree' (indent+2)) n.args);
+                          "\n";
+                          spaces;
+                          "])"]
+      else
+        String.concat [spaces; string_of_expr_tree e]
+    | _ -> String.concat [spaces; string_of_expr_tree e]
+  in
+
+  format_expr_tree' 0 e
 
 let vars_of_expr_tree (tree: expr_tree): string list =
 
