@@ -58,7 +58,6 @@ let format_expr_tree (e: expr_tree): string =
   in
 
   let rec format_expr_tree' (indent: int) (e:expr_tree): string =
-    let spaces = (String.make indent ' ') in
     match e with
     | Empty   -> "Empty" (* empty expression *)
     | Constant s | Variable s -> s
@@ -68,22 +67,24 @@ let format_expr_tree (e: expr_tree): string =
       if String.is_prefix ~prefix:"list_" n.op then
         (* if the arguments are all constants then we print them on a single line *)
         if const_args n.args then
-          String.concat [spaces; string_of_expr_tree e] 
+          string_of_expr_tree e 
         else
-          String.concat [ spaces; 
-                          n.op;
-                          "([\n"; 
-                          String.concat ~sep:";\n"
-                                        (List.map ~f:(format_expr_tree' (indent+2)) n.args);
-                          "\n";
-                          spaces;
-                          "])"]
+          let spaces = (String.make indent ' ') in
+          let spaces2 = (String.make (indent+2) ' ') in
+          String.concat [ n.op;
+                    "([\n";
+                    spaces2;
+                    String.concat ~sep:(String.concat [";\n"; spaces2])
+                                  (List.map ~f:(format_expr_tree' (indent+2)) n.args);
+                    "\n";
+                    spaces;
+                    "])"]
       else
         begin
           match List.length n.args with 
           | 0 ->  failwith "Invalid expr tree"
           | 1 ->  (* unary operator *)
-                    String.concat[spaces; n.op; "("; format_expr_tree' 0 (List.hd_exn n.args); ")"]
+                    String.concat[n.op; "("; format_expr_tree' 0 (List.hd_exn n.args); ")"]
           | 2 ->  (* binary operator *)
                   let arg1 = List.hd_exn n.args in
                   let arg2 = List.hd_exn (List.tl_exn n.args) in
@@ -93,26 +94,25 @@ let format_expr_tree (e: expr_tree): string =
                     | Variable _, Constant _
                     | Constant _, Variable _
                     | Constant _, Constant _
-                        -> String.concat[format_expr_tree' indent arg1; " "; n.op; " "; format_expr_tree' 0 arg2]
+                        -> String.concat[format_expr_tree' indent arg1; " "; n.op; " "; format_expr_tree' indent arg2]
                     | Node _, Node _
-                        -> String.concat[spaces; "("; format_expr_tree' 0 arg1; ") "; n.op; " ("; format_expr_tree' 0 arg2; ")"]
+                        -> String.concat["("; format_expr_tree' indent arg1; ") "; n.op; " ("; format_expr_tree' indent arg2; ")"]
                     | _, Node _
-                        -> String.concat[spaces; format_expr_tree' (indent+2) arg1; " "; n.op; " ("; format_expr_tree' 0 arg2; ")"]
+                        -> String.concat[format_expr_tree' indent arg1; " "; n.op; " ("; format_expr_tree' indent arg2; ")"]
                     | Node _, _
-                        -> String.concat[spaces; "("; format_expr_tree' 0 arg1; ") "; n.op; " "; format_expr_tree' 0 arg2]
+                        -> String.concat["("; format_expr_tree' indent arg1; ") "; n.op; " "; format_expr_tree' indent arg2]
                     | _, _
-                        -> String.concat[spaces; "("; format_expr_tree' 0 arg1; ") "; n.op; " ("; format_expr_tree' 0 arg2; ")"]
+                        -> String.concat["("; format_expr_tree' indent arg1; ") "; n.op; " ("; format_expr_tree' indent arg2; ")"]
                   end
           | 3 ->  (* ternary operator *)
                   let arg1 = List.hd_exn n.args in
                   let arg2 = List.hd_exn (List.tl_exn n.args) in
                   let arg3 = List.hd_exn (List.tl_exn (List.tl_exn n.args)) in
-                  String.concat[spaces;
-                                n.op; "(";  format_expr_tree' 0 arg1; ", ";
-                                            format_expr_tree' 0 arg2; ", ";
-                                            format_expr_tree' 0 arg3; ")"]
+                  String.concat[n.op; "(";  format_expr_tree' indent arg1; ", ";
+                                            format_expr_tree' indent arg2; ", ";
+                                            format_expr_tree' indent arg3; ")"]
           | _ ->  (* list of operands *)
-                  String.concat [spaces; n.op; "("; String.concat ~sep:", " (List.map ~f:(format_expr_tree' 0) n.args); ")"]
+                  String.concat [n.op; "("; String.concat ~sep:", " (List.map ~f:(format_expr_tree' indent) n.args); ")"]
         end
   in
 
