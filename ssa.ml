@@ -44,15 +44,19 @@ let ssa_of_rt (start: int) (index: int) (r: resulttype) : ssa =
     etree = expr_tree_of_retval index r;
     alive = true}
 
-let string_of_ssa (alive: bool) (s: ssa): string =
-  String.concat[
-    (match s.alive,alive with | _, false -> "" | true,_ -> "+" | false,_ -> "-");
-    s.result;
-    " = ";
-    string_of_expr_tree s.etree]
+let string_of_ssa (s: ssa): string = 
+  String.concat[s.result; " = "; string_of_expr_tree s.etree]
     
 let string_of_ssa_list (sl: ssa list) (sep: string) (alive: bool): string =
-  (String.concat ~sep:sep (List.map ~f:(string_of_ssa alive) (List.rev sl)))
+  
+  let string_of_ssa' (alive: bool) (s: ssa): string =
+    String.concat[
+      (match s.alive,alive with | _, false -> "" | true,_ -> "+" | false,_ -> "-");
+      string_of_ssa s;
+    ]
+  in
+
+  (String.concat ~sep:sep (List.map ~f:(string_of_ssa' alive) (List.rev sl)))
 
 let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
   match op.instrtype with

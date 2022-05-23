@@ -5,16 +5,20 @@
       37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))
     ]);
     list_max([
-      15 + |f11|;
-      1
+15 + |f11|;
+1
     ]);
-    (14 + |f11|)*I(ln3;ln4, (ln3 + 1) != ln4, ln4 = rn0;ln3 = 0 + 1, ln4 = ln4;ln3 = ln3 + 1) + 1;
-    1;
+    ((14 + |f11|) * (I([ln3; ln4], [(ln3 + 1) != ln4], [ln3 = 0 + 1; ln4 = rn0], [ln3 = ln3 + 1; ln4 = ln4]))) + 1;
+1;
     list_max([5; 5]);
-    8;
-    (list_max([(22)*I(ln5;ln6, (ln5 + 1) != ln6, ln6 = rn0 + -1;ln5 = 0, ln6 = ln6;ln5 = ln5 + 1); (51)*I(ln5;ln6, (ln5 + 1) != ln6, ln6 = rn0 + -1;ln5 = 0, ln6 = ln6;ln5 = ln5 + 1); (58)*I(ln5;ln6, (ln5 + 1) != ln6, ln6 = rn0 + -1;ln5 = 0, ln6 = ln6;ln5 = ln5 + 1)]))+ (list_max([1; 1; 1]));
-    1;
-    6
+8;
+    (list_max([
+  22 * (I([ln5; ln6], [(ln5 + 1) != ln6], [ln5 = 0; ln6 = rn0 + -1], [ln5 = ln5 + 1; ln6 = ln6]));
+  51 * (I([ln5; ln6], [(ln5 + 1) != ln6], [ln5 = 0; ln6 = rn0 + -1], [ln5 = ln5 + 1; ln6 = ln6]));
+  58 * (I([ln5; ln6], [(ln5 + 1) != ln6], [ln5 = 0; ln6 = rn0 + -1], [ln5 = ln5 + 1; ln6 = ln6]))
+])) + (list_max([1; 1; 1]));
+1;
+6
   ]);
   list_sum([
     list_max([
@@ -22,13 +26,13 @@
       37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))
     ]);
     list_max([
-      15 + |f11|;
-      1
+15 + |f11|;
+1
     ]);
-    (14 + |f11|)*I(ln3;ln4, (ln3 + 1) != ln4, ln4 = rn0;ln3 = 0 + 1, ln4 = ln4;ln3 = ln3 + 1) + 1;
-    1;
+    ((14 + |f11|) * (I([ln3; ln4], [(ln3 + 1) != ln4], [ln3 = 0 + 1; ln4 = rn0], [ln3 = ln3 + 1; ln4 = ln4]))) + 1;
+1;
     list_max([5; 5]);
-    6
+6
   ]);
   list_sum([
     list_max([
@@ -36,10 +40,14 @@
       37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))
     ]);
     list_max([5; 5]);
-    8;
-    (list_max([(22)*I(ln5;ln6, (ln5 + 1) != ln6, ln6 = rn0 + -1;ln5 = 0, ln6 = ln6;ln5 = ln5 + 1); (51)*I(ln5;ln6, (ln5 + 1) != ln6, ln6 = rn0 + -1;ln5 = 0, ln6 = ln6;ln5 = ln5 + 1); (58)*I(ln5;ln6, (ln5 + 1) != ln6, ln6 = rn0 + -1;ln5 = 0, ln6 = ln6;ln5 = ln5 + 1)]))+ (list_max([1; 1; 1]));
-    1;
-    6
+8;
+    (list_max([
+  22 * (I([ln5; ln6], [(ln5 + 1) != ln6], [ln5 = 0; ln6 = rn0 + -1], [ln5 = ln5 + 1; ln6 = ln6]));
+  51 * (I([ln5; ln6], [(ln5 + 1) != ln6], [ln5 = 0; ln6 = rn0 + -1], [ln5 = ln5 + 1; ln6 = ln6]));
+  58 * (I([ln5; ln6], [(ln5 + 1) != ln6], [ln5 = 0; ln6 = rn0 + -1], [ln5 = ln5 + 1; ln6 = ln6]))
+])) + (list_max([1; 1; 1]));
+1;
+6
   ]);
   list_sum([
     list_max([
@@ -47,6 +55,6 @@
       37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))
     ]);
     list_max([5; 5]);
-    6
+6
   ])
 ])

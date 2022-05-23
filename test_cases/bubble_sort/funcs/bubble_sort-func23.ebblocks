@@ -20,7 +20,7 @@ ebb entry:  5
 ebb entry:  6
   ebb type:   loop
   ebb blocks: [6 7 8 9]
-  ebb cost:   (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1
+  ebb cost:   (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1
   ebb exits:  [10 11 13]
   ebb succs:  [13 11 10]
   1 paths to exit 10
@@ -73,7 +73,7 @@ ebb entry:  17
 ebb entry:  18
   ebb type:   loop
   ebb blocks: [18 19 20]
-  ebb cost:   (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1
+  ebb cost:   (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1
   ebb exits:  [21 24]
   ebb succs:  [24 21]
   1 paths to exit 21
@@ -113,7 +113,7 @@ ebb entry:  24
 ebb entry:  25
   ebb type:   loop
   ebb blocks: [25 26 27 28 29 30]
-  ebb cost:   (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]))
+  ebb cost:   (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]))
   ebb exits:  [31 34]
   ebb succs:  [34 31]
   1 paths to exit 31

@@ -1,8 +1,7 @@
 (* an expression tree *)
-type expr_tree = Empty | Constant of string | Variable of string | Node of node
+type expr_tree = Empty | Constant of string | Variable of string 
+               | ExprList of expr_tree list | Node of node
       and node = { op: string; args: expr_tree list }
-
-type assignment = {v_assign: string; e_assign: expr_tree}
 
 val string_of_expr_tree:  expr_tree -> string
 val format_expr_tree:     expr_tree -> string

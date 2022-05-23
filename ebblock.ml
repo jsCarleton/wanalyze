@@ -210,25 +210,23 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
     List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
   in
 
-  let string_of_lm (lm: Cost.loop_metric): string =
+  let expr_of_lm (lm: Cost.loop_metric): expr_tree =
     match lm with
-    | Infinite  -> "Infinite"
+    | Infinite  -> Constant "Infinite"
     | LMI lmi   ->
-        String.concat [
-                  "(";
-                  string_of_expr_tree lmi.loop_cost;
-                  ")";
-                  "*I(";
-                  String.concat ~sep:";" lmi.loop_vars; ", ";
-                  string_of_expr_tree lmi.loop_cond; ", ";
-                  Ssa.string_of_ssa_list lmi.lv_entry_vals ";" false; ", ";
-                  Ssa.string_of_ssa_list lmi.lv_loop_vals ";" false; ")"]
+        Node {
+          op = "*"; 
+          args = [  lmi.loop_cost;
+                    Node {
+                      op = "I";
+                      args = [  ExprList (List.map ~f:(fun lv -> Variable lv) lmi.loop_vars);
+                                ExprList [lmi.loop_cond];
+                                ExprList (List.map ~f:(fun lvev -> Constant (Ssa.string_of_ssa lvev)) lmi.lv_entry_vals);
+                                ExprList (List.map ~f:(fun lvlv -> Constant (Ssa.string_of_ssa lvlv)) lmi.lv_loop_vals)
+                              ]}
+                  ]}
   in
 
-  let loop_path_costs (lms: Cost.loop_metric list): string =
-    String.concat [ String.concat ~sep:"; " (List.map ~f:string_of_lm lms) ]
-  in
-  
   let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
 
     let entry_bb    = List.hd_exn bbs in
@@ -256,11 +254,11 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                   begin
                     match exit_cost with
                     | Empty ->
-                        let cost = Node {op = "list_max"; args = [Constant (loop_path_costs lms)]} in
+                        let cost = Node {op = "list_max"; args = List.map ~f:expr_of_lm lms} in
                         {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
                         let cost = Node {op = "+";
-                                         args = [Node {op = "list_max"; args = [Constant (loop_path_costs lms)]};
+                                         args = [Node {op = "list_max"; args =  List.map ~f:expr_of_lm lms};
                                                  exit_cost]} in
                         {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
@@ -269,10 +267,10 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                   begin
                     match exit_cost with
                     | Empty ->
-                        let cost = Constant (string_of_lm (List.hd_exn lms)) in
+                        let cost = expr_of_lm (List.hd_exn lms) in
                         {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
         | _     ->
-                        let cost = Node {op = "+"; args = [Constant (string_of_lm (List.hd_exn lms)); exit_cost]} in
+                        let cost = Node {op = "+"; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
                         {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
               end

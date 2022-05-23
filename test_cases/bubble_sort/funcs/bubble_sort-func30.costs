@@ -1,18 +1,21 @@
 |f30| = list_max([
   list_sum([
     list_max([
-      8 + |f22|;
-      10 + |f22|
+8 + |f22|;
+10 + |f22|
     ]);
-    1;
-    (list_max([(21 + |f22|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0); (40 + |f22|)*I(rn0, rn0, rn0 = rn0, rn0 = rn0)]))+ (list_max([1; 1]));
-    2
+1;
+    (list_max([
+  (21 + |f22|) * (I([rn0], [rn0], [rn0 = rn0], [rn0 = rn0]));
+  (40 + |f22|) * (I([rn0], [rn0], [rn0 = rn0], [rn0 = rn0]))
+])) + (list_max([1; 1]));
+2
   ]);
   list_sum([
     list_max([
-      8 + |f22|;
-      10 + |f22|
+8 + |f22|;
+10 + |f22|
     ]);
-    Empty
+Empty
   ])
 ])

@@ -1,15 +1,15 @@
 open Core
 
 (* expression tree *)
-type expr_tree = Empty | Constant of string | Variable of string | Node of node
-      and node = { op: string; args: expr_tree list}
-
-type assignment = {v_assign: string; e_assign: expr_tree}
+type expr_tree = Empty | Constant of string | Variable of string 
+               | ExprList of expr_tree list | Node of node
+      and node = { op: string; args: expr_tree list }
 
 let rec string_of_expr_tree (e: expr_tree): string =
   match e with
     | Empty   -> "Empty" (* empty expression *)
     | Constant s | Variable s -> s
+    | ExprList el -> String.concat ["["; String.concat ~sep:"; " (List.map ~f:string_of_expr_tree el); "]"]
     | Node n  ->
       begin
         if String.is_prefix ~prefix:"list_" n.op then
@@ -31,7 +31,7 @@ let rec string_of_expr_tree (e: expr_tree): string =
                     | Constant _, Constant _
                         -> String.concat[string_of_expr_tree arg1; " "; n.op; " "; string_of_expr_tree arg2]
                     | Node _, Node _
-                        -> String.concat["("; string_of_expr_tree arg1; ")"; n.op; " ("; string_of_expr_tree arg2; ")"]
+                        -> String.concat["("; string_of_expr_tree arg1; ") "; n.op; " ("; string_of_expr_tree arg2; ")"]
                     | _, Node _
                         -> String.concat[string_of_expr_tree arg1; " "; n.op; " ("; string_of_expr_tree arg2; ")"]
                     | Node _, _
@@ -47,7 +47,7 @@ let rec string_of_expr_tree (e: expr_tree): string =
                                             string_of_expr_tree arg2; ", ";
                                             string_of_expr_tree arg3; ")"]
           | _ ->  (* list of operands *)
-                  String.concat [n.op; "(["; String.concat ~sep:"; " (List.map ~f:string_of_expr_tree n.args); "])"]
+                  String.concat [n.op; "("; String.concat ~sep:", " (List.map ~f:string_of_expr_tree n.args); ")"]
         end
       end
 
@@ -60,6 +60,9 @@ let format_expr_tree (e: expr_tree): string =
   let rec format_expr_tree' (indent: int) (e:expr_tree): string =
     let spaces = (String.make indent ' ') in
     match e with
+    | Empty   -> "Empty" (* empty expression *)
+    | Constant s | Variable s -> s
+    | ExprList el -> String.concat ["["; String.concat ~sep:"; " (List.map ~f:(format_expr_tree' indent) el); "]"]
     | Node n ->
       (* if it's a list operator we handle the arguments differently *)
       if String.is_prefix ~prefix:"list_" n.op then
@@ -76,8 +79,41 @@ let format_expr_tree (e: expr_tree): string =
                           spaces;
                           "])"]
       else
-        String.concat [spaces; string_of_expr_tree e]
-    | _ -> String.concat [spaces; string_of_expr_tree e]
+        begin
+          match List.length n.args with 
+          | 0 ->  failwith "Invalid expr tree"
+          | 1 ->  (* unary operator *)
+                    String.concat[spaces; n.op; "("; format_expr_tree' 0 (List.hd_exn n.args); ")"]
+          | 2 ->  (* binary operator *)
+                  let arg1 = List.hd_exn n.args in
+                  let arg2 = List.hd_exn (List.tl_exn n.args) in
+                  begin
+                    match arg1, arg2 with
+                    | Variable _, Variable _ (* binary *)
+                    | Variable _, Constant _
+                    | Constant _, Variable _
+                    | Constant _, Constant _
+                        -> String.concat[format_expr_tree' indent arg1; " "; n.op; " "; format_expr_tree' 0 arg2]
+                    | Node _, Node _
+                        -> String.concat[spaces; "("; format_expr_tree' 0 arg1; ") "; n.op; " ("; format_expr_tree' 0 arg2; ")"]
+                    | _, Node _
+                        -> String.concat[spaces; format_expr_tree' (indent+2) arg1; " "; n.op; " ("; format_expr_tree' 0 arg2; ")"]
+                    | Node _, _
+                        -> String.concat[spaces; "("; format_expr_tree' 0 arg1; ") "; n.op; " "; format_expr_tree' 0 arg2]
+                    | _, _
+                        -> String.concat[spaces; "("; format_expr_tree' 0 arg1; ") "; n.op; " ("; format_expr_tree' 0 arg2; ")"]
+                  end
+          | 3 ->  (* ternary operator *)
+                  let arg1 = List.hd_exn n.args in
+                  let arg2 = List.hd_exn (List.tl_exn n.args) in
+                  let arg3 = List.hd_exn (List.tl_exn (List.tl_exn n.args)) in
+                  String.concat[spaces;
+                                n.op; "(";  format_expr_tree' 0 arg1; ", ";
+                                            format_expr_tree' 0 arg2; ", ";
+                                            format_expr_tree' 0 arg3; ")"]
+          | _ ->  (* list of operands *)
+                  String.concat [spaces; n.op; "("; String.concat ~sep:", " (List.map ~f:(format_expr_tree' 0) n.args); ")"]
+        end
   in
 
   format_expr_tree' 0 e
@@ -90,11 +126,13 @@ let vars_of_expr_tree (tree: expr_tree): string list =
         []
     | Variable v          -> 
         [v]
+    | ExprList el         ->
+      List.concat (List.map ~f:vars_of_expr_tree' el)
     | Node n              -> 
         begin
           match n.args with
           | hd::tl  -> List.append (vars_of_expr_tree' hd) 
-                                  (vars_of_expr_tree' (Node {op = n.op; args = tl}))
+                                   (vars_of_expr_tree' (Node {op = n.op; args = tl}))
           | []      -> []
         end
     in

@@ -1,398 +1,398 @@
 |f23| = list_max([
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
     list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
     list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
     list_max([4; 3]);
-    2
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    1;
-    list_max([4; 3]);
-    list_max([13; 13; 9]);
-    list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
     list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
     list_max([4; 3]);
-    2
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    1;
-    list_max([4; 3]);
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([4; 3]);
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
-    list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([4; 3]);
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
-    list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([4; 3]);
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
-    list_max([4; 3]);
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([4; 3]);
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([4; 3]);
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
     list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+1;
+    list_max([4; 3]);
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([4; 3]);
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
+    list_max([4; 3]);
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([4; 3]);
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
+    list_max([4; 3]);
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([4; 3]);
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
+    list_max([4; 3]);
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([4; 3]);
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([4; 3]);
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
     list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
     list_max([4; 3]);
-    2
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
   ]);
   list_sum([
     list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([4; 3]);
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
-    list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
-    list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
-    list_max([4; 3]);
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([13; 13; 9]);
-    list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([13; 13; 9]);
-    list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
-    5;
-    (22)*I(pn2, pn2 + -1, pn2 = pn2 + -1, pn2 = pn2 + -1) + 1;
-    list_max([13; 13; 9]);
-    list_max([4; 3]);
-    2
-  ]);
-  list_sum([
-    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
     list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([4; 3]);
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
+    list_max([4; 3]);
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
+    list_max([4; 3]);
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
+    list_max([4; 3]);
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([13; 13; 9]);
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([13; 13; 9]);
+    list_max([4; 3]);
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([13; 13; 9]);
+    list_max([4; 3]);
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+5;
+    (22 * (I([pn2], [pn2 + -1], [pn2 = pn2 + -1], [pn2 = pn2 + -1]))) + 1;
+    list_max([13; 13; 9]);
+    list_max([4; 3]);
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
     list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    1;
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
     list_max([4; 3]);
-    2
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
   ]);
   list_sum([
     list_max([15; 15; 12]);
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+1;
+    list_max([4; 3]);
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    7;
-    (25)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1;
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
     list_max([4; 3]);
     list_max([13; 13; 9]);
-    list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    1;
-    2
+7;
+    (25 * (I([pn2], [(pn2 + -4) > 3], [pn2 = pn2], [pn2 = pn2 + -4]))) + 1;
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
   ]);
   list_sum([
     list_max([15; 15; 12]);
     list_max([4; 3]);
     list_max([13; 13; 9]);
     list_max([4; 3]);
-    5;
-    (15)*I(pn2, pn2 + -1, pn2 = pn2, pn2 = pn2 + -1) + (list_max([1; 2]));
-    Empty
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+1;
+2
   ]);
   list_sum([
     list_max([15; 15; 12]);
     list_max([4; 3]);
     list_max([13; 13; 9]);
     list_max([4; 3]);
-    2
+5;
+    (15 * (I([pn2], [pn2 + -1], [pn2 = pn2], [pn2 = pn2 + -1]))) + (list_max([1; 2]));
+Empty
   ]);
   list_sum([
     list_max([15; 15; 12]);
     list_max([4; 3]);
-    2
+    list_max([13; 13; 9]);
+    list_max([4; 3]);
+2
+  ]);
+  list_sum([
+    list_max([15; 15; 12]);
+    list_max([4; 3]);
+2
   ])
 ])
