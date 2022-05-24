@@ -42,7 +42,7 @@ let string_of_ebblock (ebb: ebblock): string =
       sprintf "%sebb entry:  %d\n"  (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb type:   %s\n"  spaces (string_of_ebb_type ebb.ebbtype);
       sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bbs);
-      sprintf "%sebb cost:   %s\n"  spaces (string_of_expr_tree ebb.cost);
+      sprintf "%sebb cost:   %s\n"  spaces (format_expr_tree ebb.cost);
       sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       sprintf "%sebb succs:  %s\n"  spaces (string_of_ebblocks ebb.succ_ebbs);
       String.concat
