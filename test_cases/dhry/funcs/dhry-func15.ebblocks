@@ -1,8 +1,88 @@
 ebb entry:  0
   ebb type:   block
-  ebb blocks: [0 1]
-  ebb cost:   8
-  ebb exits:  [1]
+  ebb blocks: [0 1 2]
+  ebb cost:   list_max([10; 10])
+  ebb exits:  [3 9]
+  ebb succs:  [9 3]
+  1 paths to exit 3
+  [0 1 2]
+  1 paths to exit 9
+  [0 1 2]
+ebb entry:  3
+  ebb type:   block
+  ebb blocks: [3]
+  ebb cost:   1
+  ebb exits:  [4]
+  ebb succs:  [4]
+  1 paths to exit 4
+  [3]
+ebb entry:  4
+  ebb type:   loop
+  ebb blocks: [4 5 6]
+  ebb cost:   (21 * (I([ln2], [(ln2 - 4) > 3], [ln2 = 31], [ln2 = ln2 - 4]))) + 1
+  ebb exits:  [7 9]
+  ebb succs:  [9 7]
+  1 paths to exit 7
+  [4 5 6]
+  1 paths to exit 9
+  [4]
+  1 loop paths
+  [4 5]
+  1 post loop exit paths
+  [6]
+ebb entry:  7
+  ebb type:   block
+  ebb blocks: [7 8]
+  ebb cost:   list_max([4; 3])
+  ebb exits:  [9 17]
+  ebb succs:  [17 9]
+  1 paths to exit 9
+  [7 8]
+  1 paths to exit 17
+  [7]
+ebb entry:  9
+  ebb type:   block
+  ebb blocks: [9]
+  ebb cost:   1
+  ebb exits:  [10]
+  ebb succs:  [10]
+  1 paths to exit 10
+  [9]
+ebb entry:  10
+  ebb type:   loop
+  ebb blocks: [10 11 12 13 14]
+  ebb cost:   (21 * (I([ln2], [ln2 - 1], [ln2 = 31], [ln2 = ln2 - 1]))) + (list_max([1; 1]))
+  ebb exits:  [15 17]
+  ebb succs:  [17 15]
+  1 paths to exit 15
+  [10 14]
+  1 paths to exit 17
+  [10 11 12]
+  1 loop paths
+  [10 11]
+  2 post loop exit paths
+  [14]  [12]
+ebb entry:  15
+  ebb type:   block
+  ebb blocks: [15 16]
+  ebb cost:   4
+  ebb exits:  [17 19]
+  ebb succs:  [19 17]
+  0 paths to exit 17
+
+  1 paths to exit 19
+  [15]
+ebb entry:  17
+  ebb type:   block
+  ebb blocks: [17 18]
+  ebb cost:   2
+  ebb exits:  [18]
   ebb succs:  []
-  1 paths to exit 1
-  [0]
+  1 paths to exit 18
+  [17]
+ebb entry:  19
+  ebb type:   block
+  ebb blocks: [19]
+  ebb cost:   Empty
+  ebb exits:  []
+  ebb succs:  []

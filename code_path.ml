@@ -221,7 +221,7 @@ let code_paths_from_to_bb (from_bb: bblock) (to_bb: bblock): code_path list opti
   in
   
   let rec code_paths_to_bb (to_bb: bblock) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list option =
-    if n_iters > 500_000 then
+    if n_iters > 1_000_000 then
       None
     else
       match nterm with
@@ -295,7 +295,7 @@ let code_paths_from_bbs_to_bb (from_bbs: bblock list) (to_bb: bblock): code_path
   
   let rec code_paths_from_to_ebb' (from_bbs: bblock list) (to_bb: bblock) (nterm: code_path list)
       (term: code_path list) (n_iters: int): code_path list option =
-    if n_iters > 500_000 then
+    if n_iters > 1_000_000 then
       None
     else
       match nterm with

@@ -1,1 +1,19 @@
-|f28| = 4 + |f27|
+|f28| = list_max([
+  list_sum([
+    list_max([13; 13; 9]);
+    1;
+    (20 * (I([pn0; pn1], [(i32.load8_u@(pn1)) == (i32.load8_u@(pn0))], [pn0 = pn0; pn1 = pn1], [pn0 = pn0 + 1; pn1 = pn1 + 1]))) + 1;
+    1;
+    4
+  ]);
+  list_sum([
+    list_max([13; 13; 9]);
+    1;
+    (20 * (I([pn0; pn1], [(i32.load8_u@(pn1)) == (i32.load8_u@(pn0))], [pn0 = pn0; pn1 = pn1], [pn0 = pn0 + 1; pn1 = pn1 + 1]))) + 1;
+    4
+  ]);
+  list_sum([
+    list_max([13; 13; 9]);
+    4
+  ])
+])

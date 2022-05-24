@@ -1,1 +1,43 @@
-|f31| = list_max([list_sum([list_max([13; 7; 13]); 1; (21)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1; 1; list_max([4; 3]); 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 4; 2]); list_sum([list_max([13; 7; 13]); 1; (21)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1; 1; list_max([4; 3]); 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 4; ]); list_sum([list_max([13; 7; 13]); 1; (21)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1; 1; list_max([4; 3]); 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 2]); list_sum([list_max([13; 7; 13]); 1; (21)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1; 1; list_max([4; 3]); 2]); list_sum([list_max([13; 7; 13]); 1; (21)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1; 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 4; 2]); list_sum([list_max([13; 7; 13]); 1; (21)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1; 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 4; ]); list_sum([list_max([13; 7; 13]); 1; (21)*I(pn2, (pn2 + -4) > 3, pn2 = pn2, pn2 = pn2 + -4) + 1; 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 2]); list_sum([list_max([13; 7; 13]); list_max([4; 3]); 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 4; 2]); list_sum([list_max([13; 7; 13]); list_max([4; 3]); 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 4; ]); list_sum([list_max([13; 7; 13]); list_max([4; 3]); 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 2]); list_sum([list_max([13; 7; 13]); list_max([4; 3]); 2]); list_sum([list_max([13; 7; 13]); 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 4; 2]); list_sum([list_max([13; 7; 13]); 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 4; ]); list_sum([list_max([13; 7; 13]); 1; 1; (23)*I(pn2, not(i32.eqz(pn2 + -1)), pn2 = pn2 + -1, pn2 = pn2 + -1); 2])])
+|f31| = list_max([
+  108 + (list_sum([|f18|; |f32|]));
+  109 + (list_sum([|f18|; |f32|]));
+  136 + (list_sum([|f18|; |f32|]));
+  137 + (list_sum([|f18|; |f32|]));
+  98 + (list_sum([|f18|; |f19|; |f32|]));
+  99 + (list_sum([|f18|; |f19|; |f32|]));
+  126 + (list_sum([|f18|; |f19|; |f32|]));
+  127 + (list_sum([|f18|; |f19|; |f32|]));
+  115 + (list_sum([|f18|; |f19|; |f32|]));
+  116 + (list_sum([|f18|; |f19|; |f32|]));
+  143 + (list_sum([|f18|; |f19|; |f32|]));
+  144 + (list_sum([|f18|; |f19|; |f32|]));
+  110 + (list_sum([|f18|; |f19|; |f32|]));
+  111 + (list_sum([|f18|; |f19|; |f32|]));
+  138 + (list_sum([|f18|; |f19|; |f32|]));
+  139 + (list_sum([|f18|; |f19|; |f32|]));
+  127 + (list_sum([|f18|; |f19|; |f32|]));
+  128 + (list_sum([|f18|; |f19|; |f32|]));
+  155 + (list_sum([|f18|; |f19|; |f32|]));
+  156 + (list_sum([|f18|; |f19|; |f32|]));
+  114 + (list_sum([|f18|; |f32|]));
+  115 + (list_sum([|f18|; |f32|]));
+  142 + (list_sum([|f18|; |f32|]));
+  143 + (list_sum([|f18|; |f32|]));
+  104 + (list_sum([|f18|; |f19|; |f32|]));
+  105 + (list_sum([|f18|; |f19|; |f32|]));
+  132 + (list_sum([|f18|; |f19|; |f32|]));
+  133 + (list_sum([|f18|; |f19|; |f32|]));
+  121 + (list_sum([|f18|; |f19|; |f32|]));
+  122 + (list_sum([|f18|; |f19|; |f32|]));
+  149 + (list_sum([|f18|; |f19|; |f32|]));
+  150 + (list_sum([|f18|; |f19|; |f32|]));
+  116 + (list_sum([|f18|; |f19|; |f32|]));
+  117 + (list_sum([|f18|; |f19|; |f32|]));
+  144 + (list_sum([|f18|; |f19|; |f32|]));
+  145 + (list_sum([|f18|; |f19|; |f32|]));
+  133 + (list_sum([|f18|; |f19|; |f32|]));
+  134 + (list_sum([|f18|; |f19|; |f32|]));
+  161 + (list_sum([|f18|; |f19|; |f32|]));
+  162 + (list_sum([|f18|; |f19|; |f32|]));
+  46 + (list_sum([|f18|; |f32|]))
+])
