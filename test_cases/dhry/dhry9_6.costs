@@ -1,15 +1,29 @@
 |f9| = list_sum([
 	1148;
-	(list_sum([|iprintf|; |puts|; |dlmalloc|]));
 	10 *
 	  list_sum([
 	    143;
-		|__clock_gettime|; 
 		N * (413 + |strcmp|);
-		(list_sum([|__clock_gettime|; |__small_printf|]))
+		list_sum([2*|__clock_gettime|; |__small_printf|]))
 	  ]);
-	(list_sum([|_tzset_js|; |_localtime_js|; |_emscripten_date_now|; |__nl_langinfo_l|; |memcmp|; |iprintf|; |__small_printf|; |memset|; |puts|; |strcmp|; |__vfprintf_internal|]))
+	list_sum([list_sum([|iprintf|; |puts|; |dlmalloc|]);|_tzset_js|; |_localtime_js|; |_emscripten_date_now|; |__nl_langinfo_l|; |memcmp|; |iprintf|; |__small_printf|; |memset|; |puts|; |strcmp|; |__vfprintf_internal|])
   ])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 |__vfprintf_internal| = Inf
 
