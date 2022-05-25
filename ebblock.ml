@@ -276,14 +276,14 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
               end
             else
               begin
-                let cost       = Constant "INF" in
+                let cost       = Constant "Inf" in
                 {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
               end
           end
         else
           (* this happens when there are too many looping paths and we give up trying to enumerate them *)
           begin 
-            let cost        = Constant "INF" in
+            let cost        = Constant "Inf" in
             let exit_cps    = [] in
             let nested_ebbs = [] in
             {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
