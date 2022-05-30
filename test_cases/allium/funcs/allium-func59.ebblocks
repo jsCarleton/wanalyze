@@ -1,7 +1,10 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2]
-  ebb cost:   list_max([12 + |f20|; 26 + (list_sum([|f17|; |f20|; |f29|]))])
+  ebb cost:   list_max([
+  12 + |f20|;
+  26 + (list_sum([|f17|; |f20|; |f29|]))
+])
   ebb exits:  [3 14]
   ebb succs:  [14 3]
   1 paths to exit 3
@@ -19,7 +22,12 @@ ebb entry:  3
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7 8 9 10 11]
-  ebb cost:   (list_max([(34 + |f29|)*I(pn1;pn2, pn2 - (64 - pn1), pn2 = pn2;pn1 = rn0, pn2 = pn2 - (64 - pn1);pn1 = (64 - pn1) + pn1); (35 + |f29|)*I(pn2, pn2 - pn2, pn2 = pn2, pn2 = pn2 - pn2); (4553 + (list_sum([|f19|; |f29|])))*I(pn2, pn2 - (64 - 0), pn2 = pn2, pn2 = pn2 - (64 - 0)); (4554 + (list_sum([|f19|; |f29|])))*I(pn2, pn2 - pn2, pn2 = pn2, pn2 = pn2 - pn2)]))+ (list_max([1; 1; 1; 1]))
+  ebb cost:   (list_max([
+  (34 + |f29|) * (I([pn1; pn2], [pn2 - (64 - pn1)], [pn1 = rn0; pn2 = pn2], [pn1 = (64 - pn1) + pn1; pn2 = pn2 - (64 - pn1)]));
+  (35 + |f29|) * (I([pn2], [pn2 - pn2], [pn2 = pn2], [pn2 = pn2 - pn2]));
+  (4553 + (list_sum([|f19|; |f29|]))) * (I([pn2], [pn2 - (64 - 0)], [pn2 = pn2], [pn2 = pn2 - (64 - 0)]));
+  (4554 + (list_sum([|f19|; |f29|]))) * (I([pn2], [pn2 - pn2], [pn2 = pn2], [pn2 = pn2 - pn2]))
+])) + (list_max([1; 1; 1; 1]))
   ebb exits:  [12]
   ebb succs:  [12]
   4 paths to exit 12
@@ -42,6 +50,6 @@ ebb entry:  12
 ebb entry:  14
   ebb type:   block
   ebb blocks: [14]
-  ebb cost:   
+  ebb cost:   Empty
   ebb exits:  []
   ebb succs:  []

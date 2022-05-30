@@ -2,18 +2,18 @@
   list_sum([
     26;
     1;
-    INF;
+    Inf;
     3;
     3;
     4 + |f7|;
     3;
     6
   ]);
-  list_sum([26; 1; INF; 3; 6]);
+  list_sum([26; 1; Inf; 3; 6]);
   list_sum([
     26;
     1;
-    INF;
+    Inf;
     3;
     4 + |f7|;
     3;
@@ -22,17 +22,17 @@
   list_sum([
     26;
     1;
-    INF;
+    Inf;
     4 + |f7|;
     3;
     6
   ]);
-  list_sum([26; 1; INF; 3; 6]);
-  list_sum([26; 1; INF; 6]);
+  list_sum([26; 1; Inf; 3; 6]);
+  list_sum([26; 1; Inf; 6]);
   list_sum([
     26;
     1;
-    INF;
+    Inf;
     Empty
   ])
 ])

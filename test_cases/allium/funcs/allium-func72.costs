@@ -1,1 +1,15 @@
-|f72| = list_max([list_sum([list_max([4; 5]); list_max([543 + (list_sum([|f16|; |f18|; |f36|])); 45]); (498 + (list_sum([|f16|; |f18|; |f36|])))*I(ln17;pN4, (i64.extend_i32_u(ln17 + 1)) < pN4, pN4 = pN4;ln17 = ln17 + 1, pN4 = pN4;ln17 = ln17 + 1) + 1; 1]); list_sum([list_max([4; 5]); ])])
+|f72| = list_max([
+  list_sum([
+    list_max([4; 5]);
+    list_max([
+      543 + (list_sum([|f16|; |f18|; |f36|]));
+      45
+    ]);
+    ((498 + (list_sum([|f16|; |f18|; |f36|]))) * (I([ln17; pN4], [(i64.extend_i32_u(ln17 + 1)) < pN4], [ln17 = ln17 + 1; pN4 = pN4], [ln17 = ln17 + 1; pN4 = pN4]))) + 1;
+    1
+  ]);
+  list_sum([
+    list_max([4; 5]);
+    Empty
+  ])
+])

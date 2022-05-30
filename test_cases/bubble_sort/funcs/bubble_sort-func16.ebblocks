@@ -1,7 +1,11 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10]
-  ebb cost:   list_max([22; 22; 19 + |f7|])
+  ebb cost:   list_max([
+  22;
+  22;
+  19 + |f7|
+])
   ebb exits:  [11 21 68]
   ebb succs:  [68 21 11]
   1 paths to exit 11
@@ -74,7 +78,17 @@ ebb entry:  33
 ebb entry:  34
   ebb type:   loop
   ebb blocks: [34 35 36 37 38 39 40 41 42 43 44 45]
-  ebb cost:   list_max([(41 + |f47|) * (I([ln4], [not((i64.load@(ln4)) != 0)], [ln4 = g0 - 16], [ln4 = ln4])); (52 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-48 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = lN12; ln7 = ln7 + 1])); (61 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-48 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = (lN12 * lN11) + (i64.extend_i32_s(-48 + ((ln7)))); ln7 = ln7 + 1])); (51 + |f47|) * (I([ln4], [not((i64.load@(ln4)) != 0)], [ln4 = g0 - 16], [ln4 = ln4])); (62 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-87 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = lN12; ln7 = ln7 + 1])); (71 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-87 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = (lN12 * lN11) + (i64.extend_i32_s(-87 + ((ln7)))); ln7 = ln7 + 1])); (62 + |f47|) * (I([ln4], [not((i64.load@(ln4)) != 0)], [ln4 = g0 - 16], [ln4 = ln4])); (73 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-55 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = lN12; ln7 = ln7 + 1])); (82 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-55 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = (lN12 * lN11) + (i64.extend_i32_s(-55 + ((ln7)))); ln7 = ln7 + 1]))])
+  ebb cost:   list_max([
+  (41 + |f47|) * (I([ln4], [not((i64.load@(ln4)) != 0)], [ln4 = g0 - 16], [ln4 = ln4]));
+  (52 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-48 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = lN12; ln7 = ln7 + 1]));
+  (61 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-48 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = (lN12 * lN11) + (i64.extend_i32_s(-48 + ((ln7)))); ln7 = ln7 + 1]));
+  (51 + |f47|) * (I([ln4], [not((i64.load@(ln4)) != 0)], [ln4 = g0 - 16], [ln4 = ln4]));
+  (62 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-87 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = lN12; ln7 = ln7 + 1]));
+  (71 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-87 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = (lN12 * lN11) + (i64.extend_i32_s(-87 + ((ln7)))); ln7 = ln7 + 1]));
+  (62 + |f47|) * (I([ln4], [not((i64.load@(ln4)) != 0)], [ln4 = g0 - 16], [ln4 = ln4]));
+  (73 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-55 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = lN12; ln7 = ln7 + 1]));
+  (82 + |f47|) * (I([lN11; lN12; ln7], [not((lN12 * lN11) > ((i64.extend_i32_s(-55 + (i32.load8_s@(ln7)))) xor -1))], [lN11 = i64.extend_i32_s(select(pn2, 10, pn2)); lN12 = (0 * (i64.extend_i32_s(select(pn2, 10, pn2)))) + (i64.extend_i32_s(-48 + ((pn0 + 1)))); ln7 = pn0 + 1], [lN11 = lN11; lN12 = (lN12 * lN11) + (i64.extend_i32_s(-55 + ((ln7)))); ln7 = ln7 + 1]))
+])
   ebb exits:  [48]
   ebb succs:  [48]
   4 paths to exit 48
@@ -97,7 +111,30 @@ ebb entry:  46
 ebb entry:  48
   ebb type:   block
   ebb blocks: [48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67]
-  ebb cost:   list_max([23; 37; 32 + |f7|; 39; 34 + |f7|; 34 + |f7|; 43 + |f7|; 38 + |f7|; 45 + |f7|; 40 + |f7|; 40 + |f7|; 30; 44; 39 + |f7|; 46; 41 + |f7|; 41 + |f7|; 50 + |f7|; 45 + |f7|; 52 + |f7|; 47 + |f7|; 47 + |f7|])
+  ebb cost:   list_max([
+  23;
+  37;
+  32 + |f7|;
+  39;
+  34 + |f7|;
+  34 + |f7|;
+  43 + |f7|;
+  38 + |f7|;
+  45 + |f7|;
+  40 + |f7|;
+  40 + |f7|;
+  30;
+  44;
+  39 + |f7|;
+  46;
+  41 + |f7|;
+  41 + |f7|;
+  50 + |f7|;
+  45 + |f7|;
+  52 + |f7|;
+  47 + |f7|;
+  47 + |f7|
+])
   ebb exits:  [68]
   ebb succs:  [68]
   22 paths to exit 68
