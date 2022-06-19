@@ -1,7 +1,7 @@
 Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values
-bubble_sort,6,2,[0 1 2] 38 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|])),simple br_if,ln4 = rn0; ln3 = 0,(ln3 + 1) != ln4,ln3; ln4,ln4 = ln4; ln3 = ln3 + 1
-bubble_sort,6,8,[0 1 6 7 8] 50 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|])),block
-bubble_sort,12,8,[0 1 2 3 4 5 8] 54 + (list_sum([|f1|; |f37|])),if
+bubble_sort,6,2,[0 1 2] 38 + (list_max([|f8|; |f9|; |f10|; |f17|; |f44|])),simple br_if,ln4 = rn0; ln3 = 0,(ln3 + 1) != ln4,ln3; ln4,ln4 = ln4; ln3 = ln3 + 1
+bubble_sort,6,8,[0 1 6 7 8] 50 + (list_max([|f8|; |f9|; |f10|; |f17|; |f44|])),block
+bubble_sort,12,8,[0 1 2 3 4 5 8] 54 + (list_max([|f1|; |f37|])),if
 bubble_sort,16,33,[0 1 2 3 4 5 6 21 22 23 24 25 26 27 32 33] 61,block
 bubble_sort,16,33,[0 1 2 3 4 5 6 21 22 23 24 25 26 29 32 33] 64,block
 bubble_sort,16,33,[0 1 2 3 4 5 6 21 22 23 24 31 32 33] 52,block
