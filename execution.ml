@@ -67,16 +67,13 @@ let get_global (state: program_state) (i: int): expr_tree =
 let set_global (state: program_state) (i: int) (v: expr_tree) =
   set_value state.global_values i v
 
-let string_of_const_arg arg: string =
-  match arg with
-    | I32value i -> string_of_int i
-    | I64value i -> sprintf "%Ld" i
-    | F32value f -> sprintf "0x%x" f
-    | F64value f -> string_of_float f
-    | _-> failwith "Invalid const argument"
-    
 let expr_tree_of_const_arg arg: expr_tree =
- Constant (string_of_const_arg arg)
+  match arg with
+    | I32value i -> Constant (I32value i)
+    | I64value i -> Constant (I64value i)
+    | F32value f -> Constant (F32value f)
+    | F64value f -> Constant (F64value f)
+    | _          -> failwith "Invalid const argument"
 
 let expr_tree_of_retval (index: int) (rt: resulttype): expr_tree =
   Variable (String.concat ["r"; (string_of_resulttype rt); (string_of_int index)])

@@ -1,14 +1,27 @@
 open Core
 
 (* expression tree *)
-type expr_tree = Empty | Constant of string | Variable of string 
+type constant_value = I32value of int | I64value of int
+      | F32value of float | F64value of float 
+      | Stringvalue of string
+
+type expr_tree = Empty | Constant of constant_value | Variable of string 
                | ExprList of expr_tree list | Node of node
       and node = { op: string; args: expr_tree list }
+
+let string_of_constant_value (c: constant_value): string =
+  match c with
+  | I32value i -> string_of_int i
+  | I64value i -> string_of_int i
+  | F32value f -> string_of_float f
+  | F64value f -> string_of_float f
+  | Stringvalue s -> s
 
 let rec string_of_expr_tree (e: expr_tree): string =
   match e with
     | Empty   -> "Empty" (* empty expression *)
-    | Constant s | Variable s -> s
+    | Constant c -> string_of_constant_value c
+    | Variable s -> s
     | ExprList el -> String.concat ["["; String.concat ~sep:"; " (List.map ~f:string_of_expr_tree el); "]"]
     | Node n  ->
       begin
@@ -60,7 +73,8 @@ let format_expr_tree (e: expr_tree): string =
   let rec format_expr_tree' (indent: int) (e:expr_tree): string =
     match e with
     | Empty   -> "Empty" (* empty expression *)
-    | Constant s | Variable s -> s
+    | Constant c -> string_of_constant_value c
+    | Variable s -> s
     | ExprList el -> String.concat ["["; String.concat ~sep:"; " (List.map ~f:(format_expr_tree' indent) el); "]"]
     | Node n ->
       (* if it's a list operator we handle the arguments differently *)
@@ -147,7 +161,8 @@ match e1,e2 with
       +1
   | Empty, _      ->
       -1
-  | Constant s1, Constant s2
+  | Constant c1, Constant c2 ->
+      String.compare (string_of_constant_value c1) (string_of_constant_value c2)
   | Variable s1, Variable s2 ->  
       String.compare s1 s2
   | Node n1, Node n2  ->

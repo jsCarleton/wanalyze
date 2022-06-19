@@ -362,15 +362,15 @@ let rec local_type_of_index (local_types: local_type list) (index: int) (types_i
 let param_name (param_types: resulttype list) (i: int): string =
   String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i]
 
-let local_value (local_types: local_type list) (nparams: int) (i: int): string =
+let local_value (local_types: local_type list) (nparams: int) (i: int): constant_value =
   match local_type_of_index local_types (i - nparams) 0 0 with
     | Numtype nt ->
       (match nt with
-        | I32 -> "0"
-        | I64 -> "0L"
-        | F32 -> "0.0f"
-        | F64 -> "0.0")
-    | _ -> "?"
+        | I32 -> (I32value 0)
+        | I64 -> (I64value 0)
+        | F32 -> (F32value 0.0)
+        | F64 -> (F64value 0.0))
+    | _ -> failwith "Invalid numtype"
 
 let local_name (local_types: local_type list) (nparams: int) (i: int): string =
   String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]

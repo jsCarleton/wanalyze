@@ -1,5 +1,9 @@
 (* an expression tree *)
-type expr_tree = Empty | Constant of string | Variable of string 
+type constant_value = I32value of int | I64value of int 
+      | F32value of float | F64value of float 
+      | Stringvalue of string
+
+type expr_tree = Empty | Constant of constant_value | Variable of string 
                | ExprList of expr_tree list | Node of node
       and node = { op: string; args: expr_tree list }
 

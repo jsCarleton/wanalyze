@@ -319,6 +319,6 @@ val string_of_resulttype        : resulttype -> string
 val expr_tree_of_local_value    : resulttype list -> local_type list -> int -> Symbolic_expr.expr_tree
 val string_of_local_value       : resulttype list -> local_type list -> int -> string 
 val string_of_global_value      : int -> string
-val local_value                 : local_type list -> int -> int -> string
+val local_value                 : local_type list -> int -> int -> Symbolic_expr.constant_value
 val local_name                  : local_type list -> int -> int -> string
 val valtype_of_int              : int -> valtype
