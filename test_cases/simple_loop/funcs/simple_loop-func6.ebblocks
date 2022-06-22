@@ -1,7 +1,10 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1]
-  ebb cost:   list_max([37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|])); 37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))])
+  ebb cost:   list_max([
+  37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]));
+  37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))
+])
   ebb exits:  [2 6]
   ebb succs:  [6 2]
   1 paths to exit 2
@@ -11,7 +14,10 @@ ebb entry:  0
 ebb entry:  2
   ebb type:   block
   ebb blocks: [2]
-  ebb cost:   list_max([15 + |f11|; 1])
+  ebb cost:   list_max([
+  15 + |f11|;
+  1
+])
   ebb exits:  [3]
   ebb succs:  [3]
   2 paths to exit 3
@@ -20,7 +26,7 @@ ebb entry:  2
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4]
-  ebb cost:   (14 + |f11|)*I(ln3;pn1, (ln3 + 1) != pn1, pn1 = rn0;ln3 = 0 + 1, pn1 = pn1;ln3 = ln3 + 1) + 1
+  ebb cost:   ((14 + |f11|) * (I([ln3; pn1], [(ln3 + 1) != pn1], [ln3 = 0 + 1; pn1 = rn0], [ln3 = ln3 + 1; pn1 = pn1]))) + 1
   ebb exits:  [5]
   ebb succs:  [5]
   1 paths to exit 5
@@ -59,7 +65,7 @@ ebb entry:  8
 ebb entry:  9
   ebb type:   loop
   ebb blocks: [9 10]
-  ebb cost:   (16)*I(ln3;pn1, (ln3 + 1) != pn1, pn1 = rn0;ln3 = 0 + 1, pn1 = pn1;ln3 = ln3 + 1) + 1
+  ebb cost:   (16 * (I([ln3; pn1], [(ln3 + 1) != pn1], [ln3 = 0 + 1; pn1 = rn0], [ln3 = ln3 + 1; pn1 = pn1]))) + 1
   ebb exits:  [11]
   ebb succs:  [11]
   1 paths to exit 11

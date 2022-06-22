@@ -1,14 +1,14 @@
 |f32| = list_max([
-  list_sum([22; 1; INF; 3; 3; 4; 3; 6]);
-  list_sum([22; 1; INF; 3; 6]);
-  list_sum([22; 1; INF; 3; 4; 3; 6]);
-  list_sum([22; 1; INF; 4; 3; 6]);
-  list_sum([22; 1; INF; 3; 6]);
-  list_sum([22; 1; INF; 6]);
+  list_sum([22; 1; Infinity; 3; 3; 4; 3; 6]);
+  list_sum([22; 1; Infinity; 3; 6]);
+  list_sum([22; 1; Infinity; 3; 4; 3; 6]);
+  list_sum([22; 1; Infinity; 4; 3; 6]);
+  list_sum([22; 1; Infinity; 3; 6]);
+  list_sum([22; 1; Infinity; 6]);
   list_sum([
     22;
     1;
-    INF;
+    Infinity;
     Empty
   ])
 ])

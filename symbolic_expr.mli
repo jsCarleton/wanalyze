@@ -1,7 +1,6 @@
 (* an expression tree *)
-type constant_value = I32value of int | I64value of int 
-      | F32value of float | F64value of float 
-      | Stringvalue of string
+type constant_value = Int_value of int | Int64_value of int64
+      | Float_value of float | String_value of string
 
 type expr_tree = Empty | Constant of constant_value | Variable of string 
                | ExprList of expr_tree list | Node of node

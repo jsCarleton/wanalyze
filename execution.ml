@@ -67,13 +67,52 @@ let get_global (state: program_state) (i: int): expr_tree =
 let set_global (state: program_state) (i: int) (v: expr_tree) =
   set_value state.global_values i v
 
-let expr_tree_of_const_arg arg: expr_tree =
+(* Read in a 32-bit IEEE 754 floating point number *)
+(* adapted from http://www.elliottoti.com/code/general/float32.html *)
+let float_of_float32 (bits: int) =
+  let rec pow2 = function
+          | 0 -> 1
+          | n -> 2 * (pow2 (n - 1))
+  in
+  let getbit b n =
+          (b land (pow2 n)) lsr n 
+  in
+  let b0 = bits lsr 24 in        
+  let b1 = (bits lsr 16) land 0xFF in        
+  let b2 = (bits lsr 8) land 0xFF in        
+  let b3 = bits land 0xFF in
+  let sign = getbit b3 7
+  and exponent = 128*(getbit b3 6) + 64*(getbit b3 5) + 32*(getbit b3 4) 
+                                  + 16*(getbit b3 3) + 8*(getbit b3 2) + 4*(getbit b3 1) 
+                                  + 2*(getbit b3 0) + (getbit b2 7) 
+  and significand = b0 + 256*b1 + 65536*(((b2 lsl 1) land 0xFF ) lsr 1) in
+  let max_significand = (float (pow2 23)) -. 1.0 in
+  if exponent = 255 then
+          if significand = 0 then
+                  if sign = 0 then Float.neg_infinity else Float.infinity
+          else
+                  Float.nan
+  else if exponent = 0 then
+          if significand = 0 then
+                  if sign = 0 then 0.0 else -0.0
+          else
+                  let fs = if sign = 0 then 1.0 else -1.0
+                  and fexp = (2.0) ** (-126.0)
+                  and fsig = ((float significand) /. max_significand) in
+                  fs *. fexp *. fsig
+  else
+          let fs = if sign = 0 then 1.0 else -1.0
+          and fexp = (2.0) ** (float (exponent - 127))
+          and fsig = 1.0 +. ((float significand) /. max_significand) in
+          fs *. fexp *. fsig
+
+let expr_tree_of_const_arg (arg: op_arg): expr_tree =
   match arg with
-    | I32value i -> Constant (I32value i)
-    | I64value i -> Constant (I64value i)
-    | F32value f -> Constant (F32value f)
-    | F64value f -> Constant (F64value f)
-    | _          -> failwith "Invalid const argument"
+    | I32value i    -> Constant (Int_value i)
+    | I64value i    -> Constant (Int64_value i)
+    | F32value bits -> Constant (Float_value (float_of_float32 bits))
+    | F64value f    -> Constant (Float_value f)
+    | _             -> failwith "Invalid const argument"
 
 let expr_tree_of_retval (index: int) (rt: resulttype): expr_tree =
   Variable (String.concat ["r"; (string_of_resulttype rt); (string_of_int index)])

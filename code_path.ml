@@ -12,11 +12,11 @@ type code_path = bblock list
 let cost_of_code_path (e: expr) (cp: code_path): expr_tree =
 
   let cost_of_code_path_body (cp: code_path): expr_tree =
-    Constant (I32value (List.fold  ~init:0 ~f:(+) (List.map ~f:cost_of_bblock cp)))
+    Constant (Int_value (List.fold  ~init:0 ~f:(+) (List.map ~f:cost_of_bblock cp)))
   in
 
   let cost_of_fn (fn: int): expr_tree =
-    Constant (Stringvalue (sprintf "|f%d|" fn))
+    Constant (String_value (sprintf "|f%d|" fn))
   in
 
   let cost_of_calls (fns: int list): expr_tree =
