@@ -18,4 +18,5 @@ val expr_tree_of_retval : int -> Wasm_module.resulttype -> Symbolic_expr.expr_tr
 val nparams             : Wasm_module.wasm_module -> int -> int
 val ret_types           : Wasm_module.wasm_module -> int -> Wasm_module.resulttype list
 val int_of_get_argL     : Wasm_module.op_arg -> int
-val string_of_const_arg : Wasm_module.op_arg -> string
+val expr_tree_of_const_arg
+                        : Wasm_module.op_arg -> Symbolic_expr.expr_tree

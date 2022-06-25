@@ -1,9 +1,8 @@
 open Core
 
 (* expression tree *)
-type constant_value = Int32_value of int | Int64_value of int64
-      | Float_value of float
-      | String_value of string
+type constant_value = Int_value of int | Int64_value of int64
+      | Float_value of float | String_value of string
 
 type expr_tree = Empty | Constant of constant_value | Variable of string 
                | ExprList of expr_tree list | Node of node
@@ -11,10 +10,10 @@ type expr_tree = Empty | Constant of constant_value | Variable of string
 
 let string_of_constant_value (c: constant_value): string =
   match c with
-  | Int32_value i  -> string_of_int i
-  | Int64_value i  -> string_of_int i
-  | Float_value f  -> string_of_float f
-  | String_value s -> s
+  | Int_value     i -> string_of_int i
+  | Int64_value   i -> Int64.to_string i
+  | Float_value   f -> string_of_float f
+  | String_value  s -> s
 
 let rec string_of_expr_tree (e: expr_tree): string =
   match e with

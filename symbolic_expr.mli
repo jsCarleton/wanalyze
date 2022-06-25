@@ -1,5 +1,5 @@
 (* an expression tree *)
-type constant_value = Int32_value of int | Int64_value of int64
+type constant_value = Int_value of int | Int64_value of int64
       | Float_value of float | String_value of string
 
 type expr_tree = Empty | Constant of constant_value | Variable of string 

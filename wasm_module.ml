@@ -366,7 +366,7 @@ let local_value (local_types: local_type list) (nparams: int) (i: int): constant
   match local_type_of_index local_types (i - nparams) 0 0 with
     | Numtype nt ->
       (match nt with
-        | I32 -> Int32_value 0
+        | I32 -> Int_value 0
         | I64 -> Int64_value 0L
         | F32
         | F64 -> Float_value 0.0)

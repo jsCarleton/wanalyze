@@ -131,7 +131,7 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
         acc
   | Constop  ->
       { result = name_of_tvar (List.length acc);
-        etree = Constant op.arg;
+        etree = (expr_tree_of_const_arg op.arg);
         alive = true} :: acc
   | Unop ->
       let arg1 = find_and_kill acc in
@@ -158,7 +158,7 @@ let ssa_of_expr (ctx: execution_context): ssa list =
  List.fold_left ~f:(ssa_of_op ctx) ~init:[] ctx.w_e
 
 let ssa_of_local (ll: local_type list) (i: int) (_: local_type): ssa =
-  { result = local_name ll 0 i; etree = local_value ll 0 i; alive = true}
+  { result = local_name ll 0 i; etree = Constant (local_value ll 0 i); alive = true}
 
 let ssa_of_locals (ll: local_type list): ssa list =
   List.mapi ~f:(ssa_of_local ll) ll

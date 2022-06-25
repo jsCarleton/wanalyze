@@ -20,7 +20,7 @@ ebb entry:  2
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4]
-  ebb cost:   (24)*I(pN0, pN0 > 15, pN0 = pN0 shr_u 4, pN0 = pN0 shr_u 4) + 1
+  ebb cost:   (24 * (I([pN0], [pN0 > 15], [pN0 = pN0 shr_u 4], [pN0 = pN0 shr_u 4]))) + 1
   ebb exits:  [5]
   ebb succs:  [5]
   1 paths to exit 5
