@@ -69,10 +69,10 @@ let set_global (state: program_state) (i: int) (v: expr_tree) =
 
 let expr_tree_of_const_arg arg: expr_tree =
   match arg with
-    | I32value i -> Constant (I32value i)
-    | I64value i -> Constant (I64value i)
-    | F32value f -> Constant (F32value f)
-    | F64value f -> Constant (F64value f)
+    | I32value i -> Constant (Int32_value i)
+    | I64value i -> Constant (Int64_value i)
+    | F32value f
+    | F64value f -> Constant (Float_value f)
     | _          -> failwith "Invalid const argument"
 
 let expr_tree_of_retval (index: int) (rt: resulttype): expr_tree =

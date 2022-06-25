@@ -366,10 +366,10 @@ let local_value (local_types: local_type list) (nparams: int) (i: int): constant
   match local_type_of_index local_types (i - nparams) 0 0 with
     | Numtype nt ->
       (match nt with
-        | I32 -> (I32value 0)
-        | I64 -> (I64value 0)
-        | F32 -> (F32value 0.0)
-        | F64 -> (F64value 0.0))
+        | I32 -> Int32_value 0
+        | I64 -> Int64_value 0L
+        | F32
+        | F64 -> Float_value 0.0)
     | _ -> failwith "Invalid numtype"
 
 let local_name (local_types: local_type list) (nparams: int) (i: int): string =
