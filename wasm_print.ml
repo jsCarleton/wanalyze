@@ -3,7 +3,7 @@ open Easy_logging
 open Wasm_module
 open Bblock
 open Ssa
-open Symbolic_expr
+open Et
 open Code_path
 open Execution
 open Cost
@@ -406,7 +406,7 @@ let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string
 (* printing analysis results *)
 
 let string_of_code_path (ctx: execution_context) (cp: code_path): string = 
-  String.concat[string_of_raw_bblocks cp; " "; (string_of_expr_tree (cost_of_code_path ctx.w_e cp))]
+  String.concat[string_of_raw_bblocks cp; " "; (string_of_et (cost_of_code_path ctx.w_e cp))]
 
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
@@ -414,7 +414,7 @@ let string_of_code_path (ctx: execution_context) (cp: code_path): string =
 let loop_info ctx cp_ssa bbs (bb_idx: int) loop_type =
   let bb_next = List.nth_exn bbs (bb_idx+1) in
   let loop_cond = analyze_simple_loop ctx bb_next in
-  let loop_vars = vars_of_expr_tree loop_cond in
+  let loop_vars = vars_of_et loop_cond in
   let loop_ssa = ssa_of_expr {w           = ctx.w; 
                               w_e         = (expr_of_bblock ctx.w_e bb_next); 
                               w_state     = empty_program_state ctx.w ctx.param_types ctx.local_types;
@@ -424,7 +424,7 @@ let loop_info ctx cp_ssa bbs (bb_idx: int) loop_type =
                   ",";
                   (string_of_ssa_list (List.map ~f:(explode_var cp_ssa) loop_vars) "; " false);
                   ",";
-                  (string_of_expr_tree loop_cond);
+                  (string_of_et loop_cond);
                   ",";
                   (String.concat ~sep:"; " loop_vars);
                   ",";
@@ -452,7 +452,7 @@ let print_summary oc_summary ctx m fnum bbs (cp: code_path) =
   String.concat ~sep:"; " (List.dedup_and_sort ~compare:String.compare vs)
 
 let string_of_loop_cost_fn c =
-  sprintf "%d + %d*c('%s', '%s', '%s', '%s')" c.prefix_cost c.loop_cost (string_of_vars c.loop_vars) (string_of_ssa_list c.lv_entry_vals "; " false) (string_of_expr_tree c.loop_cond) (string_of_ssa_list c.lv_loop_vals "; " false) 
+  sprintf "%d + %d*c('%s', '%s', '%s', '%s')" c.prefix_cost c.loop_cost (string_of_vars c.loop_vars) (string_of_ssa_list c.lv_entry_vals "; " false) (string_of_et c.loop_cond) (string_of_ssa_list c.lv_loop_vals "; " false) 
 
  let string_of_cost_of_loops col: string =
   if List.length col = 1 then
@@ -502,11 +502,11 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
     | 1 -> Out_channel.output_string oc 
             (sprintf "|f%d| = %s\n" 
               fnum 
-              (format_expr_tree (ebb_path_cost (List.hd_exn ebb_paths))))
+              (format_et (ebb_path_cost (List.hd_exn ebb_paths))))
     | _ -> Out_channel.output_string oc 
             (sprintf "|f%d| = %s\n" 
               fnum 
-              (format_expr_tree (ebb_paths_max_cost ebb_paths))));
+              (format_et (ebb_paths_max_cost ebb_paths))));
     Out_channel.close oc;
   (* TODO everything after this is diagnostics, not required *)
   (* loop analysis *)

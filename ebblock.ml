@@ -1,7 +1,7 @@
 open Core
 open Bblock
 open Code_path
-open Symbolic_expr
+open Et
 
 type ebb_exit =
   {
@@ -14,7 +14,7 @@ type ebb_type = EBB_loop | EBB_block
 type ebblock = 
   {
     ebbtype:      ebb_type;       (* either a block or a loop*)
-    cost:         expr_tree;      (* cost of executing this ebb *)
+    cost:         et;      (* cost of executing this ebb *)
     entry_bb:     bblock;         (* bb that's the entry to the ebb *)
     bbs:          bblock list;    (* list of bbs that make up the ebb *)
     exits:        ebb_exit list;  (* info about how the ebb is exitted *)
@@ -42,7 +42,7 @@ let string_of_ebblock (ebb: ebblock): string =
       sprintf "%sebb entry:  %d\n"  (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb type:   %s\n"  spaces (string_of_ebb_type ebb.ebbtype);
       sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bbs);
-      sprintf "%sebb cost:   %s\n"  spaces (format_expr_tree ebb.cost);
+      sprintf "%sebb cost:   %s\n"  spaces (format_et ebb.cost);
       sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       sprintf "%sebb succs:  %s\n"  spaces (string_of_ebblocks ebb.succ_ebbs);
       String.concat
@@ -173,7 +173,7 @@ let paths_of_ebblocks (ebbs: ebblock list): ebblock list list =
 let rec ebblocks_of_bblocks (ctx: Execution.execution_context) 
           (all_bbs: bblock list): ebblock list =
 
-  let cost_of_block_ebb (exits: ebb_exit list): expr_tree =
+  let cost_of_block_ebb (exits: ebb_exit list): et =
     if List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) exits then
       Constant (String_value "Infinity")
     else
@@ -210,7 +210,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
     List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
   in
 
-  let expr_of_lm (lm: Cost.loop_metric): expr_tree =
+  let expr_of_lm (lm: Cost.loop_metric): et =
     match lm with
     | Infinite  -> Constant (String_value "Infinity")
     | LMI lmi   ->
@@ -405,13 +405,13 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
       cost
 *)
 
-let ebb_path_cost (ebb_path: ebblock list): expr_tree =
+let ebb_path_cost (ebb_path: ebblock list): et =
   match ebb_path with
   | []    -> Constant (Int_value 0)
   | [hd]  -> hd.cost
   | _     -> Node { op = "list_sum"; args = List.map ~f:(fun ebb -> ebb.cost) ebb_path}
 
-let ebb_paths_max_cost (ebb_paths: ebblock list list): expr_tree =
+let ebb_paths_max_cost (ebb_paths: ebblock list list): et =
   match ebb_paths with
   | []    -> Empty
   | [hd]  -> ebb_path_cost hd

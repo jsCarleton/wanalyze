@@ -1,6 +1,6 @@
 type ssa = {
   result:         string;
-  mutable etree:  Symbolic_expr.expr_tree;
+  mutable etree:  Et.et;
   mutable alive:  bool;
 }
 

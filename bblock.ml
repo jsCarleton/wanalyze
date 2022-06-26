@@ -1,7 +1,7 @@
 open Core
 open Easy_logging
 open Wasm_module
-open Symbolic_expr
+open Et
 
 (* basic blocks and code paths are supplementary information that we store as part of the func definition to
     facilitate analysis *)

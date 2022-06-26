@@ -1,7 +1,7 @@
 open Core
 open Easy_logging
 open Wasm_module
-open Symbolic_expr
+open Et
 open Bblock
 
 type execution_context =
@@ -34,37 +34,37 @@ let n_mglobals (globals: global list): int =
 
 (* Updating the state of the program *)
 (* stack operations *)
-let stack_cdr   (state: program_state): expr_tree list = List.tl_exn state.value_stack
+let stack_cdr   (state: program_state): et list = List.tl_exn state.value_stack
 let drop_n_values
                 (state: program_state) (n: int) =
   state.value_stack <- List.drop state.value_stack n
 let drop_value  (state: program_state) = drop_n_values state 1
-let push_value  (state: program_state) (v: expr_tree) = state.value_stack <- List.cons v state.value_stack
-let poke_value  (state: program_state) (v: expr_tree) = state.value_stack <- List.cons v (stack_cdr state)
-let peek_value  (state: program_state): expr_tree = List.hd_exn state.value_stack
-let pop_value   (state: program_state): expr_tree =
+let push_value  (state: program_state) (v: et) = state.value_stack <- List.cons v state.value_stack
+let poke_value  (state: program_state) (v: et) = state.value_stack <- List.cons v (stack_cdr state)
+let peek_value  (state: program_state): et = List.hd_exn state.value_stack
+let pop_value   (state: program_state): et =
   let value = peek_value state in
   drop_value state;
   value
 
 (* value array operations *)
-let copy_values (values: expr_tree array): expr_tree array =
+let copy_values (values: et array): et array =
   Array.copy values
-let create_values (len: int): expr_tree array =
+let create_values (len: int): et array =
   Array.create ~len:len Empty
-let init_values (len: int) (f: (int -> expr_tree)): expr_tree array =
+let init_values (len: int) (f: (int -> et)): et array =
   Array.init len ~f:f
-let get_value (values: expr_tree array) (i:int): expr_tree =
+let get_value (values: et array) (i:int): et =
   Array.get values i
-let set_value (values: expr_tree array) (i: int) (v: expr_tree) =
+let set_value (values: et array) (i: int) (v: et) =
   Array.set values i v
-let get_local (state: program_state) (i: int): expr_tree =
+let get_local (state: program_state) (i: int): et =
   get_value state.local_values i
-let set_local (state: program_state) (i: int) (v: expr_tree) =
+let set_local (state: program_state) (i: int) (v: et) =
   set_value state.local_values i v
-let get_global (state: program_state) (i: int): expr_tree =
+let get_global (state: program_state) (i: int): et =
   get_value state.global_values i
-let set_global (state: program_state) (i: int) (v: expr_tree) =
+let set_global (state: program_state) (i: int) (v: et) =
   set_value state.global_values i v
 
 (* Read in a 32-bit IEEE 754 floating point number *)
@@ -106,7 +106,7 @@ let float_of_float32 (bits: int) =
           and fsig = 1.0 +. ((float significand) /. max_significand) in
           fs *. fexp *. fsig
 
-let expr_tree_of_const_arg (arg: op_arg): expr_tree =
+let et_of_const_arg (arg: op_arg): et =
   match arg with
     | I32value i    -> Constant (Int_value i)
     | I64value i    -> Constant (Int64_value i)
@@ -114,13 +114,13 @@ let expr_tree_of_const_arg (arg: op_arg): expr_tree =
     | F64value f    -> Constant (Float_value f)
     | _             -> failwith "Invalid const argument"
 
-let expr_tree_of_retval (index: int) (rt: resulttype): expr_tree =
+let et_of_retval (index: int) (rt: resulttype): et =
   Variable (String.concat ["r"; (string_of_resulttype rt); (string_of_int index)])
 
-let expr_tree_of_unop (op: string) (arg1: expr_tree): expr_tree =
+let et_of_unop (op: string) (arg1: et): et =
   Node {op = op; args = [arg1]}
 
-let expr_tree_of_binop (op: string) (arg1: expr_tree) (arg2: expr_tree): expr_tree =
+let et_of_binop (op: string) (arg1: et) (arg2: et): et =
   Node {op = op; args = [arg1; arg2]}
 
 (* Parametric operators *)
@@ -136,7 +136,7 @@ let update_state_parametricop (op: op_type) (s: program_state) =
 let update_state_callop (_: wasm_module) (param_count: int) (retval_types: resulttype list) (state: program_state) =
   drop_n_values state param_count;
   List.iter ~f:(push_value state) 
-    (List.init (List.length retval_types) ~f:(fun i -> (expr_tree_of_retval i (List.nth_exn retval_types i))))
+    (List.init (List.length retval_types) ~f:(fun i -> (et_of_retval i (List.nth_exn retval_types i))))
 
 let ret_types (w: wasm_module) (fidx: int): resulttype list =
   (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
@@ -169,40 +169,40 @@ let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
 
 (* memory operator *)
 let update_state_memloadop (op: op_type) (state: program_state) = 
-  poke_value state (expr_tree_of_unop (String.concat[op.opname; "@"]) (peek_value state))
+  poke_value state (et_of_unop (String.concat[op.opname; "@"]) (peek_value state))
 let update_state_memstoreop (state: program_state) = 
   drop_value state
 
 (* constant operators *)
 let update_state_constop (op: op_type) (state: program_state) =
-  push_value state (expr_tree_of_const_arg op.arg)
+  push_value state (et_of_const_arg op.arg)
 
 (* unary operators *)
 let update_state_unop (op: op_type) (state: program_state) = 
-  poke_value state (expr_tree_of_unop op.opname (peek_value state))
+  poke_value state (et_of_unop op.opname (peek_value state))
 
 (* binary operators *)
 let update_state_binop (f: string) (state: program_state) =
   let arg2 = pop_value state in
   let arg1 = peek_value state in
-  poke_value state (expr_tree_of_binop f arg1 arg2)
+  poke_value state (et_of_binop f arg1 arg2)
 
 (* test operators *)
 let update_state_testop (op: op_type) (state: program_state) =
-  poke_value state (expr_tree_of_unop op.opname (peek_value state))
+  poke_value state (et_of_unop op.opname (peek_value state))
  
 (* cvt operators *)
 let update_state_cvtop (op: op_type) (state: program_state) =
   match op.opcode with
   | 0xfc ->
-      poke_value state (expr_tree_of_unop "TODO" (peek_value state))
+      poke_value state (et_of_unop "TODO" (peek_value state))
   | _ ->
-      poke_value state (expr_tree_of_unop op.opname (peek_value state))
+      poke_value state (et_of_unop op.opname (peek_value state))
 
 (* instruction counter*)
 let update_instr_count (state: program_state) = state.instr_count <- state.instr_count + 1
 
-let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): expr_tree = 
+let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): et = 
   match op.opcode with
   (* unreachable, nop, block, loop, else, end, br, return - nothing to do *)
   | 0x00 | 0x01 | 0x02 | 0x03 | 0x05 | 0x0b | 0x0c | 0x0f -> Empty
@@ -222,7 +222,7 @@ let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): ex
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
     
-let reduce_op (w: wasm_module) (op: op_type) (s: program_state): expr_tree =
+let reduce_op (w: wasm_module) (op: op_type) (s: program_state): et =
     update_instr_count s;
     match op.instrtype with
     | Control -> update_state_controlop w op s
@@ -263,8 +263,8 @@ let reduce_op (w: wasm_module) (op: op_type) (s: program_state): expr_tree =
   the succ_cond value
  *)
 
-let rec succ_cond_of_bblock (w: wasm_module) (s: program_state) (e: expr) (succ_cond: expr_tree) :
-      expr_tree =
+let rec succ_cond_of_bblock (w: wasm_module) (s: program_state) (e: expr) (succ_cond: et) :
+      et =
   match e with
   | []      -> succ_cond
   | hd::tl  -> 
@@ -281,38 +281,38 @@ let rec succ_cond_of_bblock (w: wasm_module) (s: program_state) (e: expr) (succ_
   a pair containing the final program_state and the succ_cond value of the code
  *)
 let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
-      program_state*expr_tree =
+      program_state*et =
   let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values = copy_values i.local_values;
               global_values = copy_values i.global_values} in
   let s = succ_cond_of_bblock w f e Empty in
   f,s
 
-let rec reduce_expr (w: wasm_module) (e: expr) (s: program_state): expr_tree =
+let rec reduce_expr (w: wasm_module) (e: expr) (s: program_state): et =
   match e with
   | []      ->  List.hd_exn s.value_stack
-  | hd::tl  ->  let (_: expr_tree) = reduce_op w hd s in
+  | hd::tl  ->  let (_: et) = reduce_op w hd s in
                 reduce_expr w tl s
 
-let expr_tree_of_mglobal (w: wasm_module) (e: expr) (s: program_state): expr_tree = 
+let et_of_mglobal (w: wasm_module) (e: expr) (s: program_state): et = 
       reduce_expr w e s
 
-let expr_tree_of_iglobal (import_name: string) (index: int) (t: valtype):  expr_tree =
+let et_of_iglobal (import_name: string) (index: int) (t: valtype):  et =
   Variable (String.concat ["g"; string_of_resulttype t; string_of_int index; " ("; import_name; ")"])
 
 let rec create_globals (w:wasm_module) (s: program_state) (imports: import list) (globals: global list) (n_imports: int)
-          (global_vals: expr_tree array) (next: int): expr_tree array =
+          (global_vals: et array) (next: int): et array =
   match imports with
     | [] ->
       (match globals with
       | []      -> global_vals
       | hd::tl  ->
-          let g_val = expr_tree_of_mglobal w hd.e s in
+          let g_val = et_of_mglobal w hd.e s in
           set_value global_vals next g_val;
           set_global s next g_val;
           create_globals w s [] tl n_imports global_vals (next+1))
     | hd::tl ->
       (match hd.description with
-        | Globaltype gt ->  let g_val = (expr_tree_of_iglobal hd.import_name hd.iindex gt.t) in
+        | Globaltype gt ->  let g_val = (et_of_iglobal hd.import_name hd.iindex gt.t) in
                             set_value global_vals next g_val;
                             set_global s next g_val;
                             create_globals w s tl globals n_imports global_vals (next+1)
@@ -346,5 +346,5 @@ let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_t
   value_stack   = []; 
   local_values  = init_values
                     ((List.length param_types) + (count_locals local_types))
-                    (expr_tree_of_local_value param_types local_types); 
+                    (et_of_local_value param_types local_types); 
   global_values = global_values }

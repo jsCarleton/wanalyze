@@ -3,21 +3,21 @@ open Wasm_module
 open Opcode
 open Execution
 open Bblock
-open Symbolic_expr
+open Et
 
 type ssa = {
   result:         string;
-  mutable etree:  Symbolic_expr.expr_tree;
+  mutable etree:  Et.et;
   mutable alive:  bool;
 }
 
 let find_alive' (sl: ssa list): ssa =
   List.find_exn ~f:(fun x -> x.alive) sl
 
-let find_alive (sl: ssa list): Symbolic_expr.expr_tree =
+let find_alive (sl: ssa list): Et.et =
   Variable (find_alive' sl).result
 
-let find_and_kill (sl: ssa list): Symbolic_expr.expr_tree =
+let find_and_kill (sl: ssa list): Et.et =
   let s = find_alive' sl in
     s.alive <- false;
     Variable s.result
@@ -41,11 +41,11 @@ let name_of_tvar (t_index: int): string =
 
 let ssa_of_rt (start: int) (index: int) (r: resulttype) : ssa =
   { result = name_of_tvar (start+index); 
-    etree = expr_tree_of_retval index r;
+    etree = et_of_retval index r;
     alive = true}
 
 let string_of_ssa (s: ssa): string = 
-  String.concat[s.result; " = "; string_of_expr_tree s.etree]
+  String.concat[s.result; " = "; string_of_et s.etree]
     
 let string_of_ssa_list (sl: ssa list) (sep: string) (alive: bool): string =
   
@@ -125,13 +125,13 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
         alive = true} :: acc
   | MemoryS  ->
       let arg1 = find_and_kill acc in
-      let result = String.concat["@("; string_of_expr_tree (find_and_kill acc); ")"] in
+      let result = String.concat["@("; string_of_et (find_and_kill acc); ")"] in
       { result; etree = Node { op = ""; args = [arg1]}; alive = false} :: acc
   | MemoryM  ->
         acc
   | Constop  ->
       { result = name_of_tvar (List.length acc);
-        etree = (expr_tree_of_const_arg op.arg);
+        etree = (et_of_const_arg op.arg);
         alive = true} :: acc
   | Unop ->
       let arg1 = find_and_kill acc in
@@ -172,15 +172,15 @@ let ssa_of_bblock (ctx: execution_context) acc (bb: Bblock.bblock): ssa list =
 let ssa_of_code_path (ctx: execution_context) (cp: Code_path.code_path): ssa list =
   List.fold ~f:(ssa_of_bblock ctx) ~init:(ssa_of_locals ctx.local_types) cp
 
-let rec expand_expr_tree (e: expr_tree) (s_src: ssa) : expr_tree =
+let rec expand_et (e: et) (s_src: ssa) : et =
   match e with 
   | Variable v
       -> (match (String.compare v s_src.result) with 
             | 0 -> s_src.etree
             | _ -> e)
-  | Node n -> Node {op = n.op; args = List.map ~f:(fun e' -> expand_expr_tree e' s_src) n.args}
+  | Node n -> Node {op = n.op; args = List.map ~f:(fun e' -> expand_et e' s_src) n.args}
   | _ -> e
 
 let explode_var (s: ssa list) (result: string): ssa =
   let i = Variable result in
-  {result; etree = List.fold_left ~f:expand_expr_tree ~init:i s; alive = true}
+  {result; etree = List.fold_left ~f:expand_et ~init:i s; alive = true}

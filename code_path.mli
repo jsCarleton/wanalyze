@@ -28,14 +28,14 @@ type loops_class = {
 }
 
 (* cost calculations *)
-val cost_of_code_path               : Wasm_module.expr -> code_path -> Symbolic_expr.expr_tree
-val max_cost_of_code_paths          : Wasm_module.expr -> code_path list -> Symbolic_expr.expr_tree
+val cost_of_code_path               : Wasm_module.expr -> code_path -> Et.et
+val max_cost_of_code_paths          : Wasm_module.expr -> code_path list -> Et.et
 val paths_with_no_loops             : code_path list -> code_path list
 val exit_bblocks_of_loop            : loop -> Bblock.bblock list
 val paths_from_bblocks              : Bblock.bblock list -> code_path list
-val condition_of_loop               : Execution.execution_context -> Bblock.bblock -> code_path -> Symbolic_expr.expr_tree
+val condition_of_loop               : Execution.execution_context -> Bblock.bblock -> code_path -> Et.et
 val conditions_of_paths             : Execution.execution_context -> code_path list -> code_path list -> Bblock.bblock
-      -> Symbolic_expr.expr_tree list
+      -> Et.et list
 val expr_of_code_path               : Wasm_module.expr -> code_path -> Bblock.bblock -> Wasm_module.expr
 
 (* code paths*)
@@ -57,7 +57,7 @@ val classify_loops                  : loop list -> loops_class
 val branchbacks_of_loop             : Bblock.bblock list -> Bblock.bblock list
 
 (* simple case analysis *)
-val analyze_simple_loop             : Execution.execution_context -> Bblock.bblock -> Symbolic_expr.expr_tree
+val analyze_simple_loop             : Execution.execution_context -> Bblock.bblock -> Et.et
 val simple_brif_loop                : Bblock.bblock list -> Bblock.bblock -> int option
 val simple_br_loop                  : Bblock.bblock list -> Bblock.bblock -> int option
 val ids_with_simple_brif_loops      : Bblock.bblock list -> int list

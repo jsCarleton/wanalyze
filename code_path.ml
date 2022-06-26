@@ -2,24 +2,24 @@ open Core
 open Easy_logging
 open Opcode
 open Wasm_module
-open Symbolic_expr
+open Et
 open Bblock
 open Execution
 
 
 type code_path = bblock list
 
-let cost_of_code_path (e: expr) (cp: code_path): expr_tree =
+let cost_of_code_path (e: expr) (cp: code_path): et =
 
-  let cost_of_code_path_body (cp: code_path): expr_tree =
+  let cost_of_code_path_body (cp: code_path): et =
     Constant (Int_value (List.fold  ~init:0 ~f:(+) (List.map ~f:cost_of_bblock cp)))
   in
 
-  let cost_of_fn (fn: int): expr_tree =
+  let cost_of_fn (fn: int): et =
     Constant (String_value (sprintf "|f%d|" fn))
   in
 
-  let cost_of_calls (fns: int list): expr_tree =
+  let cost_of_calls (fns: int list): et =
     match fns with
     | []    -> Empty
     | [hd]  -> cost_of_fn hd
@@ -41,7 +41,7 @@ let cost_of_code_path (e: expr) (cp: code_path): expr_tree =
     | []    -> cost_of_code_path_body cp
     | _     -> Node {op = "+"; args = [cost_of_code_path_body cp; cost_of_calls fns]}
      
-let max_cost_of_code_paths (e: expr) (cps: code_path list): expr_tree =
+let max_cost_of_code_paths (e: expr) (cps: code_path list): et =
   match cps with
   | []    -> Empty
   | [hd]  -> cost_of_code_path e hd
@@ -683,7 +683,7 @@ let expr_of_code_path (e: expr) (cp: code_path) (bb: bblock): expr =
 
   expr_of_code_path' e cp bb []
 
-let condition_of_loop ctx (bback: bblock) (cp: code_path): expr_tree =
+let condition_of_loop ctx (bback: bblock) (cp: code_path): et =
   match bback.bbtype with
   | BB_br_if ->
       let _,loop_cond = reduce_bblock ctx.w 
@@ -695,7 +695,7 @@ let condition_of_loop ctx (bback: bblock) (cp: code_path): expr_tree =
   | _ ->            failwith "Invalid branchback"
                     
 let conditions_of_paths (ctx: execution_context) (prefixes: code_path list) (loop_paths: code_path list) (bback: bblock): 
-      expr_tree list =
+      et list =
 
   let rec all_paths (cp1: code_path list) (cp2: code_path list) (cp2all: code_path list) (acc: code_path list): code_path list =
     match cp1, cp2 with
@@ -879,9 +879,9 @@ let bblocks_with_simple_brif_loops (bblocks: bblock list): bblock list =
     ctx         execution context
     bb          brif loop bblock
   Returns:
-    the loop condition in the form of an expr_tree
+    the loop condition in the form of an et
 **)
 
-let analyze_simple_loop (ctx: execution_context) (bb: bblock): expr_tree =
+let analyze_simple_loop (ctx: execution_context) (bb: bblock): et =
   let _,loop_cond = reduce_bblock ctx.w (expr_of_bblock ctx.w_e bb) (empty_program_state ctx.w ctx.param_types ctx.local_types) in
     loop_cond

@@ -1,6 +1,6 @@
 open Core
 open Easy_logging
-open Symbolic_expr
+open Et
 
 (* Type definitions *)
 (* Part 1 - Module definitions *)
@@ -315,9 +315,9 @@ type wasm_module =
 type program_state =
 {
   mutable instr_count:    int;
-  mutable value_stack:    Symbolic_expr.expr_tree list;
-  mutable local_values:   Symbolic_expr.expr_tree array;
-  mutable global_values:  Symbolic_expr.expr_tree array;
+  mutable value_stack:    Et.et list;
+  mutable local_values:   Et.et array;
+  mutable global_values:  Et.et array;
 }
 
 type program_states = program_state list
@@ -337,7 +337,7 @@ type execution =
   succ_index:         int;
   initial:            program_state;            (* the program state before the first instruction of the bblock is executed *)
   mutable final:      program_state;            (* the program state after the last instruction of the bblock is executed *)
-  mutable succ_cond:  Symbolic_expr.expr_tree;  (* the expression that must be true in order for the first successor state to be entered *) 
+  mutable succ_cond:  Et.et;  (* the expression that must be true in order for the first successor state to be entered *) 
 }
 
 (* Implementation *)
@@ -375,7 +375,7 @@ let local_value (local_types: local_type list) (nparams: int) (i: int): constant
 let local_name (local_types: local_type list) (nparams: int) (i: int): string =
   String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
 
-let expr_tree_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): Symbolic_expr.expr_tree =
+let et_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): Et.et =
   let nparams = List.length param_types in
   match i < nparams with 
   | true  -> Variable (param_name param_types i)

@@ -2,9 +2,9 @@ open Core
 
 type loop_metric_info =
 {
-  prefix_cost:      Symbolic_expr.expr_tree;  (* the cost of the prefix portion of the loop *)
-  loop_cost:        Symbolic_expr.expr_tree;  (* cost of the loop portion of the loop *)
-  loop_cond:        Symbolic_expr.expr_tree;  (* the condition under which the loop iterates *)
+  prefix_cost:      Et.et;  (* the cost of the prefix portion of the loop *)
+  loop_cost:        Et.et;  (* cost of the loop portion of the loop *)
+  loop_cond:        Et.et;  (* the condition under which the loop iterates *)
   loop_vars:        string list;    (* the names of the variables that appear in the loop_cond *)
   lv_entry_vals:    Ssa.ssa list;   (* loop variable values, in ssa form, at the beginning of the loop *)
   lv_loop_vals:     Ssa.ssa list;   (* loop variable values, in sss form, when the branchback block has been executed *)
@@ -25,13 +25,13 @@ let compare_metrics (lm1: loop_metric) (lm2: loop_metric): int =
   | Infinite, _         -> 1
   | _, Infinite         -> -1
   | LMI m1, LMI m2      ->
-      if String.compare (Symbolic_expr.string_of_expr_tree m1.prefix_cost) (Symbolic_expr.string_of_expr_tree m2.prefix_cost) = 0 then
-        if String.compare (Symbolic_expr.string_of_expr_tree m1.loop_cost) (Symbolic_expr.string_of_expr_tree m2.loop_cost) = 0 then
-          String.compare (Symbolic_expr.string_of_expr_tree m1.loop_cond) (Symbolic_expr.string_of_expr_tree m2.loop_cond)
+      if String.compare (Et.string_of_et m1.prefix_cost) (Et.string_of_et m2.prefix_cost) = 0 then
+        if String.compare (Et.string_of_et m1.loop_cost) (Et.string_of_et m2.loop_cost) = 0 then
+          String.compare (Et.string_of_et m1.loop_cond) (Et.string_of_et m2.loop_cond)
         else
-          String.compare (Symbolic_expr.string_of_expr_tree m1.loop_cost) (Symbolic_expr.string_of_expr_tree m2.loop_cost) 
+          String.compare (Et.string_of_et m1.loop_cost) (Et.string_of_et m2.loop_cost) 
       else
-        String.compare (Symbolic_expr.string_of_expr_tree m1.prefix_cost) (Symbolic_expr.string_of_expr_tree m2.prefix_cost)
+        String.compare (Et.string_of_et m1.prefix_cost) (Et.string_of_et m2.prefix_cost)
 
 let rec all_loops (cp1: Code_path.code_path list) (cp2: Code_path.code_path list) (cp2all: Code_path.code_path list) (acc: loop_path_parts list): loop_path_parts list =
     match cp1, cp2 with
@@ -85,7 +85,7 @@ let cost_of_loop (ctx: Execution.execution_context) (bback: Bblock.bblock) (lp: 
     let _, loop_cond = Execution.reduce_bblock ctx.w 
               (Code_path.expr_of_code_path ctx.w_e lp.loop_part cs.cond_bb)
               (Execution.empty_program_state ctx.w ctx.param_types ctx.local_types) in
-    let loop_vars     = Symbolic_expr.vars_of_expr_tree loop_cond in
+    let loop_vars     = Et.vars_of_et loop_cond in
     let prefix_ssa    = Ssa.ssa_of_code_path ctx lp.prefix_part in
     let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
     let loop_ssa      = Ssa.ssa_of_code_path ctx lp.loop_part in
@@ -103,5 +103,5 @@ let cost_of_loops (ctx: Execution.execution_context) (prefixes: Code_path.code_p
     (List.map ~f:(cost_of_loop ctx bback)
       (all_loops prefixes loop_paths loop_paths []))
 
-let cost_of_function (_: Wasm_module.func): Symbolic_expr.expr_tree =
+let cost_of_function (_: Wasm_module.func): Et.et =
   Empty
