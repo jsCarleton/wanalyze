@@ -186,4 +186,40 @@ match e1,e2 with
   an equivalent, possibly simplified, expression tree
  *)
 
- let simplify (e: et): et = e
+ let rec simplify (e: et): et =
+
+  let rec simplify_max (n: node): et =
+    match n.args with
+    | []    -> Constant (Int_value 0)
+    | [e1]  -> e1
+    | e1::e2::tl ->
+      match e1, e2 with
+      | Constant (Int_value i1), Constant (Int_value i2) ->
+          simplify_max
+            { op = n.op;
+              args = if i1 > i2 then (Constant (Int_value i1))::tl else (Constant (Int_value i2))::tl
+            }
+      | _ -> Node n
+  in
+
+  let rec simplify_sum (n: node): et =
+    match n.args with
+    | []    -> Constant (Int_value 0)
+    | [e1]  -> e1
+    | e1::e2::tl ->
+      match e1, e2 with
+      | Constant (Int_value i1), Constant (Int_value i2) ->
+          simplify_sum
+            { op = n.op;
+              args = (Constant (Int_value (i1+i2)))::tl
+            }
+      | _ -> Node n
+  in
+
+  match e with
+  | Empty | Constant _ | Variable _ | ExprList _ -> e
+  | Node n ->
+      match n.op with
+      | "list_max" -> simplify_max {op = "list_max"; args = List.map ~f:simplify n.args}
+      | "list_sum" -> simplify_sum {op = "list_sum"; args = List.map ~f:simplify n.args}
+      | _ -> e

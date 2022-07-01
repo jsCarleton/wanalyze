@@ -502,11 +502,11 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
     | 1 -> Out_channel.output_string oc 
             (sprintf "|f%d| = %s\n" 
               fnum 
-              (format_et (ebb_path_cost (List.hd_exn ebb_paths))))
+              (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths)))))
     | _ -> Out_channel.output_string oc 
             (sprintf "|f%d| = %s\n" 
               fnum 
-              (format_et (ebb_paths_max_cost ebb_paths))));
+              (format_et (simplify (ebb_paths_max_cost ebb_paths)))));
     Out_channel.close oc;
   (* TODO everything after this is diagnostics, not required *)
   (* loop analysis *)
