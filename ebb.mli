@@ -6,7 +6,7 @@ type ebb_exit =
 
 type ebb_type = EBB_loop | EBB_block
 
-type ebblock = 
+type ebb = 
   {
     ebbtype:      ebb_type;                   (* either a block or a loop*)
     cost:         Et.et;    (* cost of executing this ebb *)
@@ -14,19 +14,19 @@ type ebblock =
     bbs:          Bblock.bblock list;         (* list of bbs that make up the ebb *)
     exits:        ebb_exit list;              (* info about how the ebb is exitted *)
     mutable
-    succ_ebbs:    ebblock list;               (* list of ebblocks directly reachable from this one*)
+    succ_ebbs:    ebb list;               (* list of ebblocks directly reachable from this one*)
     (* these properties are used when the ebb contains a loop *)
     loop_cps:     Code_path.code_path list;   (* code_paths in the ebb that loop *)
     exit_cps:     Code_path.code_path list;   (* code_paths in the ebb that aren't the loop *)
-    nested_ebbs:  ebblock list;               (* ebbs containing nested loops *)
+    nested_ebbs:  ebb list;               (* ebbs containing nested loops *)
   }
 
-val string_of_ebblock:      ebblock -> string
-val ebb_to_unreachable:     ebblock -> bool
-val ebb_to_return:          ebblock -> bool
-val ebb_has_branchback:     ebblock -> bool
-val ebb_too_many_paths:     ebblock -> bool
-val ebblocks_of_bblocks:    Execution.execution_context -> Bblock.bblock list -> ebblock list
-val paths_of_ebblocks:      ebblock list -> ebblock list list
-val ebb_path_cost:          ebblock list -> Et.et
-val ebb_paths_max_cost:     ebblock list list -> Et.et
+val string_of_ebblock:      ebb -> string
+val ebb_to_unreachable:     ebb -> bool
+val ebb_to_return:          ebb -> bool
+val ebb_has_branchback:     ebb -> bool
+val ebb_too_many_paths:     ebb -> bool
+val ebblocks_of_bblocks:    Execution.execution_context -> Bblock.bblock list -> ebb list
+val paths_of_ebblocks:      ebb list -> ebb list list
+val ebb_path_cost:          ebb list -> Et.et
+val ebb_paths_max_cost:     ebb list list -> Et.et

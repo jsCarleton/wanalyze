@@ -1,6 +1,6 @@
 open Core
 open Bblock
-open Ebblock
+open Ebb
 
 let name_of_bblock (bb: bblock): string =
   match bb.bbtype with
@@ -97,7 +97,7 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
   cfg_dot_of_ebblocks
 
   Given a module name, a function index and a list of ebblocks create the .dot file
-  contents that can be used to create a printable cfg of the ebblock structure. Typically
+  contents that can be used to create a printable cfg of the ebb structure. Typically
   the list of ebblocks is those for some function. The module name and function index are
   used for diagram labelling purposes. The list of ebblocks is used to create the 
   structure of the cfg and to label the nodes and edges.
@@ -105,12 +105,12 @@ let cfg_dot_of_bblocks (module_name: string) (func_idx: int) (bbs: bblock list):
   Parameters:
     module_name:  string        name of the wasm module
     func_idx:     int           module index of the function
-    ebbs:         ebblock list  extended basic blocks of the function
+    ebbs:         ebb list  extended basic blocks of the function
   Returns:
     a string containing the .dot file commands to produce the cfg
 **)
 
-let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock list): string =
+let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): string =
 
   let graph_prefix (module_name: string) (func_idx: int): string =
     let terminals = 
@@ -129,7 +129,7 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
             "    node [shape = box];\n"]
   in
 
-  let label_of_ebb (ebb: ebblock): string =
+  let label_of_ebb (ebb: ebb): string =
     match ebb.bbs with
     | hd::[] -> if bb_is_exit hd then
                   name_of_bblock hd
@@ -147,11 +147,11 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
                               "]"]
   in
 
-  let name_of_ebb (ebb: ebblock): string = 
+  let name_of_ebb (ebb: ebb): string = 
     name_of_bblock ebb.entry_bb
   in
 
-  let node_of_ebb (ebb: ebblock): string =
+  let node_of_ebb (ebb: ebb): string =
     String.concat[ 
       if ebb_too_many_paths ebb then
         "    node [shape=box, fontcolor=white, style=filled, fillcolor=red] "
@@ -163,7 +163,7 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
       "\"]\n"]
   in
 
-  let rec graph_node (ebb: ebblock): string  =
+  let rec graph_node (ebb: ebb): string  =
     match ebb.nested_ebbs with
     | []  -> node_of_ebb ebb
     | _   -> String.concat [
@@ -175,14 +175,14 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebblock lis
              ]
   in
 
-  let graph_edge (src_ebb: ebblock) (dest_exit: ebb_exit): string =
+  let graph_edge (src_ebb: ebb) (dest_exit: ebb_exit): string =
     if src_ebb.entry_bb.bbindex >= dest_exit.exit_bb.bbindex then
       String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bblock dest_exit.exit_bb; "[color=\"red\"];\n"]
     else
       String.concat ["    "; name_of_ebb src_ebb; " -> "; name_of_bblock dest_exit.exit_bb; ";\n"]
   in
 
-  let rec graph_edges (ebb: ebblock): string =
+  let rec graph_edges (ebb: ebb): string =
     String.concat [
       match ebb.nested_ebbs with
         | []  ->

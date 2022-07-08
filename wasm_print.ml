@@ -8,7 +8,7 @@ open Code_path
 open Execution
 open Cost
 open Cfg
-open Ebblock
+open Ebb
 
 (* Part 1 *)
 (* Printable strings for basic types *)
@@ -491,7 +491,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
   let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
     List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
     Out_channel.close oc;
-  (* graphviz command file for ebblock flow graph *)
+  (* graphviz command file for ebb flow graph *)
   let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
     Out_channel.close oc;

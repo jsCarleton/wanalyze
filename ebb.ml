@@ -11,7 +11,7 @@ type ebb_exit =
 
 type ebb_type = EBB_loop | EBB_block
 
-type ebblock = 
+type ebb = 
   {
     ebbtype:      ebb_type;       (* either a block or a loop*)
     cost:         et;      (* cost of executing this ebb *)
@@ -19,11 +19,11 @@ type ebblock =
     bbs:          bblock list;    (* list of bbs that make up the ebb *)
     exits:        ebb_exit list;  (* info about how the ebb is exitted *)
     mutable
-    succ_ebbs:    ebblock list;   (* list of ebblocks directly reachable from this one*)
+    succ_ebbs:    ebb list;   (* list of ebblocks directly reachable from this one*)
     (* these properties are used when the ebb contains a loop *)
     loop_cps:     code_path list; (* code_paths in the ebb that loop *)
     exit_cps:     code_path list; (* code_paths in the ebb that aren't in the loop *)
-    nested_ebbs:  ebblock list;   (* ebbs containing nested loops *)
+    nested_ebbs:  ebb list;   (* ebbs containing nested loops *)
   }
 
 let string_of_ebb_type (t: ebb_type): string =
@@ -31,12 +31,12 @@ let string_of_ebb_type (t: ebb_type): string =
   | EBB_block -> "block"
   | EBB_loop  -> "loop"
 
-let string_of_ebblocks (ebbs: ebblock list): string =
+let string_of_ebblocks (ebbs: ebb list): string =
   string_of_raw_bblocks (List.map ~f:(fun e -> e.entry_bb) ebbs)
 
-let string_of_ebblock (ebb: ebblock): string =
+let string_of_ebblock (ebb: ebb): string =
 
-  let rec string_of_ebblock' (indent: int) (ebb: ebblock) =
+  let rec string_of_ebblock' (indent: int) (ebb: ebb) =
     let spaces = (String.make (indent+2) ' ') in
     String.concat [
       sprintf "%sebb entry:  %d\n"  (String.make indent ' ') ebb.entry_bb.bbindex;
@@ -75,13 +75,13 @@ let string_of_ebblock (ebb: ebblock): string =
 
   string_of_ebblock' 0 ebb
 
-let ebb_to_unreachable (ebb: ebblock): bool =
+let ebb_to_unreachable (ebb: ebb): bool =
   List.exists ~f:(fun bb -> match bb.bbtype with | BB_unreachable -> true | _ -> false) ebb.bbs
 
-let ebb_to_return (ebb: ebblock): bool =
+let ebb_to_return (ebb: ebb): bool =
   List.exists ~f:(fun bb -> match bb.bbtype with | BB_return -> true | _ -> false) ebb.bbs
 
-let ebb_has_branchback (ebb: ebblock): bool =
+let ebb_has_branchback (ebb: ebb): bool =
   let ebb_head_idx = ebb.entry_bb.bbindex in
   List.exists 
     ~f:(fun bb -> List.exists 
@@ -89,7 +89,7 @@ let ebb_has_branchback (ebb: ebblock): bool =
                     bb.succ) 
     ebb.bbs
 
-let ebb_too_many_paths (ebb: ebblock): bool =
+let ebb_too_many_paths (ebb: ebb): bool =
   List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) ebb.exits
 
 let exit_bbs_of_bbs (bbs: bblock list): bblock list =
@@ -122,25 +122,25 @@ let exits_of_bbs (bbs: bblock list) (exit_bbs: bblock list): ebb_exit list =
       list of list of ebblocks
 *)
 
-let paths_of_ebblocks (ebbs: ebblock list): ebblock list list =
+let paths_of_ebblocks (ebbs: ebb list): ebb list list =
 
-  let succ_of_ebbs (ebbs: ebblock list): ebblock list list =
+  let succ_of_ebbs (ebbs: ebb list): ebb list list =
       List.map ~f:(fun ebb -> ebb::ebbs) (List.hd_exn ebbs).succ_ebbs
   in
   
-  let is_term (ebbs: ebblock list): bool =
+  let is_term (ebbs: ebb list): bool =
     match (List.hd_exn ebbs).succ_ebbs with
     | []  -> true
     | _   -> false
   in 
 
-  let step_ebb (ebbs: ebblock list): (ebblock list list)*(ebblock list list) =
+  let step_ebb (ebbs: ebb list): (ebb list list)*(ebb list list) =
     match is_term ebbs with
     | true  -> [], [ebbs]
     | _     -> succ_of_ebbs ebbs, []
   in
 
-  let rec paths_of_ebblocks' (nterm: ebblock list list) (term: ebblock list list) (iters: int): ebblock list list =
+  let rec paths_of_ebblocks' (nterm: ebb list list) (term: ebb list list) (iters: int): ebb list list =
     if iters > 1_000_000 then
       []
     else 
@@ -166,12 +166,12 @@ let paths_of_ebblocks (ebbs: ebblock list): ebblock list list =
     Returns:
       list of ebblocks
 
-    Note, the execution context is required since part of the ebblock definition includes
-    its cost and an execution context is required to determine the cost of a loop ebblock 
+    Note, the execution context is required since part of the ebb definition includes
+    its cost and an execution context is required to determine the cost of a loop ebb 
 *)
 
 let rec ebblocks_of_bblocks (ctx: Execution.execution_context) 
-          (all_bbs: bblock list): ebblock list =
+          (all_bbs: bblock list): ebb list =
 
   let cost_of_block_ebb (exits: ebb_exit list): et =
     if List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) exits then
@@ -185,7 +185,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
             exits))
   in
 
-  let sub_ebbs_of_bblocks (sub_bbs: bblock list): ebblock list =
+  let sub_ebbs_of_bblocks (sub_bbs: bblock list): ebb list =
     if List.exists ~f:(fun bb -> match bb.bbtype with | BB_loop -> true | _ -> false) sub_bbs then
       ebblocks_of_bblocks ctx sub_bbs
     else
@@ -227,7 +227,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                   ]}
   in
 
-  let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebblock =
+  let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebb =
 
     let entry_bb    = List.hd_exn bbs in
     let exits       = exits_of_bbs bbs (exit_bbs_of_bbs bbs) in
@@ -296,11 +296,11 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
         {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
   in
 
-  let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bblock list): ebblock =
+  let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bblock list): ebb =
     finish_ebblock' ebbtype (List.rev bbs_acc)
   in
 
-  let build_ebblock (ebbtype: ebb_type) (last_bb: bblock) (bbs_acc: bblock list): ebblock =
+  let build_ebblock (ebbtype: ebb_type) (last_bb: bblock) (bbs_acc: bblock list): ebb =
    finish_ebblock ebbtype (last_bb::bbs_acc)
   in
 
@@ -314,7 +314,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
     (match entry_bb with | None -> Some bb | _ -> entry_bb)
   in
 
-  let rec eblock_of_bblocks' (all_bbs: bblock list) (bbs_acc: bblock list) (ebbs_acc: ebblock list) (lnest: int) (entry_bb: bblock option): ebblock list =
+  let rec eblock_of_bblocks' (all_bbs: bblock list) (bbs_acc: bblock list) (ebbs_acc: ebb list) (lnest: int) (entry_bb: bblock option): ebb list =
     match all_bbs with
       (* do we still have bblocks to process ? *)
       | hd::tl  ->
@@ -369,16 +369,16 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
           | _   -> List.rev (finish_ebblock' EBB_block (List.rev bbs_acc)::ebbs_acc)
     in
 
-    let ebb_of_bblock (ebbs: ebblock list) (bb: bblock): ebblock option =
+    let ebb_of_bblock (ebbs: ebb list) (bb: bblock): ebb option =
       List.find ~f:(fun ebb -> ebb.entry_bb.bbindex = bb.bbindex) ebbs
     in
 
     (* update the successor ebbs for all ebbs *)
     (* TODO what's the difference between exits and succs? *)
-    let update_succ (ebbs: ebblock list) =
+    let update_succ (ebbs: ebb list) =
 
-      let update_succ' (ebbs: ebblock list) (ebb: ebblock) =
-        let update_succ'' (ebbs: ebblock list) (ebb: ebblock) (e: ebb_exit) =
+      let update_succ' (ebbs: ebb list) (ebb: ebb) =
+        let update_succ'' (ebbs: ebb list) (ebb: ebb) (e: ebb_exit) =
           let s = ebb_of_bblock ebbs e.exit_bb in
           match s with
           | Some succ   -> ebb.succ_ebbs <- succ::ebb.succ_ebbs
@@ -399,19 +399,19 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
     Takes an ebb path and returns the cost as a symbolic expr tree
 
     Parameters:
-      ebb_path  ebblock list list
+      ebb_path  ebb list list
 
     Returns:
       cost
 *)
 
-let ebb_path_cost (ebb_path: ebblock list): et =
+let ebb_path_cost (ebb_path: ebb list): et =
   match ebb_path with
   | []    -> Constant (Int_value 0)
   | [hd]  -> hd.cost
   | _     -> Node { op = "list_sum"; args = List.map ~f:(fun ebb -> ebb.cost) ebb_path}
 
-let ebb_paths_max_cost (ebb_paths: ebblock list list): et =
+let ebb_paths_max_cost (ebb_paths: ebb list list): et =
   match ebb_paths with
   | []    -> Empty
   | [hd]  -> ebb_path_cost hd
