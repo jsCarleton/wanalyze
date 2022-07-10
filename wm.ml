@@ -284,7 +284,7 @@ type data =
 (* Data Count *)
 
 (* wasm Module *)
-type wasm_module =
+type wm =
 {
   module_name:              string;
   mutable data_count:       int;

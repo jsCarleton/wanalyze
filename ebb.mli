@@ -26,7 +26,7 @@ val ebb_to_unreachable: ebb -> bool
 val ebb_to_return:      ebb -> bool
 val ebb_has_branchback: ebb -> bool
 val ebb_too_many_paths: ebb -> bool
-val ebbs_of_bbs:        Execution.execution_context -> Bb.bb list -> ebb list
+val ebbs_of_bbs:        Ex.execution_context -> Bb.bb list -> ebb list
 val paths_of_ebblocks:  ebb list -> ebb list list
 val ebb_path_cost:      ebb list -> Et.et
 val ebb_paths_max_cost: ebb list list -> Et.et

@@ -1,11 +1,11 @@
 open Core
 open Easy_logging
-open Wasm_module
+open Wm
 open Bb
 open Ssa
 open Et
 open Cp
-open Execution
+open Ex
 open Cost
 open Cfg
 open Ebb
@@ -93,7 +93,7 @@ let string_of_start idx =
   | _ -> ""
   
 (* Function section *)
-let get_type_sig (w: wasm_module) idx =
+let get_type_sig (w: wm) idx =
   List.nth_exn w.type_section idx
 
 let rec string_repeat' s sep n acc =
@@ -255,7 +255,7 @@ let print_expr oc e bblocks annotate =
   | true  -> List.iter ~f:(print_bblock oc e annotate) bblocks 
   | false -> List.iter ~f:(print_expr'' oc annotate 0 0) e 
 
-let print_code oc (w: wasm_module) idx annotate bbs =
+let print_code oc (w: wm) idx annotate bbs =
   let f = List.nth_exn w.code_section idx in
   Out_channel.output_string oc (string_of_locals (List.nth_exn w.code_section idx).locals);
   print_expr oc f.e bbs annotate
@@ -297,7 +297,7 @@ let string_of_bbs_detail (s: bb list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_bb_detail s)]
 
-let print_function oc (w: wasm_module) annotate bbs i idx =
+let print_function oc (w: wm) annotate bbs i idx =
   (match annotate with | true -> () | _ -> Out_channel.output_string oc "\n");
   Out_channel.output_string oc "  (func (;"; 
   Out_channel.output_string oc (string_of_int (i + w.last_import_func));
@@ -309,7 +309,7 @@ let print_function oc (w: wasm_module) annotate bbs i idx =
   print_code oc w i annotate bbs;
   Out_channel.output_string oc ")"
 
-let print_function_section oc (w: wasm_module) =
+let print_function_section oc (w: wm) =
   List.iteri ~f:(print_function oc w false []) (List.drop w.function_section w.last_import_func)
 
 (* Table section *) 
@@ -460,7 +460,7 @@ let string_of_loop_cost_fn c =
   else
     String.concat["max("; String.concat ~sep:", " (List.map ~f:string_of_loop_cost_fn col); ")"]
  *)
-let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx =
+let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let fnum          = fidx + w.last_import_func in
   Printf.printf "function %d\r%!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in

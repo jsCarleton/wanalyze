@@ -1,10 +1,10 @@
 open Core
 open Easy_logging
 open Opcode
-open Wasm_module
+open Wm
 open Et
 open Bb
-open Execution
+open Ex
 
 
 type cp = bb list

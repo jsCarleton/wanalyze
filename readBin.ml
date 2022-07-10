@@ -1,6 +1,6 @@
 open Core
 open Easy_logging
-open Wasm_module
+open Wm
 open Opcode
 
 let read_byte ic : int =
@@ -215,7 +215,7 @@ let read_string ic len =
 
 let read_name ic = read_string ic (read_u32 ic)
 
-let index_of (w: wasm_module) desc =
+let index_of (w: wm) desc =
   (match desc with
   | Functype _ -> w.last_import_func <- w.last_import_func + 1; w.last_import_func-1
   | Tabletype _ -> w.next_table <- w.next_table + 1; w.next_table-1
@@ -516,7 +516,7 @@ let rec read_expr' ic (opnesting: int) (acc_instr: op_type list) : op_type list 
   
 let read_expr ic = List.rev (read_expr' ic 0 [])
 
-let index_of_global (w: wasm_module) =
+let index_of_global (w: wm) =
   w.next_global <- w.next_global + 1; w.next_global-1
 
 let read_global_section' w ic = 
@@ -631,7 +631,7 @@ let read_data ic =
       MemExprBytes {x; e; b}
   | _ -> failwith (String.concat ["Invalid data item: " ; string_of_int data_item_type])
 
-let index_of_data (w: wasm_module) =
+let index_of_data (w: wm) =
   w.next_data <- w.next_data + 1; w.next_data-1
 
 let read_data_section' w ic =

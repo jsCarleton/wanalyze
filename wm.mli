@@ -264,7 +264,7 @@ type data =
 (* Data Count *)
 
 (* wasm Module *)
-type wasm_module =
+type wm =
 {
   module_name:              string;
   mutable data_count:       int;
@@ -314,7 +314,7 @@ type execution =
   mutable succ_cond:  Et.et;  (* the expression that must be true in order for the first successor state to be entered *) 
 }
 
-val create                  : string -> wasm_module
+val create                  : string -> wm
 val string_of_resulttype    : resulttype -> string
 val et_of_local_value       : resulttype list -> local_type list -> int -> Et.et
 val string_of_local_value   : resulttype list -> local_type list -> int -> string 

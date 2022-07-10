@@ -16,6 +16,6 @@ type loop_path_parts =
   loop_part:    Cp.cp;  (* the code path inside the loop *)
 }
 
-val cost_of_loop:     Execution.execution_context -> Bb.bb -> loop_path_parts -> loop_metric
-val cost_of_loops:    Execution.execution_context -> Cp.cp list -> Cp.cp list  -> Bb.bb -> loop_metric list
-val cost_of_function: Wasm_module.func -> Et.et
+val cost_of_loop:     Ex.execution_context -> Bb.bb -> loop_path_parts -> loop_metric
+val cost_of_loops:    Ex.execution_context -> Cp.cp list -> Cp.cp list  -> Bb.bb -> loop_metric list
+val cost_of_function: Wm.func -> Et.et

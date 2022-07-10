@@ -1,15 +1,15 @@
 open Core
 open Easy_logging
-open Wasm_module
+open Wm
 open Et
 
 type execution_context =
   {
-      w:              Wasm_module.wasm_module;
-      w_e:            Wasm_module.expr;
-      w_state:        Wasm_module.program_state;
-      param_types:    Wasm_module.resulttype list;
-      local_types:    Wasm_module.local_type list;
+      w:              Wm.wm;
+      w_e:            Wm.expr;
+      w_state:        Wm.program_state;
+      param_types:    Wm.resulttype list;
+      local_types:    Wm.local_type list;
   }
 
 (* 
@@ -132,15 +132,15 @@ let update_state_parametricop (op: op_type) (s: program_state) =
 
 (* Control operators *)
 (* call op handling *)
-let update_state_callop (_: wasm_module) (param_count: int) (retval_types: resulttype list) (state: program_state) =
+let update_state_callop (_: wm) (param_count: int) (retval_types: resulttype list) (state: program_state) =
   drop_n_values state param_count;
   List.iter ~f:(push_value state) 
     (List.init (List.length retval_types) ~f:(fun i -> (et_of_retval i (List.nth_exn retval_types i))))
 
-let ret_types (w: wasm_module) (fidx: int): resulttype list =
+let ret_types (w: wm) (fidx: int): resulttype list =
   (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
 
-let nparams (w: wasm_module) (fidx: int) =
+let nparams (w: wm) (fidx: int) =
   List.length (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt1
         
 (* call indirect handling*)
@@ -201,7 +201,7 @@ let update_state_cvtop (op: op_type) (state: program_state) =
 (* instruction counter*)
 let update_instr_count (state: program_state) = state.instr_count <- state.instr_count + 1
 
-let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): et = 
+let update_state_controlop (w: wm) (op: op_type) (s: program_state): et = 
   match op.opcode with
   (* unreachable, nop, block, loop, else, end, br, return - nothing to do *)
   | 0x00 | 0x01 | 0x02 | 0x03 | 0x05 | 0x0b | 0x0c | 0x0f -> Empty
@@ -221,7 +221,7 @@ let update_state_controlop (w: wasm_module) (op: op_type) (s: program_state): et
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
     
-let reduce_op (w: wasm_module) (op: op_type) (s: program_state): et =
+let reduce_op (w: wm) (op: op_type) (s: program_state): et =
     update_instr_count s;
     match op.instrtype with
     | Control -> update_state_controlop w op s
@@ -262,7 +262,7 @@ let reduce_op (w: wasm_module) (op: op_type) (s: program_state): et =
   the succ_cond value
  *)
 
-let rec succ_cond_of_bb (w: wasm_module) (s: program_state) (e: expr) (succ_cond: et) :
+let rec succ_cond_of_bb (w: wm) (s: program_state) (e: expr) (succ_cond: et) :
       et =
   match e with
   | []      -> succ_cond
@@ -279,26 +279,26 @@ let rec succ_cond_of_bb (w: wasm_module) (s: program_state) (e: expr) (succ_cond
   Returns:
   a pair containing the final program_state and the succ_cond value of the code
  *)
-let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
+let reduce_bblock (w: wm) (e: expr) (i: program_state):
       program_state*et =
   let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values = copy_values i.local_values;
               global_values = copy_values i.global_values} in
   let s = succ_cond_of_bb w f e Empty in
   f,s
 
-let rec reduce_expr (w: wasm_module) (e: expr) (s: program_state): et =
+let rec reduce_expr (w: wm) (e: expr) (s: program_state): et =
   match e with
   | []      ->  List.hd_exn s.value_stack
   | hd::tl  ->  let (_: et) = reduce_op w hd s in
                 reduce_expr w tl s
 
-let et_of_mglobal (w: wasm_module) (e: expr) (s: program_state): et = 
+let et_of_mglobal (w: wm) (e: expr) (s: program_state): et = 
       reduce_expr w e s
 
 let et_of_iglobal (import_name: string) (index: int) (t: valtype):  et =
   Variable (String.concat ["g"; string_of_resulttype t; string_of_int index; " ("; import_name; ")"])
 
-let rec create_globals (w:wasm_module) (s: program_state) (imports: import list) (globals: global list) (n_imports: int)
+let rec create_globals (w:wm) (s: program_state) (imports: import list) (globals: global list) (n_imports: int)
           (global_vals: et array) (next: int): et array =
   match imports with
     | [] ->
@@ -326,7 +326,7 @@ let count_locals (ll: local_type list): int = List.fold_left ~f:sum_nlocals ~ini
       module definitions
 *)
 
-let empty_program_state (w: wasm_module) (param_types: resulttype list) (local_types: local_type list): program_state =
+let empty_program_state (w: wm) (param_types: resulttype list) (local_types: local_type list): program_state =
   let n_i = n_iglobals w.import_section 0 in  (* globals that are imported*)
   let n_m = n_mglobals w.global_section in    (* globals defined in the module *)
   let global_values = create_globals              (* we need a state to create the local variables*)

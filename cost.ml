@@ -68,7 +68,7 @@ let site_of_nesting_if (lp: Cp.cp): cond_site option =
       end
 
 (* TODO do we need both symbolic execution and SSA to do this? *)
-let cost_of_loop (ctx: Execution.execution_context) (bback: Bb.bb) (lp: loop_path_parts): loop_metric =
+let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts): loop_metric =
   (* a key part of this is locating the bb that the condition of the loop is tested ... *)
   let cs_o =
     (match bback.bbtype with
@@ -82,9 +82,9 @@ let cost_of_loop (ctx: Execution.execution_context) (bback: Bb.bb) (lp: loop_pat
   match cs_o with
   | None    -> Infinite
   | Some cs ->
-    let _, loop_cond = Execution.reduce_bblock ctx.w 
+    let _, loop_cond = Ex.reduce_bblock ctx.w 
               (Cp.expr_of_codepath ctx.w_e lp.loop_part cs.cond_bb)
-              (Execution.empty_program_state ctx.w ctx.param_types ctx.local_types) in
+              (Ex.empty_program_state ctx.w ctx.param_types ctx.local_types) in
     let loop_vars     = Et.vars_of_et loop_cond in
     let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part in
     let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
@@ -97,11 +97,11 @@ let cost_of_loop (ctx: Execution.execution_context) (bback: Bb.bb) (lp: loop_pat
             lv_entry_vals;
             lv_loop_vals}
 
-let cost_of_loops (ctx: Execution.execution_context) (prefixes: Cp.cp list) (loop_paths: Cp.cp list)
+let cost_of_loops (ctx: Ex.execution_context) (prefixes: Cp.cp list) (loop_paths: Cp.cp list)
       (bback: Bb.bb): loop_metric list =
   List.dedup_and_sort ~compare:compare_metrics (* TODO is this dedup needed? *)
     (List.map ~f:(cost_of_loop ctx bback)
       (all_loops prefixes loop_paths loop_paths []))
 
-let cost_of_function (_: Wasm_module.func): Et.et =
+let cost_of_function (_: Wm.func): Et.et =
   Empty

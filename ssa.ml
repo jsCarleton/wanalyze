@@ -1,7 +1,7 @@
 open Core
-open Wasm_module
+open Wm
 open Opcode
-open Execution
+open Ex
 open Bb
 open Et
 

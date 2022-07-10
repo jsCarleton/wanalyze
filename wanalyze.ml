@@ -13,7 +13,7 @@ let anon_fun filename = input_files := filename::!input_files
 let processFile fnum file =
   logger#info  "**** New file: %s %d" file fnum;
   let ic = In_channel.create file in
-  let w  = Wasm_module.create file in
+  let w  = Wm.create file in
   ReadBin.parse_wasm ic w;
   Wasm_print.print w fnum
 

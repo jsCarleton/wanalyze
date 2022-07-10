@@ -170,7 +170,7 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
     its cost and an execution context is required to determine the cost of a loop ebb 
 *)
 
-let rec ebbs_of_bbs (ctx: Execution.execution_context) 
+let rec ebbs_of_bbs (ctx: Ex.execution_context) 
           (all_bbs: bb list): ebb list =
 
   let cost_of_block_ebb (exits: ebb_exit list): et =
