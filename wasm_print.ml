@@ -4,7 +4,7 @@ open Wasm_module
 open Bb
 open Ssa
 open Et
-open Code_path
+open Cp
 open Execution
 open Cost
 open Cfg
@@ -405,8 +405,8 @@ let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string
 (* Part 5 *)
 (* printing analysis results *)
 
-let string_of_code_path (ctx: execution_context) (cp: code_path): string = 
-  String.concat[string_of_raw_bblocks cp; " "; (string_of_et (cost_of_code_path ctx.w_e cp))]
+let string_of_codepath (ctx: execution_context) (codepath: cp): string = 
+  String.concat[string_of_raw_bblocks codepath; " "; (string_of_et (cost_of_codepath ctx.w_e codepath))]
 
 (* Part 6 *)
 (* print the functions one by one along with our analysis *)
@@ -440,12 +440,12 @@ let loop_type ctx cp_ssa bbs (bb_idx: int) =
             | _ -> (string_of_bb_type bb_next.bbtype))
 
 (* TODO more convenient to store code paths in reverse order? *)
-let print_summary oc_summary ctx m fnum bbs (cp: code_path) =
-  let cp_ssa = ssa_of_code_path ctx cp in
-  let bb = List.hd_exn (List.rev cp) in
+let print_summary oc_summary ctx m fnum bbs (codepath: cp) =
+  let cp_ssa = ssa_of_codepath ctx codepath in
+  let bb = List.hd_exn (List.rev codepath) in
   Out_channel.output_string oc_summary
     (sprintf "%s,%d,%d,%s,%s\n"
-        m fnum bb.bbindex (string_of_code_path ctx cp) (loop_type ctx cp_ssa bbs bb.bbindex));
+        m fnum bb.bbindex (string_of_codepath ctx codepath) (loop_type ctx cp_ssa bbs bb.bbindex));
   ()
 
 (*let string_of_vars vs =
@@ -467,7 +467,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
   let fn            = List.nth_exn w.code_section fidx in
   let w_e           = fn.e in
   let bblocks       = bblocks_of_expr w_e in
-  let cps           = code_paths_of_bbs bblocks [[List.hd_exn bblocks]] [] in
+  let cps           = codepaths_of_bbs bblocks [[List.hd_exn bblocks]] [] in
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
   let w_state       = empty_program_state w param_types local_types in
@@ -513,7 +513,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
   (match has_loop bblocks with
   | true ->
       (* print loop summary info *)
-      let loop_cps = List.dedup_and_sort ~compare:compare_cps (loop_code_paths bblocks cps) in
+      let loop_cps = List.dedup_and_sort ~compare:compare_cps (loop_codepaths bblocks cps) in
       List.iter 
         ~f:(print_summary oc_summary ctx (Filename.chop_extension w.module_name) fnum bblocks) 
         loop_cps
@@ -527,7 +527,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
         match List.length loops with
           (*  no loops
               cost is the max cost over all possible code paths (if we can compute it) *)
-          | 0 -> let c = max_cost_of_code_paths cps (-1) in
+          | 0 -> let c = max_cost_of_codepaths cps (-1) in
                  if c >= 0 then string_of_int c else "-5 too many paths"
           (*  exactly one loop
               the function is divided into 4 disjoint sets of code paths that either:
@@ -557,10 +557,10 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
                             else (
                               let col = cost_of_loops ctx prefixes l.looping_paths bback in
                               String.concat["max("; 
-                                string_of_int (max_cost_of_code_paths (paths_with_no_loops cps) 0);
+                                string_of_int (max_cost_of_codepaths (paths_with_no_loops cps) 0);
                                 ", ";
                                 string_of_cost_of_loops col; " + ";
-                                string_of_int (max_cost_of_code_paths (paths_from_bblocks exit_bbs) 0);
+                                string_of_int (max_cost_of_codepaths (paths_from_bblocks exit_bbs) 0);
                                 ")"])
                           | _ -> "-1 multiple branchbacks")
                       | _ -> "-2 multiple exits")

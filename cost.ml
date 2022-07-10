@@ -14,8 +14,8 @@ type loop_metric = Infinite | LMI of loop_metric_info
 
 type loop_path_parts =
 {
-  prefix_part:  Code_path.code_path;  (* the code path that leads to the loop *)
-  loop_part:    Code_path.code_path;  (* the code path inside the loop *)
+  prefix_part:  Cp.cp;  (* the code path that leads to the loop *)
+  loop_part:    Cp.cp;  (* the code path inside the loop *)
 }
 
 (* TODO this isn't right and might not be needed *)
@@ -33,7 +33,7 @@ let compare_metrics (lm1: loop_metric) (lm2: loop_metric): int =
       else
         String.compare (Et.string_of_et m1.prefix_cost) (Et.string_of_et m2.prefix_cost)
 
-let rec all_loops (cp1: Code_path.code_path list) (cp2: Code_path.code_path list) (cp2all: Code_path.code_path list) (acc: loop_path_parts list): loop_path_parts list =
+let rec all_loops (cp1: Cp.cp list) (cp2: Cp.cp list) (cp2all: Cp.cp list) (acc: loop_path_parts list): loop_path_parts list =
     match cp1, cp2 with
     | [], _        -> acc
     | _::tl1, []   -> all_loops tl1 cp2all cp2all acc
@@ -45,7 +45,7 @@ type cond_site =
     sense:      bool;   (* if false then the condition must be negated *)
 }
 
-let site_of_nesting_if (lp: Code_path.code_path): cond_site option =
+let site_of_nesting_if (lp: Cp.cp): cond_site option =
   let cond_bb_o =
     List.find 
       ~f:(fun bb -> match bb.bbtype with | BB_if | BB_else | BB_br_if | BB_br_table -> true | _ -> false)
@@ -83,21 +83,21 @@ let cost_of_loop (ctx: Execution.execution_context) (bback: Bb.bb) (lp: loop_pat
   | None    -> Infinite
   | Some cs ->
     let _, loop_cond = Execution.reduce_bblock ctx.w 
-              (Code_path.expr_of_code_path ctx.w_e lp.loop_part cs.cond_bb)
+              (Cp.expr_of_codepath ctx.w_e lp.loop_part cs.cond_bb)
               (Execution.empty_program_state ctx.w ctx.param_types ctx.local_types) in
     let loop_vars     = Et.vars_of_et loop_cond in
-    let prefix_ssa    = Ssa.ssa_of_code_path ctx lp.prefix_part in
+    let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part in
     let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
-    let loop_ssa      = Ssa.ssa_of_code_path ctx lp.loop_part in
+    let loop_ssa      = Ssa.ssa_of_codepath ctx lp.loop_part in
     let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
-      LMI { prefix_cost = Code_path.cost_of_code_path ctx.w_e lp.prefix_part;
-            loop_cost = Code_path.cost_of_code_path ctx.w_e lp.loop_part;
+      LMI { prefix_cost = Cp.cost_of_codepath ctx.w_e lp.prefix_part;
+            loop_cost = Cp.cost_of_codepath ctx.w_e lp.loop_part;
             loop_cond = if cs.sense then loop_cond else Node { op = "not"; args = [loop_cond]};
             loop_vars;
             lv_entry_vals;
             lv_loop_vals}
 
-let cost_of_loops (ctx: Execution.execution_context) (prefixes: Code_path.code_path list) (loop_paths: Code_path.code_path list)
+let cost_of_loops (ctx: Execution.execution_context) (prefixes: Cp.cp list) (loop_paths: Cp.cp list)
       (bback: Bb.bb): loop_metric list =
   List.dedup_and_sort ~compare:compare_metrics (* TODO is this dedup needed? *)
     (List.map ~f:(cost_of_loop ctx bback)

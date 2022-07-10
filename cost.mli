@@ -12,11 +12,10 @@ type loop_metric = Infinite | LMI of loop_metric_info
 
 type loop_path_parts =
 {
-  prefix_part:  Code_path.code_path;  (* the code path that leads to the loop *)
-  loop_part:    Code_path.code_path;  (* the code path inside the loop *)
+  prefix_part:  Cp.cp;  (* the code path that leads to the loop *)
+  loop_part:    Cp.cp;  (* the code path inside the loop *)
 }
 
-val cost_of_loop            : Execution.execution_context -> Bb.bb -> loop_path_parts -> loop_metric
-val cost_of_loops           : Execution.execution_context -> Code_path.code_path list -> Code_path.code_path list
-      -> Bb.bb -> loop_metric list
-val cost_of_function        : Wasm_module.func -> Et.et
+val cost_of_loop:     Execution.execution_context -> Bb.bb -> loop_path_parts -> loop_metric
+val cost_of_loops:    Execution.execution_context -> Cp.cp list -> Cp.cp list  -> Bb.bb -> loop_metric list
+val cost_of_function: Wasm_module.func -> Et.et

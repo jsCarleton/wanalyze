@@ -7,12 +7,12 @@ open Bb
 open Execution
 
 
-type code_path = bb list
+type cp = bb list
 
-let cost_of_code_path (e: expr) (cp: code_path): et =
+let cost_of_codepath (e: expr) (codepath: cp): et =
 
-  let cost_of_code_path_body (cp: code_path): et =
-    Constant (Int_value (List.fold  ~init:0 ~f:(+) (List.map ~f:cost_of_bb cp)))
+  let cost_of_codepath_body (codepath: cp): et =
+    Constant (Int_value (List.fold  ~init:0 ~f:(+) (List.map ~f:cost_of_bb codepath)))
   in
 
   let cost_of_fn (fn: int): et =
@@ -26,26 +26,26 @@ let cost_of_code_path (e: expr) (cp: code_path): et =
     | _     -> Node {op = "list_sum"; args = List.map ~f:cost_of_fn fns}
   in
 
-  let fns_of_cp (e: expr) (cp: code_path): int list =
+  let fns_of_cp (e: expr) (codepath: cp): int list =
 
     let fns_of_bb (e: expr) (bblock: bb): int list =
       List.map ~f:(fun op -> match op.arg with | Funcidx idx -> idx | _ -> failwith "invalid argument in call op")
         (List.filter ~f:(fun op -> match opcode_of_int op.opcode with | OP_call -> true | _ -> false) (expr_of_bb e bblock))
     in
 
-    List.dedup_and_sort ~compare:Int.compare (List.concat (List.map ~f:(fns_of_bb e) cp))
+    List.dedup_and_sort ~compare:Int.compare (List.concat (List.map ~f:(fns_of_bb e) codepath))
   in
 
-  let fns = fns_of_cp e cp in
+  let fns = fns_of_cp e codepath in
     match fns with
-    | []    -> cost_of_code_path_body cp
-    | _     -> Node {op = "+"; args = [cost_of_code_path_body cp; cost_of_calls fns]}
+    | []    -> cost_of_codepath_body codepath
+    | _     -> Node {op = "+"; args = [cost_of_codepath_body codepath; cost_of_calls fns]}
      
-let max_cost_of_code_paths (e: expr) (cps: code_path list): et =
-  match cps with
+let max_cost_of_codepaths (e: expr) (codepaths: cp list): et =
+  match codepaths with
   | []    -> Empty
-  | [hd]  -> cost_of_code_path e hd
-  | _     -> Node {op = "list_max"; args = List.map ~f:(cost_of_code_path e) cps}
+  | [hd]  -> cost_of_codepath e hd
+  | _     -> Node {op = "list_max"; args = List.map ~f:(cost_of_codepath e) codepaths}
   
 (*
   succ_of_cp
@@ -53,15 +53,15 @@ let max_cost_of_code_paths (e: expr) (cps: code_path list): et =
     returns the list of bblocks in the fragment that are immediate successors to the code path
 
   Parameters:
-    last_idx  last block index
-    cp        a code path
+    last_idx    last block index
+    codepath   code path
 
   Returns:
     the list of successor basic blocks
 *)
 
-let succ_of_cp (last_idx: int) (cp: code_path): bb list = 
-  List.filter ~f:(fun x -> x.bbindex <= last_idx) (List.hd_exn cp).succ
+let succ_of_cp (last_idx: int) (codepath: cp): bb list = 
+  List.filter ~f:(fun x -> x.bbindex <= last_idx) (List.hd_exn codepath).succ
 
 (*
     term_of_cp_bb
@@ -71,19 +71,19 @@ let succ_of_cp (last_idx: int) (cp: code_path): bb list =
     None otherwise
 
     Parameters:
-      last_idx  last block index
-      cp        a code path
-      succ      possible succesor block
+      last_idx    last block index
+      codepath   code path
+      succ        possible succesor block
 
     Returns:
       a code path option that is None if the successor is outside the code fragment, the successor
       otherwise
 *)
 
-let term_of_cp_bb (last_idx: int) (cp: code_path) (succ: bb): code_path option =
+let term_of_cp_bb (last_idx: int) (codepath: cp) (succ: bb): cp option =
     match       (succ.bbindex > last_idx)
-            ||  (List.hd_exn cp).bbindex >= succ.bbindex with
-    | true  -> Some cp
+            ||  (List.hd_exn codepath).bbindex >= succ.bbindex with
+    | true  -> Some codepath
     |  _    -> None
     
 (*
@@ -92,8 +92,8 @@ let term_of_cp_bb (last_idx: int) (cp: code_path) (succ: bb): code_path option =
         by the next bb one bb longer than the given code path
 *)
 
-let terms_of_cp (last_idx: int) (cp: code_path): code_path list =
-    List.filter_map ~f:(term_of_cp_bb last_idx cp) (succ_of_cp last_idx cp)
+let terms_of_cp (last_idx: int) (codepath: cp): cp list =
+    List.filter_map ~f:(term_of_cp_bb last_idx codepath) (succ_of_cp last_idx codepath)
 
 (*
     nterm_of_cp_bb
@@ -103,10 +103,10 @@ let terms_of_cp (last_idx: int) (cp: code_path): code_path list =
     None otherwise
 *)
 
-let nterm_of_cp_bb (last_idx: int) (cp: code_path) (succ: bb): code_path option =
+let nterm_of_cp_bb (last_idx: int) (codepath: cp) (succ: bb): cp option =
     match       (succ.bbindex <= last_idx) 
-            &&  (List.hd_exn cp).bbindex < succ.bbindex with
-    | true    -> Some (List.cons succ cp)
+            &&  (List.hd_exn codepath).bbindex < succ.bbindex with
+    | true    -> Some (List.cons succ codepath)
     | _       -> None
 
 (*
@@ -115,36 +115,36 @@ let nterm_of_cp_bb (last_idx: int) (cp: code_path) (succ: bb): code_path option 
         than the given code path
 *)
 
-let nterms_of_cp (last_idx: int) (cp: code_path): code_path list =
-    List.filter_map ~f:(nterm_of_cp_bb last_idx cp) (succ_of_cp last_idx cp)
+let nterms_of_cp (last_idx: int) (codepath: cp): cp list =
+    List.filter_map ~f:(nterm_of_cp_bb last_idx codepath) (succ_of_cp last_idx codepath)
 
 (*
     is_term
         Takes a code path and returns true if it has reached a terminal state, false otherwise
 *)
 
-let is_term (last_idx: int) (cp: code_path): bool =
-    match (List.hd_exn cp).bbtype with
+let is_term (last_idx: int) (codepath: cp): bool =
+    match (List.hd_exn codepath).bbtype with
     | BB_return
     | BB_unreachable -> true
     | _ ->
-        (match succ_of_cp last_idx cp with
+        (match succ_of_cp last_idx codepath with
         | []    -> true
         | _     -> false)
 
 (*
-    step_code_path
+    step_codepath
         Takes list of bblocks and a code path
         Returns a pair of lists of code-paths that's the resulting non-terminal and terminal paths respectively
 *)
 
-let step_code_path (last_idx: int) (cp: code_path): (code_path list)*(code_path list) =
-    match is_term last_idx cp with
-    | true  -> [], [cp]
-    | _     -> (nterms_of_cp last_idx cp), (terms_of_cp last_idx cp)
+let step_codepath (last_idx: int) (codepath: cp): (cp list)*(cp list) =
+    match is_term last_idx codepath with
+    | true  -> [], [codepath]
+    | _     -> (nterms_of_cp last_idx codepath), (terms_of_cp last_idx codepath)
 
 (*
-    code_paths_of_bbs
+    codepaths_of_bbs
 
     Takes a list of consecutive basic blocks, a list of partial non-terminal code paths,
     a list of terminal code paths and returns a list of all code paths through the
@@ -166,21 +166,21 @@ let step_code_path (last_idx: int) (cp: code_path): (code_path list)*(code_path 
     blocks with more than 1 successor.
 *)
 
-let rec code_paths_of_bbs' (last_idx: int) (nterm: code_path list) (term: code_path list): code_path list =
+let rec codepaths_of_bbs' (last_idx: int) (nterm: cp list) (term: cp list): cp list =
   match nterm with
     | []        -> term
     | hd::tl    ->
-        let n,t = step_code_path last_idx hd in
-            code_paths_of_bbs' last_idx (List.append n tl) (List.append t term)
+        let n,t = step_codepath last_idx hd in
+            codepaths_of_bbs' last_idx (List.append n tl) (List.append t term)
 
-let code_paths_of_bbs (bblocks: bb list) (nterm: code_path list) (term: code_path list): code_path list =
+let codepaths_of_bbs (bblocks: bb list) (nterm: cp list) (term: cp list): cp list =
   let last_idx = (List.nth_exn bblocks ((List.length bblocks)-1)).bbindex in
   match (mult_succ_count bblocks) < 24 with   (* hack to prevent this code from running for a very long time *)
-    | true  -> List.map ~f:List.rev (code_paths_of_bbs' last_idx nterm term)
+    | true  -> List.map ~f:List.rev (codepaths_of_bbs' last_idx nterm term)
     | false -> []  
 
 (*
-    code_paths_from_to_bb
+    codepaths_from_to_bb
 
     Given a start bb and an end bb return the non-looping code paths between the two bblocks
 
@@ -192,35 +192,35 @@ let code_paths_of_bbs (bblocks: bb list) (nterm: code_path list) (term: code_pat
       the list containing all code paths from the first bb to the second
 *)
 
-let code_paths_from_to_bb (from_bb: bb) (to_bb: bb): code_path list option =
+let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
 
-  let succ_of_cp_to (to_bb: bb) (cp: code_path): bb list = 
-    List.filter ~f:(fun x -> to_bb.bbindex < 0 || x.bbindex <= to_bb.bbindex) (List.hd_exn cp).succ
+  let succ_of_cp_to (to_bb: bb) (codepath: cp): bb list = 
+    List.filter ~f:(fun x -> to_bb.bbindex < 0 || x.bbindex <= to_bb.bbindex) (List.hd_exn codepath).succ
   in
   
-  let term_of_cp_to (to_bb: bb) (cp: code_path) (succ: bb): code_path option =
+  let term_of_cp_to (to_bb: bb) (codepath: cp) (succ: bb): cp option =
     match succ.bbindex = to_bb.bbindex with
-    | true  -> Some cp
+    | true  -> Some codepath
     |  _    -> None
   in
   
-  let terms_of_cp_to (to_bb: bb) (cp: code_path): code_path list =
-    List.filter_map ~f:(term_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
+  let terms_of_cp_to (to_bb: bb) (codepath: cp): cp list =
+    List.filter_map ~f:(term_of_cp_to to_bb codepath) (succ_of_cp_to to_bb codepath)
   in
   
-  let nterm_of_cp_to (to_bb: bb) (cp: code_path) (succ: bb): code_path option =
+  let nterm_of_cp_to (to_bb: bb) (codepath: cp) (succ: bb): cp option =
     if      succ.bbindex <= to_bb.bbindex 
-        &&  (List.hd_exn cp).bbindex < succ.bbindex then
-      Some (succ::cp)
+        &&  (List.hd_exn codepath).bbindex < succ.bbindex then
+      Some (succ::codepath)
     else
       None
   in
   
-  let nterms_of_cp_to (to_bb: bb) (cp: code_path): code_path list =
-    List.filter_map ~f:(nterm_of_cp_to to_bb cp) (succ_of_cp_to to_bb cp)
+  let nterms_of_cp_to (to_bb: bb) (codepath: cp): cp list =
+    List.filter_map ~f:(nterm_of_cp_to to_bb codepath) (succ_of_cp_to to_bb codepath)
   in
   
-  let rec code_paths_to_bb (to_bb: bb) (nterm: code_path list) (term: code_path list) (n_iters: int): code_path list option =
+  let rec codepaths_to_bb (to_bb: bb) (nterm: cp list) (term: cp list) (n_iters: int): cp list option =
     if n_iters > 1_000_000 then
       None
     else
@@ -229,22 +229,22 @@ let code_paths_from_to_bb (from_bb: bb) (to_bb: bb): code_path list option =
         | hd::tl    ->
             let n = nterms_of_cp_to to_bb hd in
             let t = terms_of_cp_to to_bb hd in
-              code_paths_to_bb to_bb (List.append n tl) (List.append t term) (n_iters + 1)
+              codepaths_to_bb to_bb (List.append n tl) (List.append t term) (n_iters + 1)
   in
 
   if from_bb.bbindex = to_bb.bbindex then
     Some [[from_bb]]
   else
-    code_paths_to_bb to_bb [[from_bb]] [] 0
+    codepaths_to_bb to_bb [[from_bb]] [] 0
     
-let code_paths_from_to_bb_exn (from_bb: bb) (to_bb: bb): code_path list =
-  let cps_o = code_paths_from_to_bb from_bb to_bb in
+let codepaths_from_to_bb_exn (from_bb: bb) (to_bb: bb): cp list =
+  let cps_o = codepaths_from_to_bb from_bb to_bb in
   match cps_o with
     | None      -> []
-    | Some cps  -> cps
+    | Some codepaths  -> codepaths
 
 (*
-    code_paths_from_bbs_to_bb
+    codepaths_from_bbs_to_bb
 
     Given a bb list and an end bb return the non-looping code paths that
     - start at the beginning of the bb list
@@ -256,45 +256,45 @@ let code_paths_from_to_bb_exn (from_bb: bb) (to_bb: bb): code_path list =
       to_bb       a bb
 
     Returns:
-      code_path list option which is either:
-          Some code_path list       the list of possible code paths
-          None                      too many paths
+      cp list option which is either:
+          Some cp list       the list of possible code paths
+          None               too many paths
 *)
 
-let code_paths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): code_path list option =
+let codepaths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): cp list option =
 
   let bb_in_bbs (bblock: bb) (bblocks: bb list): bool =
     List.exists ~f:(fun bblock' -> bblock.bbindex = bblock'.bbindex) bblocks
   in
 
-  let succ_of_cp_from_to (from_bbs: bb list) (to_bb: bb) (cp: code_path): bb list = 
-    List.filter ~f:(fun bblock -> (bb_in_bbs bblock from_bbs) || (bblock.bbindex = to_bb.bbindex)) (List.hd_exn cp).succ
+  let succ_of_cp_from_to (from_bbs: bb list) (to_bb: bb) (codepath: cp): bb list = 
+    List.filter ~f:(fun bblock -> (bb_in_bbs bblock from_bbs) || (bblock.bbindex = to_bb.bbindex)) (List.hd_exn codepath).succ
   in
   
-  let term_of_cp_from_to (to_bb: bb) (cp: code_path) (succ: bb): code_path option =
+  let term_of_cp_from_to (to_bb: bb) (codepath: cp) (succ: bb): cp option =
     match succ.bbindex = to_bb.bbindex with
-    | true  -> Some cp
+    | true  -> Some codepath
     |  _    -> None
   in
   
-  let terms_of_cp_from_to (from_bbs: bb list) (to_bb: bb) (cp: code_path): code_path list =
-    List.map ~f:List.rev (List.filter_map ~f:(term_of_cp_from_to to_bb cp) (succ_of_cp_from_to from_bbs to_bb cp))
+  let terms_of_cp_from_to (from_bbs: bb list) (to_bb: bb) (codepath: cp): cp list =
+    List.map ~f:List.rev (List.filter_map ~f:(term_of_cp_from_to to_bb codepath) (succ_of_cp_from_to from_bbs to_bb codepath))
   in
   
-  let nterm_of_cp_from_to (to_bb: bb) (cp: code_path) (succ: bb): code_path option =
+  let nterm_of_cp_from_to (to_bb: bb) (codepath: cp) (succ: bb): cp option =
     if      succ.bbindex <= to_bb.bbindex 
-        &&  (List.hd_exn cp).bbindex < succ.bbindex then
-      Some (succ::cp)
+        &&  (List.hd_exn codepath).bbindex < succ.bbindex then
+      Some (succ::codepath)
     else
       None
   in
   
-  let nterms_of_cp_from_to (from_bbs: bb list) (to_bb: bb) (cp: code_path): code_path list =
-    List.filter_map ~f:(nterm_of_cp_from_to to_bb cp) (succ_of_cp_from_to from_bbs to_bb cp)
+  let nterms_of_cp_from_to (from_bbs: bb list) (to_bb: bb) (codepath: cp): cp list =
+    List.filter_map ~f:(nterm_of_cp_from_to to_bb codepath) (succ_of_cp_from_to from_bbs to_bb codepath)
   in
   
-  let rec code_paths_from_to_ebb' (from_bbs: bb list) (to_bb: bb) (nterm: code_path list)
-      (term: code_path list) (n_iters: int): code_path list option =
+  let rec codepaths_from_to_ebb' (from_bbs: bb list) (to_bb: bb) (nterm: cp list)
+      (term: cp list) (n_iters: int): cp list option =
     if n_iters > 1_000_000 then
       None
     else
@@ -303,10 +303,10 @@ let code_paths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): code_path list op
         | hd::tl    ->
             let n = nterms_of_cp_from_to from_bbs to_bb hd in
             let t = terms_of_cp_from_to from_bbs to_bb hd in
-              code_paths_from_to_ebb' from_bbs to_bb (List.append n tl) (List.append t term) (n_iters + 1)
+              codepaths_from_to_ebb' from_bbs to_bb (List.append n tl) (List.append t term) (n_iters + 1)
   in
 
-  code_paths_from_to_ebb' from_bbs to_bb [[List.hd_exn from_bbs]] [] 0
+  codepaths_from_to_ebb' from_bbs to_bb [[List.hd_exn from_bbs]] [] 0
     
     
 let bblock_is_loop (bblock: bb): bool =
@@ -314,26 +314,26 @@ let bblock_is_loop (bblock: bb): bool =
     | BB_loop -> true
     | _       -> false
 
-let rec code_path_has_loop (cp: code_path)=
-  match cp with
-  | hd::tl -> (match bblock_is_loop hd with | false -> code_path_has_loop tl | _ -> true)
+let rec codepath_has_loop (codepath: cp)=
+  match codepath with
+  | hd::tl -> (match bblock_is_loop hd with | false -> codepath_has_loop tl | _ -> true)
   | _ -> false
 
-let code_path_with_loop (cp: code_path): code_path option =
-  match code_path_has_loop cp with |true -> Some cp | _ -> None
+let codepath_with_loop (codepath: cp): cp option =
+  match codepath_has_loop codepath with |true -> Some codepath | _ -> None
 
-let rec loop_prefix_of_code_path (bblocks: bb list) (acc: code_path) (cp: code_path) : code_path =
-  match cp with
+let rec loop_prefix_of_codepath (bblocks: bb list) (acc: cp) (codepath: cp) : cp =
+  match codepath with
   | []      -> acc
   | hd::tl  ->
       (match bblock_is_loop hd with
         | true  -> List.rev (hd::acc)
-        | _     -> loop_prefix_of_code_path bblocks (hd::acc) tl)
+        | _     -> loop_prefix_of_codepath bblocks (hd::acc) tl)
 
-let loop_code_paths (bblocks: bb list) (cps: code_path list): code_path list =
-  List.map ~f:(loop_prefix_of_code_path bblocks []) (List.filter_map ~f:code_path_with_loop cps)
+let loop_codepaths (bblocks: bb list) (codepaths: cp list): cp list =
+  List.map ~f:(loop_prefix_of_codepath bblocks []) (List.filter_map ~f:codepath_with_loop codepaths)
 
-let rec compare_cps (cp1: code_path) (cp2: code_path): int =
+let rec compare_cps (cp1: cp) (cp2: cp): int =
   match cp1, cp2 with
   | [], []              ->  0
   | _::_, []            -> -1
@@ -361,7 +361,7 @@ type loop_prefix = {
 *)
 
 type loop_path = {
-  path_to_exit:         code_path;        (* path within the loop to the bb where the exit occurs *)
+  path_to_exit:         cp;        (* path within the loop to the bb where the exit occurs *)
 }
 
 (*
@@ -371,7 +371,7 @@ type loop_path = {
 
 type loop = {
   loop_bblocks:   bb list;     (* list of consecutive bblocks that comprise the loop *)
-  looping_paths:  code_path list;  (* list of possible looping paths through the loop *)
+  looping_paths:  cp list;  (* list of possible looping paths through the loop *)
   branchbacks:    bb list;     (* list of bblocks that contain branchbacks *)
 }
 
@@ -422,7 +422,7 @@ let loop_bblocks_of_bbs (bblocks: bb list): bb list list =
   otherwise
 
   Parameters:
-    cp   the code path
+    codepath   the code path
   Returns:
     true if its looping
 **)
@@ -430,8 +430,8 @@ let loop_bblocks_of_bbs (bblocks: bb list): bb list list =
 let is_branchback (bblock: bb) (idx: int): bool =
   List.exists ~f:(fun bblock' -> bblock'.bbindex = idx && bblock'.bbindex <= bblock.bbindex ) bblock.succ
 
-let is_looping_path (cp: code_path): bool =
-  is_branchback (List.nth_exn cp ((List.length cp) - 1)) (List.hd_exn cp).bbindex
+let is_looping_path (codepath: cp): bool =
+  is_branchback (List.nth_exn codepath ((List.length codepath) - 1)) (List.hd_exn codepath).bbindex
 
 (**
   looping_paths_of_loop_bblocks
@@ -444,9 +444,9 @@ let is_looping_path (cp: code_path): bool =
     the list of looping paths within the loop
 **)
 
-let looping_paths_of_loop_bblocks (loop_bblocks: bb list): code_path list =
+let looping_paths_of_loop_bblocks (loop_bblocks: bb list): cp list =
   List.filter ~f:is_looping_path
-    (code_paths_of_bbs loop_bblocks [[List.hd_exn loop_bblocks]] [])
+    (codepaths_of_bbs loop_bblocks [[List.hd_exn loop_bblocks]] [])
 
 (**
   exit_paths
@@ -461,23 +461,23 @@ let looping_paths_of_loop_bblocks (loop_bblocks: bb list): code_path list =
     the suffix code paths
 **)
 
-let exit_paths (cps1: code_path list) (cps2: code_path list): code_path list =
+let exit_paths (cps1: cp list) (cps2: cp list): cp list =
 
-  let bbs_of_cps (cps: code_path list): bb list =
-    List.dedup_and_sort ~compare:compare_bbs (List.concat cps)
+  let bbs_of_cps (codepaths: cp list): bb list =
+    List.dedup_and_sort ~compare:compare_bbs (List.concat codepaths)
   in
 
   let bb_in_bbs (bblock: bb) (bblocks: bb list): bool =
     List.exists ~f:(fun bblock' -> bblock.bbindex = bblock'.bbindex) bblocks
   in
 
-  let rec remove_suffix (bblocks: bb list) (cp: code_path): code_path option =
-    match cp with
+  let rec remove_suffix (bblocks: bb list) (codepath: cp): cp option =
+    match codepath with
     | []      -> None
     | hd::tl  -> if bb_in_bbs hd bblocks then
                   remove_suffix bblocks tl
                 else
-                  Some cp
+                  Some codepath
   in
 
   List.filter_map ~f:(remove_suffix (bbs_of_cps cps2)) cps1
@@ -525,54 +525,54 @@ let loops_of_bbs (bblocks: bb list): loop list =
   if the code path contains the index and false otherwise 
 
   Parameters:
-    bblock  bb
-    cp      code path that contains the bb
+    bblock      bb
+    codepath   code path that contains the bb
   Returns:
     Some cp if the code path contains the bb, None otherwise
 **)
 
-let cp_has_bb (bblock: bb) (cp: code_path) : bool =
-  List.exists ~f:(fun x -> x.bbindex = bblock.bbindex) cp
+let cp_has_bb (bblock: bb) (codepath: cp) : bool =
+  List.exists ~f:(fun x -> x.bbindex = bblock.bbindex) codepath
   
 (**
-  prefix_of_code_path
+  prefix_of_codepath
 
   Given a bb and a code path that contains that bb
   return the prefix of the code path up to but not including the
   bb
 
   Parameters:
-    bblock  bb
-    acc     accumulated prefix so far
-    cp      code path that contains the bb
+    bblock      bb
+    acc         accumulated prefix so far
+    codepath   code path that contains the bb
   Returns:
-    the prefix of the cp up to bb
+    the prefix of the codepath up to bb
 **)
 
-let rec prefix_of_code_path (bblock: bb) (acc: code_path) (cp: code_path): code_path =
-    match cp with
+let rec prefix_of_codepath (bblock: bb) (acc: cp) (codepath: cp): cp =
+    match codepath with
     | []      -> failwith "bb not found"
     | hd::tl  ->
         (match hd.bbindex = bblock.bbindex with
           | true -> (List.rev acc)
-          | _    -> prefix_of_code_path bblock (hd::acc) tl)
+          | _    -> prefix_of_codepath bblock (hd::acc) tl)
   
 (**
-  prefixes_of_code_paths
+  prefixes_of_codepaths
 
   Given a bb and a list of code paths that contains that bb
   return a list of the code paths that are the prefixes of the code path up to
   and not including the bb
 
   Parameters:
-    cps   list of code paths that contain the bb
+    codepaths   list of code paths that contain the bb
     bb    bb
   Returns:
-    the prefixes of the cps up to bb
+    the prefixes of the codepaths up to bb
 **)
 
-let prefixes_of_code_paths (cps: code_path list) (bblock: bb): code_path list =
-  List.map ~f:(prefix_of_code_path bblock []) cps
+let prefixes_of_codepaths (codepaths: cp list) (bblock: bb): cp list =
+  List.map ~f:(prefix_of_codepath bblock []) codepaths
           
 (**
   unique_paths_to_bblock
@@ -581,14 +581,14 @@ let prefixes_of_code_paths (cps: code_path list) (bblock: bb): code_path list =
   bb, not including the bb, in the list of code paths
 
   Parameters:
-    cps   list of code paths that may or may not contain the bb
+    codepaths   list of code paths that may or may not contain the bb
     bb    bb
   Returns:
-    unique prefixes from the cps that contain the bb
+    unique prefixes from the codepaths that contain the bb
 **)
   
-let unique_paths_to_bblock (cps: code_path list) (bblock: bb): code_path list =
-  List.dedup_and_sort ~compare:compare_cps (prefixes_of_code_paths (List.filter ~f:(cp_has_bb bblock) cps) bblock)
+let unique_paths_to_bblock (codepaths: cp list) (bblock: bb): cp list =
+  List.dedup_and_sort ~compare:compare_cps (prefixes_of_codepaths (List.filter ~f:(cp_has_bb bblock) codepaths) bblock)
   
 (**
   paths_with_no_loops
@@ -596,13 +596,13 @@ let unique_paths_to_bblock (cps: code_path list) (bblock: bb): code_path list =
   Given a list of code paths return the sublist of paths with no loops
 
   Parameters:
-    cps  the list of code paths
+    codepaths  the list of code paths
   Returns:
     the sublist with no loops
 **)
 
-let paths_with_no_loops (cps: code_path list): code_path list =
-    List.filter ~f:(fun cp -> not (code_path_has_loop cp)) cps
+let paths_with_no_loops (codepaths: cp list): cp list =
+    List.filter ~f:(fun codepath -> not (codepath_has_loop codepath)) codepaths
   
 (**
   exit_bblocks_of_loop
@@ -646,16 +646,16 @@ let exit_bblocks_of_loop (l: loop): bb list =
 
 **)
 
-let rec paths_from_bblock (acc: code_path list) (bblock: bb): code_path list =
+let rec paths_from_bblock (acc: cp list) (bblock: bb): cp list =
   match bblock.succ with
-  | []  -> List.map ~f:List.rev (List.map ~f:(fun cp -> bblock::cp) acc)
-  | _   -> List.concat (List.map ~f:(fun bblock' -> paths_from_bblock (List.map ~f:(fun cp -> bblock::cp) acc) bblock') bblock.succ)
+  | []  -> List.map ~f:List.rev (List.map ~f:(fun codepath -> bblock::codepath) acc)
+  | _   -> List.concat (List.map ~f:(fun bblock' -> paths_from_bblock (List.map ~f:(fun codepath -> bblock::codepath) acc) bblock') bblock.succ)
 
-let paths_from_bblocks (bblocks: bb list): code_path list =
+let paths_from_bblocks (bblocks: bb list): cp list =
   List.concat (List.map ~f:(paths_from_bblock [[]]) bblocks)
 
 (*
-  expr_of_code_path
+  expr_of_codepath
 
   Given an the code of a function, a code path through the function and a 
   branchback bb in the code path return the code from the beginning
@@ -663,7 +663,7 @@ let paths_from_bblocks (bblocks: bb list): code_path list =
 
   Parameters:
     e           code of the function
-    cp          code path
+    codepath   code path
     bback       branchback bb
 
   Returns:
@@ -671,33 +671,33 @@ let paths_from_bblocks (bblocks: bb list): code_path list =
 
 *)
 
-let expr_of_code_path (e: expr) (cp: code_path) (bblock: bb): expr =
+let expr_of_codepath (e: expr) (codepath: cp) (bblock: bb): expr =
 
-  let rec expr_of_code_path' (e: expr) (cp: code_path) (bblock: bb) (acc: expr list): expr =
-    match cp with
+  let rec expr_of_codepath' (e: expr) (codepath: cp) (bblock: bb) (acc: expr list): expr =
+    match codepath with
     | [] ->       failwith "Branchback block not found"
     | hd::tl ->   if    hd.bbindex = bblock.bbindex 
                   then  List.concat (List.rev ((expr_of_bb e hd)::acc))
-                  else  expr_of_code_path' e tl bblock ((expr_of_bb e hd)::acc)
+                  else  expr_of_codepath' e tl bblock ((expr_of_bb e hd)::acc)
   in
 
-  expr_of_code_path' e cp bblock []
+  expr_of_codepath' e codepath bblock []
 
-let condition_of_loop ctx (bback: bb) (cp: code_path): et =
+let condition_of_loop ctx (bback: bb) (codepath: cp): et =
   match bback.bbtype with
   | BB_br_if ->
       let _,loop_cond = reduce_bblock ctx.w 
-                                      (expr_of_code_path ctx.w_e cp bback) 
+                                      (expr_of_codepath ctx.w_e codepath bback) 
                                       (empty_program_state ctx.w ctx.param_types ctx.local_types) in
         loop_cond
   | BB_br_table ->  Empty (* TODO *)
   | BB_br ->        Empty (* TODO *)
   | _ ->            failwith "Invalid branchback"
                     
-let conditions_of_paths (ctx: execution_context) (prefixes: code_path list) (loop_paths: code_path list) (bback: bb): 
+let conditions_of_paths (ctx: execution_context) (prefixes: cp list) (loop_paths: cp list) (bback: bb): 
       et list =
 
-  let rec all_paths (cp1: code_path list) (cp2: code_path list) (cp2all: code_path list) (acc: code_path list): code_path list =
+  let rec all_paths (cp1: cp list) (cp2: cp list) (cp2all: cp list) (acc: cp list): cp list =
     match cp1, cp2 with
     | [], _               -> acc
     | _::tl1, []          -> all_paths tl1 cp2all cp2all acc
@@ -724,10 +724,10 @@ type loops_class = {
   loops_nested:   bool;
 }
 
-let paths_from_to_loops (l1: loop) (l2: loop): code_path list option =
+let paths_from_to_loops (l1: loop) (l2: loop): cp list option =
   let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
   let loop2 = List.hd_exn l2.loop_bblocks in
-  code_paths_from_to_bb end1 loop2
+  codepaths_from_to_bb end1 loop2
 
 let loop_hd_bbidx (l: loop): int =
   (List.hd_exn l.loop_bblocks).bbindex

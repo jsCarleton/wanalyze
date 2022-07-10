@@ -169,8 +169,8 @@ let ssa_of_expr' (ctx: execution_context) (e: expr) acc: ssa list =
 let ssa_of_bb (ctx: execution_context) acc (bblock: Bb.bb): ssa list =
   ssa_of_expr' ctx (expr_of_bb ctx.w_e bblock) acc
 
-let ssa_of_code_path (ctx: execution_context) (cp: Code_path.code_path): ssa list =
-  List.fold ~f:(ssa_of_bb ctx) ~init:(ssa_of_locals ctx.local_types) cp
+let ssa_of_codepath (ctx: execution_context) (codepath: Cp.cp): ssa list =
+  List.fold ~f:(ssa_of_bb ctx) ~init:(ssa_of_locals ctx.local_types) codepath
 
 let rec expand_et (e: et) (s_src: ssa) : et =
   match e with 
