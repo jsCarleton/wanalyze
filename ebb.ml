@@ -1,11 +1,11 @@
 open Core
-open Bblock
+open Bb
 open Code_path
 open Et
 
 type ebb_exit =
   {
-    exit_bb:  bblock;                 (* bb external to the ebb to which it can exit *)
+    exit_bb:  bb;                     (* bb external to the ebb to which it can exit *)
     cps:      code_path list option;  (* corresponding code paths to the exit bb *)
   }
 
@@ -14,16 +14,16 @@ type ebb_type = EBB_loop | EBB_block
 type ebb = 
   {
     ebbtype:      ebb_type;       (* either a block or a loop*)
-    cost:         et;      (* cost of executing this ebb *)
-    entry_bb:     bblock;         (* bb that's the entry to the ebb *)
-    bbs:          bblock list;    (* list of bbs that make up the ebb *)
+    cost:         et;             (* cost of executing this ebb *)
+    entry_bb:     bb;             (* bb that's the entry to the ebb *)
+    bblocks:      bb list;        (* list of bblocks that make up the ebb *)
     exits:        ebb_exit list;  (* info about how the ebb is exitted *)
     mutable
-    succ_ebbs:    ebb list;   (* list of ebblocks directly reachable from this one*)
+    succ_ebbs:    ebb list;       (* list of ebblocks directly reachable from this one*)
     (* these properties are used when the ebb contains a loop *)
     loop_cps:     code_path list; (* code_paths in the ebb that loop *)
     exit_cps:     code_path list; (* code_paths in the ebb that aren't in the loop *)
-    nested_ebbs:  ebb list;   (* ebbs containing nested loops *)
+    nested_ebbs:  ebb list;       (* ebbs containing nested loops *)
   }
 
 let string_of_ebb_type (t: ebb_type): string =
@@ -41,7 +41,7 @@ let string_of_ebblock (ebb: ebb): string =
     String.concat [
       sprintf "%sebb entry:  %d\n"  (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb type:   %s\n"  spaces (string_of_ebb_type ebb.ebbtype);
-      sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bbs);
+      sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bblocks);
       sprintf "%sebb cost:   %s\n"  spaces (format_et ebb.cost);
       sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
       sprintf "%sebb succs:  %s\n"  spaces (string_of_ebblocks ebb.succ_ebbs);
@@ -76,38 +76,38 @@ let string_of_ebblock (ebb: ebb): string =
   string_of_ebblock' 0 ebb
 
 let ebb_to_unreachable (ebb: ebb): bool =
-  List.exists ~f:(fun bb -> match bb.bbtype with | BB_unreachable -> true | _ -> false) ebb.bbs
+  List.exists ~f:(fun bblock -> match bblock.bbtype with | BB_unreachable -> true | _ -> false) ebb.bblocks
 
 let ebb_to_return (ebb: ebb): bool =
-  List.exists ~f:(fun bb -> match bb.bbtype with | BB_return -> true | _ -> false) ebb.bbs
+  List.exists ~f:(fun bblock -> match bblock.bbtype with | BB_return -> true | _ -> false) ebb.bblocks
 
 let ebb_has_branchback (ebb: ebb): bool =
   let ebb_head_idx = ebb.entry_bb.bbindex in
   List.exists 
-    ~f:(fun bb -> List.exists 
-                    ~f:(fun bb' -> bb'.bbindex <= bb.bbindex && bb'.bbindex >= ebb_head_idx)
-                    bb.succ) 
-    ebb.bbs
+    ~f:(fun bblock -> List.exists 
+                    ~f:(fun bblock' -> bblock'.bbindex <= bblock.bbindex && bblock'.bbindex >= ebb_head_idx)
+                    bblock.succ) 
+    ebb.bblocks
 
 let ebb_too_many_paths (ebb: ebb): bool =
   List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) ebb.exits
 
-let exit_bbs_of_bbs (bbs: bblock list): bblock list =
-  (* to be an exit bb of a list of bbs a bb must meet each these conditions:
-      - it's a successor of some bb in the given list of bbs,
-      - it's not in the given list of bbs,
+let exit_bbs_of_bbs (bblocks: bb list): bb list =
+  (* to be an exit bb of a list of bblocks a bb must meet each these conditions:
+      - it's a successor of some bb in the given list of bblocks,
+      - it's not in the given list of bblocks,
       - it's not an unreachable bb
-    or it's one of our special exit bbs ("E", "U" or "R")
+    or it's one of our special exit bblocks ("E", "U" or "R")
   *)
-  let bb_not_unreachable (bb: bblock): bool = 
-    match bb.bbtype with | BB_unreachable -> false | _ -> true
+  let bb_not_unreachable (bblock: bb): bool = 
+    match bblock.bbtype with | BB_unreachable -> false | _ -> true
   in
-  List.filter ~f:(fun bb -> (bb_not_unreachable bb) && (bb_not_in_bblocks bb bbs || bb_is_exit bb))
+  List.filter ~f:(fun bblock -> (bb_not_unreachable bblock) && (bb_not_in_bblocks bblock bblocks || bb_is_exit bblock))
     (List.dedup_and_sort ~compare:compare_bbs 
-      (List.fold_left ~init:[] ~f:(fun acc bb -> List.append bb.succ acc) bbs))
+      (List.fold_left ~init:[] ~f:(fun acc bblock -> List.append bblock.succ acc) bblocks))
 
-let exits_of_bbs (bbs: bblock list) (exit_bbs: bblock list): ebb_exit list =
-  List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_bbs_to_bb bbs exit_bb}) exit_bbs
+let exits_of_bbs (bblocks: bb list) (exit_bbs: bb list): ebb_exit list =
+  List.map ~f:(fun exit_bb -> {exit_bb; cps = Code_path.code_paths_from_bbs_to_bb bblocks exit_bb}) exit_bbs
 
 (*
     paths_of_ebblocks
@@ -154,7 +154,7 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
   List.map ~f:List.rev (paths_of_ebblocks' [[List.hd_exn ebbs]] [] 0)
 
 (*
-    ebblocks_of_bblocks
+    ebbs_of_bbs
 
     Takes a list of consecutive basic blocks and returns the corresponding list of
     ebblocks
@@ -170,8 +170,8 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
     its cost and an execution context is required to determine the cost of a loop ebb 
 *)
 
-let rec ebblocks_of_bblocks (ctx: Execution.execution_context) 
-          (all_bbs: bblock list): ebb list =
+let rec ebbs_of_bbs (ctx: Execution.execution_context) 
+          (all_bbs: bb list): ebb list =
 
   let cost_of_block_ebb (exits: ebb_exit list): et =
     if List.exists ~f:(fun e -> match e.cps with | None -> true | _ -> false) exits then
@@ -185,9 +185,9 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
             exits))
   in
 
-  let sub_ebbs_of_bblocks (sub_bbs: bblock list): ebb list =
-    if List.exists ~f:(fun bb -> match bb.bbtype with | BB_loop -> true | _ -> false) sub_bbs then
-      ebblocks_of_bblocks ctx sub_bbs
+  let sub_ebbs_of_bbs (sub_bbs: bb list): ebb list =
+    if List.exists ~f:(fun bblock -> match bblock.bbtype with | BB_loop -> true | _ -> false) sub_bbs then
+      ebbs_of_bbs ctx sub_bbs
     else
       []
   in
@@ -201,11 +201,11 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                     exits
   in
 
-  let bback_of_cp (cp: code_path) (bbs: bblock list): bblock =
-    List.find_exn ~f:(fun bb -> List.exists ~f:(fun bb' -> bb'.bbindex = bb.bbindex) cp) bbs
+  let bback_of_cp (cp: code_path) (bblocks: bb list): bb =
+    List.find_exn ~f:(fun bblock -> List.exists ~f:(fun bblock' -> bblock'.bbindex = bblock.bbindex) cp) bblocks
   in
 
-  let looping_parts_costs (bbacks: bblock list) (loop_cps: code_path list) (prefix_part: code_path):
+  let looping_parts_costs (bbacks: bb list) (loop_cps: code_path list) (prefix_part: code_path):
         Cost.loop_metric list =
     List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
   in
@@ -227,25 +227,25 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                   ]}
   in
 
-  let finish_ebblock' (ebbtype: ebb_type) (bbs: bblock list): ebb =
+  let finish_ebblock' (ebbtype: ebb_type) (bblocks: bb list): ebb =
 
-    let entry_bb    = List.hd_exn bbs in
-    let exits       = exits_of_bbs bbs (exit_bbs_of_bbs bbs) in
+    let entry_bb    = List.hd_exn bblocks in
+    let exits       = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
     let succ_ebbs   = [] in
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
-        let loop_cps = looping_paths_of_loop_bblocks bbs in
+        let loop_cps = looping_paths_of_loop_bblocks bblocks in
         if List.length loop_cps > 0 then
           begin
             let exit_cps    = exit_paths (exit_cps exits) loop_cps in
-            let nested_ebbs = sub_ebbs_of_bblocks bbs in
+            let nested_ebbs = sub_ebbs_of_bbs bblocks in
             let root_bb = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
             let cps = Code_path.code_paths_from_to_bb_exn root_bb (List.hd_exn entry_bb.pred) in
             if List.length cps > 0 then
               begin
                 let cp = List.rev (List.hd_exn cps) in (* TODO this reverse should be done earlier *)
-                let bbacks = Code_path.branchbacks_of_loop bbs in 
+                let bbacks = Code_path.branchbacks_of_loop bblocks in 
                 let lms = looping_parts_costs bbacks loop_cps cp in
                 let exit_cost = max_cost_of_code_paths ctx.w_e exit_cps in
                 (* do we have more than 1 set of loop metrics to consider? *)
@@ -255,12 +255,12 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                     match exit_cost with
                     | Empty ->
                         let cost = Node {op = "list_max"; args = List.map ~f:expr_of_lm lms} in
-                        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
                         let cost = Node {op = "+";
                                          args = [Node {op = "list_max"; args =  List.map ~f:expr_of_lm lms};
                                                  exit_cost]} in
-                        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
                   (* no, we need use the cost of the single path through the loop *)
@@ -268,16 +268,16 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                     match exit_cost with
                     | Empty ->
                         let cost = expr_of_lm (List.hd_exn lms) in
-                        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
         | _     ->
                         let cost = Node {op = "+"; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
-                        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
               end
             else
               begin
                 let cost       =  Constant (String_value "Infinity") in
-                {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
               end
           end
         else
@@ -286,35 +286,35 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
             let cost        = Constant (String_value "Infinity") in
             let exit_cps    = [] in
             let nested_ebbs = [] in
-            {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+            {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
           end
     | EBB_block ->
         let loop_cps    = [] in
         let exit_cps    = [] in
         let nested_ebbs = [] in
         let cost        = cost_of_block_ebb exits in
-        {ebbtype; cost; entry_bb; bbs; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
   in
 
-  let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bblock list): ebb =
+  let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bb list): ebb =
     finish_ebblock' ebbtype (List.rev bbs_acc)
   in
 
-  let build_ebblock (ebbtype: ebb_type) (last_bb: bblock) (bbs_acc: bblock list): ebb =
+  let build_ebblock (ebbtype: ebb_type) (last_bb: bb) (bbs_acc: bb list): ebb =
    finish_ebblock ebbtype (last_bb::bbs_acc)
   in
 
-  let pred_before_ebb (bb: bblock option) (bbs: bblock list): bool =
-    match bb with
-    | Some bb'  -> List.exists ~f:(fun bb'' -> bb''.bbindex < bb'.bbindex) bbs
-    | _         -> false
+  let pred_before_ebb (bblock: bb option) (bblocks: bb list): bool =
+    match bblock with
+    | Some bblock'  -> List.exists ~f:(fun bblock'' -> bblock''.bbindex < bblock'.bbindex) bblocks
+    | _             -> false
   in
 
-  let ebb_entry_bb (entry_bb: bblock option) (bb: bblock): bblock option =
-    (match entry_bb with | None -> Some bb | _ -> entry_bb)
+  let ebb_entry_bb (entry_bb: bb option) (bblock: bb): bb option =
+    (match entry_bb with | None -> Some bblock | _ -> entry_bb)
   in
 
-  let rec eblock_of_bblocks' (all_bbs: bblock list) (bbs_acc: bblock list) (ebbs_acc: ebb list) (lnest: int) (entry_bb: bblock option): ebb list =
+  let rec eblock_of_bbs' (all_bbs: bb list) (bbs_acc: bb list) (ebbs_acc: ebb list) (lnest: int) (entry_bb: bb option): ebb list =
     match all_bbs with
       (* do we still have bblocks to process ? *)
       | hd::tl  ->
@@ -330,24 +330,24 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
                     (* have we already started to build an ebb? *)
                     | [] ->
                         (* no, just build an ebb for the loop *)
-                        eblock_of_bblocks' tl [] ((build_ebblock EBB_block hd bbs_acc)::ebbs_acc) hd.nesting None
+                        eblock_of_bbs' tl [] ((build_ebblock EBB_block hd bbs_acc)::ebbs_acc) hd.nesting None
                     | _ ->
                         (* yes, close it off and create one containing just the loop *)
-                        eblock_of_bblocks' tl [] 
+                        eblock_of_bbs' tl [] 
                           ((finish_ebblock EBB_block [hd])
                               ::(finish_ebblock EBB_block bbs_acc)
                               ::ebbs_acc) hd.nesting None
                   )
               | _  ->
-                  (* does this bblock have a pred that's before the current ebb? 
-                      i.e. does some earlier ebb enter this bblock? if so it needs to be
+                  (* does this bb have a pred that's before the current ebb? 
+                      i.e. does some earlier ebb enter this bb? if so it needs to be
                       the head of a new ebb *)
                   if pred_before_ebb entry_bb hd.pred then
                     (* yes, start a new ebb *)
-                    eblock_of_bblocks' tl [hd] ((finish_ebblock EBB_block bbs_acc)::ebbs_acc) lnest (Some hd)
+                    eblock_of_bbs' tl [hd] ((finish_ebblock EBB_block bbs_acc)::ebbs_acc) lnest (Some hd)
                   else
                     (* no, keep accumulating the ebb *)
-                    eblock_of_bblocks' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd))
+                    eblock_of_bbs' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd))
           else
             (* yes, we're in a loop *)
             (match hd.bbtype with
@@ -355,13 +355,13 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
               | BB_end ->
                 if hd.nesting = lnest then
                   (* yes, close it off *)
-                  eblock_of_bblocks' tl [] ((build_ebblock EBB_loop hd bbs_acc)::ebbs_acc) (-1) None
+                  eblock_of_bbs' tl [] ((build_ebblock EBB_loop hd bbs_acc)::ebbs_acc) (-1) None
                 else
                   (* no, keep accumulating the ebb *)
-                  eblock_of_bblocks' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd)
+                  eblock_of_bbs' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd)
               | _ ->
                 (* not done the loop, keep accumulating the ebb *)
-                eblock_of_bblocks' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd))
+                eblock_of_bbs' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd))
       | []      ->
           (* no, close off the current ebb if there is one *)
           match bbs_acc with
@@ -369,8 +369,8 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
           | _   -> List.rev (finish_ebblock' EBB_block (List.rev bbs_acc)::ebbs_acc)
     in
 
-    let ebb_of_bblock (ebbs: ebb list) (bb: bblock): ebb option =
-      List.find ~f:(fun ebb -> ebb.entry_bb.bbindex = bb.bbindex) ebbs
+    let ebb_of_bb (ebbs: ebb list) (bblock: bb): ebb option =
+      List.find ~f:(fun ebb -> ebb.entry_bb.bbindex = bblock.bbindex) ebbs
     in
 
     (* update the successor ebbs for all ebbs *)
@@ -379,7 +379,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
 
       let update_succ' (ebbs: ebb list) (ebb: ebb) =
         let update_succ'' (ebbs: ebb list) (ebb: ebb) (e: ebb_exit) =
-          let s = ebb_of_bblock ebbs e.exit_bb in
+          let s = ebb_of_bb ebbs e.exit_bb in
           match s with
           | Some succ   -> ebb.succ_ebbs <- succ::ebb.succ_ebbs
           | None        -> ()
@@ -389,7 +389,7 @@ let rec ebblocks_of_bblocks (ctx: Execution.execution_context)
      List.iter ~f:(update_succ' ebbs) ebbs;
     in
 
-  let ebbs = eblock_of_bblocks' all_bbs [] [] (-1) None in
+  let ebbs = eblock_of_bbs' all_bbs [] [] (-1) None in
   update_succ ebbs;
   ebbs
 

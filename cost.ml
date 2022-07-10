@@ -41,8 +41,8 @@ let rec all_loops (cp1: Code_path.code_path list) (cp2: Code_path.code_path list
 
 type cond_site =
 {
-    cond_bb:    Bblock.bblock;  (* basic block where the evaluation of the condition is done *)
-    sense:      bool;           (* if false then the condition must be negated *)
+    cond_bb:    Bb.bb;  (* basic block where the evaluation of the condition is done *)
+    sense:      bool;   (* if false then the condition must be negated *)
 }
 
 let site_of_nesting_if (lp: Code_path.code_path): cond_site option =
@@ -68,14 +68,14 @@ let site_of_nesting_if (lp: Code_path.code_path): cond_site option =
       end
 
 (* TODO do we need both symbolic execution and SSA to do this? *)
-let cost_of_loop (ctx: Execution.execution_context) (bback: Bblock.bblock) (lp: loop_path_parts): loop_metric =
-  (* a key part of this is locating the bblock that the condition of the loop is tested ... *)
+let cost_of_loop (ctx: Execution.execution_context) (bback: Bb.bb) (lp: loop_path_parts): loop_metric =
+  (* a key part of this is locating the bb that the condition of the loop is tested ... *)
   let cs_o =
     (match bback.bbtype with
         | BB_br_if      -> Some {cond_bb = bback; sense = true}
         | BB_br
         | BB_br_table   -> site_of_nesting_if lp.loop_part
-        | _             -> failwith "Invalid branchback bblock"
+        | _             -> failwith "Invalid branchback bb"
     ) in
   (* TODO we're getting the loop cond by executing just the loop_part. is this right? couldn't it be the case
     that there's a side effect of the prefix_part that the loop needs? *)
@@ -98,7 +98,7 @@ let cost_of_loop (ctx: Execution.execution_context) (bback: Bblock.bblock) (lp: 
             lv_loop_vals}
 
 let cost_of_loops (ctx: Execution.execution_context) (prefixes: Code_path.code_path list) (loop_paths: Code_path.code_path list)
-      (bback: Bblock.bblock): loop_metric list =
+      (bback: Bb.bb): loop_metric list =
   List.dedup_and_sort ~compare:compare_metrics (* TODO is this dedup needed? *)
     (List.map ~f:(cost_of_loop ctx bback)
       (all_loops prefixes loop_paths loop_paths []))

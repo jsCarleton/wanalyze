@@ -1,7 +1,7 @@
 open Core
 open Easy_logging
 open Wasm_module
-open Bblock
+open Bb
 open Ssa
 open Et
 open Code_path
@@ -227,7 +227,7 @@ let bblock_sep annotate bb =
   else
     ""
 
-let rec string_of_expr' e annotate (bblocks: bblock list) idx acc =
+let rec string_of_expr' e annotate (bblocks: bb list) idx acc =
   match idx < (List.length e) with
   | true -> 
     (match bblocks with
@@ -246,9 +246,9 @@ let string_of_expr e bblocks annotate =
 let print_expr'' oc annotate base idx op =
   Out_channel.output_string oc (string_of_opcode' op (base+idx) annotate)
 
-let print_bblock oc e annotate (bb: bblock) =
-  Out_channel.output_string oc (bblock_sep annotate bb);
-  List.iteri ~f:(print_expr'' oc annotate bb.start_op) (expr_of_bblock e bb)
+let print_bblock oc e annotate (bblock: bb) =
+  Out_channel.output_string oc (bblock_sep annotate bblock);
+  List.iteri ~f:(print_expr'' oc annotate bblock.start_op) (expr_of_bb e bblock)
 
 let print_expr oc e bblocks annotate =
   match annotate with
@@ -277,12 +277,12 @@ let string_of_bbtype (bbtype: bb_type) : string =
   | BB_exit_return      -> "exit return"
   | BB_exit_unreachable -> "exit unreachable"
 
-let string_of_br_dest (bb: bblock option) : string =
-  match bb with 
+let string_of_br_dest (bblock: bb option) : string =
+  match bblock with 
     | Some x -> string_of_int x.bbindex
     | _ -> ""
 
-let string_of_bblock_detail (s: bblock) : string = 
+let string_of_bb_detail (s: bb) : string = 
   sprintf "%5d %5d %5d %5d   %-5s %6s %-11s s=%s p=%s\n" 
     s.bbindex
     s.start_op
@@ -293,9 +293,9 @@ let string_of_bblock_detail (s: bblock) : string =
     (string_of_bbtype s.bbtype)
     (string_of_raw_bblocks s.succ)
     (string_of_raw_bblocks s.pred)
-let string_of_bblocks_detail (s: bblock list) : string =
+let string_of_bbs_detail (s: bb list) : string =
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
-                 String.concat (List.map ~f:string_of_bblock_detail s)]
+                 String.concat (List.map ~f:string_of_bb_detail s)]
 
 let print_function oc (w: wasm_module) annotate bbs i idx =
   (match annotate with | true -> () | _ -> Out_channel.output_string oc "\n");
@@ -416,7 +416,7 @@ let loop_info ctx cp_ssa bbs (bb_idx: int) loop_type =
   let loop_cond = analyze_simple_loop ctx bb_next in
   let loop_vars = vars_of_et loop_cond in
   let loop_ssa = ssa_of_expr {w           = ctx.w; 
-                              w_e         = (expr_of_bblock ctx.w_e bb_next); 
+                              w_e         = (expr_of_bb ctx.w_e bb_next); 
                               w_state     = empty_program_state ctx.w ctx.param_types ctx.local_types;
                               param_types = ctx.param_types;
                               local_types = ctx.local_types} in
@@ -467,12 +467,12 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
   let fn            = List.nth_exn w.code_section fidx in
   let w_e           = fn.e in
   let bblocks       = bblocks_of_expr w_e in
-  let cps           = code_paths_of_bblocks bblocks [[List.hd_exn bblocks]] [] in
+  let cps           = code_paths_of_bbs bblocks [[List.hd_exn bblocks]] [] in
   let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
   let local_types   = (List.nth_exn w.code_section fidx).locals in
   let w_state       = empty_program_state w param_types local_types in
   let ctx           = {w; w_e; w_state; param_types; local_types} in
-  let ebbs          = ebblocks_of_bblocks ctx bblocks in
+  let ebbs          = ebbs_of_bbs ctx bblocks in
   let ebb_paths     = paths_of_ebblocks ebbs in
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
@@ -481,11 +481,11 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
     Out_channel.close oc;
   (* bblocks in function *)
   let oc = Out_channel.create (String.concat[fname; ".bblocks"]) in
-    Out_channel.output_string oc (string_of_bblocks_detail bblocks);
+    Out_channel.output_string oc (string_of_bbs_detail bblocks);
     Out_channel.close oc;
-  (* graphviz command file for bblock flow graph *)
+  (* graphviz command file for bb flow graph *)
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
-    Out_channel.output_string oc (cfg_dot_of_bblocks w.module_name fnum bblocks);
+    Out_channel.output_string oc (cfg_dot_of_bbs w.module_name fnum bblocks);
     Out_channel.close oc;
   (* ebblocks in function *)
   let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
@@ -523,7 +523,7 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
     (String.concat 
       [ string_of_int fnum;
         " ";
-        (let loops = loops_of_bblocks bblocks in
+        (let loops = loops_of_bbs bblocks in
         match List.length loops with
           (*  no loops
               cost is the max cost over all possible code paths (if we can compute it) *)
@@ -532,10 +532,10 @@ let print_function_details (w: wasm_module) oc_summary dir prefix fidx type_idx 
           (*  exactly one loop
               the function is divided into 4 disjoint sets of code paths that either:
               1. start at the function entry, end at the function exit and don't enter the loop
-              2. start at the function entry, end at the loop bblock
-              3. start at the bblock following the loop bblock and end at that bblock, a return or
-                 unreachable bblock or at the end bblock of the loop
-              4. start at a return or unreachable bblock or the end bblock of the loop, end at the
+              2. start at the function entry, end at the loop bb
+              3. start at the bb following the loop bb and end at that bb, a return or
+                 unreachable bb or at the end bb of the loop
+              4. start at a return or unreachable bb or the end bb of the loop, end at the
                  function exit
 
               resulting max cost is max(cost(1), max(2 + 3 + 4)) where max is taken over all valid

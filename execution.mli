@@ -8,7 +8,7 @@ type execution_context =
 
     }
 
-val succ_cond_of_bblock : Wasm_module.wasm_module -> Wasm_module.program_state -> Wasm_module.expr -> Et.et 
+val succ_cond_of_bb     : Wasm_module.wasm_module -> Wasm_module.program_state -> Wasm_module.expr -> Et.et 
         -> Et.et
 val empty_program_state : Wasm_module.wasm_module -> Wasm_module.resulttype list -> Wasm_module.local_type list 
         -> Wasm_module.program_state

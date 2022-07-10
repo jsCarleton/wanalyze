@@ -309,7 +309,6 @@ type wasm_module =
 (* Type definitions *)
 (* Part 2 - Analysis definitions *)
 (* definitions that our analysis is based on *)
-(* the types op_code, bblock and code_path are defined above but are strictly speaking a by-product of our analysis *)
 
 (* Program state types *)
 type program_state =
@@ -332,11 +331,11 @@ type states =
 
 type execution =
 {
-  eindex:             int;                      (* the index of the bblock being executed *)
+  eindex:             int;                      (* the index of the bb being executed *)
   pred_index:         int;
   succ_index:         int;
-  initial:            program_state;            (* the program state before the first instruction of the bblock is executed *)
-  mutable final:      program_state;            (* the program state after the last instruction of the bblock is executed *)
+  initial:            program_state;            (* the program state before the first instruction of the bb is executed *)
+  mutable final:      program_state;            (* the program state after the last instruction of the bb is executed *)
   mutable succ_cond:  Et.et;  (* the expression that must be true in order for the first successor state to be entered *) 
 }
 

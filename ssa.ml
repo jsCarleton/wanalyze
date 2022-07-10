@@ -2,7 +2,7 @@ open Core
 open Wasm_module
 open Opcode
 open Execution
-open Bblock
+open Bb
 open Et
 
 type ssa = {
@@ -166,11 +166,11 @@ let ssa_of_locals (ll: local_type list): ssa list =
 let ssa_of_expr' (ctx: execution_context) (e: expr) acc: ssa list =
   List.fold_left ~f:(ssa_of_op ctx) ~init:acc e
 
-let ssa_of_bblock (ctx: execution_context) acc (bb: Bblock.bblock): ssa list =
-  ssa_of_expr' ctx (expr_of_bblock ctx.w_e bb) acc
+let ssa_of_bb (ctx: execution_context) acc (bblock: Bb.bb): ssa list =
+  ssa_of_expr' ctx (expr_of_bb ctx.w_e bblock) acc
 
 let ssa_of_code_path (ctx: execution_context) (cp: Code_path.code_path): ssa list =
-  List.fold ~f:(ssa_of_bblock ctx) ~init:(ssa_of_locals ctx.local_types) cp
+  List.fold ~f:(ssa_of_bb ctx) ~init:(ssa_of_locals ctx.local_types) cp
 
 let rec expand_et (e: et) (s_src: ssa) : et =
   match e with 

@@ -2,7 +2,6 @@ open Core
 open Easy_logging
 open Wasm_module
 open Et
-open Bblock
 
 type execution_context =
   {
@@ -263,12 +262,12 @@ let reduce_op (w: wasm_module) (op: op_type) (s: program_state): et =
   the succ_cond value
  *)
 
-let rec succ_cond_of_bblock (w: wasm_module) (s: program_state) (e: expr) (succ_cond: et) :
+let rec succ_cond_of_bb (w: wasm_module) (s: program_state) (e: expr) (succ_cond: et) :
       et =
   match e with
   | []      -> succ_cond
   | hd::tl  -> 
-      succ_cond_of_bblock w s tl (reduce_op w hd s)
+      succ_cond_of_bb w s tl (reduce_op w hd s)
 
 (**
   reduce_bblock from an initial program state, symbolically executes the code in an expr.
@@ -284,7 +283,7 @@ let reduce_bblock (w: wasm_module) (e: expr) (i: program_state):
       program_state*et =
   let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values = copy_values i.local_values;
               global_values = copy_values i.global_values} in
-  let s = succ_cond_of_bblock w f e Empty in
+  let s = succ_cond_of_bb w f e Empty in
   f,s
 
 let rec reduce_expr (w: wasm_module) (e: expr) (s: program_state): et =
