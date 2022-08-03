@@ -125,7 +125,7 @@ match e with
       (* 1.1 if we have a branch instruction we remember the labels *)
       (match (List.hd_exn e).arg with
       | Labelidx labelidx  -> current.labels <- [labelidx]
-      | BrTable br_table   -> current.labels <- br_table.table
+      | BrTable br_table   -> current.labels <- br_table
       | _ -> ()
       );
       (* 1.2 end the bb, start a new one*)

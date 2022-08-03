@@ -95,7 +95,7 @@ digraph finite_state_machine {
     57 -> 59[label="br_if"];
     58 -> 59[label="end"];
     59 -> 60[label="~br_if"];
-    59 -> 47[color="red" fontcolor="red" label="br_if"];
+    59 -> 47[color="red" dir=back fontcolor="red" label="br_if"];
     60 -> 61[label="end"];
     61 -> 62[label="end"];
     62 -> E[label="end"];

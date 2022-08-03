@@ -13,14 +13,14 @@ digraph finite_state_machine {
     3 -> 4[label="~br_if"];
     3 -> 7[label="br_if"];
     4 -> 5[label="~br_if"];
-    4 -> 3[color="red" fontcolor="red" label="br_if"];
+    4 -> 3[color="red" dir=back fontcolor="red" label="br_if"];
     5 -> 6[label="end"];
     6 -> 7[label="end"];
     7 -> 8[label="loop"];
     8 -> 9[label="if"];
     8 -> 11[label="else"];
     9 -> 10[label="~br_if"];
-    9 -> 8[color="red" fontcolor="red" label="br_if"];
+    9 -> 8[color="red" dir=back fontcolor="red" label="br_if"];
     10 -> 11[label="end"];
     11 -> 12[label="end"];
     12 -> E[label="end"];

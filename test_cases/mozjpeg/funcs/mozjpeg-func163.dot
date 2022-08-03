@@ -43,7 +43,7 @@ digraph finite_state_machine {
     28 -> 31[label="br"];
     30 -> 31[label="end"];
     31 -> 32[label="~br_if"];
-    31 -> 5[color="red" fontcolor="red" label="br_if"];
+    31 -> 5[color="red" dir=back fontcolor="red" label="br_if"];
     32 -> 33[label="end"];
     33 -> 34[label="~br_if"];
     33 -> 36[label="br_if"];

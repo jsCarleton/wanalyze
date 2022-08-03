@@ -140,11 +140,7 @@ let string_of_br_index nesting index =
   (String.concat [string_of_int index; string_of_br_target nesting index])
 
 let string_of_br_table nesting b = 
-  String.concat [
-    String.concat ~sep:" " (List.map ~f:(string_of_br_index nesting) b.table);
-    " " ;
-    string_of_int b.brtindex;
-    string_of_br_target nesting b.brtindex]
+  String.concat ~sep:" " (List.map ~f:(string_of_br_index nesting) b)
 
 let string_of_arg' nesting a  =
 match a with 

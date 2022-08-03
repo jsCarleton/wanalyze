@@ -29,10 +29,10 @@ digraph finite_state_machine {
     15 -> 16[label="~br_if"];
     15 -> 21[label="br_if"];
     16 -> 17[label="~br_if"];
-    16 -> 15[color="red" fontcolor="red" label="br_if"];
+    16 -> 15[color="red" dir=back fontcolor="red" label="br_if"];
     17 -> 18[label="end"];
     18 -> 21[label="br"];
     20 -> 21[label="end"];
-    21 -> 1[color="red" fontcolor="red" label="br"];
+    21 -> 1[color="red" dir=back fontcolor="red" label="br"];
     24 -> U[label="unreachable"];
 }

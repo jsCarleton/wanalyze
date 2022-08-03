@@ -269,6 +269,10 @@ let read_vec_valtype ic =
 
 let read_labelidx ic = uLEB ic 32
 
+let read_br_table ic = 
+  let table = read_vec ic read_labelidx in
+  List.append table [read_labelidx ic]
+
 let read_instr' ic opcode =
 match opcode_of_int opcode with
   (* control instructions *)
@@ -281,12 +285,10 @@ match opcode_of_int opcode with
   | OP_end          -> EmptyArg, Control
   | OP_br
   | OP_br_if        -> Labelidx (read_idx ic), Control
-  | OP_br_table     -> 
-      (let table = (read_vec ic read_labelidx) in let brtindex = (read_labelidx ic) in
-       BrTable {table; brtindex}), Control
-  | OP_return         -> EmptyArg, Control
-  | OP_call           -> Funcidx (read_idx ic), Control
-  | OP_call_indirect  -> 
+  | OP_br_table     -> BrTable (read_br_table ic), Control
+  | OP_return       -> EmptyArg, Control
+  | OP_call         -> Funcidx (read_idx ic), Control
+  | OP_call_indirect-> 
       (let y = read_idx ic in
        let x = read_idx ic in
        CallIndirect {y; x}), Control

@@ -20,12 +20,12 @@ digraph finite_state_machine {
     7 -> 15[label="else"];
     8 -> 9[label="loop"];
     9 -> 10[label="~br_if"];
-    9 -> 9[color="red" fontcolor="red" label="br_if"];
+    9 -> 9[color="red" dir=back fontcolor="red" label="br_if"];
     10 -> 19[label="br"];
     13 -> U[label="unreachable"];
     15 -> 16[label="loop"];
     16 -> 17[label="~br_if"];
-    16 -> 16[color="red" fontcolor="red" label="br_if"];
+    16 -> 16[color="red" dir=back fontcolor="red" label="br_if"];
     17 -> 18[label="end"];
     18 -> 19[label="end"];
     19 -> E[label="end"];

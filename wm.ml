@@ -113,11 +113,7 @@ type export =
 (* TODO *)
 
 (* Elements *)
-type br_table =
-{
-  table:    labelidx list;
-  brtindex: labelidx;
-}
+type br_table = labelidx list
 type call_indirect =
 {
   y:      typeidx;

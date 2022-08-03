@@ -30,7 +30,7 @@ digraph finite_state_machine {
     14 -> 19[label="br_if"];
     15 -> 16[label="loop"];
     16 -> 17[label="~br_if"];
-    16 -> 16[color="red" fontcolor="red" label="br_if"];
+    16 -> 16[color="red" dir=back fontcolor="red" label="br_if"];
     17 -> 18[label="end"];
     18 -> 19[label="end"];
     19 -> 20[label="block"];
@@ -52,13 +52,13 @@ digraph finite_state_machine {
     29 -> 54[label="br_if"];
     30 -> 31[label="end"];
     31 -> 32[label="~br_if"];
-    31 -> 28[color="red" fontcolor="red" label="br_if"];
+    31 -> 28[color="red" dir=back fontcolor="red" label="br_if"];
     32 -> 33[label="end"];
     33 -> 36[label="br"];
     35 -> 36[label="end"];
     36 -> 37[label="~br_if"];
     36 -> 48[label="br_if"];
-    37 -> 24[color="red" fontcolor="red" label="br"];
+    37 -> 24[color="red" dir=back fontcolor="red" label="br"];
     40 -> U[label="unreachable"];
     42 -> 43[label="~br_if"];
     42 -> 48[label="br_if"];
@@ -66,7 +66,7 @@ digraph finite_state_machine {
     44 -> 45[label="~br_if"];
     44 -> 54[label="br_if"];
     45 -> 46[label="~br_if"];
-    45 -> 44[color="red" fontcolor="red" label="br_if"];
+    45 -> 44[color="red" dir=back fontcolor="red" label="br_if"];
     46 -> 47[label="end"];
     47 -> 48[label="end"];
     48 -> 49[label="~br_if"];

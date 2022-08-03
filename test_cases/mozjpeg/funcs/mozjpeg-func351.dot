@@ -19,11 +19,11 @@ digraph finite_state_machine {
     6 -> 11[label="else"];
     7 -> 8[label="loop"];
     8 -> 9[label="~br_if"];
-    8 -> 8[color="red" fontcolor="red" label="br_if"];
+    8 -> 8[color="red" dir=back fontcolor="red" label="br_if"];
     9 -> 10[label="end"];
     10 -> 11[label="end"];
     11 -> 12[label="~br_if"];
-    11 -> 6[color="red" fontcolor="red" label="br_if"];
+    11 -> 6[color="red" dir=back fontcolor="red" label="br_if"];
     12 -> 13[label="end"];
     13 -> 14[label="end"];
     14 -> E[label="end"];
