@@ -5,8 +5,8 @@ open Et
 
 type ebb_exit =
   {
-    exit_bb:  bb;              (* bb external to the ebb to which it can exit *)
-    codepaths:      cp list option;  (* corresponding code paths to the exit bb *)
+    exit_bb:    bb;              (* bb external to the ebb to which it can exit *)
+    codepaths:  cp list option;  (* corresponding code paths to the exit bb *)
   }
 
 type ebb_type = EBB_loop | EBB_block
@@ -175,7 +175,12 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
 
   let cost_of_block_ebb (exits: ebb_exit list): et =
     if List.exists ~f:(fun e -> match e.codepaths with | None -> true | _ -> false) exits then
-      Constant (String_value "Infinity")
+    begin
+      Printf.printf "\nNo exits\n";
+      Printf.printf "# exits: %d\n" (List.length exits);
+      Printf.printf "first exit: %d\n" (List.hd_exn exits).exit_bb.bbindex;
+      Constant (String_value "Infinity-x")
+    end
     else
       max_cost_of_codepaths 
         ctx.w_e 
@@ -212,7 +217,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
 
   let expr_of_lm (lm: Cost.loop_metric): et =
     match lm with
-    | Infinite  -> Constant (String_value "Infinity")
+    | Infinite  -> Constant (String_value "Infinity-y")
     | LMI lmi   ->
         Node {
           op = "*"; 
@@ -269,21 +274,21 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                     | Empty ->
                         let cost = expr_of_lm (List.hd_exn lms) in
                         {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
-        | _     ->
+                    | _     ->
                         let cost = Node {op = "+"; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
                         {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
                   end
               end
             else
               begin
-                let cost       =  Constant (String_value "Infinity") in
+                let cost       =  Constant (String_value "Infinity-z") in
                 {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
               end
           end
         else
           (* this happens when there are too many looping paths and we give up trying to enumerate them *)
           begin 
-            let cost        = Constant (String_value "Infinity") in
+            let cost        = Constant (String_value "Infinity-t") in
             let exit_cps    = [] in
             let nested_ebbs = [] in
             {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}

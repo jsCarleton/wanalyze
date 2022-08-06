@@ -222,7 +222,11 @@ let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
   
   let rec codepaths_to_bb (to_bb: bb) (nterm: cp list) (term: cp list) (n_iters: int): cp list option =
     if n_iters > 1_000_000 then
-      None
+      begin
+        Printf.printf "\n> 1M iterations";
+        Printf.printf "\nfrom_bb %d to_bb: %d\n" from_bb.bbindex to_bb.bbindex;
+        None
+      end
     else
       match nterm with
         | []        -> Some term
