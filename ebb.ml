@@ -179,6 +179,8 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
       Printf.printf "\nNo exits\n";
       Printf.printf "# exits: %d\n" (List.length exits);
       Printf.printf "first exit: %d\n" (List.hd_exn exits).exit_bb.bbindex;
+      Printf.printf "first exit, # codepaths: %d\n" 
+        (match (List.hd_exn exits).codepaths with | None-> 0 | Some x -> List.length x);
       Constant (String_value "Infinity-x")
     end
     else

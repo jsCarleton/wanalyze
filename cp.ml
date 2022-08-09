@@ -292,7 +292,7 @@ let codepaths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): cp list option =
     else
       None
   in
-  
+
   let nterms_of_cp_from_to (from_bbs: bb list) (to_bb: bb) (codepath: cp): cp list =
     List.filter_map ~f:(nterm_of_cp_from_to to_bb codepath) (succ_of_cp_from_to from_bbs to_bb codepath)
   in
@@ -300,7 +300,10 @@ let codepaths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): cp list option =
   let rec codepaths_from_to_ebb' (from_bbs: bb list) (to_bb: bb) (nterm: cp list)
       (term: cp list) (n_iters: int): cp list option =
     if n_iters > 1_000_000 then
+    begin
+      Printf.printf "\nToo many iterations\n";
       None
+    end
     else
       match nterm with
         | []        -> Some term
