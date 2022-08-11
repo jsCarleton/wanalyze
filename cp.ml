@@ -302,7 +302,9 @@ let codepaths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): cp list option =
     if n_iters > 1_000_000 then
     begin
       Printf.printf "\nToo many iterations\n";
-      None
+      Printf.printf "from_bbs: %s\n" (string_of_bbs from_bbs);
+      Printf.printf "to_bb: %d\n" (to_bb.bbindex);
+      Some term
     end
     else
       match nterm with
