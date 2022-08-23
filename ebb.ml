@@ -423,3 +423,27 @@ let ebb_paths_max_cost (ebb_paths: ebb list list): et =
   | []    -> Empty
   | [hd]  -> ebb_path_cost hd
   | _     -> Node {op = "list_max"; args = List.map ~f:ebb_path_cost ebb_paths}
+
+
+(*
+    cost_of_ebb
+
+    Given an ebb, determine the cost of executing that ebb. We do this by calculating
+    the cost of the execution path to each exit point of the ebb and keeping the
+    highest cost among them.
+
+    Parameters:
+      ebblock   ebblock whose cost is to be determined
+
+    Returns:
+      cost
+*)
+
+(* type prefix = {src: bb; dst: bb; cost: int}
+*)
+
+let cost_of_ebb (ebblock: ebb): int =
+
+  List.fold ~init:0 ~f:(fun acc c -> if c > acc then c else acc)
+    (List.map ~f:(Cost.cost_of_bb_path ebblock.entry_bb) 
+              (List.fold ~init:[] ~f:(fun acc exit -> (exit.exit_bb)::acc) ebblock.exits))

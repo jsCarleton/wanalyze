@@ -105,3 +105,66 @@ let cost_of_loops (ctx: Ex.execution_context) (prefixes: Cp.cp list) (loop_paths
 
 let cost_of_function (_: Wm.func): Et.et =
   Empty
+
+(*
+    cost_of_bb_path
+
+    Given a source and destination bb determine the cost of the highest-cost path from
+    the source to the destination.
+
+    Parameters:
+      src:    source bblock
+      dst:    dest bblock
+
+    Returns:
+      cost
+*)
+
+(* path cost info - the max cost from the start bb to terminal *)
+type path_cost_info = {terminal: Bb.bb; mutable cost: int}
+
+let pci_compare (pci1: path_cost_info) (pci2: path_cost_info): int =
+  if pci1.terminal.bbindex = pci2.terminal.bbindex then
+    pci1.cost - pci2.cost
+  else
+    pci1.terminal.bbindex - pci2.terminal.bbindex
+
+let cost_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): int =
+
+  let bb_match (bblock: Bb.bb) (pci: path_cost_info): bool =
+    bblock.bbindex = pci.terminal.bbindex
+  in
+
+	let update_pcil (pci: path_cost_info) (pcil: path_cost_info list) (succ_bb: Bb.bb): path_cost_info list =
+		match List.find ~f:(bb_match succ_bb) pcil with
+		| Some succ_pci 
+        ->  (if pci.cost + (Bb.cost_of_bb pci.terminal) > succ_pci.cost then
+              succ_pci.cost <- pci.cost + (Bb.cost_of_bb pci.terminal)
+            else
+              ());
+            pcil
+		| None
+        -> {terminal=succ_bb; cost=pci.cost + (Bb.cost_of_bb pci.terminal)}::pcil
+	in
+
+	let rec path_cost' (end_bb: Bb.bb) (pcil: path_cost_info list): int =
+(*     Printf.printf 
+    "pcil:\n%s%!" 
+    (String.concat (List.map ~f:(fun x -> sprintf "  bb: %d cost: %d\n" x.terminal.bbindex x.cost) pcil));
+ *)    match pcil with
+    | [] -> -1
+    | _  ->
+      let pcil' = List.sort ~compare:pci_compare pcil in
+      let next_pci = List.hd_exn pcil' in
+      match next_pci.terminal, next_pci.cost with
+      | next_bb, _ when next_bb.bbindex = end_bb.bbindex
+          -> next_pci.cost + (Bb.cost_of_bb end_bb)
+      | next_bb, _ when next_bb.bbindex <= end_bb.bbindex
+          -> path_cost' end_bb 
+                        (List.fold ~init:(List.tl_exn pcil') ~f:(update_pcil next_pci) 
+                          (List.filter ~f:(fun x -> x.bbindex > next_bb.bbindex && x.bbindex <= end_bb.bbindex) next_bb.succ))
+      | _ -> -1
+	in
+	
+  Printf.printf " start: %d end: %d\n%!" start_bb.bbindex end_bb.bbindex;
+  path_cost' end_bb [{terminal=start_bb; cost=0}]

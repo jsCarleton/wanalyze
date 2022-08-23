@@ -19,3 +19,4 @@ type loop_path_parts =
 val cost_of_loop:     Ex.execution_context -> Bb.bb -> loop_path_parts -> loop_metric
 val cost_of_loops:    Ex.execution_context -> Cp.cp list -> Cp.cp list  -> Bb.bb -> loop_metric list
 val cost_of_function: Wm.func -> Et.et
+val cost_of_bb_path:  Bb.bb -> Bb.bb -> int

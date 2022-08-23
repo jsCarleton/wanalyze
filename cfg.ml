@@ -2,6 +2,7 @@ open Core
 open Bb
 open Ebb
 
+
 let name_of_bb (bblock: bb): string =
   match bblock.bbtype with
   | BB_exit_end         -> "E"
@@ -9,6 +10,11 @@ let name_of_bb (bblock: bb): string =
   | BB_exit_unreachable -> "U"
   | _                   -> string_of_int bblock.bbindex
 
+let label_of_bb (bblock: bb): string =
+    match bblock.bbtype with
+    | BB_exit_end | BB_exit_return | BB_exit_unreachable -> name_of_bb bblock
+    | _ -> String.concat [name_of_bb bblock; "(";  string_of_int (bblock.end_op - bblock.start_op); ")"]
+  
 (**
   cfg_dot_of_bbs
 
@@ -28,42 +34,6 @@ let name_of_bb (bblock: bb): string =
 
 let cfg_dot_of_bbs (module_name: string) (func_idx: int) (bblocks: bb list): string =
 
-  let graph_node (src: bb) (label: string) (dest: bb): string =
-    if src.bbindex >= dest.bbindex then
-        String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[color=\"red\" dir=back fontcolor=\"red\" label=\""; label; "\"];\n"]
-    else
-        String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[label=\""; label; "\"];\n"]
-  in
-
-  let graph_bblock (bblock: bb): string =
-    if List.length bblock.pred > 0 || bblock.bbindex = 0 then
-      (match bblock.bbtype with
-      | BB_block        -> graph_node bblock "block" (List.nth_exn bblock.succ 0)
-      | BB_loop         -> graph_node bblock "loop" (List.nth_exn bblock.succ 0)
-      | BB_if           ->
-          String.concat [
-            graph_node bblock "if" (List.nth_exn bblock.succ 0);
-            graph_node bblock "else" (List.nth_exn bblock.succ 1);
-          ]
-      | BB_else         -> graph_node bblock "end" (List.nth_exn bblock.succ 0)
-      | BB_br_if        ->
-          String.concat [
-            graph_node bblock "~br_if" (List.nth_exn bblock.succ 0);
-            graph_node bblock "br_if" (List.nth_exn bblock.succ 1);
-          ]
-      | BB_br_table         -> String.concat (List.map ~f:(graph_node bblock "br_table") bblock.succ)
-      | BB_end              -> graph_node bblock "end"         (List.nth_exn bblock.succ 0)
-      | BB_return           -> graph_node bblock "return"      (List.nth_exn bblock.succ 0)
-      | BB_unreachable      -> graph_node bblock "unreachable" (List.nth_exn bblock.succ 0)
-      | BB_br               -> graph_node bblock "br"          (List.nth_exn bblock.succ 0)
-      | BB_exit_end
-      | BB_exit_return
-      | BB_exit_unreachable -> ""
-      | BB_unknown          -> failwith "Unknown bb type in graph_bblock")
-    else
-      ""
-  in
-
   let graph_prefix (module_name: string) (func_idx: int) (bblocks: bb list): string =
     let terminals = 
       String.concat ["E ";
@@ -77,20 +47,55 @@ let cfg_dot_of_bbs (module_name: string) (func_idx: int) (bblocks: bb list): str
             "    labelfontsize = 16\n";
             "    labelfontcolor = black\n";
             "    labelfontname = \"Helvetica\"\n";
-            "    node [shape = doublecircle]; 0 "; terminals; ";\n";
-            "    node [shape = circle];\n"]
+            "    node [shape = doublecircle]; "; terminals; ";\n"]
+  in
+
+  let graph_node (bblock: bb): string =
+    String.concat [ "node [shape=circle, fontcolor=black, style=\"\", label=\""; 
+                    label_of_bb bblock; "\"]"; name_of_bb bblock; "\n"]
+  in
+
+  let graph_edge (src: bb) (label: string) (dest: bb): string =
+    if src.bbindex >= dest.bbindex then
+        String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[color=\"red\" dir=back fontcolor=\"red\" label=\""; label; "\"];\n"]
+    else
+        String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[label=\""; label; "\"];\n"]
+  in
+
+  let graph_edges (bblock: bb): string =
+    if List.length bblock.pred > 0 || bblock.bbindex = 0 then
+      (match bblock.bbtype with
+      | BB_block        -> graph_edge bblock "block" (List.nth_exn bblock.succ 0)
+      | BB_loop         -> graph_edge bblock "loop" (List.nth_exn bblock.succ 0)
+      | BB_if           ->
+          String.concat [
+            graph_edge bblock "if" (List.nth_exn bblock.succ 0);
+            graph_edge bblock "else" (List.nth_exn bblock.succ 1);
+          ]
+      | BB_else         -> graph_edge bblock "end" (List.nth_exn bblock.succ 0)
+      | BB_br_if        ->
+          String.concat [
+            graph_edge bblock "~br_if" (List.nth_exn bblock.succ 0);
+            graph_edge bblock "br_if" (List.nth_exn bblock.succ 1);
+          ]
+      | BB_br_table         -> String.concat (List.map ~f:(graph_edge bblock "br_table") bblock.succ)
+      | BB_end              -> graph_edge bblock "end"         (List.nth_exn bblock.succ 0)
+      | BB_return           -> graph_edge bblock "return"      (List.nth_exn bblock.succ 0)
+      | BB_unreachable      -> graph_edge bblock "unreachable" (List.nth_exn bblock.succ 0)
+      | BB_br               -> graph_edge bblock "br"          (List.nth_exn bblock.succ 0)
+      | BB_exit_end
+      | BB_exit_return
+      | BB_exit_unreachable -> ""
+      | BB_unknown          -> failwith "Unknown bb type in graph_bblock")
+    else
+      ""
   in
 
   let graph_suffix = "}\n" in
 
-  let rec graph_bblocks' (bblocks: bb list) (acc: string): string =
-    match bblocks with
-    | [] -> acc
-    | hd::tl -> graph_bblocks' tl (String.concat [acc; graph_bblock hd])
-  in
-
   String.concat [ graph_prefix module_name func_idx bblocks; 
-                  graph_bblocks' bblocks "";
+                  String.concat (List.map ~f:graph_node  bblocks);
+                  String.concat (List.map ~f:graph_edges bblocks);
                   graph_suffix]
 
 (**

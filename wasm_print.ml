@@ -290,6 +290,9 @@ let string_of_bb_detail (s: bb) : string =
     (string_of_raw_bblocks s.succ)
     (string_of_raw_bblocks s.pred)
 let string_of_bbs_detail (s: bb list) : string =
+  Printf.printf "cost: %d\n" 
+    (cost_of_bb_path  (List.hd_exn s) 
+        (List.find_exn s ~f:(fun x -> match x.bbtype with | BB_exit_end -> true | _ -> false)));
   String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_bb_detail s)]
 
@@ -458,7 +461,7 @@ let string_of_loop_cost_fn c =
  *)
 let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let fnum          = fidx + w.last_import_func in
-  Printf.printf "function %d\r%!" fnum;
+  Printf.printf "function %d %!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
   let fn            = List.nth_exn w.code_section fidx in
   let w_e           = fn.e in

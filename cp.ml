@@ -223,9 +223,9 @@ let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
   let rec codepaths_to_bb (to_bb: bb) (nterm: cp list) (term: cp list) (n_iters: int): cp list option =
     if n_iters > 1_000_000 then
       begin
-        Printf.printf "\n> 1M iterations";
+(*         Printf.printf "\n> 1M iterations";
         Printf.printf "\nfrom_bb %d to_bb: %d\n" from_bb.bbindex to_bb.bbindex;
-        None
+ *)        None
       end
     else
       match nterm with
@@ -301,10 +301,10 @@ let codepaths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): cp list option =
       (term: cp list) (n_iters: int): cp list option =
     if n_iters > 1_000_000 then
     begin
-      Printf.printf "\nToo many iterations\n";
+(*       Printf.printf "\nToo many iterations\n";
       Printf.printf "from_bbs: %s\n" (string_of_bbs from_bbs);
       Printf.printf "to_bb: %d\n" (to_bb.bbindex);
-      Some term
+ *)      None
     end
     else
       match nterm with
@@ -363,15 +363,6 @@ type loop_prefix = {
   prefix_cp:        bb list;  (* path to the loop from the start of the program *)
 (*   loop_var_values:  ssa list;     (* values of loop condition variables at path end *)
  *)}
-
-(*
-  loop_path
-  describes the conditions where a loop is exited
-*)
-
-type loop_path = {
-  path_to_exit:         cp;        (* path within the loop to the bb where the exit occurs *)
-}
 
 (*
   loop

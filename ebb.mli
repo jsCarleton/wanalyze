@@ -30,3 +30,4 @@ val ebbs_of_bbs:        Ex.execution_context -> Bb.bb list -> ebb list
 val paths_of_ebblocks:  ebb list -> ebb list list
 val ebb_path_cost:      ebb list -> Et.et
 val ebb_paths_max_cost: ebb list list -> Et.et
+val cost_of_ebb:        ebb -> int
