@@ -1,9 +1,3 @@
-type ebb_exit =
-  {
-    exit_bb:    Bb.bb;              (* bb external to the ebb to which it can exit *)
-    codepaths:  Cp.cp list option;  (* corresponding code paths to the exit bb *)
-  }
-
 type ebb_type = EBB_loop | EBB_block
 
 type ebb = 
@@ -12,10 +6,11 @@ type ebb =
     cost:         Et.et;          (* cost of executing this ebb *)
     entry_bb:     Bb.bb;          (* bb that's the entry to the ebb *)
     bblocks:      Bb.bb list;     (* list of bbs that make up the ebb *)
-    exits:        ebb_exit list;  (* info about how the ebb is exitted *)
     mutable
     succ_ebbs:    ebb list;       (* list of ebblocks directly reachable from this one*)
+    exit_bbs:     Bb.bb list;     (* bb external to the ebb to which it can exit *)
     (* these properties are used when the ebb contains a loop *)
+    codepaths:    Cp.cp list option list;  (* corresponding code paths to the exit bb *)
     loop_cps:     Cp.cp list;     (* codepaths in the ebb that loop *)
     exit_cps:     Cp.cp list;     (* codepaths in the ebb that aren't the loop *)
     nested_ebbs:  ebb list;       (* ebbs containing nested loops *)
@@ -30,4 +25,3 @@ val ebbs_of_bbs:        Ex.execution_context -> Bb.bb list -> ebb list
 val paths_of_ebblocks:  ebb list -> ebb list list
 val ebb_path_cost:      ebb list -> Et.et
 val ebb_paths_max_cost: ebb list list -> Et.et
-val cost_of_ebb:        ebb -> int

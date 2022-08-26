@@ -180,11 +180,11 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): 
              ]
   in
 
-  let graph_edge (src_ebblock: ebb) (dest_exit: ebb_exit): string =
-    if src_ebblock.entry_bb.bbindex >= dest_exit.exit_bb.bbindex then
-      String.concat ["    "; name_of_ebb src_ebblock; " -> "; name_of_bb dest_exit.exit_bb; "[color=\"red\"];\n"]
+  let graph_edge (src_ebblock: ebb) (dest_exit: bb): string =
+    if src_ebblock.entry_bb.bbindex >= dest_exit.bbindex then
+      String.concat ["    "; name_of_ebb src_ebblock; " -> "; name_of_bb dest_exit; "[color=\"red\"];\n"]
     else
-      String.concat ["    "; name_of_ebb src_ebblock; " -> "; name_of_bb dest_exit.exit_bb; ";\n"]
+      String.concat ["    "; name_of_ebb src_ebblock; " -> "; name_of_bb dest_exit; ";\n"]
   in
 
   let rec graph_edges (ebblock: ebb): string =
@@ -192,7 +192,7 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): 
       match ebblock.nested_ebbs with
         | []  ->
             String.concat[
-              String.concat (List.map ~f:(graph_edge ebblock) ebblock.exits);
+              String.concat (List.map ~f:(graph_edge ebblock) ebblock.exit_bbs);
               if ebb_has_branchback ebblock then
                 String.concat ["    "; name_of_ebb ebblock; " -> "; name_of_ebb ebblock; "[color=\"red\" dir=back];\n"]
               else 

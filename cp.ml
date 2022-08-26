@@ -242,10 +242,11 @@ let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
     codepaths_to_bb to_bb [[from_bb]] [] 0
     
 let codepaths_from_to_bb_exn (from_bb: bb) (to_bb: bb): cp list =
+  Printf.printf "code paths from: %d to %d: " from_bb.bbindex to_bb.bbindex;
   let cps_o = codepaths_from_to_bb from_bb to_bb in
   match cps_o with
-    | None      -> []
-    | Some codepaths  -> codepaths
+    | None      -> Printf.printf "none\n"; []
+    | Some codepaths  -> Printf.printf "%d\n" (List.length codepaths); codepaths
 
 (*
     codepaths_from_bbs_to_bb

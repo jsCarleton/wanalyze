@@ -1,27 +1,15 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3]
-  ebb cost:   list_max([
-  189 + (list_sum([|f16|; |f20|]));
-  189 + (list_sum([|f16|; |f20|]));
-  26 + (list_sum([|f17|; |f20|; |f29|]))
-])
+  ebb cost:   732
   ebb exits:  [4 22 25]
   ebb succs:  [25 22 4]
-  1 paths to exit 4
-  [0 3]
-  1 paths to exit 22
-  [0 3]
-  1 paths to exit 25
-  [0 1]
 ebb entry:  4
   ebb type:   block
   ebb blocks: [4]
-  ebb cost:   543
+  ebb cost:   554
   ebb exits:  [5]
   ebb succs:  [5]
-  1 paths to exit 5
-  [4]
 ebb entry:  5
   ebb type:   loop
   ebb blocks: [5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20]
@@ -45,28 +33,15 @@ ebb entry:  5
   ebb entry:  5
     ebb type:   block
     ebb blocks: [5 6 7 8]
-    ebb cost:   list_max([
-  23 + |f29|;
-  23 + |f29|;
-  23 + |f29|;
-  23 + |f29|
-])
+    ebb cost:   982
     ebb exits:  [9 16]
     ebb succs:  [16 9]
-    2 paths to exit 9
-    [5 7 8]
-    [5 6 8]
-    2 paths to exit 16
-    [5 7 8]
-    [5 6 8]
   ebb entry:  9
     ebb type:   block
     ebb blocks: [9]
-    ebb cost:   959 + |f19|
+    ebb cost:   4986
     ebb exits:  [10]
     ebb succs:  [10]
-    1 paths to exit 10
-    [9]
   ebb entry:  10
     ebb type:   loop
     ebb blocks: [10 11 12 13 14]
@@ -82,56 +57,42 @@ ebb entry:  5
   ebb entry:  15
     ebb type:   block
     ebb blocks: [15]
-    ebb cost:   1
+    ebb cost:   10
     ebb exits:  [17]
     ebb succs:  [17]
-    1 paths to exit 17
-    [15]
   ebb entry:  16
     ebb type:   block
     ebb blocks: [16]
-    ebb cost:   3
+    ebb cost:   12
     ebb exits:  [17]
     ebb succs:  [17]
-    1 paths to exit 17
-    [16]
   ebb entry:  17
     ebb type:   block
     ebb blocks: [17 18 19 20]
-    ebb cost:   10
+    ebb cost:   11
     ebb exits:  [5 21]
     ebb succs:  [5]
-    0 paths to exit 5
-
-    1 paths to exit 21
-    [17 20]
 ebb entry:  21
   ebb type:   block
   ebb blocks: [21]
-  ebb cost:   1
+  ebb cost:   106
   ebb exits:  [23]
   ebb succs:  [23]
-  1 paths to exit 23
-  [21]
 ebb entry:  22
   ebb type:   block
   ebb blocks: [22]
-  ebb cost:   5
+  ebb cost:   110
   ebb exits:  [23]
   ebb succs:  [23]
-  1 paths to exit 23
-  [22]
 ebb entry:  23
   ebb type:   block
   ebb blocks: [23 24]
-  ebb cost:   105 + (list_sum([|f17|; |f18|]))
+  ebb cost:   105
   ebb exits:  [24]
   ebb succs:  []
-  1 paths to exit 24
-  [23]
 ebb entry:  25
   ebb type:   block
   ebb blocks: [25]
-  ebb cost:   Empty
+  ebb cost:   0
   ebb exits:  []
   ebb succs:  []

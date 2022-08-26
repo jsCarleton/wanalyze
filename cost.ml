@@ -103,9 +103,6 @@ let cost_of_loops (ctx: Ex.execution_context) (prefixes: Cp.cp list) (loop_paths
     (List.map ~f:(cost_of_loop ctx bback)
       (all_loops prefixes loop_paths loop_paths []))
 
-let cost_of_function (_: Wm.func): Et.et =
-  Empty
-
 (*
     cost_of_bb_path
 
@@ -166,5 +163,5 @@ let cost_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): int =
       | _ -> -1
 	in
 	
-  Printf.printf " start: %d end: %d\n%!" start_bb.bbindex end_bb.bbindex;
-  path_cost' end_bb [{terminal=start_bb; cost=0}]
+(*   Printf.printf " start: %d end: %d\n%!" start_bb.bbindex end_bb.bbindex;
+ *)  path_cost' end_bb [{terminal=start_bb; cost=0}]

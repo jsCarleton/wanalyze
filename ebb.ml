@@ -3,12 +3,6 @@ open Bb
 open Cp
 open Et
 
-type ebb_exit =
-  {
-    exit_bb:    bb;              (* bb external to the ebb to which it can exit *)
-    codepaths:  cp list option;  (* corresponding code paths to the exit bb *)
-  }
-
 type ebb_type = EBB_loop | EBB_block
 
 type ebb = 
@@ -17,10 +11,11 @@ type ebb =
     cost:         et;             (* cost of executing this ebb *)
     entry_bb:     bb;             (* bb that's the entry to the ebb *)
     bblocks:      bb list;        (* list of bblocks that make up the ebb *)
-    exits:        ebb_exit list;  (* info about how the ebb is exitted *)
     mutable
     succ_ebbs:    ebb list;       (* list of ebblocks directly reachable from this one*)
+    exit_bbs:     bb list;        (* bb external to the ebb to which it can exit *)
     (* these properties are used when the ebb contains a loop *)
+    codepaths:    cp list option list;   (* corresponding code paths to the exit bb *)
     loop_cps:     cp list;        (* codepaths in the ebb that loop *)
     exit_cps:     cp list;        (* codepaths in the ebb that aren't in the loop *)
     nested_ebbs:  ebb list;       (* ebbs containing nested loops *)
@@ -43,22 +38,26 @@ let string_of_ebblock (ebb: ebb): string =
       sprintf "%sebb type:   %s\n"  spaces (string_of_ebb_type ebb.ebbtype);
       sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bblocks);
       sprintf "%sebb cost:   %s\n"  spaces (format_et ebb.cost);
-      sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks (List.map ~f:(fun e -> e.exit_bb) ebb.exits));
+      sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks ebb.exit_bbs);
       sprintf "%sebb succs:  %s\n"  spaces (string_of_ebblocks ebb.succ_ebbs);
-      String.concat
-        (List.map 
-          ~f:(fun e -> match e.codepaths with
-                        | None ->
-                            sprintf "%sunknown number of paths to exit %d\n"
-                              spaces 
-                              e.exit_bb.bbindex
-                        | Some codepaths  ->
-                            sprintf "%s%d paths to exit %d\n%s\n"
-                              (String.make (indent+2) ' ') 
-                              (List.length codepaths)
-                              e.exit_bb.bbindex
-                              (String.concat ~sep:"\n" (List.map ~f:(fun cp -> String.concat[spaces; string_of_raw_bblocks cp]) codepaths))) 
-          ebb.exits);
+      (match ebb.codepaths with
+      | [] -> ""
+      | _  ->
+        String.concat
+          (List.map2_exn 
+            ~f:(fun codepaths exit_bb -> 
+                  match codepaths with
+                    | None ->
+                        sprintf "%sunknown number of paths to exit %d\n"
+                          spaces 
+                          exit_bb.bbindex
+                    | Some codepaths  ->
+                        sprintf "%s%d paths to exit %d\n%s\n"
+                          (String.make (indent+2) ' ') 
+                          (List.length codepaths)
+                          exit_bb.bbindex
+                          (String.concat ~sep:"\n" (List.map ~f:(fun cp -> String.concat[spaces; string_of_raw_bblocks cp]) codepaths))) 
+            ebb.codepaths ebb.exit_bbs));
       (match ebb.loop_cps with
         | []  -> ""
         | _   -> sprintf "%s%d loop paths\n%s\n" spaces (List.length ebb.loop_cps) 
@@ -90,7 +89,7 @@ let ebb_has_branchback (ebb: ebb): bool =
     ebb.bblocks
 
 let ebb_too_many_paths (ebb: ebb): bool =
-  List.exists ~f:(fun e -> match e.codepaths with | None -> true | _ -> false) ebb.exits
+  List.exists ~f:(fun codepath -> match codepath with | None -> true | _ -> false) ebb.codepaths
 
 let exit_bbs_of_bbs (bblocks: bb list): bb list =
   (* to be an exit bb of a list of bblocks a bb must meet each these conditions:
@@ -106,8 +105,8 @@ let exit_bbs_of_bbs (bblocks: bb list): bb list =
     (List.dedup_and_sort ~compare:compare_bbs 
       (List.fold_left ~init:[] ~f:(fun acc bblock -> List.append bblock.succ acc) bblocks))
 
-let exits_of_bbs (bblocks: bb list) (exit_bbs: bb list): ebb_exit list =
-  List.map ~f:(fun exit_bb -> {exit_bb; codepaths = Cp.codepaths_from_bbs_to_bb bblocks exit_bb}) exit_bbs
+let exits_of_bbs (bblocks: bb list) (exit_bbs: bb list): cp list option list =
+  List.map ~f:(fun exit_bb -> Cp.codepaths_from_bbs_to_bb bblocks exit_bb) exit_bbs
 
 (*
     paths_of_ebblocks
@@ -173,23 +172,14 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
 let rec ebbs_of_bbs (ctx: Ex.execution_context) 
           (all_bbs: bb list): ebb list =
 
-  let cost_of_block_ebb (exits: ebb_exit list): et =
-    if List.exists ~f:(fun e -> match e.codepaths with | None -> true | _ -> false) exits then
-    begin
-      Printf.printf "\nNo exits\n";
-      Printf.printf "# exits: %d\n" (List.length exits);
-      Printf.printf "first exit: %d\n" (List.hd_exn exits).exit_bb.bbindex;
-      Printf.printf "first exit, # codepaths: %d\n" 
-        (match (List.hd_exn exits).codepaths with | None-> 0 | Some x -> List.length x);
-      Constant (String_value "Infinity-x")
-    end
-    else
-      max_cost_of_codepaths 
-        ctx.w_e 
-        (List.concat 
-          (List.map 
-            ~f:(fun e -> match e.codepaths with Some codepaths' -> codepaths' | None -> failwith "no code paths for cost")
-            exits))
+  let cost_of_block_ebb (entry_bb: bb) (exit_bbs: bb list): et =
+    Constant (Int_value
+      (List.fold 
+        ~init:0 
+        ~f:(fun max exit_bb ->
+              let new_max = Cost.cost_of_bb_path entry_bb exit_bb in
+              if new_max > max then new_max else max)
+        exit_bbs))
   in
 
   let sub_ebbs_of_bbs (sub_bbs: bb list): ebb list =
@@ -199,13 +189,13 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
       []
   in
 
-  let exit_cps (exits: ebb_exit list): cp list =
+  let exit_cps (exit_paths: cp list option list): cp list =
     List.fold_left  ~init:[] 
-                    ~f:(fun acc e ->
-                      match e.codepaths with
+                    ~f:(fun acc code_paths ->
+                      match code_paths with
                       | None -> acc
-                      | Some codepaths -> List.append acc codepaths)
-                    exits
+                      | Some code_paths -> List.append acc code_paths)
+                    exit_paths
   in
 
   let bback_of_cp (codepath: cp) (bblocks: bb list): bb =
@@ -237,21 +227,22 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
   let finish_ebblock' (ebbtype: ebb_type) (bblocks: bb list): ebb =
 
     let entry_bb    = List.hd_exn bblocks in
-    let exits       = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
     let succ_ebbs   = [] in
+    let exit_bbs    = exit_bbs_of_bbs bblocks in
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
-        let loop_cps = looping_paths_of_loop_bblocks bblocks in
+        let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
+        let loop_cps  = looping_paths_of_loop_bblocks bblocks in
         if List.length loop_cps > 0 then
           begin
-            let exit_cps    = exit_paths (exit_cps exits) loop_cps in
+            let exit_cps    = exit_paths (exit_cps codepaths) loop_cps in
             let nested_ebbs = sub_ebbs_of_bbs bblocks in
             let root_bb     = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
-            let codepaths   = Cp.codepaths_from_to_bb_exn root_bb (List.hd_exn entry_bb.pred) in
-            if List.length codepaths > 0 then
+            let xxcodepaths = Cp.codepaths_from_to_bb_exn root_bb (List.hd_exn entry_bb.pred) in
+            if List.length xxcodepaths > 0 then
               begin
-                let cp = List.rev (List.hd_exn codepaths) in (* TODO this reverse should be done earlier *)
+                let cp = List.rev (List.hd_exn xxcodepaths) in (* TODO this reverse should be done earlier *)
                 let bbacks = Cp.branchbacks_of_loop bblocks in 
                 let lms = looping_parts_costs bbacks loop_cps cp in
                 let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
@@ -262,12 +253,12 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                     match exit_cost with
                     | Empty ->
                         let cost = Node {op = "list_max"; args = List.map ~f:expr_of_lm lms} in
-                        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                        {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
                         let cost = Node {op = "+";
                                          args = [Node {op = "list_max"; args =  List.map ~f:expr_of_lm lms};
                                                  exit_cost]} in
-                        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                        {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
                   (* no, we need use the cost of the single path through the loop *)
@@ -275,16 +266,16 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                     match exit_cost with
                     | Empty ->
                         let cost = expr_of_lm (List.hd_exn lms) in
-                        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                        {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
                         let cost = Node {op = "+"; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
-                        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                        {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
               end
             else
               begin
                 let cost       =  Constant (String_value "Infinity-z") in
-                {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+                {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
               end
           end
         else
@@ -293,14 +284,15 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let cost        = Constant (String_value "Infinity-t") in
             let exit_cps    = [] in
             let nested_ebbs = [] in
-            {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+            {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
           end
     | EBB_block ->
+        let codepaths   = [] in
         let loop_cps    = [] in
         let exit_cps    = [] in
         let nested_ebbs = [] in
-        let cost        = cost_of_block_ebb exits in
-        {ebbtype; cost; entry_bb; bblocks; exits; succ_ebbs; loop_cps; exit_cps; nested_ebbs}
+        let cost        = cost_of_block_ebb entry_bb exit_bbs in
+        {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
   in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bb list): ebb =
@@ -385,13 +377,14 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     let update_succ (ebbs: ebb list) =
 
       let update_succ' (ebbs: ebb list) (ebb: ebb) =
-        let update_succ'' (ebbs: ebb list) (ebb: ebb) (e: ebb_exit) =
-          let s = ebb_of_bb ebbs e.exit_bb in
+
+        let update_succ'' (ebbs: ebb list) (ebb: ebb) (exit_bb: bb) =
+          let s = ebb_of_bb ebbs exit_bb in
           match s with
           | Some succ   -> ebb.succ_ebbs <- succ::ebb.succ_ebbs
           | None        -> ()
         in
-      List.iter ~f:(update_succ'' ebbs ebb) ebb.exits;
+      List.iter ~f:(update_succ'' ebbs ebb) ebb.exit_bbs;
      in
      List.iter ~f:(update_succ' ebbs) ebbs;
     in
@@ -423,27 +416,3 @@ let ebb_paths_max_cost (ebb_paths: ebb list list): et =
   | []    -> Empty
   | [hd]  -> ebb_path_cost hd
   | _     -> Node {op = "list_max"; args = List.map ~f:ebb_path_cost ebb_paths}
-
-
-(*
-    cost_of_ebb
-
-    Given an ebb, determine the cost of executing that ebb. We do this by calculating
-    the cost of the execution path to each exit point of the ebb and keeping the
-    highest cost among them.
-
-    Parameters:
-      ebblock   ebblock whose cost is to be determined
-
-    Returns:
-      cost
-*)
-
-(* type prefix = {src: bb; dst: bb; cost: int}
-*)
-
-let cost_of_ebb (ebblock: ebb): int =
-
-  List.fold ~init:0 ~f:(fun acc c -> if c > acc then c else acc)
-    (List.map ~f:(Cost.cost_of_bb_path ebblock.entry_bb) 
-              (List.fold ~init:[] ~f:(fun acc exit -> (exit.exit_bb)::acc) ebblock.exits))
