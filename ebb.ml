@@ -224,15 +224,52 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                   ]}
   in
 
+  let unique_loop_vars (lms: Cost.loop_metric list): string list =
+    List.dedup_and_sort ~compare:String.compare
+      (List.fold ~init:[] ~f:(fun acc lm -> match lm with | Infinite -> acc | LMI lm ->List.append lm.loop_vars acc) lms)
+  in
+
+  let idx_of_params (params: string list): int list =
+    List.map
+      ~f:(fun p ->
+        let idx = int_of_string (String.sub p ~pos:2 ~len:((String.length p) - 2)) in
+        match String.sub p ~pos:0 ~len:1 with 
+        | "p" -> idx
+        | "l" -> (idx + (List.length ctx.param_types))
+        | "r" -> -1
+        | _ -> failwith "Invalid parameter type")
+      params
+  in
+
+  let bblocks_of_parameters (bblocks: bb list) (params: string list): bb list list =
+    let idx = idx_of_params params in
+    List.map
+      ~f:(fun i ->
+        List.filter 
+          ~f:(fun bb -> 
+            List.exists 
+              ~f:(fun op -> 
+                match (Opcode.opcode_of_int op.opcode) with 
+                | OP_local_set | OP_local_tee ->
+                    (match op.arg with
+                    | Localidx i' when i = i'
+                        -> true
+                    | _ -> false)
+                | _ -> false)
+              (expr_of_bb ctx.w_e bb))
+          bblocks)
+      idx
+  in
+
   let finish_ebblock' (ebbtype: ebb_type) (bblocks: bb list): ebb =
 
     let entry_bb    = List.hd_exn bblocks in
     let succ_ebbs   = [] in
     let exit_bbs    = exit_bbs_of_bbs bblocks in
-    Printf.printf "Finishing %s %d\n" (string_of_ebb_type ebbtype) (entry_bb.bbindex);
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
+        Printf.printf "Finishing %s %d\n" (string_of_ebb_type ebbtype) (entry_bb.bbindex);
         let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
         let loop_cps  = looping_paths_of_loop_bblocks bblocks in
         if List.length loop_cps > 0 then
@@ -240,14 +277,24 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let exit_cps    = exit_paths (exit_cps codepaths) loop_cps in
             let nested_ebbs = sub_ebbs_of_bbs bblocks in
             let root_bb     = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
-            let xxcodepaths = Cp.codepaths_from_to_bb_exn root_bb (back_pred entry_bb) in
-            if List.length xxcodepaths > 0 then
+            (* TODO goal is to replace this call to Cp.codepaths_from_to_bb_exn with a function
+               that returns the paths that update any of the loop vars rather than all paths *)
+            let cp =
+              (match Cp.codepaths_from_to_bb_exn root_bb (back_pred entry_bb) with
+              | [] -> []
+              | cp  -> List.rev (List.hd_exn cp)) in (* TODO this reverse should be done earlier *)
+            let bbacks = Cp.branchbacks_of_loop bblocks in 
+            let lms = looping_parts_costs bbacks loop_cps cp in
+            let ulv = unique_loop_vars lms in
+            let ulv_bb = bblocks_of_parameters bblocks ulv in
+            Printf.printf "ulvs: %d\n" (List.length ulv);
+            Printf.printf "ulv_bbs: %d\n" (List.length ulv_bb);
+            Printf.printf "loop vars: %s\n" (String.concat ~sep:", " ulv);
+            Printf.printf "%s" (String.concat (List.map2_exn ~f:(fun v bbs -> sprintf "%s %s\n" v (string_of_bbs bbs)) ulv ulv_bb));
+            let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
+            if List.length cp > 0 then
               begin
-                let cp = List.rev (List.hd_exn xxcodepaths) in (* TODO this reverse should be done earlier *)
-                let bbacks = Cp.branchbacks_of_loop bblocks in 
-                let lms = looping_parts_costs bbacks loop_cps cp in
-                let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
-                (* do we have more than 1 set of loop metrics to consider? *)
+                    (* do we have more than 1 set of loop metrics to consider? *)
                 if List.length lms > 1 then
                   (* yes, we need a max operation *)
                   begin
