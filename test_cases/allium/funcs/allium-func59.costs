@@ -2,7 +2,7 @@
   list_sum([
     666;
     (list_max([
-      (34 + |f29|) * (I([pn1; pn2], [pn2 - (64 - pn1)], [pn1 = rn0; pn2 = pn2], [pn1 = (64 - pn1) + pn1; pn2 = pn2 - (64 - pn1)]));
+      (34 + |f29|) * (I([pn1; pn2], [pn2 - (64 - pn1)], [pn1 = pn1; pn2 = pn2], [pn1 = (64 - pn1) + pn1; pn2 = pn2 - (64 - pn1)]));
       (35 + |f29|) * (I([pn2], [pn2 - pn2], [pn2 = pn2], [pn2 = pn2 - pn2]));
       (4553 + (list_sum([|f19|; |f29|]))) * (I([pn2], [pn2 - (64 - 0)], [pn2 = pn2], [pn2 = pn2 - (64 - 0)]));
       (4554 + (list_sum([|f19|; |f29|]))) * (I([pn2], [pn2 - pn2], [pn2 = pn2], [pn2 = pn2 - pn2]))

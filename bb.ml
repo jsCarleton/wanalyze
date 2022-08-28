@@ -266,3 +266,31 @@ let rec first_loop_of_bbs (bblocks: bb list): bb =
   match (List.hd_exn bblocks).bbtype with
   | BB_loop  -> List.hd_exn bblocks
   | _        -> first_loop_of_bbs (List.tl_exn bblocks)
+
+(*
+    back_pred
+
+    Return the first bb in the list of predecessors, of a given bb, that's lexically immediately
+    before the given bb
+
+    Parameters:
+      bb    basic block
+
+    Returns:
+      basic block
+
+*)
+
+let back_pred (bblock: bb): bb =
+
+  let rec back_pred' (bblock: bb) (preds: bb list): bb =
+  match preds with
+  | [] -> failwith "No pred found"
+  | hd::tl ->
+      if hd.bbindex < bblock.bbindex then
+        hd
+      else
+        back_pred' bblock tl
+  in
+
+  back_pred' bblock bblock.pred

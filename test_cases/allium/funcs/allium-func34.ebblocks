@@ -14,14 +14,14 @@ ebb entry:  32
   ebb type:   loop
   ebb blocks: [32 33 34 35 36 37 38 39 40 41 42 43]
   ebb cost:   (list_max([
-  (31 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = (rn0 && -8) - ((pn0 + 11) && -8); pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = (rn0 && -8) - pn0; pn0 = pn0; rn0 = rn0]));
-  (34 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = (rn0 && -8) - ((pn0 + 11) && -8); pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = (rn0 && -8) - pn0; pn0 = pn0; rn0 = rn0]));
-  (34 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = (rn0 && -8) - ((pn0 + 11) && -8); pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = ln4; pn0 = pn0; rn0 = rn0]));
-  (37 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = (rn0 && -8) - ((pn0 + 11) && -8); pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = ln4; pn0 = pn0; rn0 = rn0]));
-  (27 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = (rn0 && -8) - ((pn0 + 11) && -8); pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = (rn0 && -8) - pn0; pn0 = pn0; rn0 = rn0]));
-  (30 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = (rn0 && -8) - ((pn0 + 11) && -8); pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = (rn0 && -8) - pn0; pn0 = pn0; rn0 = rn0]));
-  (30 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = (rn0 && -8) - ((pn0 + 11) && -8); pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = ln4; pn0 = pn0; rn0 = rn0]));
-  (33 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = (rn0 && -8) - ((pn0 + 11) && -8); pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = ln4; pn0 = pn0; rn0 = rn0]))
+  (31 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = ln4; pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = (rn0 && -8) - pn0; pn0 = pn0; rn0 = rn0]));
+  (34 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = ln4; pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = (rn0 && -8) - pn0; pn0 = pn0; rn0 = rn0]));
+  (34 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = ln4; pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = ln4; pn0 = pn0; rn0 = rn0]));
+  (37 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = ln4; pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = ln4; pn0 = pn0; rn0 = rn0]));
+  (27 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = ln4; pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = (rn0 && -8) - pn0; pn0 = pn0; rn0 = rn0]));
+  (30 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = ln4; pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = (rn0 && -8) - pn0; pn0 = pn0; rn0 = rn0]));
+  (30 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = ln4; pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = ln4; pn0 = pn0; rn0 = rn0]));
+  (33 + |f20|) * (I([ln4; pn0; rn0], [((rn0 && -8) - pn0) < ln4], [ln4 = ln4; pn0 = (pn0 + 11) && -8; rn0 = rn0], [ln4 = ln4; pn0 = pn0; rn0 = rn0]))
 ])) + 1
   ebb exits:  [44]
   ebb succs:  [44]

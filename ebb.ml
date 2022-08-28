@@ -229,6 +229,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     let entry_bb    = List.hd_exn bblocks in
     let succ_ebbs   = [] in
     let exit_bbs    = exit_bbs_of_bbs bblocks in
+    Printf.printf "Finishing %s %d\n" (string_of_ebb_type ebbtype) (entry_bb.bbindex);
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
@@ -239,7 +240,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let exit_cps    = exit_paths (exit_cps codepaths) loop_cps in
             let nested_ebbs = sub_ebbs_of_bbs bblocks in
             let root_bb     = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
-            let xxcodepaths = Cp.codepaths_from_to_bb_exn root_bb (List.hd_exn entry_bb.pred) in
+            let xxcodepaths = Cp.codepaths_from_to_bb_exn root_bb (back_pred entry_bb) in
             if List.length xxcodepaths > 0 then
               begin
                 let cp = List.rev (List.hd_exn xxcodepaths) in (* TODO this reverse should be done earlier *)

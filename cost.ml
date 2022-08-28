@@ -86,6 +86,7 @@ let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts
               (Cp.expr_of_codepath ctx.w_e lp.loop_part cs.cond_bb)
               (Ex.empty_program_state ctx.w ctx.param_types ctx.local_types) in
     let loop_vars     = Et.vars_of_et loop_cond in
+    Printf.printf "loop vars: %s\n" (String.concat ~sep:", " loop_vars);
     let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part in
     let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
     let loop_ssa      = Ssa.ssa_of_codepath ctx lp.loop_part in

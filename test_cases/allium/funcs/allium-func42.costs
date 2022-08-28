@@ -2,10 +2,10 @@
   list_sum([
     1286;
     (list_max([
-      (40 + |f29|) * (I([ln3; pn2], [pn2 - (136 - ln3)], [ln3 = rn0; pn2 = pn2 - (136 - rn0)], [ln3 = (136 - ln3) + ln3; pn2 = pn2 - (136 - ln3)]));
-      (5028 + (list_sum([|f16|; |f19|; |f29|]))) * (I([ln3; pn2], [pn2 - (136 - ln3)], [ln3 = rn0; pn2 = pn2 - (136 - rn0)], [ln3 = 0; pn2 = pn2 - (136 - ln3)]));
-      (40 + |f29|) * (I([pn2], [pn2 - pn2], [pn2 = pn2 - (136 - rn0)], [pn2 = pn2 - pn2]));
-      (5028 + (list_sum([|f16|; |f19|; |f29|]))) * (I([pn2], [pn2 - pn2], [pn2 = pn2 - (136 - rn0)], [pn2 = pn2 - pn2]))
+      (40 + |f29|) * (I([ln3; pn2], [pn2 - (136 - ln3)], [ln3 = rn0; pn2 = pn2], [ln3 = (136 - ln3) + ln3; pn2 = pn2 - (136 - ln3)]));
+      (5028 + (list_sum([|f16|; |f19|; |f29|]))) * (I([ln3; pn2], [pn2 - (136 - ln3)], [ln3 = rn0; pn2 = pn2], [ln3 = 0; pn2 = pn2 - (136 - ln3)]));
+      (40 + |f29|) * (I([pn2], [pn2 - pn2], [pn2 = pn2], [pn2 = pn2 - pn2]));
+      (5028 + (list_sum([|f16|; |f19|; |f29|]))) * (I([pn2], [pn2 - pn2], [pn2 = pn2], [pn2 = pn2 - pn2]))
     ])) + (list_max([1; 1; 1; 1]));
     106;
     105
