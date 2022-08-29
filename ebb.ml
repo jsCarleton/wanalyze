@@ -241,13 +241,13 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
       params
   in
 
-  let bblocks_of_parameters (bblocks: bb list) (params: string list): bb list list =
+  let bblocks_of_parameters (bblocks: bb list) (entry_bb: bb) (params: string list): bb list list =
     let idx = idx_of_params params in
     List.map
       ~f:(fun i ->
         List.filter 
-          ~f:(fun bb -> 
-            List.exists 
+          ~f:(fun bb -> (bb.bbindex <= entry_bb.bbindex) &&
+            (List.exists 
               ~f:(fun op -> 
                 match (Opcode.opcode_of_int op.opcode) with 
                 | OP_local_set | OP_local_tee ->
@@ -256,7 +256,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                         -> true
                     | _ -> false)
                 | _ -> false)
-              (expr_of_bb ctx.w_e bb))
+              (expr_of_bb ctx.w_e bb)))
           bblocks)
       idx
   in
@@ -286,7 +286,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let bbacks = Cp.branchbacks_of_loop bblocks in 
             let lms = looping_parts_costs bbacks loop_cps cp in
             let ulv = unique_loop_vars lms in
-            let ulv_bb = bblocks_of_parameters bblocks ulv in
+            let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
             Printf.printf "ulvs: %d\n" (List.length ulv);
             Printf.printf "ulv_bbs: %d\n" (List.length ulv_bb);
             Printf.printf "loop vars: %s\n" (String.concat ~sep:", " ulv);

@@ -2,8 +2,8 @@
   list_sum([
     782;
     (list_max([
-      (35 + |f29|) * (I([ln4; pn2], [pn2 - (64 - ln4)], [ln4 = rn0; pn2 = pn2], [ln4 = (64 - ln4) + ln4; pn2 = pn2 - (64 - ln4)]));
-      (4146 + (list_sum([|f16|; |f18|; |f19|; |f29|]))) * (I([ln4; pn2], [pn2 - (64 - ln4)], [ln4 = rn0; pn2 = pn2], [ln4 = 0; pn2 = pn2 - (64 - ln4)]));
+      (35 + |f29|) * (I([ln1; pn2], [pn2 - (64 - ln1)], [ln1 = rn0; pn2 = pn2], [ln1 = (64 - 0) + 0; pn2 = pn2 - (64 - 0)]));
+      (4146 + (list_sum([|f16|; |f18|; |f19|; |f29|]))) * (I([ln1; pn2], [pn2 - (64 - ln1)], [ln1 = rn0; pn2 = pn2], [ln1 = 0; pn2 = pn2 - (64 - 0)]));
       (35 + |f29|) * (I([pn2], [pn2 - pn2], [pn2 = pn2], [pn2 = pn2 - pn2]));
       (4146 + (list_sum([|f16|; |f18|; |f19|; |f29|]))) * (I([pn2], [pn2 - pn2], [pn2 = pn2], [pn2 = pn2 - pn2]))
     ])) + (list_max([1; 1; 1; 1]));

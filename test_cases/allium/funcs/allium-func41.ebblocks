@@ -14,14 +14,14 @@ ebb entry:  9
   ebb type:   loop
   ebb blocks: [9 10 11 12 13 14 15 16 17 18 19 20 21]
   ebb cost:   (list_max([
-  (80 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln3; ln5; rn0], [not((ln5 - ln3) == rn0)], [ln3 = g5; ln5 = (rn0 - rn0) + pn2; rn0 = rn0], [ln3 = rn0; ln5 = ln5 - ln3; rn0 = rn0]));
-  (87 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln3; ln5], [not((ln5 - ln3) == -1)], [ln3 = g5; ln5 = (rn0 - rn0) + pn2], [ln3 = -1; ln5 = ln5 - ln3]));
-  (80 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln3; ln5; rn0], [not((ln5 - ln3) == rn0)], [ln3 = g5; ln5 = (rn0 - rn0) + pn2; rn0 = rn0], [ln3 = rn0; ln5 = ln5 - ln3; rn0 = rn0]));
-  (87 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln3; ln5], [not((ln5 - ln3) == -1)], [ln3 = g5; ln5 = (rn0 - rn0) + pn2], [ln3 = -1; ln5 = ln5 - ln3]));
-  (83 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln3; ln5; rn0], [not((ln5 - ln3) == rn0)], [ln3 = g5; ln5 = (rn0 - rn0) + pn2; rn0 = rn0], [ln3 = rn0; ln5 = ln5 - ln3; rn0 = rn0]));
-  (90 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln3; ln5], [not((ln5 - ln3) == -1)], [ln3 = g5; ln5 = (rn0 - rn0) + pn2], [ln3 = -1; ln5 = ln5 - ln3]));
-  (83 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln3; ln5; rn0], [not((ln5 - ln3) == rn0)], [ln3 = g5; ln5 = (rn0 - rn0) + pn2; rn0 = rn0], [ln3 = rn0; ln5 = ln5 - ln3; rn0 = rn0]));
-  (90 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln3; ln5], [not((ln5 - ln3) == -1)], [ln3 = g5; ln5 = (rn0 - rn0) + pn2], [ln3 = -1; ln5 = ln5 - ln3]))
+  (80 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln0; ln2; rn0], [not((ln2 - ln0) == rn0)], [ln0 = g5; ln2 = (rn0 - rn0) + pn2; rn0 = rn0], [ln0 = rn0; ln2 = ln2 - 0; rn0 = rn0]));
+  (87 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln0; ln2], [not((ln2 - ln0) == -1)], [ln0 = g5; ln2 = (rn0 - rn0) + pn2], [ln0 = -1; ln2 = ln2 - 0]));
+  (80 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln0; ln2; rn0], [not((ln2 - ln0) == rn0)], [ln0 = g5; ln2 = (rn0 - rn0) + pn2; rn0 = rn0], [ln0 = rn0; ln2 = ln2 - 0; rn0 = rn0]));
+  (87 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln0; ln2], [not((ln2 - ln0) == -1)], [ln0 = g5; ln2 = (rn0 - rn0) + pn2], [ln0 = -1; ln2 = ln2 - 0]));
+  (83 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln0; ln2; rn0], [not((ln2 - ln0) == rn0)], [ln0 = g5; ln2 = (rn0 - rn0) + pn2; rn0 = rn0], [ln0 = rn0; ln2 = ln2 - 0; rn0 = rn0]));
+  (90 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln0; ln2], [not((ln2 - ln0) == -1)], [ln0 = g5; ln2 = (rn0 - rn0) + pn2], [ln0 = -1; ln2 = ln2 - 0]));
+  (83 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln0; ln2; rn0], [not((ln2 - ln0) == rn0)], [ln0 = g5; ln2 = (rn0 - rn0) + pn2; rn0 = rn0], [ln0 = rn0; ln2 = ln2 - 0; rn0 = rn0]));
+  (90 + (list_sum([|f4|; |f17|; |f20|]))) * (I([ln0; ln2], [not((ln2 - ln0) == -1)], [ln0 = g5; ln2 = (rn0 - rn0) + pn2], [ln0 = -1; ln2 = ln2 - 0]))
 ])) + 1
   ebb exits:  [22 27]
   ebb succs:  [27 22]

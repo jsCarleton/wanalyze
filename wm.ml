@@ -368,7 +368,7 @@ let local_value (local_types: local_type list) (nparams: int) (i: int): constant
     | _ -> failwith "Invalid numtype"
 
 let local_name (local_types: local_type list) (nparams: int) (i: int): string =
-  String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int i]
+  String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int (i - nparams)]
 
 let et_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): Et.et =
   let nparams = List.length param_types in

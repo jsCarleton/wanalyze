@@ -14,10 +14,10 @@ ebb entry:  5
   ebb type:   loop
   ebb blocks: [5 6 7 8 9 10 11 12 13 14]
   ebb cost:   (list_max([
-  (42 + |f29|) * (I([ln4; ln49], [ln49 - (32 - ln4)], [ln4 = rn0; ln49 = ln49], [ln4 = (32 - ln4) + ln4; ln49 = ln49 - (32 - ln4)]));
-  (6772 + (list_sum([|f19|; |f29|]))) * (I([ln4; ln49], [ln49 - (32 - ln4)], [ln4 = rn0; ln49 = ln49], [ln4 = 0; ln49 = ln49 - (32 - ln4)]));
-  (42 + |f29|) * (I([ln49], [ln49 - ln49], [ln49 = ln49], [ln49 = ln49 - ln49]));
-  (6772 + (list_sum([|f19|; |f29|]))) * (I([ln49], [ln49 - ln49], [ln49 = ln49], [ln49 = ln49 - ln49]))
+  (42 + |f29|) * (I([ln1; ln46], [ln46 - (32 - ln1)], [ln1 = rn0; ln46 = ln46], [ln1 = (32 - ln1) + ln1; ln46 = ln46 - (32 - ln1)]));
+  (6772 + (list_sum([|f19|; |f29|]))) * (I([ln1; ln46], [ln46 - (32 - ln1)], [ln1 = rn0; ln46 = ln46], [ln1 = 0; ln46 = ln46 - (32 - ln1)]));
+  (42 + |f29|) * (I([ln46], [ln46 - ln46], [ln46 = ln46], [ln46 = ln46 - ln46]));
+  (6772 + (list_sum([|f19|; |f29|]))) * (I([ln46], [ln46 - ln46], [ln46 = ln46], [ln46 = ln46 - ln46]))
 ])) + (list_max([1; 1; 1; 1]))
   ebb exits:  [15]
   ebb succs:  [15]

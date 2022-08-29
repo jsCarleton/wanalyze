@@ -13,7 +13,7 @@ ebb entry:  3
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5]
-  ebb cost:   ((293 + (list_sum([|f16|; |f18|; |f36|]))) * (I([ln15; pN3], [(i64.extend_i32_u(ln15 + 1)) < pN3], [ln15 = ln15; pN3 = pN3], [ln15 = ln15 + 1; pN3 = pN3]))) + 1
+  ebb cost:   ((293 + (list_sum([|f16|; |f18|; |f36|]))) * (I([ln11; pN3], [(i64.extend_i32_u(ln11 + 1)) < pN3], [ln11 = ln11; pN3 = pN3], [ln11 = ln11 + 1; pN3 = pN3]))) + 1
   ebb exits:  [6]
   ebb succs:  [6]
   1 paths to exit 6
