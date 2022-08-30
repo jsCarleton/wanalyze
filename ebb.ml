@@ -269,7 +269,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
-        Printf.printf "Finishing %s %d\n" (string_of_ebb_type ebbtype) (entry_bb.bbindex);
+        Printf.printf "Finishing %s %d\n%!" (string_of_ebb_type ebbtype) (entry_bb.bbindex);
         let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
         let loop_cps  = looping_paths_of_loop_bblocks bblocks in
         if List.length loop_cps > 0 then
@@ -287,25 +287,31 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let lms = looping_parts_costs bbacks loop_cps cp in
             let ulv = unique_loop_vars lms in
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
-            Printf.printf "ulvs: %d\n" (List.length ulv);
-            Printf.printf "ulv_bbs: %d\n" (List.length ulv_bb);
-            Printf.printf "loop vars: %s\n" (String.concat ~sep:", " ulv);
-            Printf.printf "%s" (String.concat (List.map2_exn ~f:(fun v bbs -> sprintf "%s %s\n" v (string_of_bbs bbs)) ulv ulv_bb));
+            Printf.printf "ulvs: %d\n%!" (List.length ulv);
+            Printf.printf "ulv_bbs: %d\n%!" (List.length ulv_bb);
+            Printf.printf "loop vars: %s\n%!" (String.concat ~sep:", " ulv);
+            Printf.printf "%s%!" (String.concat (List.map2_exn ~f:(fun v bbs -> sprintf "%s %s\n" v (string_of_bbs bbs)) ulv ulv_bb));
             let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
-            if List.length cp > 0 then
+            if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length cp > 0) then
               begin
-                    (* do we have more than 1 set of loop metrics to consider? *)
+                (* do we have more than 1 set of loop metrics to consider? *)
+                Printf.printf "lms: %d\n%!" (List.length lms);
                 if List.length lms > 1 then
                   (* yes, we need a max operation *)
                   begin
                     match exit_cost with
                     | Empty ->
+                        Printf.printf "empty exit cost\n%!";
                         let cost = Node {op = "list_max"; args = List.map ~f:expr_of_lm lms} in
+                        Printf.printf "done-1\n%!";
                         {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
+                        Printf.printf "non-empty exit cost\n%!";
                         let cost = Node {op = "+";
                                          args = [Node {op = "list_max"; args =  List.map ~f:expr_of_lm lms};
                                                  exit_cost]} in
+                        Printf.printf "got cost\n%!";
+                        Printf.printf "done-2\n%!";
                         {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
@@ -314,15 +320,18 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                     match exit_cost with
                     | Empty ->
                         let cost = expr_of_lm (List.hd_exn lms) in
+                        Printf.printf "done-3\n%!";
                         {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
-                        let cost = Node {op = "+"; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
+                      Printf.printf "done-4\n%!";
+                      let cost = Node {op = "+"; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
                         {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
               end
             else
               begin
                 let cost       =  Constant (String_value "Infinity-z") in
+                Printf.printf "done-5\n%!";
                 {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
               end
           end
@@ -332,6 +341,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let cost        = Constant (String_value "Infinity-t") in
             let exit_cps    = [] in
             let nested_ebbs = [] in
+            Printf.printf "done-6\n%!";
             {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
           end
     | EBB_block ->
@@ -340,10 +350,12 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
         let exit_cps    = [] in
         let nested_ebbs = [] in
         let cost        = cost_of_block_ebb entry_bb exit_bbs in
+        Printf.printf "done-7\n%!";
         {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
   in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bb list): ebb =
+    Printf.printf "calling finish_ebblock' from finish_ebblock'\n%!";
     finish_ebblock' ebbtype (List.rev bbs_acc)
   in
 
@@ -367,6 +379,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
       | hd::tl  ->
           (* are we in a loop ? *)
           if lnest < 0 then
+          begin
             (* no, not in a loop *)
             (match hd.bbtype with
               (* are we starting a loop ? *)
@@ -377,9 +390,11 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                     (* have we already started to build an ebb? *)
                     | [] ->
                         (* no, just build an ebb for the loop *)
+                        Printf.printf "calling eblock_of_bbs'-1\n%!";
                         eblock_of_bbs' tl [] ((build_ebblock EBB_block hd bbs_acc)::ebbs_acc) hd.nesting None
                     | _ ->
                         (* yes, close it off and create one containing just the loop *)
+                        Printf.printf "calling eblock_of_bbs'-2\n%!";
                         eblock_of_bbs' tl [] 
                           ((finish_ebblock EBB_block [hd])
                               ::(finish_ebblock EBB_block bbs_acc)
@@ -390,30 +405,46 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                       i.e. does some earlier ebb enter this bb? if so it needs to be
                       the head of a new ebb *)
                   if pred_before_ebb entry_bb hd.pred then
+                  begin
                     (* yes, start a new ebb *)
+                    Printf.printf "calling eblock_of_bbs'-3\n%!";
                     eblock_of_bbs' tl [hd] ((finish_ebblock EBB_block bbs_acc)::ebbs_acc) lnest (Some hd)
+                  end
                   else
+                  begin
                     (* no, keep accumulating the ebb *)
-                    eblock_of_bbs' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd))
+                    Printf.printf "calling eblock_of_bbs'-4\n%!";
+                    eblock_of_bbs' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd)
+                  end
+            )
+          end
           else
             (* yes, we're in a loop *)
             (match hd.bbtype with
               (* are we at the end of the loop? *)
               | BB_end ->
                 if hd.nesting = lnest then
+                begin
                   (* yes, close it off *)
+                  Printf.printf "calling eblock_of_bbs'-5\n%!";
                   eblock_of_bbs' tl [] ((build_ebblock EBB_loop hd bbs_acc)::ebbs_acc) (-1) None
+                end
                 else
+                begin
                   (* no, keep accumulating the ebb *)
+                  Printf.printf "calling eblock_of_bbs'-6\n%!";
                   eblock_of_bbs' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd)
+                end
               | _ ->
                 (* not done the loop, keep accumulating the ebb *)
+                Printf.printf "calling eblock_of_bbs'-7\n%!";
                 eblock_of_bbs' tl (hd::bbs_acc) ebbs_acc lnest (ebb_entry_bb entry_bb hd))
       | []      ->
           (* no, close off the current ebb if there is one *)
           match bbs_acc with
           | []  -> List.rev ebbs_acc
-          | _   -> List.rev (finish_ebblock' EBB_block (List.rev bbs_acc)::ebbs_acc)
+          | _   -> Printf.printf "calling finish_ebblock' from eblock_of_bbs'\n%!";
+                   List.rev (finish_ebblock' EBB_block (List.rev bbs_acc)::ebbs_acc)
     in
 
     let ebb_of_bb (ebbs: ebb list) (bblock: bb): ebb option =
@@ -437,8 +468,11 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
      List.iter ~f:(update_succ' ebbs) ebbs;
     in
 
+  Printf.printf "calling eblock_of_bbs'-8\n%!";
   let ebbs = eblock_of_bbs' all_bbs [] [] (-1) None in
+  Printf.printf "calling update_succ\n%!";
   update_succ ebbs;
+  Printf.printf "done update_succ\n%!";
   ebbs
 
 (*

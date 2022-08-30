@@ -46,11 +46,11 @@ oxipng,60,27,[0 1 2 3 4 5 14 15 16 17 18 20 25 26 27] 94 + (list_sum([|f80|; |f2
 oxipng,60,27,[0 1 2 3 4 5 14 15 16 17 18 22 25 26 27] 94 + (list_sum([|f80|; |f222|; |f331|; |f354|])),block
 oxipng,60,27,[0 1 2 3 4 5 14 15 16 17 18 24 25 26 27] 94 + (list_sum([|f80|; |f222|; |f331|; |f354|])),block
 oxipng,60,27,[0 1 2 3 4 5 14 15 16 17 18 25 26 27] 91 + (list_sum([|f80|; |f222|; |f331|; |f354|])),block
-oxipng,61,26,[0 1 2 3 4 5 6 7 8 25 26] 111 + (list_sum([|f82|; |f179|])),simple br_if,ln8 = select(((g0 - 48)) > ((g0 - 48)), (g0 - 48), (g0 - 48)); ln7 = ln7,(ln7 + 1) < ln8,ln7; ln8,ln8 = ln8; ln7 = ln7 + 1
-oxipng,61,32,[0 1 2 3 4 5 6 7 8 25 30 31 32] 139 + (list_sum([|f82|; |f179|])),simple br_if,ln7 = 0; ln10 = select((((g0 - 48) + 44)) > (((g0 - 48) + 44)), ((g0 - 48) + 44), ((g0 - 48) + 44)),(ln7 + 1) < ln10,ln10; ln7,ln7 = ln7 + 1; ln10 = ln10
+oxipng,61,26,[0 1 2 3 4 5 6 7 8 25 26] 111 + (list_sum([|f82|; |f179|])),simple br_if,ln4 = select(((g0 - 48)) > ((g0 - 48)), (g0 - 48), (g0 - 48)); ln3 = ln3,(ln3 + 1) < ln4,ln3; ln4,ln4 = ln4; ln3 = ln3 + 1
+oxipng,61,32,[0 1 2 3 4 5 6 7 8 25 30 31 32] 139 + (list_sum([|f82|; |f179|])),simple br_if,ln6 = select((((g0 - 48) + 44)) > (((g0 - 48) + 44)), ((g0 - 48) + 44), ((g0 - 48) + 44)); ln3 = 0,(ln3 + 1) < ln6,ln3; ln6,ln6 = ln6; ln3 = ln3 + 1
 oxipng,61,12,[0 1 2 3 4 5 6 7 11 12] 55 + |f266|,if
 oxipng,63,2,[0 1 2] 56,loop
-oxipng,63,16,[0 1 15 16] 61,simple br_if,ln4 = 0 - (((pn2 && -4) rem_u 22208) && 32764),ln4 + 4,ln4,ln4 = ln4 + 4
+oxipng,63,16,[0 1 15 16] 61,simple br_if,ln1 = 0 - (((pn2 && -4) rem_u 22208) && 32764),ln1 + 4,ln1,ln1 = ln1 + 4
 oxipng,63,20,[0 1 15 20] 62,simple br_if,pn0 = 0,(pn0 + 4) != 16,pn0,pn0 = pn0 + 4
 oxipng,65,36,[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 31 32 33 34 35 36] 105,if
 oxipng,65,36,[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 31 32 35 36] 95,if
@@ -82,9 +82,9 @@ oxipng,70,23,[0 1 2 3 4 5 23] 36 + |f368|,if
 oxipng,70,35,[0 1 2 34 35] 45 + |f368|,loop
 oxipng,72,2,[0 1 2] 264 + |f81|,block
 oxipng,73,14,[0 1 2 3 4 5 6 7 8 12 13 14] 80 + (list_sum([|f183|; |f285|])),block
-oxipng,73,30,[0 1 2 3 4 5 6 7 8 12 13 29 30] 125 + (list_sum([|f173|; |f183|; |f285|])),simple br_if,ln6 = ((pn1 + 32)) + (((pn1 + 40)) * 20); ln5 = ((pn1 + 32)) + (((g0 - 80)) * 20),(ln5 + 20) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 20
+oxipng,73,30,[0 1 2 3 4 5 6 7 8 12 13 29 30] 125 + (list_sum([|f173|; |f183|; |f285|])),simple br_if,ln4 = ((pn1 + 32)) + (((pn1 + 40)) * 20); ln3 = ((pn1 + 32)) + (((g0 - 80)) * 20),(ln3 + 20) != ln4,ln3; ln4,ln4 = ln4; ln3 = ln3 + 20
 oxipng,73,14,[0 1 2 3 4 5 6 7 10 11 12 13 14] 84 + (list_sum([|f183|; |f285|; |f413|])),block
-oxipng,73,30,[0 1 2 3 4 5 6 7 10 11 12 13 29 30] 129 + (list_sum([|f173|; |f183|; |f285|; |f413|])),simple br_if,ln6 = ((pn1 + 32)) + (((pn1 + 40)) * 20); ln5 = ((pn1 + 32)) + (((g0 - 80)) * 20),(ln5 + 20) != ln6,ln5; ln6,ln6 = ln6; ln5 = ln5 + 20
+oxipng,73,30,[0 1 2 3 4 5 6 7 10 11 12 13 29 30] 129 + (list_sum([|f173|; |f183|; |f285|; |f413|])),simple br_if,ln4 = ((pn1 + 32)) + (((pn1 + 40)) * 20); ln3 = ((pn1 + 32)) + (((g0 - 80)) * 20),(ln3 + 20) != ln4,ln3; ln4,ln4 = ln4; ln3 = ln3 + 20
 oxipng,74,9,[0 1 2 3 4 5 6 7 8 9] 75,block
 oxipng,74,43,[0 1 2 3 4 41 42 43] 70,if
 oxipng,76,34,[0 1 2 5 6 7 15 16 20 24 25 26 27 28 29 31 34] 86,if
@@ -93,7 +93,7 @@ oxipng,76,34,[0 1 2 5 6 7 15 16 20 24 25 26 27 28 29 34] 75,if
 oxipng,76,50,[0 1 2 5 6 7 15 16 20 24 25 40 41 42 43 44 46 49 50] 105 + |f327|,if
 oxipng,76,50,[0 1 2 5 6 7 15 16 20 24 25 40 41 42 43 44 48 49 50] 99 + |f327|,if
 oxipng,76,50,[0 1 2 5 6 7 15 16 20 24 25 40 41 42 43 44 49 50] 94 + |f327|,if
-oxipng,76,10,[0 1 2 5 6 9 10] 31,simple br_if,ln6 = pn3,ln6 + -1,ln6,ln6 = ln6 + -1
+oxipng,76,10,[0 1 2 5 6 9 10] 31,simple br_if,ln0 = pn3,ln0 + -1,ln0,ln0 = ln0 + -1
 oxipng,76,34,[0 1 2 5 6 9 14 15 16 20 24 25 26 27 28 29 31 34] 92,if
 oxipng,76,34,[0 1 2 5 6 9 14 15 16 20 24 25 26 27 28 29 33 34] 86,if
 oxipng,76,34,[0 1 2 5 6 9 14 15 16 20 24 25 26 27 28 29 34] 81,if
@@ -106,22 +106,22 @@ oxipng,76,34,[0 1 4 5 6 7 15 16 20 24 25 26 27 28 29 34] 70,if
 oxipng,76,50,[0 1 4 5 6 7 15 16 20 24 25 40 41 42 43 44 46 49 50] 100 + |f327|,if
 oxipng,76,50,[0 1 4 5 6 7 15 16 20 24 25 40 41 42 43 44 48 49 50] 94 + |f327|,if
 oxipng,76,50,[0 1 4 5 6 7 15 16 20 24 25 40 41 42 43 44 49 50] 89 + |f327|,if
-oxipng,76,10,[0 1 4 5 6 9 10] 26,simple br_if,ln6 = pn3,ln6 + -1,ln6,ln6 = ln6 + -1
+oxipng,76,10,[0 1 4 5 6 9 10] 26,simple br_if,ln0 = pn3,ln0 + -1,ln0,ln0 = ln0 + -1
 oxipng,76,34,[0 1 4 5 6 9 14 15 16 20 24 25 26 27 28 29 31 34] 87,if
 oxipng,76,34,[0 1 4 5 6 9 14 15 16 20 24 25 26 27 28 29 33 34] 81,if
 oxipng,76,34,[0 1 4 5 6 9 14 15 16 20 24 25 26 27 28 29 34] 76,if
 oxipng,76,50,[0 1 4 5 6 9 14 15 16 20 24 25 40 41 42 43 44 46 49 50] 106 + |f327|,if
 oxipng,76,50,[0 1 4 5 6 9 14 15 16 20 24 25 40 41 42 43 44 48 49 50] 100 + |f327|,if
 oxipng,76,50,[0 1 4 5 6 9 14 15 16 20 24 25 40 41 42 43 44 49 50] 95 + |f327|,if
-oxipng,81,19,[0 1 2 3 4 18 19] 48,simple br_if,pn2 = (pn2 - ln4) && -8; ln4 = ln4,(ln4 + 8) < pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 8
-oxipng,81,19,[0 1 2 3 6 7 8 11 12 13 14 16 17 18 19] 193,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln4 = 8 - ((pn0)),(ln4 + 8) < pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 8
-oxipng,81,19,[0 1 2 3 6 7 8 11 12 13 15 16 17 18 19] 183,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln4 = 8 - ((pn0)),(ln4 + 8) < pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 8
-oxipng,81,19,[0 1 2 3 6 7 8 11 13 14 16 17 18 19] 176,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln4 = 8 - ((pn0)),(ln4 + 8) < pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 8
-oxipng,81,19,[0 1 2 3 6 7 8 11 13 15 16 17 18 19] 166,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln4 = 8 - ((pn0)),(ln4 + 8) < pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 8
-oxipng,81,19,[0 1 2 3 6 7 10 11 12 13 14 16 17 18 19] 192,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln4 = 8 - ((pn0)),(ln4 + 8) < pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 8
-oxipng,81,19,[0 1 2 3 6 7 10 11 12 13 15 16 17 18 19] 182,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln4 = 8 - ((pn0)),(ln4 + 8) < pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 8
-oxipng,81,19,[0 1 2 3 6 7 10 11 13 14 16 17 18 19] 175,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln4 = 8 - ((pn0)),(ln4 + 8) < pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 8
-oxipng,81,19,[0 1 2 3 6 7 10 11 13 15 16 17 18 19] 165,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln4 = 8 - ((pn0)),(ln4 + 8) < pn2,ln4; pn2,pn2 = pn2; ln4 = ln4 + 8
+oxipng,81,19,[0 1 2 3 4 18 19] 48,simple br_if,pn2 = (pn2 - 0) && -8; ln1 = 0,(ln1 + 8) < pn2,ln1; pn2,pn2 = pn2; ln1 = ln1 + 8
+oxipng,81,19,[0 1 2 3 6 7 8 11 12 13 14 16 17 18 19] 193,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln1 = 8 - ((pn0)),(ln1 + 8) < pn2,ln1; pn2,pn2 = pn2; ln1 = ln1 + 8
+oxipng,81,19,[0 1 2 3 6 7 8 11 12 13 15 16 17 18 19] 183,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln1 = 8 - ((pn0)),(ln1 + 8) < pn2,ln1; pn2,pn2 = pn2; ln1 = ln1 + 8
+oxipng,81,19,[0 1 2 3 6 7 8 11 13 14 16 17 18 19] 176,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln1 = 8 - ((pn0)),(ln1 + 8) < pn2,ln1; pn2,pn2 = pn2; ln1 = ln1 + 8
+oxipng,81,19,[0 1 2 3 6 7 8 11 13 15 16 17 18 19] 166,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln1 = 8 - ((pn0)),(ln1 + 8) < pn2,ln1; pn2,pn2 = pn2; ln1 = ln1 + 8
+oxipng,81,19,[0 1 2 3 6 7 10 11 12 13 14 16 17 18 19] 192,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln1 = 8 - ((pn0)),(ln1 + 8) < pn2,ln1; pn2,pn2 = pn2; ln1 = ln1 + 8
+oxipng,81,19,[0 1 2 3 6 7 10 11 12 13 15 16 17 18 19] 182,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln1 = 8 - ((pn0)),(ln1 + 8) < pn2,ln1; pn2,pn2 = pn2; ln1 = ln1 + 8
+oxipng,81,19,[0 1 2 3 6 7 10 11 13 14 16 17 18 19] 175,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln1 = 8 - ((pn0)),(ln1 + 8) < pn2,ln1; pn2,pn2 = pn2; ln1 = ln1 + 8
+oxipng,81,19,[0 1 2 3 6 7 10 11 13 15 16 17 18 19] 165,simple br_if,pn2 = (pn2 - (8 - ((pn0)))) && -8; ln1 = 8 - ((pn0)),(ln1 + 8) < pn2,ln1; pn2,pn2 = pn2; ln1 = ln1 + 8
 oxipng,82,8,[0 1 2 3 4 5 6 7 8] 53 + |f266|,if
 oxipng,84,4,[0 1 2 4] 22 + |f353|,simple br_if,ln0 = 0,(ln0 + 1) != 30,ln0,ln0 = ln0 + 1
 oxipng,86,10,[0 1 2 3 4 8 9 10] 45,loop
@@ -163,12 +163,12 @@ oxipng,92,5,[0 1 2 3 4 5] 48,block
 oxipng,92,5,[0 1 4 5] 33,block
 oxipng,93,5,[0 1 2 3 4 5] 179,block
 oxipng,93,5,[0 2 3 4 5] 170,block
-oxipng,94,20,[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 17 18 19 20] 149 + (list_sum([|f165|; |f413|])),simple br_if,ln4 = pn2 + -1,ln4 + -1,ln4,ln4 = ln4 + -1
-oxipng,94,20,[0 1 2 3 4 5 6 7 8 9 10 11 12 13 16 17 18 19 20] 141 + (list_sum([|f165|; |f413|])),simple br_if,ln4 = pn2 + -1,ln4 + -1,ln4,ln4 = ln4 + -1
-oxipng,94,20,[0 1 2 3 4 5 6 7 8 9 10 11 19 20] 76 + |f413|,simple br_if,ln4 = pn2 + -1,ln4 + -1,ln4,ln4 = ln4 + -1
-oxipng,94,20,[0 1 2 3 4 5 8 9 10 11 12 13 14 17 18 19 20] 142 + |f165|,simple br_if,ln4 = pn2 + -1,ln4 + -1,ln4,ln4 = ln4 + -1
-oxipng,94,20,[0 1 2 3 4 5 8 9 10 11 12 13 16 17 18 19 20] 134 + |f165|,simple br_if,ln4 = pn2 + -1,ln4 + -1,ln4,ln4 = ln4 + -1
-oxipng,94,20,[0 1 2 3 4 5 8 9 10 11 19 20] 69,simple br_if,ln4 = pn2 + -1,ln4 + -1,ln4,ln4 = ln4 + -1
+oxipng,94,20,[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 17 18 19 20] 149 + (list_sum([|f165|; |f413|])),simple br_if,ln1 = pn2 + -1,ln1 + -1,ln1,ln1 = ln1 + -1
+oxipng,94,20,[0 1 2 3 4 5 6 7 8 9 10 11 12 13 16 17 18 19 20] 141 + (list_sum([|f165|; |f413|])),simple br_if,ln1 = pn2 + -1,ln1 + -1,ln1,ln1 = ln1 + -1
+oxipng,94,20,[0 1 2 3 4 5 6 7 8 9 10 11 19 20] 76 + |f413|,simple br_if,ln1 = pn2 + -1,ln1 + -1,ln1,ln1 = ln1 + -1
+oxipng,94,20,[0 1 2 3 4 5 8 9 10 11 12 13 14 17 18 19 20] 142 + |f165|,simple br_if,ln1 = pn2 + -1,ln1 + -1,ln1,ln1 = ln1 + -1
+oxipng,94,20,[0 1 2 3 4 5 8 9 10 11 12 13 16 17 18 19 20] 134 + |f165|,simple br_if,ln1 = pn2 + -1,ln1 + -1,ln1,ln1 = ln1 + -1
+oxipng,94,20,[0 1 2 3 4 5 8 9 10 11 19 20] 69,simple br_if,ln1 = pn2 + -1,ln1 + -1,ln1,ln1 = ln1 + -1
 oxipng,95,6,[0 1 2 3 4 5 6] 28,if
 oxipng,97,2,[0 1 2] 18,loop
 oxipng,97,11,[0 1 10 11] 20,simple br_if,pn2 = pn2,pn2 + -1,pn2,pn2 = pn2 + -1
@@ -182,9 +182,9 @@ oxipng,101,6,[0 1 2 3 4 5 6] 20,if
 oxipng,103,8,[0 1 2 3 4 5 6 7 8] 63 + |f266|,if
 oxipng,103,18,[0 1 2 3 4 5 6 7 15 16 17 18] 74 + |f266|,if
 oxipng,103,24,[0 1 2 3 4 5 6 7 15 16 17 23 24] 74 + |f266|,if
-oxipng,105,23,[0 1 2 3 4 5 6 7 8 16 17 18 19 20 23] 55,simple br_if,ln4 = ((pn0)) shl 2,ln4 + -4,ln4,ln4 = ln4 + -4
-oxipng,105,10,[0 1 2 3 4 5 6 7 10] 35,simple br_if,ln4 = ((pn0)) shl 2,ln4 + -4,ln4,ln4 = ln4 + -4
-oxipng,105,23,[0 1 2 3 4 17 18 19 20 23] 38,simple br_if,ln4 = ((pn0)) shl 2,ln4 + -4,ln4,ln4 = ln4 + -4
+oxipng,105,23,[0 1 2 3 4 5 6 7 8 16 17 18 19 20 23] 55,simple br_if,ln2 = ((pn0)) shl 2,ln2 + -4,ln2,ln2 = ln2 + -4
+oxipng,105,10,[0 1 2 3 4 5 6 7 10] 35,simple br_if,ln2 = ((pn0)) shl 2,ln2 + -4,ln2,ln2 = ln2 + -4
+oxipng,105,23,[0 1 2 3 4 17 18 19 20 23] 38,simple br_if,ln2 = ((pn0)) shl 2,ln2 + -4,ln2,ln2 = ln2 + -4
 oxipng,111,11,[0 1 2 3 6 7 8 9 10 11] 110 + (list_sum([|f34|; |f209|; |f354|; |f413|])),if
 oxipng,111,11,[0 1 2 3 6 7 8 10 11] 83 + (list_sum([|f34|; |f209|; |f354|; |f413|])),if
 oxipng,116,10,[0 1 2 3 4 5 6 7 8 9 10] 161,if
@@ -210,11 +210,11 @@ oxipng,127,14,[0 1 2 3 4 12 13 14] 28,if
 oxipng,127,26,[0 1 2 3 4 12 13 24 25 26] 43,if
 oxipng,127,26,[0 1 2 3 4 12 24 25 26] 36,if
 oxipng,129,0,[0] 22,block
-oxipng,130,11,[0 1 2 3 4 5 6 9 10 11] 111 + |f162|,simple br_if,ln4 = 65535,ln4 + -1,ln4,ln4 = ln4 + -1
-oxipng,130,11,[0 1 2 3 4 5 8 9 10 11] 100 + |f162|,simple br_if,ln4 = 65535,ln4 + -1,ln4,ln4 = ln4 + -1
-oxipng,130,11,[0 1 2 11] 27,simple br_if,ln4 = 65535,ln4 + -1,ln4,ln4 = ln4 + -1
+oxipng,130,11,[0 1 2 3 4 5 6 9 10 11] 111 + |f162|,simple br_if,ln3 = 65535,ln3 + -1,ln3,ln3 = ln3 + -1
+oxipng,130,11,[0 1 2 3 4 5 8 9 10 11] 100 + |f162|,simple br_if,ln3 = 65535,ln3 + -1,ln3,ln3 = ln3 + -1
+oxipng,130,11,[0 1 2 11] 27,simple br_if,ln3 = 65535,ln3 + -1,ln3,ln3 = ln3 + -1
 oxipng,133,7,[0 1 2 3 4 5 6 7] 18,if
-oxipng,135,4,[0 1 4] 22,simple br_if,ln5 = ((pn1)) shl 3,ln5 + -8,ln5,ln5 = ln5 + -8
+oxipng,135,4,[0 1 4] 22,simple br_if,ln3 = ((pn1)) shl 3,ln3 + -8,ln3,ln3 = ln3 + -8
 oxipng,137,20,[0 1 2 3 4 5 19 20] 30,if
 oxipng,137,9,[0 1 2 3 4 8 9] 26,if
 oxipng,138,4,[0 1 4] 13,simple br_if,pN0 = pN0,pN0 > 99999999,pN0,pN0 = pN0 /u 10000
@@ -227,18 +227,18 @@ oxipng,150,4,[0 1 2 3 4] 16,block
 oxipng,153,3,[0 1 2 3] 18,if
 oxipng,160,2,[0 1 2] 20 + |f413|,if
 oxipng,161,4,[0 3 4] 12,if
-oxipng,167,0,[0] 7,simple br_if,ln6 = pn1 shl 2,ln6 + -4,ln6,ln6 = ln6 + -4
+oxipng,167,0,[0] 7,simple br_if,ln2 = pn1 shl 2,ln2 + -4,ln2,ln2 = ln2 + -4
 oxipng,168,2,[0 1 2] 11,if
 oxipng,174,1,[0 1] 27,block
 oxipng,177,4,[0 1 4] 28 + |f258|,if
 oxipng,183,3,[0 1 2 3] 71 + (list_sum([|f218|; |f235|; |f354|])),simple br_if,rn0 = rn0,rn0,rn0,rn0 = rn0
 oxipng,186,1,[0 1] 23,block
-oxipng,187,6,[0 1 2 3 4 5 6] 61 + |f177|,simple br_if,ln5 = g0 - 32,((i32.load@(ln5)) + -8) > 0,ln5,ln5 = ln5
-oxipng,189,1,[0 1] 47 + |f197|,simple br,ln6 = ((((pn1)) shr_u 3) + ((((pn1)) && 7) != 0)) + -1; ln2 = 0,i32.eqz(ln2 == ln6),ln2; ln6,ln6 = ln6; ln2 = ln2
+oxipng,187,6,[0 1 2 3 4 5 6] 61 + |f177|,simple br_if,ln0 = g0 - 32,((i32.load@(ln0)) + -8) > 0,ln0,ln0 = ln0
+oxipng,189,1,[0 1] 47 + |f197|,simple br,ln4 = ((((pn1)) shr_u 3) + ((((pn1)) && 7) != 0)) + -1; ln0 = 0,i32.eqz(ln0 == ln4),ln0; ln4,ln4 = ln4; ln0 = ln0
 oxipng,191,6,[0 1 2 3 4 5 6] 58 + |f304|,if
-oxipng,201,1,[0 1] 42 + (list_sum([|f188|; |f275|])),simple br_if,ln5 = pn1 + -1,ln5 + -1,ln5,ln5 = ln5 + -1
+oxipng,201,1,[0 1] 42 + (list_sum([|f188|; |f275|])),simple br_if,ln3 = pn1 + -1,ln3 + -1,ln3,ln3 = ln3 + -1
 oxipng,204,6,[0 1 2 5 6] 34 + |f349|,if
-oxipng,206,0,[0] 33 + (list_sum([|f130|; |f176|])),simple br_if,ln3 = ln3,(((ln3 shl 16) + 65536) shr_s 16) > -1,ln3,ln3 = ((ln3 shl 16) + 65536) shr_s 16
+oxipng,206,0,[0] 33 + (list_sum([|f130|; |f176|])),simple br_if,ln2 = ln2,(((ln2 shl 16) + 65536) shr_s 16) > -1,ln2,ln2 = ((ln2 shl 16) + 65536) shr_s 16
 oxipng,210,0,[0] 5,if
 oxipng,213,0,[0] 5,if
 oxipng,214,3,[0 1 2 3] 27,if
@@ -246,12 +246,12 @@ oxipng,218,3,[0 1 2 3] 14,if
 oxipng,219,3,[0 1 2 3] 35,if
 oxipng,223,3,[0 1 2 3] 17,if
 oxipng,227,6,[0 1 2 3 4 5 6] 40,if
-oxipng,229,1,[0 1] 25 + |f317|,simple br_if,ln2 = 3,(ln2 && 255) < 8,ln2,ln2 = ln2 + 1
-oxipng,229,5,[0 5] 19 + |f354|,simple br_if,ln2 = 1,(ln2 && 255) < 4,ln2,ln2 = ln2 + 1
-oxipng,230,1,[0 1] 40 + (list_sum([|f185|; |f303|])),simple br_if,ln6 = pn2 + -1,ln6 + -1,ln6,ln6 = ln6 + -1
-oxipng,236,0,[0] 11,simple br_if,ln2 = (pn0),ln2 shr_u 4,ln2,ln2 = ln2 shr_u 4
-oxipng,237,0,[0] 11,simple br_if,ln2 = (pn0),ln2 shr_u 4,ln2,ln2 = ln2 shr_u 4
-oxipng,240,0,[0] 11,simple br_if,ln2 = (pn0),ln2 shr_u 4,ln2,ln2 = ln2 shr_u 4
+oxipng,229,1,[0 1] 25 + |f317|,simple br_if,ln0 = 3,(ln0 && 255) < 8,ln0,ln0 = ln0 + 1
+oxipng,229,5,[0 5] 19 + |f354|,simple br_if,ln0 = 1,(ln0 && 255) < 4,ln0,ln0 = ln0 + 1
+oxipng,230,1,[0 1] 40 + (list_sum([|f185|; |f303|])),simple br_if,ln3 = pn2 + -1,ln3 + -1,ln3,ln3 = ln3 + -1
+oxipng,236,0,[0] 11,simple br_if,ln0 = (pn0),ln0 shr_u 4,ln0,ln0 = ln0 shr_u 4
+oxipng,237,0,[0] 11,simple br_if,ln0 = (pn0),ln0 shr_u 4,ln0,ln0 = ln0 shr_u 4
+oxipng,240,0,[0] 11,simple br_if,ln0 = (pn0),ln0 shr_u 4,ln0,ln0 = ln0 shr_u 4
 oxipng,242,8,[0 1 2 3 4 7 8] 29,if
 oxipng,243,0,[0] 6,simple br_if,pn0 = pn0,(pn0 shr_u 4) && 15,pn0,pn0 = (pn0 shr_u 4) && 15
 oxipng,245,2,[0 1 2] 40 + |f197|,if
@@ -260,21 +260,21 @@ oxipng,252,0,[0] 6,simple br_if,pn0 = pn0,pn0 shr_u 4,pn0,pn0 = pn0 shr_u 4
 oxipng,256,2,[0 1 2] 18,if
 oxipng,258,1,[0 1] 31,if
 oxipng,263,2,[0 1 2] 9,if
-oxipng,264,0,[0] 13,simple br_if,ln4 = ((pn0)) && (i32.wrap_i64(pN1)); ln2 = (pn0),i32.eqz((i32.load@(ln2 + ln4)) && -2139062144),ln2; ln4,ln4 = (ln4 + pn0) && ln3; ln2 = ln2
-oxipng,268,1,[0 1] 25 + |f317|,simple br_if,ln2 = 1,(ln2 && 255) < 2,ln2,ln2 = ln2 + 1
-oxipng,271,0,[0] 12,simple br_if,ln4 = (pn0); ln3 = (pn0); ln2 = i32.wrap_i64(pN1),i32.eqz((i32.load@(ln3 + (ln2 && ln4))) && -2139062144),ln2; ln3; ln4,ln4 = ln4; ln3 = ln3; ln2 = (pn0 + 4) + (ln2 && ln4)
-oxipng,272,1,[0 1] 23 + |f179|,simple br_if,ln5 = pn1 + -1,ln5 + -1,ln5,ln5 = ln5 + -1
+oxipng,264,0,[0] 13,simple br_if,ln2 = ((pn0)) && (i32.wrap_i64(pN1)); ln0 = (pn0),i32.eqz((i32.load@(ln0 + ln2)) && -2139062144),ln0; ln2,ln2 = (ln2 + pn0) && ln1; ln0 = ln0
+oxipng,268,1,[0 1] 25 + |f317|,simple br_if,ln0 = 1,(ln0 && 255) < 2,ln0,ln0 = ln0 + 1
+oxipng,271,0,[0] 12,simple br_if,ln2 = (pn0); ln1 = (pn0); ln0 = i32.wrap_i64(pN1),i32.eqz((i32.load@(ln1 + (ln0 && ln2))) && -2139062144),ln0; ln1; ln2,ln2 = ln2; ln1 = ln1; ln0 = (pn0 + 4) + (ln0 && ln2)
+oxipng,272,1,[0 1] 23 + |f179|,simple br_if,ln2 = pn1 + -1,ln2 + -1,ln2,ln2 = ln2 + -1
 oxipng,273,3,[0 1 2 3] 9,simple br_if,pn2 = pn2,pn2 + -1,pn2,pn2 = pn2 + -1
 oxipng,273,9,[0 1 8 9] 17,simple br_if,pn2 = pn2,pn2 + -1,pn2,pn2 = pn2 + -1
 oxipng,276,0,[0] 1,block
 oxipng,280,2,[0 1 2] 9,if
 oxipng,285,3,[0 1 2 3] 31,if
 oxipng,313,1,[0 1] 13,loop
-oxipng,314,0,[0] 12 + |f36|,simple br_if,ln4 = 1096859,(ln4 + 3) != 1096880,ln4,ln4 = ln4 + 3
+oxipng,314,0,[0] 12 + |f36|,simple br_if,ln0 = 1096859,(ln0 + 3) != 1096880,ln0,ln0 = ln0 + 3
 oxipng,326,2,[0 1 2] 5,if
 oxipng,329,1,[0 1] 12,if
 oxipng,330,1,[0 1] 14,if
 oxipng,354,1,[0 1] 5,simple br_if,pn2 = pn2,pn2 + -1,pn2,pn2 = pn2 + -1
-oxipng,361,0,[0] 1,simple br_if,ln2 = ln2,(ln2 + 4) != 16,ln2,ln2 = ln2 + 4
+oxipng,361,0,[0] 1,simple br_if,ln0 = 0,(ln0 + 4) != 16,ln0,ln0 = ln0 + 4
 oxipng,368,1,[0 1] 5,simple br_if,pn2 = pn2,pn2 + -1,pn2,pn2 = pn2 + -1
 oxipng,401,0,[0] 4,br

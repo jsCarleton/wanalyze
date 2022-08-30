@@ -472,7 +472,9 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let w_state       = empty_program_state w param_types local_types in
   let ctx           = {w; w_e; w_state; param_types; local_types} in
   let ebbs          = ebbs_of_bbs ctx bblocks in
+  Printf.printf "got ebbs\n%!";
   let ebb_paths     = paths_of_ebblocks ebbs in
+  Printf.printf "got ebb_paths\n%!";
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     print_function oc w true bblocks fidx type_idx;
@@ -495,6 +497,7 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
     Out_channel.close oc;
   (* costs *)
+  Printf.printf "starting costs\n%!";
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
     (match List.length ebb_paths with
     | 0 -> Out_channel.output_string oc (sprintf "|f%d| = Inf\n" fnum)
@@ -507,6 +510,7 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
               fnum 
               (format_et (simplify (ebb_paths_max_cost ebb_paths)))));
     Out_channel.close oc;
+  Printf.printf "done costs\n%!";
   (* TODO everything after this is diagnostics, not required *)
   (* loop analysis *)
   (match has_loop bblocks with
