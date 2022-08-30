@@ -499,16 +499,15 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   (* costs *)
   Printf.printf "starting costs\n%!";
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
+    Printf.printf "ebb_paths: %d\n%!" (List.length ebb_paths);
+    Out_channel.output_string oc (sprintf "|f%d| = " fnum);
     (match List.length ebb_paths with
-    | 0 -> Out_channel.output_string oc (sprintf "|f%d| = Inf\n" fnum)
-    | 1 -> Out_channel.output_string oc 
-            (sprintf "|f%d| = %s\n" 
-              fnum 
-              (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths)))))
-    | _ -> Out_channel.output_string oc 
-            (sprintf "|f%d| = %s\n" 
-              fnum 
-              (format_et (simplify (ebb_paths_max_cost ebb_paths)))));
+    | 0 -> Out_channel.output_string oc "Inf\n"
+    | 1 -> Out_channel.output_string oc (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths))))
+    | _ -> Printf.printf "getting max cost\n%!";
+           let max_cost = ebb_paths_max_cost ebb_paths in
+           Printf.printf "got max cost\n%!";
+           Out_channel.output_string oc (format_et (simplify max_cost)));
     Out_channel.close oc;
   Printf.printf "done costs\n%!";
   (* TODO everything after this is diagnostics, not required *)
