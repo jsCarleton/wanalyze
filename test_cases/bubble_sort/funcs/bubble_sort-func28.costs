@@ -1,37 +1,33 @@
 |f28| = list_max([
   list_sum([
-    26;
-    1;
+    27;
     Infinity;
     3;
     3;
-    4 + |f7|;
+    4 + |f14|;
     3;
     6
   ]);
-  list_sum([26; 1; Infinity; 3; 6]);
+  list_sum([27; Infinity; 3; 6]);
   list_sum([
-    26;
-    1;
+    27;
     Infinity;
     3;
-    4 + |f7|;
+    4 + |f14|;
     3;
     6
   ]);
   list_sum([
-    26;
-    1;
+    27;
     Infinity;
-    4 + |f7|;
+    4 + |f14|;
     3;
     6
   ]);
-  list_sum([26; 1; Infinity; 3; 6]);
-  list_sum([26; 1; Infinity; 6]);
+  list_sum([27; Infinity; 3; 6]);
+  list_sum([27; Infinity; 6]);
   list_sum([
-    26;
-    1;
+    27;
     Infinity;
     Empty
   ])

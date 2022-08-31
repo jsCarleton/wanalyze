@@ -1,2 +1,2 @@
 gcc -O1 bubble_sort.c -o bubble_sort
-emcc --emit-symbol-map -O1 bubble_sort.c -o bubble_sort.js
+emcc --emit-symbol-map -O1 -sEXPORTED_FUNCTIONS=_main,_bubble bubble_sort.c -o bubble_sort.js
