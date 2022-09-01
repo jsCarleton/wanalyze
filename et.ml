@@ -62,6 +62,9 @@ let rec string_of_et (e: et): string =
         end
       end
 
+let const_args (args: et list): bool =
+  List.for_all ~f:(fun e -> match e with Constant _ -> true | _ -> false) args
+
 let format_et (e: et): string =
 
   let const_args (args: et list): bool =
@@ -129,6 +132,68 @@ let format_et (e: et): string =
   in
 
   format_et' 0 e
+
+let print_et (e: et) p =
+
+  let rec p_el (print_et': int -> et -> unit) ~sep (indent: int) (el: et list) =
+  match el with
+    | []      -> ()
+    | [hd]    -> print_et' indent hd 
+    | hd::tl  -> (print_et' indent hd; p sep; p_el print_et' ~sep:sep indent tl)
+  in
+
+  let rec print_et' (indent: int) (e: et) =
+    match e with
+    | Empty   -> p "Empty" (* empty expression *)
+    | Constant c -> p (string_of_constant_value c)
+    | Variable s -> p s
+    | ExprList el -> p "["; p_el print_et' ~sep:"; " indent el; p "]"
+    | Node n ->
+      (* if it's a list operator we handle the arguments differently *)
+      if String.is_prefix ~prefix:"list_" n.op then
+        (* if the arguments are all constants then we print them on a single line *)
+        if const_args n.args then
+          p (string_of_et e) 
+        else
+          let spaces = (String.make indent ' ') in
+          let spaces2 = (String.make (indent+2) ' ') in
+          p n.op; p "([\n"; p spaces2; p_el print_et' ~sep:(String.concat [";\n"; spaces2]) (indent+2) n.args; p "\n"; p spaces; p "])"
+      else
+        begin
+          match List.length n.args with 
+          | 0 ->  failwith "Invalid expr tree"
+          | 1 ->  (* unary operator *)
+                  p n.op; p "("; print_et' 0 (List.hd_exn n.args); p ")"
+          | 2 ->  (* binary operator *)
+                  let arg1 = List.hd_exn n.args in
+                  let arg2 = List.hd_exn (List.tl_exn n.args) in
+                  begin
+                    match arg1, arg2 with
+                    | Variable _, Variable _ (* binary *)
+                    | Variable _, Constant _
+                    | Constant _, Variable _
+                    | Constant _, Constant _
+                        -> print_et' indent arg1; p " "; p n.op; p " "; print_et' indent arg2
+                    | Node _, Node _
+                        -> p "("; print_et' indent arg1; p ") "; p n.op; p " ("; print_et' indent arg2; p ")" 
+                    | _, Node _
+                        -> print_et' indent arg1; p " "; p n.op; p " ("; print_et' indent arg2; p ")"
+                    | Node _, _
+                        -> p "("; print_et' indent arg1; p ") "; p n.op; p " "; print_et' indent arg2
+                    | _, _
+                        -> p "("; print_et' indent arg1; p ") "; p n.op; p " ("; print_et' indent arg2; p ")" 
+                  end
+          | 3 ->  (* ternary operator *)
+                  let arg1 = List.hd_exn n.args in
+                  let arg2 = List.hd_exn (List.tl_exn n.args) in
+                  let arg3 = List.hd_exn (List.tl_exn (List.tl_exn n.args)) in
+                  p n.op; p "("; print_et' indent arg1; p ", "; print_et' indent arg2; p ", "; print_et' indent arg3; p ")"
+          | _ ->  (* list of operands *)
+                  p n.op; p "("; p_el print_et' ~sep:", " indent n.args; p ")"
+        end
+  in
+
+  print_et' 0 e
 
 let vars_of_et (tree: et): string list =
 

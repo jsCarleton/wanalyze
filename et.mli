@@ -8,6 +8,7 @@ type et = Empty | Constant of constant_value | Variable of string
 
 val string_of_et: et -> string
 val format_et:    et -> string
+val print_et:     et -> (string -> unit) -> unit
 val vars_of_et:   et -> string list
 val compare:      et -> et -> int
 val simplify:     et -> et

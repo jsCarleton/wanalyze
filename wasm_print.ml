@@ -502,12 +502,14 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
     Printf.printf "ebb_paths: %d\n%!" (List.length ebb_paths);
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
     (match List.length ebb_paths with
-    | 0 -> Out_channel.output_string oc "Inf\n"
+    | 0 -> Out_channel.output_string oc "Inf"
     | 1 -> Out_channel.output_string oc (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths))))
-    | _ -> Printf.printf "getting max cost\n%!";
+    | _ -> (Printf.printf "getting max cost\n%!";
            let max_cost = ebb_paths_max_cost ebb_paths in
+           let p = Out_channel.output_string oc in
            Printf.printf "got max cost\n%!";
-           Out_channel.output_string oc (format_et (simplify max_cost)));
+           print_et (simplify max_cost) p));
+    Out_channel.output_string oc "\n";
     Out_channel.close oc;
   Printf.printf "done costs\n%!";
   (* TODO everything after this is diagnostics, not required *)

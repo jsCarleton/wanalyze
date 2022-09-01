@@ -1,16 +1,81 @@
-function 16 cost: 26
-function 17 cost: 27
-function 18 cost: 27
-function 19 cost: 20
-function 20 cost: 26
-function 21 cost: 21
-function 22 cost: 27
-function 23 cost: 26
-function 24 cost: 37
-function 25 cost: 21
-function 26 cost: 21
-function 27 cost: 35
-function 28 cost: 20
+function 16 got ebbs
+got ebb_paths
+cost: 26
+starting costs
+ebb_paths: 1
+done costs
+function 17 got ebbs
+got ebb_paths
+cost: 27
+starting costs
+ebb_paths: 1
+done costs
+function 18 got ebbs
+got ebb_paths
+cost: 27
+starting costs
+ebb_paths: 1
+done costs
+function 19 got ebbs
+got ebb_paths
+cost: 20
+starting costs
+ebb_paths: 1
+done costs
+function 20 got ebbs
+got ebb_paths
+cost: 26
+starting costs
+ebb_paths: 1
+done costs
+function 21 got ebbs
+got ebb_paths
+cost: 21
+starting costs
+ebb_paths: 1
+done costs
+function 22 got ebbs
+got ebb_paths
+cost: 27
+starting costs
+ebb_paths: 1
+done costs
+function 23 got ebbs
+got ebb_paths
+cost: 26
+starting costs
+ebb_paths: 1
+done costs
+function 24 got ebbs
+got ebb_paths
+cost: 37
+starting costs
+ebb_paths: 1
+done costs
+function 25 got ebbs
+got ebb_paths
+cost: 21
+starting costs
+ebb_paths: 1
+done costs
+function 26 got ebbs
+got ebb_paths
+cost: 21
+starting costs
+ebb_paths: 1
+done costs
+function 27 got ebbs
+got ebb_paths
+cost: 35
+starting costs
+ebb_paths: 1
+done costs
+function 28 got ebbs
+got ebb_paths
+cost: 20
+starting costs
+ebb_paths: 1
+done costs
 function 29 Finishing loop 5
 code paths from: 0 to 4: 1
 ulvs: 1
@@ -45,7 +110,14 @@ ulv_bbs: 2
 loop vars: ln0, pn0
 ln0 []
 pn0 []
+got ebbs
+got ebb_paths
 cost: 52
+starting costs
+ebb_paths: 4
+getting max cost
+got max cost
+done costs
 function 30 Finishing loop 2
 code paths from: 0 to 1: 1
 ulvs: 1
@@ -73,9 +145,26 @@ ulv_bbs: 2
 loop vars: ln1, pn0
 ln1 []
 pn0 []
+got ebbs
+got ebb_paths
 cost: 62
-function 31 cost: 32
-function 32 cost: 4
+starting costs
+ebb_paths: 2
+getting max cost
+got max cost
+done costs
+function 31 got ebbs
+got ebb_paths
+cost: 32
+starting costs
+ebb_paths: 1
+done costs
+function 32 got ebbs
+got ebb_paths
+cost: 4
+starting costs
+ebb_paths: 1
+done costs
 function 33 Finishing loop 31
 code paths from: 0 to 30: 2
 ulvs: 1
@@ -101,7 +190,14 @@ ulvs: 1
 ulv_bbs: 1
 loop vars: rn0
 rn0 []
+got ebbs
+got ebb_paths
 cost: 605
+starting costs
+ebb_paths: 769
+getting max cost
+got max cost
+done costs
 function 34 Finishing loop 32
 code paths from: 0 to 31: 4
 ulvs: 3
@@ -193,7 +289,12 @@ ulv_bbs: 2
 loop vars: ln5, rn0
 ln5 []
 rn0 []
+got ebbs
+got ebb_paths
 cost: 1141
+starting costs
+ebb_paths: 0
+done costs
 function 35 Finishing loop 5
 code paths from: 0 to 4: 1
 ulvs: 2
@@ -201,18 +302,52 @@ ulv_bbs: 2
 loop vars: ln72, ln8
 ln72 []
 ln8 []
+got ebbs
+got ebb_paths
 cost: 7700
-function 36 cost: 590
-function 37 cost: 20
-function 38 cost: 87
-function 39 cost: 5716
+starting costs
+ebb_paths: 3
+getting max cost
+got max cost
+done costs
+function 36 got ebbs
+got ebb_paths
+cost: 590
+starting costs
+ebb_paths: 1
+done costs
+function 37 got ebbs
+got ebb_paths
+cost: 20
+starting costs
+ebb_paths: 1
+done costs
+function 38 got ebbs
+got ebb_paths
+cost: 87
+starting costs
+ebb_paths: 1
+done costs
+function 39 got ebbs
+got ebb_paths
+cost: 5716
+starting costs
+ebb_paths: 1
+done costs
 function 40 Finishing loop 11
 code paths from: 0 to 10: 2
 ulvs: 1
 ulv_bbs: 1
 loop vars: rn0
 rn0 []
+got ebbs
+got ebb_paths
 cost: 57
+starting costs
+ebb_paths: 4
+getting max cost
+got max cost
+done costs
 function 41 Finishing loop 9
 code paths from: 0 to 8: 4
 ulvs: 3
@@ -221,7 +356,14 @@ loop vars: ln0, ln2, rn0
 ln0 []
 ln2 []
 rn0 []
+got ebbs
+got ebb_paths
 cost: 212
+starting costs
+ebb_paths: 4
+getting max cost
+got max cost
+done costs
 function 42 Finishing loop 5
 Finishing loop 10
 code paths from: 5 to 9: 2
@@ -235,7 +377,14 @@ ulv_bbs: 2
 loop vars: ln0, pn2
 ln0 []
 pn2 []
+got ebbs
+got ebb_paths
 cost: 5862
+starting costs
+ebb_paths: 3
+getting max cost
+got max cost
+done costs
 function 43 Finishing loop 7
 Finishing loop 12
 code paths from: 7 to 11: 2
@@ -255,7 +404,14 @@ ulv_bbs: 2
 loop vars: ln1, pn2
 ln1 []
 pn2 []
+got ebbs
+got ebb_paths
 cost: 4628
+starting costs
+ebb_paths: 3
+getting max cost
+got max cost
+done costs
 function 44 Finishing loop 4
 code paths from: 0 to 3: 1
 ulvs: 2
@@ -263,7 +419,14 @@ ulv_bbs: 2
 loop vars: ln11, pN4
 ln11 [4]
 pN4 []
+got ebbs
+got ebb_paths
 cost: 560
+starting costs
+ebb_paths: 2
+getting max cost
+got max cost
+done costs
 function 45 Finishing loop 7
 code paths from: 0 to 6: 1
 ulvs: 1
@@ -295,26 +458,98 @@ ulvs: 1
 ulv_bbs: 1
 loop vars: lN4
 lN4 []
+got ebbs
+got ebb_paths
 cost: 321
-function 46 cost: 3
-function 47 cost: 26
-function 48 cost: 5
-function 49 cost: 4
-function 50 cost: 9
-function 51 cost: 2
-function 52 cost: 67
-function 53 cost: 61
-function 54 cost: 39
-function 55 cost: 46
-function 56 cost: 5
-function 57 cost: 43
+starting costs
+ebb_paths: 3
+getting max cost
+got max cost
+done costs
+function 46 got ebbs
+got ebb_paths
+cost: 3
+starting costs
+ebb_paths: 1
+done costs
+function 47 got ebbs
+got ebb_paths
+cost: 26
+starting costs
+ebb_paths: 1
+done costs
+function 48 got ebbs
+got ebb_paths
+cost: 5
+starting costs
+ebb_paths: 1
+done costs
+function 49 got ebbs
+got ebb_paths
+cost: 4
+starting costs
+ebb_paths: 1
+done costs
+function 50 got ebbs
+got ebb_paths
+cost: 9
+starting costs
+ebb_paths: 1
+done costs
+function 51 got ebbs
+got ebb_paths
+cost: 2
+starting costs
+ebb_paths: 1
+done costs
+function 52 got ebbs
+got ebb_paths
+cost: 67
+starting costs
+ebb_paths: 1
+done costs
+function 53 got ebbs
+got ebb_paths
+cost: 61
+starting costs
+ebb_paths: 1
+done costs
+function 54 got ebbs
+got ebb_paths
+cost: 39
+starting costs
+ebb_paths: 1
+done costs
+function 55 got ebbs
+got ebb_paths
+cost: 46
+starting costs
+ebb_paths: 1
+done costs
+function 56 got ebbs
+got ebb_paths
+cost: 5
+starting costs
+ebb_paths: 1
+done costs
+function 57 got ebbs
+got ebb_paths
+cost: 43
+starting costs
+ebb_paths: 1
+done costs
 function 58 Finishing loop 4
 code paths from: 0 to 3: 2
 ulvs: 1
 ulv_bbs: 1
 loop vars: ln0
 ln0 []
+got ebbs
+got ebb_paths
 cost: 5268
+starting costs
+ebb_paths: 1
+done costs
 function 59 Finishing loop 4
 code paths from: 0 to 3: 1
 ulvs: 2
@@ -322,20 +557,62 @@ ulv_bbs: 2
 loop vars: pn1, pn2
 pn1 []
 pn2 []
+got ebbs
+got ebb_paths
 cost: 4933
-function 60 cost: 380
-function 61 cost: 43
-function 62 cost: 46
+starting costs
+ebb_paths: 2
+getting max cost
+got max cost
+done costs
+function 60 got ebbs
+got ebb_paths
+cost: 380
+starting costs
+ebb_paths: 1
+done costs
+function 61 got ebbs
+got ebb_paths
+cost: 43
+starting costs
+ebb_paths: 1
+done costs
+function 62 got ebbs
+got ebb_paths
+cost: 46
+starting costs
+ebb_paths: 1
+done costs
 function 63 Finishing loop 9
 code paths from: 0 to 8: 8
 ulvs: 1
 ulv_bbs: 1
 loop vars: ln1
 ln1 [9]
+got ebbs
+got ebb_paths
 cost: 2300
-function 64 cost: 109
-function 65 cost: 3
-function 66 cost: 106
+starting costs
+ebb_paths: 1
+done costs
+function 64 got ebbs
+got ebb_paths
+cost: 109
+starting costs
+ebb_paths: 1
+done costs
+function 65 got ebbs
+got ebb_paths
+cost: 3
+starting costs
+ebb_paths: 1
+done costs
+function 66 got ebbs
+got ebb_paths
+cost: 106
+starting costs
+ebb_paths: 1
+done costs
 function 67 Finishing loop 1
 code paths from: 0 to 0: 1
 ulvs: 1
@@ -348,7 +625,12 @@ ulvs: 1
 ulv_bbs: 1
 loop vars: ln50
 ln50 [6]
+got ebbs
+got ebb_paths
 cost: 7064
+starting costs
+ebb_paths: 1
+done costs
 function 68 Finishing loop 5
 code paths from: 0 to 4: 1
 ulvs: 2
@@ -356,16 +638,38 @@ ulv_bbs: 2
 loop vars: ln1, ln46
 ln1 []
 ln46 []
+got ebbs
+got ebb_paths
 cost: 7269
-function 69 cost: 52
-function 70 cost: 49
+starting costs
+ebb_paths: 3
+getting max cost
+got max cost
+done costs
+function 69 got ebbs
+got ebb_paths
+cost: 52
+starting costs
+ebb_paths: 1
+done costs
+function 70 got ebbs
+got ebb_paths
+cost: 49
+starting costs
+ebb_paths: 1
+done costs
 function 71 Finishing loop 12
 code paths from: 0 to 11: 12
 ulvs: 1
 ulv_bbs: 1
 loop vars: ln1
 ln1 [12]
+got ebbs
+got ebb_paths
 cost: 228
+starting costs
+ebb_paths: 1
+done costs
 function 72 Finishing loop 4
 code paths from: 0 to 3: 1
 ulvs: 2
@@ -373,7 +677,14 @@ ulv_bbs: 2
 loop vars: ln12, pN4
 ln12 [4]
 pN4 []
+got ebbs
+got ebb_paths
 cost: 549
+starting costs
+ebb_paths: 2
+getting max cost
+got max cost
+done costs
 function 73 Finishing loop 4
 code paths from: 0 to 3: 1
 ulvs: 2
@@ -381,8 +692,20 @@ ulv_bbs: 2
 loop vars: ln11, pN3
 ln11 [4]
 pN3 []
+got ebbs
+got ebb_paths
 cost: 355
-function 74 cost: 2
+starting costs
+ebb_paths: 2
+getting max cost
+got max cost
+done costs
+function 74 got ebbs
+got ebb_paths
+cost: 2
+starting costs
+ebb_paths: 1
+done costs
 function 75 Finishing loop 4
 code paths from: 0 to 3: 1
 ulvs: 2
@@ -390,9 +713,26 @@ ulv_bbs: 2
 loop vars: pN2, pn1
 pN2 []
 pn1 [4]
+got ebbs
+got ebb_paths
 cost: 152
-function 76 cost: 104
-function 77 cost: 158
+starting costs
+ebb_paths: 2
+getting max cost
+got max cost
+done costs
+function 76 got ebbs
+got ebb_paths
+cost: 104
+starting costs
+ebb_paths: 1
+done costs
+function 77 got ebbs
+got ebb_paths
+cost: 158
+starting costs
+ebb_paths: 1
+done costs
 function 78 Finishing loop 4
 code paths from: 0 to 3: 1
 ulvs: 2
@@ -400,9 +740,41 @@ ulv_bbs: 2
 loop vars: ln0, ln1
 ln0 []
 ln1 [4]
+got ebbs
+got ebb_paths
 cost: 109
-function 79 cost: 67
-function 80 cost: 113
-function 81 cost: 27
-function 82 cost: 2
-function 83 cost: 21
+starting costs
+ebb_paths: 2
+getting max cost
+got max cost
+done costs
+function 79 got ebbs
+got ebb_paths
+cost: 67
+starting costs
+ebb_paths: 1
+done costs
+function 80 got ebbs
+got ebb_paths
+cost: 113
+starting costs
+ebb_paths: 1
+done costs
+function 81 got ebbs
+got ebb_paths
+cost: 27
+starting costs
+ebb_paths: 1
+done costs
+function 82 got ebbs
+got ebb_paths
+cost: 2
+starting costs
+ebb_paths: 1
+done costs
+function 83 got ebbs
+got ebb_paths
+cost: 21
+starting costs
+ebb_paths: 1
+done costs
