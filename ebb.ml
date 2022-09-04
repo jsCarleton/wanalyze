@@ -218,30 +218,22 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                       op = "I";
                       args = [  ExprList (List.map ~f:(fun lv -> Variable lv) lmi.loop_vars);
                                 ExprList [lmi.loop_cond];
-                                ExprList (List.map ~f:(fun lvev -> Variable (Ssa.string_of_ssa lvev)) lmi.lv_entry_vals);
-                                ExprList (List.map ~f:(fun lvlv -> Variable (Ssa.string_of_ssa lvlv)) lmi.lv_loop_vals)
+                                ExprList (List.map ~f:(fun lvev -> Constant (String_value (Ssa.string_of_ssa lvev))) lmi.lv_entry_vals); (* TODO improve this *)
+                                ExprList (List.map ~f:(fun lvlv -> Constant (String_value (Ssa.string_of_ssa lvlv))) lmi.lv_loop_vals)
                               ]}
                   ]}
   in
 
-  let unique_loop_vars (lms: Cost.loop_metric list): string list =
-    List.dedup_and_sort ~compare:String.compare
+  let unique_loop_vars (lms: Cost.loop_metric list): var list =
+    List.dedup_and_sort ~compare:compare_vars
       (List.fold ~init:[] ~f:(fun acc lm -> match lm with | Infinite -> acc | LMI lm ->List.append lm.loop_vars acc) lms)
   in
 
-  let idx_of_params (params: string list): int list =
-    List.map
-      ~f:(fun p ->
-        let idx = int_of_string (String.sub p ~pos:2 ~len:((String.length p) - 2)) in
-        match String.sub p ~pos:0 ~len:1 with 
-        | "p" -> idx
-        | "l" -> (idx + (List.length ctx.param_types))
-        | "r" -> -1
-        | _ -> failwith "Invalid parameter type")
-      params
+  let idx_of_params (params: var list): int list =
+    List.map ~f:(fun p -> p.idx) params
   in
 
-  let bblocks_of_parameters (bblocks: bb list) (entry_bb: bb) (params: string list): bb list list =
+  let bblocks_of_parameters (bblocks: bb list) (entry_bb: bb) (params: var list): bb list list =
     let idx = idx_of_params params in
     List.map
       ~f:(fun i ->
@@ -269,7 +261,6 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
-        Printf.printf "Finishing %s %d\n%!" (string_of_ebb_type ebbtype) (entry_bb.bbindex);
         let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
         let loop_cps  = looping_paths_of_loop_bblocks bblocks in
         if List.length loop_cps > 0 then
@@ -287,10 +278,6 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let lms = looping_parts_costs bbacks loop_cps cp in
             let ulv = unique_loop_vars lms in
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
-            Printf.printf "ulvs: %d\n%!" (List.length ulv);
-            Printf.printf "ulv_bbs: %d\n%!" (List.length ulv_bb);
-            Printf.printf "loop vars: %s\n%!" (String.concat ~sep:", " ulv);
-            Printf.printf "%s%!" (String.concat (List.map2_exn ~f:(fun v bbs -> sprintf "%s %s\n" v (string_of_bbs bbs)) ulv ulv_bb));
             let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
             if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length cp > 0) then
               begin

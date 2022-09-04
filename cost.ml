@@ -5,7 +5,7 @@ type loop_metric_info =
   prefix_cost:      Et.et;  (* the cost of the prefix portion of the loop *)
   loop_cost:        Et.et;  (* cost of the loop portion of the loop *)
   loop_cond:        Et.et;  (* the condition under which the loop iterates *)
-  loop_vars:        string list;    (* the names of the variables that appear in the loop_cond *)
+  loop_vars:        Et.var list;    (* the names of the variables that appear in the loop_cond *)
   lv_entry_vals:    Ssa.ssa list;   (* loop variable values, in ssa form, at the beginning of the loop *)
   lv_loop_vals:     Ssa.ssa list;   (* loop variable values, in sss form, when the branchback block has been executed *)
 }
@@ -145,10 +145,7 @@ let cost_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): int =
 	in
 
 	let rec path_cost' (end_bb: Bb.bb) (pcil: path_cost_info list): int =
-(*     Printf.printf 
-    "pcil:\n%s%!" 
-    (String.concat (List.map ~f:(fun x -> sprintf "  bb: %d cost: %d\n" x.terminal.bbindex x.cost) pcil));
- *)    match pcil with
+    match pcil with
     | [] -> -1
     | _  ->
       let pcil' = List.sort ~compare:pci_compare pcil in
@@ -163,5 +160,4 @@ let cost_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): int =
       | _ -> -1
 	in
 	
-(*   Printf.printf " start: %d end: %d\n%!" start_bb.bbindex end_bb.bbindex;
- *)  path_cost' end_bb [{terminal=start_bb; cost=0}]
+path_cost' end_bb [{terminal=start_bb; cost=0}]

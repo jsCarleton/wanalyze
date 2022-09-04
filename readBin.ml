@@ -172,7 +172,7 @@ let read_mut ic =
   let mut_type = read_byte ic in
   match mut_type with
   | 0x00 -> Const
-  | 0x01 -> Var
+  | 0x01 -> NotConst
   | _ -> failwith (sprintf "Invalid mut %x!" mut_type;)
 
 let read_valtype ic =

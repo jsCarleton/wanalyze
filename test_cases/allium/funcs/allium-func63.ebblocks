@@ -13,7 +13,7 @@ ebb entry:  8
 ebb entry:  9
   ebb type:   loop
   ebb blocks: [9 10]
-  ebb cost:   ((1710 + |f16|) * (I([ln1], [(ln1 + 2) < 10], [ln1 = rn0 < 56], [ln1 = 0 + 2]))) + 1
+  ebb cost:   ((1710 + |f16|) * (I([ln3], [(ln3 + 2) < 10], [ln3 = rn0 < 56], [ln3 = 0 + 2]))) + 1
   ebb exits:  [11]
   ebb succs:  [11]
   1 paths to exit 11

@@ -3,14 +3,42 @@ open Easy_logging
 open Wm
 open Et
 
+type program_state =
+{
+  mutable instr_count:    int;
+  mutable value_stack:    et list;
+  mutable local_values:   et array;
+  mutable global_values:  et array;
+}
+
+type program_states = program_state list
+type pending_states = program_states option list
+
+type states =
+{
+  mutable active:   program_states;
+  mutable pending:  pending_states;
+  mutable final:    program_states;
+}
+
+type execution =
+{
+  eindex:             int;            (* the index of the bb being executed *)
+  pred_index:         int;
+  succ_index:         int;
+  initial:            program_state;  (* the program state before the first instruction of the bb is executed *)
+  mutable final:      program_state;  (* the program state after the last instruction of the bb is executed *)
+  mutable succ_cond:  et;             (* the expression that must be true in order for the first successor state to be entered *) 
+}
+
 type execution_context =
-  {
-      w:              Wm.wm;
-      w_e:            Wm.expr;
-      w_state:        Wm.program_state;
-      param_types:    Wm.resulttype list;
-      local_types:    Wm.local_type list;
-  }
+{
+    w:              Wm.wm;
+    w_e:            Wm.expr;
+    w_state:        program_state;
+    param_types:    Wm.resulttype list;
+    local_types:    Wm.local_type list;
+}
 
 (* 
     n_iglobals
@@ -113,8 +141,8 @@ let et_of_const_arg (arg: op_arg): et =
     | F64value f    -> Constant (Float_value f)
     | _             -> failwith "Invalid const argument"
 
-let et_of_retval (index: int) (rt: resulttype): et =
-  Variable (String.concat ["r"; (string_of_resulttype rt); (string_of_int index)])
+let et_of_retval (idx: int) (nt: valtype): et =
+  Variable { vtype = Var_retvalue; idx; nt; vname = ""}
 
 let et_of_unop (op: string) (arg1: et): et =
   Node {op = op; args = [arg1]}
@@ -295,8 +323,8 @@ let rec reduce_expr (w: wm) (e: expr) (s: program_state): et =
 let et_of_mglobal (w: wm) (e: expr) (s: program_state): et = 
       reduce_expr w e s
 
-let et_of_iglobal (import_name: string) (index: int) (t: valtype):  et =
-  Variable (String.concat ["g"; string_of_resulttype t; string_of_int index; " ("; import_name; ")"])
+let et_of_iglobal (import_name: string) (idx: int) (t: valtype):  et =
+  Variable {vtype = Var_global; idx; nt = t; vname = import_name} 
 
 let rec create_globals (w:wm) (s: program_state) (imports: import list) (globals: global list) (n_imports: int)
           (global_vals: et array) (next: int): et array =

@@ -1,13 +1,66 @@
 open Core
+open Wm
 
-(* expression tree *)
+(* variables *)
+type var_type = Var_parameter | Var_local | Var_retvalue | Var_global | Var_temp | Var_memory
+
+type var =
+  {
+    vtype:  var_type;
+    nt:     valtype;
+    idx:    int;
+    vname:  string;
+   }
+
+let string_of_var (v: var): string =
+  String.concat [
+    (match v.vtype with 
+      | Var_parameter -> "p" 
+      | Var_local     -> "l" 
+      | Var_retvalue  -> "r" 
+      | Var_global    -> "g"
+      | Var_temp      -> "t"
+      | Var_memory    -> "@");
+    (match v.nt with | Numtype I32 -> "n" | Numtype I64 -> "N" | Numtype F32 -> "f" | Numtype F64 -> "F" | _ -> "R");
+    match v.vtype with
+      | Var_parameter | Var_local | Var_retvalue | Var_global | Var_temp -> sprintf "%d" v.idx
+      | Var_memory -> v.vname
+   ]
+
 type constant_value = Int_value of int | Int64_value of int64
       | Float_value of float | String_value of string
 
-type et = Empty | Constant of constant_value | Variable of string 
+type et = Empty | Constant of constant_value | Variable of var 
                | ExprList of et list | Node of node
       and node = { op: string; args: et list }
 
+(* variables *)
+let compare_vars (v1: var) (v2: var): int =
+  String.compare (string_of_var v1) (string_of_var v2)
+
+let rec local_type_of_index (local_types: local_type list) (index: int) (types_index: int) (types_count: int): valtype =
+  match index < types_count + (List.nth_exn local_types types_index).n with
+  | true  -> (List.nth_exn local_types types_index).v
+  | _     -> local_type_of_index local_types index (types_index+1) (types_count + (List.nth_exn local_types types_index).n)
+
+let valtype_of_var (param_types: resulttype list) (local_types: local_type list) (idx: int): valtype =
+  let nparams = List.length param_types in
+  if idx < nparams then
+    List.nth_exn param_types idx
+  else
+    local_type_of_index local_types (idx - nparams) 0 0
+
+let initialize_local_value (local_types: local_type list) (nparams: int) (i: int): constant_value =
+  match local_type_of_index local_types (i - nparams) 0 0 with
+    | Numtype nt ->
+      (match nt with
+        | I32 -> Int_value 0
+        | I64 -> Int64_value 0L
+        | F32
+        | F64 -> Float_value 0.0)
+    | _ -> failwith "Invalid numtype"
+    
+(* expression tree *)
 let string_of_constant_value (c: constant_value): string =
   match c with
   | Int_value     i -> string_of_int i
@@ -19,7 +72,7 @@ let rec string_of_et (e: et): string =
   match e with
     | Empty   -> "Empty" (* empty expression *)
     | Constant c -> string_of_constant_value c
-    | Variable s -> s
+    | Variable v -> (string_of_var v)
     | ExprList el -> String.concat ["["; String.concat ~sep:"; " (List.map ~f:string_of_et el); "]"]
     | Node n  ->
       begin
@@ -75,7 +128,7 @@ let format_et (e: et): string =
     match e with
     | Empty   -> "Empty" (* empty expression *)
     | Constant c -> string_of_constant_value c
-    | Variable s -> s
+    | Variable v -> (string_of_var v)
     | ExprList el -> String.concat ["["; String.concat ~sep:"; " (List.map ~f:(format_et' indent) el); "]"]
     | Node n ->
       (* if it's a list operator we handle the arguments differently *)
@@ -146,7 +199,7 @@ let print_et (e: et) p =
     match e with
     | Empty   -> p "Empty" (* empty expression *)
     | Constant c -> p (string_of_constant_value c)
-    | Variable s -> p s
+    | Variable v -> p (string_of_var v)
     | ExprList el -> p "["; p_el print_et' ~sep:"; " indent el; p "]"
     | Node n ->
       (* if it's a list operator we handle the arguments differently *)
@@ -195,9 +248,9 @@ let print_et (e: et) p =
 
   print_et' 0 e
 
-let vars_of_et (tree: et): string list =
+let vars_of_et (tree: et): var list =
 
-  let rec vars_of_et' (tree: et): string list =
+  let rec vars_of_et' (tree: et): var list =
     match tree with
     | Empty | Constant _  -> 
         []
@@ -214,7 +267,7 @@ let vars_of_et (tree: et): string list =
         end
     in
 
-  List.dedup_and_sort ~compare:String.compare (vars_of_et' tree)
+  List.dedup_and_sort ~compare:compare_vars (vars_of_et' tree)
 
 let rec compare (e1: et) (e2: et): int =
 match e1,e2 with
@@ -226,8 +279,8 @@ match e1,e2 with
       -1
   | Constant c1, Constant c2 ->
       String.compare (string_of_constant_value c1) (string_of_constant_value c2)
-  | Variable s1, Variable s2 ->  
-      String.compare s1 s2
+  | Variable v1, Variable v2 ->  
+      compare_vars v1 v2
   | Node n1, Node n2  ->
       if (String.compare n1.op n2.op = 0) && ((List.length n1.args) = (List.length n2.args)) then
         if List.for_all2_exn ~f:(fun n1_arg n2_arg -> compare n1_arg n2_arg = 0) n1.args n2.args then
@@ -238,6 +291,19 @@ match e1,e2 with
         String.compare n1.op n2.op
   | _, _ ->
       -1
+
+let et_of_local_value (param_types: resulttype list) (local_types: local_type list) (idx: int): et =
+  let nparams = List.length param_types in
+  if idx < nparams then 
+    Variable {vtype = Var_parameter;
+              nt    = List.nth_exn param_types idx; 
+              idx;
+              vname = ""}
+  else
+    Variable {vtype = Var_local;
+              nt    = valtype_of_var param_types local_types idx; 
+              idx;
+              vname = ""}
 
 (**
   simplify

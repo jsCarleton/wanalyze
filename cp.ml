@@ -223,9 +223,7 @@ let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
   let rec codepaths_to_bb (to_bb: bb) (nterm: cp list) (term: cp list) (n_iters: int): cp list option =
     if n_iters > 1_000_000 then
       begin
-(*         Printf.printf "\n> 1M iterations";
-        Printf.printf "\nfrom_bb %d to_bb: %d\n" from_bb.bbindex to_bb.bbindex;
- *)        None
+        None
       end
     else
       match nterm with
@@ -242,11 +240,10 @@ let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
     codepaths_to_bb to_bb [[from_bb]] [] 0
     
 let codepaths_from_to_bb_exn (from_bb: bb) (to_bb: bb): cp list =
-  Printf.printf "code paths from: %d to %d: %!" from_bb.bbindex to_bb.bbindex;
   let cps_o = codepaths_from_to_bb from_bb to_bb in
   match cps_o with
-    | None      -> Printf.printf "none\n%!"; []
-    | Some codepaths  -> Printf.printf "%d\n%!" (List.length codepaths); codepaths
+    | None            -> []
+    | Some codepaths  -> codepaths
 
 (*
     codepaths_from_bbs_to_bb
@@ -301,12 +298,7 @@ let codepaths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): cp list option =
   let rec codepaths_from_to_ebb' (from_bbs: bb list) (to_bb: bb) (nterm: cp list)
       (term: cp list) (n_iters: int): cp list option =
     if n_iters > 1_000_000 then
-    begin
-(*       Printf.printf "\nToo many iterations\n";
-      Printf.printf "from_bbs: %s\n" (string_of_bbs from_bbs);
-      Printf.printf "to_bb: %d\n" (to_bb.bbindex);
- *)      None
-    end
+      None
     else
       match nterm with
         | []        -> Some term
@@ -785,35 +777,6 @@ let loops_classify (loop_classifier: loop*loop -> bool) (ls: loop list): bool =
     match List.find ~f:loop_classifier (all_pairs ls ls ls []) with
     | Some _  -> true
     | _       -> false
-(* 
-let long_path (bblocks: bb list) (lp: loop*loop): bool =
-  let l1 = fst lp in
-  let l2 = snd lp in
-  let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
-  let loop2 = List.hd_exn l2.loop_bblocks in
-  let nsucc =
-  (List.fold_left
-      ~f:(fun acc bb ->
-        if bb.bbindex >= end1.bbindex && bb.bbindex <= loop2.bbindex then
-          acc + (List.length bb.succ)
-        else
-          acc)
-      ~init:0
-      bblocks)
-    - (loop2.bbindex - end1.bbindex) in
-  Printf.printf "total # of successors is %d\n%!" nsucc;
-  nsucc > 120
-
-let too_many (ls: loop list) (bblocks: bb list): bool =
-  List.exists ~f:(long_path bblocks) (all_pairs ls ls ls [])
-
-let classify_loops (ls: loop list) (bblocks: bb list) : loops_class =
-  let too_many_paths = too_many ls bblocks in
-  {
-    loops_series    = if too_many_paths then false else loops_classify loop_pair_series ls;
-    loops_parallel  = if too_many_paths then false else loops_classify loop_pair_parallel ls;
-    loops_nested    = loops_classify loop_pair_nested ls
-  } *)
 
 let classify_loops (ls: loop list): loops_class =
   {

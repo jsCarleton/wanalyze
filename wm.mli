@@ -46,7 +46,7 @@ type memtype = limits
 
 type mut =
   | Const
-  | Var
+  | NotConst
 
 type globaltype = 
 {
@@ -282,39 +282,5 @@ type wm =
   mutable next_data:        int;
 }
 
-type program_state =
-{
-  mutable instr_count:    int;
-  mutable value_stack:    Et.et list;
-  mutable local_values:   Et.et array;
-  mutable global_values:  Et.et array;
-}
-
-type program_states = program_state list
-type pending_states = program_states option list
-
-type states =
-{
-  mutable active:   program_states;
-  mutable pending:  pending_states;
-  mutable final:    program_states;
-}
-
-type execution =
-{
-  eindex:             int;                      (* the index of the bb being executed *)
-  pred_index:         int;
-  succ_index:         int;
-  initial:            program_state;            (* the program state before the first instruction of the bb is executed *)
-  mutable final:      program_state;            (* the program state after the last instruction of the bb is executed *)
-  mutable succ_cond:  Et.et;  (* the expression that must be true in order for the first successor state to be entered *) 
-}
-
-val create                  : string -> wm
-val string_of_resulttype    : resulttype -> string
-val et_of_local_value       : resulttype list -> local_type list -> int -> Et.et
-val string_of_local_value   : resulttype list -> local_type list -> int -> string 
-val string_of_global_value  : int -> string
-val local_value             : local_type list -> int -> int -> Et.constant_value
-val local_name              : local_type list -> int -> int -> string
-val valtype_of_int          : int -> valtype
+val valtype_of_int:         int -> valtype
+val create:                 string -> wm

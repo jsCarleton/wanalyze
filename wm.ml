@@ -1,6 +1,5 @@
 open Core
 open Easy_logging
-open Et
 
 (* Type definitions *)
 (* Part 1 - Module definitions *)
@@ -66,7 +65,7 @@ type memtype = limits
 
 type mut =
   | Const
-  | Var
+  | NotConst
 
 type globaltype = 
 {
@@ -302,89 +301,10 @@ type wm =
   mutable next_data:        int;
 }
 
-(* Type definitions *)
-(* Part 2 - Analysis definitions *)
-(* definitions that our analysis is based on *)
+(* Part 2 *)
 
-(* Program state types *)
-type program_state =
-{
-  mutable instr_count:    int;
-  mutable value_stack:    Et.et list;
-  mutable local_values:   Et.et array;
-  mutable global_values:  Et.et array;
-}
-
-type program_states = program_state list
-type pending_states = program_states option list
-
-type states =
-{
-  mutable active:   program_states;
-  mutable pending:  pending_states;
-  mutable final:    program_states;
-}
-
-type execution =
-{
-  eindex:             int;                      (* the index of the bb being executed *)
-  pred_index:         int;
-  succ_index:         int;
-  initial:            program_state;            (* the program state before the first instruction of the bb is executed *)
-  mutable final:      program_state;            (* the program state after the last instruction of the bb is executed *)
-  mutable succ_cond:  Et.et;  (* the expression that must be true in order for the first successor state to be entered *) 
-}
-
-(* Implementation *)
-(* Part 1 - symbolic variable initialization of locals, parameters and function return values *)
-(* globals need the symbolic execution definitions to be initialized *)
-
-let string_of_resulttype (t: resulttype): string =
-  match t with
-  | Numtype nt ->
-      (match nt with
-        | I32 -> "n"
-        | I64 -> "N"
-        | F32 -> "f"
-        | F64 -> "F")
-  | _ -> "?"
-
-let rec local_type_of_index (local_types: local_type list) (index: int) (types_index: int) (types_count: int): valtype =
-  match index < types_count + (List.nth_exn local_types types_index).n with
-  | true  -> (List.nth_exn local_types types_index).v
-  | _     -> local_type_of_index local_types index (types_index+1) (types_count + (List.nth_exn local_types types_index).n)
-
-let param_name (param_types: resulttype list) (i: int): string =
-  String.concat ["p"; string_of_resulttype (List.nth_exn param_types i); string_of_int i]
-
-let local_value (local_types: local_type list) (nparams: int) (i: int): constant_value =
-  match local_type_of_index local_types (i - nparams) 0 0 with
-    | Numtype nt ->
-      (match nt with
-        | I32 -> Int_value 0
-        | I64 -> Int64_value 0L
-        | F32
-        | F64 -> Float_value 0.0)
-    | _ -> failwith "Invalid numtype"
-
-let local_name (local_types: local_type list) (nparams: int) (i: int): string =
-  String.concat ["l"; string_of_resulttype (local_type_of_index local_types (i - nparams) 0 0); string_of_int (i - nparams)]
-
-let et_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): Et.et =
-  let nparams = List.length param_types in
-  match i < nparams with 
-  | true  -> Variable (param_name param_types i)
-  | _     -> Variable (local_name local_types nparams i)
-
-let string_of_local_value (param_types: resulttype list) (local_types: local_type list) (i: int): string =
-  let nparams = List.length param_types in
-  match i < nparams with 
-  | true  -> param_name param_types i
-  | _     -> local_name local_types nparams i
-
-let string_of_global_value (i: int): string =
-  sprintf "g%d" i
-
+(* Part 3 *)
+(* module constructor *)
 let create name =
   { module_name = name; data_count = 0;
     type_section = []; import_section = []; function_section = []; table_section = []; 

@@ -1,7 +1,7 @@
 |f72| = list_max([
   list_sum([
     592;
-    ((498 + (list_sum([|f16|; |f18|; |f36|]))) * (I([ln12; pN4], [(i64.extend_i32_u(ln12 + 1)) < pN4], [ln12 = ln12; pN4 = pN4], [ln12 = ln12 + 1; pN4 = pN4]))) + 1;
+    ((498 + (list_sum([|f16|; |f18|; |f36|]))) * (I([ln17; pN4], [(i64.extend_i32_u(ln17 + 1)) < pN4], [ln17 = 0; pN4 = pN4], [ln17 = 0 + 1; pN4 = pN4]))) + 1;
     1
   ]);
   49

@@ -30,7 +30,7 @@ let string_of_valtype vt = string_of_resulttype vt
 let string_of_mut m =
   match m with
   | Const -> ""
-  | Var -> "mut"
+  | NotConst -> "mut"
 
 (* Part 2 *)
 (* printing sections *)
@@ -62,7 +62,7 @@ let string_of_globaltype gt i =
                   ";) ";
                   (match gt.m with 
                     | Const -> string_of_valtype gt.t
-                    | Var   -> String.concat["(mut "; string_of_valtype gt.t; ")"]);
+                    | NotConst   -> String.concat["(mut "; string_of_valtype gt.t; ")"]);
                    ")"]
 
 let string_of_description d i =
@@ -253,7 +253,7 @@ let print_expr oc e bblocks annotate =
 
 let print_code oc (w: wm) idx annotate bbs =
   let f = List.nth_exn w.code_section idx in
-  Out_channel.output_string oc (string_of_locals (List.nth_exn w.code_section idx).locals);
+  Out_channel.output_string oc (string_of_locals f.locals);
   print_expr oc f.e bbs annotate
 
 let string_of_bbtype (bbtype: bb_type) : string =
@@ -326,7 +326,7 @@ let string_of_global (g: global) =
                   string_of_int g.gindex ;
                   ";) ";
                   (match g.gt.m with
-                    | Var   -> String.concat["("; string_of_mut g.gt.m; " "; string_of_valtype g.gt.t; ")"]
+                    | NotConst   -> String.concat["("; string_of_mut g.gt.m; " "; string_of_valtype g.gt.t; ")"]
                     | Const -> string_of_valtype g.gt.t);
                   " (";
                   (string_of_inline_expr g.e);
@@ -425,7 +425,7 @@ let loop_info ctx cp_ssa bbs (bb_idx: int) loop_type =
                   ",";
                   (string_of_et loop_cond);
                   ",";
-                  (String.concat ~sep:"; " loop_vars);
+                  (String.concat ~sep:"; " (List.map ~f:(fun lv -> string_of_var lv) loop_vars));
                   ",";
                   (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars) "; " false)]
 
@@ -472,9 +472,7 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let w_state       = empty_program_state w param_types local_types in
   let ctx           = {w; w_e; w_state; param_types; local_types} in
   let ebbs          = ebbs_of_bbs ctx bblocks in
-  Printf.printf "got ebbs\n%!";
   let ebb_paths     = paths_of_ebblocks ebbs in
-  Printf.printf "got ebb_paths\n%!";
   (* function source code *)
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     print_function oc w true bblocks fidx type_idx;
@@ -497,21 +495,16 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
     Out_channel.close oc;
   (* costs *)
-  Printf.printf "starting costs\n%!";
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
-    Printf.printf "ebb_paths: %d\n%!" (List.length ebb_paths);
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
     (match List.length ebb_paths with
     | 0 -> Out_channel.output_string oc "Inf"
     | 1 -> Out_channel.output_string oc (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths))))
-    | _ -> (Printf.printf "getting max cost\n%!";
-           let max_cost = ebb_paths_max_cost ebb_paths in
+    | _ -> (let max_cost = ebb_paths_max_cost ebb_paths in
            let p = Out_channel.output_string oc in
-           Printf.printf "got max cost\n%!";
            print_et (simplify max_cost) p));
     Out_channel.output_string oc "\n";
     Out_channel.close oc;
-  Printf.printf "done costs\n%!";
   (* TODO everything after this is diagnostics, not required *)
   (* loop analysis *)
   (match has_loop bblocks with
