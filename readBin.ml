@@ -109,28 +109,28 @@ let read_section_length ic =
   let n = uLEB ic 32 in
   n
 
-let rec read_section_new' ic entry_handler acc n =
+let rec read_section' ic entry_handler acc n =
   match n with
   | 0 -> List.rev acc
-  | _ -> read_section_new' ic entry_handler ((entry_handler ic) :: acc) (n-1)
+  | _ -> read_section' ic entry_handler ((entry_handler ic) :: acc) (n-1)
 
-let read_section_new ic acc entry_handler =
+let read_section ic acc entry_handler =
   let _: int = read_section_length ic in (* discard the length *)
-  read_section_new' ic entry_handler (List.rev acc) (read_vec_len ic)
+  read_section' ic entry_handler (List.rev acc) (read_vec_len ic)
 
-let rec read_section_new2' ic entry_handler acc1 acc2 n =
+let rec read_section2' ic entry_handler acc1 acc2 n =
   match n with
   | 0 -> List.rev acc1, List.rev acc2
   | _ ->  let a1,a2 = entry_handler ic in
           match a1, a2 with
-          | None,     None      -> read_section_new2' ic entry_handler acc1 acc2 (n-1)
-          | Some a1', None      -> read_section_new2' ic entry_handler (a1'::acc1) acc2 (n-1)
-          | None,     Some a2'  -> read_section_new2' ic entry_handler acc1 (a2'::acc2) (n-1)
-          | Some a1', Some a2'  -> read_section_new2' ic entry_handler (a1'::acc1) (a2'::acc2) (n-1)
+          | None,     None      -> read_section2' ic entry_handler acc1 acc2 (n-1)
+          | Some a1', None      -> read_section2' ic entry_handler (a1'::acc1) acc2 (n-1)
+          | None,     Some a2'  -> read_section2' ic entry_handler acc1 (a2'::acc2) (n-1)
+          | Some a1', Some a2'  -> read_section2' ic entry_handler (a1'::acc1) (a2'::acc2) (n-1)
 
-let read_section_new2 ic entry_handler =
+let read_section2 ic entry_handler =
   let _: int = read_section_length ic in (* discard the length *)
-  read_section_new2' ic entry_handler [] [] (read_vec_len ic)
+  read_section2' ic entry_handler [] [] (read_vec_len ic)
 
 (* Type section *)
 let read_valtype ic = read_byte ic
@@ -144,7 +144,7 @@ let read_type_section' ic =
   | _     -> failwith (sprintf "Invalid function type encoder %x" encoder)
 
 let read_type_section ic =
-  read_section_new ic [] read_type_section'
+  read_section ic [] read_type_section'
 
 (* Import section *)
 let read_limits ic = 
@@ -236,25 +236,25 @@ let read_import_section' w ic =
       | _           -> None)
 
 let read_import_section w ic =
-  read_section_new2 ic (read_import_section' w)
+  read_section2 ic (read_import_section' w)
       
 (* Function section *)
 let read_function_section' ic = read_idx ic
 
 let read_function_section ic acc =
-  read_section_new ic acc read_function_section'
+  read_section ic acc read_function_section'
 
 (* Table section *)
 let read_table_section' ic = read_tabletype ic
 
 let read_table_section ic =
-  read_section_new ic [] read_table_section'
+  read_section ic [] read_table_section'
 
 (* Memory section *)
 let read_memory_section' ic = read_mem_type ic
 
 let read_memory_section ic =
-  read_section_new ic [] read_memory_section'
+  read_section ic [] read_memory_section'
 
 (* Global section *)
 let read_blocktype ic =
@@ -527,7 +527,7 @@ let read_global_section' w ic =
   {gt; e; gindex = index_of_global w}
 
 let read_global_section w ic =
-  read_section_new ic [] (read_global_section' w)
+  read_section ic [] (read_global_section' w)
   
 (* Export section *)
 let read_exportdesc ic =
@@ -545,7 +545,7 @@ let read_export_section' ic =
   {name; desc}
 
 let read_export_section ic =
-  read_section_new ic [] read_export_section'
+  read_section ic [] read_export_section'
 
 (* Start section *)
 let read_start_section ic =
@@ -603,7 +603,7 @@ let read_element_section' ic =
   | _ -> failwith (String.concat ["Invalid element item: " ; (string_of_int element_type)])
 
 let read_element_section ic =
-  read_section_new ic [] read_element_section'
+  read_section ic [] read_element_section'
   
 (* Code section *)
 let read_code_section' ic =
@@ -613,7 +613,7 @@ let read_code_section' ic =
   {locals; e}
 
 let read_code_section ic =
-  read_section_new ic [] read_code_section'
+  read_section ic [] read_code_section'
 
 (* Data section *)
 let read_data ic =
@@ -641,7 +641,7 @@ let read_data_section' w ic =
   {dindex = index_of_data w; details}
 
 let read_data_section w ic =
-  read_section_new ic [] (read_data_section' w)
+  read_section ic [] (read_data_section' w)
 
 (* Data count section *)
 let read_data_count ic =

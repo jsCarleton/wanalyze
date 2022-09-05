@@ -166,16 +166,18 @@ let step_codepath (last_idx: int) (codepath: cp): (cp list)*(cp list) =
     blocks with more than 1 successor.
 *)
 
-let rec codepaths_of_bbs' (last_idx: int) (nterm: cp list) (term: cp list): cp list =
-  match nterm with
-    | []        -> term
-    | hd::tl    ->
-        let n,t = step_codepath last_idx hd in
-            codepaths_of_bbs' last_idx (List.append n tl) (List.append t term)
-
 let codepaths_of_bbs (bblocks: bb list) (nterm: cp list) (term: cp list): cp list =
+
+  let rec codepaths_of_bbs' (last_idx: int) (nterm: cp list) (term: cp list): cp list =
+    match nterm with
+      | []        -> term
+      | hd::tl    ->
+          let n,t = step_codepath last_idx hd in
+              codepaths_of_bbs' last_idx (List.append n tl) (List.append t term)
+  in
+
   let last_idx = (List.nth_exn bblocks ((List.length bblocks)-1)).bbindex in
-  match (mult_succ_count bblocks) < 24 with   (* hack to prevent this code from running for a very long time *)
+  match (mult_succ_count bblocks) < 29 with   (* hack to prevent this code from running for a very long time *)
     | true  -> List.map ~f:List.rev (codepaths_of_bbs' last_idx nterm term)
     | false -> []  
 

@@ -273,12 +273,14 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let cp =
               (match Cp.codepaths_from_to_bb_exn root_bb (back_pred entry_bb) with
               | [] -> []
+              (* TODO why do we only consider one prefix? *)
               | cp  -> List.rev (List.hd_exn cp)) in (* TODO this reverse should be done earlier *)
             let bbacks = Cp.branchbacks_of_loop bblocks in 
             let lms = looping_parts_costs bbacks loop_cps cp in
             let ulv = unique_loop_vars lms in
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
             let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
+            (* *)
             if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length cp > 0) then
               begin
                 (* do we have more than 1 set of loop metrics to consider? *)
@@ -308,6 +310,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                   end
               end
             else
+              (* this happens when there are too many loop prefixes and we give up trying to enumerate them *)
               begin
                 let cost       =  Constant (String_value "Infinity-z") in
                 {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
@@ -316,6 +319,9 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
         else
           (* this happens when there are too many looping paths and we give up trying to enumerate them *)
           begin 
+            Printf.printf " entry_bb: %d last_bb: %d%!" entry_bb.bbindex (List.nth_exn bblocks ((List.length bblocks) - 1)).bbindex;
+            Printf.printf " exit_bbs: %s%!" (string_of_raw_bblocks exit_bbs);
+            Printf.printf " too many looping paths\n%!";
             let cost        = Constant (String_value "Infinity-t") in
             let exit_cps    = [] in
             let nested_ebbs = [] in

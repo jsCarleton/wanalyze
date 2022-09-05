@@ -169,7 +169,8 @@ function 262 cost: 5
 function 263 cost: 19
 function 264 cost: 21
 function 265 cost: 45
-function 266 cost: 447
+function 266  entry_bb: 5 last_bb: 88 exit_bbs: [91 93] too many looping paths
+cost: 447
 function 267 cost: 10
 function 268 cost: 8
 function 269 cost: 24
@@ -316,14 +317,16 @@ function 409 cost: 22
 function 410 cost: 7
 function 411 cost: 23
 function 412 cost: 7
-function 413 cost: 1204
+function 413  entry_bb: 28 last_bb: 166 exit_bbs: [167 169 170] too many looping paths
+cost: 1204
 function 414 cost: 11
 function 415 cost: 421
 function 416 cost: 176
 function 417 cost: 130
 function 418 cost: 4
 function 419 cost: 471
-function 420 cost: 423
+function 420  entry_bb: 21 last_bb: 87 exit_bbs: [88] too many looping paths
+cost: 423
 function 421 cost: 16
 function 422 cost: 5
 function 423 cost: 16
@@ -382,7 +385,8 @@ function 475 cost: 5
 function 476 cost: 29
 function 477 cost: 22
 function 478 cost: 220
-function 479 cost: 612
+function 479  entry_bb: 14 last_bb: 141 exit_bbs: [142 149] too many looping paths
+cost: 612
 function 480 cost: 89
 function 481 cost: 50
 function 482 cost: 66
@@ -407,7 +411,8 @@ function 500 cost: 31
 function 501 cost: 71
 function 502 cost: 11
 function 503 cost: 22
-function 504 cost: 789
+function 504  entry_bb: 150 last_bb: 347 exit_bbs: [348 350 352 353] too many looping paths
+cost: 789
 function 505 cost: 148
 function 506 cost: 36
 function 507 cost: 32
@@ -471,7 +476,8 @@ function 564 cost: 35
 function 565 cost: 14
 function 566 cost: 4
 function 567 cost: 9
-function 568 cost: 301
+function 568  entry_bb: 11 last_bb: 81 exit_bbs: [82 83 85] too many looping paths
+cost: 301
 function 569 cost: 105
 function 570 cost: 12
 function 571 cost: 16
@@ -497,7 +503,8 @@ function 590 cost: 19
 function 591 cost: 7
 function 592 cost: 40
 function 593 cost: 85
-function 594 cost: 780
+function 594  entry_bb: 8 last_bb: 197 exit_bbs: [198] too many looping paths
+cost: 780
 function 595 cost: 29
 function 596 cost: 16
 function 597 cost: 997
@@ -518,7 +525,8 @@ function 611 cost: 116
 function 612 cost: 21
 function 613 cost: 12
 function 614 cost: 42
-function 615 cost: 2931
+function 615  entry_bb: 211 last_bb: 752 exit_bbs: [753 754 897] too many looping paths
+cost: 2931
 function 616 cost: 6
 function 617 cost: 174
 function 618 cost: 14
@@ -554,8 +562,10 @@ function 647 cost: 34
 function 648 cost: 153
 function 649 cost: 19
 function 650 cost: 6
-function 651 cost: 276
-function 652 cost: 880
+function 651  entry_bb: 4 last_bb: 81 exit_bbs: [82 83 84] too many looping paths
+cost: 276
+function 652  entry_bb: 23 last_bb: 236 exit_bbs: [237 239 242 246] too many looping paths
+cost: 880
 function 653 cost: 8
 function 654 cost: 24
 function 655 cost: 40
@@ -656,13 +666,16 @@ function 749 cost: 220
 function 750 cost: 22
 function 751 cost: 8
 function 752 cost: 52
-function 753 cost: 808
+function 753  entry_bb: 11 last_bb: 193 exit_bbs: [194] too many looping paths
+cost: 808
 function 754 cost: 115
-function 755 cost: 302
+function 755  entry_bb: 6 last_bb: 87 exit_bbs: [88] too many looping paths
+cost: 302
 function 756 cost: 200
 function 757 cost: 8
 function 758 cost: 11
-function 759 cost: 346
+function 759  entry_bb: 53 last_bb: 147 exit_bbs: [148 149] too many looping paths
+cost: 346
 function 760 cost: 13
 function 761 cost: 36
 function 762 cost: 8
@@ -735,7 +748,8 @@ function 828 cost: 39
 function 829 cost: 21
 function 830 cost: 12
 function 831 cost: 26
-function 832 cost: 198
+function 832  entry_bb: 6 last_bb: 145 exit_bbs: [146 148 150 152 155] too many looping paths
+cost: 198
 function 833 cost: 327
 function 834 cost: 15
 function 835 cost: 24
@@ -776,7 +790,8 @@ function 869 cost: 6
 function 870 cost: 24
 function 871 cost: 32
 function 872 cost: 123
-function 873 cost: 511
+function 873  entry_bb: 28 last_bb: 221 exit_bbs: [226 229 231] too many looping paths
+cost: 511
 function 874 cost: 43
 function 875 cost: 28
 function 876 cost: 63
@@ -800,7 +815,8 @@ function 893 cost: 11
 function 894 cost: 46
 function 895 cost: 43
 function 896 cost: 16
-function 897 cost: 483
+function 897  entry_bb: 44 last_bb: 126 exit_bbs: [127] too many looping paths
+cost: 483
 function 898 cost: 21
 function 899 cost: 467
 function 900 cost: 40
@@ -827,13 +843,17 @@ function 920 cost: 16
 function 921 cost: 103
 function 922 cost: 125
 function 923 cost: 81
-function 924 cost: -1
+function 924  entry_bb: 1 last_bb: 87 exit_bbs: [91 92] too many looping paths
+cost: -1
 function 925 cost: 30
 function 926 cost: 94
-function 927 cost: 495
+function 927  entry_bb: 8 last_bb: 91 exit_bbs: [92 93 175] too many looping paths
+cost: 495
 function 928 cost: 9
-function 929 cost: 346
-function 930 cost: 934
+function 929  entry_bb: 6 last_bb: 87 exit_bbs: [88 89 91 92] too many looping paths
+cost: 346
+function 930  entry_bb: 76 last_bb: 263 exit_bbs: [264 265] too many looping paths
+cost: 934
 function 931 cost: 23
 function 932 cost: 223
 function 933 cost: 16
@@ -843,7 +863,8 @@ function 936 cost: 38
 function 937 cost: 7
 function 938 cost: 232
 function 939 cost: 445
-function 940 cost: 996
+function 940  entry_bb: 1 last_bb: 195 exit_bbs: [196] too many looping paths
+cost: 996
 function 941 cost: 54
 function 942 cost: 62
 function 943 cost: 56
@@ -969,7 +990,8 @@ function 1062 cost: 7
 function 1063 cost: 7
 function 1064 cost: 187
 function 1065 cost: 29
-function 1066 cost: 2473
+function 1066  entry_bb: 363 last_bb: 488 exit_bbs: [489 490 640 654 695] too many looping paths
+cost: 2473
 function 1067 cost: 28
 function 1068 cost: 15
 function 1069 cost: 62
@@ -995,7 +1017,8 @@ function 1088 cost: 31
 function 1089 cost: 11
 function 1090 cost: 26
 function 1091 cost: 88
-function 1092 cost: 1126
+function 1092  entry_bb: 41 last_bb: 291 exit_bbs: [292 294 296 329] too many looping paths
+cost: 1126
 function 1093 cost: 15
 function 1094 cost: 25
 function 1095 cost: 4
@@ -1005,7 +1028,8 @@ function 1098 cost: 99
 function 1099 cost: 108
 function 1100 cost: 38
 function 1101 cost: 83
-function 1102 cost: 644
+function 1102  entry_bb: 3 last_bb: 150 exit_bbs: [151 152] too many looping paths
+cost: 644
 function 1103 cost: 253
 function 1104 cost: 45
 function 1105 cost: 24
@@ -1017,7 +1041,8 @@ function 1110 cost: 26
 function 1111 cost: 14
 function 1112 cost: 20
 function 1113 cost: 53
-function 1114 cost: 935
+function 1114  entry_bb: 22 last_bb: 405 exit_bbs: [406 407 412] too many looping paths
+cost: 935
 function 1115 cost: 26
 function 1116 cost: 8
 function 1117 cost: 92
@@ -1077,7 +1102,8 @@ function 1170 cost: 46
 function 1171 cost: 22
 function 1172 cost: 106
 function 1173 cost: 12
-function 1174 cost: 380
+function 1174  entry_bb: 7 last_bb: 112 exit_bbs: [113 114] too many looping paths
+cost: 380
 function 1175 cost: 23
 function 1176 cost: 38
 function 1177 cost: 16
@@ -1106,7 +1132,8 @@ function 1199 cost: 16
 function 1200 cost: 45
 function 1201 cost: 74
 function 1202 cost: 13
-function 1203 cost: 633
+function 1203  entry_bb: 85 last_bb: 375 exit_bbs: [376 380 383] too many looping paths
+cost: 633
 function 1204 cost: 133
 function 1205 cost: 8
 function 1206 cost: 220
@@ -1184,13 +1211,15 @@ function 1277 cost: 12
 function 1278 cost: 187
 function 1279 cost: 60
 function 1280 cost: 59
-function 1281 cost: 1054
+function 1281  entry_bb: 97 last_bb: 652 exit_bbs: [653] too many looping paths
+cost: 1054
 function 1282 cost: 24
 function 1283 cost: 69
 function 1284 cost: 28
 function 1285 cost: 9
 function 1286 cost: 24
-function 1287 cost: 1952
+function 1287  entry_bb: 300 last_bb: 458 exit_bbs: [459 460] too many looping paths
+cost: 1952
 function 1288 cost: 21
 function 1289 cost: 36
 function 1290 cost: 171
@@ -1278,10 +1307,12 @@ function 1371 cost: 6
 function 1372 cost: 157
 function 1373 cost: 254
 function 1374 cost: 139
-function 1375 cost: 265
+function 1375  entry_bb: 5 last_bb: 84 exit_bbs: [85 87 88] too many looping paths
+cost: 265
 function 1376 cost: 41
 function 1377 cost: 50
-function 1378 cost: 299
+function 1378  entry_bb: 6 last_bb: 99 exit_bbs: [100 102 103] too many looping paths
+cost: 299
 function 1379 cost: 8
 function 1380 cost: 75
 function 1381 cost: 15
@@ -1308,7 +1339,8 @@ function 1401 cost: 314
 function 1402 cost: 108
 function 1403 cost: 174
 function 1404 cost: 30
-function 1405 cost: 861
+function 1405  entry_bb: 9 last_bb: 94 exit_bbs: [95] too many looping paths
+cost: 861
 function 1406 cost: 180
 function 1407 cost: 331
 function 1408 cost: 83
@@ -1325,7 +1357,8 @@ function 1418 cost: 25
 function 1419 cost: 25
 function 1420 cost: 24
 function 1421 cost: 31
-function 1422 cost: 698
+function 1422  entry_bb: 319 last_bb: 580 exit_bbs: [581 582 669 696] too many looping paths
+cost: 698
 function 1423 cost: 183
 function 1424 cost: 55
 function 1425 cost: 68
@@ -1396,7 +1429,8 @@ function 1489 cost: 77
 function 1490 cost: 194
 function 1491 cost: 58
 function 1492 cost: 26
-function 1493 cost: 478
+function 1493  entry_bb: 9 last_bb: 116 exit_bbs: [117] too many looping paths
+cost: 478
 function 1494 cost: 85
 function 1495 cost: 71
 function 1496 cost: 42
@@ -1522,7 +1556,8 @@ function 1615 cost: 154
 function 1616 cost: 6
 function 1617 cost: 4
 function 1618 cost: 6
-function 1619 cost: 506
+function 1619  entry_bb: 2 last_bb: 218 exit_bbs: [219 220] too many looping paths
+cost: 506
 function 1620 cost: 47
 function 1621 cost: 19
 function 1622 cost: 25
@@ -1542,11 +1577,13 @@ function 1635 cost: 90
 function 1636 cost: 4
 function 1637 cost: 39
 function 1638 cost: 23
-function 1639 cost: 258
+function 1639  entry_bb: 15 last_bb: 153 exit_bbs: [154 155] too many looping paths
+cost: 258
 function 1640 cost: 31
 function 1641 cost: 101
 function 1642 cost: 16
-function 1643 cost: -1
+function 1643  entry_bb: 1 last_bb: 480 exit_bbs: [484 485] too many looping paths
+cost: -1
 function 1644 cost: 74
 function 1645 cost: 93
 function 1646 cost: 175
@@ -1556,7 +1593,8 @@ function 1649 cost: 37
 function 1650 cost: 6
 function 1651 cost: 85
 function 1652 cost: 24
-function 1653 cost: 453
+function 1653  entry_bb: 5 last_bb: 108 exit_bbs: [109 110] too many looping paths
+cost: 453
 function 1654 cost: 77
 function 1655 cost: 50
 function 1656 cost: 49
@@ -1588,7 +1626,8 @@ function 1681 cost: 26
 function 1682 cost: 4
 function 1683 cost: 51
 function 1684 cost: 34
-function 1685 cost: 404
+function 1685  entry_bb: 5 last_bb: 69 exit_bbs: [70] too many looping paths
+cost: 404
 function 1686 cost: 9
 function 1687 cost: 78
 function 1688 cost: 19
@@ -1629,12 +1668,14 @@ function 1722 cost: 15
 function 1723 cost: 27
 function 1724 cost: 83
 function 1725 cost: 205
-function 1726 cost: 405
+function 1726  entry_bb: 13 last_bb: 102 exit_bbs: [103 104 107 109] too many looping paths
+cost: 405
 function 1727 cost: 321
 function 1728 cost: 122
 function 1729 cost: 34
 function 1730 cost: 17
-function 1731 cost: 581
+function 1731  entry_bb: 54 last_bb: 131 exit_bbs: [132 134 202] too many looping paths
+cost: 581
 function 1732 cost: 773
 function 1733 cost: 145
 function 1734 cost: 347
@@ -1666,7 +1707,8 @@ function 1759 cost: 21
 function 1760 cost: 18
 function 1761 cost: 21
 function 1762 cost: 106
-function 1763 cost: 1001
+function 1763  entry_bb: 153 last_bb: 285 exit_bbs: [288 290 292 295] too many looping paths
+cost: 1001
 function 1764 cost: 18
 function 1765 cost: 68
 function 1766 cost: 15
@@ -1886,7 +1928,9 @@ function 1979 cost: 51
 function 1980 cost: 204
 function 1981 cost: 24
 function 1982 cost: 56
-function 1983 cost: 1814
+function 1983  entry_bb: 161 last_bb: 270 exit_bbs: [271 272 274 412 413 414 547] too many looping paths
+ entry_bb: 283 last_bb: 392 exit_bbs: [395 547] too many looping paths
+cost: 1814
 function 1984 cost: 22
 function 1985 cost: 149
 function 1986 cost: 57
@@ -1945,11 +1989,13 @@ function 2038 cost: 11
 function 2039 cost: 24
 function 2040 cost: 20
 function 2041 cost: 6
-function 2042 cost: 593
+function 2042  entry_bb: 3 last_bb: 168 exit_bbs: [169 179] too many looping paths
+cost: 593
 function 2043 cost: 85
 function 2044 cost: 64
 function 2045 cost: 91
-function 2046 cost: 1217
+function 2046  entry_bb: 17 last_bb: 460 exit_bbs: [461 462 582] too many looping paths
+cost: 1217
 function 2047 cost: 32
 function 2048 cost: 65
 function 2049 cost: 391
@@ -1975,8 +2021,10 @@ function 2068 cost: 47
 function 2069 cost: 76
 function 2070 cost: 60
 function 2071 cost: 25
-function 2072 cost: 286
-function 2073 cost: 199
+function 2072  entry_bb: 2 last_bb: 192 exit_bbs: [193 194] too many looping paths
+cost: 286
+function 2073  entry_bb: 1 last_bb: 98 exit_bbs: [99] too many looping paths
+cost: 199
 function 2074 cost: 9
 function 2075 cost: 109
 function 2076 cost: 390
@@ -2059,9 +2107,11 @@ function 2152 cost: 76
 function 2153 cost: 74
 function 2154 cost: 53
 function 2155 cost: 19
-function 2156 cost: -1
+function 2156  entry_bb: 1 last_bb: 132 exit_bbs: [136 137] too many looping paths
+cost: -1
 function 2157 cost: 135
-function 2158 cost: 217
+function 2158  entry_bb: 4 last_bb: 88 exit_bbs: [89 90 91] too many looping paths
+cost: 217
 function 2159 cost: 138
 function 2160 cost: 222
 function 2161 cost: 180
@@ -2089,7 +2139,8 @@ function 2182 cost: 332
 function 2183 cost: 13
 function 2184 cost: 206
 function 2185 cost: 148
-function 2186 cost: 473
+function 2186  entry_bb: 22 last_bb: 136 exit_bbs: [137 140 141] too many looping paths
+cost: 473
 function 2187 cost: 66
 function 2188 cost: 66
 function 2189 cost: 39
@@ -2135,7 +2186,8 @@ function 2228 cost: 19
 function 2229 cost: 61
 function 2230 cost: 34
 function 2231 cost: 6
-function 2232 cost: 4251
+function 2232  entry_bb: 247 last_bb: 1093 exit_bbs: [1096 1098] too many looping paths
+cost: 4251
 function 2233 cost: 41
 function 2234 cost: 32
 function 2235 cost: 161
@@ -2160,7 +2212,8 @@ function 2253 cost: 23
 function 2254 cost: 23
 function 2255 cost: 30
 function 2256 cost: 47
-function 2257 cost: -1
+function 2257  entry_bb: 1 last_bb: 139 exit_bbs: [143 144] too many looping paths
+cost: -1
 function 2258 cost: 26
 function 2259 cost: 5
 function 2260 cost: 13
@@ -2185,7 +2238,8 @@ function 2278 cost: 91
 function 2279 cost: 12
 function 2280 cost: 17
 function 2281 cost: 7
-function 2282 cost: 665
+function 2282  entry_bb: 90 last_bb: 169 exit_bbs: [170 171] too many looping paths
+cost: 665
 function 2283 cost: 16
 function 2284 cost: 85
 function 2285 cost: 169
@@ -2196,7 +2250,8 @@ function 2289 cost: 37
 function 2290 cost: 181
 function 2291 cost: 4
 function 2292 cost: 80
-function 2293 cost: 416
+function 2293  entry_bb: 12 last_bb: 95 exit_bbs: [98 101] too many looping paths
+cost: 416
 function 2294 cost: 32
 function 2295 cost: 16
 function 2296 cost: 46
@@ -2238,7 +2293,8 @@ function 2331 cost: 4
 function 2332 cost: 12
 function 2333 cost: 97
 function 2334 cost: 52
-function 2335 cost: 196
+function 2335  entry_bb: 3 last_bb: 116 exit_bbs: [117] too many looping paths
+cost: 196
 function 2336 cost: 10
 function 2337 cost: 135
 function 2338 cost: 21
@@ -2356,7 +2412,8 @@ function 2449 cost: 66
 function 2450 cost: 35
 function 2451 cost: 49
 function 2452 cost: 55
-function 2453 cost: 499
+function 2453  entry_bb: 9 last_bb: 96 exit_bbs: [97 99 136 138 152 153] too many looping paths
+cost: 499
 function 2454 cost: 24
 function 2455 cost: 9
 function 2456 cost: 28
@@ -2410,12 +2467,14 @@ function 2503 cost: 77
 function 2504 cost: 26
 function 2505 cost: 89
 function 2506 cost: 202
-function 2507 cost: 844
+function 2507  entry_bb: 20 last_bb: 136 exit_bbs: [137] too many looping paths
+cost: 844
 function 2508 cost: 123
 function 2509 cost: 134
 function 2510 cost: 4
 function 2511 cost: 311
-function 2512 cost: 1272
+function 2512  entry_bb: 11 last_bb: 546 exit_bbs: [547] too many looping paths
+cost: 1272
 function 2513 cost: 440
 function 2514 cost: 30
 function 2515 cost: 108
@@ -2562,7 +2621,8 @@ function 2655 cost: 159
 function 2656 cost: 29
 function 2657 cost: 33
 function 2658 cost: 49
-function 2659 cost: 262
+function 2659  entry_bb: 170 last_bb: 407 exit_bbs: [541 543] too many looping paths
+cost: 262
 function 2660 cost: -1
 function 2661 cost: 76
 function 2662 cost: 344
@@ -2575,7 +2635,8 @@ function 2668 cost: 31
 function 2669 cost: 203
 function 2670 cost: 147
 function 2671 cost: 10
-function 2672 cost: 873
+function 2672  entry_bb: 17 last_bb: 645 exit_bbs: [646 649] too many looping paths
+cost: 873
 function 2673 cost: 38
 function 2674 cost: 105
 function 2675 cost: 37
@@ -2583,12 +2644,14 @@ function 2676 cost: 9
 function 2677 cost: 69
 function 2678 cost: 196
 function 2679 cost: 195
-function 2680 cost: 282
+function 2680  entry_bb: 9 last_bb: 202 exit_bbs: [203 215 217] too many looping paths
+cost: 282
 function 2681 cost: 81
 function 2682 cost: 13
 function 2683 cost: 70
 function 2684 cost: 26
-function 2685 cost: 328
+function 2685  entry_bb: 62 last_bb: 243 exit_bbs: [244 245 248 251] too many looping paths
+cost: 328
 function 2686 cost: 60
 function 2687 cost: 17
 function 2688 cost: 10
@@ -2631,7 +2694,8 @@ function 2724 cost: 70
 function 2725 cost: 29
 function 2726 cost: 15
 function 2727 cost: 175
-function 2728 cost: 889
+function 2728  entry_bb: 2 last_bb: 117 exit_bbs: [118 121] too many looping paths
+cost: 889
 function 2729 cost: 58
 function 2730 cost: 444
 function 2731 cost: 51
@@ -2713,7 +2777,8 @@ function 2806 cost: 46
 function 2807 cost: 42
 function 2808 cost: 13
 function 2809 cost: 73
-function 2810 cost: 1470
+function 2810  entry_bb: 4 last_bb: 521 exit_bbs: [522 525 528 530] too many looping paths
+cost: 1470
 function 2811 cost: 81
 function 2812 cost: 63
 function 2813 cost: 79
@@ -2727,7 +2792,8 @@ function 2820 cost: 576
 function 2821 cost: 1080
 function 2822 cost: 244
 function 2823 cost: 32
-function 2824 cost: 466
+function 2824  entry_bb: 7 last_bb: 82 exit_bbs: [83 84] too many looping paths
+cost: 466
 function 2825 cost: 52
 function 2826 cost: 64
 function 2827 cost: 99
@@ -2767,7 +2833,8 @@ function 2860 cost: 85
 function 2861 cost: 38
 function 2862 cost: 12
 function 2863 cost: 231
-function 2864 cost: 373
+function 2864  entry_bb: 2 last_bb: 94 exit_bbs: [95 96] too many looping paths
+cost: 373
 function 2865 cost: 75
 function 2866 cost: 5
 function 2867 cost: 35
@@ -2781,7 +2848,9 @@ function 2874 cost: 9
 function 2875 cost: 5
 function 2876 cost: 66
 function 2877 cost: 22
-function 2878 cost: 1010
+function 2878  entry_bb: 184 last_bb: 258 exit_bbs: [259 260] too many looping paths
+ entry_bb: 437 last_bb: 781 exit_bbs: [782 783] too many looping paths
+cost: 1010
 function 2879 cost: 2
 function 2880 cost: 36
 function 2881 cost: 19
@@ -2809,12 +2878,14 @@ function 2902 cost: 23
 function 2903 cost: 17
 function 2904 cost: 6
 function 2905 cost: 22
-function 2906 cost: 284
+function 2906  entry_bb: 2 last_bb: 103 exit_bbs: [104 106] too many looping paths
+cost: 284
 function 2907 cost: 45
 function 2908 cost: 12
 function 2909 cost: 146
 function 2910 cost: 33
-function 2911 cost: 345
+function 2911  entry_bb: 3 last_bb: 93 exit_bbs: [96 98] too many looping paths
+cost: 345
 function 2912 cost: 19
 function 2913 cost: 96
 function 2914 cost: 115
@@ -2848,7 +2919,8 @@ function 2941 cost: 128
 function 2942 cost: 36
 function 2943 cost: 9
 function 2944 cost: 82
-function 2945 cost: 588
+function 2945  entry_bb: 6 last_bb: 141 exit_bbs: [142 144] too many looping paths
+cost: 588
 function 2946 cost: 280
 function 2947 cost: 778
 function 2948 cost: 41
@@ -2857,7 +2929,8 @@ function 2950 cost: 33
 function 2951 cost: 103
 function 2952 cost: 14
 function 2953 cost: 47
-function 2954 cost: 801
+function 2954  entry_bb: 134 last_bb: 212 exit_bbs: [213] too many looping paths
+cost: 801
 function 2955 cost: 26
 function 2956 cost: 77
 function 2957 cost: 29
@@ -2869,13 +2942,15 @@ function 2962 cost: 39
 function 2963 cost: 38
 function 2964 cost: 23
 function 2965 cost: 198
-function 2966 cost: 396
+function 2966  entry_bb: 2 last_bb: 165 exit_bbs: [166 173 175 176] too many looping paths
+cost: 396
 function 2967 cost: 93
 function 2968 cost: 353
 function 2969 cost: 62
 function 2970 cost: 123
 function 2971 cost: 18
-function 2972 cost: -1
+function 2972  entry_bb: 1 last_bb: 274 exit_bbs: [278 279] too many looping paths
+cost: -1
 function 2973 cost: 214
 function 2974 cost: 133
 function 2975 cost: 297
@@ -2958,7 +3033,8 @@ function 3051 cost: 39
 function 3052 cost: 9
 function 3053 cost: 98
 function 3054 cost: 159
-function 3055 cost: 709
+function 3055  entry_bb: 14 last_bb: 126 exit_bbs: [127 128 168] too many looping paths
+cost: 709
 function 3056 cost: 29
 function 3057 cost: 124
 function 3058 cost: 59
@@ -2980,7 +3056,8 @@ function 3073 cost: 19
 function 3074 cost: 37
 function 3075 cost: 37
 function 3076 cost: 123
-function 3077 cost: 598
+function 3077  entry_bb: 6 last_bb: 154 exit_bbs: [155 156 158] too many looping paths
+cost: 598
 function 3078 cost: -1
 function 3079 cost: 45
 function 3080 cost: 20
@@ -3024,7 +3101,8 @@ function 3117 cost: 23
 function 3118 cost: 112
 function 3119 cost: 46
 function 3120 cost: 22
-function 3121 cost: 482
+function 3121  entry_bb: 31 last_bb: 150 exit_bbs: [151 152] too many looping paths
+cost: 482
 function 3122 cost: 10
 function 3123 cost: 179
 function 3124 cost: 11
@@ -3033,7 +3111,8 @@ function 3126 cost: 64
 function 3127 cost: 167
 function 3128 cost: 38
 function 3129 cost: 27
-function 3130 cost: 1714
+function 3130  entry_bb: 24 last_bb: 850 exit_bbs: [851] too many looping paths
+cost: 1714
 function 3131 cost: 31
 function 3132 cost: 29
 function 3133 cost: 41
@@ -3065,7 +3144,8 @@ function 3158 cost: 22
 function 3159 cost: 77
 function 3160 cost: 37
 function 3161 cost: 132
-function 3162 cost: 211
+function 3162  entry_bb: 1 last_bb: 159 exit_bbs: [160] too many looping paths
+cost: 211
 function 3163 cost: 32
 function 3164 cost: 47
 function 3165 cost: 30
@@ -3078,11 +3158,13 @@ function 3171 cost: 302
 function 3172 cost: 35
 function 3173 cost: 4
 function 3174 cost: 68
-function 3175 cost: 529
+function 3175  entry_bb: 65 last_bb: 142 exit_bbs: [143 144] too many looping paths
+cost: 529
 function 3176 cost: 328
 function 3177 cost: 87
 function 3178 cost: 25
-function 3179 cost: 1599
+function 3179  entry_bb: 75 last_bb: 464 exit_bbs: [483 485] too many looping paths
+cost: 1599
 function 3180 cost: 317
 function 3181 cost: 28
 function 3182 cost: 74
@@ -3360,7 +3442,8 @@ function 3453 cost: 28
 function 3454 cost: 17
 function 3455 cost: 59
 function 3456 cost: 35
-function 3457 cost: 629
+function 3457  entry_bb: 8 last_bb: 159 exit_bbs: [160 161] too many looping paths
+cost: 629
 function 3458 cost: 49
 function 3459 cost: 61
 function 3460 cost: 25
@@ -3439,7 +3522,8 @@ function 3532 cost: 89
 function 3533 cost: 2
 function 3534 cost: 58
 function 3535 cost: 25
-function 3536 cost: 551
+function 3536  entry_bb: 7 last_bb: 284 exit_bbs: [285 286 288 290] too many looping paths
+cost: 551
 function 3537 cost: 986
 function 3538 cost: 442
 function 3539 cost: 108
@@ -3523,7 +3607,8 @@ function 3616 cost: 584
 function 3617 cost: 167
 function 3618 cost: 49
 function 3619 cost: -1
-function 3620 cost: 425
+function 3620  entry_bb: 2 last_bb: 291 exit_bbs: [292] too many looping paths
+cost: 425
 function 3621 cost: 177
 function 3622 cost: 131
 function 3623 cost: 344
@@ -3533,8 +3618,10 @@ function 3626 cost: 24
 function 3627 cost: 9
 function 3628 cost: 29
 function 3629 cost: 23
-function 3630 cost: 226
-function 3631 cost: 373
+function 3630  entry_bb: 4 last_bb: 88 exit_bbs: [89 90] too many looping paths
+cost: 226
+function 3631  entry_bb: 4 last_bb: 234 exit_bbs: [235 236] too many looping paths
+cost: 373
 function 3632 cost: 249
 function 3633 cost: 69
 function 3634 cost: 12
@@ -3576,7 +3663,8 @@ function 3669 cost: 85
 function 3670 cost: 26
 function 3671 cost: 96
 function 3672 cost: 20
-function 3673 cost: 768
+function 3673  entry_bb: 2 last_bb: 111 exit_bbs: [112 114 127] too many looping paths
+cost: 768
 function 3674 cost: 3
 function 3675 cost: 78
 function 3676 cost: 5
@@ -3594,7 +3682,8 @@ function 3687 cost: 18
 function 3688 cost: 18
 function 3689 cost: 18
 function 3690 cost: 43
-function 3691 cost: 205
+function 3691  entry_bb: 9 last_bb: 102 exit_bbs: [103 104 111] too many looping paths
+cost: 205
 function 3692 cost: 103
 function 3693 cost: 27
 function 3694 cost: 73
@@ -3635,7 +3724,8 @@ function 3728 cost: 204
 function 3729 cost: 26
 function 3730 cost: 31
 function 3731 cost: 95
-function 3732 cost: -1
+function 3732  entry_bb: 3 last_bb: 113 exit_bbs: [117 118] too many looping paths
+cost: -1
 function 3733 cost: 28
 function 3734 cost: 27
 function 3735 cost: 19
@@ -3659,7 +3749,8 @@ function 3752 cost: 271
 function 3753 cost: 23
 function 3754 cost: 103
 function 3755 cost: 106
-function 3756 cost: 916
+function 3756  entry_bb: 170 last_bb: 449 exit_bbs: [452 456 459] too many looping paths
+cost: 916
 function 3757 cost: 134
 function 3758 cost: 109
 function 3759 cost: 5
@@ -3673,7 +3764,8 @@ function 3766 cost: 102
 function 3767 cost: 12
 function 3768 cost: 74
 function 3769 cost: 192
-function 3770 cost: 471
+function 3770  entry_bb: 5 last_bb: 108 exit_bbs: [109 113] too many looping paths
+cost: 471
 function 3771 cost: 144
 function 3772 cost: 210
 function 3773 cost: 5
@@ -3787,14 +3879,17 @@ function 3880 cost: 127
 function 3881 cost: 22
 function 3882 cost: 33
 function 3883 cost: 60
-function 3884 cost: 522
+function 3884  entry_bb: 27 last_bb: 105 exit_bbs: [106 107] too many looping paths
+cost: 522
 function 3885 cost: 103
 function 3886 cost: 610
-function 3887 cost: 428
+function 3887  entry_bb: 5 last_bb: 125 exit_bbs: [126 127 131] too many looping paths
+cost: 428
 function 3888 cost: 298
 function 3889 cost: 16
 function 3890 cost: 102
-function 3891 cost: 187
+function 3891  entry_bb: 10 last_bb: 83 exit_bbs: [84 86] too many looping paths
+cost: 187
 function 3892 cost: 76
 function 3893 cost: 21
 function 3894 cost: 4
@@ -3822,13 +3917,15 @@ function 3915 cost: 34
 function 3916 cost: 42
 function 3917 cost: 355
 function 3918 cost: 227
-function 3919 cost: 334
+function 3919  entry_bb: 11 last_bb: 93 exit_bbs: [94 96] too many looping paths
+cost: 334
 function 3920 cost: 242
 function 3921 cost: 165
 function 3922 cost: 53
 function 3923 cost: 105
 function 3924 cost: 56
-function 3925 cost: 486
+function 3925  entry_bb: 13 last_bb: 140 exit_bbs: [141] too many looping paths
+cost: 486
 function 3926 cost: 328
 function 3927 cost: 24
 function 3928 cost: 94
@@ -3859,9 +3956,11 @@ function 3952 cost: 123
 function 3953 cost: 80
 function 3954 cost: 49
 function 3955 cost: 1015
-function 3956 cost: 270
+function 3956  entry_bb: 7 last_bb: 95 exit_bbs: [96 97] too many looping paths
+cost: 270
 function 3957 cost: 469
-function 3958 cost: 946
+function 3958  entry_bb: 8 last_bb: 568 exit_bbs: [571 573] too many looping paths
+cost: 946
 function 3959 cost: 55
 function 3960 cost: 235
 function 3961 cost: 238
@@ -3883,8 +3982,10 @@ function 3976 cost: 24
 function 3977 cost: 240
 function 3978 cost: 78
 function 3979 cost: 64
-function 3980 cost: 730
-function 3981 cost: -1
+function 3980  entry_bb: 21 last_bb: 194 exit_bbs: [195] too many looping paths
+cost: 730
+function 3981  entry_bb: 1 last_bb: 218 exit_bbs: [222 223] too many looping paths
+cost: -1
 function 3982 cost: 109
 function 3983 cost: 22
 function 3984 cost: 61
@@ -3944,7 +4045,8 @@ function 4037 cost: 112
 function 4038 cost: 18
 function 4039 cost: 75
 function 4040 cost: 126
-function 4041 cost: 741
+function 4041  entry_bb: 61 last_bb: 139 exit_bbs: [140 144 180] too many looping paths
+cost: 741
 function 4042 cost: 343
 function 4043 cost: 15
 function 4044 cost: 121
@@ -4002,7 +4104,8 @@ function 4095 cost: 37
 function 4096 cost: 150
 function 4097 cost: 47
 function 4098 cost: 110
-function 4099 cost: 532
+function 4099  entry_bb: 1 last_bb: 748 exit_bbs: [749] too many looping paths
+cost: 532
 function 4100 cost: 133
 function 4101 cost: 46
 function 4102 cost: 51
@@ -4172,7 +4275,8 @@ function 4265 cost: 34
 function 4266 cost: 31
 function 4267 cost: 17
 function 4268 cost: 68
-function 4269 cost: 564
+function 4269  entry_bb: 6 last_bb: 77 exit_bbs: [78] too many looping paths
+cost: 564
 function 4270 cost: 237
 function 4271 cost: 226
 function 4272 cost: 65
@@ -4265,7 +4369,8 @@ function 4358 cost: 16
 function 4359 cost: 123
 function 4360 cost: 71
 function 4361 cost: 73
-function 4362 cost: 391
+function 4362  entry_bb: 2 last_bb: 77 exit_bbs: [78 79] too many looping paths
+cost: 391
 function 4363 cost: 22
 function 4364 cost: 41
 function 4365 cost: 17
@@ -4419,7 +4524,8 @@ function 4512 cost: 48
 function 4513 cost: 138
 function 4514 cost: 102
 function 4515 cost: 110
-function 4516 cost: 356
+function 4516  entry_bb: 5 last_bb: 82 exit_bbs: [83 84 86] too many looping paths
+cost: 356
 function 4517 cost: 132
 function 4518 cost: 49
 function 4519 cost: 15
@@ -4483,7 +4589,8 @@ function 4576 cost: 165
 function 4577 cost: 212
 function 4578 cost: 51
 function 4579 cost: 24
-function 4580 cost: -1
+function 4580  entry_bb: 16 last_bb: 268 exit_bbs: [272 273] too many looping paths
+cost: -1
 function 4581 cost: 26
 function 4582 cost: 221
 function 4583 cost: 25
@@ -4590,7 +4697,8 @@ function 4683 cost: 142
 function 4684 cost: 42
 function 4685 cost: 27
 function 4686 cost: 302
-function 4687 cost: 354
+function 4687  entry_bb: 36 last_bb: 133 exit_bbs: [134 135 142 143] too many looping paths
+cost: 354
 function 4688 cost: 72
 function 4689 cost: 79
 function 4690 cost: 19
@@ -4632,7 +4740,8 @@ function 4725 cost: 366
 function 4726 cost: 180
 function 4727 cost: 307
 function 4728 cost: 419
-function 4729 cost: 348
+function 4729  entry_bb: 3 last_bb: 71 exit_bbs: [72 73] too many looping paths
+cost: 348
 function 4730 cost: 52
 function 4731 cost: 47
 function 4732 cost: 3
@@ -4750,7 +4859,8 @@ function 4843 cost: 157
 function 4844 cost: 105
 function 4845 cost: 10
 function 4846 cost: 48
-function 4847 cost: 1680
+function 4847  entry_bb: 40 last_bb: 221 exit_bbs: [222 232 483 518] too many looping paths
+cost: 1680
 function 4848 cost: 51
 function 4849 cost: 72
 function 4850 cost: 15
@@ -4759,7 +4869,8 @@ function 4852 cost: 11
 function 4853 cost: 112
 function 4854 cost: 26
 function 4855 cost: 104
-function 4856 cost: 481
+function 4856  entry_bb: 76 last_bb: 146 exit_bbs: [147 150] too many looping paths
+cost: 481
 function 4857 cost: 16
 function 4858 cost: 15
 function 4859 cost: 85
