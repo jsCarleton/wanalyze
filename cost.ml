@@ -120,13 +120,14 @@ let cost_of_loops (ctx: Ex.execution_context) (prefixes: Cp.cp list) (loop_paths
 (* path cost info - the max cost from the start bb to terminal *)
 type path_cost_info = {terminal: Bb.bb; mutable cost: int}
 
-let pci_compare (pci1: path_cost_info) (pci2: path_cost_info): int =
-  if pci1.terminal.bbindex = pci2.terminal.bbindex then
-    pci1.cost - pci2.cost
-  else
-    pci1.terminal.bbindex - pci2.terminal.bbindex
-
 let cost_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): int =
+
+  let pci_compare (pci1: path_cost_info) (pci2: path_cost_info): int =
+    if pci1.terminal.bbindex = pci2.terminal.bbindex then
+      pci1.cost - pci2.cost
+    else
+      pci1.terminal.bbindex - pci2.terminal.bbindex
+  in
 
   let bb_match (bblock: Bb.bb) (pci: path_cost_info): bool =
     bblock.bbindex = pci.terminal.bbindex
@@ -160,4 +161,4 @@ let cost_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): int =
       | _ -> -1
 	in
 	
-path_cost' end_bb [{terminal=start_bb; cost=0}]
+  path_cost' end_bb [{terminal=start_bb; cost=0}]
