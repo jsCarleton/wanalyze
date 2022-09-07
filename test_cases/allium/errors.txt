@@ -1,88 +1,495 @@
-function 16 cost: 26
-function 17 cost: 27
-function 18 cost: 27
-function 19 cost: 20
-function 20 cost: 26
-function 21 cost: 21
-function 22 cost: 27
-function 23 cost: 26
-function 24 cost: 37
-function 25 cost: 21
-function 26 cost: 21
-function 27 cost: 35
-function 28 cost: 20
-function 29 cost: 52
-function 30 cost: 62
-function 31 cost: 32
-function 32 cost: 4
-function 33 more than 1 lms
-more than 1 lms
+function 16 max path from 0 to 5 [0 1 2 3 4 5]
+max path from 0 to 5 [0 1 2 3 4 5]
+cost: 26
+function 17 max path from 0 to 5 [0 1 2 3 4 5]
+max path from 0 to 5 [0 1 2 3 4 5]
+cost: 27
+function 18 max path from 0 to 5 [0 1 2 3 4 5]
+max path from 0 to 5 [0 1 2 3 4 5]
+cost: 27
+function 19 max path from 0 to 3 [0 1 2 3]
+max path from 0 to 3 [0 1 2 3]
+cost: 20
+function 20 max path from 0 to 5 [0 1 2 3 4 5]
+max path from 0 to 5 [0 1 2 3 4 5]
+cost: 26
+function 21 max path from 0 to 3 [0 1 2 3]
+max path from 0 to 3 [0 1 2 3]
+cost: 21
+function 22 max path from 0 to 5 [0 1 2 3 4 5]
+max path from 0 to 5 [0 1 2 3 4 5]
+cost: 27
+function 23 max path from 0 to 5 [0 1 2 3 4 5]
+max path from 0 to 5 [0 1 2 3 4 5]
+cost: 26
+function 24 max path from 0 to 15 [0 1 2 3 4 5 6 7 13 14 15]
+max path from 0 to 15 [0 1 2 3 4 5 6 7 13 14 15]
+cost: 37
+function 25 max path from 0 to 3 [0 1 2 3]
+max path from 0 to 3 [0 1 2 3]
+cost: 21
+function 26 max path from 0 to 3 [0 1 2 3]
+max path from 0 to 3 [0 1 2 3]
+cost: 21
+function 27 max path from 0 to 16 [0 1 2 3 4 9 12 13 14 15 16]
+max path from 0 to 17 [0 1 2 3 4 5 6 7 17]
+max path from 0 to 16 [0 1 2 3 4 9 12 13 14 15 16]
+cost: 35
+function 28 max path from 0 to 3 [0 1 2 3]
+max path from 0 to 3 [0 1 2 3]
+cost: 20
+function 29 max path from 0 to 4 [0 3 4]
+max path from 0 to 23 [0 3 23]
+max path from 0 to 36 [0 1 7 36]
+max path from 4 to 5 [4 5]
+max path from 12 to 13 [12 13]
+max path from 17 to 18 [17 18]
+max path from 22 to 29 [22 29]
+max path from 23 to 24 [23 24]
+max path from 28 to 29 [28 29]
+max path from 29 to 30 [29 30]
+max path from 34 to 35 [34 35]
+max path from 0 to 35 [0 3 4 5 11 12 13 16 17 18 21 22 29 30 33 34 35]
+cost: 52
+function 30 max path from 0 to 1 [0 1]
+max path from 0 to 17 [0 16 17]
+max path from 1 to 2 [1 2]
+max path from 6 to 7 [6 7]
+max path from 11 to 12 [11 12]
+max path from 16 to 17 [16 17]
+max path from 17 to 18 [17 18]
+max path from 22 to 23 [22 23]
+max path from 0 to 23 [0 16 17 18 21 22 23]
+cost: 62
+function 31 max path from 0 to 9 [0 3 7 8 9]
+max path from 0 to 10 [0 1 5 10]
+max path from 0 to 9 [0 3 7 8 9]
+cost: 32
+function 32 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 4
+function 33 max path from 0 to 30 [0 3 4 6 9 12 16 22 23 24 25 29 30]
+max path from 0 to 39 [0 3 4 6 9 12 16 22 23 39]
+max path from 0 to 41 [0 3 4 6 9 12 16 22 23 24 26 27 40 41]
+max path from 0 to 59 [0 3 4 5 58 59]
+max path from 0 to 60 [0 3 4 6 9 12 13 20 44 50 59 60]
+max path from 0 to 164 [0 1 7 10 14 61 64 70 72 121 128 157 164]
+max path from 30 to 31 [30 31]
+max path from 38 to 40 [38 40]
+max path from 39 to 40 [39 40]
+max path from 40 to 41 [40 41]
+max path from 41 to 59 [41 42 43 46 51 52 53 54 55 56 58 59]
+max path from 41 to 60 [41 42 43 44 50 59 60]
+max path from 59 to 60 [59 60]
+max path from 60 to 91 [60 63 66 68 74 77 78 83 84 85 86 90 91]
+max path from 60 to 100 [60 63 66 68 74 77 78 83 84 100]
+max path from 60 to 102 [60 63 66 68 74 77 78 83 84 85 87 88 101 102]
+max path from 60 to 119 [60 63 66 68 74 77 78 79 80 82 118 119]
+max path from 60 to 124 [60 63 66 67 123 124]
+max path from 60 to 164 [60 61 64 70 72 121 128 157 164]
+max path from 91 to 92 [91 92]
+max path from 99 to 101 [99 101]
+max path from 100 to 101 [100 101]
+max path from 101 to 102 [101 102]
+max path from 102 to 119 [102 117 118 119]
+max path from 102 to 120 [102 103 104 105 111 119 120]
+max path from 119 to 120 [119 120]
+max path from 120 to 124 [120 123 124]
+max path from 120 to 164 [120 121 128 157 164]
+max path from 124 to 144 [124 130 131 132 133 134 136 137 138 139 141 142 144]
+max path from 124 to 152 [124 130 131 132 133 134 136 137 138 139 140 152]
+max path from 124 to 154 [124 130 131 132 133 134 136 137 154]
+max path from 124 to 164 [124 125 126 127 128 157 164]
+max path from 144 to 145 [144 145]
+max path from 150 to 152 []
+max path from 150 to 156 [150 156]
+max path from 152 to 153 [152 153]
+max path from 153 to 155 [153 155]
+max path from 154 to 155 [154 155]
+max path from 155 to 156 [155 156]
+max path from 156 to 159 [156 159]
+max path from 156 to 164 [156 157 164]
+max path from 159 to 160 [159 160]
+max path from 162 to 163 [162 163]
+max path from 0 to 163 [0 3 4 6 9 12 13 20 44 50 59 60 63 66 67 123 124 130 131 132 133 134 136 137 138 139 141 142 144 145 149 150 155 156 159 160 161 162 163]
 cost: 605
-function 34 more than 1 lms
-more than 1 lms
-more than 1 lms
-more than 1 lms
-more than 1 lms
-more than 1 lms
-more than 1 lms
-more than 1 lms
+function 34 max path from 0 to 31 [0 1 2 3 4 5 6 7 8 9 10 12 18 19 30 31]
+max path from 0 to 92 [0 1 2 3 4 5 6 7 8 9 10 12 18 19 30 91 92]
+max path from 0 to 93 [0 1 2 3 4 5 6 7 8 9 10 12 18 92 93]
+max path from 0 to 94 [0 1 2 3 4 5 6 7 8 94]
+max path from 0 to 513 [0 1 2 3 4 5 6 7 8 9 10 12 13 14 16 28 89 220 435 513]
+max path from 31 to 32 [31 32]
+max path from 44 to 52 [44 45 46 47 51 52]
+max path from 44 to 61 [44 45 46 61]
+max path from 44 to 63 [44 45 46 47 48 49 62 63]
+max path from 44 to 91 [44 91]
+max path from 52 to 53 [52 53]
+max path from 60 to 62 [60 62]
+max path from 61 to 62 [61 62]
+max path from 62 to 63 [62 63]
+max path from 63 to 91 []
+max path from 63 to 513 [63 64 65 66 67 73 80 81 82 88 89 513]
+max path from 91 to 92 [91 92]
+max path from 92 to 93 [92 93]
+max path from 93 to 227 [93 227]
+max path from 94 to 109 [94 96 97 98 99 100 101 103 104 105 106 107 109]
+max path from 94 to 121 [94 96 97 98 99 100 101 103 104 105 121]
+max path from 94 to 225 [94 96 224 225]
+max path from 94 to 226 [94 95 225 226]
+max path from 109 to 110 [109 110]
+max path from 120 to 122 [120 122]
+max path from 121 to 122 [121 122]
+max path from 122 to 129 [122 123 125 126 129]
+max path from 122 to 144 [122 123 125 126 127 143 144]
+max path from 122 to 228 [122 124 227 228]
+max path from 129 to 130 [129 130]
+max path from 143 to 144 [143 144]
+max path from 144 to 154 [144 145 146 147 148 149 153 154]
+max path from 144 to 163 [144 145 146 147 148 163]
+max path from 144 to 165 [144 145 146 147 148 149 150 151 164 165]
+max path from 144 to 222 [144 145 146 222]
+max path from 144 to 223 [144 145 222 223]
+max path from 144 to 224 [144 223 224]
+max path from 154 to 155 [154 155]
+max path from 162 to 164 [162 164]
+max path from 163 to 164 [163 164]
+max path from 164 to 165 [164 165]
+max path from 165 to 209 [165 166 167 168 169 176 184 185 186 188 194 195 196 197 198 200 203 204 206 207 209]
+max path from 165 to 217 [165 166 167 168 169 176 184 185 186 188 194 195 196 197 198 200 203 204 205 217]
+max path from 165 to 219 [165 166 167 168 169 176 184 185 186 187 218 219]
+max path from 165 to 220 [165 166 167 168 169 176 184 185 186 188 189 190 191 192 201 215 219 220]
+max path from 209 to 210 [209 210]
+max path from 215 to 217 []
+max path from 215 to 220 [215 220]
+max path from 217 to 218 [217 218]
+max path from 218 to 219 [218 219]
+max path from 219 to 220 [219 220]
+max path from 220 to 222 []
+max path from 220 to 513 [220 513]
+max path from 222 to 223 [222 223]
+max path from 223 to 224 [223 224]
+max path from 224 to 225 [224 225]
+max path from 225 to 226 [225 226]
+max path from 226 to 227 [226 227]
+max path from 227 to 228 [227 228]
+max path from 228 to 256 [228 234 237 238 239 240 243 247 248 249 250 252 253 254 255 256]
+max path from 228 to 275 [228 234 237 238 239 240 243 247 248 249 250 252 253 254 255 262 275]
+max path from 228 to 308 [228 234 237 238 239 240 243 247 248 249 250 251 307 308]
+max path from 228 to 508 [228 234 235 503 508]
+max path from 228 to 509 [228 229 230 232 508 509]
+max path from 228 to 511 [228 234 237 238 239 240 241 245 506 511]
+max path from 256 to 257 [256 257]
+max path from 265 to 275 []
+max path from 265 to 293 [265 266 269 293]
+max path from 265 to 307 [265 266 267 268 271 273 295 306 307]
+max path from 265 to 315 [265 266 267 297 301 304 311 315]
+max path from 275 to 293 [275 277 278 280 281 285 286 287 293]
+max path from 275 to 307 [275 277 278 280 281 282 283 295 306 307]
+max path from 275 to 315 [275 277 278 280 281 285 286 297 301 304 311 315]
+max path from 293 to 307 [293 294 295 306 307]
+max path from 293 to 315 [293 294 297 301 304 311 315]
+max path from 293 to 514 []
+max path from 307 to 308 [307 308]
+max path from 308 to 315 [308 309 310 311 315]
+max path from 308 to 506 [308 312 313 505 506]
+max path from 315 to 321 [315 316 317 318 319 320 321]
+max path from 315 to 495 [315 316 317 318 495]
+max path from 321 to 322 [321 322]
+max path from 325 to 327 []
+max path from 325 to 336 [325 336]
+max path from 327 to 336 [327 334 335 336]
+max path from 327 to 502 [327 328 329 330 331 332 467 476 490 501 502]
+max path from 336 to 340 [336 337 338 339 340]
+max path from 340 to 341 [340 341]
+max path from 344 to 346 []
+max path from 344 to 438 [344 438]
+max path from 346 to 374 [346 347 348 350 351 353 354 356 359 360 361 366 367 368 369 373 374]
+max path from 346 to 383 [346 347 348 350 351 353 354 356 359 360 361 366 367 383]
+max path from 346 to 385 [346 347 348 350 351 353 354 356 359 360 361 366 367 368 370 371 384 385]
+max path from 346 to 401 [346 347 348 350 351 353 354 356 359 360 361 362 363 365 400 401]
+max path from 346 to 403 [346 347 348 350 351 353 354 356 359 402 403]
+max path from 346 to 434 [346 347 348 350 351 353 354 355 433 434]
+max path from 346 to 435 [346 347 348 350 351 353 354 356 357 407 416 430 434 435]
+max path from 346 to 437 [346 437]
+max path from 374 to 375 [374 375]
+max path from 382 to 384 [382 384]
+max path from 383 to 384 [383 384]
+max path from 384 to 385 [384 385]
+max path from 385 to 401 [385 386 387 388 396 397 398 399 400 401]
+max path from 385 to 402 [385 389 394 399 401 402]
+max path from 401 to 402 [401 402]
+max path from 402 to 403 [402 403]
+max path from 403 to 424 [403 409 410 411 414 415 418 419 421 422 424]
+max path from 403 to 432 [403 409 410 411 414 415 418 419 420 432]
+max path from 403 to 435 [403 404 405 406 407 416 430 434 435]
+max path from 424 to 425 [424 425]
+max path from 430 to 432 []
+max path from 430 to 435 [430 435]
+max path from 432 to 433 [432 433]
+max path from 433 to 434 [433 434]
+max path from 434 to 435 [434 435]
+max path from 435 to 437 []
+max path from 435 to 513 [435 513]
+max path from 437 to 438 [437 438]
+max path from 438 to 439 [438 439]
+max path from 446 to 457 [446 447 449 450 452 453 454 455 456 457]
+max path from 457 to 458 [457 458]
+max path from 462 to 484 [462 463 469 470 471 472 473 475 478 479 481 482 484]
+max path from 462 to 492 [462 463 469 470 471 472 473 475 478 479 480 492]
+max path from 462 to 494 [462 493 494]
+max path from 462 to 502 [462 463 464 465 466 467 476 490 501 502]
+max path from 484 to 485 [484 485]
+max path from 490 to 492 []
+max path from 490 to 502 [490 502]
+max path from 492 to 493 [492 493]
+max path from 493 to 494 [493 494]
+max path from 494 to 501 [494 501]
+max path from 495 to 501 [495 496 497 498 499 500 501]
+max path from 501 to 502 [501 502]
+max path from 502 to 506 [502 505 506]
+max path from 502 to 508 [502 503 508]
+max path from 506 to 508 []
+max path from 506 to 511 [506 511]
+max path from 508 to 509 [508 509]
+max path from 509 to 511 []
+max path from 509 to 513 [509 513]
+max path from 511 to 512 [511 512]
+max path from 0 to 512 [0 1 2 3 4 5 6 7 8 94 96 97 98 99 100 101 103 104 105 106 107 109 110 115 116 117 118 119 120 122 124 227 228 234 237 238 239 240 241 245 506 511 512]
 cost: 1141
-function 35 more than 1 lms
+function 35 max path from 0 to 4 [0 3 4]
+max path from 0 to 16 [0 3 16]
+max path from 0 to 19 [0 1 19]
+max path from 4 to 5 [4 5]
+max path from 15 to 17 [15 17]
+max path from 16 to 17 [16 17]
+max path from 17 to 18 [17 18]
+max path from 0 to 18 [0 3 4 5 6 8 9 11 14 15 17 18]
 cost: 7700
-function 36 cost: 590
-function 37 cost: 20
-function 38 cost: 87
-function 39 cost: 5716
-function 40 more than 1 lms
+function 36 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 590
+function 37 max path from 0 to 3 [0 1 2 3]
+max path from 0 to 3 [0 1 2 3]
+cost: 20
+function 38 max path from 0 to 10 [0 1 2 3 4 8 9 10]
+max path from 0 to 10 [0 1 2 3 4 8 9 10]
+cost: 87
+function 39 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 5716
+function 40 max path from 0 to 10 [0 1 6 7 9 10]
+max path from 0 to 19 [0 1 6 7 9 18 19]
+max path from 0 to 20 [0 1 2 5 19 20]
+max path from 0 to 21 [0 1 2 3 20 21]
+max path from 10 to 11 [10 11]
+max path from 18 to 19 [18 19]
+max path from 19 to 20 [19 20]
+max path from 20 to 21 [20 21]
+max path from 21 to 22 [21 22]
+max path from 0 to 22 [0 1 2 3 20 21 22]
 cost: 57
-function 41 more than 1 lms
+function 41 max path from 0 to 8 [0 1 2 3 4 5 7 8]
+max path from 0 to 27 [0 1 2 3 4 5 7 18 27]
+max path from 8 to 9 [8 9]
+max path from 22 to 27 []
+max path from 22 to 28 [22 23 24 25 28]
+max path from 27 to 28 [27 28]
+max path from 28 to 29 [28 29]
+max path from 0 to 29 [0 1 2 3 4 5 7 8 9 21 22 23 24 25 27 28 29]
 cost: 212
-function 42 more than 1 lms
+function 42 max path from 0 to 4 [0 3 4]
+max path from 0 to 22 [0 3 22]
+max path from 0 to 25 [0 1 25]
+max path from 4 to 5 [4 5]
+max path from 5 to 9 [5 6 8 9]
+max path from 5 to 16 [5 6 8 16]
+max path from 9 to 10 [9 10]
+max path from 15 to 17 [15 17]
+max path from 16 to 17 [16 17]
+max path from 17 to 5 []
+max path from 17 to 21 [17 20 21]
+max path from 21 to 23 [21 23]
+max path from 22 to 23 [22 23]
+max path from 23 to 24 [23 24]
+max path from 0 to 24 [0 3 4 5 6 8 9 10 13 14 15 17 20 21 23 24]
 cost: 5862
-function 43 more than 1 lms
+function 43 max path from 0 to 6 [0 1 2 5 6]
+max path from 0 to 23 [0 1 2 5 23]
+max path from 0 to 26 [0 1 2 3 26]
+max path from 6 to 7 [6 7]
+max path from 7 to 11 [7 8 10 11]
+max path from 7 to 18 [7 8 10 17 18]
+max path from 11 to 12 [11 12]
+max path from 14 to 15 [14 15]
+max path from 17 to 18 [17 18]
+max path from 18 to 7 []
+max path from 18 to 22 [18 21 22]
+max path from 22 to 24 [22 24]
+max path from 23 to 24 [23 24]
+max path from 24 to 25 [24 25]
+max path from 0 to 25 [0 1 2 5 6 7 8 10 17 18 21 22 24 25]
 cost: 4628
-function 44 cost: 560
-function 45 more than 1 lms
-more than 1 lms
+function 44 max path from 0 to 3 [0 3]
+max path from 0 to 8 [0 1 8]
+max path from 3 to 4 [3 4]
+max path from 6 to 7 [6 7]
+max path from 0 to 7 [0 3 4 5 6 7]
+cost: 560
+function 45 max path from 0 to 6 [0 3 6]
+max path from 0 to 37 [0 1 4 10 37]
+max path from 6 to 7 [6 7]
+max path from 9 to 12 [9 12]
+max path from 9 to 37 [9 10 37]
+max path from 12 to 13 [12 13]
+max path from 17 to 18 [17 18]
+max path from 24 to 25 [24 25]
+max path from 25 to 28 [25 26 28]
+max path from 28 to 29 [28 29]
+max path from 31 to 25 []
+max path from 31 to 35 [31 34 35]
+max path from 35 to 36 [35 36]
+max path from 0 to 36 [0 3 6 7 8 9 12 13 16 17 18 19 20 21 22 23 24 25 26 28 29 30 31 34 35 36]
 cost: 321
-function 46 cost: 3
-function 47 cost: 26
-function 48 cost: 5
-function 49 cost: 4
-function 50 cost: 9
-function 51 cost: 2
-function 52 cost: 67
-function 53 cost: 61
-function 54 cost: 39
-function 55 cost: 46
-function 56 cost: 5
-function 57 cost: 43
-function 58 more than 1 lms
+function 46 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 3
+function 47 max path from 0 to 5 [0 1 2 3 4 5]
+max path from 0 to 5 [0 1 2 3 4 5]
+cost: 26
+function 48 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 5
+function 49 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 4
+function 50 max path from 0 to 3 [0 1 2 3]
+max path from 0 to 3 [0 1 2 3]
+cost: 9
+function 51 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 2
+function 52 max path from 0 to 9 [0 1 2 3 5 6 8 9]
+max path from 0 to 9 [0 1 2 3 5 6 8 9]
+cost: 67
+function 53 max path from 0 to 7 [0 1 2 5 6 7]
+max path from 0 to 7 [0 1 2 5 6 7]
+cost: 61
+function 54 max path from 0 to 5 [0 1 2 3 4 5]
+max path from 0 to 5 [0 1 2 3 4 5]
+cost: 39
+function 55 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 46
+function 56 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 5
+function 57 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 43
+function 58 max path from 0 to 3 [0 1 2 3]
+max path from 3 to 4 [3 4]
+max path from 8 to 10 [8 9 10]
+max path from 0 to 10 [0 1 2 3 4 5 6 7 8 9 10]
 cost: 5268
-function 59 more than 1 lms
+function 59 max path from 0 to 3 [0 3]
+max path from 0 to 14 [0 1 14]
+max path from 3 to 4 [3 4]
+max path from 12 to 13 [12 13]
+max path from 0 to 13 [0 3 4 5 7 8 10 11 12 13]
 cost: 4933
-function 60 cost: 380
-function 61 cost: 43
-function 62 cost: 46
-function 63 cost: 2300
-function 64 cost: 109
-function 65 cost: 3
-function 66 cost: 106
-function 67 cost: 7064
-function 68 more than 1 lms
+function 60 max path from 0 to 6 [0 1 2 3 4 5 6]
+max path from 0 to 6 [0 1 2 3 4 5 6]
+cost: 380
+function 61 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 43
+function 62 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 46
+function 63 max path from 0 to 8 [0 1 2 3 5 6 8]
+max path from 8 to 9 [8 9]
+max path from 11 to 12 [11 12]
+max path from 0 to 12 [0 1 2 3 5 6 8 9 10 11 12]
+cost: 2300
+function 64 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 109
+function 65 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 3
+function 66 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 106
+function 67 max path from 0 to 1 [0 1]
+max path from 5 to 6 [5 6]
+max path from 8 to 9 [8 9]
+max path from 0 to 9 [0 1 4 5 6 7 8 9]
+cost: 7064
+function 68 max path from 0 to 4 [0 3 4]
+max path from 0 to 16 [0 3 16]
+max path from 0 to 19 [0 1 19]
+max path from 4 to 5 [4 5]
+max path from 15 to 17 [15 17]
+max path from 16 to 17 [16 17]
+max path from 17 to 18 [17 18]
+max path from 0 to 18 [0 3 4 5 6 8 9 11 14 15 17 18]
 cost: 7269
-function 69 cost: 52
-function 70 cost: 49
-function 71 cost: 228
-function 72 cost: 549
-function 73 cost: 355
-function 74 cost: 2
-function 75 cost: 152
-function 76 cost: 104
-function 77 cost: 158
-function 78 cost: 109
-function 79 cost: 67
-function 80 cost: 113
-function 81 cost: 27
-function 82 cost: 2
-function 83 cost: 21
+function 69 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 52
+function 70 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 49
+function 71 max path from 0 to 11 [0 1 2 3 4 5 6 8 9 10 11]
+max path from 11 to 12 [11 12]
+max path from 14 to 15 [14 15]
+max path from 0 to 15 [0 1 2 3 4 5 6 8 9 10 11 12 13 14 15]
+cost: 228
+function 72 max path from 0 to 3 [0 3]
+max path from 0 to 8 [0 1 8]
+max path from 3 to 4 [3 4]
+max path from 6 to 7 [6 7]
+max path from 0 to 7 [0 3 4 5 6 7]
+cost: 549
+function 73 max path from 0 to 3 [0 3]
+max path from 0 to 8 [0 1 8]
+max path from 3 to 4 [3 4]
+max path from 6 to 7 [6 7]
+max path from 0 to 7 [0 3 4 5 6 7]
+cost: 355
+function 74 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 2
+function 75 max path from 0 to 3 [0 3]
+max path from 0 to 8 [0 1 8]
+max path from 3 to 4 [3 4]
+max path from 6 to 7 [6 7]
+max path from 0 to 7 [0 3 4 5 6 7]
+cost: 152
+function 76 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 104
+function 77 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 158
+function 78 max path from 0 to 3 [0 3]
+max path from 0 to 8 [0 1 8]
+max path from 3 to 4 [3 4]
+max path from 6 to 7 [6 7]
+max path from 0 to 7 [0 3 4 5 6 7]
+cost: 109
+function 79 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 67
+function 80 max path from 0 to 3 [0 1 2 3]
+max path from 0 to 3 [0 1 2 3]
+cost: 113
+function 81 max path from 0 to 5 [0 1 2 3 4 5]
+max path from 0 to 5 [0 1 2 3 4 5]
+cost: 27
+function 82 max path from 0 to 1 [0 1]
+max path from 0 to 1 [0 1]
+cost: 2
+function 83 max path from 0 to 3 [0 1 2 3]
+max path from 0 to 3 [0 1 2 3]
+cost: 21

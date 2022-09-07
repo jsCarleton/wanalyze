@@ -43,17 +43,15 @@ val codepaths_of_bbs:              Bb.bb list -> cp list -> cp list -> cp list
 val codepaths_from_to_bb:          Bb.bb -> Bb.bb -> cp list option
 val codepaths_from_to_bb_exn:      Bb.bb -> Bb.bb -> cp list
 val codepaths_from_bbs_to_bb:      Bb.bb list -> Bb.bb -> cp list option
-val looping_paths_of_loop_bblocks: Bb.bb list -> cp list
 val exit_paths:                    cp list -> cp list -> cp list
 
 (* loops *)
 val has_loop:             Bb.bb list -> bool
 val compare_cps:          cp -> cp -> int
 val loop_codepaths:       Bb.bb list -> cp list -> cp list
-val loops_of_bbs:         Bb.bb list -> loop list
 val ids_with_loops:       Bb.bb list -> int list
 val classify_loops:       loop list -> loops_class
-val branchbacks_of_loop:  Bb.bb list -> Bb.bb list
+val loop_bblocks_of_bbs:  Bb.bb list -> Bb.bb list list
 
 (* simple case analysis *)
 val analyze_simple_loop:            Ex.execution_context -> Bb.bb -> Et.et

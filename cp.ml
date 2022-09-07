@@ -6,7 +6,6 @@ open Et
 open Bb
 open Ex
 
-
 type cp = bb list
 
 let cost_of_codepath (e: expr) (codepath: cp): et =
@@ -411,39 +410,6 @@ let loop_bblocks_of_bbs (bblocks: bb list): bb list list =
   loop_bblocks_of_bbs' bblocks [] [] false (-1)
 
 (**
-  is_looping_path
-
-  Given a code path in a loop returns true if it is a looping path, false
-  otherwise
-
-  Parameters:
-    codepath   the code path
-  Returns:
-    true if its looping
-**)
-
-let is_branchback (bblock: bb) (idx: int): bool =
-  List.exists ~f:(fun bblock' -> bblock'.bbindex = idx && bblock'.bbindex <= bblock.bbindex ) bblock.succ
-
-let is_looping_path (codepath: cp): bool =
-  is_branchback (List.nth_exn codepath ((List.length codepath) - 1)) (List.hd_exn codepath).bbindex
-
-(**
-  looping_paths_of_loop_bblocks
-
-  Given the bblocks of a loop return the looping paths within that loop
-
-  Parameters:
-    loop_bblocks   list of basic blocks that make up the loop
-  Returns:
-    the list of looping paths within the loop
-**)
-
-let looping_paths_of_loop_bblocks (loop_bblocks: bb list): cp list =
-  List.filter ~f:is_looping_path
-    (codepaths_of_bbs loop_bblocks [[List.hd_exn loop_bblocks]] [])
-
-(**
   exit_paths
 
   Given two lists of code paths return the code paths that are suffixes
@@ -476,42 +442,6 @@ let exit_paths (cps1: cp list) (cps2: cp list): cp list =
   in
 
   List.filter_map ~f:(remove_suffix (bbs_of_cps cps2)) cps1
-
-(*
-  branchbacks_of_loop
-
-  Given a loop return the bb that contains the branchback for that loop
-
-  Parameters:
-    l the loop
-  Returns:
-    the branchback of that loop
-
-*)
-
-let branchbacks_of_loop (lbb: bb list): bb list =
-  (* get the index of the loop head *)
-  (* any branchback with have this bb in its list of successors *)
-  let lh = (List.hd_exn lbb).bbindex in
-  List.filter_map ~f:(fun bblock -> if is_branchback bblock lh then Some bblock else None) lbb
-
-(**
-  Given the bblocks of a function return a list of loops
-
-  Parameters:
-    bblocks   the list of basic blocks of the function
-  Returns:
-    the list of loops in the basic blocks
-**)
-
-let loops_of_bbs (bblocks: bb list): loop list =
-  List.map  ~f:(fun loop_bblocks -> { (* the bblocks that make up the loop from loop ... end *)
-                                      loop_bblocks;
-                                      (* the paths in the loop that loop *)
-                                      looping_paths = looping_paths_of_loop_bblocks loop_bblocks;
-                                      (* the blocks where the loop loops *)
-                                      branchbacks = branchbacks_of_loop loop_bblocks})
-            (loop_bblocks_of_bbs bblocks)
 
 (**
   cp_has_bb

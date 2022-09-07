@@ -152,6 +152,78 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
 
   List.map ~f:List.rev (paths_of_ebblocks' [[List.hd_exn ebbs]] [] 0)
 
+(**
+  is_looping_path
+
+  Given a code path in a loop returns true if it is a looping path, false
+  otherwise
+
+  Parameters:
+    codepath   the code path
+  Returns:
+    true if its looping
+**)
+
+let is_branchback (bblock: bb) (idx: int): bool =
+  List.exists ~f:(fun bblock' -> bblock'.bbindex = idx && bblock'.bbindex <= bblock.bbindex ) bblock.succ
+
+let is_looping_path (codepath: cp): bool =
+  is_branchback (List.nth_exn codepath ((List.length codepath) - 1)) (List.hd_exn codepath).bbindex
+    
+(**
+  looping_paths_of_loop_bblocks
+
+  Given the bblocks of a loop return the looping paths within that loop
+
+  Parameters:
+    loop_bblocks   list of basic blocks that make up the loop
+  Returns:
+    the list of looping paths within the loop
+**)
+
+let looping_paths_of_loop_bblocks (loop_bblocks: bb list) (exit_bblocks: bb list): cp list =
+  let cps = List.filter 
+              ~f:is_looping_path (codepaths_of_bbs loop_bblocks [[List.hd_exn loop_bblocks]] []) in
+  match cps with
+  | [] -> [] (* Cost.max_cost_paths loop_bblocks exit_bblocks *)
+  | _  -> cps
+  
+(*
+  branchbacks_of_loop
+
+  Given a loop return the bb that contains the branchback for that loop
+
+  Parameters:
+    l the loop
+  Returns:
+    the branchback of that loop
+
+*)
+
+let branchbacks_of_loop (lbb: bb list): bb list =
+  (* get the index of the loop head *)
+  (* any branchback with have this bb in its list of successors *)
+  let lh = (List.hd_exn lbb).bbindex in
+  List.filter_map ~f:(fun bblock -> if is_branchback bblock lh then Some bblock else None) lbb
+
+(**
+  Given the bblocks of a function return a list of loops
+
+  Parameters:
+    bblocks   the list of basic blocks of the function
+  Returns:
+    the list of loops in the basic blocks
+**)
+
+let loops_of_bbs (bblocks: bb list): loop list =
+  List.map  ~f:(fun loop_bblocks -> { (* the bblocks that make up the loop from loop ... end *)
+                                      loop_bblocks;
+                                      (* the paths in the loop that loop *)
+                                      looping_paths = looping_paths_of_loop_bblocks loop_bblocks [];
+                                      (* the blocks where the loop loops *)
+                                      branchbacks = branchbacks_of_loop loop_bblocks})
+            (loop_bblocks_of_bbs bblocks)
+
 (*
     ebbs_of_bbs
 
@@ -256,13 +328,14 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
   let finish_ebblock' (ebbtype: ebb_type) (bblocks: bb list): ebb =
 
     let entry_bb    = List.hd_exn bblocks in
+    Printf.printf "finishing ebb: %d\n%!" entry_bb.bbindex;
     let succ_ebbs   = [] in
     let exit_bbs    = exit_bbs_of_bbs bblocks in
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
         let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
-        let loop_cps  = looping_paths_of_loop_bblocks bblocks in
+        let loop_cps  = looping_paths_of_loop_bblocks bblocks exit_bbs in
         if List.length loop_cps > 0 then
           begin
             let exit_cps    = exit_paths (exit_cps codepaths) loop_cps in
@@ -275,7 +348,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
               | [] -> []
               (* TODO why do we only consider one prefix? *)
               | cp  -> List.rev (List.hd_exn cp)) in (* TODO this reverse should be done earlier *)
-            let bbacks = Cp.branchbacks_of_loop bblocks in 
+            let bbacks = branchbacks_of_loop bblocks in 
             let lms = looping_parts_costs bbacks loop_cps cp in
             let ulv = unique_loop_vars lms in
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
