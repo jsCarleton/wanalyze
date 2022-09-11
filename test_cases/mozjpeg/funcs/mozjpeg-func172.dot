@@ -97,7 +97,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     9 -> 30[label="else"];
     10 -> 11[label="loop"];
     11 -> 12[label="~br_if"];
-    11 -> 11[color="red" dir=back fontcolor="red" label="br_if"];
+    11 -> 11[color="red" fontcolor="red" label="br_if"];
     12 -> 13[label="end"];
     13 -> 14[label="if"];
     13 -> 15[label="else"];
@@ -117,7 +117,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     24 -> 29[label="br_if"];
     25 -> 26[label="loop"];
     26 -> 27[label="~br_if"];
-    26 -> 26[color="red" dir=back fontcolor="red" label="br_if"];
+    26 -> 26[color="red" fontcolor="red" label="br_if"];
     27 -> 28[label="end"];
     28 -> 29[label="end"];
     29 -> 30[label="end"];
@@ -130,12 +130,12 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     34 -> 37[label="br"];
     36 -> 37[label="end"];
     37 -> 38[label="~br_if"];
-    37 -> 32[color="red" dir=back fontcolor="red" label="br_if"];
+    37 -> 32[color="red" fontcolor="red" label="br_if"];
     38 -> 39[label="end"];
     39 -> 40[label="end"];
     40 -> 41[label="loop"];
     41 -> 42[label="~br_if"];
-    41 -> 41[color="red" dir=back fontcolor="red" label="br_if"];
+    41 -> 41[color="red" fontcolor="red" label="br_if"];
     42 -> 43[label="end"];
     43 -> 44[label="if"];
     43 -> 45[label="else"];
@@ -147,7 +147,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     49 -> 50[label="end"];
     50 -> 51[label="end"];
     51 -> 52[label="~br_if"];
-    51 -> 7[color="red" dir=back fontcolor="red" label="br_if"];
+    51 -> 7[color="red" fontcolor="red" label="br_if"];
     52 -> 53[label="end"];
     53 -> 54[label="~br_if"];
     53 -> 68[label="br_if"];
@@ -165,7 +165,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     62 -> 67[label="br_if"];
     63 -> 64[label="loop"];
     64 -> 65[label="~br_if"];
-    64 -> 64[color="red" dir=back fontcolor="red" label="br_if"];
+    64 -> 64[color="red" fontcolor="red" label="br_if"];
     65 -> 66[label="end"];
     66 -> 67[label="end"];
     67 -> 68[label="end"];

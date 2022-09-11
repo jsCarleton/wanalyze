@@ -56,11 +56,11 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     16 -> 18[label="else"];
     17 -> 18[label="end"];
     18 -> 19[label="~br_if"];
-    18 -> 14[color="red" dir=back fontcolor="red" label="br_if"];
+    18 -> 14[color="red" fontcolor="red" label="br_if"];
     19 -> 20[label="end"];
     20 -> 21[label="end"];
     21 -> 22[label="~br_if"];
-    21 -> 12[color="red" dir=back fontcolor="red" label="br_if"];
+    21 -> 12[color="red" fontcolor="red" label="br_if"];
     22 -> 23[label="end"];
     23 -> 24[label="end"];
     24 -> E[label="end"];

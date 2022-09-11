@@ -141,7 +141,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     5 -> 94[label="else"];
     6 -> 7[label="loop"];
     7 -> 8[label="~br_if"];
-    7 -> 7[color="red" dir=back fontcolor="red" label="br_if"];
+    7 -> 7[color="red" fontcolor="red" label="br_if"];
     8 -> 9[label="end"];
     9 -> 10[label="if"];
     9 -> 12[label="else"];
@@ -157,7 +157,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     17 -> 38[label="else"];
     18 -> 19[label="loop"];
     19 -> 20[label="~br_if"];
-    19 -> 19[color="red" dir=back fontcolor="red" label="br_if"];
+    19 -> 19[color="red" fontcolor="red" label="br_if"];
     20 -> 21[label="end"];
     21 -> 22[label="if"];
     21 -> 23[label="else"];
@@ -177,7 +177,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     32 -> 37[label="br_if"];
     33 -> 34[label="loop"];
     34 -> 35[label="~br_if"];
-    34 -> 34[color="red" dir=back fontcolor="red" label="br_if"];
+    34 -> 34[color="red" fontcolor="red" label="br_if"];
     35 -> 36[label="end"];
     36 -> 37[label="end"];
     37 -> 38[label="end"];
@@ -191,11 +191,11 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     43 -> 48[label="br_if"];
     44 -> 45[label="loop"];
     45 -> 46[label="~br_if"];
-    45 -> 45[color="red" dir=back fontcolor="red" label="br_if"];
+    45 -> 45[color="red" fontcolor="red" label="br_if"];
     46 -> 47[label="end"];
     47 -> 48[label="end"];
     48 -> 49[label="~br_if"];
-    48 -> 17[color="red" dir=back fontcolor="red" label="br_if"];
+    48 -> 17[color="red" fontcolor="red" label="br_if"];
     49 -> 50[label="end"];
     50 -> 51[label="end"];
     51 -> 52[label="if"];
@@ -205,7 +205,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     54 -> 75[label="else"];
     55 -> 56[label="loop"];
     56 -> 57[label="~br_if"];
-    56 -> 56[color="red" dir=back fontcolor="red" label="br_if"];
+    56 -> 56[color="red" fontcolor="red" label="br_if"];
     57 -> 58[label="end"];
     58 -> 59[label="if"];
     58 -> 60[label="else"];
@@ -225,7 +225,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     69 -> 74[label="br_if"];
     70 -> 71[label="loop"];
     71 -> 72[label="~br_if"];
-    71 -> 71[color="red" dir=back fontcolor="red" label="br_if"];
+    71 -> 71[color="red" fontcolor="red" label="br_if"];
     72 -> 73[label="end"];
     73 -> 74[label="end"];
     74 -> 75[label="end"];
@@ -241,13 +241,13 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     82 -> 87[label="br_if"];
     83 -> 84[label="loop"];
     84 -> 85[label="~br_if"];
-    84 -> 84[color="red" dir=back fontcolor="red" label="br_if"];
+    84 -> 84[color="red" fontcolor="red" label="br_if"];
     85 -> 86[label="end"];
     86 -> 87[label="end"];
     87 -> 90[label="br"];
     89 -> 90[label="end"];
     90 -> 91[label="~br_if"];
-    90 -> 13[color="red" dir=back fontcolor="red" label="br_if"];
+    90 -> 13[color="red" fontcolor="red" label="br_if"];
     91 -> 92[label="end"];
     92 -> 95[label="br"];
     94 -> 95[label="end"];
@@ -258,7 +258,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     97 -> 118[label="br_if"];
     98 -> 99[label="loop"];
     99 -> 100[label="~br_if"];
-    99 -> 99[color="red" dir=back fontcolor="red" label="br_if"];
+    99 -> 99[color="red" fontcolor="red" label="br_if"];
     100 -> 101[label="end"];
     101 -> 102[label="if"];
     101 -> 103[label="else"];
@@ -278,7 +278,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     112 -> 117[label="br_if"];
     113 -> 114[label="loop"];
     114 -> 115[label="~br_if"];
-    114 -> 114[color="red" dir=back fontcolor="red" label="br_if"];
+    114 -> 114[color="red" fontcolor="red" label="br_if"];
     115 -> 116[label="end"];
     116 -> 117[label="end"];
     117 -> 118[label="end"];

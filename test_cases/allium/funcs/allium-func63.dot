@@ -31,7 +31,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     7 -> 8[label="end"];
     8 -> 9[label="loop"];
     9 -> 10[label="~br_if"];
-    9 -> 9[color="red" dir=back fontcolor="red" label="br_if"];
+    9 -> 9[color="red" fontcolor="red" label="br_if"];
     10 -> 11[label="end"];
     11 -> E[label="end"];
 }

@@ -50,7 +50,7 @@ node [shape=circle, fontcolor=black, style="", label="R"]R
     8 -> 13[label="end"];
     9 -> 10[label="loop"];
     10 -> 11[label="~br_if"];
-    10 -> 10[color="red" dir=back fontcolor="red" label="br_if"];
+    10 -> 10[color="red" fontcolor="red" label="br_if"];
     11 -> 12[label="end"];
     12 -> 13[label="end"];
     13 -> 14[label="block"];
@@ -72,7 +72,7 @@ node [shape=circle, fontcolor=black, style="", label="R"]R
     24 -> 29[label="else"];
     25 -> 26[label="loop"];
     26 -> 27[label="~br_if"];
-    26 -> 26[color="red" dir=back fontcolor="red" label="br_if"];
+    26 -> 26[color="red" fontcolor="red" label="br_if"];
     27 -> 28[label="end"];
     28 -> 29[label="end"];
     29 -> E[label="end"];

@@ -15,7 +15,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     0 -> 1[label="loop"];
     1 -> 2[label="if"];
     1 -> 4[label="else"];
-    2 -> 1[color="red" dir=back fontcolor="red" label="br"];
+    2 -> 1[color="red" fontcolor="red" label="br"];
     4 -> 5[label="end"];
     5 -> E[label="end"];
 }

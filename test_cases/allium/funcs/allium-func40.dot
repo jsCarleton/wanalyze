@@ -50,7 +50,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     14 -> 16[label="else"];
     15 -> 16[label="end"];
     16 -> 17[label="~br_if"];
-    16 -> 11[color="red" dir=back fontcolor="red" label="br_if"];
+    16 -> 11[color="red" fontcolor="red" label="br_if"];
     17 -> 18[label="end"];
     18 -> 19[label="end"];
     19 -> 20[label="end"];

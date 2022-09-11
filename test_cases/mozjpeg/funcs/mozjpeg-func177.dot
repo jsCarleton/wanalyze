@@ -77,7 +77,7 @@ node [shape=circle, fontcolor=black, style="", label="R"]R
     26 -> 27[label="end"];
     27 -> 28[label="loop"];
     28 -> 29[label="~br_if"];
-    28 -> 28[color="red" dir=back fontcolor="red" label="br_if"];
+    28 -> 28[color="red" fontcolor="red" label="br_if"];
     29 -> 30[label="end"];
     30 -> 33[label="br"];
     32 -> 33[label="end"];

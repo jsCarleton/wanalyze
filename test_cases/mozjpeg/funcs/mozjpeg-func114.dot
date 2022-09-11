@@ -151,9 +151,9 @@ node [shape=circle, fontcolor=black, style="", label="R"]R
     20 -> 27[label="br"];
     22 -> 23[label="loop"];
     23 -> 24[label="~br_if"];
-    23 -> 23[color="red" dir=back fontcolor="red" label="br_if"];
+    23 -> 23[color="red" fontcolor="red" label="br_if"];
     24 -> 25[label="~br_if"];
-    24 -> 23[color="red" dir=back fontcolor="red" label="br_if"];
+    24 -> 23[color="red" fontcolor="red" label="br_if"];
     25 -> 26[label="end"];
     26 -> 27[label="end"];
     27 -> 28[label="~br_if"];
@@ -209,9 +209,9 @@ node [shape=circle, fontcolor=black, style="", label="R"]R
     68 -> 75[label="br"];
     70 -> 71[label="loop"];
     71 -> 72[label="~br_if"];
-    71 -> 71[color="red" dir=back fontcolor="red" label="br_if"];
+    71 -> 71[color="red" fontcolor="red" label="br_if"];
     72 -> 73[label="~br_if"];
-    72 -> 71[color="red" dir=back fontcolor="red" label="br_if"];
+    72 -> 71[color="red" fontcolor="red" label="br_if"];
     73 -> 74[label="end"];
     74 -> 75[label="end"];
     75 -> 76[label="~br_if"];
@@ -255,7 +255,7 @@ node [shape=circle, fontcolor=black, style="", label="R"]R
     107 -> 108[label="~br_if"];
     107 -> 113[label="br_if"];
     108 -> 109[label="~br_if"];
-    108 -> 107[color="red" dir=back fontcolor="red" label="br_if"];
+    108 -> 107[color="red" fontcolor="red" label="br_if"];
     109 -> 110[label="end"];
     110 -> 111[label="end"];
     111 -> R[label="return"];

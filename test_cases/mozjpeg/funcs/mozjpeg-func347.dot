@@ -101,7 +101,7 @@ node [shape=circle, fontcolor=black, style="", label="U"]U
     28 -> 30[label="else"];
     29 -> 30[label="end"];
     30 -> 31[label="~br_if"];
-    30 -> 22[color="red" dir=back fontcolor="red" label="br_if"];
+    30 -> 22[color="red" fontcolor="red" label="br_if"];
     31 -> 54[label="br"];
     34 -> U[label="unreachable"];
     36 -> 37[label="loop"];
@@ -127,7 +127,7 @@ node [shape=circle, fontcolor=black, style="", label="U"]U
     49 -> 50[label="end"];
     50 -> 51[label="end"];
     51 -> 52[label="~br_if"];
-    51 -> 37[color="red" dir=back fontcolor="red" label="br_if"];
+    51 -> 37[color="red" fontcolor="red" label="br_if"];
     52 -> 53[label="end"];
     53 -> 54[label="end"];
     54 -> E[label="end"];

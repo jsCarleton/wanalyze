@@ -57,7 +57,7 @@ let cfg_dot_of_bbs (module_name: string) (func_idx: int) (bblocks: bb list): str
 
   let graph_edge (src: bb) (label: string) (dest: bb): string =
     if src.bbindex >= dest.bbindex then
-        String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[color=\"red\" dir=back fontcolor=\"red\" label=\""; label; "\"];\n"]
+        String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
     else
         String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[label=\""; label; "\"];\n"]
   in

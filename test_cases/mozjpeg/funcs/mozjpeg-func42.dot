@@ -90,7 +90,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     26 -> 28[label="br_if"];
     27 -> 28[label="end"];
     28 -> 29[label="~br_if"];
-    28 -> 24[color="red" dir=back fontcolor="red" label="br_if"];
+    28 -> 24[color="red" fontcolor="red" label="br_if"];
     29 -> 30[label="end"];
     30 -> 31[label="if"];
     30 -> 39[label="else"];
@@ -102,7 +102,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     34 -> 36[label="br_if"];
     35 -> 36[label="end"];
     36 -> 37[label="~br_if"];
-    36 -> 32[color="red" dir=back fontcolor="red" label="br_if"];
+    36 -> 32[color="red" fontcolor="red" label="br_if"];
     37 -> 38[label="end"];
     38 -> 39[label="end"];
     39 -> 40[label="end"];

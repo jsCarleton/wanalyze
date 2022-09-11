@@ -42,7 +42,7 @@ node [shape=circle, fontcolor=black, style="", label="R"]R
     11 -> 12[label="~br_if"];
     11 -> 16[label="br_if"];
     12 -> 13[label="~br_if"];
-    12 -> 11[color="red" dir=back fontcolor="red" label="br_if"];
+    12 -> 11[color="red" fontcolor="red" label="br_if"];
     13 -> 14[label="end"];
     14 -> 15[label="~br_if"];
     14 -> 17[label="br_if"];

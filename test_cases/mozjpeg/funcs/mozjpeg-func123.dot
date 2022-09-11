@@ -145,9 +145,9 @@ node [shape=circle, fontcolor=black, style="", label="R"]R
     48 -> 55[label="br"];
     50 -> 51[label="loop"];
     51 -> 52[label="~br_if"];
-    51 -> 51[color="red" dir=back fontcolor="red" label="br_if"];
+    51 -> 51[color="red" fontcolor="red" label="br_if"];
     52 -> 53[label="~br_if"];
-    52 -> 51[color="red" dir=back fontcolor="red" label="br_if"];
+    52 -> 51[color="red" fontcolor="red" label="br_if"];
     53 -> 54[label="end"];
     54 -> 55[label="end"];
     55 -> 56[label="~br_if"];

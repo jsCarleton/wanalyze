@@ -34,23 +34,23 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     1 -> 2[label="loop"];
     2 -> 3[label="if"];
     2 -> 5[label="else"];
-    3 -> 2[color="red" dir=back fontcolor="red" label="br"];
+    3 -> 2[color="red" fontcolor="red" label="br"];
     5 -> 6[label="end"];
     6 -> 7[label="loop"];
     7 -> 8[label="if"];
     7 -> 10[label="else"];
-    8 -> 7[color="red" dir=back fontcolor="red" label="br"];
+    8 -> 7[color="red" fontcolor="red" label="br"];
     10 -> 11[label="end"];
     11 -> 12[label="loop"];
     12 -> 13[label="if"];
     12 -> 15[label="else"];
-    13 -> 12[color="red" dir=back fontcolor="red" label="br"];
+    13 -> 12[color="red" fontcolor="red" label="br"];
     15 -> 16[label="end"];
     16 -> 17[label="end"];
     17 -> 18[label="loop"];
     18 -> 19[label="if"];
     18 -> 21[label="else"];
-    19 -> 18[color="red" dir=back fontcolor="red" label="br"];
+    19 -> 18[color="red" fontcolor="red" label="br"];
     21 -> 22[label="end"];
     22 -> E[label="end"];
 }

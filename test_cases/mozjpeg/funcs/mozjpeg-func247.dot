@@ -33,7 +33,7 @@ node [shape=circle, fontcolor=black, style="", label="U"]U
     6 -> 7[label="loop"];
     7 -> 8[label="if"];
     7 -> 10[label="else"];
-    8 -> 7[color="red" dir=back fontcolor="red" label="br"];
+    8 -> 7[color="red" fontcolor="red" label="br"];
     10 -> 11[label="end"];
     11 -> R[label="return"];
     13 -> U[label="unreachable"];

@@ -26,7 +26,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     4 -> 9[label="else"];
     5 -> 6[label="loop"];
     6 -> 7[label="~br_if"];
-    6 -> 6[color="red" dir=back fontcolor="red" label="br_if"];
+    6 -> 6[color="red" fontcolor="red" label="br_if"];
     7 -> 8[label="end"];
     8 -> 9[label="end"];
     9 -> E[label="end"];

@@ -29,7 +29,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     2 -> 7[label="br_if"];
     3 -> 4[label="loop"];
     4 -> 5[label="~br_if"];
-    4 -> 4[color="red" dir=back fontcolor="red" label="br_if"];
+    4 -> 4[color="red" fontcolor="red" label="br_if"];
     5 -> 6[label="end"];
     6 -> 7[label="end"];
     7 -> 8[label="if"];
@@ -37,10 +37,10 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     8 -> 9[label="loop"];
     9 -> 10[label="loop"];
     10 -> 11[label="~br_if"];
-    10 -> 10[color="red" dir=back fontcolor="red" label="br_if"];
+    10 -> 10[color="red" fontcolor="red" label="br_if"];
     11 -> 12[label="end"];
     12 -> 13[label="~br_if"];
-    12 -> 9[color="red" dir=back fontcolor="red" label="br_if"];
+    12 -> 9[color="red" fontcolor="red" label="br_if"];
     13 -> 14[label="end"];
     14 -> 15[label="end"];
     15 -> E[label="end"];

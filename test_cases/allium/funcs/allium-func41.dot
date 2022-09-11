@@ -62,7 +62,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     17 -> 18[label="end"];
     18 -> 19[label="~br_if"];
     18 -> 27[label="br_if"];
-    19 -> 9[color="red" dir=back fontcolor="red" label="br"];
+    19 -> 9[color="red" fontcolor="red" label="br"];
     21 -> 22[label="end"];
     22 -> 23[label="if"];
     22 -> 24[label="else"];

@@ -153,29 +153,22 @@ let rec path_cost' (start_bb: Bb.bb) (end_bb: Bb.bb) (pcil: path_cost_info list)
   | _  ->
     let pcil' = List.sort ~compare:pci_compare pcil in
     let next_pci = List.hd_exn pcil' in
-    match next_pci.terminal, next_pci.cost with
-    | next_bb, _ when next_bb.bbindex = end_bb.bbindex
+    match next_pci.terminal with
+    | next_bb when next_bb.bbindex = end_bb.bbindex
         -> {terminal = next_pci.terminal; 
-            path = List.rev (next_pci.terminal::next_pci.path); 
-            cost = next_pci.cost + (Bb.cost_of_bb end_bb)}
-    | next_bb, _ when next_bb.bbindex <= end_bb.bbindex
+                path = List.rev (next_pci.terminal::next_pci.path); 
+                cost = next_pci.cost + (Bb.cost_of_bb end_bb)}
+    | next_bb when next_bb.bbindex <= end_bb.bbindex
         -> path_cost' start_bb end_bb 
                       (List.fold ~init:(List.tl_exn pcil') ~f:(update_pcil next_pci) 
                         (List.filter ~f:(fun x -> x.bbindex > next_bb.bbindex && x.bbindex <= end_bb.bbindex) next_bb.succ))
     | _ ->  {terminal = start_bb; path = []; cost = -1}
 
 let cost_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): int =
-  if start_bb.bbindex > end_bb.bbindex then
-    Printf.printf "end: %d before start: %d\n%!" (start_bb.bbindex) (end_bb.bbindex);
   let pci = path_cost' start_bb end_bb [{terminal=start_bb; path=[]; cost=0}] in
-    Printf.printf "max path from %d to %d %s cost:%d\n" start_bb.bbindex end_bb.bbindex (Bb.string_of_raw_bblocks pci.path) pci.cost;
     pci.cost
 
 let max_cost_paths (path_bbs: Bb.bb list) (exit_bbs: Bb.bb list): Bb.bb list list =
-
-  let cost_compare (pci1: path_cost_info) (pci2: path_cost_info): int =
-    Int.compare pci1.cost pci2.cost
-  in
 
   let pci_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): path_cost_info =
     path_cost' start_bb end_bb [{terminal=start_bb; path=[]; cost=0}]
