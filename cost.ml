@@ -33,11 +33,12 @@ let compare_metrics (lm1: loop_metric) (lm2: loop_metric): int =
       else
         String.compare (Et.string_of_et m1.prefix_cost) (Et.string_of_et m2.prefix_cost)
 
-let rec all_loops (cp1: Cp.cp list) (cp2: Cp.cp list) (cp2all: Cp.cp list) (acc: loop_path_parts list): loop_path_parts list =
-    match cp1, cp2 with
-    | [], _        -> acc
-    | _::tl1, []   -> all_loops tl1 cp2all cp2all acc
-    | _, hd2::tl2  -> all_loops cp1 tl2 cp2all ({prefix_part = (List.hd_exn cp1); loop_part = hd2}::acc)    
+let rec all_loops (prefixes: Cp.cp list) (loop_paths: Cp.cp list) (all_loop_paths: Cp.cp list) (acc: loop_path_parts list):
+          loop_path_parts list =
+  match prefixes, loop_paths with
+  | [], _        -> acc
+  | _::tl1, []   -> all_loops tl1 all_loop_paths all_loop_paths acc
+  | _, hd2::tl2  -> all_loops prefixes tl2 all_loop_paths ({prefix_part = (List.hd_exn prefixes); loop_part = hd2}::acc)    
 
 type cond_site =
 {
@@ -100,8 +101,7 @@ let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts
 let cost_of_loops (ctx: Ex.execution_context) (prefixes: Cp.cp list) (loop_paths: Cp.cp list)
       (bback: Bb.bb): loop_metric list =
   List.dedup_and_sort ~compare:compare_metrics (* TODO is this dedup needed? *)
-    (List.map ~f:(cost_of_loop ctx bback)
-      (all_loops prefixes loop_paths loop_paths []))
+    (List.map ~f:(cost_of_loop ctx bback) (all_loops prefixes loop_paths loop_paths []))
 
 (*
     cost_of_bb_path
@@ -120,13 +120,19 @@ let cost_of_loops (ctx: Ex.execution_context) (prefixes: Cp.cp list) (loop_paths
 (* path cost info - the max cost from the start bb to terminal *)
 type path_cost_info = {terminal: Bb.bb; mutable path: Bb.bb list; mutable cost: int}
 
+let string_of_pci (pci: path_cost_info): string =
+  sprintf "terminal: %d cost: %d path: %s" 
+    pci.terminal.bbindex
+    pci.cost
+    (Bb.string_of_raw_bblocks pci.path)
+
 let rec path_cost' (start_bb: Bb.bb) (end_bb: Bb.bb) (pcil: path_cost_info list): path_cost_info =
 
   let pci_compare (pci1: path_cost_info) (pci2: path_cost_info): int =
-  if pci1.terminal.bbindex = pci2.terminal.bbindex then
-    pci1.cost - pci2.cost
-  else
-    pci1.terminal.bbindex - pci2.terminal.bbindex
+    if pci1.terminal.bbindex = pci2.terminal.bbindex then
+      pci1.cost - pci2.cost
+    else
+      pci1.terminal.bbindex - pci2.terminal.bbindex
   in
 
   let bb_match (bblock: Bb.bb) (pci: path_cost_info): bool =
@@ -138,7 +144,7 @@ let rec path_cost' (start_bb: Bb.bb) (end_bb: Bb.bb) (pcil: path_cost_info list)
     | Some succ_pci 
         ->  (if pci.cost + (Bb.cost_of_bb pci.terminal) > succ_pci.cost then
             begin
-              succ_pci.path <- pci.terminal::succ_pci.path;
+              succ_pci.path <- pci.terminal::pci.path;
               succ_pci.cost <- pci.cost + (Bb.cost_of_bb pci.terminal)
             end
             else
