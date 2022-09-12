@@ -355,7 +355,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
             let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
             (* *)
-            if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length cp > 0) then
+            if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
               begin
                 (* do we have more than 1 set of loop metrics to consider? *)
                 if List.length lms > 1 then
