@@ -46,7 +46,10 @@ let bb_type_of_opcode (op: int): bb_type =
   | (* return *)      0x0f -> BB_return
   | _                      -> failwith (sprintf "Invalid opcode for bb %x" op)
 
-let cost_of_bb (bblock: bb): int = bblock.end_op - bblock.start_op
+let cost_of_bb (bblock: bb): int = 
+  match bblock.bbcost with
+  | Constant (Int_value c) -> c
+  | _ -> failwith "Invalid cost expression"
 
 let compare_bbs (bblock1: bb) (bblock2: bb): int =
   Int.compare bblock1.bbindex bblock2.bbindex
@@ -88,7 +91,7 @@ let exit_bblock (idx: int) (exit_type: bb_type): bb =
         nesting     = -1;
         labels      = [];
         br_dest     = None;
-        bbcost      = Empty}
+        bbcost      = Constant (Int_value 0)}
 
 let return_bblock (bblocks: bb list): bb list =
   if List.exists ~f:(fun bblock -> match bblock.bbtype with | BB_return -> true | _ -> false) bblocks then
