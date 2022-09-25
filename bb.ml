@@ -133,7 +133,7 @@ match e with
       current.nesting <- (List.hd_exn e).opnesting;
       (* the new block doesn't have a correct type until we discover what it is*)
       bblocks_of_expr' (List.tl_exn e) (current::bb_acc) 
-                    {bbindex    = current.bbindex+1;
+                  { bbindex     = current.bbindex+1;
                     start_op    = current.end_op; 
                     end_op      = current.end_op+1;
                     succ        = [];

@@ -8,6 +8,9 @@
 *.cmxs
 *.cmxa
 
+# cargo build directories
+tests/wasm_runner/target
+
 # ocamlbuild working directory
 _build/
 
