@@ -14,7 +14,6 @@ type bb =
   mutable nesting:  int;        (* nesting level of the last opcode in the bb *)
   mutable labels:   int list;   (* destination labels used in BR, BR_IF, BR_TABLE instructions *)
   mutable br_dest:	bb option;  (* for LOOP, BLOCK and IF instructions the bb that's the target of a branch for this instruction  *)
-  mutable bbcost:   Et.et;       (* the cost of executing this bb *)
 }
 
 val bb_is_exit        : bb -> bool
