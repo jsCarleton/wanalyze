@@ -108,6 +108,14 @@ let exit_bbs_of_bbs (bblocks: bb list): bb list =
 let exits_of_bbs (bblocks: bb list) (exit_bbs: bb list): cp list option list =
   List.map ~f:(fun exit_bb -> Cp.codepaths_from_bbs_to_bb bblocks exit_bb) exit_bbs
 
+let loop_count (ebbs: ebb list): int =
+
+  let count_loops_in_bbs (bbs: bb list): int =
+    List.fold ~init:0 ~f:(fun acc b -> match b.bbtype with | BB_loop -> acc + 1 | _ -> acc) bbs
+  in
+
+  List.fold ~init:0 ~f:(fun acc e -> acc + (count_loops_in_bbs e.bblocks)) ebbs
+
 (*
     paths_of_ebblocks
 
@@ -150,7 +158,10 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
               paths_of_ebblocks' (List.append n tl) (List.append t term) (iters + 1)
   in
 
-  List.map ~f:List.rev (paths_of_ebblocks' [[List.hd_exn ebbs]] [] 0)
+  let pl = List.map ~f:List.rev (paths_of_ebblocks' [[List.hd_exn ebbs]] [] 0) in
+    match pl with
+    | [] -> Printf.printf "loop count: %d " (loop_count ebbs); []
+    | _  -> pl
 
 (**
   is_looping_path
