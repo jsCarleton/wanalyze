@@ -29,6 +29,7 @@ type bb =
   mutable nesting:  int;        (* nesting level of the last opcode in the bb *)
   mutable labels:   int list;   (* destination labels used in BR, BR_IF, BR_TABLE instructions *)
   mutable br_dest:	bb option;  (* for LOOP, BLOCK and IF instructions the bb that's the target of a branch for this instruction  *)
+  mutable bbcost:   et;         (* the cost of executing this bb *)
 }
 
 let bb_type_of_opcode (op: int): bb_type =
@@ -86,7 +87,8 @@ let exit_bblock (idx: int) (exit_type: bb_type): bb =
         bbtype      = exit_type;
         nesting     = -1;
         labels      = [];
-        br_dest     = None}
+        br_dest     = None;
+        bbcost      = Empty}
 
 let return_bblock (bblocks: bb list): bb list =
   if List.exists ~f:(fun bblock -> match bblock.bbtype with | BB_return -> true | _ -> false) bblocks then
@@ -133,7 +135,7 @@ match e with
       current.nesting <- (List.hd_exn e).opnesting;
       (* the new block doesn't have a correct type until we discover what it is*)
       bblocks_of_expr' (List.tl_exn e) (current::bb_acc) 
-                    {bbindex    = current.bbindex+1;
+                  { bbindex     = current.bbindex+1;
                     start_op    = current.end_op; 
                     end_op      = current.end_op+1;
                     succ        = [];
@@ -141,10 +143,12 @@ match e with
                     bbtype      = BB_unknown;
                     nesting     = -2;
                     labels      = [];
-                    br_dest     = None}
+                    br_dest     = None;
+                    bbcost      = Constant (Int_value 1)}
     (* 2. all other opcodes get added to the current bb *)
     | _ ->
       current.end_op <- current.end_op + 1;
+      current.bbcost <- Constant (Int_value (current.end_op - current.start_op));
       bblocks_of_expr' (List.tl_exn e) bb_acc current
 
 let set_pred' (bblocks: bb list) (src: bb) (dest: bb) =
@@ -250,7 +254,7 @@ match index < List.length bblocks with
 let bblocks_of_expr (e: expr) : bb list =
 
   let bblocks = bblocks_of_expr' e [] {bbindex=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;
-                                      labels=[]; br_dest= None} in
+                                      labels=[]; br_dest= None; bbcost = Constant (Int_value 1)} in
   (Logging.get_logger "wanalyze")#info "# bblocks: %d" (List.length bblocks);
   set_br_dest bblocks 0;
   set_successors bblocks 0;
