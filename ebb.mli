@@ -17,6 +17,7 @@ type ebb =
   }
 
 val string_of_ebblock:  ebb -> string
+val string_of_ebblocks: ebb list -> string
 val ebb_to_unreachable: ebb -> bool
 val ebb_to_return:      ebb -> bool
 val ebb_has_branchback: ebb -> bool

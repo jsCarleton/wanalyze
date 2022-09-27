@@ -1,0 +1,83 @@
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0 1]
+  ebb cost:   74
+  ebb exits:  [2 15]
+  ebb succs:  [15 2]
+ebb entry:  2
+  ebb type:   block
+  ebb blocks: [2]
+  ebb cost:   11
+  ebb exits:  [3]
+  ebb succs:  [3]
+ebb entry:  3
+  ebb type:   loop
+  ebb blocks: [3 4 5 6 7 8 9 10 11 12 13]
+  ebb cost:   (list_max([
+  22 * (I([ln2; ln3], [(ln2 + 1) != ln3], [ln2 = 0; ln3 = 0], [ln2 = 0 + 1; ln3 = 0]));
+  51 * (I([ln2; ln3], [(ln2 + 1) != ln3], [ln2 = 0; ln3 = 0], [ln2 = 0 + 1; ln3 = 0]));
+  58 * (I([ln2; ln3], [(ln2 + 1) != ln3], [ln2 = 0; ln3 = 0], [ln2 = 0 + 1; ln3 = 0]))
+])) + (list_max([1; 1; 1]))
+  ebb exits:  [14]
+  ebb succs:  [14]
+  3 paths to exit 14
+  [3 4 12 13]
+  [3 4 5 6 7 9 10 11 12 13]
+  [3 4 5 6 7 8 9 10 11 12 13]
+  3 loop paths
+  [3 4 12]  [3 4 5 6 7 9 10 11 12]  [3 4 5 6 7 8 9 10 11 12]
+  3 post loop exit paths
+  [13]  [13]  [13]
+nested ebbs:
+  ebb entry:  3
+    ebb type:   block
+    ebb blocks: [3 4]
+    ebb cost:   58
+    ebb exits:  [5 12]
+    ebb succs:  [12 5]
+  ebb entry:  5
+    ebb type:   block
+    ebb blocks: [5]
+    ebb cost:   2
+    ebb exits:  [6]
+    ebb succs:  [6]
+  ebb entry:  6
+    ebb type:   loop
+    ebb blocks: [6 7 8 9 10]
+    ebb cost:   (list_max([
+  26 * (I([ln4; ln5], [(ln5 + 1) != ln4], [ln4 = 0; ln5 = 0], [ln4 = 0; ln5 = 0 + 1]));
+  33 * (I([ln4; ln5], [(ln5 + 1) != ln4], [ln4 = 0; ln5 = 0], [ln4 = 0; ln5 = 0 + 1]))
+])) + (list_max([1; 1]))
+    ebb exits:  [11]
+    ebb succs:  [11]
+    2 paths to exit 11
+    [6 7 9 10]
+    [6 7 8 9 10]
+    2 loop paths
+    [6 7 9]    [6 7 8 9]
+    2 post loop exit paths
+    [10]    [10]
+  ebb entry:  11
+    ebb type:   block
+    ebb blocks: [11]
+    ebb cost:   12
+    ebb exits:  [12]
+    ebb succs:  [12]
+  ebb entry:  12
+    ebb type:   block
+    ebb blocks: [12 13]
+    ebb cost:   13
+    ebb exits:  [3 14]
+    ebb succs:  [3]
+ebb entry:  14
+  ebb type:   block
+  ebb blocks: [14]
+  ebb cost:   2
+  ebb exits:  [15]
+  ebb succs:  [15]
+ebb entry:  15
+  ebb type:   block
+  ebb blocks: [15 16]
+  ebb cost:   1
+  ebb exits:  [16]
+  ebb succs:  []
