@@ -13,7 +13,7 @@ fn main() -> Result<()> {
     config.consume_fuel(true);
     let engine = Engine::new(&config)?;
     let mut store = Store::new(&engine, ());
-    store.add_fuel(10_000_000)?;
+    store.add_fuel(10_000)?;
 
     // get the wasm module we'll run
     let module = Module::from_file(store.engine(), w)?;
@@ -25,7 +25,7 @@ fn main() -> Result<()> {
     // initialise an array that causes worst-case bubble-sort behaviour
     let mut data: [i32; 1000] = [0; 1000];
     for i in 0..data.len() {
-        data[i] = (1000-i) as i32;
+        data[i] = (10000-i) as i32;
     }
 
     // copy the array to the wasm memory
@@ -38,7 +38,7 @@ fn main() -> Result<()> {
     // repeatedly call the function in the wasm module that we're measuring
     for n in 1.. {
 
-        let count = n*100;
+        let count = n*1;
 
         let fuel_before = store.fuel_consumed().unwrap();
         let _ = match f_w.call(&mut store, (count, 0)) {
