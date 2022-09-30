@@ -160,7 +160,7 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
 
   let pl = List.map ~f:List.rev (paths_of_ebblocks' [[List.hd_exn ebbs]] [] 0) in
     match pl with
-    | [] -> Printf.printf "loop count: %d " (loop_count ebbs); []
+    | [] -> []
     | _  -> pl
 
 (**
