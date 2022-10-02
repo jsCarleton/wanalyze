@@ -119,6 +119,7 @@ let cost_of_loops (ctx: Ex.execution_context) (prefixes: Cp.cp list) (loop_paths
 
 (* path cost info - the max cost from the start bb to terminal *)
 type path_cost_info = {terminal: Bb.bb; mutable path: Bb.bb list; mutable cost: int}
+let empty_pci (terminal: Bb.bb) = {terminal; path = []; cost = 0}
 
 let string_of_pci (pci: path_cost_info): string =
   sprintf "terminal: %d cost: %d path: %s" 
@@ -174,11 +175,42 @@ let cost_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): int =
   let pci = path_cost' start_bb end_bb [{terminal=start_bb; path=[]; cost=0}] in
     pci.cost
 
+(*
+    cost_of_bb_path
+
+    Given a source and destination bb determine the cost info for the max cost path
+    from the source to the destination
+
+    Parameters:
+      src:    source bblock
+      dst:    dest bblock
+
+    Returns:
+      path_cost_info
+*)
+
+let max_cost_info (start_bb: Bb.bb) (end_bb: Bb.bb): path_cost_info =
+  path_cost' start_bb end_bb [{terminal=start_bb; path=[]; cost=0}]
+
+(*
+    max_cost_paths
+
+    Given a list of basic blocks and a list of exit basic blocks return a list
+    of basic block paths that are the maximum cost paths in the list that terminate
+    at each of the exits.
+
+    Parameters:
+      src:    source bblock
+      dst:    dest bblock
+
+    Returns:
+      cost
+*)
+
 let max_cost_paths (path_bbs: Bb.bb list) (exit_bbs: Bb.bb list): Bb.bb list list =
 
   let pci_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): path_cost_info =
     path_cost' start_bb end_bb [{terminal=start_bb; path=[]; cost=0}]
-
   in
 
   List.map ~f:(fun pci -> pci.path) (List.map ~f:(pci_of_bb_path (List.hd_exn path_bbs)) exit_bbs)

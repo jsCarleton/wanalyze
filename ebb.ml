@@ -108,14 +108,6 @@ let exit_bbs_of_bbs (bblocks: bb list): bb list =
 let exits_of_bbs (bblocks: bb list) (exit_bbs: bb list): cp list option list =
   List.map ~f:(fun exit_bb -> Cp.codepaths_from_bbs_to_bb bblocks exit_bb) exit_bbs
 
-let loop_count (ebbs: ebb list): int =
-
-  let count_loops_in_bbs (bbs: bb list): int =
-    List.fold ~init:0 ~f:(fun acc b -> match b.bbtype with | BB_loop -> acc + 1 | _ -> acc) bbs
-  in
-
-  List.fold ~init:0 ~f:(fun acc e -> acc + (count_loops_in_bbs e.bblocks)) ebbs
-
 (*
     paths_of_ebblocks
 
@@ -258,13 +250,14 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
           (all_bbs: bb list): ebb list =
 
   let cost_of_block_ebb (entry_bb: bb) (exit_bbs: bb list): et =
-    Constant (Int_value
-      (List.fold 
-        ~init:0 
-        ~f:(fun max exit_bb ->
-              let new_max = Cost.cost_of_bb_path entry_bb exit_bb in
-              if new_max > max then new_max else max)
-        exit_bbs))
+    let max_pci =
+          List.fold
+            ~init:(Cost.empty_pci entry_bb)
+            ~f:(fun info exit_bb ->
+                  let new_info = Cost.max_cost_info entry_bb exit_bb in
+                  if new_info.cost > info.cost then new_info else info)
+            exit_bbs in
+    cost_of_codepath ctx.w_e max_pci.path
   in
 
   let sub_ebbs_of_bbs (sub_bbs: bb list): ebb list =

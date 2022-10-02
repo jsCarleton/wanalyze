@@ -353,4 +353,4 @@ let et_of_local_value (param_types: resulttype list) (local_types: local_type li
       match n.op with
       | "list_max" -> simplify_max {op = "list_max"; args = List.map ~f:simplify n.args}
       | "list_sum" -> simplify_sum {op = "list_sum"; args = List.map ~f:simplify n.args}
-      | _ -> e
+      | _ -> Node { op = n.op; args = List.map ~f:simplify n.args}

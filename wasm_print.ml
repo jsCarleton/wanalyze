@@ -289,6 +289,7 @@ let string_of_bb_detail (s: bb) : string =
     (string_of_bbtype s.bbtype)
     (string_of_raw_bblocks s.succ)
     (string_of_raw_bblocks s.pred)
+    
 let string_of_bbs_detail (s: bb list) : string =
   Printf.printf "cost: %d\n" 
     (cost_of_bb_path  (List.hd_exn s) 
@@ -502,7 +503,7 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
     | 1 -> Out_channel.output_string oc (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths))))
     | _ -> (let max_cost = ebb_paths_max_cost ebb_paths in
            let p = Out_channel.output_string oc in
-           print_et max_cost p));
+           print_et (simplify max_cost) p));
     Out_channel.output_string oc "\n";
     Out_channel.close oc;
   (* TODO everything after this is diagnostics, not required *)
