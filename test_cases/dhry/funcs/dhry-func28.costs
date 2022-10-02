@@ -1,16 +1,1 @@
-|f28| = list_max([
-  list_sum([
-    40;
-    9;
-    (20 * (I([pn0; pn1], [(i32.load8_u@(pn1)) == (i32.load8_u@(pn0))], [pn0 = pn0; pn1 = pn1], [pn0 = pn0 + 1; pn1 = pn1 + 1]))) + 1;
-    5;
-    4
-  ]);
-  list_sum([
-    40;
-    9;
-    (20 * (I([pn0; pn1], [(i32.load8_u@(pn1)) == (i32.load8_u@(pn0))], [pn0 = pn0; pn1 = pn1], [pn0 = pn0 + 1; pn1 = pn1 + 1]))) + 1;
-    4
-  ]);
-  list_sum([40; 4])
-])
+|f28| = 34
