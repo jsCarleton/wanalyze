@@ -229,10 +229,10 @@ int main(int argc, char *argv[])
         User_Time = secs;
 
         printf("%12.0f runs %6.2f seconds \n", (double) Number_Of_Runs, User_Time);
-        if (User_Time > 2) {
+        if (User_Time > 4) {
             count = 0;
         } else {
-            if (User_Time < 0.05) {
+            if (User_Time < 0.10) {
                 Number_Of_Runs = Number_Of_Runs * 5;
             }
         }

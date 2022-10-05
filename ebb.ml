@@ -123,34 +123,53 @@ let exits_of_bbs (bblocks: bb list) (exit_bbs: bb list): cp list option list =
 
 let paths_of_ebblocks (ebbs: ebb list): ebb list list =
 
-  let succ_of_ebbs (ebbs: ebb list): ebb list list =
-      List.map ~f:(fun ebb -> ebb::ebbs) (List.hd_exn ebbs).succ_ebbs
-  in
-  
-  let is_term (ebbs: ebb list): bool =
-    match (List.hd_exn ebbs).succ_ebbs with
-    | []  -> true
-    | _   -> false
-  in 
+  let paths_of_ebblocks' (ebbs: ebb list): ebb list list =
 
-  let step_ebb (ebbs: ebb list): (ebb list list)*(ebb list list) =
-    match is_term ebbs with
-    | true  -> [], [ebbs]
-    | _     -> succ_of_ebbs ebbs, []
+    let rec paths_of_ebblocks'' (nterm: ebb list list) (term: ebb list list) (iters: int) (last_bb: int): ebb list list =
+
+      (* given an ebb path return a list of the ebb paths that are one step
+        after the given path without looping *)
+      let succ_of_ebbs (ebbs: ebb list): ebb list list =
+        let t = List.hd_exn ebbs in
+        let succs = List.dedup_and_sort ~compare:(fun e1 e2 -> Int.compare e1.entry_bb.bbindex e2.entry_bb.bbindex)
+          ( match t.nested_ebbs with
+          |   []    -> t.succ_ebbs
+          |   hd::_ -> List.append t.succ_ebbs (hd.succ_ebbs)) in
+        let succs' =
+              List.filter 
+                ~f:(fun e -> e.entry_bb.bbindex > t.entry_bb.bbindex
+                          && e.entry_bb.bbindex <= last_bb)
+                succs in
+        List.map ~f:(fun e' -> e'::ebbs) succs'          
+      in
+      
+      let is_term (ebbs: ebb list): bool =
+        match (List.hd_exn ebbs).succ_ebbs with
+        | []  -> true
+        | _   -> (List.hd_exn ebbs).entry_bb.bbindex = last_bb
+      in 
+
+      let step_ebb (ebbs: ebb list): (ebb list list)*(ebb list list) =
+        match is_term ebbs with
+        | true  -> [], [ebbs]
+        | _     -> succ_of_ebbs ebbs, []
+      in
+
+      if iters > 1_000_000 then
+        (Printf.printf "exploded\n%!"; [])
+      else 
+        match nterm with
+          | []        -> term
+          | hd::tl    ->
+              let n,t = step_ebb hd in
+                paths_of_ebblocks'' (List.append n tl) (List.append t term) (iters + 1) last_bb
+      in
+
+      (paths_of_ebblocks'' [[List.hd_exn ebbs]] [] 0 (List.hd_exn (List.rev ebbs)).entry_bb.bbindex)
   in
 
-  let rec paths_of_ebblocks' (nterm: ebb list list) (term: ebb list list) (iters: int): ebb list list =
-    if iters > 1_000_000 then
-      []
-    else 
-      match nterm with
-        | []        -> term
-        | hd::tl    ->
-            let n,t = step_ebb hd in
-              paths_of_ebblocks' (List.append n tl) (List.append t term) (iters + 1)
-  in
-
-  let pl = List.map ~f:List.rev (paths_of_ebblocks' [[List.hd_exn ebbs]] [] 0) in
+  Printf.printf "getting paths for %s\n%!" (string_of_ebblocks ebbs);
+  let pl = List.map ~f:List.rev (paths_of_ebblocks' ebbs) in
     match pl with
     | [] -> []
     | _  -> pl
@@ -496,11 +515,20 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     in
 
     let ebb_of_bb (ebbs: ebb list) (bblock: bb): ebb option =
-      List.find ~f:(fun ebb -> ebb.entry_bb.bbindex = bblock.bbindex) ebbs
+      List.find 
+        ~f:(fun ebb ->  ebb.entry_bb.bbindex = bblock.bbindex) ebbs
+    in
+
+    let rec flatten (ebbs: ebb list): ebb list =
+      List.fold ~init:[] 
+                ~f:(fun acc e -> 
+                    match e.nested_ebbs with 
+                    | [] -> e::acc 
+                    | _ -> List.append (flatten e.nested_ebbs) acc)
+                ebbs
     in
 
     (* update the successor ebbs for all ebbs *)
-    (* TODO what's the difference between exits and succs? *)
     let update_succ (ebbs: ebb list) =
 
       let update_succ' (ebbs: ebb list) (ebb: ebb) =
@@ -517,7 +545,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     in
 
   let ebbs = eblock_of_bbs' all_bbs [] [] (-1) None in
-  update_succ ebbs;
+  update_succ (List.rev (flatten ebbs));
   ebbs
 
 (*
