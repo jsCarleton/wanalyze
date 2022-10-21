@@ -1,0 +1,30 @@
+glue
+-rw-r--r--  1 johnshortt  staff  26761  9 Oct 12:10 wasm_print.ml
+
+module reader
+-rw-r--r--  1 johnshortt  staff   5672  2 Sep 17:25 wm.ml
+-rw-r--r--  1 johnshortt  staff  13546 25 Mar  2022 opcode.ml
+-rw-r--r--  1 johnshortt  staff  21677  4 Sep 16:13 readBin.ml
+-rw-r--r--  1 johnshortt  staff    681 11 Jul 13:50 wanalyze.ml
+
+basic blocks
+-rw-r--r--  1 johnshortt  staff  11797 25 Sep 16:09 bb.ml
+-rw-r--r--  1 johnshortt  staff   8591 16 Sep 10:50 cfg.ml
+
+extended basic blocks
+-rw-r--r--  1 johnshortt  staff  22788  9 Oct 12:10 ebb.ml
+
+code path generation
+-rw-r--r--  1 johnshortt  staff  25441  7 Sep 17:18 cp.ml
+
+symbolic execution
+-rw-r--r--  1 johnshortt  staff  14403  3 Sep 11:37 ex.ml
+
+static single assignment
+-rw-r--r--  1 johnshortt  staff   9184  4 Sep 12:59 ssa.ml
+
+loop analysis
+	
+cost analysis
+-rw-r--r--  1 johnshortt  staff   8536  9 Oct 12:10 cost.ml
+-rw-r--r--  1 johnshortt  staff  14062  9 Oct 12:10 et.ml
