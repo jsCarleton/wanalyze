@@ -5,21 +5,21 @@ digraph finite_state_machine {
     labelfontcolor = black
     labelfontname = "Helvetica"
     node [shape = doublecircle]; E ;
-node [shape=circle, fontcolor=black, style="", label="0(22)"]0
-node [shape=circle, fontcolor=black, style="", label="1(15)"]1
-node [shape=circle, fontcolor=black, style="", label="2(5)"]2
-node [shape=circle, fontcolor=black, style="", label="3(3)"]3
-node [shape=circle, fontcolor=black, style="", label="4(8)"]4
-node [shape=circle, fontcolor=black, style="", label="5(6)"]5
-node [shape=circle, fontcolor=black, style="", label="6(5)"]6
-node [shape=circle, fontcolor=black, style="", label="7(3)"]7
-node [shape=circle, fontcolor=black, style="", label="8(13)"]8
-node [shape=circle, fontcolor=black, style="", label="9(1)"]9
-node [shape=circle, fontcolor=black, style="", label="10(35)"]10
-node [shape=circle, fontcolor=black, style="", label="11(28)"]11
-node [shape=circle, fontcolor=black, style="", label="12(10)"]12
-node [shape=circle, fontcolor=black, style="", label="13(1)"]13
-node [shape=circle, fontcolor=black, style="", label="14(5)"]14
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
+node [shape=circle, fontcolor=black, style="", label="9"]9
+node [shape=circle, fontcolor=black, style="", label="10"]10
+node [shape=circle, fontcolor=black, style="", label="11"]11
+node [shape=circle, fontcolor=black, style="", label="12"]12
+node [shape=circle, fontcolor=black, style="", label="13"]13
+node [shape=circle, fontcolor=black, style="", label="14"]14
 node [shape=circle, fontcolor=black, style="", label="E"]E
     0 -> 1[label="block"];
     1 -> 2[label="~br_if"];

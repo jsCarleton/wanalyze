@@ -5,22 +5,22 @@ digraph finite_state_machine {
     labelfontcolor = black
     labelfontname = "Helvetica"
     node [shape = doublecircle]; E R ;
-node [shape=circle, fontcolor=black, style="", label="0(4)"]0
-node [shape=circle, fontcolor=black, style="", label="1(2)"]1
-node [shape=circle, fontcolor=black, style="", label="2(8)"]2
-node [shape=circle, fontcolor=black, style="", label="3(2)"]3
-node [shape=circle, fontcolor=black, style="", label="4(4)"]4
-node [shape=circle, fontcolor=black, style="", label="5(4)"]5
-node [shape=circle, fontcolor=black, style="", label="6(2)"]6
-node [shape=circle, fontcolor=black, style="", label="7(4)"]7
-node [shape=circle, fontcolor=black, style="", label="8(1)"]8
-node [shape=circle, fontcolor=black, style="", label="9(4)"]9
-node [shape=circle, fontcolor=black, style="", label="10(4)"]10
-node [shape=circle, fontcolor=black, style="", label="11(1)"]11
-node [shape=circle, fontcolor=black, style="", label="12(1)"]12
-node [shape=circle, fontcolor=black, style="", label="13(4)"]13
-node [shape=circle, fontcolor=black, style="", label="14(2)"]14
-node [shape=circle, fontcolor=black, style="", label="15(4)"]15
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
+node [shape=circle, fontcolor=black, style="", label="9"]9
+node [shape=circle, fontcolor=black, style="", label="10"]10
+node [shape=circle, fontcolor=black, style="", label="11"]11
+node [shape=circle, fontcolor=black, style="", label="12"]12
+node [shape=circle, fontcolor=black, style="", label="13"]13
+node [shape=circle, fontcolor=black, style="", label="14"]14
+node [shape=circle, fontcolor=black, style="", label="15"]15
 node [shape=circle, fontcolor=black, style="", label="E"]E
 node [shape=circle, fontcolor=black, style="", label="R"]R
     0 -> 1[label="if"];

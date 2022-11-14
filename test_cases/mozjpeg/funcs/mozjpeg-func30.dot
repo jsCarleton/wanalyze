@@ -5,26 +5,26 @@ digraph finite_state_machine {
     labelfontcolor = black
     labelfontname = "Helvetica"
     node [shape = doublecircle]; E ;
-node [shape=circle, fontcolor=black, style="", label="0(6)"]0
-node [shape=circle, fontcolor=black, style="", label="1(12)"]1
-node [shape=circle, fontcolor=black, style="", label="2(4)"]2
-node [shape=circle, fontcolor=black, style="", label="3(22)"]3
-node [shape=circle, fontcolor=black, style="", label="4(1)"]4
-node [shape=circle, fontcolor=black, style="", label="5(22)"]5
-node [shape=circle, fontcolor=black, style="", label="6(10)"]6
-node [shape=circle, fontcolor=black, style="", label="7(12)"]7
-node [shape=circle, fontcolor=black, style="", label="8(9)"]8
-node [shape=circle, fontcolor=black, style="", label="9(3)"]9
-node [shape=circle, fontcolor=black, style="", label="10(6)"]10
-node [shape=circle, fontcolor=black, style="", label="11(19)"]11
-node [shape=circle, fontcolor=black, style="", label="12(10)"]12
-node [shape=circle, fontcolor=black, style="", label="13(12)"]13
-node [shape=circle, fontcolor=black, style="", label="14(9)"]14
-node [shape=circle, fontcolor=black, style="", label="15(12)"]15
-node [shape=circle, fontcolor=black, style="", label="16(1)"]16
-node [shape=circle, fontcolor=black, style="", label="17(1)"]17
-node [shape=circle, fontcolor=black, style="", label="18(7)"]18
-node [shape=circle, fontcolor=black, style="", label="19(1)"]19
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
+node [shape=circle, fontcolor=black, style="", label="9"]9
+node [shape=circle, fontcolor=black, style="", label="10"]10
+node [shape=circle, fontcolor=black, style="", label="11"]11
+node [shape=circle, fontcolor=black, style="", label="12"]12
+node [shape=circle, fontcolor=black, style="", label="13"]13
+node [shape=circle, fontcolor=black, style="", label="14"]14
+node [shape=circle, fontcolor=black, style="", label="15"]15
+node [shape=circle, fontcolor=black, style="", label="16"]16
+node [shape=circle, fontcolor=black, style="", label="17"]17
+node [shape=circle, fontcolor=black, style="", label="18"]18
+node [shape=circle, fontcolor=black, style="", label="19"]19
 node [shape=circle, fontcolor=black, style="", label="E"]E
     0 -> 1[label="if"];
     0 -> 2[label="else"];
@@ -50,7 +50,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     13 -> 14[label="end"];
     14 -> 15[label="end"];
     15 -> 16[label="~br_if"];
-    15 -> 5[color="red" fontcolor="red" label="br_if"];
+    15 -> 5[style="dashed" color="red" fontcolor="red" label="br_if"];
     16 -> 17[label="end"];
     17 -> 18[label="end"];
     18 -> 19[label="end"];

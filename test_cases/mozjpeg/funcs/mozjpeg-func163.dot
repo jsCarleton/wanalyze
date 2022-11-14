@@ -5,43 +5,43 @@ digraph finite_state_machine {
     labelfontcolor = black
     labelfontname = "Helvetica"
     node [shape = doublecircle]; E ;
-node [shape=circle, fontcolor=black, style="", label="0(22)"]0
-node [shape=circle, fontcolor=black, style="", label="1(10)"]1
-node [shape=circle, fontcolor=black, style="", label="2(1)"]2
-node [shape=circle, fontcolor=black, style="", label="3(5)"]3
-node [shape=circle, fontcolor=black, style="", label="4(12)"]4
-node [shape=circle, fontcolor=black, style="", label="5(1)"]5
-node [shape=circle, fontcolor=black, style="", label="6(1)"]6
-node [shape=circle, fontcolor=black, style="", label="7(8)"]7
-node [shape=circle, fontcolor=black, style="", label="8(6)"]8
-node [shape=circle, fontcolor=black, style="", label="9(9)"]9
-node [shape=circle, fontcolor=black, style="", label="10(7)"]10
-node [shape=circle, fontcolor=black, style="", label="11(1)"]11
-node [shape=circle, fontcolor=black, style="", label="12(4)"]12
-node [shape=circle, fontcolor=black, style="", label="13(1)"]13
-node [shape=circle, fontcolor=black, style="", label="14(1)"]14
-node [shape=circle, fontcolor=black, style="", label="15(6)"]15
-node [shape=circle, fontcolor=black, style="", label="16(8)"]16
-node [shape=circle, fontcolor=black, style="", label="17(10)"]17
-node [shape=circle, fontcolor=black, style="", label="18(1)"]18
-node [shape=circle, fontcolor=black, style="", label="19(6)"]19
-node [shape=circle, fontcolor=black, style="", label="20(3)"]20
-node [shape=circle, fontcolor=black, style="", label="21(11)"]21
-node [shape=circle, fontcolor=black, style="", label="22(1)"]22
-node [shape=circle, fontcolor=black, style="", label="23(8)"]23
-node [shape=circle, fontcolor=black, style="", label="24(1)"]24
-node [shape=circle, fontcolor=black, style="", label="25(1)"]25
-node [shape=circle, fontcolor=black, style="", label="26(4)"]26
-node [shape=circle, fontcolor=black, style="", label="27(6)"]27
-node [shape=circle, fontcolor=black, style="", label="28(10)"]28
-node [shape=circle, fontcolor=black, style="", label="29(1)"]29
-node [shape=circle, fontcolor=black, style="", label="30(10)"]30
-node [shape=circle, fontcolor=black, style="", label="31(12)"]31
-node [shape=circle, fontcolor=black, style="", label="32(1)"]32
-node [shape=circle, fontcolor=black, style="", label="33(2)"]33
-node [shape=circle, fontcolor=black, style="", label="34(4)"]34
-node [shape=circle, fontcolor=black, style="", label="35(11)"]35
-node [shape=circle, fontcolor=black, style="", label="36(1)"]36
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
+node [shape=circle, fontcolor=black, style="", label="9"]9
+node [shape=circle, fontcolor=black, style="", label="10"]10
+node [shape=circle, fontcolor=black, style="", label="11"]11
+node [shape=circle, fontcolor=black, style="", label="12"]12
+node [shape=circle, fontcolor=black, style="", label="13"]13
+node [shape=circle, fontcolor=black, style="", label="14"]14
+node [shape=circle, fontcolor=black, style="", label="15"]15
+node [shape=circle, fontcolor=black, style="", label="16"]16
+node [shape=circle, fontcolor=black, style="", label="17"]17
+node [shape=circle, fontcolor=black, style="", label="18"]18
+node [shape=circle, fontcolor=black, style="", label="19"]19
+node [shape=circle, fontcolor=black, style="", label="20"]20
+node [shape=circle, fontcolor=black, style="", label="21"]21
+node [shape=circle, fontcolor=black, style="", label="22"]22
+node [shape=circle, fontcolor=black, style="", label="23"]23
+node [shape=circle, fontcolor=black, style="", label="24"]24
+node [shape=circle, fontcolor=black, style="", label="25"]25
+node [shape=circle, fontcolor=black, style="", label="26"]26
+node [shape=circle, fontcolor=black, style="", label="27"]27
+node [shape=circle, fontcolor=black, style="", label="28"]28
+node [shape=circle, fontcolor=black, style="", label="29"]29
+node [shape=circle, fontcolor=black, style="", label="30"]30
+node [shape=circle, fontcolor=black, style="", label="31"]31
+node [shape=circle, fontcolor=black, style="", label="32"]32
+node [shape=circle, fontcolor=black, style="", label="33"]33
+node [shape=circle, fontcolor=black, style="", label="34"]34
+node [shape=circle, fontcolor=black, style="", label="35"]35
+node [shape=circle, fontcolor=black, style="", label="36"]36
 node [shape=circle, fontcolor=black, style="", label="E"]E
     0 -> 1[label="if"];
     0 -> 2[label="else"];
@@ -80,7 +80,7 @@ node [shape=circle, fontcolor=black, style="", label="E"]E
     28 -> 31[label="br"];
     30 -> 31[label="end"];
     31 -> 32[label="~br_if"];
-    31 -> 5[color="red" fontcolor="red" label="br_if"];
+    31 -> 5[style="dashed" color="red" fontcolor="red" label="br_if"];
     32 -> 33[label="end"];
     33 -> 34[label="~br_if"];
     33 -> 36[label="br_if"];

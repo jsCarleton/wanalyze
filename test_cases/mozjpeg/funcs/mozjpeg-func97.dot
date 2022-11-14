@@ -5,11 +5,11 @@ digraph finite_state_machine {
     labelfontcolor = black
     labelfontname = "Helvetica"
     node [shape = doublecircle]; E ;
-node [shape=circle, fontcolor=black, style="", label="0(4)"]0
-node [shape=circle, fontcolor=black, style="", label="1(16)"]1
-node [shape=circle, fontcolor=black, style="", label="2(1)"]2
-node [shape=circle, fontcolor=black, style="", label="3(3)"]3
-node [shape=circle, fontcolor=black, style="", label="4(2)"]4
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
 node [shape=circle, fontcolor=black, style="", label="E"]E
     0 -> 1[label="block"];
     1 -> 2[label="end"];

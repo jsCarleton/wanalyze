@@ -5,19 +5,19 @@ digraph finite_state_machine {
     labelfontcolor = black
     labelfontname = "Helvetica"
     node [shape = doublecircle]; E ;
-node [shape=circle, fontcolor=black, style="", label="0(6)"]0
-node [shape=circle, fontcolor=black, style="", label="1(4)"]1
-node [shape=circle, fontcolor=black, style="", label="2(18)"]2
-node [shape=circle, fontcolor=black, style="", label="3(5)"]3
-node [shape=circle, fontcolor=black, style="", label="4(1)"]4
-node [shape=circle, fontcolor=black, style="", label="5(24)"]5
-node [shape=circle, fontcolor=black, style="", label="6(1)"]6
-node [shape=circle, fontcolor=black, style="", label="7(4)"]7
-node [shape=circle, fontcolor=black, style="", label="8(18)"]8
-node [shape=circle, fontcolor=black, style="", label="9(5)"]9
-node [shape=circle, fontcolor=black, style="", label="10(1)"]10
-node [shape=circle, fontcolor=black, style="", label="11(24)"]11
-node [shape=circle, fontcolor=black, style="", label="12(24)"]12
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
+node [shape=circle, fontcolor=black, style="", label="9"]9
+node [shape=circle, fontcolor=black, style="", label="10"]10
+node [shape=circle, fontcolor=black, style="", label="11"]11
+node [shape=circle, fontcolor=black, style="", label="12"]12
 node [shape=circle, fontcolor=black, style="", label="E"]E
     0 -> 1[label="block"];
     1 -> 2[label="if"];

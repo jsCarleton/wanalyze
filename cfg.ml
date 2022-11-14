@@ -13,7 +13,9 @@ let name_of_bb (bblock: bb): string =
 let label_of_bb (bblock: bb): string =
     match bblock.bbtype with
     | BB_exit_end | BB_exit_return | BB_exit_unreachable -> name_of_bb bblock
-    | _ -> String.concat [name_of_bb bblock; "(";  string_of_int (bblock.end_op - bblock.start_op); ")"]
+    (* TODO make it an option to print the BB cost *)
+    | _ -> name_of_bb bblock
+(*    | _ -> String.concat [name_of_bb bblock; "(";  string_of_int (bblock.end_op - bblock.start_op); ")"] *)
   
 (**
   cfg_dot_of_bbs
@@ -57,7 +59,7 @@ let cfg_dot_of_bbs (module_name: string) (func_idx: int) (bblocks: bb list): str
 
   let graph_edge (src: bb) (label: string) (dest: bb): string =
     if src.bbindex >= dest.bbindex then
-        String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
+        String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[style=\"dashed\" color=\"red\" fontcolor=\"red\" label=\""; label; "\"];\n"]
     else
         String.concat ["    "; name_of_bb src; " -> "; name_of_bb dest; "[label=\""; label; "\"];\n"]
   in
@@ -161,7 +163,9 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): 
       if ebb_too_many_paths ebblock then
         "    node [shape=box, fontcolor=white, style=filled, fillcolor=red] "
       else
-        "    node [shape=box, fontcolor=black, style=\"\"] ";
+      (match ebblock.ebbtype with
+        | EBB_loop  -> "    node [shape=box, color=red, style=dashed] "
+        | _         -> "    node [shape=box, color=black, style=solid] ");
       name_of_ebb ebblock; 
       "[label=\""; 
       label_of_ebb ebblock;
@@ -174,7 +178,7 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): 
     | _   -> String.concat [
               "    subgraph cluster_"; name_of_ebb ebblock; "{\n";
               "    label = \"\";\n";
-              "    color = red;\n";
+              "    style = dashed color = red;\n";
               String.concat (List.map ~f:graph_node ebblock.nested_ebbs);
               "    }\n"
              ]
@@ -182,7 +186,7 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): 
 
   let graph_edge (src_ebblock: ebb) (dest_exit: bb): string =
     if src_ebblock.entry_bb.bbindex >= dest_exit.bbindex then
-      String.concat ["    "; name_of_ebb src_ebblock; " -> "; name_of_bb dest_exit; "[color=\"red\"];\n"]
+      String.concat ["    "; name_of_ebb src_ebblock; " -> "; name_of_bb dest_exit; "[style=\"dashed\" color=\"red\"];\n"]
     else
       String.concat ["    "; name_of_ebb src_ebblock; " -> "; name_of_bb dest_exit; ";\n"]
   in
@@ -194,7 +198,7 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): 
             String.concat[
               String.concat (List.map ~f:(graph_edge ebblock) ebblock.exit_bbs);
               if ebb_has_branchback ebblock then
-                String.concat ["    "; name_of_ebb ebblock; " -> "; name_of_ebb ebblock; "[color=\"red\" dir=back];\n"]
+                String.concat ["    "; name_of_ebb ebblock; " -> "; name_of_ebb ebblock; "[style=\"dashed\" color=\"red\" dir=back];\n"]
               else 
                 ""
             ]

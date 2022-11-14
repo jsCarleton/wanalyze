@@ -5,7 +5,7 @@ digraph finite_state_machine {
     labelfontcolor = black
     labelfontname = "Helvetica"
     node [shape = doublecircle]; E ;
-node [shape=circle, fontcolor=black, style="", label="0(27)"]0
+node [shape=circle, fontcolor=black, style="", label="0"]0
 node [shape=circle, fontcolor=black, style="", label="E"]E
     0 -> E[label="end"];
 }

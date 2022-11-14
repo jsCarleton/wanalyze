@@ -5,15 +5,15 @@ digraph finite_state_machine {
     labelfontcolor = black
     labelfontname = "Helvetica"
     node [shape = doublecircle]; E ;
-node [shape=circle, fontcolor=black, style="", label="0(11)"]0
-node [shape=circle, fontcolor=black, style="", label="1(14)"]1
-node [shape=circle, fontcolor=black, style="", label="2(6)"]2
-node [shape=circle, fontcolor=black, style="", label="3(11)"]3
-node [shape=circle, fontcolor=black, style="", label="4(4)"]4
-node [shape=circle, fontcolor=black, style="", label="5(13)"]5
-node [shape=circle, fontcolor=black, style="", label="6(5)"]6
-node [shape=circle, fontcolor=black, style="", label="7(5)"]7
-node [shape=circle, fontcolor=black, style="", label="8(39)"]8
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
 node [shape=circle, fontcolor=black, style="", label="E"]E
     0 -> 1[label="if"];
     0 -> 2[label="else"];
