@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  3
   ebb type:   block
   ebb blocks: [3]
-  ebb cost:   146
+  ebb cost:   146 + (list_sum([|f16|; |f18|; |f36|]))
   ebb exits:  [4]
   ebb succs:  [4]
 ebb entry:  4

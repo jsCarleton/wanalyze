@@ -1,13 +1,13 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10]
-  ebb cost:   181
+  ebb cost:   181 + (list_sum([|f2|; |f17|; |f20|; |f22|; |f25|; |f30|; |f35|]))
   ebb exits:  [11]
   ebb succs:  [11]
 ebb entry:  11
   ebb type:   block
   ebb blocks: [11]
-  ebb cost:   46
+  ebb cost:   46 + (list_sum([|f20|; |f25|]))
   ebb exits:  [12]
   ebb succs:  [12]
 ebb entry:  12

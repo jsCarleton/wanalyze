@@ -11,6 +11,7 @@ digraph finite_state_machine {
     subgraph cluster_9{
     label = "";
     color = red;
+    style = dashed;
     node [shape=box, fontcolor=black, style=""] 3[label="[3 ... 4]"]
     node [shape=box, fontcolor=black, style=""] 5[label="[5]"]
     node [shape=box, fontcolor=black, style=""] 6[label="[6 ... 10]"]
@@ -26,9 +27,9 @@ digraph finite_state_machine {
     3 -> 12;
     5 -> 6;
     6 -> 11;
-    6 -> 6[color="red" dir=back];
+    6 -> 6[style=dashed color="red" dir=back];
     11 -> 12;
-    12 -> 3[color="red"];
+    12 -> 3[style=dashed color="red"];
     12 -> 14;
     14 -> 15;
     15 -> E;

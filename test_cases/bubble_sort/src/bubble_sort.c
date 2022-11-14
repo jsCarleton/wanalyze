@@ -16,7 +16,20 @@ void bubble(int n, int* data) {
   }
 }
 
+int __attribute__ ((noinline)) compute(int n, int x, int a, int b, int c) {
+  if (n == 0)
+    return a;
+  else if (n == 1)
+    return a*x + b;
+  else if (n == 2)
+    return a*x*x + b*x + c;
+  else
+    return x;
+}
+
 int main(int argc, char** argv) {
+
+  compute (1, 2, 3, 4, 5);
 
   // get the number of items to sort
   char* pEnd = NULL;
@@ -27,7 +40,7 @@ int main(int argc, char** argv) {
   srand(time(NULL));
   int* data = malloc(n*sizeof(int));
   for (int i = 0; i < n; i++) {
-    data[i] = rand();
+    data[compute (1, 2, 3, 4, 5)] = rand();
   }
 
   // sort it

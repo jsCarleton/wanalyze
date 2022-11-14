@@ -168,7 +168,6 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
       (paths_of_ebblocks'' [[List.hd_exn ebbs]] [] 0 (List.hd_exn (List.rev ebbs)).entry_bb.bbindex)
   in
 
-  Printf.printf "getting paths for %s\n%!" (string_of_ebblocks ebbs);
   let pl = List.map ~f:List.rev (paths_of_ebblocks' ebbs) in
     match pl with
     | [] -> []

@@ -129,6 +129,7 @@ let string_of_pci (pci: path_cost_info): string =
 
 let rec path_cost' (start_bb: Bb.bb) (end_bb: Bb.bb) (pcil: path_cost_info list): path_cost_info =
 
+  (* pc1 > pc2 if path is deeper or if equal depth then cost is greater *)
   let pci_compare (pci1: path_cost_info) (pci2: path_cost_info): int =
     if pci1.terminal.bbindex = pci2.terminal.bbindex then
       pci1.cost - pci2.cost
@@ -158,6 +159,7 @@ let rec path_cost' (start_bb: Bb.bb) (end_bb: Bb.bb) (pcil: path_cost_info list)
   match pcil with
   | [] -> {terminal = start_bb; path = []; cost = -1}
   | _  ->
+    (* doing a depth first traversal *)
     let pcil' = List.sort ~compare:pci_compare pcil in
     let next_pci = List.hd_exn pcil' in
     match next_pci.terminal with

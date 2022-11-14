@@ -1,13 +1,13 @@
 ebb entry:  0
   ebb type:   block
   ebb blocks: [0 1 2 3 4 5]
-  ebb cost:   123
+  ebb cost:   123 + (list_sum([|f17|; |f25|; |f26|; |f29|; |f30|; |f34|; |f37|]))
   ebb exits:  [6 37]
   ebb succs:  [37 6]
 ebb entry:  6
   ebb type:   block
   ebb blocks: [6]
-  ebb cost:   23
+  ebb cost:   23 + |f17|
   ebb exits:  [7]
   ebb succs:  [7]
 ebb entry:  7
@@ -25,13 +25,13 @@ ebb entry:  7
 ebb entry:  9
   ebb type:   block
   ebb blocks: [9 10 11]
-  ebb cost:   87
+  ebb cost:   87 + (list_sum([|f25|; |f26|; |f29|; |f30|; |f34|; |f37|; |f79|]))
   ebb exits:  [12 37]
   ebb succs:  [37 12]
 ebb entry:  12
   ebb type:   block
   ebb blocks: [12]
-  ebb cost:   20
+  ebb cost:   20 + (list_sum([|f76|; |f79|]))
   ebb exits:  [13]
   ebb succs:  [13]
 ebb entry:  13
@@ -49,7 +49,7 @@ ebb entry:  13
 ebb entry:  17
   ebb type:   block
   ebb blocks: [17]
-  ebb cost:   43
+  ebb cost:   43 + (list_sum([|f20|; |f44|; |f73|; |f75|]))
   ebb exits:  [18]
   ebb succs:  [18]
 ebb entry:  18
@@ -86,7 +86,7 @@ ebb entry:  25
   (61 + (list_sum([|f16|; |f20|; |f72|]))) * (I([lN7], [lN7 < 1], [lN7 = 1], [lN7 = 0 + 1]))
 ])) + (list_max([1; 1]))
   ebb exits:  [35]
-  ebb succs:  [35]
+  ebb succs:  []
   2 paths to exit 35
   [25 27 28 29 30 31 34]
   [25 26 28 29 30 31 34]
@@ -100,19 +100,19 @@ nested ebbs:
     ebb blocks: [25 26 27]
     ebb cost:   12
     ebb exits:  [28]
-    ebb succs:  [28]
+    ebb succs:  [28 28]
   ebb entry:  28
     ebb type:   block
     ebb blocks: [28]
-    ebb cost:   41
+    ebb cost:   41 + (list_sum([|f16|; |f20|; |f72|]))
     ebb exits:  [29]
-    ebb succs:  [29]
+    ebb succs:  [29 29]
   ebb entry:  29
     ebb type:   loop
     ebb blocks: [29 30]
     ebb cost:   ((37 + (list_sum([|f16|; |f20|; |f72|]))) * (I([lN6; lN8], [((lN6 + lN8) rem_u 8) != 0], [lN6 = 0; lN8 = 0], [lN6 = (0 + 0) rem_u 8; lN8 = 0]))) + 1
     ebb exits:  [31]
-    ebb succs:  [31]
+    ebb succs:  [31 31]
     1 paths to exit 31
     [29 30]
     1 loop paths
@@ -122,13 +122,13 @@ nested ebbs:
   ebb entry:  31
     ebb type:   block
     ebb blocks: [31 32 33 34]
-    ebb cost:   24
+    ebb cost:   24 + (list_sum([|f33|; |f77|; |f78|]))
     ebb exits:  [25 35]
-    ebb succs:  [25]
+    ebb succs:  [35 25 25]
 ebb entry:  35
   ebb type:   block
   ebb blocks: [35 36]
-  ebb cost:   15
+  ebb cost:   15 + (list_sum([|f33|; |f77|; |f78|]))
   ebb exits:  [36]
   ebb succs:  []
 ebb entry:  37

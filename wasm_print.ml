@@ -501,8 +501,6 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   (* costs *)
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
-    Printf.printf "ebb_paths:\n%!";
-    List.iter ~f:(fun p -> Printf.printf "%s\n%!" (string_of_ebblocks p)) ebb_paths;
     (match List.length ebb_paths with
     | 0 -> Out_channel.output_string oc "Inf"
     | 1 -> Out_channel.output_string oc (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths))))
