@@ -1,10 +1,10 @@
 digraph finite_state_machine {
+    rankdir="LR"
     label = ""
     labelloc =  t
     labelfontsize = 16
     labelfontcolor = black
     labelfontname = "Helvetica"
-    node [shape = doublecircle]; E ;
     node [shape = box];
     node [shape=box, fontcolor=black, style=""] 0[label="[0 ... 1]"]
     node [shape=box, fontcolor=black, style=""] 2[label="[2]"]

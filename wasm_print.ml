@@ -441,7 +441,7 @@ let loop_type ctx cp_ssa bbs (bb_idx: int) =
 
 (* TODO more convenient to store code paths in reverse order? *)
 let print_summary oc_summary ctx m fnum bbs (codepath: cp) =
-  let cp_ssa = ssa_of_codepath ctx codepath in
+  let cp_ssa = ssa_of_codepath ctx codepath true in
   let bb = List.hd_exn (List.rev codepath) in
   Out_channel.output_string oc_summary
     (sprintf "%s,%d,%d,%s,%s\n"
@@ -472,7 +472,7 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let local_types   = (List.nth_exn w.code_section fidx).locals in
   let w_state       = empty_program_state w param_types local_types in
   let ctx           = {w; w_e; w_state; param_types; local_types} in
-  let ebbs          = ebbs_of_bbs ctx bblocks in
+  let ebbs          = ebbs_of_bbs ctx bblocks bblocks in
 
   let ebb_paths     = paths_of_ebblocks ebbs in
 

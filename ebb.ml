@@ -254,8 +254,9 @@ let branchbacks_of_loop (lbb: bb list): bb list =
     ebblocks
 
     Parameters:
-      ctx       execution context
-      all_bbs   basic blocks
+      ctx         execution context
+      all_bbs     basic blocks
+      bbs_to_do:  bbs of the ebb
 
     Returns:
       list of ebblocks
@@ -265,7 +266,7 @@ let branchbacks_of_loop (lbb: bb list): bb list =
 *)
 
 let rec ebbs_of_bbs (ctx: Ex.execution_context) 
-          (all_bbs: bb list): ebb list =
+          (all_bbs: bb list) (bbs_todo: bb list): ebb list =
 
   let cost_of_block_ebb (entry_bb: bb) (exit_bbs: bb list): et =
     let max_pci =
@@ -278,9 +279,19 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     cost_of_codepath ctx.w_e max_pci.path
   in
 
+  let rec cost_of_ebb (e: ebb): et =
+    match e.ebbtype with
+    | EBB_block -> cost_of_block_ebb e.entry_bb e.exit_bbs
+    | EBB_loop -> (
+      match e.nest_ebbs with
+      | [] -> Node {op = "list_max"; args = List.map ~f:expr_of_lm lms}
+      | _  -> 
+    )
+
+
   let sub_ebbs_of_bbs (sub_bbs: bb list): ebb list =
     if List.exists ~f:(fun bblock -> match bblock.bbtype with | BB_loop -> true | _ -> false) sub_bbs then
-      ebbs_of_bbs ctx sub_bbs
+      ebbs_of_bbs ctx all_bbs sub_bbs
     else
       []
   in
@@ -311,7 +322,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
           op = "*"; 
           args = [  lmi.loop_cost;
                     Node {
-                      op = "I";
+                      op = "N";
                       args = [  ExprList (List.map ~f:(fun lv -> Variable lv) lmi.loop_vars);
                                 ExprList [lmi.loop_cond];
                                 ExprList (List.map ~f:(fun lvev -> Constant (String_value (Ssa.string_of_ssa lvev))) lmi.lv_entry_vals); (* TODO improve this *)
@@ -365,13 +376,15 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let exit_cps    = exit_paths (exit_cps codepaths) loop_cps in
             let nested_ebbs = sub_ebbs_of_bbs bblocks in
             let root_bb     = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
+            Printf.printf "root_bb: %d entry_bb: %d (back_pred entry_bb): %d\n%!" root_bb.bbindex entry_bb.bbindex (back_pred entry_bb).bbindex;
             (* TODO goal is to replace this call to Cp.codepaths_from_to_bb_exn with a function
                that returns the paths that update any of the loop vars rather than all paths *)
             let cp =
-              (match Cp.codepaths_from_to_bb_exn root_bb (back_pred entry_bb) with
+              (match Cp.codepaths_from_to_bb_exn root_bb entry_bb with
               | [] -> []
               (* TODO why do we only consider one prefix? *)
-              | cp  -> List.rev (List.hd_exn cp)) in (* TODO this reverse should be done earlier *)
+              | cps  -> List.rev (List.hd_exn cps)) in (* TODO this reverse should be done earlier *)
+            Printf.printf "prefix path: %s\n%!" (string_of_bbs cp);
             let lms = looping_parts_costs bbacks loop_cps cp in
             let ulv = unique_loop_vars lms in
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
@@ -447,8 +460,8 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     (match entry_bb with | None -> Some bblock | _ -> entry_bb)
   in
 
-  let rec eblock_of_bbs' (all_bbs: bb list) (bbs_acc: bb list) (ebbs_acc: ebb list) (lnest: int) (entry_bb: bb option): ebb list =
-    match all_bbs with
+  let rec eblock_of_bbs' (bbs_todo: bb list) (bbs_acc: bb list) (ebbs_acc: ebb list) (lnest: int) (entry_bb: bb option): ebb list =
+    match bbs_todo with
       (* do we still have bblocks to process ? *)
       | hd::tl  ->
           (* are we in a loop ? *)
@@ -457,21 +470,9 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             (* no, not in a loop *)
             (match hd.bbtype with
               (* are we starting a loop ? *)
-              | BB_loop -> 
-                  (* TODO not sure that this is quite right. should it be: always start a bb after an else? *)
-                  (* we make the loop bb an ebb with just that bb *)
-                  (match bbs_acc with
-                    (* have we already started to build an ebb? *)
-                    | [] ->
-                        (* no, just build an ebb for the loop *)
-                        eblock_of_bbs' tl [] ((build_ebblock EBB_block hd bbs_acc)::ebbs_acc) hd.nesting None
-                    | _ ->
-                        (* yes, close it off and create one containing just the loop *)
-                        eblock_of_bbs' tl [] 
-                          ((finish_ebblock EBB_block [hd])
-                              ::(finish_ebblock EBB_block bbs_acc)
-                              ::ebbs_acc) hd.nesting None
-                  )
+              | BB_loop ->
+                  (* yes, finish the EBB *)
+                  eblock_of_bbs' tl [] ((finish_ebblock EBB_block (hd::bbs_acc))::ebbs_acc) hd.nesting None
               | _  ->
                   (* does this bb have a pred that's before the current ebb? 
                       i.e. does some earlier ebb enter this bb? if so it needs to be
@@ -543,7 +544,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
      List.iter ~f:(update_succ' ebbs) ebbs;
     in
 
-  let ebbs = eblock_of_bbs' all_bbs [] [] (-1) None in
+  let ebbs = eblock_of_bbs' bbs_todo [] [] (-1) None in
   update_succ (List.rev (flatten ebbs));
   ebbs
 

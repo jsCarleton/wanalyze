@@ -215,8 +215,10 @@ let ssa_of_expr' (ctx: execution_context) (e: expr) acc: ssa list =
 let ssa_of_bb (ctx: execution_context) acc (bblock: Bb.bb): ssa list =
   ssa_of_expr' ctx (expr_of_bb ctx.w_e bblock) acc
 
-let ssa_of_codepath (ctx: execution_context) (codepath: Cp.cp): ssa list =
-  List.fold ~f:(ssa_of_bb ctx) ~init:(initial_ssas_of_locals (List.length ctx.param_types) ctx.local_types) codepath
+let ssa_of_codepath (ctx: execution_context) (codepath: Cp.cp) (init_locals: bool): ssa list =
+  List.fold ~f:(ssa_of_bb ctx) 
+            ~init:(if init_locals then (initial_ssas_of_locals (List.length ctx.param_types) ctx.local_types) else [])
+            codepath
 
 let rec expand_et (e: et) (s_src: ssa) : et =
   match e with 

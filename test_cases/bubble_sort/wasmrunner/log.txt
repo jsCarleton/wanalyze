@@ -1,0 +1,138 @@
+function 0 root_bb: 0 entry_bb: 6 (back_pred entry_bb): 5
+prefix path: [0 1 2 3 4 5]
+lv_entry_vals:
+  ln4 = pn0 + -1
+  ln5 = 0
+prefix bbs: [0 1 2 3 4 5]
+prefix ssa:
+  tn26 = tn24 < tn25
+  tn25 = 1
+  tn24 = tn22 + tn23
+  tn23 = pn0
+  tn22 = tn20 xor tn21
+  tn21 = -1
+  tn20 = ln2
+  ln5 = tn18
+  tn18 = 0
+  ln4 = tn15
+  ln3 = tn15
+  tn15 = tn13 + tn14
+  tn14 = -1
+  tn13 = pn0
+  ln2 = tn11
+  tn11 = 0
+  tn10 = tn8 < tn9
+  tn9 = 2
+  tn8 = pn0
+  ln2 = 0
+  ln3 = 0
+  ln4 = 0
+  ln5 = 0
+  ln6 = 0
+  ln7 = 0
+  ln8 = 0
+  ln9 = 0
+lv_entry_vals:
+  ln4 = pn0 + -1
+  ln5 = 0
+prefix bbs: [0 1 2 3 4 5]
+prefix ssa:
+  tn26 = tn24 < tn25
+  tn25 = 1
+  tn24 = tn22 + tn23
+  tn23 = pn0
+  tn22 = tn20 xor tn21
+  tn21 = -1
+  tn20 = ln2
+  ln5 = tn18
+  tn18 = 0
+  ln4 = tn15
+  ln3 = tn15
+  tn15 = tn13 + tn14
+  tn14 = -1
+  tn13 = pn0
+  ln2 = tn11
+  tn11 = 0
+  tn10 = tn8 < tn9
+  tn9 = 2
+  tn8 = pn0
+  ln2 = 0
+  ln3 = 0
+  ln4 = 0
+  ln5 = 0
+  ln6 = 0
+  ln7 = 0
+  ln8 = 0
+  ln9 = 0
+root_bb: 0 entry_bb: 3 (back_pred entry_bb): 2
+prefix path: [0 1 2]
+lv_entry_vals:
+  ln2 = 0
+  ln3 = pn0 + -1
+prefix bbs: [0 1 2]
+prefix ssa:
+  ln4 = tn15
+  ln3 = tn15
+  tn15 = tn13 + tn14
+  tn14 = -1
+  tn13 = pn0
+  ln2 = tn11
+  tn11 = 0
+  tn10 = tn8 < tn9
+  tn9 = 2
+  tn8 = pn0
+  ln2 = 0
+  ln3 = 0
+  ln4 = 0
+  ln5 = 0
+  ln6 = 0
+  ln7 = 0
+  ln8 = 0
+  ln9 = 0
+lv_entry_vals:
+  ln2 = 0
+  ln3 = pn0 + -1
+prefix bbs: [0 1 2]
+prefix ssa:
+  ln4 = tn15
+  ln3 = tn15
+  tn15 = tn13 + tn14
+  tn14 = -1
+  tn13 = pn0
+  ln2 = tn11
+  tn11 = 0
+  tn10 = tn8 < tn9
+  tn9 = 2
+  tn8 = pn0
+  ln2 = 0
+  ln3 = 0
+  ln4 = 0
+  ln5 = 0
+  ln6 = 0
+  ln7 = 0
+  ln8 = 0
+  ln9 = 0
+lv_entry_vals:
+  ln2 = 0
+  ln3 = pn0 + -1
+prefix bbs: [0 1 2]
+prefix ssa:
+  ln4 = tn15
+  ln3 = tn15
+  tn15 = tn13 + tn14
+  tn14 = -1
+  tn13 = pn0
+  ln2 = tn11
+  tn11 = 0
+  tn10 = tn8 < tn9
+  tn9 = 2
+  tn8 = pn0
+  ln2 = 0
+  ln3 = 0
+  ln4 = 0
+  ln5 = 0
+  ln6 = 0
+  ln7 = 0
+  ln8 = 0
+  ln9 = 0
+cost: 74

@@ -87,17 +87,22 @@ let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts
               (Cp.expr_of_codepath ctx.w_e lp.loop_part cs.cond_bb)
               (Ex.empty_program_state ctx.w ctx.param_types ctx.local_types) in
     let loop_vars     = Et.vars_of_et loop_cond in
-    let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part in
+    let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part true in
     let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
-    let loop_ssa      = Ssa.ssa_of_codepath ctx lp.loop_part in
+    let loop_ssa      = Ssa.ssa_of_codepath ctx lp.loop_part false in
     let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
+      Printf.printf "lv_entry_vals:\n%!";
+      List.iter ~f:(fun v -> Printf.printf "  %s\n%!" (Ssa.string_of_ssa v)) lv_entry_vals;
+      Printf.printf "prefix bbs: %s\n%!" (Bb.string_of_bbs lp.prefix_part);
+      Printf.printf "prefix ssa:\n%!";
+      List.iter ~f:(fun v -> Printf.printf "  %s\n%!" (Ssa.string_of_ssa v)) prefix_ssa;
       LMI { prefix_cost = Cp.cost_of_codepath ctx.w_e lp.prefix_part;
             loop_cost = Cp.cost_of_codepath ctx.w_e lp.loop_part;
             loop_cond = if cs.sense then loop_cond else Node { op = "not"; args = [loop_cond]};
             loop_vars;
             lv_entry_vals;
             lv_loop_vals}
-
+ 
 let cost_of_loops (ctx: Ex.execution_context) (prefixes: Cp.cp list) (loop_paths: Cp.cp list)
       (bback: Bb.bb): loop_metric list =
   List.dedup_and_sort ~compare:compare_metrics (* TODO is this dedup needed? *)
