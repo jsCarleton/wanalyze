@@ -473,7 +473,6 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let w_state       = empty_program_state w param_types local_types in
   let ctx           = {w; w_e; w_state; param_types; local_types} in
   let ebbs          = ebbs_of_bbs ctx bblocks bblocks in
-
   let ebb_paths     = paths_of_ebblocks ebbs in
 
   (* function source code *)
@@ -500,13 +499,15 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
 
   (* costs *)
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
+    Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
+    List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_ebblocks p))) ebb_paths;
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
     (match List.length ebb_paths with
     | 0 -> Out_channel.output_string oc "Inf"
     | 1 -> Out_channel.output_string oc (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths))))
     | _ -> (let max_cost = ebb_paths_max_cost ebb_paths in
            let p = Out_channel.output_string oc in
-           print_et (simplify max_cost) p));
+           print_et max_cost p));
     Out_channel.output_string oc "\n";
     Out_channel.close oc;
 

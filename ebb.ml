@@ -268,15 +268,24 @@ let branchbacks_of_loop (lbb: bb list): bb list =
 let rec ebbs_of_bbs (ctx: Ex.execution_context) 
           (all_bbs: bb list) (bbs_todo: bb list): ebb list =
 
-  let cost_of_block_ebb (entry_bb: bb) (exit_bbs: bb list): et =
-    let max_pci =
-          List.fold
-            ~init:(Cost.empty_pci entry_bb)
-            ~f:(fun info exit_bb ->
-                  let new_info = Cost.max_cost_info entry_bb exit_bb in
-                  if new_info.cost > info.cost then new_info else info)
-            exit_bbs in
-    cost_of_codepath ctx.w_e max_pci.path
+  let cost_of_bbs (bbs: bb list): int =
+    List.fold
+      ~init:0
+      ~f:(fun c bb -> c + (cost_of_bb bb))
+      bbs
+  in
+
+  let cost_of_block_ebb (bbs: bb list): et =
+    Constant (
+      Int_value (
+        List.fold 
+          ~init:(-1)
+          ~f:(fun c cp ->
+                let c' = cost_of_bbs cp in
+                if c' > c then c' else c)
+          (codepaths_of_bbs bbs [[List.hd_exn bbs]] [])
+      )
+    )
   in
 
 (*
@@ -439,7 +448,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
         let loop_cps    = [] in
         let exit_cps    = [] in
         let nested_ebbs = [] in
-        let cost        = cost_of_block_ebb entry_bb exit_bbs in
+        let cost        = cost_of_block_ebb bblocks in
         {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
   in
 
