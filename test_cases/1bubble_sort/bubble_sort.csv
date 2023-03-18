@@ -1,0 +1,42 @@
+Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values
+bubble_sort,6,2,[0 1 2] 13,block
+bubble_sort,8,2,[0 1 2] 39 + (list_sum([|f17|; |f21|; |f22|; |f29|; |f60|])),simple br_if,ln4 = rn0; ln3 = 0,(ln3 + 1) != ln4,ln3; ln4,ln4 = ln4; ln3 = ln3 + 1
+bubble_sort,8,8,[0 1 6 7 8] 51 + (list_sum([|f17|; |f21|; |f22|; |f29|; |f60|])),block
+bubble_sort,12,2,[0 1 2] 8,simple br_if,ln0 = 0,(ln0 + -4) > 0,ln0,ln0 = ln0 + -4
+bubble_sort,24,8,[0 1 2 3 4 5 8] 54 + (list_sum([|f4|; |f53|])),if
+bubble_sort,28,33,[0 1 2 3 4 5 6 21 22 23 24 25 26 27 32 33] 61,block
+bubble_sort,28,33,[0 1 2 3 4 5 6 21 22 23 24 25 26 29 32 33] 64,block
+bubble_sort,28,33,[0 1 2 3 4 5 6 21 22 23 24 31 32 33] 52,block
+bubble_sort,28,33,[0 1 2 3 4 5 6 21 22 23 31 32 33] 47,block
+bubble_sort,28,11,[0 1 2 3 4 5 10 11] 23,if
+bubble_sort,30,8,[0 1 2 3 4 5 6 7 8] 158,simple br_if,pn2 = ((pn2 - ((0 - pn0) && 3)) && -4) - (((pn0 + ((0 - pn0) && 3)) && 4) || 24),(pn2 + -32) > 31,pn2,pn2 = pn2 + -32
+bubble_sort,35,2,[0 1 2] 7 + |f34|,simple br_if,ln0 = (rn0),i32.load@(ln0),ln0,ln0 = (ln0)
+bubble_sort,39,5,[0 1 2 3 4 5] 20,if
+bubble_sort,39,15,[0 1 2 3 4 11 12 13 14 15] 37,if
+bubble_sort,39,22,[0 1 2 3 4 11 12 13 14 20 21 22] 39,block
+bubble_sort,39,22,[0 1 2 3 4 11 12 13 20 21 22] 35,block
+bubble_sort,39,15,[0 1 2 3 11 12 13 14 15] 34,if
+bubble_sort,39,22,[0 1 2 3 11 12 13 14 20 21 22] 36,block
+bubble_sort,39,22,[0 1 2 3 11 12 13 20 21 22] 32,block
+bubble_sort,41,7,[0 1 2 3 4 5 6 7] 26,if
+bubble_sort,41,29,[0 1 2 3 4 5 6 25 26 27 28 29] 42,simple br_if,pn2 = pn0; ln5 = ((pn0 + pn2) && -4) + -64,(pn2 + 64) <= ln5,ln5; pn2,pn2 = pn2 + 64; ln5 = ln5
+bubble_sort,41,34,[0 1 2 3 4 5 6 25 26 27 28 33 34] 46,simple br_if,pn2 = pn0; ln4 = (pn0 + pn2) && -4,(pn2 + 4) < ln4,ln4; pn2,pn2 = pn2 + 4; ln4 = ln4
+bubble_sort,41,40,[0 1 2 3 4 5 6 25 26 27 28 33 38 39 40] 51,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+bubble_sort,41,34,[0 1 2 3 4 5 6 25 26 27 33 34] 39,simple br_if,pn2 = pn0; ln4 = (pn0 + pn2) && -4,(pn2 + 4) < ln4,ln4; pn2,pn2 = pn2 + 4; ln4 = ln4
+bubble_sort,41,40,[0 1 2 3 4 5 6 25 26 27 33 38 39 40] 44,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+bubble_sort,41,29,[0 1 2 3 4 5 25 26 27 28 29] 38,simple br_if,pn2 = pn0; ln5 = ((pn0 + pn2) && -4) + -64,(pn2 + 64) <= ln5,ln5; pn2,pn2 = pn2 + 64; ln5 = ln5
+bubble_sort,41,34,[0 1 2 3 4 5 25 26 27 28 33 34] 42,simple br_if,pn2 = pn0; ln4 = (pn0 + pn2) && -4,(pn2 + 4) < ln4,ln4; pn2,pn2 = pn2 + 4; ln4 = ln4
+bubble_sort,41,40,[0 1 2 3 4 5 25 26 27 28 33 38 39 40] 47,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+bubble_sort,41,34,[0 1 2 3 4 5 25 26 27 33 34] 35,simple br_if,pn2 = pn0; ln4 = (pn0 + pn2) && -4,(pn2 + 4) < ln4,ln4; pn2,pn2 = pn2 + 4; ln4 = ln4
+bubble_sort,41,40,[0 1 2 3 4 5 25 26 27 33 38 39 40] 40,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+bubble_sort,41,17,[0 1 2 3 4 14 15 16 17] 29,if
+bubble_sort,41,40,[0 1 2 3 4 14 15 16 23 38 39 40] 35,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+bubble_sort,41,40,[0 1 2 3 4 14 15 23 38 39 40] 28,simple br_if,pn2 = pn0; ln3 = pn0 + pn2,(pn2 + 1) != ln3,ln3; pn2,pn2 = pn2 + 1; ln3 = ln3
+bubble_sort,42,14,[0 1 2 3 4 5 6 9 10 11 14] 34 + |f37|,block
+bubble_sort,42,14,[0 1 2 5 6 9 10 11 14] 25,block
+bubble_sort,46,4,[0 1 4] 9 + |f38|,block
+bubble_sort,48,2,[0 1 2] 5,simple br_if,pN0 = pN0,pN0 > 15,pN0,pN0 = pN0 shr_u 4
+bubble_sort,49,2,[0 1 2] 5,simple br_if,pN0 = pN0,pN0 > 7,pN0,pN0 = pN0 shr_u 3
+bubble_sort,50,11,[0 1 2 3 9 10 11] 16,simple br_if,ln3 = i32.wrap_i64(pN0),ln3 > 9,ln3,ln3 = ln3 /u 10
+bubble_sort,50,5,[0 1 2 5] 7,simple br_if,pN0 = pN0,pN0 > 42949672959,pN0,pN0 = pN0 /u 10
+bubble_sort,51,5,[0 1 2 3 4 5] 34 + |f30|,simple br_if,pn3 = pn2 - pn3,(pn3 + -256) > 255,pn3,pn3 = pn3 + -256

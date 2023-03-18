@@ -279,15 +279,16 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     cost_of_codepath ctx.w_e max_pci.path
   in
 
+(*
   let rec cost_of_ebb (e: ebb): et =
     match e.ebbtype with
     | EBB_block -> cost_of_block_ebb e.entry_bb e.exit_bbs
     | EBB_loop -> (
       match e.nest_ebbs with
       | [] -> Node {op = "list_max"; args = List.map ~f:expr_of_lm lms}
-      | _  -> 
+      | _  -> Empty (* TODO *)
     )
-
+*)
 
   let sub_ebbs_of_bbs (sub_bbs: bb list): ebb list =
     if List.exists ~f:(fun bblock -> match bblock.bbtype with | BB_loop -> true | _ -> false) sub_bbs then
