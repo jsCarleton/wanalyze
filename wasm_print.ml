@@ -497,8 +497,20 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
     Out_channel.close oc;
 
+  let rec print_ebb_costs oc (ebbs: ebb list) =
+    match ebbs with
+    | []      -> () 
+    | hd::tl  -> (
+        Out_channel.output_string oc (sprintf "[%d]: %s\n" (hd.entry_bb.bbindex) (string_of_et hd.ebb_cost));
+        print_ebb_costs oc hd.nested_ebbs;
+        print_ebb_costs oc tl
+      )
+    in
+
   (* costs *)
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
+    Out_channel.output_string oc "ebb costs:\n";
+    print_ebb_costs oc ebbs;
     Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
     List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_ebblocks p))) ebb_paths;
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);

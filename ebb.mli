@@ -3,7 +3,7 @@ type ebb_type = EBB_loop | EBB_block
 type ebb = 
   {
     ebbtype:      ebb_type;       (* either a block or a loop*)
-    cost:         Et.et;          (* cost of executing this ebb *)
+    ebb_cost:     Et.et;          (* cost of executing this ebb *)
     entry_bb:     Bb.bb;          (* bb that's the entry to the ebb *)
     bblocks:      Bb.bb list;     (* list of bbs that make up the ebb *)
     mutable

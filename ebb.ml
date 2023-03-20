@@ -8,7 +8,7 @@ type ebb_type = EBB_loop | EBB_block
 type ebb = 
   {
     ebbtype:      ebb_type;       (* either a block or a loop*)
-    cost:         et;             (* cost of executing this ebb *)
+    ebb_cost:     et;             (* cost of executing this ebb *)
     entry_bb:     bb;             (* bb that's the entry to the ebb *)
     bblocks:      bb list;        (* list of bblocks that make up the ebb *)
     mutable
@@ -37,7 +37,7 @@ let string_of_ebblock (ebb: ebb): string =
       sprintf "%sebb entry:  %d\n"  (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb type:   %s\n"  spaces (string_of_ebb_type ebb.ebbtype);
       sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bblocks);
-      sprintf "%sebb cost:   %s\n"  spaces (format_et ebb.cost);
+      sprintf "%sebb cost:   %s\n"  spaces (format_et ebb.ebb_cost);
       sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks ebb.exit_bbs);
       sprintf "%sebb succs:  %s\n"  spaces (string_of_ebblocks ebb.succ_ebbs);
       (match ebb.codepaths with
@@ -379,7 +379,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     match ebbtype with
     | EBB_loop ->
         let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
-        let bbacks = branchbacks_of_loop bblocks in
+        let bbacks    = branchbacks_of_loop bblocks in
         let loop_cps  = looping_paths_of_loop_bblocks bblocks bbacks in
         if List.length loop_cps > 0 then
           begin
@@ -408,48 +408,48 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                   begin
                     match exit_cost with
                     | Empty ->
-                        let cost = Node {op = "list_max"; args = List.map ~f:expr_of_lm lms} in
-                        {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
+                        let ebb_cost = Node {op = "list_max"; args = List.map ~f:expr_of_lm lms} in
+                        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
-                        let cost = Node {op = "+";
+                        let ebb_cost = Node {op = "+";
                                          args = [Node {op = "list_max"; args =  List.map ~f:expr_of_lm lms};
                                                  exit_cost]} in
-                        {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
+                        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
                   (* no, we need use the cost of the single path through the loop *)
                   begin
                     match exit_cost with
                     | Empty ->
-                        let cost = expr_of_lm (List.hd_exn lms) in
-                        {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
+                        let ebb_cost = expr_of_lm (List.hd_exn lms) in
+                        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
-                      let cost = Node {op = "+"; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
-                      {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
+                      let ebb_cost = Node {op = "+"; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
+                      {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
               end
             else
               (* this happens when there are too many loop prefixes and we give up trying to enumerate them *)
               begin
-                let cost       =  Constant (String_value "Infinity-z") in
-                {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
+                let ebb_cost       =  Constant (String_value "Infinity-z") in
+                {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
               end
           end
         else
           (* this happens when there are too many looping paths and we give up trying to enumerate them *)
           begin 
-            let cost        = Constant (String_value "Infinity-t") in
+            let ebb_cost    = Constant (String_value "Infinity-t") in
             let exit_cps    = [] in
             let nested_ebbs = [] in
-            {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
+            {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
           end
     | EBB_block ->
         let codepaths   = [] in
         let loop_cps    = [] in
         let exit_cps    = [] in
         let nested_ebbs = [] in
-        let cost        = cost_of_block_ebb bblocks in
-        {ebbtype; cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
+        let ebb_cost    = cost_of_block_ebb bblocks in
+        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
   in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bb list): ebb =
@@ -573,8 +573,8 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
 let ebb_path_cost (ebb_path: ebb list): et =
   match ebb_path with
   | []    -> Constant (Int_value 0)
-  | [hd]  -> hd.cost
-  | _     -> Node { op = "list_sum"; args = List.map ~f:(fun ebb -> ebb.cost) ebb_path}
+  | [hd]  -> hd.ebb_cost
+  | _     -> Node { op = "list_sum"; args = List.map ~f:(fun ebb -> ebb.ebb_cost) ebb_path}
 
 let ebb_paths_max_cost (ebb_paths: ebb list list): et =
   match ebb_paths with
