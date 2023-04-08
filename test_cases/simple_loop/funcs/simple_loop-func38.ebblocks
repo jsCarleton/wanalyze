@@ -1,8 +1,30 @@
 ebb entry:  0
   ebb type:   block
-  ebb blocks: [0 1]
+  ebb blocks: [0 1 2]
+  ebb cost:   5
+  ebb exits:  [3 6]
+  ebb succs:  [6 3]
+ebb entry:  3
+  ebb type:   loop
+  ebb blocks: [3 4]
+  ebb cost:   (21 * (N([pN0], [pN0 > 7], [pN0 = pN0 shr_u 3], [pN0 = pN0 shr_u 3]))) + 1
+  ebb exits:  [5]
+  ebb succs:  [5]
+  1 paths to exit 5
+  [3 4]
+  1 loop paths
+  [3]
+  1 post loop exit paths
+  [4]
+ebb entry:  5
+  ebb type:   block
+  ebb blocks: [5]
+  ebb cost:   1
+  ebb exits:  [6]
+  ebb succs:  [6]
+ebb entry:  6
+  ebb type:   block
+  ebb blocks: [6 7]
   ebb cost:   2
-  ebb exits:  [1]
+  ebb exits:  [7]
   ebb succs:  []
-  1 paths to exit 1
-  [0]

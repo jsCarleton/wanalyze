@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+/* generate an array of random integers and sum it */
+
 int sum(int n, int* data) {
   int i, j, sum = 0;
 
@@ -14,7 +16,7 @@ int sum(int n, int* data) {
 
 int main(int argc, char** argv) {
 
-  // get the number of items to sort
+  // get the number of items to generate
   char* pEnd = NULL;
   int n = strtol(argv[1], &pEnd, 10);
   printf("generating and summing %d items\n", n);

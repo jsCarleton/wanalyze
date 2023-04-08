@@ -1,52 +1,13 @@
-|f6| = list_max([
-  list_sum([
-    list_max([
-      37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]));
-      37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))
-    ]);
-    list_max([
-      15 + |f11|;
-      1
-    ]);
-    ((14 + |f11|) * (I([ln3; pn1], [(ln3 + 1) != pn1], [ln3 = 0 + 1; pn1 = rn0], [ln3 = ln3 + 1; pn1 = pn1]))) + 1;
-    1;
-    list_max([7; 7]);
-    list_max([19; 3]);
-    (16 * (I([ln3; pn1], [(ln3 + 1) != pn1], [ln3 = 0 + 1; pn1 = rn0], [ln3 = ln3 + 1; pn1 = pn1]))) + 1;
-    1;
-    6
-  ]);
-  list_sum([
-    list_max([
-      37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]));
-      37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))
-    ]);
-    list_max([
-      15 + |f11|;
-      1
-    ]);
-    ((14 + |f11|) * (I([ln3; pn1], [(ln3 + 1) != pn1], [ln3 = 0 + 1; pn1 = rn0], [ln3 = ln3 + 1; pn1 = pn1]))) + 1;
-    1;
-    list_max([7; 7]);
-    6
-  ]);
-  list_sum([
-    list_max([
-      37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]));
-      37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))
-    ]);
-    list_max([7; 7]);
-    list_max([19; 3]);
-    (16 * (I([ln3; pn1], [(ln3 + 1) != pn1], [ln3 = 0 + 1; pn1 = rn0], [ln3 = ln3 + 1; pn1 = pn1]))) + 1;
-    1;
-    6
-  ]);
-  list_sum([
-    list_max([
-      37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]));
-      37 + (list_sum([|f8|; |f9|; |f10|; |f17|; |f44|]))
-    ]);
-    list_max([7; 7]);
-    6
-  ])
+ebb costs:
+[0]: 94
+[2]: (57 + |f11|) * (N([ln4], [not(i32.eqz(((i32.load@(ln4)) < (i32.load@(ln4))) && 1))], [ln4 = gn0 - 32], [ln4 = ln4]))
+[5]: 1
+[7]: 20
+[11]: 0
+1 ebb paths found
+[0 2 7]
+|f6| = list_sum([
+  94;
+  (57 + |f11|) * (N([ln4], [not(i32.eqz(((i32.load@(ln4)) < (i32.load@(ln4))) && 1))], [ln4 = gn0 - 32], [ln4 = ln4]));
+  20
 ])

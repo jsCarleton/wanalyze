@@ -3,12 +3,19 @@ open Easy_logging
 open Wm
 open Et
 
+type mem_element = {
+  elem_type:    numtype;
+  elem_offset:  int;
+  elem_value:   Et.et;
+}
+
 type program_state =
 {
   mutable instr_count:    int;
-  mutable value_stack:    et list;
-  mutable local_values:   et array;
-  mutable global_values:  et array;
+  mutable value_stack:    Et.et list;
+  mutable local_values:   Et.et array;
+  mutable global_values:  Et.et array;
+  mutable mem_values:     mem_element list;
 }
 
 type program_states = program_state list
@@ -195,10 +202,32 @@ let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
   set_global state (int_of_get_argG op.arg) (pop_value state)
 
 (* memory operator *)
+let elem_type_of_arg (arg: op_arg): numtype =
+  match arg with
+  | Memarg _ -> I32 (* TODO *)
+  | _ -> failwith "Invalid argument for memory operator"
+let elem_offset_of_arg (arg: op_arg): int =
+  match arg with
+  | Memarg m -> m.o
+  | _ -> failwith "Invalid argument for memory operator"
+
+let find_mem_elem (mem_values: mem_element list) (arg: op_arg): et =
+  match arg with
+  | Memarg m -> 
+      Printf.printf "searching for offset: %d\n%!" m.o;
+      (List.find_exn ~f:(fun e -> e.elem_offset = m.o) mem_values).elem_value
+  | _ -> failwith "Accessing undefined memory"
+
 let update_state_memloadop (op: op_type) (state: program_state) = 
-  poke_value state (et_of_unop (String.concat[op.opname; "@"]) (peek_value state))
-let update_state_memstoreop (state: program_state) = 
-  drop_value state
+  poke_value state (find_mem_elem state.mem_values op.arg)
+
+let update_state_memstoreop (op: op_type) (state: program_state) =
+  Printf.printf "storing at offset: %d\n%!" (elem_offset_of_arg op.arg);
+  state.mem_values <- 
+    { elem_type   = elem_type_of_arg op.arg;
+      elem_offset = elem_offset_of_arg op.arg;
+      elem_value =  pop_value state}
+    :: state.mem_values
 
 (* constant operators *)
 let update_state_constop (op: op_type) (state: program_state) =
@@ -250,6 +279,7 @@ let update_state_controlop (w: wm) (op: op_type) (s: program_state): et =
   | _ -> failwith "Invalid control op"
     
 let reduce_op (w: wm) (op: op_type) (s: program_state): et =
+    Printf.printf "reducing op\n%!";
     update_instr_count s;
     match op.instrtype with
     | Control -> update_state_controlop w op s
@@ -264,7 +294,7 @@ let reduce_op (w: wm) (op: op_type) (s: program_state): et =
       | VariableSG -> update_state_varSGop op s
       | Table ->      failwith "Unimplemented table"
       | MemoryL ->    update_state_memloadop op s
-      | MemoryS ->    update_state_memstoreop s
+      | MemoryS ->    update_state_memstoreop op s
       | MemoryM ->    () (* nothing to do in this case *)
       | Constop ->    update_state_constop op s
       | Unop ->       update_state_unop op s
@@ -309,8 +339,12 @@ let rec succ_cond_of_bb (w: wm) (s: program_state) (e: expr) (succ_cond: et) :
  *)
 let reduce_bblock (w: wm) (e: expr) (i: program_state):
       program_state*et =
-  let f = {instr_count = 0; value_stack=(List.map ~f:(fun x -> x) i.value_stack); local_values = copy_values i.local_values;
-              global_values = copy_values i.global_values} in
+  let f = { instr_count = 0; 
+            value_stack   = List.map ~f:(fun x -> x) i.value_stack; 
+            local_values  = copy_values i.local_values;
+            global_values = copy_values i.global_values;
+            mem_values    = List.map ~f:(fun x -> x) i.mem_values} in
+  Printf.printf "calling succ_cond_of_bb\n%!";
   let s = succ_cond_of_bb w f e Empty in
   f,s
 
@@ -321,7 +355,8 @@ let rec reduce_expr (w: wm) (e: expr) (s: program_state): et =
                 reduce_expr w tl s
 
 let et_of_mglobal (w: wm) (e: expr) (s: program_state): et = 
-      reduce_expr w e s
+  Printf.printf "reducing expr\n%!";
+  reduce_expr w e s
 
 let et_of_iglobal (import_name: string) (idx: int) (t: valtype):  et =
   Variable {vtype = Var_global; idx; nt = t; vname = import_name} 
@@ -350,19 +385,22 @@ let count_locals (ll: local_type list): int = List.fold_left ~f:sum_nlocals ~ini
 
 (*
     empty_program_state
-      returns a program state with the stack, locals and globals initialized based on the
-      module definitions
+      returns a program state with the stack, locals, globals and memory initialized
+      based on the module definitions
 *)
 
-let empty_program_state (w: wm) (param_types: resulttype list) (local_types: local_type list): program_state =
+let empty_program_state 
+    (w: wm) (param_types: resulttype list) (local_types: local_type list): 
+    program_state =
   let n_i = n_iglobals w.import_section 0 in  (* globals that are imported*)
   let n_m = n_mglobals w.global_section in    (* globals defined in the module *)
-  let global_values = create_globals              (* we need a state to create the local variables*)
+  let global_values = create_globals      (* we need a state to create the local variables*)
                       w
-                      { instr_count = 0;
-                        value_stack = [];
-                        local_values = create_values 0;
-                        global_values = create_values (n_i + n_m)
+                      { instr_count   = 0;
+                        value_stack   = [];
+                        local_values  = create_values 0;
+                        global_values = create_values (n_i + n_m);
+                        mem_values    = []
                       }
                       w.import_section
                       w.global_section
@@ -374,4 +412,5 @@ let empty_program_state (w: wm) (param_types: resulttype list) (local_types: loc
   local_values  = init_values
                     ((List.length param_types) + (count_locals local_types))
                     (et_of_local_value param_types local_types); 
-  global_values = global_values }
+  global_values = global_values;
+  mem_values    = [] }

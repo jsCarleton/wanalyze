@@ -1,9 +1,16 @@
+type mem_element = {
+  elem_type:    Wm.numtype;
+  elem_offset:  int;
+  elem_value:   Et.et;
+}
+
 type program_state =
 {
   mutable instr_count:    int;
   mutable value_stack:    Et.et list;
   mutable local_values:   Et.et array;
   mutable global_values:  Et.et array;
+  mutable mem_values:     mem_element list;
 }
 
 type program_states = program_state list
