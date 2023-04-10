@@ -212,7 +212,7 @@ let elem_offset_of_arg (arg: op_arg): int =
   | _ -> failwith "Invalid argument for memory operator"
 
 let elem_value_of_mem_values (mem_values: mem_element list) (o: int): et =
-  match List.find ~f:(fun e -> e.elem_offset = o) mem_values with
+  match List.find ~f:(fun e -> e.elem_offset = o) mem_values with 
   | Some me -> me.elem_value
   | None    -> Variable {vtype = Var_memory; nt = Numtype I32; idx = o; vname = "m"}
 
@@ -225,6 +225,7 @@ let update_state_memloadop (op: op_type) (state: program_state) =
   poke_value state (find_mem_elem state.mem_values op.arg)
 
 let update_state_memstoreop (op: op_type) (state: program_state) =
+  Printf.printf "storing at %d\n%!" (elem_offset_of_arg op.arg);
   state.mem_values <- 
     { elem_type   = elem_type_of_arg op.arg;
       elem_offset = elem_offset_of_arg op.arg;
