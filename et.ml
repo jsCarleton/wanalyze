@@ -13,19 +13,16 @@ type var =
    }
 
 let string_of_var (v: var): string =
-  String.concat [
-    (match v.vtype with 
-      | Var_parameter -> "p" 
-      | Var_local     -> "l" 
-      | Var_retvalue  -> "r" 
-      | Var_global    -> "g"
-      | Var_temp      -> "t"
-      | Var_memory    -> "@");
-    (match v.nt with | Numtype I32 -> "n" | Numtype I64 -> "N" | Numtype F32 -> "f" | Numtype F64 -> "F" | _ -> "R");
-    match v.vtype with
-      | Var_parameter | Var_local | Var_retvalue | Var_global | Var_temp -> sprintf "%d" v.idx
-      | Var_memory -> v.vname
-   ]
+  let string_of_vart (vart: var_type): string =
+  match vart with | Var_parameter -> "p" | Var_local -> "l" | Var_retvalue -> "r" | Var_global -> "g" | Var_temp -> "t" | Var_memory -> ""
+  in
+  let string_of_valt (valt: valtype): string =
+  match valt with | Numtype I32 -> "n" | Numtype I64 -> "N" | Numtype F32 -> "f" | Numtype F64 -> "F" | _ -> "R"
+  in
+
+  match v.vtype with 
+    | Var_parameter | Var_local | Var_retvalue | Var_global | Var_temp ->  sprintf "%s%s%d" (string_of_vart v.vtype) (string_of_valt v.nt) v.idx
+    | Var_memory    -> sprintf "%s[%d]" v.vname v.idx
 
 type constant_value = Int_value of int | Int64_value of int64
       | Float_value of float | String_value of string

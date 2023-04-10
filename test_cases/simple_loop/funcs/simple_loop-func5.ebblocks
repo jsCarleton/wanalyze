@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  2
   ebb type:   loop
   ebb blocks: [2 3 4]
-  ebb cost:   65 * (N([ln4], [not(i32.eqz(((i32.load@(ln4)) < (i32.load@(ln4))) && 1))], [ln4 = gn0 - 32], [ln4 = ln4]))
+  ebb cost:   65 * (N([m[20]; m[28]], [not(i32.eqz((m[20] < m[28]) && 1))], [m[20] = m[20]; m[28] = m[28]], [m[20] = m[20]; m[28] = m[28]]))
   ebb exits:  [7]
   ebb succs:  [7]
   1 paths to exit 7

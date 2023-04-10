@@ -133,6 +133,7 @@ type memarg =
   a:      int;
   o:      int;
   bits:   int;
+  mem_nt: numtype;
 }
 type op_arg =
   | Blocktype of blocktype

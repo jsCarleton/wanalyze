@@ -93,9 +93,8 @@ let read_f64 ic =
   let f = read_64bits ic in
   Int64.float_of_bits f
 
-let read_memarg ic bits : memarg = 
-  let a = uLEB ic 32 in
-  {a; o=uLEB ic 32; bits}
+let read_memarg ic bits mem_nt: memarg = 
+  let a = uLEB ic 32 in {a; o=uLEB ic 32; bits; mem_nt}
 
 let rec read_vec' ic n reader acc =
   match n with
@@ -310,29 +309,29 @@ match opcode_of_int opcode with
   | OP_table_get -> Tableidx (uLEB ic 32), Table
   | OP_table_set -> Tableidx (uLEB ic 32), Table
   (* memory instructions *)
-  | OP_i32_load     -> Memarg (read_memarg ic 32), MemoryL
-  | OP_i64_load     -> Memarg (read_memarg ic 64), MemoryL
-  | OP_f32_load     -> Memarg (read_memarg ic 32), MemoryL
-  | OP_f64_load     -> Memarg (read_memarg ic 64), MemoryL
+  | OP_i32_load     -> Memarg (read_memarg ic 32 I32), MemoryL
+  | OP_i64_load     -> Memarg (read_memarg ic 64 I64), MemoryL
+  | OP_f32_load     -> Memarg (read_memarg ic 32 F32), MemoryL
+  | OP_f64_load     -> Memarg (read_memarg ic 64 F64), MemoryL
   | OP_i32_load8_s
-  | OP_i32_load8_u  -> Memarg (read_memarg ic 8), MemoryL
+  | OP_i32_load8_u  -> Memarg (read_memarg ic 8 I32), MemoryL
   | OP_i32_load16_s
-  | OP_i32_load16_u -> Memarg (read_memarg ic 16), MemoryL
+  | OP_i32_load16_u -> Memarg (read_memarg ic 16 I32), MemoryL
   | OP_i64_load8_s
-  | OP_i64_load8_u  -> Memarg (read_memarg ic 8), MemoryL
+  | OP_i64_load8_u  -> Memarg (read_memarg ic 8 I64), MemoryL
   | OP_i64_load16_s
-  | OP_i64_load16_u -> Memarg (read_memarg ic 16), MemoryL
+  | OP_i64_load16_u -> Memarg (read_memarg ic 16 I64), MemoryL
   | OP_i64_load32_s
-  | OP_i64_load32_u -> Memarg (read_memarg ic 32), MemoryL
-  | OP_i32_store    -> Memarg (read_memarg ic 32), MemoryS
-  | OP_i64_store    -> Memarg (read_memarg ic 64), MemoryS
-  | OP_f32_store    -> Memarg (read_memarg ic 32), MemoryS
-  | OP_f64_store    -> Memarg (read_memarg ic 64), MemoryS
-  | OP_i32_store8   -> Memarg (read_memarg ic 8), MemoryS
-  | OP_i32_store16  -> Memarg (read_memarg ic 16), MemoryS
-  | OP_i64_store8   -> Memarg (read_memarg ic 8), MemoryS
-  | OP_i64_store16  -> Memarg (read_memarg ic 16), MemoryS
-  | OP_i64_store32  -> Memarg (read_memarg ic 32), MemoryS
+  | OP_i64_load32_u -> Memarg (read_memarg ic 32 I64), MemoryL
+  | OP_i32_store    -> Memarg (read_memarg ic 32 I32), MemoryS
+  | OP_i64_store    -> Memarg (read_memarg ic 64 I64), MemoryS
+  | OP_f32_store    -> Memarg (read_memarg ic 32 F32), MemoryS
+  | OP_f64_store    -> Memarg (read_memarg ic 64 F64), MemoryS
+  | OP_i32_store8   -> Memarg (read_memarg ic 8 I32), MemoryS
+  | OP_i32_store16  -> Memarg (read_memarg ic 16 I32), MemoryS
+  | OP_i64_store8   -> Memarg (read_memarg ic 8 I64), MemoryS
+  | OP_i64_store16  -> Memarg (read_memarg ic 16 I64), MemoryS
+  | OP_i64_store32  -> Memarg (read_memarg ic 32 I64), MemoryS
   | OP_memory_size
   | OP_memory_grow  -> IgnoreArg (read_byte ic), MemoryM
   (* numeric instructions *)

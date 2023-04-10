@@ -30,12 +30,12 @@ ebb entry:  42
   ebb type:   loop
   ebb blocks: [42 43 44 45 46 47 48 49 50 51 52 53 54 55 56]
   ebb cost:   (list_max([
-  35 * (N([ln6; pn3], [((i32.load@(ln6)) - pn3) > 0], [ln6 = gn0 - 560; pn3 = (gn0 - 560)], [ln6 = ln6; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
-  44 * (N([ln6; pn3], [((i32.load@(ln6)) - pn3) > 0], [ln6 = gn0 - 560; pn3 = (gn0 - 560)], [ln6 = ln6; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
-  72 * (N([ln6; pn3], [((i32.load@(ln6)) - pn3) > 0], [ln6 = gn0 - 560; pn3 = (gn0 - 560)], [ln6 = ln6; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
-  81 * (N([ln6; pn3], [((i32.load@(ln6)) - pn3) > 0], [ln6 = gn0 - 560; pn3 = (gn0 - 560)], [ln6 = ln6; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
-  79 * (N([ln6; pn3], [((i32.load@(ln6)) - pn3) > 0], [ln6 = gn0 - 560; pn3 = (gn0 - 560)], [ln6 = ln6; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
-  88 * (N([ln6; pn3], [((i32.load@(ln6)) - pn3) > 0], [ln6 = gn0 - 560; pn3 = (gn0 - 560)], [ln6 = ln6; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]))
+  35 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [m[44] = m[44]; pn3 = (gn0 - 560)], [m[44] = m[44]; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
+  44 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [m[44] = m[44]; pn3 = (gn0 - 560)], [m[44] = m[44]; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
+  72 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [m[44] = m[44]; pn3 = (gn0 - 560)], [m[44] = m[44]; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
+  81 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [m[44] = m[44]; pn3 = (gn0 - 560)], [m[44] = m[44]; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
+  79 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [m[44] = m[44]; pn3 = (gn0 - 560)], [m[44] = m[44]; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]));
+  88 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [m[44] = m[44]; pn3 = (gn0 - 560)], [m[44] = m[44]; pn3 = ((ln6)) - (select(pn3 < 29, 29, pn3))]))
 ])) + (list_max([1; 1; 1; 1; 1; 1]))
   ebb exits:  [57]
   ebb succs:  []
@@ -84,7 +84,7 @@ nested ebbs:
   ebb entry:  51
     ebb type:   loop
     ebb blocks: [51 52 53]
-    ebb cost:   (12 * (N([ln11], [i32.eqz(i32.load@(ln11 + -4))], [ln11 = (((gn0 - 560) + 48) + (select(((gn0 - 560)) < 0, 288, 0))) + 4], [ln11 = ln11 + -4]))) + 1
+    ebb cost:   (12 * (N([m[0]], [i32.eqz(m[0])], [m[0] = m[0]], [m[0] = m[0]]))) + 1
     ebb exits:  [54 55]
     ebb succs:  [55 54 55 54]
     1 paths to exit 54
@@ -123,9 +123,9 @@ ebb entry:  61
   ebb type:   loop
   ebb blocks: [61 62 63 64 65 66 67 68 69 70 71 72]
   ebb cost:   (list_max([
-  96 * (N([ln6; pn3], [((i32.load@(ln6)) + (0 - pn3)) < 0], [ln6 = gn0 - 560; pn3 = ((gn0 - 560)) - (select(((gn0 - 560)) < 29, 29, (gn0 - 560)))], [ln6 = ln6; pn3 = ((ln6)) + (select((0 - pn3) < 9, 9, 0 - pn3))]));
-  104 * (N([ln6; pn3], [((i32.load@(ln6)) + (0 - pn3)) < 0], [ln6 = gn0 - 560; pn3 = ((gn0 - 560)) - (select(((gn0 - 560)) < 29, 29, (gn0 - 560)))], [ln6 = ln6; pn3 = ((ln6)) + (select((0 - pn3) < 9, 9, 0 - pn3))]));
-  56 * (N([ln6; pn3], [((i32.load@(ln6)) + (0 - pn3)) < 0], [ln6 = gn0 - 560; pn3 = ((gn0 - 560)) - (select(((gn0 - 560)) < 29, 29, (gn0 - 560)))], [ln6 = ln6; pn3 = ((ln6)) + (select((0 - pn3) < 9, 9, 0 - pn3))]))
+  96 * (N([m[44]; pn3], [(m[44] + (0 - pn3)) < 0], [m[44] = m[44]; pn3 = ((gn0 - 560)) - (select(((gn0 - 560)) < 29, 29, (gn0 - 560)))], [m[44] = m[44]; pn3 = ((ln6)) + (select((0 - pn3) < 9, 9, 0 - pn3))]));
+  104 * (N([m[44]; pn3], [(m[44] + (0 - pn3)) < 0], [m[44] = m[44]; pn3 = ((gn0 - 560)) - (select(((gn0 - 560)) < 29, 29, (gn0 - 560)))], [m[44] = m[44]; pn3 = ((ln6)) + (select((0 - pn3) < 9, 9, 0 - pn3))]));
+  56 * (N([m[44]; pn3], [(m[44] + (0 - pn3)) < 0], [m[44] = m[44]; pn3 = ((gn0 - 560)) - (select(((gn0 - 560)) < 29, 29, (gn0 - 560)))], [m[44] = m[44]; pn3 = ((ln6)) + (select((0 - pn3) < 9, 9, 0 - pn3))]))
 ])) + (list_max([1; 1; 1]))
   ebb exits:  [73]
   ebb succs:  []
@@ -232,8 +232,8 @@ ebb entry:  110
   ebb type:   loop
   ebb blocks: [110 111 112 113 114]
   ebb cost:   (list_max([
-  22 * (N([ln21], [((i32.load@(ln21 + -4)) + 1) > 999999999], [ln21 = (((((((select(pn3 < 0, pn3, 6)) - (select((pn5 || 32) == 102, 0, 0))) - (((select(pn3 < 0, pn3, 6)) != 0) && ((pn5 || 32) == 103))) + 9216) /s 9) shl 2) + (((gn0 - 560) + 48) + (select(((gn0 - 560)) < 0, 292, 4)))) + -4096], [ln21 = ln21 + -4]));
-  29 * (N([ln21], [((i32.load@(ln21 + -4)) + 1) > 999999999], [ln21 = (((((((select(pn3 < 0, pn3, 6)) - (select((pn5 || 32) == 102, 0, 0))) - (((select(pn3 < 0, pn3, 6)) != 0) && ((pn5 || 32) == 103))) + 9216) /s 9) shl 2) + (((gn0 - 560) + 48) + (select(((gn0 - 560)) < 0, 292, 4)))) + -4096], [ln21 = ln21 + -4]))
+  22 * (N([], [(0 + 1) > 999999999], [], []));
+  29 * (N([], [(0 + 1) > 999999999], [], []))
 ])) + (list_max([1; 1]))
   ebb exits:  [115]
   ebb succs:  [115]
@@ -289,7 +289,7 @@ ebb entry:  122
 ebb entry:  124
   ebb type:   loop
   ebb blocks: [124 125 126]
-  ebb cost:   (13 * (N([ln10], [i32.eqz(i32.load@(ln10 + -4))], [ln10 = 0], [ln10 = ln10 + -4]))) + 1
+  ebb cost:   (13 * (N([m[0]], [i32.eqz(m[0])], [m[0] = m[0]], [m[0] = m[0]]))) + 1
   ebb exits:  [127 128]
   ebb succs:  [128 127]
   1 paths to exit 127

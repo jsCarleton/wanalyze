@@ -211,18 +211,20 @@ let elem_offset_of_arg (arg: op_arg): int =
   | Memarg m -> m.o
   | _ -> failwith "Invalid argument for memory operator"
 
+let elem_value_of_mem_values (mem_values: mem_element list) (o: int): et =
+  match List.find ~f:(fun e -> e.elem_offset = o) mem_values with
+  | Some me -> me.elem_value
+  | None    -> Variable {vtype = Var_memory; nt = Numtype I32; idx = o; vname = "m"}
+
 let find_mem_elem (mem_values: mem_element list) (arg: op_arg): et =
   match arg with
-  | Memarg m -> 
-      Printf.printf "searching for offset: %d\n%!" m.o;
-      (List.find_exn ~f:(fun e -> e.elem_offset = m.o) mem_values).elem_value
+  | Memarg m -> elem_value_of_mem_values mem_values m.o
   | _ -> failwith "Accessing undefined memory"
 
 let update_state_memloadop (op: op_type) (state: program_state) = 
   poke_value state (find_mem_elem state.mem_values op.arg)
 
 let update_state_memstoreop (op: op_type) (state: program_state) =
-  Printf.printf "storing at offset: %d\n%!" (elem_offset_of_arg op.arg);
   state.mem_values <- 
     { elem_type   = elem_type_of_arg op.arg;
       elem_offset = elem_offset_of_arg op.arg;
@@ -279,7 +281,6 @@ let update_state_controlop (w: wm) (op: op_type) (s: program_state): et =
   | _ -> failwith "Invalid control op"
     
 let reduce_op (w: wm) (op: op_type) (s: program_state): et =
-    Printf.printf "reducing op\n%!";
     update_instr_count s;
     match op.instrtype with
     | Control -> update_state_controlop w op s
@@ -355,7 +356,6 @@ let rec reduce_expr (w: wm) (e: expr) (s: program_state): et =
                 reduce_expr w tl s
 
 let et_of_mglobal (w: wm) (e: expr) (s: program_state): et = 
-  Printf.printf "reducing expr\n%!";
   reduce_expr w e s
 
 let et_of_iglobal (import_name: string) (idx: int) (t: valtype):  et =
