@@ -150,13 +150,14 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
   | Table  ->
       failwith "Table"
   | MemoryL  ->
-      { result = {vtype = Var_temp; nt = Numtype I32; idx = List.length acc; vname = ""}; 
-        etree = Node {op = ""; args = [find_and_kill acc]};
+      (* get the memory value that's being loaded *)
+      { result = {vtype = Var_temp; nt = Numtype (elem_type_of_arg op.arg); idx = List.length acc; vname = ""}; 
+        etree = find_mem_elem ctx.w_state.mem_values op.arg;
         alive = true} :: acc
   | MemoryS  ->
-      let arg1 = find_and_kill acc in
-      let result = {vtype = Var_memory; nt = Numtype I32; idx = -1; vname = string_of_et (find_and_kill acc)} in
-      { result; etree = Node { op = ""; args = [arg1]}; alive = false} :: acc
+      { result = {vtype = Var_memory; nt = Numtype (elem_type_of_arg op.arg); idx = elem_offset_of_arg op.arg; vname = "m"}; 
+        etree = find_and_kill acc; 
+        alive = false} :: acc
   | MemoryM  ->
         acc
   | Constop  ->

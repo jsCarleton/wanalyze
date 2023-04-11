@@ -47,6 +47,29 @@ type execution_context =
     local_types:    Wm.local_type list;
 }
 
+(*
+      memory element properties, accessor
+*)
+let elem_type_of_arg (arg: op_arg): numtype =
+  match arg with
+  | Memarg m -> m.mem_nt
+  | _ -> failwith "Invalid argument for memory operator"
+let elem_offset_of_arg (arg: op_arg): int =
+  match arg with
+  | Memarg m -> m.o
+  | _ -> failwith "Invalid argument for memory operator"
+
+let find_mem_elem (mem_values: mem_element list) (arg: op_arg): et =
+  let elem_value_of_mem_values (mem_values: mem_element list) (o: int): et =
+    match List.find ~f:(fun e -> e.elem_offset = o) mem_values with 
+    | Some me -> me.elem_value
+    | None    -> Variable {vtype = Var_memory; nt = Numtype (elem_type_of_arg arg); idx = o; vname = "m"}
+  in
+
+  match arg with
+  | Memarg m -> elem_value_of_mem_values mem_values m.o
+  | _ -> failwith "Accessing undefined memory"
+
 (* 
     n_iglobals
     return the number of globals that are imported by the module
@@ -202,25 +225,6 @@ let update_state_varSGop (op: op_type) (state: program_state) = (* set local *)
   set_global state (int_of_get_argG op.arg) (pop_value state)
 
 (* memory operator *)
-let elem_type_of_arg (arg: op_arg): numtype =
-  match arg with
-  | Memarg _ -> I32 (* TODO *)
-  | _ -> failwith "Invalid argument for memory operator"
-let elem_offset_of_arg (arg: op_arg): int =
-  match arg with
-  | Memarg m -> m.o
-  | _ -> failwith "Invalid argument for memory operator"
-
-let elem_value_of_mem_values (mem_values: mem_element list) (o: int): et =
-  match List.find ~f:(fun e -> e.elem_offset = o) mem_values with 
-  | Some me -> me.elem_value
-  | None    -> Variable {vtype = Var_memory; nt = Numtype I32; idx = o; vname = "m"}
-
-let find_mem_elem (mem_values: mem_element list) (arg: op_arg): et =
-  match arg with
-  | Memarg m -> elem_value_of_mem_values mem_values m.o
-  | _ -> failwith "Accessing undefined memory"
-
 let update_state_memloadop (op: op_type) (state: program_state) = 
   poke_value state (find_mem_elem state.mem_values op.arg)
 

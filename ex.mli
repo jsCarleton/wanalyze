@@ -50,3 +50,6 @@ val nparams:             Wm.wm -> int -> int
 val ret_types:           Wm.wm -> int -> Wm.resulttype list
 val int_of_get_argL:     Wm.op_arg -> int
 val et_of_const_arg:     Wm.op_arg -> Et.et
+val elem_type_of_arg:    Wm.op_arg -> Wm.numtype
+val elem_offset_of_arg:  Wm.op_arg -> int
+val find_mem_elem:       mem_element list -> Wm.op_arg -> Et.et
