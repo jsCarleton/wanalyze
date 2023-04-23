@@ -1,5 +1,4 @@
 open Core
-open Easy_logging
 open Wm
 open Bb
 open Ssa

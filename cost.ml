@@ -89,6 +89,7 @@ let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts
     let loop_vars     = Et.vars_of_et loop_cond in
     let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part true in
     let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
+    Printf.printf "prefix_ssa:\n%s\n" (Ssa.string_of_ssa_list prefix_ssa "\n" true);
     let loop_ssa      = Ssa.ssa_of_codepath ctx lp.loop_part false in
     let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
       Printf.printf "lv_entry_vals:\n%!";

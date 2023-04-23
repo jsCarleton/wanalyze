@@ -1,5 +1,4 @@
 open Core
-open Easy_logging
 open Opcode
 open Wm
 open Et

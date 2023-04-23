@@ -1,5 +1,4 @@
 open Core
-open Easy_logging
 open Wm
 open Et
 
@@ -251,7 +250,6 @@ let bblocks_of_expr (e: expr) : bb list =
 
   let bblocks = bblocks_of_expr' e [] {bbindex=0; start_op=0; end_op=1; succ=[]; pred=[]; bbtype=BB_unknown; nesting = -2;
                                       labels=[]; br_dest= None} in
-  (Logging.get_logger "wanalyze")#info "# bblocks: %d" (List.length bblocks);
   set_br_dest bblocks 0;
   set_successors bblocks 0;
   List.iter ~f:(set_pred bblocks) bblocks;

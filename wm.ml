@@ -1,5 +1,4 @@
 open Core
-open Easy_logging
 
 (* Type definitions *)
 (* Part 1 - Module definitions *)
