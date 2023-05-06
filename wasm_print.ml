@@ -463,6 +463,7 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let fnum          = fidx + w.last_import_func in
   Printf.printf "function %d %!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
+  Printf.printf "function %s %!" fname;
   let fn            = List.nth_exn w.code_section fidx in
   let w_e           = fn.e in
   let bblocks       = bblocks_of_expr w_e in
@@ -510,6 +511,8 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
     Out_channel.output_string oc "ebb costs:\n";
     print_ebb_costs oc ebbs;
+    let ns = List.concat (List.map ~f:Nexpr.nexprs_of_et (List.map ~f:(fun x -> x.ebb_cost) ebbs)) in
+    List.iter ~f:(fun n -> Printf.printf "%s\n%!" (Nexpr.string_of_nexpr n)) ns;
     Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
     List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_ebblocks p))) ebb_paths;
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);

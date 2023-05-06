@@ -7,13 +7,13 @@ let speclist = [("-f", Arg.Set_int fnum, "ID of function to analyze")]
 let anon_fun filename = input_files := filename::!input_files
 
 let processFile fnum cwd path =
-  Sys.chdir (Filename.dirname path);
+  Core_unix.chdir (Filename.dirname path);
   let ic = In_channel.create (Filename.basename path) in
   let w  = Wm.create (Filename.basename path) in
   ReadBin.parse_wasm ic w;
   Wasm_print.print w fnum;
-  Sys.chdir cwd
+  Core_unix.chdir cwd
 
 let () =
   Arg.parse speclist anon_fun usage_msg;
-  List.iter ~f:(processFile !fnum (Sys.getcwd ())) !input_files
+  List.iter ~f:(processFile !fnum (Core_unix.getcwd ())) !input_files

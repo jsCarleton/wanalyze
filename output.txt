@@ -1,5 +1,5 @@
-function 4 cost: 3
-function 5 root_bb: 0 entry_bb: 2 (back_pred entry_bb): 1
+function 4 function funcs/simple_loop-func4 cost: 3
+function 5 function funcs/simple_loop-func5 root_bb: 0 entry_bb: 2 (back_pred entry_bb): 1
 prefix path: [0 1]
 calling succ_cond_of_bb
 prefix_ssa:
@@ -105,7 +105,9 @@ prefix ssa:
   ln24 = 0
   ln25 = 0
 cost: -1
-function 6 root_bb: 0 entry_bb: 2 (back_pred entry_bb): 1
+found an N
+nexpr
+function 6 function funcs/simple_loop-func6 root_bb: 0 entry_bb: 2 (back_pred entry_bb): 1
 prefix path: [0 1]
 calling succ_cond_of_bb
 prefix_ssa:
@@ -381,12 +383,14 @@ prefix ssa:
   ln43 = 0
   lN44 = 0
 cost: -1
-function 7 cost: 2
-function 8 cost: 25
-function 9 cost: 19
-function 10 cost: 7
-function 11 cost: 14
-function 12 root_bb: 0 entry_bb: 9 (back_pred entry_bb): 8
+found an N
+nexpr
+function 7 function funcs/simple_loop-func7 cost: 2
+function 8 function funcs/simple_loop-func8 cost: 25
+function 9 function funcs/simple_loop-func9 cost: 19
+function 10 function funcs/simple_loop-func10 cost: 7
+function 11 function funcs/simple_loop-func11 cost: 14
+function 12 function funcs/simple_loop-func12 root_bb: 0 entry_bb: 9 (back_pred entry_bb): 8
 prefix path: [0 1 2 3 4 5 8]
 calling succ_cond_of_bb
 storing at 0
@@ -505,10 +509,12 @@ prefix ssa:
   ln8 = 0
   ln9 = 0
 cost: 155
-function 13 cost: 2
-function 14 cost: 2
-function 15 cost: 10
-function 16 root_bb: 0 entry_bb: 12 (back_pred entry_bb): 11
+found an N
+nexpr
+function 13 function funcs/simple_loop-func13 cost: 2
+function 14 function funcs/simple_loop-func14 cost: 2
+function 15 function funcs/simple_loop-func15 cost: 10
+function 16 function funcs/simple_loop-func16 root_bb: 0 entry_bb: 12 (back_pred entry_bb): 11
 prefix path: [0 1 2 3 4 5 10 11]
 calling succ_cond_of_bb
 prefix_ssa:
@@ -1663,8 +1669,28 @@ prefix ssa:
   lN13 = 0
   lN14 = 0
 cost: 191
-function 17 cost: 7
-function 18 root_bb: 0 entry_bb: 9 (back_pred entry_bb): 8
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+function 17 function funcs/simple_loop-func17 cost: 7
+function 18 function funcs/simple_loop-func18 root_bb: 0 entry_bb: 9 (back_pred entry_bb): 8
 prefix path: [0 1 2 3 4 5 6 7 8 9]
 calling succ_cond_of_bb
 storing at 24
@@ -2027,20 +2053,22 @@ prefix ssa:
   ln5 = 0
   lN6 = 0
 cost: 185
+found an N
+nexpr
 calling succ_cond_of_bb
 storing at 24
 storing at 16
 storing at 8
 storing at 0
-function 19 cost: 2
-function 20 cost: 1
-function 21 cost: 1
-function 22 cost: 1
-function 23 cost: 4
-function 24 cost: 3
-function 25 cost: 36
-function 26 cost: 6
-function 27 root_bb: 0 entry_bb: 6 (back_pred entry_bb): 5
+function 19 function funcs/simple_loop-func19 cost: 2
+function 20 function funcs/simple_loop-func20 cost: 1
+function 21 function funcs/simple_loop-func21 cost: 1
+function 22 function funcs/simple_loop-func22 cost: 1
+function 23 function funcs/simple_loop-func23 cost: 4
+function 24 function funcs/simple_loop-func24 cost: 3
+function 25 function funcs/simple_loop-func25 cost: 36
+function 26 function funcs/simple_loop-func26 cost: 6
+function 27 function funcs/simple_loop-func27 root_bb: 0 entry_bb: 6 (back_pred entry_bb): 5
 prefix path: [0 1 2 3 4 5]
 calling succ_cond_of_bb
 prefix_ssa:
@@ -2199,9 +2227,15 @@ prefix ssa:
   ln3 = 0
   ln4 = 0
 cost: 121
-function 28 cost: 11
-function 29 cost: 31
-function 30 root_bb: 0 entry_bb: 17 (back_pred entry_bb): 16
+found an N
+found an N
+found an N
+nexpr
+nexpr
+nexpr
+function 28 function funcs/simple_loop-func28 cost: 11
+function 29 function funcs/simple_loop-func29 cost: 31
+function 30 function funcs/simple_loop-func30 root_bb: 0 entry_bb: 17 (back_pred entry_bb): 16
 prefix path: [0 1 4 5 6 7 8 9 12 13 16]
 calling succ_cond_of_bb
 storing at 0
@@ -2916,6 +2950,16 @@ prefix ssa:
   ln4 = 0
   ln5 = 0
 cost: 190
+found an N
+found an N
+found an N
+found an N
+found an N
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
 calling succ_cond_of_bb
 storing at 0
 storing at 4
@@ -2967,7 +3011,7 @@ storing at 0
 storing at 1
 storing at 2
 storing at 3
-function 31 root_bb: 0 entry_bb: 15 (back_pred entry_bb): 14
+function 31 function funcs/simple_loop-func31 root_bb: 0 entry_bb: 15 (back_pred entry_bb): 14
 prefix path: [0 1 2 5 6 9 10 11 14]
 calling succ_cond_of_bb
 prefix_ssa:
@@ -3014,8 +3058,10 @@ prefix ssa:
   ln4 = 0
   ln5 = 0
 cost: 89
-function 32 cost: 172
-function 33 root_bb: 0 entry_bb: 21 (back_pred entry_bb): 20
+found an N
+nexpr
+function 32 function funcs/simple_loop-func32 cost: 172
+function 33 function funcs/simple_loop-func33 root_bb: 0 entry_bb: 21 (back_pred entry_bb): 20
 prefix path: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 19 20]
 calling succ_cond_of_bb
 prefix_ssa:
@@ -5253,8 +5299,34 @@ prefix ssa:
   ln24 = 0
   lN25 = 0
 cost: 581
-function 34 cost: 13
-function 35 root_bb: 0 entry_bb: 5 (back_pred entry_bb): 4
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+function 34 function funcs/simple_loop-func34 cost: 13
+function 35 function funcs/simple_loop-func35 root_bb: 0 entry_bb: 5 (back_pred entry_bb): 4
 prefix path: [0 1 4]
 calling succ_cond_of_bb
 storing at 0
@@ -5307,8 +5379,12 @@ prefix ssa:
   ln2 = 0
   ln3 = 0
 cost: 52
-function 36 cost: 29
-function 37 root_bb: 0 entry_bb: 3 (back_pred entry_bb): 2
+found an N
+found an N
+nexpr
+nexpr
+function 36 function funcs/simple_loop-func36 cost: 29
+function 37 function funcs/simple_loop-func37 root_bb: 0 entry_bb: 3 (back_pred entry_bb): 2
 prefix path: [0 1 2 3]
 calling succ_cond_of_bb
 storing at 0
@@ -5370,9 +5446,11 @@ prefix ssa:
   tn1 = pN0
   ln3 = 0
 cost: 33
+found an N
+nexpr
 calling succ_cond_of_bb
 storing at 0
-function 38 root_bb: 0 entry_bb: 3 (back_pred entry_bb): 2
+function 38 function funcs/simple_loop-func38 root_bb: 0 entry_bb: 3 (back_pred entry_bb): 2
 prefix path: [0 1 2 3]
 calling succ_cond_of_bb
 storing at 0
@@ -5428,9 +5506,11 @@ prefix ssa:
   tn1 = pN0
   ln2 = 0
 cost: 30
+found an N
+nexpr
 calling succ_cond_of_bb
 storing at 0
-function 39 root_bb: 0 entry_bb: 6 (back_pred entry_bb): 5
+function 39 function funcs/simple_loop-func39 root_bb: 0 entry_bb: 6 (back_pred entry_bb): 5
 prefix path: [0 1 2 5 6]
 calling succ_cond_of_bb
 storing at 0
@@ -5621,11 +5701,15 @@ prefix ssa:
   ln4 = 0
   ln5 = 0
 cost: 67
+found an N
+found an N
+nexpr
+nexpr
 calling succ_cond_of_bb
 storing at 0
 calling succ_cond_of_bb
 storing at 0
-function 40 root_bb: 0 entry_bb: 6 (back_pred entry_bb): 5
+function 40 function funcs/simple_loop-func40 root_bb: 0 entry_bb: 6 (back_pred entry_bb): 5
 prefix path: [0 1 2 3 4 5 6]
 calling succ_cond_of_bb
 prefix_ssa:
@@ -5708,9 +5792,11 @@ prefix ssa:
   tn1 = gn0
   ln5 = 0
 cost: 57
+found an N
+nexpr
 calling succ_cond_of_bb
-function 41 cost: 7
-function 42 root_bb: 0 entry_bb: 28 (back_pred entry_bb): 27
+function 41 function funcs/simple_loop-func41 cost: 7
+function 42 function funcs/simple_loop-func42 root_bb: 0 entry_bb: 28 (back_pred entry_bb): 27
 prefix path: [0 1 2 5 6 9 10 11 12 15 16 17 18 19 23 24 27]
 calling succ_cond_of_bb
 storing at 0
@@ -13638,16 +13724,104 @@ prefix ssa:
   lF26 = 0.
 exploded
 cost: 1097
-function 43 cost: 21
-function 44 cost: 3
-function 45 cost: 8
-function 46 cost: 2
-function 47 cost: 2
-function 48 cost: 2
-function 49 cost: 7
-function 50 cost: 28
-function 51 cost: 8
-function 52 root_bb: 0 entry_bb: 46 (back_pred entry_bb): 45
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+function 43 function funcs/simple_loop-func43 cost: 21
+function 44 function funcs/simple_loop-func44 cost: 3
+function 45 function funcs/simple_loop-func45 cost: 8
+function 46 function funcs/simple_loop-func46 cost: 2
+function 47 function funcs/simple_loop-func47 cost: 2
+function 48 function funcs/simple_loop-func48 cost: 2
+function 49 function funcs/simple_loop-func49 cost: 7
+function 50 function funcs/simple_loop-func50 cost: 28
+function 51 function funcs/simple_loop-func51 cost: 8
+function 52 function funcs/simple_loop-func52 root_bb: 0 entry_bb: 46 (back_pred entry_bb): 45
 prefix path: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 23 24 25 43 44 45]
 calling succ_cond_of_bb
 prefix_ssa:
@@ -16834,22 +17008,68 @@ prefix ssa:
   ln11 = 0
 exploded
 cost: 1060
-function 53 cost: 4
-function 54 cost: 35
-function 55 cost: 60
-function 56 cost: 35
-function 57 cost: 35
-function 58 cost: 122
-function 59 cost: 3
-function 60 cost: 2
-function 61 cost: 2
-function 62 cost: 3
-function 63 cost: 9
-function 64 cost: 9
-function 65 cost: 4
-function 66 cost: 2
-function 67 cost: 2
-function 68 root_bb: 0 entry_bb: 11 (back_pred entry_bb): 10
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+function 53 function funcs/simple_loop-func53 cost: 4
+function 54 function funcs/simple_loop-func54 cost: 35
+function 55 function funcs/simple_loop-func55 cost: 60
+function 56 function funcs/simple_loop-func56 cost: 35
+function 57 function funcs/simple_loop-func57 cost: 35
+function 58 function funcs/simple_loop-func58 cost: 122
+function 59 function funcs/simple_loop-func59 cost: 3
+function 60 function funcs/simple_loop-func60 cost: 2
+function 61 function funcs/simple_loop-func61 cost: 2
+function 62 function funcs/simple_loop-func62 cost: 3
+function 63 function funcs/simple_loop-func63 cost: 9
+function 64 function funcs/simple_loop-func64 cost: 9
+function 65 function funcs/simple_loop-func65 cost: 4
+function 66 function funcs/simple_loop-func66 cost: 2
+function 67 function funcs/simple_loop-func67 cost: 2
+function 68 function funcs/simple_loop-func68 root_bb: 0 entry_bb: 11 (back_pred entry_bb): 10
 prefix path: [0 1 2 3 5 6 8 9 10]
 calling succ_cond_of_bb
 prefix_ssa:
@@ -17156,5 +17376,21 @@ prefix ssa:
   ln2 = 0
   ln3 = 0
 cost: 74
-function 69 cost: 6
-function 70 cost: 20
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+found an N
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+nexpr
+function 69 function funcs/simple_loop-func69 cost: 6
+function 70 function funcs/simple_loop-func70 cost: 20
