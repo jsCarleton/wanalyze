@@ -1,7 +1,7 @@
 type nexpr =
   {
     nvars:          int;
-    vars:           string array;
+    vars:           Et.var array;
     initial_vals:   string array;
     update_exprs:   string array;
     expr_cond:      Et.et;

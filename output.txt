@@ -106,7 +106,11 @@ prefix ssa:
   ln25 = 0
 cost: -1
 found an N
-nexpr
+  nvars: 2
+   vars: m[20] m[28]
+  inits: m[20] = 0 m[28] = pn0
+updates: m[20] = m[20] + 1 m[28] = m[28]
+   cond: not(i32.eqz((m[20] < m[28]) && 1))
 function 6 function funcs/simple_loop-func6 root_bb: 0 entry_bb: 2 (back_pred entry_bb): 1
 prefix path: [0 1]
 calling succ_cond_of_bb
@@ -384,7 +388,11 @@ prefix ssa:
   lN44 = 0
 cost: -1
 found an N
-nexpr
+  nvars: 2
+   vars: m[12] m[4]
+  inits: m[12] = rn0 m[4] = 0
+updates: m[12] = m[12] m[4] = m[4] + 1
+   cond: not(i32.eqz((m[4] < m[12]) && 1))
 function 7 function funcs/simple_loop-func7 cost: 2
 function 8 function funcs/simple_loop-func8 cost: 25
 function 9 function funcs/simple_loop-func9 cost: 19
@@ -510,7 +518,11 @@ prefix ssa:
   ln9 = 0
 cost: 155
 found an N
-nexpr
+  nvars: 1
+   vars: rn0
+  inits: rn0 = rn0
+updates: rn0 = rn0
+   cond: i32.eqz(rn0)
 function 13 function funcs/simple_loop-func13 cost: 2
 function 14 function funcs/simple_loop-func14 cost: 2
 function 15 function funcs/simple_loop-func15 cost: 10
@@ -1679,16 +1691,56 @@ found an N
 found an N
 found an N
 found an N
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
+  nvars: 1
+   vars: m[1]
+  inits: m[1] = m[1]
+updates: m[1] = m[1]
+   cond: m[1]
+  nvars: 1
+   vars: m[8]
+  inits: m[8] = m[8]
+updates: m[8] = m[8]
+   cond: not(m[8] != 0)
+  nvars: 3
+   vars: lN11 lN12 m[0]
+  inits: lN11 = i64.extend_i32_u(select(pn2, 10, pn2)) lN12 = 0 m[0] = m[0]
+updates: lN11 = lN11 lN12 = lN12 m[0] = m[0]
+   cond: not((lN12 * lN11) > ((i64.extend_i32_u(-48 + m[0])) xor -1))
+  nvars: 3
+   vars: lN11 lN12 m[0]
+  inits: lN11 = i64.extend_i32_u(select(pn2, 10, pn2)) lN12 = 0 m[0] = m[0]
+updates: lN11 = lN11 lN12 = (lN12 * lN11) + (i64.extend_i32_u(-48 + m[0])) m[0] = m[0]
+   cond: not((lN12 * lN11) > ((i64.extend_i32_u(-48 + m[0])) xor -1))
+  nvars: 1
+   vars: m[8]
+  inits: m[8] = m[8]
+updates: m[8] = m[8]
+   cond: not(m[8] != 0)
+  nvars: 3
+   vars: lN11 lN12 m[0]
+  inits: lN11 = i64.extend_i32_u(select(pn2, 10, pn2)) lN12 = 0 m[0] = m[0]
+updates: lN11 = lN11 lN12 = lN12 m[0] = m[0]
+   cond: not((lN12 * lN11) > ((i64.extend_i32_u(-87 + m[0])) xor -1))
+  nvars: 3
+   vars: lN11 lN12 m[0]
+  inits: lN11 = i64.extend_i32_u(select(pn2, 10, pn2)) lN12 = 0 m[0] = m[0]
+updates: lN11 = lN11 lN12 = (lN12 * lN11) + (i64.extend_i32_u(-87 + m[0])) m[0] = m[0]
+   cond: not((lN12 * lN11) > ((i64.extend_i32_u(-87 + m[0])) xor -1))
+  nvars: 1
+   vars: m[8]
+  inits: m[8] = m[8]
+updates: m[8] = m[8]
+   cond: not(m[8] != 0)
+  nvars: 3
+   vars: lN11 lN12 m[0]
+  inits: lN11 = i64.extend_i32_u(select(pn2, 10, pn2)) lN12 = 0 m[0] = m[0]
+updates: lN11 = lN11 lN12 = lN12 m[0] = m[0]
+   cond: not((lN12 * lN11) > ((i64.extend_i32_u(-55 + m[0])) xor -1))
+  nvars: 3
+   vars: lN11 lN12 m[0]
+  inits: lN11 = i64.extend_i32_u(select(pn2, 10, pn2)) lN12 = 0 m[0] = m[0]
+updates: lN11 = lN11 lN12 = (lN12 * lN11) + (i64.extend_i32_u(-55 + m[0])) m[0] = m[0]
+   cond: not((lN12 * lN11) > ((i64.extend_i32_u(-55 + m[0])) xor -1))
 function 17 function funcs/simple_loop-func17 cost: 7
 function 18 function funcs/simple_loop-func18 root_bb: 0 entry_bb: 9 (back_pred entry_bb): 8
 prefix path: [0 1 2 3 4 5 6 7 8 9]
@@ -2054,7 +2106,11 @@ prefix ssa:
   lN6 = 0
 cost: 185
 found an N
-nexpr
+  nvars: 1
+   vars: pn2
+  inits: pn2 = (((pn2 - ((0 - pn0) && 3)) && -4) - (((pn0 + ((0 - pn0) && 3)) && 4) || 24)) + -32
+updates: pn2 = pn2 + -32
+   cond: (pn2 + -32) > 31
 calling succ_cond_of_bb
 storing at 24
 storing at 16
@@ -2230,9 +2286,21 @@ cost: 121
 found an N
 found an N
 found an N
-nexpr
-nexpr
-nexpr
+  nvars: 1
+   vars: pn2
+  inits: pn2 = pn2
+updates: pn2 = pn2 + -1
+   cond: pn2 + -1
+  nvars: 1
+   vars: pn2
+  inits: pn2 = pn2
+updates: pn2 = pn2 + -4
+   cond: (pn2 + -4) > 3
+  nvars: 1
+   vars: pn2
+  inits: pn2 = pn2
+updates: pn2 = pn2 + -1
+   cond: pn2 + -1
 function 28 function funcs/simple_loop-func28 cost: 11
 function 29 function funcs/simple_loop-func29 cost: 31
 function 30 function funcs/simple_loop-func30 root_bb: 0 entry_bb: 17 (back_pred entry_bb): 16
@@ -2955,11 +3023,31 @@ found an N
 found an N
 found an N
 found an N
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
+  nvars: 2
+   vars: ln3 pn2
+  inits: ln3 = pn0 + pn2 pn2 = pn0
+updates: ln3 = ln3 pn2 = pn2 + 1
+   cond: (pn2 + 1) < ln3
+  nvars: 2
+   vars: ln5 pn2
+  inits: ln5 = ((pn0 + pn2) && -4) + -64 pn2 = (pn0 + 1) + 64
+updates: ln5 = ln5 pn2 = pn2 + 64
+   cond: (pn2 + 64) <= ln5
+  nvars: 2
+   vars: ln4 pn2
+  inits: ln4 = (pn0 + pn2) && -4 pn2 = (pn0 + 1) + 4
+updates: ln4 = ln4 pn2 = pn2 + 4
+   cond: (pn2 + 4) < ln4
+  nvars: 2
+   vars: ln4 pn2
+  inits: ln4 = (pn0 + pn2) + -4 pn2 = pn0 + 4
+updates: ln4 = ln4 pn2 = pn2 + 4
+   cond: (pn2 + 4) <= ln4
+  nvars: 2
+   vars: ln3 pn2
+  inits: ln3 = pn0 + pn2 pn2 = (pn0 + 4) + 1
+updates: ln3 = ln3 pn2 = pn2 + 1
+   cond: (pn2 + 1) != ln3
 calling succ_cond_of_bb
 storing at 0
 storing at 4
@@ -3059,7 +3147,11 @@ prefix ssa:
   ln5 = 0
 cost: 89
 found an N
-nexpr
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0] != 10
 function 32 function funcs/simple_loop-func32 cost: 172
 function 33 function funcs/simple_loop-func33 root_bb: 0 entry_bb: 21 (back_pred entry_bb): 20
 prefix path: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 19 20]
@@ -5312,19 +5404,71 @@ found an N
 found an N
 found an N
 found an N
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = pn1 + 2
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
+  nvars: 1
+   vars: pn1
+  inits: pn1 = pn1
+updates: pn1 = (((((pn1 + 2) + 3) + 1) + 3) + 4) + 1
+   cond: (pn1 + 1) - pn1
 function 34 function funcs/simple_loop-func34 cost: 13
 function 35 function funcs/simple_loop-func35 root_bb: 0 entry_bb: 5 (back_pred entry_bb): 4
 prefix path: [0 1 4]
@@ -5381,8 +5525,16 @@ prefix ssa:
 cost: 52
 found an N
 found an N
-nexpr
-nexpr
+  nvars: 1
+   vars: rn0
+  inits: rn0 = rn0
+updates: rn0 = rn0
+   cond: rn0
+  nvars: 1
+   vars: rn0
+  inits: rn0 = rn0
+updates: rn0 = rn0
+   cond: rn0
 function 36 function funcs/simple_loop-func36 cost: 29
 function 37 function funcs/simple_loop-func37 root_bb: 0 entry_bb: 3 (back_pred entry_bb): 2
 prefix path: [0 1 2 3]
@@ -5447,7 +5599,11 @@ prefix ssa:
   ln3 = 0
 cost: 33
 found an N
-nexpr
+  nvars: 1
+   vars: pN0
+  inits: pN0 = pN0 shr_u 4
+updates: pN0 = pN0 shr_u 4
+   cond: pN0 > 15
 calling succ_cond_of_bb
 storing at 0
 function 38 function funcs/simple_loop-func38 root_bb: 0 entry_bb: 3 (back_pred entry_bb): 2
@@ -5507,7 +5663,11 @@ prefix ssa:
   ln2 = 0
 cost: 30
 found an N
-nexpr
+  nvars: 1
+   vars: pN0
+  inits: pN0 = pN0 shr_u 3
+updates: pN0 = pN0 shr_u 3
+   cond: pN0 > 7
 calling succ_cond_of_bb
 storing at 0
 function 39 function funcs/simple_loop-func39 root_bb: 0 entry_bb: 6 (back_pred entry_bb): 5
@@ -5703,8 +5863,16 @@ prefix ssa:
 cost: 67
 found an N
 found an N
-nexpr
-nexpr
+  nvars: 1
+   vars: pN0
+  inits: pN0 = pN0 /u 10
+updates: pN0 = pN0 /u 10
+   cond: pN0 > 42949672959
+  nvars: 1
+   vars: ln3
+  inits: ln3 = (i32.wrap_i64(pN0 /u 10)) /u 10
+updates: ln3 = ln3 /u 10
+   cond: ln3 > 9
 calling succ_cond_of_bb
 storing at 0
 calling succ_cond_of_bb
@@ -5793,7 +5961,11 @@ prefix ssa:
   ln5 = 0
 cost: 57
 found an N
-nexpr
+  nvars: 1
+   vars: pn3
+  inits: pn3 = (pn2 - pn3) + -256
+updates: pn3 = pn3 + -256
+   cond: (pn3 + -256) > 255
 calling succ_cond_of_bb
 function 41 function funcs/simple_loop-func41 cost: 7
 function 42 function funcs/simple_loop-func42 root_bb: 0 entry_bb: 28 (back_pred entry_bb): 27
@@ -13768,50 +13940,226 @@ found an N
 found an N
 found an N
 found an N
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
+  nvars: 1
+   vars: pF1
+  inits: pF1 = rF0 + rF0
+updates: pF1 = (pF1 - (f64.convert_i32_u(0))) * 1000000000.
+   cond: ((pF1 - (f64.convert_i32_u(0))) * 1000000000.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = rF0 + rF0
+updates: pF1 = (pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.
+   cond: ((pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.) != 0.
+  nvars: 2
+   vars: m[44] pn3
+  inits: m[44] = 0 pn3 = 0
+updates: m[44] = m[44] - (select(pn3 < 29, 29, pn3)) pn3 = m[44] - (select(pn3 < 29, 29, pn3))
+   cond: (m[44] - pn3) > 0
+  nvars: 2
+   vars: m[44] pn3
+  inits: m[44] = 0 pn3 = 0
+updates: m[44] = m[44] - (select(pn3 < 29, 29, pn3)) pn3 = m[44] - (select(pn3 < 29, 29, pn3))
+   cond: (m[44] - pn3) > 0
+  nvars: 2
+   vars: m[44] pn3
+  inits: m[44] = 0 pn3 = 0
+updates: m[44] = m[44] - (select(pn3 < 29, 29, pn3)) pn3 = m[44] - (select(pn3 < 29, 29, pn3))
+   cond: (m[44] - pn3) > 0
+  nvars: 2
+   vars: m[44] pn3
+  inits: m[44] = 0 pn3 = 0
+updates: m[44] = m[44] - (select(pn3 < 29, 29, pn3)) pn3 = m[44] - (select(pn3 < 29, 29, pn3))
+   cond: (m[44] - pn3) > 0
+  nvars: 2
+   vars: m[44] pn3
+  inits: m[44] = 0 pn3 = 0
+updates: m[44] = m[44] - (select(pn3 < 29, 29, pn3)) pn3 = m[44] - (select(pn3 < 29, 29, pn3))
+   cond: (m[44] - pn3) > 0
+  nvars: 2
+   vars: m[44] pn3
+  inits: m[44] = 0 pn3 = 0
+updates: m[44] = m[44] - (select(pn3 < 29, 29, pn3)) pn3 = m[44] - (select(pn3 < 29, 29, pn3))
+   cond: (m[44] - pn3) > 0
+  nvars: 2
+   vars: m[44] pn3
+  inits: m[44] = 0 - (select(0 < 29, 29, 0)) pn3 = 0 - (select(0 < 29, 29, 0))
+updates: m[44] = m[44] + (select((0 - pn3) < 9, 9, 0 - pn3)) pn3 = m[44] + (select((0 - pn3) < 9, 9, 0 - pn3))
+   cond: (m[44] + (0 - pn3)) < 0
+  nvars: 2
+   vars: m[44] pn3
+  inits: m[44] = 0 - (select(0 < 29, 29, 0)) pn3 = 0 - (select(0 < 29, 29, 0))
+updates: m[44] = m[44] + (select((0 - pn3) < 9, 9, 0 - pn3)) pn3 = m[44] + (select((0 - pn3) < 9, 9, 0 - pn3))
+   cond: (m[44] + (0 - pn3)) < 0
+  nvars: 2
+   vars: m[44] pn3
+  inits: m[44] = 0 - (select(0 < 29, 29, 0)) pn3 = 0 - (select(0 < 29, 29, 0))
+updates: m[44] = m[44] + (select((0 - pn3) < 9, 9, 0 - pn3)) pn3 = m[44] + (select((0 - pn3) < 9, 9, 0 - pn3))
+   cond: (m[44] + (0 - pn3)) < 0
+  nvars: 2
+   vars: ln11 ln12
+  inits: ln11 = 10 * 10 ln12 = 0
+updates: ln11 = ln11 * 10 ln12 = ln12
+   cond: ln12 >= (ln11 * 10)
+  nvars: 1
+   vars: ln12
+  inits: ln12 = (((((select(pn3 < 0, pn3, 6)) - (select((pn5 || 32) == 102, 0, 0))) - (((select(pn3 < 0, pn3, 6)) != 0) && ((pn5 || 32) == 103))) + 9216) - ((((((select(pn3 < 0, pn3, 6)) - (select((pn5 || 32) == 102, 0, 0))) - (((select(pn3 < 0, pn3, 6)) != 0) && ((pn5 || 32) == 103))) + 9216) /s 9) * 9)) + 1
+updates: ln12 = ln12 + 1
+   cond: (ln12 + 1) != 8
+  nvars: 0
+   vars:
+  inits:
+updates:
+   cond: (0 + 1) > 999999999
+  nvars: 0
+   vars:
+  inits:
+updates:
+   cond: (0 + 1) > 999999999
+  nvars: 2
+   vars: ln11 ln12
+  inits: ln11 = 0 ln12 = 0
+updates: ln11 = ln11 * 10 ln12 = ln12
+   cond: ln12 >= (ln11 * 10)
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: i32.eqz(m[0])
+  nvars: 2
+   vars: ln12 ln21
+  inits: ln12 = 0 ln21 = 0
+updates: ln12 = ln12 * 10 ln21 = ln21
+   cond: i32.eqz(ln21 rem_u (ln12 * 10))
+  nvars: 2
+   vars: ln10 ln13
+  inits: ln10 = 0 ln13 = 0
+updates: ln10 = ln10 + -1 ln13 = ln13
+   cond: (ln13 - (ln10 + -1)) < 2
+  nvars: 2
+   vars: ln17 ln18
+  inits: ln17 = 0 ln18 = 0
+updates: ln17 = ln17 ln18 = ln18 + 4
+   cond: (ln18 + 4) <= ln17
+  nvars: 2
+   vars: ln17 ln18
+  inits: ln17 = 0 ln18 = 0
+updates: ln17 = ln17 ln18 = ln18 + 4
+   cond: (ln18 + 4) <= ln17
+  nvars: 2
+   vars: ln17 ln18
+  inits: ln17 = 0 ln18 = 0
+updates: ln17 = ln17 ln18 = ln18 + 4
+   cond: (ln18 + 4) <= ln17
+  nvars: 2
+   vars: ln17 ln18
+  inits: ln17 = 0 ln18 = 0
+updates: ln17 = ln17 ln18 = ln18 + 4
+   cond: (ln18 + 4) <= ln17
+  nvars: 1
+   vars: ln15
+  inits: ln15 = 0
+updates: ln15 = ln15 + -9
+   cond: ln15 > 9
+  nvars: 1
+   vars: ln15
+  inits: ln15 = 0
+updates: ln15 = ln15 + -9
+   cond: ln15 > 9
+  nvars: 3
+   vars: ln15 pn3 rn0
+  inits: ln15 = 0 pn3 = pn3 rn0 = rn0
+updates: ln15 = ln15 - (pn3 - (rn0 + 1)) pn3 = pn3 rn0 = rn0
+   cond: (ln15 - (pn3 - (rn0 + 1))) > -1
+  nvars: 3
+   vars: ln15 pn3 rn0
+  inits: ln15 = 0 pn3 = pn3 rn0 = rn0
+updates: ln15 = ln15 - (pn3 - (rn0 + 1)) pn3 = pn3 rn0 = rn0
+   cond: (ln15 - (pn3 - (rn0 + 1))) > -1
+  nvars: 3
+   vars: ln15 pn3 rn0
+  inits: ln15 = 0 pn3 = pn3 rn0 = rn0
+updates: ln15 = ln15 - (pn3 - rn0) pn3 = pn3 rn0 = rn0
+   cond: (ln15 - (pn3 - rn0)) > -1
+  nvars: 3
+   vars: ln15 pn3 rn0
+  inits: ln15 = 0 pn3 = pn3 rn0 = rn0
+updates: ln15 = ln15 - (pn3 - (rn0 + -1)) pn3 = pn3 rn0 = rn0
+   cond: (ln15 - (pn3 - (rn0 + -1))) > -1
+  nvars: 3
+   vars: ln15 ln17 pn3
+  inits: ln15 = 0 ln17 = 0 pn3 = pn3
+updates: ln15 = ln15 - (pn3 - (ln17 + 1)) ln17 = ln17 pn3 = pn3
+   cond: (ln15 - (pn3 - (ln17 + 1))) > -1
+  nvars: 3
+   vars: ln15 ln17 pn3
+  inits: ln15 = 0 ln17 = 0 pn3 = pn3
+updates: ln15 = ln15 - (pn3 - (ln17 + 1)) ln17 = ln17 pn3 = pn3
+   cond: (ln15 - (pn3 - (ln17 + 1))) > -1
+  nvars: 3
+   vars: ln15 ln17 pn3
+  inits: ln15 = 0 ln17 = 0 pn3 = pn3
+updates: ln15 = ln15 - (pn3 - ln17) ln17 = ln17 pn3 = pn3
+   cond: (ln15 - (pn3 - ln17)) > -1
+  nvars: 3
+   vars: ln15 ln17 pn3
+  inits: ln15 = 0 ln17 = 0 pn3 = pn3
+updates: ln15 = ln15 - (pn3 - (ln17 + -1)) ln17 = ln17 pn3 = pn3
+   cond: (ln15 - (pn3 - (ln17 + -1))) > -1
+  nvars: 1
+   vars: ln10
+  inits: ln10 = 0
+updates: ln10 = ln10 + -1
+   cond: ln10 + -1
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(-2147483648))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(-2147483648))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(-2147483648))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(-2147483648))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(-2147483648))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.
+  nvars: 1
+   vars: pF1
+  inits: pF1 = pF1
+updates: pF1 = (pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.
+   cond: ((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.
 function 43 function funcs/simple_loop-func43 cost: 21
 function 44 function funcs/simple_loop-func44 cost: 3
 function 45 function funcs/simple_loop-func45 cost: 8
@@ -17031,29 +17379,121 @@ found an N
 found an N
 found an N
 found an N
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
+  nvars: 1
+   vars: m[16]
+  inits: m[16] = m[16]
+updates: m[16] = m[16]
+   cond: not(m[16])
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: not(i32.eqz(m[0]))
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[16]
+  inits: m[16] = m[16]
+updates: m[16] = m[16]
+   cond: m[16]
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[8]
+  inits: m[8] = m[8]
+updates: m[8] = m[8]
+   cond: m[8]
+  nvars: 1
+   vars: m[8]
+  inits: m[8] = m[8]
+updates: m[8] = m[8]
+   cond: m[8]
+  nvars: 1
+   vars: m[8]
+  inits: m[8] = m[8]
+updates: m[8] = m[8]
+   cond: m[8]
+  nvars: 1
+   vars: pn0
+  inits: pn0 = pn0
+updates: pn0 = pn0 + 1
+   cond: (pn0 + 1) != 32
+  nvars: 1
+   vars: m[8]
+  inits: m[8] = m[8]
+updates: m[8] = m[8]
+   cond: m[8]
+  nvars: 2
+   vars: ln4 m[0]
+  inits: ln4 = 0 m[0] = m[0]
+updates: ln4 = ln4 m[0] = m[0]
+   cond: not(m[0] > ln4)
+  nvars: 3
+   vars: ln4 m[0] m[4]
+  inits: ln4 = 0 m[0] = m[0] m[4] = m[4]
+updates: ln4 = ln4 m[0] = m[0] m[4] = m[4]
+   cond: not((m[0] + m[4]) > ln4)
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 2
+   vars: ln5 pn0
+  inits: ln5 = 0 pn0 = pn0
+updates: ln5 = ln5 pn0 = pn0 + 4
+   cond: (pn0 + 8) < ln5
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
+  nvars: 1
+   vars: m[0]
+  inits: m[0] = m[0]
+updates: m[0] = m[0]
+   cond: m[0]
 function 53 function funcs/simple_loop-func53 cost: 4
 function 54 function funcs/simple_loop-func54 cost: 35
 function 55 function funcs/simple_loop-func55 cost: 60
@@ -17384,13 +17824,45 @@ found an N
 found an N
 found an N
 found an N
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
-nexpr
+  nvars: 1
+   vars: m[56]
+  inits: m[56] = m[56]
+updates: m[56] = m[56]
+   cond: m[56]
+  nvars: 1
+   vars: m[56]
+  inits: m[56] = m[56]
+updates: m[56] = m[56]
+   cond: m[56]
+  nvars: 1
+   vars: m[56]
+  inits: m[56] = m[56]
+updates: m[56] = m[56]
+   cond: m[56]
+  nvars: 1
+   vars: m[56]
+  inits: m[56] = m[56]
+updates: m[56] = m[56]
+   cond: m[56]
+  nvars: 1
+   vars: m[56]
+  inits: m[56] = m[56]
+updates: m[56] = m[56]
+   cond: m[56]
+  nvars: 1
+   vars: m[56]
+  inits: m[56] = m[56]
+updates: m[56] = m[56]
+   cond: m[56]
+  nvars: 1
+   vars: m[56]
+  inits: m[56] = m[56]
+updates: m[56] = m[56]
+   cond: m[56]
+  nvars: 1
+   vars: m[56]
+  inits: m[56] = m[56]
+updates: m[56] = m[56]
+   cond: m[56]
 function 69 function funcs/simple_loop-func69 cost: 6
 function 70 function funcs/simple_loop-func70 cost: 20
