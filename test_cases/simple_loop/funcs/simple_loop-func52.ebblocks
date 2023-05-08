@@ -8,8 +8,8 @@ ebb entry:  46
   ebb type:   loop
   ebb blocks: [46 47 48 49 50 51]
   ebb cost:   list_max([
-  27 * (N([m[16]], [not(m[16])], [m[16] = m[16]], [m[16] = m[16]]));
-  35 * (N([m[0]], [not(i32.eqz(m[0]))], [m[0] = m[0]], [m[0] = m[0]]))
+  27 * (N([m[16]], [not(m[16])], [m[16]], [m[16]]));
+  35 * (N([m[0]], [not(i32.eqz(m[0]))], [m[0]], [m[0]]))
 ])
   ebb exits:  [54]
   ebb succs:  [54]
@@ -33,8 +33,8 @@ ebb entry:  63
   ebb type:   loop
   ebb blocks: [63 64 65]
   ebb cost:   (list_max([
-  18 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]));
-  10 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]))
+  18 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
+  10 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
 ])) + 1
   ebb exits:  [66]
   ebb succs:  [66]
@@ -60,8 +60,8 @@ ebb entry:  82
   ebb type:   loop
   ebb blocks: [82 83 84 85 86 87 88]
   ebb cost:   (list_max([
-  41 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]));
-  47 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]))
+  41 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
+  47 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
 ])) + (list_max([1; 1; 7]))
   ebb exits:  [89 96]
   ebb succs:  [89]
@@ -90,8 +90,8 @@ ebb entry:  97
   ebb type:   loop
   ebb blocks: [97 98 99 100 101]
   ebb cost:   (list_max([
-  29 * (N([m[16]], [m[16]], [m[16] = m[16]], [m[16] = m[16]]));
-  35 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]))
+  29 * (N([m[16]], [m[16]], [m[16]], [m[16]]));
+  35 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
 ])) + (list_max([1; 1]))
   ebb exits:  [102]
   ebb succs:  [102]
@@ -118,8 +118,8 @@ ebb entry:  114
   ebb type:   loop
   ebb blocks: [114 115 116]
   ebb cost:   (list_max([
-  18 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]));
-  10 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]))
+  18 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
+  10 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
 ])) + 1
   ebb exits:  [117]
   ebb succs:  [117]
@@ -145,8 +145,8 @@ ebb entry:  151
   ebb type:   loop
   ebb blocks: [151 152 153 154 155 156]
   ebb cost:   (list_max([
-  11 * (N([m[8]], [m[8]], [m[8] = m[8]], [m[8] = m[8]]));
-  19 * (N([m[8]], [m[8]], [m[8] = m[8]], [m[8] = m[8]]))
+  11 * (N([m[8]], [m[8]], [m[8]], [m[8]]));
+  19 * (N([m[8]], [m[8]], [m[8]], [m[8]]))
 ])) + (list_max([1; 1]))
   ebb exits:  [157 172]
   ebb succs:  [172 157]
@@ -222,7 +222,7 @@ ebb entry:  204
 ebb entry:  213
   ebb type:   loop
   ebb blocks: [213 214 215 216]
-  ebb cost:   (14 * (N([m[8]], [m[8]], [m[8] = m[8]], [m[8] = m[8]]))) + 1
+  ebb cost:   (14 * (N([m[8]], [m[8]], [m[8]], [m[8]]))) + 1
   ebb exits:  [230 235]
   ebb succs:  [235 230]
   1 paths to exit 230
@@ -248,7 +248,7 @@ ebb entry:  219
 ebb entry:  226
   ebb type:   loop
   ebb blocks: [226 227]
-  ebb cost:   (23 * (N([pn0], [(pn0 + 1) != 32], [pn0 = pn0], [pn0 = pn0 + 1]))) + 1
+  ebb cost:   (23 * (N([pn0], [(pn0 + 1) != 32], [pn0], [pn0 + 1]))) + 1
   ebb exits:  [228]
   ebb succs:  [228]
   1 paths to exit 228
@@ -278,7 +278,7 @@ ebb entry:  235
 ebb entry:  246
   ebb type:   loop
   ebb blocks: [246 247 248 249]
-  ebb cost:   (9 * (N([m[8]], [m[8]], [m[8] = m[8]], [m[8] = m[8]]))) + 1
+  ebb cost:   (9 * (N([m[8]], [m[8]], [m[8]], [m[8]]))) + 1
   ebb exits:  [252 254]
   ebb succs:  [252]
   1 paths to exit 252
@@ -305,8 +305,8 @@ ebb entry:  255
   ebb type:   loop
   ebb blocks: [255 256 257 258 259 260]
   ebb cost:   list_max([
-  11 * (N([ln4; m[0]], [not(m[0] > ln4)], [ln4 = 0; m[0] = m[0]], [ln4 = ln4; m[0] = m[0]]));
-  20 * (N([ln4; m[0]; m[4]], [not((m[0] + m[4]) > ln4)], [ln4 = 0; m[0] = m[0]; m[4] = m[4]], [ln4 = ln4; m[0] = m[0]; m[4] = m[4]]))
+  11 * (N([ln4; m[0]], [not(m[0] > ln4)], [0; m[0]], [ln4; m[0]]));
+  20 * (N([ln4; m[0]; m[4]], [not((m[0] + m[4]) > ln4)], [0; m[0]; m[4]], [ln4; m[0]; m[4]]))
 ])
   ebb exits:  [337]
   ebb succs:  []
@@ -330,8 +330,8 @@ ebb entry:  293
   ebb type:   loop
   ebb blocks: [293 294 295]
   ebb cost:   (list_max([
-  18 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]));
-  10 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]))
+  18 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
+  10 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
 ])) + 1
   ebb exits:  [296]
   ebb succs:  [296]
@@ -368,7 +368,7 @@ ebb entry:  312
 ebb entry:  331
   ebb type:   loop
   ebb blocks: [331 332 333]
-  ebb cost:   (27 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]))) + 1
+  ebb cost:   (27 * (N([m[0]], [m[0]], [m[0]], [m[0]]))) + 1
   ebb exits:  [334 366]
   ebb succs:  [366 334]
   1 paths to exit 334
@@ -394,7 +394,7 @@ ebb entry:  335
 ebb entry:  338
   ebb type:   loop
   ebb blocks: [338 339]
-  ebb cost:   (15 * (N([ln5; pn0], [(pn0 + 8) < ln5], [ln5 = 0; pn0 = pn0], [ln5 = ln5; pn0 = pn0 + 4]))) + 1
+  ebb cost:   (15 * (N([ln5; pn0], [(pn0 + 8) < ln5], [0; pn0], [ln5; pn0 + 4]))) + 1
   ebb exits:  [340]
   ebb succs:  [340]
   1 paths to exit 340
@@ -412,7 +412,7 @@ ebb entry:  340
 ebb entry:  360
   ebb type:   loop
   ebb blocks: [360 361 362]
-  ebb cost:   (27 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]))) + 1
+  ebb cost:   (27 * (N([m[0]], [m[0]], [m[0]], [m[0]]))) + 1
   ebb exits:  [363 369]
   ebb succs:  [369 363]
   1 paths to exit 363
@@ -474,7 +474,7 @@ ebb entry:  375
 ebb entry:  415
   ebb type:   loop
   ebb blocks: [415 416 417]
-  ebb cost:   (27 * (N([m[0]], [m[0]], [m[0] = m[0]], [m[0] = m[0]]))) + 1
+  ebb cost:   (27 * (N([m[0]], [m[0]], [m[0]], [m[0]]))) + 1
   ebb exits:  [418 421]
   ebb succs:  [421 418]
   1 paths to exit 418

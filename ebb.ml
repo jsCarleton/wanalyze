@@ -335,8 +335,8 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                       op = "N";
                       args = [  ExprList (List.map ~f:(fun lv -> Variable lv) lmi.loop_vars);
                                 ExprList [lmi.loop_cond];
-                                ExprList (List.map ~f:(fun lvev -> Constant (String_value (Ssa.string_of_ssa lvev))) lmi.lv_entry_vals); (* TODO improve this *)
-                                ExprList (List.map ~f:(fun lvlv -> Constant (String_value (Ssa.string_of_ssa lvlv))) lmi.lv_loop_vals)
+                                ExprList (List.map ~f:(fun lvev -> Constant (String_value (string_of_et lvev.etree))) lmi.lv_entry_vals); (* TODO improve this *)
+                                ExprList (List.map ~f:(fun lvlv -> Constant (String_value (string_of_et lvlv.etree))) lmi.lv_loop_vals)
                               ]}
                   ]}
   in

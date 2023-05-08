@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  9
   ebb type:   loop
   ebb blocks: [9 10 11 12 13 14 15]
-  ebb cost:   ((65 + (list_sum([|f1|; |f45|]))) * (N([rn0], [i32.eqz(rn0)], [rn0 = rn0], [rn0 = rn0]))) + (list_max([1; 3]))
+  ebb cost:   ((65 + (list_sum([|f1|; |f45|]))) * (N([rn0], [i32.eqz(rn0)], [rn0], [rn0]))) + (list_max([1; 3]))
   ebb exits:  [16 19 21]
   ebb succs:  [21 19 16]
   1 paths to exit 16
