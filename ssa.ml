@@ -36,9 +36,9 @@ let rec mark_dead (s: ssa list) (count: int) =
         | false ->
             mark_dead tl count))
 
-let ssa_of_rt (start: int) (index: int) (r: resulttype) : ssa =
+let ssa_of_rt (start: int) (index: int) (fidx: int) (r: resulttype) : ssa =
   { result = {vtype = Var_temp; nt = Numtype I32; idx = start+index; vname = ""}; (* TODO nt is wrong here *)
-    etree = et_of_retval index r;
+    etree = et_of_retval index r fidx;
     alive = true}
 
 let string_of_ssa (s: ssa): string = 
@@ -86,7 +86,7 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
             (* mark the arguments to the function dead *)
             mark_dead acc (nparams ctx.w fidx);
             (* create SSAs for each of the return values *)
-            let retvals = (List.mapi ~f:(ssa_of_rt (List.length acc)) (ret_types ctx.w fidx)) in
+            let retvals = (List.mapi ~f:(ssa_of_rt (List.length acc) fidx) (ret_types ctx.w fidx)) in
             List.append retvals acc
         | _ -> failwith "Invalid call argument")
       | OP_call_indirect ->
@@ -95,7 +95,7 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
               (* mark the arguments to the function dead *)
               mark_dead acc (List.length (List.nth_exn ctx.w.type_section c.y).rt1);
               (* create SSAs for each of the return values *)
-              List.append (List.mapi ~f:(ssa_of_rt (List.length acc)) (List.nth_exn ctx.w.type_section c.y).rt2) acc
+              List.append (List.mapi ~f:(ssa_of_rt (List.length acc) c.x) (List.nth_exn ctx.w.type_section c.y).rt2) acc (*TODO c.x might not be enough *)
           | _ -> failwith "Invalid call_indirect argument")
       | _ -> failwith (sprintf "Invalid control opcode %x" op.opcode))
   | Reference  -> failwith "Reference"

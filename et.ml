@@ -21,7 +21,8 @@ let string_of_var (v: var): string =
   in
 
   match v.vtype with 
-    | Var_parameter | Var_local | Var_retvalue | Var_global | Var_temp ->  sprintf "%s%s%d" (string_of_vart v.vtype) (string_of_valt v.nt) v.idx
+    | Var_parameter | Var_local | Var_global | Var_temp ->  sprintf "%s%s%d" (string_of_vart v.vtype) (string_of_valt v.nt) v.idx
+    | Var_retvalue  -> sprintf "%s%s(%s, %d)" (string_of_vart v.vtype) (string_of_valt v.nt) v.vname v.idx
     | Var_memory    -> sprintf "%s[%d]" v.vname v.idx
 
 type constant_value = Int_value of int | Int64_value of int64

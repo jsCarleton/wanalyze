@@ -170,8 +170,8 @@ let et_of_const_arg (arg: op_arg): et =
     | F64value f    -> Constant (Float_value f)
     | _             -> failwith "Invalid const argument"
 
-let et_of_retval (idx: int) (nt: valtype): et =
-  Variable { vtype = Var_retvalue; idx; nt; vname = ""}
+let et_of_retval (idx: int) (nt: valtype) (fidx: int): et =
+  Variable { vtype = Var_retvalue; idx; nt; vname = sprintf "f%d" fidx}
 
 let et_of_unop (op: string) (arg1: et): et =
   Node {op = op; args = [arg1]}
@@ -189,10 +189,10 @@ let update_state_parametricop (op: op_type) (s: program_state) =
 
 (* Control operators *)
 (* call op handling *)
-let update_state_callop (_: wm) (param_count: int) (retval_types: resulttype list) (state: program_state) =
+let update_state_callop (_: wm) (param_count: int) (retval_types: resulttype list) (state: program_state) (fidx: int) =
   drop_n_values state param_count;
   List.iter ~f:(push_value state) 
-    (List.init (List.length retval_types) ~f:(fun i -> (et_of_retval i (List.nth_exn retval_types i))))
+    (List.init (List.length retval_types) ~f:(fun i -> (et_of_retval i (List.nth_exn retval_types i) fidx)))
 
 let ret_types (w: wm) (fidx: int): resulttype list =
   (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2
@@ -276,7 +276,7 @@ let update_state_controlop (w: wm) (op: op_type) (s: program_state): et =
   | 0x10 ->
     (match op.arg with
     | Funcidx fidx -> 
-        update_state_callop w (nparams w fidx) (ret_types w fidx) s
+        update_state_callop w (nparams w fidx) (ret_types w fidx) s fidx
     | _ -> failwith "Invalid call argument"); Empty
   (* call_indirect *)
   | 0x11 -> Empty (* TODO *)

@@ -8,8 +8,8 @@ ebb entry:  28
   ebb type:   loop
   ebb blocks: [28 29 30 31 32 33 34 35]
   ebb cost:   (list_max([
-  31 * (N([pF1], [((pF1 - (f64.convert_i32_u(0))) * 1000000000.) != 0.], [rF0 + rF0], [(pF1 - (f64.convert_i32_u(0))) * 1000000000.]));
-  32 * (N([pF1], [((pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.) != 0.], [rF0 + rF0], [(pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.]))
+  31 * (N([pF1], [((pF1 - (f64.convert_i32_u(0))) * 1000000000.) != 0.], [rF(f0, 29) + rF(f0, 29)], [(pF1 - (f64.convert_i32_u(0))) * 1000000000.]));
+  32 * (N([pF1], [((pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.) != 0.], [rF(f0, 29) + rF(f0, 29)], [(pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.]))
 ])) + (list_max([1; 1]))
   ebb exits:  [36]
   ebb succs:  [36]
@@ -502,10 +502,10 @@ ebb entry:  204
   ebb type:   loop
   ebb blocks: [204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221]
   ebb cost:   (list_max([
-  (55 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn0], [(ln15 - (pn3 - (rn0 + 1))) > -1], [0; pn3; rn0], [ln15 - (pn3 - (rn0 + 1)); pn3; rn0]));
-  (60 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn0], [(ln15 - (pn3 - (rn0 + 1))) > -1], [0; pn3; rn0], [ln15 - (pn3 - (rn0 + 1)); pn3; rn0]));
-  (48 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn0], [(ln15 - (pn3 - rn0)) > -1], [0; pn3; rn0], [ln15 - (pn3 - rn0); pn3; rn0]));
-  (62 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn0], [(ln15 - (pn3 - (rn0 + -1))) > -1], [0; pn3; rn0], [ln15 - (pn3 - (rn0 + -1)); pn3; rn0]));
+  (55 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn(f39, 0)], [(ln15 - (pn3 - (rn(f39, 0) + 1))) > -1], [0; pn3; rn(f39, 0)], [ln15 - (pn3 - (rn(f0, 39) + 1)); pn3; rn(f39, 0)]));
+  (60 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn(f39, 0)], [(ln15 - (pn3 - (rn(f39, 0) + 1))) > -1], [0; pn3; rn(f39, 0)], [ln15 - (pn3 - (rn(f0, 39) + 1)); pn3; rn(f39, 0)]));
+  (48 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn(f39, 0)], [(ln15 - (pn3 - rn(f39, 0))) > -1], [0; pn3; rn(f39, 0)], [ln15 - (pn3 - rn(f0, 39)); pn3; rn(f39, 0)]));
+  (62 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn(f39, 0)], [(ln15 - (pn3 - (rn(f39, 0) + -1))) > -1], [0; pn3; rn(f39, 0)], [ln15 - (pn3 - (rn(f0, 39) + -1)); pn3; rn(f39, 0)]));
   (61 + (list_sum([|f34|; |f39|]))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - (ln17 + 1))) > -1], [0; 0; pn3], [ln15 - (pn3 - (ln17 + 1)); ln17; pn3]));
   (66 + (list_sum([|f34|; |f39|]))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - (ln17 + 1))) > -1], [0; 0; pn3], [ln15 - (pn3 - (ln17 + 1)); ln17; pn3]));
   (54 + (list_sum([|f34|; |f39|]))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - ln17)) > -1], [0; 0; pn3], [ln15 - (pn3 - ln17); ln17; pn3]));
