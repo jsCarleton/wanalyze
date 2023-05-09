@@ -45,7 +45,7 @@ type execution_context =
 val succ_cond_of_bb:     Wm.wm -> program_state -> Wm.expr -> Et.et -> Et.et
 val empty_program_state: Wm.wm -> Wm.resulttype list -> Wm.local_type list -> program_state
 val reduce_bblock:       Wm.wm -> Wm.expr -> program_state -> program_state * Et.et
-val et_of_retval:        int -> Wm.resulttype -> int -> Et.et
+val et_of_retval:        int -> Wm.resulttype -> int -> Et.et list -> Et.et
 val nparams:             Wm.wm -> int -> int
 val ret_types:           Wm.wm -> int -> Wm.resulttype list
 val int_of_get_argL:     Wm.op_arg -> int

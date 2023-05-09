@@ -91,6 +91,9 @@ let n_mglobals (globals: global list): int =
 (* Updating the state of the program *)
 (* stack operations *)
 let stack_cdr   (state: program_state): et list = List.tl_exn state.value_stack
+let top_n_values
+                (state: program_state) (n: int) =
+  List.take state.value_stack n
 let drop_n_values
                 (state: program_state) (n: int) =
   state.value_stack <- List.drop state.value_stack n
@@ -170,8 +173,11 @@ let et_of_const_arg (arg: op_arg): et =
     | F64value f    -> Constant (Float_value f)
     | _             -> failwith "Invalid const argument"
 
-let et_of_retval (idx: int) (nt: valtype) (fidx: int): et =
-  Variable { vtype = Var_retvalue; idx; nt; vname = sprintf "f%d" fidx}
+let et_of_retval (idx: int) (nt: valtype) (fidx: int) (params: et list): et =
+  Variable {  vtype = Var_retvalue; 
+              idx; 
+              nt; 
+              vname = sprintf "f%d(%s)" fidx (String.concat ~sep:", " (List.map ~f:string_of_et params))}
 
 let et_of_unop (op: string) (arg1: et): et =
   Node {op = op; args = [arg1]}
@@ -190,9 +196,10 @@ let update_state_parametricop (op: op_type) (s: program_state) =
 (* Control operators *)
 (* call op handling *)
 let update_state_callop (_: wm) (param_count: int) (retval_types: resulttype list) (state: program_state) (fidx: int) =
+  let params = top_n_values state param_count in
   drop_n_values state param_count;
   List.iter ~f:(push_value state) 
-    (List.init (List.length retval_types) ~f:(fun i -> (et_of_retval i (List.nth_exn retval_types i) fidx)))
+    (List.init (List.length retval_types) ~f:(fun i -> (et_of_retval i (List.nth_exn retval_types i) fidx params)))
 
 let ret_types (w: wm) (fidx: int): resulttype list =
   (List.nth_exn w.type_section (List.nth_exn w.function_section fidx)).rt2

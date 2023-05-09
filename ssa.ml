@@ -36,9 +36,9 @@ let rec mark_dead (s: ssa list) (count: int) =
         | false ->
             mark_dead tl count))
 
-let ssa_of_rt (start: int) (index: int) (fidx: int) (r: resulttype) : ssa =
+let ssa_of_rt (index: int) (fidx: int) (params: et list) ( start: int) (r: resulttype) : ssa =
   { result = {vtype = Var_temp; nt = Numtype I32; idx = start+index; vname = ""}; (* TODO nt is wrong here *)
-    etree = et_of_retval index r fidx;
+    etree = et_of_retval index r fidx params;
     alive = true}
 
 let string_of_ssa (s: ssa): string = 
@@ -84,18 +84,21 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
         (match op.arg with
         | Funcidx fidx ->
             (* mark the arguments to the function dead *)
+            let params = List.map ~f:(fun p -> p.etree) (List.take acc (nparams ctx.w fidx)) in
             mark_dead acc (nparams ctx.w fidx);
             (* create SSAs for each of the return values *)
-            let retvals = (List.mapi ~f:(ssa_of_rt (List.length acc) fidx) (ret_types ctx.w fidx)) in
+            let retvals = List.mapi ~f:(ssa_of_rt (List.length acc) fidx params) (ret_types ctx.w fidx) in
             List.append retvals acc
         | _ -> failwith "Invalid call argument")
       | OP_call_indirect ->
         (match op.arg with
           | CallIndirect c ->
               (* mark the arguments to the function dead *)
-              mark_dead acc (List.length (List.nth_exn ctx.w.type_section c.y).rt1);
+              let nparams = List.length (List.nth_exn ctx.w.type_section c.y).rt1 in
+              let params = List.map ~f:(fun p -> p.etree) (List.take acc nparams) in
+              mark_dead acc nparams;
               (* create SSAs for each of the return values *)
-              List.append (List.mapi ~f:(ssa_of_rt (List.length acc) c.x) (List.nth_exn ctx.w.type_section c.y).rt2) acc (*TODO c.x might not be enough *)
+              List.append (List.mapi ~f:(ssa_of_rt (List.length acc) c.x params) (List.nth_exn ctx.w.type_section c.y).rt2) acc (*TODO c.x might not be enough *)
           | _ -> failwith "Invalid call_indirect argument")
       | _ -> failwith (sprintf "Invalid control opcode %x" op.opcode))
   | Reference  -> failwith "Reference"
