@@ -386,7 +386,6 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let exit_cps    = exit_paths (exit_cps codepaths) loop_cps in
             let nested_ebbs = sub_ebbs_of_bbs bblocks in
             let root_bb     = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
-            Printf.printf "root_bb: %d entry_bb: %d (back_pred entry_bb): %d\n%!" root_bb.bbindex entry_bb.bbindex (back_pred entry_bb).bbindex;
             (* TODO goal is to replace this call to Cp.codepaths_from_to_bb_exn with a function
                that returns the paths that update any of the loop vars rather than all paths *)
             let cp =
@@ -394,7 +393,6 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
               | [] -> []
               (* TODO why do we only consider one prefix? *)
               | cps  -> List.rev (List.hd_exn cps)) in (* TODO this reverse should be done earlier *)
-            Printf.printf "prefix path: %s\n%!" (string_of_bbs cp);
             let lms = looping_parts_costs bbacks loop_cps cp in
             let ulv = unique_loop_vars lms in
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in

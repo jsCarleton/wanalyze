@@ -37,3 +37,7 @@ simple_loop,38,2,[0 1 2] 5,simple br_if,pN0 = pN0,pN0 > 7,pN0,pN0 = pN0 shr_u 3
 simple_loop,39,11,[0 1 2 3 9 10 11] 16,simple br_if,ln3 = i32.wrap_i64(pN0),ln3 > 9,ln3,ln3 = ln3 /u 10
 simple_loop,39,5,[0 1 2 5] 7,simple br_if,pN0 = pN0,pN0 > 42949672959,pN0,pN0 = pN0 /u 10
 simple_loop,40,5,[0 1 2 3 4 5] 34 + |f18|,simple br_if,pn3 = pn2 - pn3,(pn3 + -256) > 255,pn3,pn3 = pn3 + -256
+simple_loop,68,10,[0 1 2 3 4 5 6 7 8 9 10] 34 + (list_sum([|f23|; |f68|])),block
+simple_loop,68,10,[0 1 2 3 4 5 6 8 9 10] 27 + (list_sum([|f23|; |f68|])),block
+simple_loop,68,10,[0 1 2 3 5 6 7 8 9 10] 29 + (list_sum([|f23|; |f68|])),block
+simple_loop,68,10,[0 1 2 3 5 6 8 9 10] 22 + |f23|,block

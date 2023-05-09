@@ -228,7 +228,6 @@ let update_state_memloadop (op: op_type) (state: program_state) =
   poke_value state (find_mem_elem state.mem_values op.arg)
 
 let update_state_memstoreop (op: op_type) (state: program_state) =
-  Printf.printf "storing at %d\n%!" (elem_offset_of_arg op.arg);
   state.mem_values <- 
     { elem_type   = elem_type_of_arg op.arg;
       elem_offset = elem_offset_of_arg op.arg;
@@ -349,7 +348,6 @@ let reduce_bblock (w: wm) (e: expr) (i: program_state):
             local_values  = copy_values i.local_values;
             global_values = copy_values i.global_values;
             mem_values    = List.map ~f:(fun x -> x) i.mem_values} in
-  Printf.printf "calling succ_cond_of_bb\n%!";
   let s = succ_cond_of_bb w f e Empty in
   f,s
 

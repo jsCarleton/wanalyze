@@ -49,6 +49,7 @@ let rec simplify_code (e: Et.et): Et.et =
   in
 
   let invert (e: Et.et): Et.et =
+    Printf.printf "inverting %s\n" (Et.string_of_et e);
     match e with
     | Node n ->
       begin
@@ -59,11 +60,12 @@ let rec simplify_code (e: Et.et): Et.et =
         | ">=" -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = "<"}
         | "="  -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = "!="}
         | "!=" -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = "="}
-        | _ -> failwith ("can't invert " ^ n.op)
+        | _ -> Printf.printf "can't invert %s\n" (Et.string_of_et e); e
       end
-    | _ -> e
+    | _ -> Node {op = "not"; args = [e]}
   in
 
+  Printf.printf "simplifying %s\n" (Et.string_of_et e);
   match e with
   | Node n ->
     begin
@@ -72,7 +74,7 @@ let rec simplify_code (e: Et.et): Et.et =
         begin
           match n.op with
           | "i32.eqz" -> Printf.printf "%s\n" (Et.string_of_et e); simplify_code (Node {op = "="; args = (Constant (Int_value 0)) :: n.args})
-          | "not"     -> Printf.printf "%s\n" (Et.string_of_et e); simplify_code (invert (List.hd_exn (List.map ~f:simplify_code n.args)))
+          | "not"     -> Printf.printf "%s\n" (Et.string_of_et e); invert (List.hd_exn (List.map ~f:simplify_code n.args))
           | _ -> Node {n with args = List.map ~f:simplify_code n.args}
           end
       | 2 ->
