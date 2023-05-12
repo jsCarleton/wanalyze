@@ -180,10 +180,10 @@ let et_of_retval (idx: int) (nt: valtype) (fidx: int) (params: et list): et =
               vname = sprintf "f%d(%s)" fidx (String.concat ~sep:", " (List.map ~f:string_of_et params))}
 
 let et_of_unop (op: string) (arg1: et): et =
-  Node {op = op; args = [arg1]}
+  Node {op; op_disp = Function; args = [arg1]}
 
 let et_of_binop (op: string) (arg1: et) (arg2: et): et =
-  Node {op = op; args = [arg1; arg2]}
+  Node {op = op; op_disp = Infix; args = [arg1; arg2]}
 
 (* Parametric operators *)
 let update_state_parametricop (op: op_type) (s: program_state) = 

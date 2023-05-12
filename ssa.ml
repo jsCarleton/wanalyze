@@ -112,7 +112,7 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
           let val2 = find_and_kill acc in
           let val1 = find_and_kill acc in
             { result = {vtype = Var_temp; nt = Numtype I32; idx = List.length acc; vname = ""}; (* TODO nt wrong *)
-              etree = Node {op = "select"; args = [c; val2; val1]}; alive = true}
+              etree = Node {op = "select"; op_disp = Function; args = [c; val2; val1]}; alive = true}
               :: acc
         | _ -> failwith (sprintf "Invalid parametric opcode %x" op.opcode))
   | VariableGL ->
@@ -170,22 +170,22 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
   | Unop ->
       let arg1 = find_and_kill acc in
         { result = {vtype = Var_temp; nt = Numtype I32; idx = List.length acc; vname = ""}; 
-          etree = Node {op = op.opname; args = [arg1]};
+          etree = Node {op = op.opname; op_disp = Prefix; args = [arg1]};
           alive = true} :: acc         
   | Binop op
   | Relop op  ->
       let arg2 = find_and_kill acc in
       let arg1 = find_and_kill acc in
         { result = {vtype = Var_temp; nt = Numtype I32; idx = List.length acc; vname = ""}; 
-          etree = Node {op; args = [arg1; arg2]};
+          etree = Node {op; op_disp = Infix; args = [arg1; arg2]};
           alive = true} :: acc         
   | Testop ->
       { result = {vtype = Var_temp; nt = Numtype I32; idx = List.length acc; vname = ""};
-        etree = Node {op = op.opname; args = [find_and_kill acc]};
+        etree = Node {op = op.opname; op_disp = Prefix; args = [find_and_kill acc]};
         alive = true} :: acc
   | Cvtop   ->
       { result = {vtype = Var_temp; nt = Numtype I32; idx = List.length acc; vname = ""};
-        etree = Node {op = op.opname; args = [find_and_kill acc]};
+        etree = Node {op = op.opname; op_disp = Prefix; args = [find_and_kill acc]};
         alive = true} :: acc         
 
 let ssa_of_expr (ctx: execution_context): ssa list =
@@ -231,7 +231,7 @@ let rec expand_et (e: et) (s_src: ssa) : et =
             s_src.etree
           else 
             e
-  | Node n -> Node {op = n.op; args = List.map ~f:(fun e' -> expand_et e' s_src) n.args}
+  | Node n -> Node {n with args = List.map ~f:(fun e' -> expand_et e' s_src) n.args}
   | _ -> e
 
 let explode_var (s: ssa list) (result: var): ssa =

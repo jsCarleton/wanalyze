@@ -28,9 +28,11 @@ let string_of_var (v: var): string =
 type constant_value = Int_value of int | Int64_value of int64
       | Float_value of float | String_value of string
 
+type opdisplay = Infix | Prefix | Function
+
 type et = Empty | Constant of constant_value | Variable of var 
-               | ExprList of et list | Node of node
-      and node = { op: string; args: et list }
+                | ExprList of et list | Node of node
+      and node = { op: string; op_disp: opdisplay; args: et list }
 
 (* variables *)
 let compare_vars (v1: var) (v2: var): int =
@@ -70,47 +72,18 @@ let rec string_of_et (e: et): string =
   match e with
     | Empty   -> "Empty" (* empty expression *)
     | Constant c -> string_of_constant_value c
-    | Variable v -> (string_of_var v)
+    | Variable v -> string_of_var v
     | ExprList el -> String.concat ["["; String.concat ~sep:"; " (List.map ~f:string_of_et el); "]"]
     | Node n  ->
       begin
-        if String.is_prefix ~prefix:"list_" n.op then
-          String.concat [n.op; "(["; String.concat ~sep:"; " (List.map ~f:string_of_et n.args); "])"]
-        else
-        begin
-          match List.length n.args with 
-          | 0 ->  failwith "Invalid expr tree"
-          | 1 ->  (* unary operator *)
-                    String.concat[n.op; "("; string_of_et (List.hd_exn n.args); ")"]
-          | 2 ->  (* binary operator *)
-                  let arg1 = List.hd_exn n.args in
-                  let arg2 = List.hd_exn (List.tl_exn n.args) in
-                  begin
-                    match arg1, arg2 with
-                    | Variable _, Variable _ (* binary *)
-                    | Variable _, Constant _
-                    | Constant _, Variable _
-                    | Constant _, Constant _
-                        -> String.concat[string_of_et arg1; " "; n.op; " "; string_of_et arg2]
-                    | Node _, Node _
-                        -> String.concat["("; string_of_et arg1; ") "; n.op; " ("; string_of_et arg2; ")"]
-                    | _, Node _
-                        -> String.concat[string_of_et arg1; " "; n.op; " ("; string_of_et arg2; ")"]
-                    | Node _, _
-                        -> String.concat["("; string_of_et arg1; ") "; n.op; " "; string_of_et arg2]
-                    | _, _
-                        -> String.concat["("; string_of_et arg1; ") "; n.op; " ("; string_of_et arg2; ")"]
-                  end
-          | 3 ->  (* ternary operator *)
-                  let arg1 = List.hd_exn n.args in
-                  let arg2 = List.hd_exn (List.tl_exn n.args) in
-                  let arg3 = List.hd_exn (List.tl_exn (List.tl_exn n.args)) in
-                  String.concat[n.op; "(";  string_of_et arg1; ", ";
-                                            string_of_et arg2; ", ";
-                                            string_of_et arg3; ")"]
-          | _ ->  (* list of operands *)
-                  String.concat [n.op; "("; String.concat ~sep:", " (List.map ~f:string_of_et n.args); ")"]
-        end
+        match n.op_disp with
+        | Function 
+            -> String.concat [n.op; "("; String.concat ~sep:", " (List.map ~f:string_of_et n.args); ")"]
+        | Prefix when List.length n.args = 1
+            -> String.concat[n.op; string_of_et (List.hd_exn n.args)]
+        | Infix  when List.length n.args = 2
+            -> String.concat[string_of_et (List.hd_exn n.args); " "; n.op; " "; string_of_et (List.hd_exn (List.tl_exn n.args))]
+        | _ -> String.concat [n.op; "("; String.concat ~sep:", " (List.map ~f:string_of_et n.args); ")"]
       end
 
 let const_args (args: et list): bool =
@@ -260,7 +233,7 @@ let vars_of_et (tree: et): var list =
         begin
           match n.args with
           | hd::tl  -> List.append (vars_of_et' hd) 
-                                   (vars_of_et' (Node {op = n.op; args = tl}))
+                                   (vars_of_et' (Node {n with args = tl}))
           | []      -> []
         end
     in
@@ -325,7 +298,7 @@ let et_of_local_value (param_types: resulttype list) (local_types: local_type li
       match e1, e2 with
       | Constant (Int_value i1), Constant (Int_value i2) ->
           simplify_max
-            { op = n.op;
+            { n with
               args = if i1 > i2 then (Constant (Int_value i1))::tl else (Constant (Int_value i2))::tl
             }
       | _ -> Node n
@@ -339,7 +312,7 @@ let et_of_local_value (param_types: resulttype list) (local_types: local_type li
       match e1, e2 with
       | Constant (Int_value i1), Constant (Int_value i2) ->
           simplify_sum
-            { op = n.op;
+            { n with
               args = (Constant (Int_value (i1+i2)))::tl
             }
       | _ -> Node n
@@ -349,6 +322,6 @@ let et_of_local_value (param_types: resulttype list) (local_types: local_type li
   | Empty | Constant _ | Variable _ | ExprList _ -> e
   | Node n ->
       match n.op with
-      | "list_max" -> simplify_max {op = "list_max"; args = List.map ~f:simplify n.args}
-      | "list_sum" -> simplify_sum {op = "list_sum"; args = List.map ~f:simplify n.args}
-      | _ -> Node { op = n.op; args = List.map ~f:simplify n.args}
+      | "list_max" -> simplify_max {op = "list_max"; op_disp = Function; args = List.map ~f:simplify n.args}
+      | "list_sum" -> simplify_sum {op = "list_sum"; op_disp = Function; args = List.map ~f:simplify n.args}
+      | _ -> Node { n with args = List.map ~f:simplify n.args}

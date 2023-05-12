@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  15
   ebb type:   loop
   ebb blocks: [15 16 17 18 19 20]
-  ebb cost:   (14 * (N([m[0]], [m[0] != 10], [m[0]], [m[0]]))) + (list_max([1; 3]))
+  ebb cost:   (14 * (N([m[0]], [m[0] != 10], [m[0]], [m[0]]))) + (list_max(1, 3))
   ebb exits:  [21 23]
   ebb succs:  [23 21]
   1 paths to exit 21

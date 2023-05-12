@@ -8,9 +8,9 @@ ebb entry:  28
   ebb type:   loop
   ebb blocks: [28 29 30 31 32 33 34 35]
   ebb cost:   (list_max([
-  31 * (N([pF1], [((pF1 - (f64.convert_i32_u(0))) * 1000000000.) != 0.], [rF(f29(tn61 + tn62,44), 64) + rF(f29(tn61 + tn62,44), 64)], [(pF1 - (f64.convert_i32_u(0))) * 1000000000.]));
-  32 * (N([pF1], [((pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.) != 0.], [rF(f29(tn61 + tn62,44), 64) + rF(f29(tn61 + tn62,44), 64)], [(pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.]))
-])) + (list_max([1; 1]))
+  31 * (N([pF1], [((pF1 - (f64.convert_i32_u(0))) * 1000000000.) != 0.], [rF(f29(tn61 + tn62, 44), 64) + rF(f29(tn61 + tn62, 44), 64)], [pF1 - f64.convert_i32_u0 * 1000000000.]));
+  32 * (N([pF1], [((pF1 - (f64.convert_i32_u(i32.trunc_f64_u(pF1)))) * 1000000000.) != 0.], [rF(f29(tn61 + tn62, 44), 64) + rF(f29(tn61 + tn62, 44), 64)], [pF1 - f64.convert_i32_ui32.trunc_f64_upF1 * 1000000000.]))
+])) + (list_max(1, 1))
   ebb exits:  [36]
   ebb succs:  [36]
   2 paths to exit 36
@@ -30,13 +30,13 @@ ebb entry:  42
   ebb type:   loop
   ebb blocks: [42 43 44 45 46 47 48 49 50 51 52 53 54 55 56]
   ebb cost:   (list_max([
-  35 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - (select(pn3 < 29, 29, pn3)); m[44] - (select(pn3 < 29, 29, pn3))]));
-  44 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - (select(pn3 < 29, 29, pn3)); m[44] - (select(pn3 < 29, 29, pn3))]));
-  72 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - (select(pn3 < 29, 29, pn3)); m[44] - (select(pn3 < 29, 29, pn3))]));
-  81 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - (select(pn3 < 29, 29, pn3)); m[44] - (select(pn3 < 29, 29, pn3))]));
-  79 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - (select(pn3 < 29, 29, pn3)); m[44] - (select(pn3 < 29, 29, pn3))]));
-  88 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - (select(pn3 < 29, 29, pn3)); m[44] - (select(pn3 < 29, 29, pn3))]))
-])) + (list_max([1; 1; 1; 1; 1; 1]))
+  35 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - select(pn3 < 29, 29, pn3); m[44] - select(pn3 < 29, 29, pn3)]));
+  44 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - select(pn3 < 29, 29, pn3); m[44] - select(pn3 < 29, 29, pn3)]));
+  72 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - select(pn3 < 29, 29, pn3); m[44] - select(pn3 < 29, 29, pn3)]));
+  81 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - select(pn3 < 29, 29, pn3); m[44] - select(pn3 < 29, 29, pn3)]));
+  79 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - select(pn3 < 29, 29, pn3); m[44] - select(pn3 < 29, 29, pn3)]));
+  88 * (N([m[44]; pn3], [(m[44] - pn3) > 0], [0; 0], [m[44] - select(pn3 < 29, 29, pn3); m[44] - select(pn3 < 29, 29, pn3)]))
+])) + (list_max(1, 1, 1, 1, 1, 1))
   ebb exits:  [57]
   ebb succs:  []
   6 paths to exit 57
@@ -60,7 +60,7 @@ nested ebbs:
   ebb entry:  45
     ebb type:   loop
     ebb blocks: [45 46]
-    ebb cost:   (25 * (N([ln10; ln18], [(ln10 + -4) >= ln18], [(((((gn0 - 560) + 48) + (select(0 < 0, 288, 0))) + 4) + -4) + -4; ((gn0 - 560) + 48) + (select(0 < 0, 288, 0))], [ln10 + -4; ln18]))) + 1
+    ebb cost:   (25 * (N([ln10; ln18], [(ln10 + -4) >= ln18], [gn0 - 560 + 48 + select(0 < 0, 288, 0) + 4 + -4 + -4; gn0 - 560 + 48 + select(0 < 0, 288, 0)], [ln10 + -4; ln18]))) + 1
     ebb exits:  [47]
     ebb succs:  [47 47]
     1 paths to exit 47
@@ -123,10 +123,10 @@ ebb entry:  61
   ebb type:   loop
   ebb blocks: [61 62 63 64 65 66 67 68 69 70 71 72]
   ebb cost:   (list_max([
-  96 * (N([m[44]; pn3], [(m[44] + (0 - pn3)) < 0], [0 - (select(0 < 29, 29, 0)); 0 - (select(0 < 29, 29, 0))], [m[44] + (select((0 - pn3) < 9, 9, 0 - pn3)); m[44] + (select((0 - pn3) < 9, 9, 0 - pn3))]));
-  104 * (N([m[44]; pn3], [(m[44] + (0 - pn3)) < 0], [0 - (select(0 < 29, 29, 0)); 0 - (select(0 < 29, 29, 0))], [m[44] + (select((0 - pn3) < 9, 9, 0 - pn3)); m[44] + (select((0 - pn3) < 9, 9, 0 - pn3))]));
-  56 * (N([m[44]; pn3], [(m[44] + (0 - pn3)) < 0], [0 - (select(0 < 29, 29, 0)); 0 - (select(0 < 29, 29, 0))], [m[44] + (select((0 - pn3) < 9, 9, 0 - pn3)); m[44] + (select((0 - pn3) < 9, 9, 0 - pn3))]))
-])) + (list_max([1; 1; 1]))
+  96 * (N([m[44]; pn3], [(m[44] + (0 - pn3)) < 0], [0 - select(0 < 29, 29, 0); 0 - select(0 < 29, 29, 0)], [m[44] + select(0 - pn3 < 9, 9, 0 - pn3); m[44] + select(0 - pn3 < 9, 9, 0 - pn3)]));
+  104 * (N([m[44]; pn3], [(m[44] + (0 - pn3)) < 0], [0 - select(0 < 29, 29, 0); 0 - select(0 < 29, 29, 0)], [m[44] + select(0 - pn3 < 9, 9, 0 - pn3); m[44] + select(0 - pn3 < 9, 9, 0 - pn3)]));
+  56 * (N([m[44]; pn3], [(m[44] + (0 - pn3)) < 0], [0 - select(0 < 29, 29, 0); 0 - select(0 < 29, 29, 0)], [m[44] + select(0 - pn3 < 9, 9, 0 - pn3); m[44] + select(0 - pn3 < 9, 9, 0 - pn3)]))
+])) + (list_max(1, 1, 1))
   ebb exits:  [73]
   ebb succs:  []
   3 paths to exit 73
@@ -147,7 +147,7 @@ nested ebbs:
   ebb entry:  67
     ebb type:   loop
     ebb blocks: [67 68]
-    ebb cost:   (22 * (N([ln10; ln11], [(ln11 + 4) < ln10], [(((gn0 - 560) + 48) + (select(0 < 0, 288, 0))) + 4; (((gn0 - 560) + 48) + (select(0 < 0, 288, 0))) + 4], [ln10; ln11 + 4]))) + 1
+    ebb cost:   (22 * (N([ln10; ln11], [(ln11 + 4) < ln10], [gn0 - 560 + 48 + select(0 < 0, 288, 0) + 4; gn0 - 560 + 48 + select(0 < 0, 288, 0) + 4], [ln10; ln11 + 4]))) + 1
     ebb exits:  [69]
     ebb succs:  [69 69]
     1 paths to exit 69
@@ -207,7 +207,7 @@ ebb entry:  81
 ebb entry:  86
   ebb type:   loop
   ebb blocks: [86 87]
-  ebb cost:   (11 * (N([ln12], [(ln12 + 1) != 8], [(((((select(pn3 < 0, pn3, 6)) - (select((pn5 || 32) == 102, 0, 0))) - (((select(pn3 < 0, pn3, 6)) != 0) && ((pn5 || 32) == 103))) + 9216) - ((((((select(pn3 < 0, pn3, 6)) - (select((pn5 || 32) == 102, 0, 0))) - (((select(pn3 < 0, pn3, 6)) != 0) && ((pn5 || 32) == 103))) + 9216) /s 9) * 9)) + 1], [ln12 + 1]))) + 1
+  ebb cost:   (11 * (N([ln12], [(ln12 + 1) != 8], [select(pn3 < 0, pn3, 6) - select(pn5 || 32 == 102, 0, 0) - select(pn3 < 0, pn3, 6) != 0 && pn5 || 32 == 103 + 9216 - select(pn3 < 0, pn3, 6) - select(pn5 || 32 == 102, 0, 0) - select(pn3 < 0, pn3, 6) != 0 && pn5 || 32 == 103 + 9216 /s 9 * 9 + 1], [ln12 + 1]))) + 1
   ebb exits:  [88]
   ebb succs:  [88]
   1 paths to exit 88
@@ -234,7 +234,7 @@ ebb entry:  110
   ebb cost:   (list_max([
   22 * (N([], [(0 + 1) > 999999999], [], []));
   29 * (N([], [(0 + 1) > 999999999], [], []))
-])) + (list_max([1; 1]))
+])) + (list_max(1, 1))
   ebb exits:  [115]
   ebb succs:  [115]
   2 paths to exit 115
@@ -376,11 +376,11 @@ ebb entry:  169
   ebb type:   loop
   ebb blocks: [169 170 171 172 173 174 175 176 177 178 179 180 181 182]
   ebb cost:   (list_max([
-  (28 + (list_sum([|f34|; |f39|]))) * (N([ln17; ln18], [(ln18 + 4) <= ln17], [0; 0], [ln17; ln18 + 4]));
-  (34 + (list_sum([|f34|; |f39|]))) * (N([ln17; ln18], [(ln18 + 4) <= ln17], [0; 0], [ln17; ln18 + 4]));
-  (30 + (list_sum([|f34|; |f39|]))) * (N([ln17; ln18], [(ln18 + 4) <= ln17], [0; 0], [ln17; ln18 + 4]));
-  (44 + (list_sum([|f34|; |f39|]))) * (N([ln17; ln18], [(ln18 + 4) <= ln17], [0; 0], [ln17; ln18 + 4]))
-])) + (list_max([1; 1; 1; 1]))
+  (28 + (list_sum(|f34|, |f39|))) * (N([ln17; ln18], [(ln18 + 4) <= ln17], [0; 0], [ln17; ln18 + 4]));
+  (34 + (list_sum(|f34|, |f39|))) * (N([ln17; ln18], [(ln18 + 4) <= ln17], [0; 0], [ln17; ln18 + 4]));
+  (30 + (list_sum(|f34|, |f39|))) * (N([ln17; ln18], [(ln18 + 4) <= ln17], [0; 0], [ln17; ln18 + 4]));
+  (44 + (list_sum(|f34|, |f39|))) * (N([ln17; ln18], [(ln18 + 4) <= ln17], [0; 0], [ln17; ln18 + 4]))
+])) + (list_max(1, 1, 1, 1))
   ebb exits:  [183 270]
   ebb succs:  []
   4 paths to exit 183
@@ -441,9 +441,9 @@ ebb entry:  189
   ebb type:   loop
   ebb blocks: [189 190 191 192 193 194 195 196 197 198]
   ebb cost:   (list_max([
-  (39 + (list_sum([|f34|; |f39|]))) * (N([ln15], [ln15 > 9], [0], [ln15 + -9]));
-  (54 + (list_sum([|f34|; |f39|]))) * (N([ln15], [ln15 > 9], [0], [ln15 + -9]))
-])) + (list_max([1; 1]))
+  (39 + (list_sum(|f34|, |f39|))) * (N([ln15], [ln15 > 9], [0], [ln15 + -9]));
+  (54 + (list_sum(|f34|, |f39|))) * (N([ln15], [ln15 > 9], [0], [ln15 + -9]))
+])) + (list_max(1, 1))
   ebb exits:  [226]
   ebb succs:  []
   4 paths to exit 226
@@ -502,15 +502,15 @@ ebb entry:  204
   ebb type:   loop
   ebb blocks: [204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221]
   ebb cost:   (list_max([
-  (55 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn(f39(pn3,m[0]), 0)], [(ln15 - (pn3 - (rn(f39(pn3,m[0]), 0) + 1))) > -1], [0; pn3; rn(f39(pn3,m[0]), 0)], [ln15 - (pn3 - (rn(f39(pn3,m[0]), 3) + 1)); pn3; rn(f39(pn3,m[0]), 0)]));
-  (60 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn(f39(pn3,m[0]), 0)], [(ln15 - (pn3 - (rn(f39(pn3,m[0]), 0) + 1))) > -1], [0; pn3; rn(f39(pn3,m[0]), 0)], [ln15 - (pn3 - (rn(f39(pn3,m[0]), 3) + 1)); pn3; rn(f39(pn3,m[0]), 0)]));
-  (48 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn(f39(pn3,m[0]), 0)], [(ln15 - (pn3 - rn(f39(pn3,m[0]), 0))) > -1], [0; pn3; rn(f39(pn3,m[0]), 0)], [ln15 - (pn3 - rn(f39(pn3,m[0]), 3)); pn3; rn(f39(pn3,m[0]), 0)]));
-  (62 + (list_sum([|f34|; |f39|]))) * (N([ln15; pn3; rn(f39(pn3,m[0]), 0)], [(ln15 - (pn3 - (rn(f39(pn3,m[0]), 0) + -1))) > -1], [0; pn3; rn(f39(pn3,m[0]), 0)], [ln15 - (pn3 - (rn(f39(pn3,m[0]), 3) + -1)); pn3; rn(f39(pn3,m[0]), 0)]));
-  (61 + (list_sum([|f34|; |f39|]))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - (ln17 + 1))) > -1], [0; 0; pn3], [ln15 - (pn3 - (ln17 + 1)); ln17; pn3]));
-  (66 + (list_sum([|f34|; |f39|]))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - (ln17 + 1))) > -1], [0; 0; pn3], [ln15 - (pn3 - (ln17 + 1)); ln17; pn3]));
-  (54 + (list_sum([|f34|; |f39|]))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - ln17)) > -1], [0; 0; pn3], [ln15 - (pn3 - ln17); ln17; pn3]));
-  (68 + (list_sum([|f34|; |f39|]))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - (ln17 + -1))) > -1], [0; 0; pn3], [ln15 - (pn3 - (ln17 + -1)); ln17; pn3]))
-])) + (list_max([1; 1; 1; 1; 1; 1; 1; 1]))
+  (55 + (list_sum(|f34|, |f39|))) * (N([ln15; pn3; rn(f39(pn3, m[0]), 0)], [(ln15 - (pn3 - (rn(f39(pn3, m[0]), 0) + 1))) > -1], [0; pn3; rn(f39(pn3, m[0]), 0)], [ln15 - pn3 - rn(f39(pn3, m[0]), 3) + 1; pn3; rn(f39(pn3, m[0]), 0)]));
+  (60 + (list_sum(|f34|, |f39|))) * (N([ln15; pn3; rn(f39(pn3, m[0]), 0)], [(ln15 - (pn3 - (rn(f39(pn3, m[0]), 0) + 1))) > -1], [0; pn3; rn(f39(pn3, m[0]), 0)], [ln15 - pn3 - rn(f39(pn3, m[0]), 3) + 1; pn3; rn(f39(pn3, m[0]), 0)]));
+  (48 + (list_sum(|f34|, |f39|))) * (N([ln15; pn3; rn(f39(pn3, m[0]), 0)], [(ln15 - (pn3 - rn(f39(pn3, m[0]), 0))) > -1], [0; pn3; rn(f39(pn3, m[0]), 0)], [ln15 - pn3 - rn(f39(pn3, m[0]), 3); pn3; rn(f39(pn3, m[0]), 0)]));
+  (62 + (list_sum(|f34|, |f39|))) * (N([ln15; pn3; rn(f39(pn3, m[0]), 0)], [(ln15 - (pn3 - (rn(f39(pn3, m[0]), 0) + -1))) > -1], [0; pn3; rn(f39(pn3, m[0]), 0)], [ln15 - pn3 - rn(f39(pn3, m[0]), 3) + -1; pn3; rn(f39(pn3, m[0]), 0)]));
+  (61 + (list_sum(|f34|, |f39|))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - (ln17 + 1))) > -1], [0; 0; pn3], [ln15 - pn3 - ln17 + 1; ln17; pn3]));
+  (66 + (list_sum(|f34|, |f39|))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - (ln17 + 1))) > -1], [0; 0; pn3], [ln15 - pn3 - ln17 + 1; ln17; pn3]));
+  (54 + (list_sum(|f34|, |f39|))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - ln17)) > -1], [0; 0; pn3], [ln15 - pn3 - ln17; ln17; pn3]));
+  (68 + (list_sum(|f34|, |f39|))) * (N([ln15; ln17; pn3], [(ln15 - (pn3 - (ln17 + -1))) > -1], [0; 0; pn3], [ln15 - pn3 - ln17 + -1; ln17; pn3]))
+])) + (list_max(1, 1, 1, 1, 1, 1, 1, 1))
   ebb exits:  [222 223 270]
   ebb succs:  []
   8 paths to exit 222
@@ -638,17 +638,17 @@ ebb entry:  243
   ebb type:   loop
   ebb blocks: [243 244 245 246 247 248 249 250 251 252 253 254 255 256 257 258]
   ebb cost:   (list_max([
-  44 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(-2147483648))) * 16.]));
-  55 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(-2147483648))) * 16.]));
-  59 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(-2147483648))) * 16.]));
-  55 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(-2147483648))) * 16.]));
-  64 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(-2147483648))) * 16.]));
-  45 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.]));
-  56 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.]));
-  60 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.]));
-  56 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.]));
-  65 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [(pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.]))
-])) + (list_max([1; 1; 1; 1; 1; 1; 1; 1; 1; 1]))
+  44 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_s-2147483648 * 16.]));
+  55 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_s-2147483648 * 16.]));
+  59 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_s-2147483648 * 16.]));
+  55 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_s-2147483648 * 16.]));
+  64 * (N([pF1], [((pF1 - (f64.convert_i32_s(-2147483648))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_s-2147483648 * 16.]));
+  45 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.]));
+  56 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.]));
+  60 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.]));
+  56 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.]));
+  65 * (N([pF1], [((pF1 - (f64.convert_i32_s(i32.trunc_f64_s(pF1)))) * 16.) != 0.], [pF1], [pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.]))
+])) + (list_max(1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
   ebb exits:  [259]
   ebb succs:  [259]
   10 paths to exit 259

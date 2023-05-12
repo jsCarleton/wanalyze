@@ -62,7 +62,7 @@ ebb entry:  82
   ebb cost:   (list_max([
   41 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
   47 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
-])) + (list_max([1; 1; 7]))
+])) + (list_max(1, 1, 7))
   ebb exits:  [89 96]
   ebb succs:  [89]
   2 paths to exit 89
@@ -92,7 +92,7 @@ ebb entry:  97
   ebb cost:   (list_max([
   29 * (N([m[16]], [m[16]], [m[16]], [m[16]]));
   35 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
-])) + (list_max([1; 1]))
+])) + (list_max(1, 1))
   ebb exits:  [102]
   ebb succs:  [102]
   2 paths to exit 102
@@ -147,7 +147,7 @@ ebb entry:  151
   ebb cost:   (list_max([
   11 * (N([m[8]], [m[8]], [m[8]], [m[8]]));
   19 * (N([m[8]], [m[8]], [m[8]], [m[8]]))
-])) + (list_max([1; 1]))
+])) + (list_max(1, 1))
   ebb exits:  [157 172]
   ebb succs:  [172 157]
   2 paths to exit 157

@@ -62,7 +62,7 @@ let rec simplify_code (e: Et.et): Et.et =
         | "!=" -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = "="}
         | _ -> Printf.printf "can't invert %s\n" (Et.string_of_et e); e
       end
-    | _ -> Node {op = "not"; args = [e]}
+    | _ -> Node {op = "not"; op_disp = Function; args = [e]}
   in
 
   Printf.printf "simplifying %s\n" (Et.string_of_et e);
@@ -73,7 +73,7 @@ let rec simplify_code (e: Et.et): Et.et =
       | 1 ->
         begin
           match n.op with
-          | "i32.eqz" -> Printf.printf "%s\n" (Et.string_of_et e); simplify_code (Node {op = "="; args = (Constant (Int_value 0)) :: n.args})
+          | "i32.eqz" -> Printf.printf "%s\n" (Et.string_of_et e); simplify_code (Node {op = "="; op_disp = Infix; args = (Constant (Int_value 0)) :: n.args})
           | "not"     -> Printf.printf "%s\n" (Et.string_of_et e); invert (List.hd_exn (List.map ~f:simplify_code n.args))
           | _ -> Node {n with args = List.map ~f:simplify_code n.args}
           end
@@ -96,7 +96,7 @@ let rec simplify_code (e: Et.et): Et.et =
 let solve_of_nexpr (n: nexpr): Et.et = n.expr_cond
 
 let string_of_nexpr (n: nexpr) = 
-  sprintf "     nvars: %d\n      vars:%s\n     inits:%s\  nupdates:%s\n      cond: %s\nsimplified: %s" 
+  sprintf "     nvars: %d\n      vars:%s\n     inits:%s\n  nupdates:%s\n      cond: %s\nsimplified: %s" 
     n.nvars
     (Array.fold ~f:(fun x y -> x ^ " " ^ (Et.string_of_var y)) ~init:"" n.vars)
     (Array.fold ~f:(fun x y -> x ^ " " ^ y) ~init:"" n.initial_vals)

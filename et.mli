@@ -13,9 +13,11 @@ type var =
 type constant_value = Int_value of int | Int64_value of int64
       | Float_value of float | String_value of string
 
+type opdisplay = Infix | Prefix | Function
+
 type et = Empty | Constant of constant_value | Variable of var 
                | ExprList of et list | Node of node
-      and node = { op: string; args: et list }
+      and node = { op: string; op_disp: opdisplay; args: et list }
 
 val string_of_var:          var -> string
 val valtype_of_var:         Wm.resulttype list -> Wm.local_type list -> int -> Wm.valtype

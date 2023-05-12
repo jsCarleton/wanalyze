@@ -330,9 +330,11 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     | LMI lmi   ->
         Node {
           op = "*"; 
+          op_disp = Infix; 
           args = [  lmi.loop_cost;
                     Node {
                       op = "N";
+                      op_disp = Function; 
                       args = [  ExprList (List.map ~f:(fun lv -> Variable lv) lmi.loop_vars);
                                 ExprList [lmi.loop_cond];
                                 ExprList (List.map ~f:(fun lvev -> Constant (String_value (string_of_et lvev.etree))) lmi.lv_entry_vals); (* TODO improve this *)
@@ -406,11 +408,11 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                   begin
                     match exit_cost with
                     | Empty ->
-                        let ebb_cost = Node {op = "list_max"; args = List.map ~f:expr_of_lm lms} in
+                        let ebb_cost = Node {op = "list_max"; op_disp = Function; args = List.map ~f:expr_of_lm lms} in
                         {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
-                        let ebb_cost = Node {op = "+";
-                                         args = [Node {op = "list_max"; args =  List.map ~f:expr_of_lm lms};
+                        let ebb_cost = Node {op = "+"; op_disp = Infix; 
+                                         args = [Node {op = "list_max"; op_disp = Function; args =  List.map ~f:expr_of_lm lms};
                                                  exit_cost]} in
                         {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
@@ -422,7 +424,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                         let ebb_cost = expr_of_lm (List.hd_exn lms) in
                         {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
-                      let ebb_cost = Node {op = "+"; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
+                      let ebb_cost = Node {op = "+"; op_disp = Infix; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
                       {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
               end
@@ -572,10 +574,10 @@ let ebb_path_cost (ebb_path: ebb list): et =
   match ebb_path with
   | []    -> Constant (Int_value 0)
   | [hd]  -> hd.ebb_cost
-  | _     -> Node { op = "list_sum"; args = List.map ~f:(fun ebb -> ebb.ebb_cost) ebb_path}
+  | _     -> Node { op = "list_sum"; op_disp = Function; args = List.map ~f:(fun ebb -> ebb.ebb_cost) ebb_path}
 
 let ebb_paths_max_cost (ebb_paths: ebb list list): et =
   match ebb_paths with
   | []    -> Empty
   | [hd]  -> ebb_path_cost hd
-  | _     -> Node {op = "list_max"; args = List.map ~f:ebb_path_cost ebb_paths}
+  | _     -> Node {op = "list_max"; op_disp = Function; args = List.map ~f:ebb_path_cost ebb_paths}

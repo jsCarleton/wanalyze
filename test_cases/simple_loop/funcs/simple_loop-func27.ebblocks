@@ -61,7 +61,7 @@ ebb entry:  20
 ebb entry:  23
   ebb type:   loop
   ebb blocks: [23 24 25 26 27 28]
-  ebb cost:   (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max([1; 2]))
+  ebb cost:   (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2))
   ebb exits:  [29 32]
   ebb succs:  [32 29]
   1 paths to exit 29
