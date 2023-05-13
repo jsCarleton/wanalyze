@@ -27,7 +27,6 @@ let valtype_of_int i =
   | 0x6f -> Reftype Externref
   | _ -> failwith (String.concat ["Invalid valtype: " ; (string_of_int i)])
   
-
 type labelidx = int
 type blockidx = int
 type funcidx = int
@@ -86,6 +85,27 @@ type import =
   iindex:       int;
 }
 
+(* Printable strings for basic types *)
+let string_of_numtype nt =
+  match nt with
+  | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64"
+
+let string_of_reftype rt =
+  match rt with  
+  | Funcref -> "funcref" | Externref -> "externref"
+
+let string_of_resulttype rt =
+  match rt with
+  | Numtype x -> string_of_numtype x
+  | Reftype x -> string_of_reftype x
+
+let string_of_valtype vt = string_of_resulttype vt
+
+let string_of_mut m =
+  match m with
+  | Const -> ""
+  | NotConst -> "mut"
+  
 (* Functions *)
 
 (* Tables *)

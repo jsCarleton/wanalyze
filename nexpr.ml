@@ -25,7 +25,7 @@ let nexprs_of_et (n: Et.et ): nexpr list =
     | Node node -> 
         begin
           match node.op with 
-          | "N" -> Printf.printf "found an N\n%!"; (nexpr_of_N_args node.args) :: acc
+          | "N" -> (nexpr_of_N_args node.args) :: acc
           | _ -> List.append (List.concat (List.map ~f:(nexprs_of_et' acc) node.args)) acc
         end
     | _ -> acc
@@ -49,23 +49,21 @@ let rec simplify_code (e: Et.et): Et.et =
   in
 
   let invert (e: Et.et): Et.et =
-    Printf.printf "inverting %s\n" (Et.string_of_et e);
     match e with
     | Node n ->
       begin
         match n.op with
-        | "<"  -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = ">="}
-        | "<=" -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = ">"}
-        | ">"  -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = "<="}
-        | ">=" -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = "<"}
-        | "="  -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = "!="}
-        | "!=" -> Printf.printf "%s\n" (Et.string_of_et e); Node {n with op = "="}
-        | _ -> Printf.printf "can't invert %s\n" (Et.string_of_et e); e
+        | "<"  -> Node {n with op = ">="}
+        | "<=" -> Node {n with op = ">"}
+        | ">"  -> Node {n with op = "<="}
+        | ">=" -> Node {n with op = "<"}
+        | "="  -> Node {n with op = "!="}
+        | "!=" -> Node {n with op = "="}
+        | _ -> e
       end
     | _ -> Node {op = "not"; op_disp = Function; args = [e]}
   in
 
-  Printf.printf "simplifying %s\n" (Et.string_of_et e);
   match e with
   | Node n ->
     begin
@@ -73,19 +71,19 @@ let rec simplify_code (e: Et.et): Et.et =
       | 1 ->
         begin
           match n.op with
-          | "i32.eqz" -> Printf.printf "%s\n" (Et.string_of_et e); simplify_code (Node {op = "="; op_disp = Infix; args = (Constant (Int_value 0)) :: n.args})
-          | "not"     -> Printf.printf "%s\n" (Et.string_of_et e); invert (List.hd_exn (List.map ~f:simplify_code n.args))
+          | "i32.eqz" -> simplify_code (Node {op = "="; op_disp = Infix; args = (Constant (Int_value 0)) :: n.args})
+          | "not"     -> invert (List.hd_exn (List.map ~f:simplify_code n.args))
           | _ -> Node {n with args = List.map ~f:simplify_code n.args}
           end
       | 2 ->
         begin
           match n.op with
-          | "&&" when (isOne (List.hd_exn n.args))     -> Printf.printf "%s\n" (Et.string_of_et e); simplify_code (List.nth_exn n.args 1)
-          | "&&" when (isOne (List.nth_exn n.args 1))  -> Printf.printf "%s\n" (Et.string_of_et e); simplify_code (List.hd_exn n.args)
-          | "!=" when (isZero (List.hd_exn n.args))    -> Printf.printf "%s\n" (Et.string_of_et e); simplify_code (List.nth_exn n.args 1)
-          | "!=" when (isZero (List.nth_exn n.args 1)) -> Printf.printf "%s\n" (Et.string_of_et e); simplify_code (List.hd_exn n.args)
-          | "="  when (isZero (List.hd_exn n.args))    -> Printf.printf "%s\n" (Et.string_of_et e); invert (simplify_code (List.nth_exn n.args 1))
-          | "="  when (isZero (List.nth_exn n.args 1)) -> Printf.printf "%s\n" (Et.string_of_et e); invert (simplify_code (List.hd_exn n.args))
+          | "&&" when (isOne (List.hd_exn n.args))     -> simplify_code (List.nth_exn n.args 1)
+          | "&&" when (isOne (List.nth_exn n.args 1))  -> simplify_code (List.hd_exn n.args)
+          | "!=" when (isZero (List.hd_exn n.args))    -> simplify_code (List.nth_exn n.args 1)
+          | "!=" when (isZero (List.nth_exn n.args 1)) -> simplify_code (List.hd_exn n.args)
+          | "="  when (isZero (List.hd_exn n.args))    -> invert (simplify_code (List.nth_exn n.args 1))
+          | "="  when (isZero (List.nth_exn n.args 1)) -> invert (simplify_code (List.hd_exn n.args))
           | _ -> Node {n with args = List.map ~f:simplify_code n.args}
         end
       | _ -> Node {n with args = List.map ~f:simplify_code n.args}

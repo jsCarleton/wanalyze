@@ -284,4 +284,10 @@ type wm =
 }
 
 val valtype_of_int:         int -> valtype
+val string_of_numtype:      numtype -> string
+val string_of_reftype:      reftype -> string
+val string_of_resulttype:   resulttype -> string
+val string_of_valtype:      valtype -> string
+val string_of_mut:          mut -> string
+
 val create:                 string -> wm

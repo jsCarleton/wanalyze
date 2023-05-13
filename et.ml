@@ -2,7 +2,7 @@ open Core
 open Wm
 
 (* variables *)
-type var_type = Var_parameter | Var_local | Var_retvalue | Var_global | Var_temp | Var_memory
+type var_type = Var_parameter | Var_local | Var_global | Var_temp | Var_memory
 
 type var =
   {
@@ -14,7 +14,7 @@ type var =
 
 let string_of_var (v: var): string =
   let string_of_vart (vart: var_type): string =
-  match vart with | Var_parameter -> "p" | Var_local -> "l" | Var_retvalue -> "r" | Var_global -> "g" | Var_temp -> "t" | Var_memory -> ""
+  match vart with | Var_parameter -> "p" | Var_local -> "l" | Var_global -> "g" | Var_temp -> "t" | Var_memory -> ""
   in
   let string_of_valt (valt: valtype): string =
   match valt with | Numtype I32 -> "n" | Numtype I64 -> "N" | Numtype F32 -> "f" | Numtype F64 -> "F" | _ -> "R"
@@ -22,7 +22,6 @@ let string_of_var (v: var): string =
 
   match v.vtype with 
     | Var_parameter | Var_local | Var_global | Var_temp ->  sprintf "%s%s%d" (string_of_vart v.vtype) (string_of_valt v.nt) v.idx
-    | Var_retvalue  -> sprintf "%s%s(%s, %d)" (string_of_vart v.vtype) (string_of_valt v.nt) v.vname v.idx
     | Var_memory    -> sprintf "%s[%d]" v.vname v.idx
 
 type constant_value = Int_value of int | Int64_value of int64
@@ -82,7 +81,7 @@ let rec string_of_et (e: et): string =
         | Prefix when List.length n.args = 1
             -> String.concat[n.op; string_of_et (List.hd_exn n.args)]
         | Infix  when List.length n.args = 2
-            -> String.concat[string_of_et (List.hd_exn n.args); " "; n.op; " "; string_of_et (List.hd_exn (List.tl_exn n.args))]
+            -> String.concat["("; string_of_et (List.hd_exn n.args); " "; n.op; " "; string_of_et (List.hd_exn (List.tl_exn n.args)); ")"]
         | _ -> String.concat [n.op; "("; String.concat ~sep:", " (List.map ~f:string_of_et n.args); ")"]
       end
 
@@ -230,12 +229,7 @@ let vars_of_et (tree: et): var list =
     | ExprList el         ->
       List.concat (List.map ~f:vars_of_et' el)
     | Node n              -> 
-        begin
-          match n.args with
-          | hd::tl  -> List.append (vars_of_et' hd) 
-                                   (vars_of_et' (Node {n with args = tl}))
-          | []      -> []
-        end
+      List.concat (List.map ~f:vars_of_et' n.args)
     in
 
   List.dedup_and_sort ~compare:compare_vars (vars_of_et' tree)

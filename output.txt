@@ -1,260 +1,102 @@
 function 4 function funcs/simple_loop-func4 cost: 3
 function 5 function funcs/simple_loop-func5 cost: -1
-found an N
-simplifying not(i32.eqz(m[20] < m[28] && 1))
-not(i32.eqz(m[20] < m[28] && 1))
-simplifying i32.eqz(m[20] < m[28] && 1)
-i32.eqz(m[20] < m[28] && 1)
-simplifying 0 = m[20] < m[28] && 1
-0 = m[20] < m[28] && 1
-simplifying m[20] < m[28] && 1
-m[20] < m[28] && 1
-simplifying m[20] < m[28]
-simplifying m[20]
-simplifying m[28]
-inverting m[20] < m[28]
-m[20] < m[28]
-inverting m[20] >= m[28]
-m[20] >= m[28]
      nvars: 2
       vars: m[20] m[28]
      inits: 0 pn0
-  nupdates: m[20] + 1 m[28]
-      cond: not(i32.eqz(m[20] < m[28] && 1))
-simplified: m[20] < m[28]
+  nupdates: (m[20] + 1) m[28]
+      cond: not(i32.eqz(((m[20] < m[28]) && 1)))
+simplified: (m[20] < m[28])
 function 6 function funcs/simple_loop-func6 cost: -1
-found an N
-simplifying not(i32.eqz(m[4] < m[12] && 1))
-not(i32.eqz(m[4] < m[12] && 1))
-simplifying i32.eqz(m[4] < m[12] && 1)
-i32.eqz(m[4] < m[12] && 1)
-simplifying 0 = m[4] < m[12] && 1
-0 = m[4] < m[12] && 1
-simplifying m[4] < m[12] && 1
-m[4] < m[12] && 1
-simplifying m[4] < m[12]
-simplifying m[4]
-simplifying m[12]
-inverting m[4] < m[12]
-m[4] < m[12]
-inverting m[4] >= m[12]
-m[4] >= m[12]
      nvars: 2
       vars: m[12] m[4]
-     inits: rn(f17(ln12, ln11, ln8), 88) 0
-  nupdates: m[12] m[4] + 1
-      cond: not(i32.eqz(m[4] < m[12] && 1))
-simplified: m[4] < m[12]
+     inits: R(17, 88, i32, 10, ((gn0 - 32) + 16), m[4]) 0
+  nupdates: m[12] (m[4] + 1)
+      cond: not(i32.eqz(((m[4] < m[12]) && 1)))
+simplified: (m[4] < m[12])
 function 7 function funcs/simple_loop-func7 cost: 2
 function 8 function funcs/simple_loop-func8 cost: 25
 function 9 function funcs/simple_loop-func9 cost: 19
 function 10 function funcs/simple_loop-func10 cost: 7
 function 11 function funcs/simple_loop-func11 cost: 14
 function 12 function funcs/simple_loop-func12 cost: 155
-found an N
-simplifying i32.eqz(rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0))
-i32.eqz(rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0))
-simplifying 0 = rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0)
-0 = rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0)
-simplifying rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0)
-inverting rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0)
-     nvars: 1
-      vars: rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0)
-     inits: rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0)
-  nupdates: rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0)
-      cond: i32.eqz(rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0))
-simplified: not(rn(f45(rn(f1(ln3 + 12, ln7 - m[12] > m[4], ln4 + m[12] > m[4] shl 3, m[60]), 0)), 0))
+     nvars: 6
+      vars: ln3 ln4 ln7 m[12] m[4] m[60]
+     inits: (gn0 - 32) ((gn0 - 32) + 16) 2 m[12] m[4] m[60]
+  nupdates: ln3 (m[12] + ((ln4 > m[4]) shl 3)) (ln7 - (ln4 > m[4])) m[12] m[4] m[60]
+      cond: i32.eqz(R(45, 0, i32, R(1, 0, i32, (ln3 + 12), (ln7 - (m[12] > m[4])), (ln4 + ((m[12] > m[4]) shl 3)), m[60])))
+simplified: R(45, 0, i32, R(1, 0, i32, (ln3 + 12), (ln7 - (m[12] > m[4])), (ln4 + ((m[12] > m[4]) shl 3)), m[60]))
 function 13 function funcs/simple_loop-func13 cost: 2
 function 14 function funcs/simple_loop-func14 cost: 2
 function 15 function funcs/simple_loop-func15 cost: 10
 function 16 function funcs/simple_loop-func16 cost: 191
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-simplifying m[1]
      nvars: 1
       vars: m[1]
      inits: m[1]
   nupdates: m[1]
       cond: m[1]
 simplified: m[1]
-simplifying not(m[8] != 0)
-not(m[8] != 0)
-simplifying m[8] != 0
-m[8] != 0
-simplifying m[8]
-inverting m[8]
      nvars: 1
       vars: m[8]
      inits: m[8]
   nupdates: m[8]
-      cond: not(m[8] != 0)
+      cond: not((m[8] != 0))
 simplified: not(m[8])
-simplifying not(lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1)
-not(lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1)
-simplifying lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1
-simplifying lN12 * lN11
-simplifying lN12
-simplifying lN11
-simplifying i64.extend_i32_u(-48 + m[0]) xor -1
-simplifying i64.extend_i32_u(-48 + m[0])
-simplifying -48 + m[0]
-simplifying -48
-simplifying m[0]
-simplifying -1
-inverting lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1
-lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1
      nvars: 3
       vars: lN11 lN12 m[0]
      inits: i64.extend_i32_uselect(pn2, 10, pn2) 0 m[0]
   nupdates: lN11 lN12 m[0]
-      cond: not(lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1)
-simplified: lN12 * lN11 <= i64.extend_i32_u(-48 + m[0]) xor -1
-simplifying not(lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1)
-not(lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1)
-simplifying lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1
-simplifying lN12 * lN11
-simplifying lN12
-simplifying lN11
-simplifying i64.extend_i32_u(-48 + m[0]) xor -1
-simplifying i64.extend_i32_u(-48 + m[0])
-simplifying -48 + m[0]
-simplifying -48
-simplifying m[0]
-simplifying -1
-inverting lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1
-lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1
+      cond: not(((lN12 * lN11) > (i64.extend_i32_u((-48 + m[0])) xor -1)))
+simplified: ((lN12 * lN11) <= (i64.extend_i32_u((-48 + m[0])) xor -1))
      nvars: 3
       vars: lN11 lN12 m[0]
      inits: i64.extend_i32_uselect(pn2, 10, pn2) 0 m[0]
-  nupdates: lN11 lN12 * lN11 + i64.extend_i32_u-48 + m[0] m[0]
-      cond: not(lN12 * lN11 > i64.extend_i32_u(-48 + m[0]) xor -1)
-simplified: lN12 * lN11 <= i64.extend_i32_u(-48 + m[0]) xor -1
-simplifying not(m[8] != 0)
-not(m[8] != 0)
-simplifying m[8] != 0
-m[8] != 0
-simplifying m[8]
-inverting m[8]
+  nupdates: lN11 ((lN12 * lN11) + i64.extend_i32_u(-48 + m[0])) m[0]
+      cond: not(((lN12 * lN11) > (i64.extend_i32_u((-48 + m[0])) xor -1)))
+simplified: ((lN12 * lN11) <= (i64.extend_i32_u((-48 + m[0])) xor -1))
      nvars: 1
       vars: m[8]
      inits: m[8]
   nupdates: m[8]
-      cond: not(m[8] != 0)
+      cond: not((m[8] != 0))
 simplified: not(m[8])
-simplifying not(lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1)
-not(lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1)
-simplifying lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1
-simplifying lN12 * lN11
-simplifying lN12
-simplifying lN11
-simplifying i64.extend_i32_u(-87 + m[0]) xor -1
-simplifying i64.extend_i32_u(-87 + m[0])
-simplifying -87 + m[0]
-simplifying -87
-simplifying m[0]
-simplifying -1
-inverting lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1
-lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1
      nvars: 3
       vars: lN11 lN12 m[0]
      inits: i64.extend_i32_uselect(pn2, 10, pn2) 0 m[0]
   nupdates: lN11 lN12 m[0]
-      cond: not(lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1)
-simplified: lN12 * lN11 <= i64.extend_i32_u(-87 + m[0]) xor -1
-simplifying not(lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1)
-not(lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1)
-simplifying lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1
-simplifying lN12 * lN11
-simplifying lN12
-simplifying lN11
-simplifying i64.extend_i32_u(-87 + m[0]) xor -1
-simplifying i64.extend_i32_u(-87 + m[0])
-simplifying -87 + m[0]
-simplifying -87
-simplifying m[0]
-simplifying -1
-inverting lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1
-lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1
+      cond: not(((lN12 * lN11) > (i64.extend_i32_u((-87 + m[0])) xor -1)))
+simplified: ((lN12 * lN11) <= (i64.extend_i32_u((-87 + m[0])) xor -1))
      nvars: 3
       vars: lN11 lN12 m[0]
      inits: i64.extend_i32_uselect(pn2, 10, pn2) 0 m[0]
-  nupdates: lN11 lN12 * lN11 + i64.extend_i32_u-87 + m[0] m[0]
-      cond: not(lN12 * lN11 > i64.extend_i32_u(-87 + m[0]) xor -1)
-simplified: lN12 * lN11 <= i64.extend_i32_u(-87 + m[0]) xor -1
-simplifying not(m[8] != 0)
-not(m[8] != 0)
-simplifying m[8] != 0
-m[8] != 0
-simplifying m[8]
-inverting m[8]
+  nupdates: lN11 ((lN12 * lN11) + i64.extend_i32_u(-87 + m[0])) m[0]
+      cond: not(((lN12 * lN11) > (i64.extend_i32_u((-87 + m[0])) xor -1)))
+simplified: ((lN12 * lN11) <= (i64.extend_i32_u((-87 + m[0])) xor -1))
      nvars: 1
       vars: m[8]
      inits: m[8]
   nupdates: m[8]
-      cond: not(m[8] != 0)
+      cond: not((m[8] != 0))
 simplified: not(m[8])
-simplifying not(lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1)
-not(lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1)
-simplifying lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1
-simplifying lN12 * lN11
-simplifying lN12
-simplifying lN11
-simplifying i64.extend_i32_u(-55 + m[0]) xor -1
-simplifying i64.extend_i32_u(-55 + m[0])
-simplifying -55 + m[0]
-simplifying -55
-simplifying m[0]
-simplifying -1
-inverting lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1
-lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1
      nvars: 3
       vars: lN11 lN12 m[0]
      inits: i64.extend_i32_uselect(pn2, 10, pn2) 0 m[0]
   nupdates: lN11 lN12 m[0]
-      cond: not(lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1)
-simplified: lN12 * lN11 <= i64.extend_i32_u(-55 + m[0]) xor -1
-simplifying not(lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1)
-not(lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1)
-simplifying lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1
-simplifying lN12 * lN11
-simplifying lN12
-simplifying lN11
-simplifying i64.extend_i32_u(-55 + m[0]) xor -1
-simplifying i64.extend_i32_u(-55 + m[0])
-simplifying -55 + m[0]
-simplifying -55
-simplifying m[0]
-simplifying -1
-inverting lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1
-lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1
+      cond: not(((lN12 * lN11) > (i64.extend_i32_u((-55 + m[0])) xor -1)))
+simplified: ((lN12 * lN11) <= (i64.extend_i32_u((-55 + m[0])) xor -1))
      nvars: 3
       vars: lN11 lN12 m[0]
      inits: i64.extend_i32_uselect(pn2, 10, pn2) 0 m[0]
-  nupdates: lN11 lN12 * lN11 + i64.extend_i32_u-55 + m[0] m[0]
-      cond: not(lN12 * lN11 > i64.extend_i32_u(-55 + m[0]) xor -1)
-simplified: lN12 * lN11 <= i64.extend_i32_u(-55 + m[0]) xor -1
+  nupdates: lN11 ((lN12 * lN11) + i64.extend_i32_u(-55 + m[0])) m[0]
+      cond: not(((lN12 * lN11) > (i64.extend_i32_u((-55 + m[0])) xor -1)))
+simplified: ((lN12 * lN11) <= (i64.extend_i32_u((-55 + m[0])) xor -1))
 function 17 function funcs/simple_loop-func17 cost: 7
 function 18 function funcs/simple_loop-func18 cost: 185
-found an N
-simplifying pn2 + -32 > 31
-simplifying pn2 + -32
-simplifying pn2
-simplifying -32
-simplifying 31
      nvars: 1
       vars: pn2
-     inits: pn2 - 0 - pn0 && 3 && -4 - pn0 + 0 - pn0 && 3 && 4 || 24 + -32
-  nupdates: pn2 + -32
-      cond: pn2 + -32 > 31
-simplified: pn2 + -32 > 31
+     inits: ((((pn2 - ((0 - pn0) && 3)) && -4) - (((pn0 + ((0 - pn0) && 3)) && 4) || 24)) + -32)
+  nupdates: (pn2 + -32)
+      cond: ((pn2 + -32) > 31)
+simplified: ((pn2 + -32) > 31)
 function 19 function funcs/simple_loop-func19 cost: 2
 function 20 function funcs/simple_loop-func20 cost: 1
 function 21 function funcs/simple_loop-func21 cost: 1
@@ -264,955 +106,460 @@ function 24 function funcs/simple_loop-func24 cost: 3
 function 25 function funcs/simple_loop-func25 cost: 36
 function 26 function funcs/simple_loop-func26 cost: 6
 function 27 function funcs/simple_loop-func27 cost: 121
-found an N
-found an N
-found an N
-simplifying pn2 + -1
-simplifying pn2
-simplifying -1
      nvars: 1
       vars: pn2
      inits: pn2
-  nupdates: pn2 + -1
-      cond: pn2 + -1
-simplified: pn2 + -1
-simplifying pn2 + -4 > 3
-simplifying pn2 + -4
-simplifying pn2
-simplifying -4
-simplifying 3
+  nupdates: (pn2 + -1)
+      cond: (pn2 + -1)
+simplified: (pn2 + -1)
      nvars: 1
       vars: pn2
      inits: pn2
-  nupdates: pn2 + -4
-      cond: pn2 + -4 > 3
-simplified: pn2 + -4 > 3
-simplifying pn2 + -1
-simplifying pn2
-simplifying -1
+  nupdates: (pn2 + -4)
+      cond: ((pn2 + -4) > 3)
+simplified: ((pn2 + -4) > 3)
      nvars: 1
       vars: pn2
      inits: pn2
-  nupdates: pn2 + -1
-      cond: pn2 + -1
-simplified: pn2 + -1
+  nupdates: (pn2 + -1)
+      cond: (pn2 + -1)
+simplified: (pn2 + -1)
 function 28 function funcs/simple_loop-func28 cost: 11
 function 29 function funcs/simple_loop-func29 cost: 31
 function 30 function funcs/simple_loop-func30 cost: 190
-found an N
-found an N
-found an N
-found an N
-found an N
-simplifying pn2 + 1 < ln3
-simplifying pn2 + 1
-simplifying pn2
-simplifying 1
-simplifying ln3
      nvars: 2
       vars: ln3 pn2
-     inits: pn0 + pn2 pn0
-  nupdates: ln3 pn2 + 1
-      cond: pn2 + 1 < ln3
-simplified: pn2 + 1 < ln3
-simplifying pn2 + 64 <= ln5
-simplifying pn2 + 64
-simplifying pn2
-simplifying 64
-simplifying ln5
+     inits: (pn0 + pn2) pn0
+  nupdates: ln3 (pn2 + 1)
+      cond: ((pn2 + 1) < ln3)
+simplified: ((pn2 + 1) < ln3)
      nvars: 2
       vars: ln5 pn2
-     inits: pn0 + pn2 && -4 + -64 pn0 + 1 + 64
-  nupdates: ln5 pn2 + 64
-      cond: pn2 + 64 <= ln5
-simplified: pn2 + 64 <= ln5
-simplifying pn2 + 4 < ln4
-simplifying pn2 + 4
-simplifying pn2
-simplifying 4
-simplifying ln4
+     inits: (((pn0 + pn2) && -4) + -64) ((pn0 + 1) + 64)
+  nupdates: ln5 (pn2 + 64)
+      cond: ((pn2 + 64) <= ln5)
+simplified: ((pn2 + 64) <= ln5)
      nvars: 2
       vars: ln4 pn2
-     inits: pn0 + pn2 && -4 pn0 + 1 + 4
-  nupdates: ln4 pn2 + 4
-      cond: pn2 + 4 < ln4
-simplified: pn2 + 4 < ln4
-simplifying pn2 + 4 <= ln4
-simplifying pn2 + 4
-simplifying pn2
-simplifying 4
-simplifying ln4
+     inits: ((pn0 + pn2) && -4) ((pn0 + 1) + 4)
+  nupdates: ln4 (pn2 + 4)
+      cond: ((pn2 + 4) < ln4)
+simplified: ((pn2 + 4) < ln4)
      nvars: 2
       vars: ln4 pn2
-     inits: pn0 + pn2 + -4 pn0 + 4
-  nupdates: ln4 pn2 + 4
-      cond: pn2 + 4 <= ln4
-simplified: pn2 + 4 <= ln4
-simplifying pn2 + 1 != ln3
-simplifying pn2 + 1
-simplifying pn2
-simplifying 1
-simplifying ln3
+     inits: ((pn0 + pn2) + -4) (pn0 + 4)
+  nupdates: ln4 (pn2 + 4)
+      cond: ((pn2 + 4) <= ln4)
+simplified: ((pn2 + 4) <= ln4)
      nvars: 2
       vars: ln3 pn2
-     inits: pn0 + pn2 pn0 + 4 + 1
-  nupdates: ln3 pn2 + 1
-      cond: pn2 + 1 != ln3
-simplified: pn2 + 1 != ln3
+     inits: (pn0 + pn2) ((pn0 + 4) + 1)
+  nupdates: ln3 (pn2 + 1)
+      cond: ((pn2 + 1) != ln3)
+simplified: ((pn2 + 1) != ln3)
 function 31 function funcs/simple_loop-func31 cost: 89
-found an N
-simplifying m[0] != 10
-simplifying m[0]
-simplifying 10
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
-      cond: m[0] != 10
-simplified: m[0] != 10
+      cond: (m[0] != 10)
+simplified: (m[0] != 10)
 function 32 function funcs/simple_loop-func32 cost: 172
 function 33 function funcs/simple_loop-func33 cost: 581
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: (pn1 + 2)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
-simplifying pn1 + 1 - pn1
-simplifying pn1 + 1
-simplifying pn1
-simplifying 1
-simplifying pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
      nvars: 1
       vars: pn1
      inits: pn1
-  nupdates: pn1 + 2 + 3 + 1 + 3 + 4 + 1
-      cond: pn1 + 1 - pn1
-simplified: pn1 + 1 - pn1
+  nupdates: ((((((pn1 + 2) + 3) + 1) + 3) + 4) + 1)
+      cond: ((pn1 + 1) - pn1)
+simplified: ((pn1 + 1) - pn1)
 function 34 function funcs/simple_loop-func34 cost: 13
 function 35 function funcs/simple_loop-func35 cost: 52
-found an N
-found an N
-simplifying rn(f26(m[1]), 0)
      nvars: 1
-      vars: rn(f26(m[1]), 0)
-     inits: rn(f26(m[1]), 0)
-  nupdates: rn(f26(m[1]), 0)
-      cond: rn(f26(m[1]), 0)
-simplified: rn(f26(m[1]), 0)
-simplifying rn(f26(m[1]), 0)
+      vars: m[1]
+     inits: m[1]
+  nupdates: m[1]
+      cond: R(26, 0, i32, m[1])
+simplified: R(26, 0, i32, m[1])
      nvars: 1
-      vars: rn(f26(m[1]), 0)
-     inits: rn(f26(m[1]), 0)
-  nupdates: rn(f26(m[1]), 0)
-      cond: rn(f26(m[1]), 0)
-simplified: rn(f26(m[1]), 0)
+      vars: m[1]
+     inits: m[1]
+  nupdates: m[1]
+      cond: R(26, 0, i32, m[1])
+simplified: R(26, 0, i32, m[1])
 function 36 function funcs/simple_loop-func36 cost: 29
 function 37 function funcs/simple_loop-func37 cost: 33
-found an N
-simplifying pN0 > 15
-simplifying pN0
-simplifying 15
      nvars: 1
       vars: pN0
-     inits: pN0 shr_u 4
-  nupdates: pN0 shr_u 4
-      cond: pN0 > 15
-simplified: pN0 > 15
+     inits: (pN0 shr_u 4)
+  nupdates: (pN0 shr_u 4)
+      cond: (pN0 > 15)
+simplified: (pN0 > 15)
 function 38 function funcs/simple_loop-func38 cost: 30
-found an N
-simplifying pN0 > 7
-simplifying pN0
-simplifying 7
      nvars: 1
       vars: pN0
-     inits: pN0 shr_u 3
-  nupdates: pN0 shr_u 3
-      cond: pN0 > 7
-simplified: pN0 > 7
+     inits: (pN0 shr_u 3)
+  nupdates: (pN0 shr_u 3)
+      cond: (pN0 > 7)
+simplified: (pN0 > 7)
 function 39 function funcs/simple_loop-func39 cost: 67
-found an N
-found an N
-simplifying pN0 > 42949672959
-simplifying pN0
-simplifying 42949672959
      nvars: 1
       vars: pN0
-     inits: pN0 /u 10
-  nupdates: pN0 /u 10
-      cond: pN0 > 42949672959
-simplified: pN0 > 42949672959
-simplifying ln3 > 9
-simplifying ln3
-simplifying 9
+     inits: (pN0 /u 10)
+  nupdates: (pN0 /u 10)
+      cond: (pN0 > 42949672959)
+simplified: (pN0 > 42949672959)
      nvars: 1
       vars: ln3
-     inits: i32.wrap_i64pN0 /u 10 /u 10
-  nupdates: ln3 /u 10
-      cond: ln3 > 9
-simplified: ln3 > 9
+     inits: (i32.wrap_i64(pN0 /u 10) /u 10)
+  nupdates: (ln3 /u 10)
+      cond: (ln3 > 9)
+simplified: (ln3 > 9)
 function 40 function funcs/simple_loop-func40 cost: 57
-found an N
-simplifying pn3 + -256 > 255
-simplifying pn3 + -256
-simplifying pn3
-simplifying -256
-simplifying 255
      nvars: 1
       vars: pn3
-     inits: pn2 - pn3 + -256
-  nupdates: pn3 + -256
-      cond: pn3 + -256 > 255
-simplified: pn3 + -256 > 255
+     inits: ((pn2 - pn3) + -256)
+  nupdates: (pn3 + -256)
+      cond: ((pn3 + -256) > 255)
+simplified: ((pn3 + -256) > 255)
 function 41 function funcs/simple_loop-func41 cost: 7
 function 42 function funcs/simple_loop-func42 exploded
 cost: 1097
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-simplifying pF1 - f64.convert_i32_u(0) * 1000000000. != 0.
-simplifying pF1 - f64.convert_i32_u(0) * 1000000000.
-simplifying pF1 - f64.convert_i32_u(0)
-simplifying pF1
-simplifying f64.convert_i32_u(0)
-simplifying 0
-simplifying 1000000000.
-simplifying 0.
      nvars: 1
       vars: pF1
-     inits: rF(f29(tn61 + tn62, 44), 64) + rF(f29(tn61 + tn62, 44), 64)
-  nupdates: pF1 - f64.convert_i32_u0 * 1000000000.
-      cond: pF1 - f64.convert_i32_u(0) * 1000000000. != 0.
-simplified: pF1 - f64.convert_i32_u(0) * 1000000000. != 0.
-simplifying pF1 - f64.convert_i32_u(i32.trunc_f64_u(pF1)) * 1000000000. != 0.
-simplifying pF1 - f64.convert_i32_u(i32.trunc_f64_u(pF1)) * 1000000000.
-simplifying pF1 - f64.convert_i32_u(i32.trunc_f64_u(pF1))
-simplifying pF1
-simplifying f64.convert_i32_u(i32.trunc_f64_u(pF1))
-simplifying i32.trunc_f64_u(pF1)
-simplifying pF1
-simplifying 1000000000.
-simplifying 0.
+     inits: (R(29, 64, f64, ((gn0 - 560) + 44), 44) + R(29, 64, f64, ((gn0 - 560) + 44), 44))
+  nupdates: ((pF1 - f64.convert_i32_u0) * 1000000000.)
+      cond: (((pF1 - f64.convert_i32_u(0)) * 1000000000.) != 0.)
+simplified: (((pF1 - f64.convert_i32_u(0)) * 1000000000.) != 0.)
      nvars: 1
       vars: pF1
-     inits: rF(f29(tn61 + tn62, 44), 64) + rF(f29(tn61 + tn62, 44), 64)
-  nupdates: pF1 - f64.convert_i32_ui32.trunc_f64_upF1 * 1000000000.
-      cond: pF1 - f64.convert_i32_u(i32.trunc_f64_u(pF1)) * 1000000000. != 0.
-simplified: pF1 - f64.convert_i32_u(i32.trunc_f64_u(pF1)) * 1000000000. != 0.
-simplifying m[44] - pn3 > 0
-simplifying m[44] - pn3
-simplifying m[44]
-simplifying pn3
-simplifying 0
+     inits: (R(29, 64, f64, ((gn0 - 560) + 44), 44) + R(29, 64, f64, ((gn0 - 560) + 44), 44))
+  nupdates: ((pF1 - f64.convert_i32_ui32.trunc_f64_upF1) * 1000000000.)
+      cond: (((pF1 - f64.convert_i32_u(i32.trunc_f64_u(pF1))) * 1000000000.) != 0.)
+simplified: (((pF1 - f64.convert_i32_u(i32.trunc_f64_u(pF1))) * 1000000000.) != 0.)
      nvars: 2
       vars: m[44] pn3
      inits: 0 0
-  nupdates: m[44] - select(pn3 < 29, 29, pn3) m[44] - select(pn3 < 29, 29, pn3)
-      cond: m[44] - pn3 > 0
-simplified: m[44] - pn3 > 0
-simplifying m[44] - pn3 > 0
-simplifying m[44] - pn3
-simplifying m[44]
-simplifying pn3
-simplifying 0
+  nupdates: (m[44] - select((pn3 < 29), 29, pn3)) (m[44] - select((pn3 < 29), 29, pn3))
+      cond: ((m[44] - pn3) > 0)
+simplified: ((m[44] - pn3) > 0)
      nvars: 2
       vars: m[44] pn3
      inits: 0 0
-  nupdates: m[44] - select(pn3 < 29, 29, pn3) m[44] - select(pn3 < 29, 29, pn3)
-      cond: m[44] - pn3 > 0
-simplified: m[44] - pn3 > 0
-simplifying m[44] - pn3 > 0
-simplifying m[44] - pn3
-simplifying m[44]
-simplifying pn3
-simplifying 0
+  nupdates: (m[44] - select((pn3 < 29), 29, pn3)) (m[44] - select((pn3 < 29), 29, pn3))
+      cond: ((m[44] - pn3) > 0)
+simplified: ((m[44] - pn3) > 0)
      nvars: 2
       vars: m[44] pn3
      inits: 0 0
-  nupdates: m[44] - select(pn3 < 29, 29, pn3) m[44] - select(pn3 < 29, 29, pn3)
-      cond: m[44] - pn3 > 0
-simplified: m[44] - pn3 > 0
-simplifying m[44] - pn3 > 0
-simplifying m[44] - pn3
-simplifying m[44]
-simplifying pn3
-simplifying 0
+  nupdates: (m[44] - select((pn3 < 29), 29, pn3)) (m[44] - select((pn3 < 29), 29, pn3))
+      cond: ((m[44] - pn3) > 0)
+simplified: ((m[44] - pn3) > 0)
      nvars: 2
       vars: m[44] pn3
      inits: 0 0
-  nupdates: m[44] - select(pn3 < 29, 29, pn3) m[44] - select(pn3 < 29, 29, pn3)
-      cond: m[44] - pn3 > 0
-simplified: m[44] - pn3 > 0
-simplifying m[44] - pn3 > 0
-simplifying m[44] - pn3
-simplifying m[44]
-simplifying pn3
-simplifying 0
+  nupdates: (m[44] - select((pn3 < 29), 29, pn3)) (m[44] - select((pn3 < 29), 29, pn3))
+      cond: ((m[44] - pn3) > 0)
+simplified: ((m[44] - pn3) > 0)
      nvars: 2
       vars: m[44] pn3
      inits: 0 0
-  nupdates: m[44] - select(pn3 < 29, 29, pn3) m[44] - select(pn3 < 29, 29, pn3)
-      cond: m[44] - pn3 > 0
-simplified: m[44] - pn3 > 0
-simplifying m[44] - pn3 > 0
-simplifying m[44] - pn3
-simplifying m[44]
-simplifying pn3
-simplifying 0
+  nupdates: (m[44] - select((pn3 < 29), 29, pn3)) (m[44] - select((pn3 < 29), 29, pn3))
+      cond: ((m[44] - pn3) > 0)
+simplified: ((m[44] - pn3) > 0)
      nvars: 2
       vars: m[44] pn3
      inits: 0 0
-  nupdates: m[44] - select(pn3 < 29, 29, pn3) m[44] - select(pn3 < 29, 29, pn3)
-      cond: m[44] - pn3 > 0
-simplified: m[44] - pn3 > 0
-simplifying m[44] + 0 - pn3 < 0
-simplifying m[44] + 0 - pn3
-simplifying m[44]
-simplifying 0 - pn3
-simplifying 0
-simplifying pn3
-simplifying 0
+  nupdates: (m[44] - select((pn3 < 29), 29, pn3)) (m[44] - select((pn3 < 29), 29, pn3))
+      cond: ((m[44] - pn3) > 0)
+simplified: ((m[44] - pn3) > 0)
      nvars: 2
       vars: m[44] pn3
-     inits: 0 - select(0 < 29, 29, 0) 0 - select(0 < 29, 29, 0)
-  nupdates: m[44] + select(0 - pn3 < 9, 9, 0 - pn3) m[44] + select(0 - pn3 < 9, 9, 0 - pn3)
-      cond: m[44] + 0 - pn3 < 0
-simplified: m[44] + 0 - pn3 < 0
-simplifying m[44] + 0 - pn3 < 0
-simplifying m[44] + 0 - pn3
-simplifying m[44]
-simplifying 0 - pn3
-simplifying 0
-simplifying pn3
-simplifying 0
+     inits: (0 - select((0 < 29), 29, 0)) (0 - select((0 < 29), 29, 0))
+  nupdates: (m[44] + select(((0 - pn3) < 9), 9, (0 - pn3))) (m[44] + select(((0 - pn3) < 9), 9, (0 - pn3)))
+      cond: ((m[44] + (0 - pn3)) < 0)
+simplified: ((m[44] + (0 - pn3)) < 0)
      nvars: 2
       vars: m[44] pn3
-     inits: 0 - select(0 < 29, 29, 0) 0 - select(0 < 29, 29, 0)
-  nupdates: m[44] + select(0 - pn3 < 9, 9, 0 - pn3) m[44] + select(0 - pn3 < 9, 9, 0 - pn3)
-      cond: m[44] + 0 - pn3 < 0
-simplified: m[44] + 0 - pn3 < 0
-simplifying m[44] + 0 - pn3 < 0
-simplifying m[44] + 0 - pn3
-simplifying m[44]
-simplifying 0 - pn3
-simplifying 0
-simplifying pn3
-simplifying 0
+     inits: (0 - select((0 < 29), 29, 0)) (0 - select((0 < 29), 29, 0))
+  nupdates: (m[44] + select(((0 - pn3) < 9), 9, (0 - pn3))) (m[44] + select(((0 - pn3) < 9), 9, (0 - pn3)))
+      cond: ((m[44] + (0 - pn3)) < 0)
+simplified: ((m[44] + (0 - pn3)) < 0)
      nvars: 2
       vars: m[44] pn3
-     inits: 0 - select(0 < 29, 29, 0) 0 - select(0 < 29, 29, 0)
-  nupdates: m[44] + select(0 - pn3 < 9, 9, 0 - pn3) m[44] + select(0 - pn3 < 9, 9, 0 - pn3)
-      cond: m[44] + 0 - pn3 < 0
-simplified: m[44] + 0 - pn3 < 0
-simplifying ln12 >= ln11 * 10
-simplifying ln12
-simplifying ln11 * 10
-simplifying ln11
-simplifying 10
+     inits: (0 - select((0 < 29), 29, 0)) (0 - select((0 < 29), 29, 0))
+  nupdates: (m[44] + select(((0 - pn3) < 9), 9, (0 - pn3))) (m[44] + select(((0 - pn3) < 9), 9, (0 - pn3)))
+      cond: ((m[44] + (0 - pn3)) < 0)
+simplified: ((m[44] + (0 - pn3)) < 0)
      nvars: 2
       vars: ln11 ln12
-     inits: 10 * 10 0
-  nupdates: ln11 * 10 ln12
-      cond: ln12 >= ln11 * 10
-simplified: ln12 >= ln11 * 10
-simplifying ln12 + 1 != 8
-simplifying ln12 + 1
-simplifying ln12
-simplifying 1
-simplifying 8
+     inits: (10 * 10) 0
+  nupdates: (ln11 * 10) ln12
+      cond: (ln12 >= (ln11 * 10))
+simplified: (ln12 >= (ln11 * 10))
      nvars: 1
       vars: ln12
-     inits: select(pn3 < 0, pn3, 6) - select(pn5 || 32 == 102, 0, 0) - select(pn3 < 0, pn3, 6) != 0 && pn5 || 32 == 103 + 9216 - select(pn3 < 0, pn3, 6) - select(pn5 || 32 == 102, 0, 0) - select(pn3 < 0, pn3, 6) != 0 && pn5 || 32 == 103 + 9216 /s 9 * 9 + 1
-  nupdates: ln12 + 1
-      cond: ln12 + 1 != 8
-simplified: ln12 + 1 != 8
-simplifying 0 + 1 > 999999999
-simplifying 0 + 1
-simplifying 0
-simplifying 1
-simplifying 999999999
+     inits: (((((select((pn3 < 0), pn3, 6) - select(((pn5 || 32) == 102), 0, 0)) - ((select((pn3 < 0), pn3, 6) != 0) && ((pn5 || 32) == 103))) + 9216) - (((((select((pn3 < 0), pn3, 6) - select(((pn5 || 32) == 102), 0, 0)) - ((select((pn3 < 0), pn3, 6) != 0) && ((pn5 || 32) == 103))) + 9216) /s 9) * 9)) + 1)
+  nupdates: (ln12 + 1)
+      cond: ((ln12 + 1) != 8)
+simplified: ((ln12 + 1) != 8)
      nvars: 0
       vars:
      inits:
   nupdates:
-      cond: 0 + 1 > 999999999
-simplified: 0 + 1 > 999999999
-simplifying 0 + 1 > 999999999
-simplifying 0 + 1
-simplifying 0
-simplifying 1
-simplifying 999999999
+      cond: ((0 + 1) > 999999999)
+simplified: ((0 + 1) > 999999999)
      nvars: 0
       vars:
      inits:
   nupdates:
-      cond: 0 + 1 > 999999999
-simplified: 0 + 1 > 999999999
-simplifying ln12 >= ln11 * 10
-simplifying ln12
-simplifying ln11 * 10
-simplifying ln11
-simplifying 10
+      cond: ((0 + 1) > 999999999)
+simplified: ((0 + 1) > 999999999)
      nvars: 2
       vars: ln11 ln12
      inits: 0 0
-  nupdates: ln11 * 10 ln12
-      cond: ln12 >= ln11 * 10
-simplified: ln12 >= ln11 * 10
-simplifying i32.eqz(m[0])
-i32.eqz(m[0])
-simplifying 0 = m[0]
-0 = m[0]
-simplifying m[0]
-inverting m[0]
+  nupdates: (ln11 * 10) ln12
+      cond: (ln12 >= (ln11 * 10))
+simplified: (ln12 >= (ln11 * 10))
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: i32.eqz(m[0])
 simplified: not(m[0])
-simplifying i32.eqz(ln21 rem_u ln12 * 10)
-i32.eqz(ln21 rem_u ln12 * 10)
-simplifying 0 = ln21 rem_u ln12 * 10
-0 = ln21 rem_u ln12 * 10
-simplifying ln21 rem_u ln12 * 10
-simplifying ln21
-simplifying ln12 * 10
-simplifying ln12
-simplifying 10
-inverting ln21 rem_u ln12 * 10
-can't invert ln21 rem_u ln12 * 10
      nvars: 2
       vars: ln12 ln21
      inits: 0 0
-  nupdates: ln12 * 10 ln21
-      cond: i32.eqz(ln21 rem_u ln12 * 10)
-simplified: ln21 rem_u ln12 * 10
-simplifying ln13 - ln10 + -1 < 2
-simplifying ln13 - ln10 + -1
-simplifying ln13
-simplifying ln10 + -1
-simplifying ln10
-simplifying -1
-simplifying 2
+  nupdates: (ln12 * 10) ln21
+      cond: i32.eqz((ln21 rem_u (ln12 * 10)))
+simplified: (ln21 rem_u (ln12 * 10))
      nvars: 2
       vars: ln10 ln13
      inits: 0 0
-  nupdates: ln10 + -1 ln13
-      cond: ln13 - ln10 + -1 < 2
-simplified: ln13 - ln10 + -1 < 2
-simplifying ln18 + 4 <= ln17
-simplifying ln18 + 4
-simplifying ln18
-simplifying 4
-simplifying ln17
+  nupdates: (ln10 + -1) ln13
+      cond: ((ln13 - (ln10 + -1)) < 2)
+simplified: ((ln13 - (ln10 + -1)) < 2)
      nvars: 2
       vars: ln17 ln18
      inits: 0 0
-  nupdates: ln17 ln18 + 4
-      cond: ln18 + 4 <= ln17
-simplified: ln18 + 4 <= ln17
-simplifying ln18 + 4 <= ln17
-simplifying ln18 + 4
-simplifying ln18
-simplifying 4
-simplifying ln17
+  nupdates: ln17 (ln18 + 4)
+      cond: ((ln18 + 4) <= ln17)
+simplified: ((ln18 + 4) <= ln17)
      nvars: 2
       vars: ln17 ln18
      inits: 0 0
-  nupdates: ln17 ln18 + 4
-      cond: ln18 + 4 <= ln17
-simplified: ln18 + 4 <= ln17
-simplifying ln18 + 4 <= ln17
-simplifying ln18 + 4
-simplifying ln18
-simplifying 4
-simplifying ln17
+  nupdates: ln17 (ln18 + 4)
+      cond: ((ln18 + 4) <= ln17)
+simplified: ((ln18 + 4) <= ln17)
      nvars: 2
       vars: ln17 ln18
      inits: 0 0
-  nupdates: ln17 ln18 + 4
-      cond: ln18 + 4 <= ln17
-simplified: ln18 + 4 <= ln17
-simplifying ln18 + 4 <= ln17
-simplifying ln18 + 4
-simplifying ln18
-simplifying 4
-simplifying ln17
+  nupdates: ln17 (ln18 + 4)
+      cond: ((ln18 + 4) <= ln17)
+simplified: ((ln18 + 4) <= ln17)
      nvars: 2
       vars: ln17 ln18
      inits: 0 0
-  nupdates: ln17 ln18 + 4
-      cond: ln18 + 4 <= ln17
-simplified: ln18 + 4 <= ln17
-simplifying ln15 > 9
-simplifying ln15
-simplifying 9
+  nupdates: ln17 (ln18 + 4)
+      cond: ((ln18 + 4) <= ln17)
+simplified: ((ln18 + 4) <= ln17)
      nvars: 1
       vars: ln15
      inits: 0
-  nupdates: ln15 + -9
-      cond: ln15 > 9
-simplified: ln15 > 9
-simplifying ln15 > 9
-simplifying ln15
-simplifying 9
+  nupdates: (ln15 + -9)
+      cond: (ln15 > 9)
+simplified: (ln15 > 9)
      nvars: 1
       vars: ln15
      inits: 0
-  nupdates: ln15 + -9
-      cond: ln15 > 9
-simplified: ln15 > 9
-simplifying ln15 - pn3 - rn(f39(pn3, m[0]), 0) + 1 > -1
-simplifying ln15 - pn3 - rn(f39(pn3, m[0]), 0) + 1
-simplifying ln15
-simplifying pn3 - rn(f39(pn3, m[0]), 0) + 1
-simplifying pn3
-simplifying rn(f39(pn3, m[0]), 0) + 1
-simplifying rn(f39(pn3, m[0]), 0)
-simplifying 1
-simplifying -1
+  nupdates: (ln15 + -9)
+      cond: (ln15 > 9)
+simplified: (ln15 > 9)
      nvars: 3
-      vars: ln15 pn3 rn(f39(pn3, m[0]), 0)
-     inits: 0 pn3 rn(f39(pn3, m[0]), 0)
-  nupdates: ln15 - pn3 - rn(f39(pn3, m[0]), 3) + 1 pn3 rn(f39(pn3, m[0]), 0)
-      cond: ln15 - pn3 - rn(f39(pn3, m[0]), 0) + 1 > -1
-simplified: ln15 - pn3 - rn(f39(pn3, m[0]), 0) + 1 > -1
-simplifying ln15 - pn3 - rn(f39(pn3, m[0]), 0) + 1 > -1
-simplifying ln15 - pn3 - rn(f39(pn3, m[0]), 0) + 1
-simplifying ln15
-simplifying pn3 - rn(f39(pn3, m[0]), 0) + 1
-simplifying pn3
-simplifying rn(f39(pn3, m[0]), 0) + 1
-simplifying rn(f39(pn3, m[0]), 0)
-simplifying 1
-simplifying -1
+      vars: ln15 m[0] pn3
+     inits: 0 m[0] pn3
+  nupdates: (ln15 - (pn3 - (R(39, 3, i32, pn3, m[0]) + 1))) m[0] pn3
+      cond: ((ln15 - (pn3 - (R(39, 0, i32, pn3, m[0]) + 1))) > -1)
+simplified: ((ln15 - (pn3 - (R(39, 0, i32, pn3, m[0]) + 1))) > -1)
      nvars: 3
-      vars: ln15 pn3 rn(f39(pn3, m[0]), 0)
-     inits: 0 pn3 rn(f39(pn3, m[0]), 0)
-  nupdates: ln15 - pn3 - rn(f39(pn3, m[0]), 3) + 1 pn3 rn(f39(pn3, m[0]), 0)
-      cond: ln15 - pn3 - rn(f39(pn3, m[0]), 0) + 1 > -1
-simplified: ln15 - pn3 - rn(f39(pn3, m[0]), 0) + 1 > -1
-simplifying ln15 - pn3 - rn(f39(pn3, m[0]), 0) > -1
-simplifying ln15 - pn3 - rn(f39(pn3, m[0]), 0)
-simplifying ln15
-simplifying pn3 - rn(f39(pn3, m[0]), 0)
-simplifying pn3
-simplifying rn(f39(pn3, m[0]), 0)
-simplifying -1
+      vars: ln15 m[0] pn3
+     inits: 0 m[0] pn3
+  nupdates: (ln15 - (pn3 - (R(39, 3, i32, pn3, m[0]) + 1))) m[0] pn3
+      cond: ((ln15 - (pn3 - (R(39, 0, i32, pn3, m[0]) + 1))) > -1)
+simplified: ((ln15 - (pn3 - (R(39, 0, i32, pn3, m[0]) + 1))) > -1)
      nvars: 3
-      vars: ln15 pn3 rn(f39(pn3, m[0]), 0)
-     inits: 0 pn3 rn(f39(pn3, m[0]), 0)
-  nupdates: ln15 - pn3 - rn(f39(pn3, m[0]), 3) pn3 rn(f39(pn3, m[0]), 0)
-      cond: ln15 - pn3 - rn(f39(pn3, m[0]), 0) > -1
-simplified: ln15 - pn3 - rn(f39(pn3, m[0]), 0) > -1
-simplifying ln15 - pn3 - rn(f39(pn3, m[0]), 0) + -1 > -1
-simplifying ln15 - pn3 - rn(f39(pn3, m[0]), 0) + -1
-simplifying ln15
-simplifying pn3 - rn(f39(pn3, m[0]), 0) + -1
-simplifying pn3
-simplifying rn(f39(pn3, m[0]), 0) + -1
-simplifying rn(f39(pn3, m[0]), 0)
-simplifying -1
-simplifying -1
+      vars: ln15 m[0] pn3
+     inits: 0 m[0] pn3
+  nupdates: (ln15 - (pn3 - R(39, 3, i32, pn3, m[0]))) m[0] pn3
+      cond: ((ln15 - (pn3 - R(39, 0, i32, pn3, m[0]))) > -1)
+simplified: ((ln15 - (pn3 - R(39, 0, i32, pn3, m[0]))) > -1)
      nvars: 3
-      vars: ln15 pn3 rn(f39(pn3, m[0]), 0)
-     inits: 0 pn3 rn(f39(pn3, m[0]), 0)
-  nupdates: ln15 - pn3 - rn(f39(pn3, m[0]), 3) + -1 pn3 rn(f39(pn3, m[0]), 0)
-      cond: ln15 - pn3 - rn(f39(pn3, m[0]), 0) + -1 > -1
-simplified: ln15 - pn3 - rn(f39(pn3, m[0]), 0) + -1 > -1
-simplifying ln15 - pn3 - ln17 + 1 > -1
-simplifying ln15 - pn3 - ln17 + 1
-simplifying ln15
-simplifying pn3 - ln17 + 1
-simplifying pn3
-simplifying ln17 + 1
-simplifying ln17
-simplifying 1
-simplifying -1
+      vars: ln15 m[0] pn3
+     inits: 0 m[0] pn3
+  nupdates: (ln15 - (pn3 - (R(39, 3, i32, pn3, m[0]) + -1))) 48 pn3
+      cond: ((ln15 - (pn3 - (R(39, 0, i32, pn3, m[0]) + -1))) > -1)
+simplified: ((ln15 - (pn3 - (R(39, 0, i32, pn3, m[0]) + -1))) > -1)
      nvars: 3
       vars: ln15 ln17 pn3
      inits: 0 0 pn3
-  nupdates: ln15 - pn3 - ln17 + 1 ln17 pn3
-      cond: ln15 - pn3 - ln17 + 1 > -1
-simplified: ln15 - pn3 - ln17 + 1 > -1
-simplifying ln15 - pn3 - ln17 + 1 > -1
-simplifying ln15 - pn3 - ln17 + 1
-simplifying ln15
-simplifying pn3 - ln17 + 1
-simplifying pn3
-simplifying ln17 + 1
-simplifying ln17
-simplifying 1
-simplifying -1
+  nupdates: (ln15 - (pn3 - (ln17 + 1))) ln17 pn3
+      cond: ((ln15 - (pn3 - (ln17 + 1))) > -1)
+simplified: ((ln15 - (pn3 - (ln17 + 1))) > -1)
      nvars: 3
       vars: ln15 ln17 pn3
      inits: 0 0 pn3
-  nupdates: ln15 - pn3 - ln17 + 1 ln17 pn3
-      cond: ln15 - pn3 - ln17 + 1 > -1
-simplified: ln15 - pn3 - ln17 + 1 > -1
-simplifying ln15 - pn3 - ln17 > -1
-simplifying ln15 - pn3 - ln17
-simplifying ln15
-simplifying pn3 - ln17
-simplifying pn3
-simplifying ln17
-simplifying -1
+  nupdates: (ln15 - (pn3 - (ln17 + 1))) ln17 pn3
+      cond: ((ln15 - (pn3 - (ln17 + 1))) > -1)
+simplified: ((ln15 - (pn3 - (ln17 + 1))) > -1)
      nvars: 3
       vars: ln15 ln17 pn3
      inits: 0 0 pn3
-  nupdates: ln15 - pn3 - ln17 ln17 pn3
-      cond: ln15 - pn3 - ln17 > -1
-simplified: ln15 - pn3 - ln17 > -1
-simplifying ln15 - pn3 - ln17 + -1 > -1
-simplifying ln15 - pn3 - ln17 + -1
-simplifying ln15
-simplifying pn3 - ln17 + -1
-simplifying pn3
-simplifying ln17 + -1
-simplifying ln17
-simplifying -1
-simplifying -1
+  nupdates: (ln15 - (pn3 - ln17)) ln17 pn3
+      cond: ((ln15 - (pn3 - ln17)) > -1)
+simplified: ((ln15 - (pn3 - ln17)) > -1)
      nvars: 3
       vars: ln15 ln17 pn3
      inits: 0 0 pn3
-  nupdates: ln15 - pn3 - ln17 + -1 ln17 pn3
-      cond: ln15 - pn3 - ln17 + -1 > -1
-simplified: ln15 - pn3 - ln17 + -1 > -1
-simplifying ln10 + -1
-simplifying ln10
-simplifying -1
+  nupdates: (ln15 - (pn3 - (ln17 + -1))) ln17 pn3
+      cond: ((ln15 - (pn3 - (ln17 + -1))) > -1)
+simplified: ((ln15 - (pn3 - (ln17 + -1))) > -1)
      nvars: 1
       vars: ln10
      inits: 0
-  nupdates: ln10 + -1
-      cond: ln10 + -1
-simplified: ln10 + -1
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16.
-simplifying pF1 - f64.convert_i32_s(-2147483648)
-simplifying pF1
-simplifying f64.convert_i32_s(-2147483648)
-simplifying -2147483648
-simplifying 16.
-simplifying 0.
+  nupdates: (ln10 + -1)
+      cond: (ln10 + -1)
+simplified: (ln10 + -1)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_s-2147483648 * 16.
-      cond: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16.
-simplifying pF1 - f64.convert_i32_s(-2147483648)
-simplifying pF1
-simplifying f64.convert_i32_s(-2147483648)
-simplifying -2147483648
-simplifying 16.
-simplifying 0.
+  nupdates: ((pF1 - f64.convert_i32_s-2147483648) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_s-2147483648 * 16.
-      cond: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16.
-simplifying pF1 - f64.convert_i32_s(-2147483648)
-simplifying pF1
-simplifying f64.convert_i32_s(-2147483648)
-simplifying -2147483648
-simplifying 16.
-simplifying 0.
+  nupdates: ((pF1 - f64.convert_i32_s-2147483648) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_s-2147483648 * 16.
-      cond: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16.
-simplifying pF1 - f64.convert_i32_s(-2147483648)
-simplifying pF1
-simplifying f64.convert_i32_s(-2147483648)
-simplifying -2147483648
-simplifying 16.
-simplifying 0.
+  nupdates: ((pF1 - f64.convert_i32_s-2147483648) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_s-2147483648 * 16.
-      cond: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(-2147483648) * 16.
-simplifying pF1 - f64.convert_i32_s(-2147483648)
-simplifying pF1
-simplifying f64.convert_i32_s(-2147483648)
-simplifying -2147483648
-simplifying 16.
-simplifying 0.
+  nupdates: ((pF1 - f64.convert_i32_s-2147483648) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_s-2147483648 * 16.
-      cond: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(-2147483648) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying pF1
-simplifying f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying i32.trunc_f64_s(pF1)
-simplifying pF1
-simplifying 16.
-simplifying 0.
+  nupdates: ((pF1 - f64.convert_i32_s-2147483648) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.
-      cond: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying pF1
-simplifying f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying i32.trunc_f64_s(pF1)
-simplifying pF1
-simplifying 16.
-simplifying 0.
+  nupdates: ((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.
-      cond: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying pF1
-simplifying f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying i32.trunc_f64_s(pF1)
-simplifying pF1
-simplifying 16.
-simplifying 0.
+  nupdates: ((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.
-      cond: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying pF1
-simplifying f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying i32.trunc_f64_s(pF1)
-simplifying pF1
-simplifying 16.
-simplifying 0.
+  nupdates: ((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.
-      cond: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16.
-simplifying pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying pF1
-simplifying f64.convert_i32_s(i32.trunc_f64_s(pF1))
-simplifying i32.trunc_f64_s(pF1)
-simplifying pF1
-simplifying 16.
-simplifying 0.
+  nupdates: ((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
      nvars: 1
       vars: pF1
      inits: pF1
-  nupdates: pF1 - f64.convert_i32_si32.trunc_f64_spF1 * 16.
-      cond: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
-simplified: pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1)) * 16. != 0.
+  nupdates: ((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)
+      cond: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
+simplified: (((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)
 function 43 function funcs/simple_loop-func43 cost: 21
 function 44 function funcs/simple_loop-func44 cost: 3
 function 45 function funcs/simple_loop-func45 cost: 8
@@ -1224,218 +571,138 @@ function 50 function funcs/simple_loop-func50 cost: 28
 function 51 function funcs/simple_loop-func51 cost: 8
 function 52 function funcs/simple_loop-func52 exploded
 cost: 1060
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-simplifying not(m[16])
-not(m[16])
-simplifying m[16]
-inverting m[16]
      nvars: 1
       vars: m[16]
      inits: m[16]
   nupdates: m[16]
       cond: not(m[16])
 simplified: not(m[16])
-simplifying not(i32.eqz(m[0]))
-not(i32.eqz(m[0]))
-simplifying i32.eqz(m[0])
-i32.eqz(m[0])
-simplifying 0 = m[0]
-0 = m[0]
-simplifying m[0]
-inverting m[0]
-inverting not(m[0])
-can't invert not(m[0])
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: not(i32.eqz(m[0]))
 simplified: not(m[0])
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[16]
      nvars: 1
       vars: m[16]
      inits: m[16]
   nupdates: m[16]
       cond: m[16]
 simplified: m[16]
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[8]
      nvars: 1
       vars: m[8]
      inits: m[8]
   nupdates: m[8]
       cond: m[8]
 simplified: m[8]
-simplifying m[8]
      nvars: 1
       vars: m[8]
      inits: m[8]
   nupdates: m[8]
       cond: m[8]
 simplified: m[8]
-simplifying m[8]
      nvars: 1
       vars: m[8]
      inits: m[8]
   nupdates: m[8]
       cond: m[8]
 simplified: m[8]
-simplifying pn0 + 1 != 32
-simplifying pn0 + 1
-simplifying pn0
-simplifying 1
-simplifying 32
      nvars: 1
       vars: pn0
      inits: pn0
-  nupdates: pn0 + 1
-      cond: pn0 + 1 != 32
-simplified: pn0 + 1 != 32
-simplifying m[8]
+  nupdates: (pn0 + 1)
+      cond: ((pn0 + 1) != 32)
+simplified: ((pn0 + 1) != 32)
      nvars: 1
       vars: m[8]
      inits: m[8]
   nupdates: m[8]
       cond: m[8]
 simplified: m[8]
-simplifying not(m[0] > ln4)
-not(m[0] > ln4)
-simplifying m[0] > ln4
-simplifying m[0]
-simplifying ln4
-inverting m[0] > ln4
-m[0] > ln4
      nvars: 2
       vars: ln4 m[0]
      inits: 0 m[0]
   nupdates: ln4 m[0]
-      cond: not(m[0] > ln4)
-simplified: m[0] <= ln4
-simplifying not(m[0] + m[4] > ln4)
-not(m[0] + m[4] > ln4)
-simplifying m[0] + m[4] > ln4
-simplifying m[0] + m[4]
-simplifying m[0]
-simplifying m[4]
-simplifying ln4
-inverting m[0] + m[4] > ln4
-m[0] + m[4] > ln4
+      cond: not((m[0] > ln4))
+simplified: (m[0] <= ln4)
      nvars: 3
       vars: ln4 m[0] m[4]
      inits: 0 m[0] m[4]
   nupdates: ln4 m[0] m[4]
-      cond: not(m[0] + m[4] > ln4)
-simplified: m[0] + m[4] <= ln4
-simplifying m[0]
+      cond: not(((m[0] + m[4]) > ln4))
+simplified: ((m[0] + m[4]) <= ln4)
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying pn0 + 8 < ln5
-simplifying pn0 + 8
-simplifying pn0
-simplifying 8
-simplifying ln5
      nvars: 2
       vars: ln5 pn0
      inits: 0 pn0
-  nupdates: ln5 pn0 + 4
-      cond: pn0 + 8 < ln5
-simplified: pn0 + 8 < ln5
-simplifying m[0]
+  nupdates: ln5 (pn0 + 4)
+      cond: ((pn0 + 8) < ln5)
+simplified: ((pn0 + 8) < ln5)
      nvars: 1
       vars: m[0]
      inits: m[0]
   nupdates: m[0]
       cond: m[0]
 simplified: m[0]
-simplifying m[0]
      nvars: 1
       vars: m[0]
      inits: m[0]
@@ -1458,64 +725,48 @@ function 65 function funcs/simple_loop-func65 cost: 4
 function 66 function funcs/simple_loop-func66 cost: 2
 function 67 function funcs/simple_loop-func67 cost: 2
 function 68 function funcs/simple_loop-func68 cost: 74
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-found an N
-simplifying m[56]
      nvars: 1
       vars: m[56]
      inits: m[56]
   nupdates: m[56]
       cond: m[56]
 simplified: m[56]
-simplifying m[56]
      nvars: 1
       vars: m[56]
      inits: m[56]
   nupdates: m[56]
       cond: m[56]
 simplified: m[56]
-simplifying m[56]
      nvars: 1
       vars: m[56]
      inits: m[56]
   nupdates: m[56]
       cond: m[56]
 simplified: m[56]
-simplifying m[56]
      nvars: 1
       vars: m[56]
      inits: m[56]
   nupdates: m[56]
       cond: m[56]
 simplified: m[56]
-simplifying m[56]
      nvars: 1
       vars: m[56]
      inits: m[56]
   nupdates: m[56]
       cond: m[56]
 simplified: m[56]
-simplifying m[56]
      nvars: 1
       vars: m[56]
      inits: m[56]
   nupdates: m[56]
       cond: m[56]
 simplified: m[56]
-simplifying m[56]
      nvars: 1
       vars: m[56]
      inits: m[56]
   nupdates: m[56]
       cond: m[56]
 simplified: m[56]
-simplifying m[56]
      nvars: 1
       vars: m[56]
      inits: m[56]

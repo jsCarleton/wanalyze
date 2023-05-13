@@ -174,10 +174,12 @@ let et_of_const_arg (arg: op_arg): et =
     | _             -> failwith "Invalid const argument"
 
 let et_of_retval (idx: int) (nt: valtype) (fidx: int) (params: et list): et =
-  Variable {  vtype = Var_retvalue; 
-              idx; 
-              nt; 
-              vname = sprintf "f%d(%s)" fidx (String.concat ~sep:", " (List.map ~f:string_of_et params))}
+  Node {  op = "R";
+          op_disp = Function;
+          args =  [Constant (Int_value fidx)]@
+            [Constant (Int_value idx)]@
+            [Constant (String_value (string_of_valtype nt))]@
+            params}
 
 let et_of_unop (op: string) (arg1: et): et =
   Node {op; op_disp = Function; args = [arg1]}

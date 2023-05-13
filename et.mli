@@ -1,5 +1,5 @@
 (* variables *)
-type var_type = Var_parameter | Var_local | Var_retvalue | Var_global | Var_temp | Var_memory
+type var_type = Var_parameter | Var_local | Var_global | Var_temp | Var_memory
 
 type var =
   {
