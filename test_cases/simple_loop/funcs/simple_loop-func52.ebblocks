@@ -248,7 +248,7 @@ ebb entry:  219
 ebb entry:  226
   ebb type:   loop
   ebb blocks: [226 227]
-  ebb cost:   (23 * (N([pn0], [(pn0 + 1) != 32], [pn0], [(pn0 + 1)]))) + 1
+  ebb cost:   (23 * (N([pn0], [(pn0 + 1) != 32], [pn0], [pn0 + 1]))) + 1
   ebb exits:  [228]
   ebb succs:  [228]
   1 paths to exit 228
@@ -394,7 +394,7 @@ ebb entry:  335
 ebb entry:  338
   ebb type:   loop
   ebb blocks: [338 339]
-  ebb cost:   (15 * (N([ln5; pn0], [(pn0 + 8) < ln5], [0; pn0], [ln5; (pn0 + 4)]))) + 1
+  ebb cost:   (15 * (N([ln5; pn0], [(pn0 + 8) < ln5], [0; pn0], [ln5; pn0 + 4]))) + 1
   ebb exits:  [340]
   ebb succs:  [340]
   1 paths to exit 340
