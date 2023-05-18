@@ -91,19 +91,30 @@ let rec simplify_code (e: Et.et): Et.et =
   | _ -> e
 
 
-let solve_of_nexpr (n: nexpr): Et.et = n.expr_cond
+let simple_loop (n: nexpr) (a: int) (b: int): bool =
+  Et.compare (n.initial_vals.(a)) (Constant (Int_value 0)) = 0
+  &&  Et.compare (n.update_exprs.(a)) (Node {op = "+"; op_disp = Et.Infix; args = [Variable n.vars.(a); Constant (Int_value 1)]}) = 0
+  &&  Et.compare (n.update_exprs.(b)) (Variable n.vars.(b)) = 0
+  &&  Et.compare (simplify_code n.expr_cond)
+                                   (Node {op = "<"; op_disp = Et.Infix; args = [Variable n.vars.(a); Variable n.vars.(b)]}) = 0
 
-let iterations_of_loop (n: nexpr): int =
+let solve_of_nexpr (n: nexpr): Et.et =
   match n.nvars with
-  | 2 -> 0
-  | _ -> -1
+  | 2 -> 
+    begin
+      if      simple_loop n 0 1 then n.initial_vals.(1) 
+      else if simple_loop n 1 0 then n.initial_vals.(0)
+      else
+          Constant (Int_value (-2))
+    end
+  | _ -> Constant (Int_value (-1))
 
 let string_of_nexpr (n: nexpr) = 
-  sprintf "     nvars: %d\n      vars:%s\n     inits:%s\n  nupdates:%s\n      cond: %s\nsimplified: %s" 
+  sprintf "     nvars: %d\n      vars:%s\n     inits:%s\n  nupdates:%s\n      cond: %s\nsimplified: %s\niterations: %s" 
     n.nvars
     (Array.fold ~f:(fun x y -> x ^ " " ^ (Et.string_of_var y)) ~init:"" n.vars)
     (Array.fold ~f:(fun x y -> x ^ " " ^ (Et.string_of_et y)) ~init:"" n.initial_vals)
     (Array.fold ~f:(fun x y -> x ^ " " ^ (Et.string_of_et y)) ~init:"" n.update_exprs)
     (Et.string_of_et n.expr_cond)
     (Et.string_of_et (simplify_code n.expr_cond))
-
+    (Et.string_of_et (solve_of_nexpr n))

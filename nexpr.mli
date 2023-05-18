@@ -11,5 +11,3 @@ val nexprs_of_et:       Et.et -> nexpr list
 val simplify_code:      Et.et -> Et.et
 val solve_of_nexpr:     nexpr -> Et.et
 val string_of_nexpr:    nexpr -> string
-val iterations_of_loop: nexpr -> int
-
