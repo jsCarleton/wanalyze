@@ -10,26 +10,7 @@ open Cfg
 open Ebb
 
 (* Part 1 *)
-(* Printable strings for basic types *)
-let string_of_numtype nt =
-  match nt with
-  | I32 -> "i32" | I64 -> "i64"  | F32 -> "f32"  | F64 -> "f64"
 
-let string_of_reftype rt =
-  match rt with  
-  | Funcref -> "funcref" | Externref -> "externref"
-
-let string_of_resulttype rt =
-  match rt with
-  | Numtype x -> string_of_numtype x
-  | Reftype x -> string_of_reftype x
-
-let string_of_valtype vt = string_of_resulttype vt
-
-let string_of_mut m =
-  match m with
-  | Const -> ""
-  | NotConst -> "mut"
 
 (* Part 2 *)
 (* printing sections *)
@@ -290,10 +271,10 @@ let string_of_bb_detail (s: bb) : string =
     (string_of_raw_bblocks s.pred)
     
 let string_of_bbs_detail (s: bb list) : string =
-  Printf.printf "cost: %d\n" 
+(*   Printf.printf "cost: %d\n" 
     (cost_of_bb_path  (List.hd_exn s) 
         (List.find_exn s ~f:(fun x -> match x.bbtype with | BB_exit_end -> true | _ -> false)));
-  String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
+ *)  String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_bb_detail s)]
 
 let print_function oc (w: wm) annotate bbs i idx =
@@ -461,10 +442,10 @@ let string_of_loop_cost_fn c =
  *)
 let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let fnum          = fidx + w.last_import_func in
-  Printf.printf "function %d %!" fnum;
+  Printf.printf "function %d %!\n" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
-  Printf.printf "function %s %!" fname;
-  let fn            = List.nth_exn w.code_section fidx in
+(*   Printf.printf "function %s %!" fname;
+ *)  let fn            = List.nth_exn w.code_section fidx in
   let w_e           = fn.e in
   let bblocks       = bblocks_of_expr w_e in
   let cps           = codepaths_of_bbs bblocks [[List.hd_exn bblocks]] [] in
@@ -511,9 +492,9 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
     Out_channel.output_string oc "ebb costs:\n";
     print_ebb_costs oc ebbs;
-    let ns = List.concat (List.map ~f:Nexpr.nexprs_of_et (List.map ~f:(fun x -> x.ebb_cost) ebbs)) in
-    List.iter ~f:(fun n -> Printf.printf "%s\n%!" (Nexpr.string_of_nexpr n)) ns;
-    Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
+  (*  let ns = List.concat (List.map ~f:Nexpr.nexprs_of_et (List.map ~f:(fun x -> x.ebb_cost) ebbs)) in
+     List.iter ~f:(fun n -> Printf.printf "%s\n%!" (Nexpr.string_of_nexpr n)) ns;
+ *)    Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
     List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_ebblocks p))) ebb_paths;
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
     (match List.length ebb_paths with
@@ -597,19 +578,19 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
 (*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
     Out_channel.output_string oc (string_of_executions (execute_bblocks w bblocks (fidx + w.last_import_func) code.e) bblocks);
     Out_channel.close oc; *)
-    
-let print_functions w fnum =
+
+let print_functions w fnum func_info_dir =
   let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in
   let oc_costs   = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".costs"]) in
   match fnum with
   | -1 -> Out_channel.output_string oc_summary "Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values\n";
           List.iteri 
-            ~f:(print_function_details w oc_summary "funcs/" (String.concat[Filename.chop_extension w.module_name; "-func"]))
+            ~f:(print_function_details w oc_summary func_info_dir (String.concat[Filename.chop_extension w.module_name; "-func"]))
             (List.drop w.function_section w.last_import_func)
   | _  -> print_function_details
             w
             oc_summary
-            "funcs/"
+            func_info_dir
             (String.concat[Filename.chop_extension w.module_name; "-func"])
             fnum
             (List.nth_exn (List.drop w.function_section w.last_import_func) fnum);
@@ -640,4 +621,10 @@ let print w fnum =
     print_section oc (string_of_data_section w.data_section);
     Out_channel.output_string oc ")\n";
     Out_channel.close oc;
-    print_functions w fnum
+    Printf.printf "module %s %!\n" w.module_name;
+    let func_info_dir = String.concat [w.module_name; "-funcs/"] in
+      (try 
+        Core_unix.mkdir func_info_dir
+      with
+        _ -> ());
+      print_functions w fnum func_info_dir
