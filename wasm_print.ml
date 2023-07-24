@@ -442,7 +442,7 @@ let string_of_loop_cost_fn c =
  *)
 let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
   let fnum          = fidx + w.last_import_func in
-  Printf.printf "function %d %!\n" fnum;
+  Printf.printf "function %d %!" fnum;
   let fname         = String.concat[dir; prefix; string_of_int fnum] in
 (*   Printf.printf "function %s %!" fname;
  *)  let fn            = List.nth_exn w.code_section fidx in
@@ -515,7 +515,8 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
       List.iter 
         ~f:(print_summary oc_summary ctx (Filename.chop_extension w.module_name) fnum bblocks) 
         loop_cps
-  | false -> ())
+  | false -> ());
+  Printf.printf "\r%!"
   (* costs *)
 (*    Out_channel.output_string oc_costs
     (String.concat 
@@ -582,7 +583,7 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
 let print_functions w fnum func_info_dir =
   let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in
   let oc_costs   = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".costs"]) in
-  match fnum with
+  (match fnum with
   | -1 -> Out_channel.output_string oc_summary "Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values\n";
           List.iteri 
             ~f:(print_function_details w oc_summary func_info_dir (String.concat[Filename.chop_extension w.module_name; "-func"]))
@@ -593,7 +594,7 @@ let print_functions w fnum func_info_dir =
             func_info_dir
             (String.concat[Filename.chop_extension w.module_name; "-func"])
             fnum
-            (List.nth_exn (List.drop w.function_section w.last_import_func) fnum);
+            (List.nth_exn (List.drop w.function_section w.last_import_func) fnum));
   Out_channel.close oc_summary;
   Out_channel.close oc_costs
           
@@ -627,4 +628,5 @@ let print w fnum =
         Core_unix.mkdir func_info_dir
       with
         _ -> ());
-      print_functions w fnum func_info_dir
+      print_functions w fnum func_info_dir;
+      Printf.printf "\ndone\n%!"

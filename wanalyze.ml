@@ -12,6 +12,7 @@ let processFile fnum cwd path =
   let w  = Wm.create (Filename.basename path) in
   ReadBin.parse_wasm ic w;
   Wasm_print.print w fnum;
+  In_channel.close ic;
   Core_unix.chdir cwd
 
 let () =
