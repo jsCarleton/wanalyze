@@ -457,7 +457,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
   in
 
   let build_ebblock (ebbtype: ebb_type) (last_bb: bb) (bbs_acc: bb list): ebb =
-   finish_ebblock ebbtype (last_bb::bbs_acc)
+    finish_ebblock ebbtype (last_bb::bbs_acc)
   in
 
   let pred_before_ebb (bblock: bb option) (bblocks: bb list): bool =
@@ -501,7 +501,8 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
           end
           else
             (* yes, we're in a loop *)
-            (match hd.bbtype with
+            (
+              match hd.bbtype with
               (* are we at the end of the loop? *)
               | BB_end ->
                 if hd.nesting = lnest then

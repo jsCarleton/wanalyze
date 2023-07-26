@@ -271,10 +271,7 @@ let string_of_bb_detail (s: bb) : string =
     (string_of_raw_bblocks s.pred)
     
 let string_of_bbs_detail (s: bb list) : string =
-(*   Printf.printf "cost: %d\n" 
-    (cost_of_bb_path  (List.hd_exn s) 
-        (List.find_exn s ~f:(fun x -> match x.bbtype with | BB_exit_end -> true | _ -> false)));
- *)  String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
+  String.concat["                          br    target\nindex start   end nesting dest  labels type        succ/pred\n";
                  String.concat (List.map ~f:string_of_bb_detail s)]
 
 let print_function oc (w: wm) annotate bbs i idx =
@@ -375,104 +372,39 @@ let string_of_data d =
           ; ") "  ; hexstring_of_bytes meb.b ; ")"]
 let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string_of_data section)
 
-(* Part 3 *)
-(* printing the state *)
-
-(* Part 4 *)
-(* creating the .dot file that contains the flow graph definition *)
-
-
-(* Part 5 *)
-(* printing analysis results *)
-
-let string_of_codepath (ctx: execution_context) (codepath: cp): string = 
-  String.concat[string_of_raw_bblocks codepath; " "; (string_of_et (cost_of_codepath ctx.w_e codepath))]
-
-(* Part 6 *)
-(* print the functions one by one along with our analysis *)
-
-let loop_info ctx cp_ssa bbs (bb_idx: int) loop_type =
-  let bb_next = List.nth_exn bbs (bb_idx+1) in
-  let loop_cond = analyze_simple_loop ctx bb_next in
-  let loop_vars = vars_of_et loop_cond in
-  let loop_ssa = ssa_of_expr {w           = ctx.w; 
-                              w_e         = (expr_of_bb ctx.w_e bb_next); 
-                              w_state     = empty_program_state ctx.w ctx.param_types ctx.local_types;
-                              param_types = ctx.param_types;
-                              local_types = ctx.local_types} in
-  String.concat[  loop_type;
-                  ",";
-                  (string_of_ssa_list (List.map ~f:(explode_var cp_ssa) loop_vars) "; " false);
-                  ",";
-                  (string_of_et loop_cond);
-                  ",";
-                  (String.concat ~sep:"; " (List.map ~f:(fun lv -> string_of_var lv) loop_vars));
-                  ",";
-                  (string_of_ssa_list (List.map ~f:(explode_var loop_ssa) loop_vars) "; " false)]
-
-let loop_type ctx cp_ssa bbs (bb_idx: int) =
-  let bb = List.nth_exn bbs bb_idx in
-  let bb_next = List.nth_exn bbs (bb_idx+1) in
-  match simple_brif_loop bbs bb with
-  | Some _ -> loop_info ctx cp_ssa bbs bb_idx "simple br_if"
-  | _ -> (match simple_br_loop bbs bb with
-            | Some _ ->  loop_info ctx cp_ssa bbs bb_idx "simple br"
-            | _ -> (string_of_bb_type bb_next.bbtype))
-
-(* TODO more convenient to store code paths in reverse order? *)
-let print_summary oc_summary ctx m fnum bbs (codepath: cp) =
-  let cp_ssa = ssa_of_codepath ctx codepath true in
-  let bb = List.hd_exn (List.rev codepath) in
-  Out_channel.output_string oc_summary
-    (sprintf "%s,%d,%d,%s,%s\n"
-        m fnum bb.bbindex (string_of_codepath ctx codepath) (loop_type ctx cp_ssa bbs bb.bbindex));
-  ()
-
-(*let string_of_vars vs =
-  String.concat ~sep:"; " (List.dedup_and_sort ~compare:String.compare vs)
-
-let string_of_loop_cost_fn c =
-  sprintf "%d + %d*c('%s', '%s', '%s', '%s')" c.prefix_cost c.loop_cost (string_of_vars c.loop_vars) (string_of_ssa_list c.lv_entry_vals "; " false) (string_of_et c.loop_cond) (string_of_ssa_list c.lv_loop_vals "; " false) 
-
- let string_of_cost_of_loops col: string =
-  if List.length col = 1 then
-    string_of_loop_cost_fn (List.hd_exn col)
-  else
-    String.concat["max("; String.concat ~sep:", " (List.map ~f:string_of_loop_cost_fn col); ")"]
- *)
-let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
-  let fnum          = fidx + w.last_import_func in
-  Printf.printf "function %d %!" fnum;
-  let fname         = String.concat[dir; prefix; string_of_int fnum] in
-(*   Printf.printf "function %s %!" fname;
- *)  let fn            = List.nth_exn w.code_section fidx in
-  let w_e           = fn.e in
-  let bblocks       = bblocks_of_expr w_e in
-  let cps           = codepaths_of_bbs bblocks [[List.hd_exn bblocks]] [] in
-  let param_types   = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
-  let local_types   = (List.nth_exn w.code_section fidx).locals in
-  let w_state       = empty_program_state w param_types local_types in
-  let ctx           = {w; w_e; w_state; param_types; local_types} in
-  let ebbs          = ebbs_of_bbs ctx bblocks bblocks in
-  let ebb_paths     = paths_of_ebblocks ebbs in
-
+let print_function_details (w: wm) dir prefix fidx type_idx =
   (* function source code *)
+  let fnum  = fidx + w.last_import_func in
+  Printf.printf "function %d %!" fnum;
+  let fn = List.nth_exn w.code_section fidx in
+  let w_e = fn.e in
+  let fname = String.concat[dir; prefix; string_of_int fnum] in
+  let bblocks  = bblocks_of_expr w_e in
   let oc = Out_channel.create (String.concat[fname; ".wat"]) in
     print_function oc w true bblocks fidx type_idx;
     Out_channel.output_string oc "\n";
     Out_channel.close oc;
+
   (* bblocks in function *)
   let oc = Out_channel.create (String.concat[fname; ".bblocks"]) in
     Out_channel.output_string oc (string_of_bbs_detail bblocks);
     Out_channel.close oc;
+
   (* graphviz command file for bb flow graph *)
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
     Out_channel.output_string oc (cfg_dot_of_bbs w.module_name fnum bblocks);
     Out_channel.close oc;
+
   (* ebblocks in function *)
+  let param_types = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
+  let local_types = (List.nth_exn w.code_section fidx).locals in
+  let w_state = empty_program_state w param_types local_types in
+  let ctx = {w; w_e; w_state; param_types; local_types} in
+  let ebbs = ebbs_of_bbs ctx bblocks bblocks in
   let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
     List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
     Out_channel.close oc;
+
   (* graphviz command file for ebb flow graph *)
   let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
@@ -489,12 +421,11 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
     in
 
   (* costs *)
+(*  let ebb_paths = paths_of_ebblocks ebbs in
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
     Out_channel.output_string oc "ebb costs:\n";
     print_ebb_costs oc ebbs;
-  (*  let ns = List.concat (List.map ~f:Nexpr.nexprs_of_et (List.map ~f:(fun x -> x.ebb_cost) ebbs)) in
-     List.iter ~f:(fun n -> Printf.printf "%s\n%!" (Nexpr.string_of_nexpr n)) ns;
- *)    Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
+    Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
     List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_ebblocks p))) ebb_paths;
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
     (match List.length ebb_paths with
@@ -504,98 +435,21 @@ let print_function_details (w: wm) oc_summary dir prefix fidx type_idx =
            let p = Out_channel.output_string oc in
            print_et max_cost p));
     Out_channel.output_string oc "\n";
-    Out_channel.close oc;
-
-  (* TODO everything after this is diagnostics, not required *)
-  (* loop analysis *)
-  (match has_loop bblocks with
-  | true ->
-      (* print loop summary info *)
-      let loop_cps = List.dedup_and_sort ~compare:compare_cps (loop_codepaths bblocks cps) in
-      List.iter 
-        ~f:(print_summary oc_summary ctx (Filename.chop_extension w.module_name) fnum bblocks) 
-        loop_cps
-  | false -> ());
+    Out_channel.close oc;*)
   Printf.printf "\r%!"
-  (* costs *)
-(*    Out_channel.output_string oc_costs
-    (String.concat 
-      [ string_of_int fnum;
-        " ";
-        (let loops = loops_of_bbs bblocks in
-        match List.length loops with
-          (*  no loops
-              cost is the max cost over all possible code paths (if we can compute it) *)
-          | 0 -> let c = max_cost_of_codepaths cps (-1) in
-                 if c >= 0 then string_of_int c else "-5 too many paths"
-          (*  exactly one loop
-              the function is divided into 4 disjoint sets of code paths that either:
-              1. start at the function entry, end at the function exit and don't enter the loop
-              2. start at the function entry, end at the loop bb
-              3. start at the bb following the loop bb and end at that bb, a return or
-                 unreachable bb or at the end bb of the loop
-              4. start at a return or unreachable bb or the end bb of the loop, end at the
-                 function exit
-
-              resulting max cost is max(cost(1), max(2 + 3 + 4)) where max is taken over all valid
-              combinations of path *)
-          | 1 -> (  let l = List.hd_exn loops in
-                    let exit_bbs = exit_bblocks_of_loop l in
-                    match List.length exit_bbs with
-                      | 0 -> "-6 infinite loop"
-                      | 1 -> (
-                          let bbacks = l.branchbacks in
-                          match List.length bbacks with
-                          | 0 -> failwith "Loop has no branchbacks"
-                          | 1 ->
-                            (* 1 loop, 1 loop exit, 1 loop branchback *)
-                            let bback = List.hd_exn bbacks in
-                            let prefixes = (unique_paths_to_bblock cps (List.hd_exn l.loop_bblocks)) in
-                            if List.length prefixes = 0 then
-                              "-4 too many prefixes"
-                            else (
-                              let col = cost_of_loops ctx prefixes l.looping_paths bback in
-                              String.concat["max("; 
-                                string_of_int (max_cost_of_codepaths (paths_with_no_loops cps) 0);
-                                ", ";
-                                string_of_cost_of_loops col; " + ";
-                                string_of_int (max_cost_of_codepaths (paths_from_bblocks exit_bbs) 0);
-                                ")"])
-                          | _ -> "-1 multiple branchbacks")
-                      | _ -> "-2 multiple exits")
-          (* the function has more than 1 loop 
-              we analyze the loops to determine whether there are 1) loops in series, 2) parallel loops or
-              3) nested loops *)
-          | _ ->  "-3 multiple loops");
-                 (*  let lc = classify_loops loops in
-                    String.concat [
-                      "-3 multiple loops"; 
-                      if lc.loops_nested    then ", nested" else "";
-                      if lc.loops_series    then ", in series" else "";
-                      if lc.loops_parallel  then ", in parallel" else "";
-                    ]); *)
-        "\n"])
- *)   (* execution trace of the function *)
-(*   let oc = Out_channel.create (String.concat[fname; ".trace"]) in
-    Out_channel.output_string oc (string_of_executions (execute_bblocks w bblocks (fidx + w.last_import_func) code.e) bblocks);
-    Out_channel.close oc; *)
 
 let print_functions w fnum func_info_dir =
-  let oc_summary = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".csv"]) in
   let oc_costs   = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".costs"]) in
   (match fnum with
-  | -1 -> Out_channel.output_string oc_summary "Module,Function,BBlock,Code Path,Loop Type,Initial Values,Condition,Variables,Values\n";
-          List.iteri 
-            ~f:(print_function_details w oc_summary func_info_dir (String.concat[Filename.chop_extension w.module_name; "-func"]))
+  | -1 -> List.iteri 
+            ~f:(print_function_details w func_info_dir (String.concat[Filename.chop_extension w.module_name; "-func"]))
             (List.drop w.function_section w.last_import_func)
   | _  -> print_function_details
             w
-            oc_summary
             func_info_dir
             (String.concat[Filename.chop_extension w.module_name; "-func"])
-            fnum
+            (fnum - w.last_import_func)
             (List.nth_exn (List.drop w.function_section w.last_import_func) fnum));
-  Out_channel.close oc_summary;
   Out_channel.close oc_costs
           
 (* Part 7 *)
