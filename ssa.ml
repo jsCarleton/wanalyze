@@ -224,14 +224,15 @@ let ssa_of_codepath (ctx: execution_context) (codepath: Cp.cp) (init_locals: boo
             ~init:(if init_locals then (initial_ssas_of_locals (List.length ctx.param_types) ctx.local_types) else [])
             codepath
 
-let rec expand_et (e: et) (s_src: ssa) : et =
+let rec expand_et (e: et) (s_src: ssa): et =
   match e with 
   | Variable v
-      -> if compare_vars v s_src.result = 0 then 
+      -> if compare_vars v s_src.result = 0 then
             s_src.etree
           else 
             e
-  | Node n -> Node {n with args = List.map ~f:(fun e' -> expand_et e' s_src) n.args}
+  | Node n ->
+      Node {n with args = List.map ~f:(fun e' -> expand_et e' s_src) n.args}
   | _ -> e
 
 let explode_var (s: ssa list) (result: var): ssa =
