@@ -402,7 +402,7 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
   let ctx = {w; w_e; w_state; param_types; local_types} in
   let ebbs = ebbs_of_bbs ctx bblocks bblocks in
   (* ebbs 70m10.963s autocad/83736 *)
-  let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
+(*  let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
     List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
     Out_channel.close oc;
   (* print ebbs 68m21.958s autocad/83736 *)
@@ -434,16 +434,16 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
     Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
     List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_ebblocks p))) ebb_paths;
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
-  (* print more costs ?? autocad/83736 *)
-(*    (match List.length ebb_paths with
+    (match List.length ebb_paths with
     | 0 -> Out_channel.output_string oc "Inf"
     | 1 -> Out_channel.output_string oc (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths))))
     | _ -> (let max_cost = ebb_paths_max_cost ebb_paths in
            let p = Out_channel.output_string oc in
            print_et max_cost p));
-    Out_channel.output_string oc "\n";*)
-    Out_channel.close oc;
-  Printf.printf "\r%!"
+    Out_channel.output_string oc "\n";
+  (* print more costs 66m7.387s autocad/83736 *)
+  Out_channel.close oc;
+*)  Printf.printf "\r%!"
 
 let print_functions w fnum func_info_dir =
   let oc_costs   = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".costs"]) in

@@ -320,9 +320,8 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
   in
 
   let looping_parts_costs (bbacks: bb list) (loop_cps: cp list) (prefix_part: cp):
-        Cost.loop_metric list =
-Printf.printf "%d\n%!" (List.length loop_cps);
-    List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
+    Cost.loop_metric list =
+      List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
   in
 
   let expr_of_lm (lm: Cost.loop_metric): et =
@@ -374,6 +373,7 @@ Printf.printf "%d\n%!" (List.length loop_cps);
   in
 
   let finish_ebblock' (ebbtype: ebb_type) (bblocks: bb list): ebb =
+  Printf.printf "Finishing EBB: %d %s\n%!" ((List.hd_exn bblocks).bbindex) (Time_ns.to_string (Time_ns.now()));
 
     let entry_bb    = List.hd_exn bblocks in
     let succ_ebbs   = [] in
@@ -397,31 +397,30 @@ Printf.printf "%d\n%!" (List.length loop_cps);
               (* TODO why do we only consider one prefix? *)
               | cps  -> List.rev (List.hd_exn cps)) in (* TODO this reverse should be done earlier *)
             let lms = looping_parts_costs bbacks loop_cps cp in
-(*            let ulv = unique_loop_vars lms in
+            let ulv = unique_loop_vars lms in
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
             let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
-*)
+(* cottage - 69m21.389s *)
+            if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
 let ebb_cost = Constant (String_value "Infinity-z") in
 {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
-(*            if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
-              begin
-                (* do we have more than 1 set of loop metrics to consider? *)
+(*              begin
+                (* do we have more than 1 set of loop metrics to consider *)
                 if List.length lms > 1 then
                   (* yes, we need a max operation *)
                   begin
                     match exit_cost with
                     | Empty ->
-                        let ebb_cost = Node {op = "list_max"; op_disp = Function; args = List.map ~f:expr_of_lm lms} in
-                        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                     | _     ->
                         let ebb_cost = Node {op = "+"; op_disp = Infix; 
-                                         args = [Node {op = "list_max"; op_disp = Function; args =  List.map ~f:expr_of_lm lms};
+                                         args = [Node {op = "list_max"; op_disp = Function; args = List.map ~f:expr_of_lm lms};
                                                  exit_cost]} in
                         {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
                   (* no, we need use the cost of the single path through the loop *)
                   begin
+                    (* somehow this code is a problem *)
                     match exit_cost with
                     | Empty ->
                         let ebb_cost = expr_of_lm (List.hd_exn lms) in
@@ -431,13 +430,14 @@ let ebb_cost = Constant (String_value "Infinity-z") in
                       {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
               end
-            else
+*)            else
               (* this happens when there are too many loop prefixes and we give up trying to enumerate them *)
               begin
                 let ebb_cost       =  Constant (String_value "Infinity-z") in
                 {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
               end
-*)          end
+          end
+(* cottage - ?? *)
         else
           (* this happens when there are too many looping paths and we give up trying to enumerate them *)
           begin 
