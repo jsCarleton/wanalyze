@@ -319,12 +319,12 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     List.find_exn ~f:(fun bblock -> List.exists ~f:(fun bblock' -> bblock'.bbindex = bblock.bbindex) codepath) bblocks
   in
 
-  let looping_parts_costs (bbacks: bb list) (loop_cps: cp list) (prefix_part: cp):
-    Cost.loop_metric list =
-      List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
+  let looping_parts_costs (bbacks: bb list) (loop_cps: cp list) (prefix_part: cp): Cost.loop_metric list =
+    Printf.printf "loop_cps length: %d\n%!" (List.length loop_cps);
+    List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
   in
 
-  let expr_of_lm (lm: Cost.loop_metric): et =
+(*  let expr_of_lm (lm: Cost.loop_metric): et =
     match lm with
     | Infinite  -> Constant (String_value "Infinity-y")
     | LMI lmi   ->
@@ -342,7 +342,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                               ]}
                   ]}
   in
-
+*)
   let unique_loop_vars (lms: Cost.loop_metric list): var list =
     List.dedup_and_sort ~compare:compare_vars
       (List.fold ~init:[] ~f:(fun acc lm -> match lm with | Infinite -> acc | LMI lm ->List.append lm.loop_vars acc) lms)
@@ -396,12 +396,13 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
               | [] -> []
               (* TODO why do we only consider one prefix? *)
               | cps  -> List.rev (List.hd_exn cps)) in (* TODO this reverse should be done earlier *)
-            let lms = looping_parts_costs bbacks loop_cps cp in
-            let ulv = unique_loop_vars lms in
-            let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
-            let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
-(* cottage - 69m21.389s *)
-            if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
+Printf.printf "cps %s\n%!" (Time_ns.to_string (Time_ns.now()));
+              let lms = looping_parts_costs bbacks loop_cps cp in
+Printf.printf "lms %s\n%!" (Time_ns.to_string (Time_ns.now()));
+              let ulv = unique_loop_vars lms in
+              let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
+(*              let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
+*)              if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
 let ebb_cost = Constant (String_value "Infinity-z") in
 {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
 (*              begin
@@ -437,7 +438,6 @@ let ebb_cost = Constant (String_value "Infinity-z") in
                 {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
               end
           end
-(* cottage - ?? *)
         else
           (* this happens when there are too many looping paths and we give up trying to enumerate them *)
           begin 
@@ -446,7 +446,7 @@ let ebb_cost = Constant (String_value "Infinity-z") in
             let nested_ebbs = [] in
             {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
           end
-    | EBB_block ->
+      | EBB_block ->
         let codepaths   = [] in
         let loop_cps    = [] in
         let exit_cps    = [] in

@@ -185,6 +185,9 @@ let et_of_unop (op: string) (arg1: et): et =
   Node {op; op_disp = Function; args = [arg1]}
 
 let et_of_binop (op: string) (arg1: et) (arg2: et): et =
+  match arg1, arg2 with
+  | Variable v1, Variable v2 when ((compare_vars v1 v2) <> 0) -> failwith "Invalid binop arguments"
+  | _ -> ();
   Node {op = op; op_disp = Infix; args = [arg1; arg2]}
 
 (* Parametric operators *)

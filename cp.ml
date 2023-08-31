@@ -587,7 +587,7 @@ let paths_from_bblocks (bblocks: bb list): cp list =
 
   Parameters:
     e           code of the function
-    codepath   code path
+    codepath    code path
     bback       branchback bb
 
   Returns:
