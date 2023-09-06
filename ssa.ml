@@ -232,9 +232,36 @@ let rec expand_et (e: et) (s_src: ssa): et =
           else 
             e
   | Node n ->
-      Node {n with args = List.map ~f:(fun e' -> expand_et e' s_src) n.args}
+    Node {n with args = List.map ~f:(fun e' -> (expand_et[@tailcall]) e' s_src) n.args}
   | _ -> e
 
+
 let explode_var (s: ssa list) (result: var): ssa =
+  let rec expand_et_new (e: et) (vars: var list) (s: ssa list): et =
+    match s with
+    | [] ->     e
+    | hd::tl ->
+      begin
+(*        Printf.printf "ssa: %s vars:[%s]\n%!" (string_of_ssa hd) (string_of_vars vars); 
+*)        if not (v_in_vlist hd.result vars) then
+          expand_et_new e vars tl
+        else 
+        begin
+          let e' = expand_et e hd in
+          expand_et_new 
+            e'
+            (List.dedup_and_sort ~compare:compare_vars  
+              ((List.filter ~f:(fun v1 -> (compare_vars v1 hd.result) <> 0) vars) 
+                @ (vars_of_et hd.etree)))
+            tl
+        end
+      end
+  in
+
   let v = Variable result in
-  {result; etree = List.fold_left ~f:expand_et ~init:v s; alive = true}
+  {result; etree = expand_et_new v [result] s; alive = true}
+
+(* let explode_var_old (s: ssa list) (result: var): ssa =
+Printf.printf "explode_var: %s\n%!" (string_of_var result);
+  let v = Variable result in
+  {result; etree = List.fold_left ~f:expand_et ~init:v s; alive = true}*)

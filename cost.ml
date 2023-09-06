@@ -70,6 +70,8 @@ let site_of_nesting_if (lp: Cp.cp): cond_site option =
 
 (* TODO do we need both symbolic execution and SSA to do this? *)
 let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts): loop_metric =
+Printf.printf "\nbback: %d\n%!" bback.bbindex;
+
   (* a key part of this is locating the bb that the condition of the loop is tested ... *)
   let cs_o =
     (match bback.bbtype with
@@ -83,15 +85,27 @@ let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts
   match cs_o with
   | None    -> Infinite
   | Some cs ->
+Printf.printf "cond_bb: %d\n%!" cs.cond_bb.bbindex;
+Printf.printf "prefix path: %s\n%!" (Bb.string_of_bbs lp.prefix_part); 
+Printf.printf "loop path: %s\n%!" (Bb.string_of_bbs lp.loop_part); 
     let _, loop_cond = Ex.reduce_bblock ctx.w 
         (Cp.expr_of_codepath ctx.w_e lp.loop_part cs.cond_bb)
         (Ex.empty_program_state ctx.w ctx.param_types ctx.local_types) in
+Printf.printf "loop_cond: %s\n%!" (Et.string_of_et loop_cond);
     let loop_vars     = Et.vars_of_et loop_cond in
+Printf.printf "loop_vars: [%s]\n%!" (Et.string_of_vars loop_vars);
     let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part true in
-    let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
+(*Printf.printf "\nprefix_ssa:\n%s\n%!" (Ssa.string_of_ssa_list prefix_ssa "\n" true);
+Printf.printf "\nloop ssa:\n%s\n%!" (Ssa.string_of_ssa_list (Ssa.ssa_of_codepath ctx lp.loop_part false) "\n" true);
+*)    let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
+Printf.printf "lv_entry_vals\n%!";
+(*Printf.printf "%s\n%!" (Ssa.string_of_ssa_list lv_entry_vals "\n" true);*)
     let loop_ssa      = Ssa.ssa_of_codepath ctx lp.loop_part false in
+Printf.printf "loop_ssa\n%!";
     let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
-      LMI { prefix_cost = Cp.cost_of_codepath ctx.w_e lp.prefix_part;
+Printf.printf "lv_loop_vals\n%!";
+(*Printf.printf "%s\n%!" (Ssa.string_of_ssa_list lv_loop_vals "\n" true);*)
+    LMI { prefix_cost = Cp.cost_of_codepath ctx.w_e lp.prefix_part;
             loop_cost = Cp.cost_of_codepath ctx.w_e lp.loop_part;
             loop_cond = if cs.sense then loop_cond else Node { op = "not"; op_disp = Et.Function; args = [loop_cond]};
             loop_vars;

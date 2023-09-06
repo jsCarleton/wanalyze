@@ -93,7 +93,9 @@ let read_f64 ic =
   Int64.float_of_bits f
 
 let read_memarg ic bits mem_nt: memarg = 
-  let a = uLEB ic 32 in {a; o=uLEB ic 32; bits; mem_nt}
+  let a = uLEB ic 32 in 
+  let o = uLEB ic 32 in
+  {a; o; bits; mem_nt}
 
 let rec read_vec' ic n reader acc =
   match n with
@@ -671,7 +673,7 @@ let read_section_id ic = read_byte ic
 (* wasm Module reader *)
 let rec read_sections ic w =
   match read_section_id ic with
-  | -1 -> ()
+  | -1 -> () 
   | id -> read_section_body ic w id;
           read_sections ic w
 

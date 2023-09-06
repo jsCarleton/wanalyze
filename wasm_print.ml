@@ -400,7 +400,7 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
   let local_types = (List.nth_exn w.code_section fidx).locals in
   let w_state = empty_program_state w param_types local_types in
   let ctx = {w; w_e; w_state; param_types; local_types} in
-  let ebbs = ebbs_of_bbs ctx bblocks bblocks in
+  let (_: ebb list) (*ebbs*) = ebbs_of_bbs ctx bblocks bblocks in
   (* ebbs 70m10.963s autocad/83736 *)
 (*  let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
     List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
@@ -446,6 +446,7 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
 *)  Printf.printf "\r%!"
 
 let print_functions w fnum func_info_dir =
+Printf.printf "fnum: %d\n%!" fnum;
   let oc_costs   = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".costs"]) in
   (match fnum with
   | -1 -> List.iteri 
@@ -456,7 +457,7 @@ let print_functions w fnum func_info_dir =
             func_info_dir
             (String.concat[Filename.chop_extension w.module_name; "-func"])
             (fnum - w.last_import_func)
-            (List.nth_exn (List.drop w.function_section w.last_import_func) fnum));
+            (List.nth_exn (List.drop w.function_section w.last_import_func) (fnum - w.last_import_func)));
   Out_channel.close oc_costs
           
 (* Part 7 *)
