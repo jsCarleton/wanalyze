@@ -20,9 +20,13 @@ type et = Empty | Constant of constant_value | Variable of var
       and node = { op: string; op_disp: opdisplay; args: et list }
 
 val string_of_var:          var -> string
+val string_of_vars:         var list -> string
 val valtype_of_var:         Wm.resulttype list -> Wm.local_type list -> int -> Wm.valtype
 val compare_vars:           var -> var -> int
+val vars_of_et:             et -> var list
+val v_in_vlist:             var -> var list -> bool
 val string_of_et:           et -> string
+val string_of_ets:          et list -> string
 val format_et:              et -> string
 val print_et:               et -> (string -> unit) -> unit
 val vars_of_et:             et -> var list

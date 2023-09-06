@@ -194,8 +194,12 @@ let et_of_binop (op: string) (arg1: et) (arg2: et): et =
 let update_state_parametricop (op: op_type) (s: program_state) = 
   match op.opcode with
   | 0x1a -> (* drop *)      drop_value s
-  | 0x1b -> (* select *)    drop_value s; drop_value s (* TODO *)
-  | 0x1c -> (* select t* *) drop_value s; drop_value s (* TODO *)
+  | 0x1b    (* select *)
+  | 0x1c -> (* select t* *)  
+      let c  = pop_value s in
+      let v1 = pop_value s in
+      let v2 = pop_value s in
+      push_value s (Node{op = "select"; op_disp = Function; args = [c; v1; v2]})
   | _ -> failwith (sprintf "Invalid parametric %x " op.opcode)  
 
 (* Control operators *)
@@ -240,10 +244,12 @@ let update_state_memloadop (op: op_type) (state: program_state) =
   poke_value state (find_mem_elem state.mem_values op.arg)
 
 let update_state_memstoreop (op: op_type) (state: program_state) =
+  let (_: et) = pop_value state in (* TODO we need to use this offset to make memory store correct *)
+  let v = pop_value state in
   state.mem_values <- 
     { elem_type   = elem_type_of_arg op.arg;
       elem_offset = elem_offset_of_arg op.arg;
-      elem_value =  pop_value state}
+      elem_value  = v}
     :: state.mem_values
 
 (* constant operators *)
@@ -275,14 +281,33 @@ let update_state_cvtop (op: op_type) (state: program_state) =
 (* instruction counter*)
 let update_instr_count (state: program_state) = state.instr_count <- state.instr_count + 1
 
-let update_state_controlop (w: wm) (op: op_type) (s: program_state): et = 
+let update_state_controlop (w: wm) (op: op_type) (s: program_state): et =
+
+  let param_count (w: wm) (arg: op_arg): int = 
+    match arg with
+    | Blocktype bt -> (
+      match bt with
+      | Emptytype | Valuetype _  -> 0
+      | Typeindex n -> List.length (List.nth_exn w.type_section n).rt1
+    )
+    | _ -> failwith "Invalid blocktype arg"
+  in
+
   match op.opcode with
-  (* unreachable, nop, block, loop, else, end, br, return - nothing to do *)
-  | 0x00 | 0x01 | 0x02 | 0x03 | 0x05 | 0x0b | 0x0c | 0x0f -> Empty
-  (* if, br_if, br_table - get the condition from the top of the stack *) (* TODO fix br_table *)
-  | 0x04 | 0x0d | 0x0e ->
-      let succ_cond = (List.hd_exn s.value_stack) in
-      s.value_stack <- (List.tl_exn s.value_stack);
+  (* unreachable, nop, else, end, br, return - nothing to do *)
+  | 0x00 | 0x01 | 0x0b | 0x05 | 0x0c | 0x0f -> Empty
+  (* block, loop - pop values from the stack *)
+  | 0x02 | 0x03 ->
+      drop_n_values s (param_count w op.arg);
+      Empty
+  (* if - pop values from the stack, get the condition from the top of the stack *)
+  | 0x04 ->
+      drop_n_values s (param_count w op.arg);
+      let succ_cond = pop_value s in
+      succ_cond
+  (* br_if, br_table - get the condition from the top of the stack *) (* TODO fix br_table *)
+  | 0x0d | 0x0e ->
+      let succ_cond = pop_value s in
       succ_cond
   (* call *)
   | 0x10 ->
@@ -294,32 +319,35 @@ let update_state_controlop (w: wm) (op: op_type) (s: program_state): et =
   | 0x11 -> Empty (* TODO *)
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
-    
-let reduce_op (w: wm) (op: op_type) (s: program_state): et =
-    update_instr_count s;
-    match op.instrtype with
-    | Control -> update_state_controlop w op s
-    | _ ->
-      (match op.instrtype with
-      | Reference ->  failwith "Unimplemented reference"
-      | Parametric -> update_state_parametricop op s
-      | VariableGL -> update_state_varGLop op s
-      | VariableSL -> update_state_varSLop op s
-      | VariableTL -> update_state_varTLop op s
-      | VariableGG -> update_state_varGGop op s
-      | VariableSG -> update_state_varSGop op s
-      | Table ->      failwith "Unimplemented table"
-      | MemoryL ->    update_state_memloadop op s
-      | MemoryS ->    update_state_memstoreop op s
-      | MemoryM ->    () (* nothing to do in this case *)
-      | Constop ->    update_state_constop op s
-      | Unop ->       update_state_unop op s
-      | Binop f ->    update_state_binop f s
-      | Testop ->     update_state_testop op s
-      | Relop f ->    update_state_binop f s
-      | Cvtop ->      update_state_cvtop op s
-      | Control ->    failwith "Can't happen."
-      ); Empty
+      
+let reduce_op (w: wm) (op: op_type) (s: program_state) (trace: bool): et =
+  if trace then
+      Printf.printf "%s [%s] \n%!" (Opcode.string_of_opcode (Opcode.opcode_of_int op.opcode)) (string_of_ets s.value_stack)
+  else ();
+  update_instr_count s;
+  match op.instrtype with
+  | Control -> update_state_controlop w op s
+  | _ ->
+    (match op.instrtype with
+    | Reference ->  failwith "Unimplemented reference"
+    | Parametric -> update_state_parametricop op s
+    | VariableGL -> update_state_varGLop op s
+    | VariableSL -> update_state_varSLop op s
+    | VariableTL -> update_state_varTLop op s
+    | VariableGG -> update_state_varGGop op s
+    | VariableSG -> update_state_varSGop op s
+    | Table ->      failwith "Unimplemented table"
+    | MemoryL ->    update_state_memloadop op s
+    | MemoryS ->    update_state_memstoreop op s
+    | MemoryM ->    () (* nothing to do in this case *)
+    | Constop ->    update_state_constop op s
+    | Unop ->       update_state_unop op s
+    | Binop f ->    update_state_binop f s
+    | Testop ->     update_state_testop op s
+    | Relop f ->    update_state_binop f s
+    | Cvtop ->      update_state_cvtop op s
+    | Control ->    failwith "Can't happen."
+    ); Empty
 
 (**
   reduce_bblock
@@ -341,7 +369,7 @@ let rec succ_cond_of_bb (w: wm) (s: program_state) (e: expr) (succ_cond: et) :
   match e with
   | []      -> succ_cond
   | hd::tl  -> 
-      succ_cond_of_bb w s tl (reduce_op w hd s)
+      succ_cond_of_bb w s tl (reduce_op w hd s false)
 
 (**
   reduce_bblock from an initial program state, symbolically executes the code in an expr.
@@ -366,7 +394,7 @@ let reduce_bblock (w: wm) (e: expr) (i: program_state):
 let rec reduce_expr (w: wm) (e: expr) (s: program_state): et =
   match e with
   | []      ->  List.hd_exn s.value_stack
-  | hd::tl  ->  let (_: et) = reduce_op w hd s in
+  | hd::tl  ->  let (_: et) = reduce_op w hd s false in
                 reduce_expr w tl s
 
 let et_of_mglobal (w: wm) (e: expr) (s: program_state): et = 

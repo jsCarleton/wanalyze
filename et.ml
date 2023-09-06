@@ -24,6 +24,9 @@ let string_of_var (v: var): string =
     | Var_parameter | Var_local | Var_global | Var_temp ->  sprintf "%s%s%d" (string_of_vart v.vtype) (string_of_valt v.nt) v.idx
     | Var_memory    -> sprintf "%s[%d]" v.vname v.idx
 
+let string_of_vars (vs: var list): string =
+  String.concat (List.map ~f:string_of_var vs) ~sep:","
+
 type constant_value = Int_value of int | Int64_value of int64
       | Float_value of float | String_value of string
 
@@ -41,6 +44,20 @@ let rec local_type_of_index (local_types: local_type list) (index: int) (types_i
   match index < types_count + (List.nth_exn local_types types_index).n with
   | true  -> (List.nth_exn local_types types_index).v
   | _     -> local_type_of_index local_types index (types_index+1) (types_count + (List.nth_exn local_types types_index).n)
+
+let vars_of_et (e: et): var list =
+
+  let rec vars_of_et' (acc: var list) (e:et): var list = 
+    match e with
+    | Variable v -> v :: acc
+    | Node n -> List.fold_left ~f:vars_of_et' ~init:acc n.args
+    | _ -> acc
+  in
+
+  vars_of_et' [] e
+
+let v_in_vlist (v: var) (vs: var list): bool =
+  List.exists  vs ~f:(fun v1 -> (compare_vars v v1) = 0) 
 
 let valtype_of_var (param_types: resulttype list) (local_types: local_type list) (idx: int): valtype =
   let nparams = List.length param_types in
@@ -84,6 +101,9 @@ let rec string_of_et (e: et): string =
             -> String.concat["("; string_of_et (List.hd_exn n.args); " "; n.op; " "; string_of_et (List.hd_exn (List.tl_exn n.args)); ")"]
         | _ -> String.concat [n.op; "("; String.concat ~sep:", " (List.map ~f:string_of_et n.args); ")"]
       end
+
+let string_of_ets (ets: et list): string =
+  String.concat (List.map ~f:string_of_et ets) ~sep:", "
 
 let const_args (args: et list): bool =
   List.for_all ~f:(fun e -> match e with Constant _ -> true | _ -> false) args
