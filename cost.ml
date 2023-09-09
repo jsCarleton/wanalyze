@@ -93,12 +93,16 @@ Printf.printf "loop cond: %s\n%!" (Et.string_of_et loop_cond);
 Printf.printf "%d loop vars: %s\n%!" (List.length loop_vars) (String.concat (List.map ~f:(fun v -> Et.string_of_var v) loop_vars) ~sep:",");
 Printf.printf "prefix path: %s\n%!" (Bb.string_of_bbs lp.prefix_part);
 Printf.printf "loop path: %s\n%!" (Bb.string_of_bbs lp.loop_part);
-Printf.printf "loop ssa:\n %s\n%!" (Ssa.string_of_ssa_list (Ssa.ssa_of_codepath ctx lp.prefix_part true) "\n" true);
-    let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part true in
+(*Printf.printf "loop ssa:\n %s\n%!" (Ssa.string_of_ssa_list (Ssa.ssa_of_codepath ctx lp.prefix_part true) "\n" true);
+*)    let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part true in
+Printf.printf "prefix_ssa\n%!";
 (*Printf.printf "%s\n%!" (Ssa.string_of_ssa_list prefix_ssa "\n" true);
 *)    let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
+Printf.printf "lv_entry_vals\n%!";
     let loop_ssa      = Ssa.ssa_of_codepath ctx lp.loop_part false in
+Printf.printf "loop_ssa\n%!";
     let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
+Printf.printf "lv_loop_vals\n%!";
     LMI { prefix_cost = Cp.cost_of_codepath ctx.w_e lp.prefix_part;
             loop_cost = Cp.cost_of_codepath ctx.w_e lp.loop_part;
             loop_cond = if cs.sense then loop_cond else Node { op = "not"; op_disp = Et.Function; args = [loop_cond]};
