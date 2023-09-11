@@ -373,7 +373,6 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
   in
 
   let finish_ebblock' (ebbtype: ebb_type) (bblocks: bb list): ebb =
-  Printf.printf "Finishing EBB: %d %s\n%!" ((List.hd_exn bblocks).bbindex) (Time_ns.to_string (Time_ns.now()));
 
     let entry_bb    = List.hd_exn bblocks in
     let succ_ebbs   = [] in
@@ -396,9 +395,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
               | [] -> []
               (* TODO why do we only consider one prefix? *)
               | cps  -> List.rev (List.hd_exn cps)) in (* TODO this reverse should be done earlier *)
-Printf.printf "cps %s\n%!" (Time_ns.to_string (Time_ns.now()));
               let lms = looping_parts_costs bbacks loop_cps cp in
-Printf.printf "lms %s\n%!" (Time_ns.to_string (Time_ns.now()));
               let ulv = unique_loop_vars lms in
               let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
 (*              let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in

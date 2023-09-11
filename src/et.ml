@@ -45,17 +45,6 @@ let rec local_type_of_index (local_types: local_type list) (index: int) (types_i
   | true  -> (List.nth_exn local_types types_index).v
   | _     -> local_type_of_index local_types index (types_index+1) (types_count + (List.nth_exn local_types types_index).n)
 
-let vars_of_et (e: et): var list =
-
-  let rec vars_of_et' (acc: var list) (e:et): var list = 
-    match e with
-    | Variable v -> v :: acc
-    | Node n -> List.fold_left ~f:vars_of_et' ~init:acc n.args
-    | _ -> acc
-  in
-
-  vars_of_et' [] e
-
 let v_in_vlist (v: var) (vs: var list): bool =
   List.exists  vs ~f:(fun v1 -> (compare_vars v v1) = 0) 
 
@@ -75,6 +64,22 @@ let initialize_local_value (local_types: local_type list) (nparams: int) (i: int
         | F32
         | F64 -> Float_value 0.0)
     | _ -> failwith "Invalid numtype"
+    
+let vars_of_et (tree: et): var list =
+
+  let rec vars_of_et' (tree: et): var list =
+    match tree with
+    | Empty | Constant _  -> 
+        []
+    | Variable v          -> 
+        [v]
+    | ExprList el         ->
+      List.concat (List.map ~f:vars_of_et' el)
+    | Node n              -> 
+      List.concat (List.map ~f:vars_of_et' n.args)
+    in
+
+  List.dedup_and_sort ~compare:compare_vars (vars_of_et' tree)
     
 (* expression tree *)
 let string_of_constant_value (c: constant_value): string =
@@ -237,22 +242,6 @@ let print_et (e: et) p =
   in
 
   print_et' 0 e
-
-let vars_of_et (tree: et): var list =
-
-  let rec vars_of_et' (tree: et): var list =
-    match tree with
-    | Empty | Constant _  -> 
-        []
-    | Variable v          -> 
-        [v]
-    | ExprList el         ->
-      List.concat (List.map ~f:vars_of_et' el)
-    | Node n              -> 
-      List.concat (List.map ~f:vars_of_et' n.args)
-    in
-
-  List.dedup_and_sort ~compare:compare_vars (vars_of_et' tree)
 
 let rec compare (e1: et) (e2: et): int =
 match e1,e2 with

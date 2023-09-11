@@ -29,7 +29,6 @@ val string_of_et:           et -> string
 val string_of_ets:          et list -> string
 val format_et:              et -> string
 val print_et:               et -> (string -> unit) -> unit
-val vars_of_et:             et -> var list
 val compare:                et -> et -> int
 val simplify:               et -> et
 val initialize_local_value: Wm.local_type list -> int -> int -> constant_value
