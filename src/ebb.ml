@@ -320,7 +320,6 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
   in
 
   let looping_parts_costs (bbacks: bb list) (loop_cps: cp list) (prefix_part: cp): Cost.loop_metric list =
-    Printf.printf "loop_cps length: %d\n%!" (List.length loop_cps);
     List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
   in
 
