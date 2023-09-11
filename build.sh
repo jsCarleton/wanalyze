@@ -1,2 +1,2 @@
 eval $(opam env)
-corebuild -pkgs core_unix wanalyze.native
+corebuild -I src -pkgs core_unix wanalyze.native

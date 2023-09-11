@@ -274,7 +274,6 @@ let read_br_table ic =
   List.append table [read_labelidx ic]
 
 let read_instr' ic opcode =
-Printf.printf "%d %s\n%!" opcode (string_of_opcode (opcode_of_int opcode));
 match opcode_of_int opcode with
   (* control instructions *)
   | OP_unreachable
