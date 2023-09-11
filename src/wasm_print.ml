@@ -422,7 +422,6 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
 
   (* costs *)
   let ebb_paths = paths_of_ebblocks ebbs in
-
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
     Out_channel.output_string oc "ebb costs:\n";
     print_ebb_costs oc ebbs;
@@ -436,12 +435,10 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
            let p = Out_channel.output_string oc in
            print_et max_cost p));
     Out_channel.output_string oc "\n";
-  (* print more costs 66m7.387s autocad/83736 *)
   Out_channel.close oc;
   Printf.printf "\r%!"
 
 let print_functions w fnum func_info_dir =
-  let oc_costs   = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".costs"]) in
   (match fnum with
   | -1 -> List.iteri 
             ~f:(print_function_details w func_info_dir (String.concat[Filename.chop_extension w.module_name; "-func"]))
@@ -451,8 +448,7 @@ let print_functions w fnum func_info_dir =
             func_info_dir
             (String.concat[Filename.chop_extension w.module_name; "-func"])
             (fnum - w.last_import_func)
-            (List.nth_exn (List.drop w.function_section w.last_import_func) fnum));
-  Out_channel.close oc_costs
+            (List.nth_exn (List.drop w.function_section w.last_import_func) fnum))
           
 (* Part 7 *)
 (* Print the whole wasm module *)
