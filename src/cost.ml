@@ -68,7 +68,6 @@ let site_of_nesting_if (lp: Cp.cp): cond_site option =
           | _           -> failwith "TODO handle this bbtype"
       end
 
-(* TODO do we need both symbolic execution and SSA to do this? *)
 let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts): loop_metric =
   (* a key part of this is locating the bb that the condition of the loop is tested ... *)
   let cs_o =
@@ -78,8 +77,6 @@ let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts
         | BB_br_table   -> site_of_nesting_if lp.loop_part
         | _             -> failwith "Invalid branchback bb"
     ) in
-  (* TODO we're getting the loop cond by executing just the loop_part. is this right? couldn't it be the case
-    that there's a side effect of the prefix_part that the loop needs? *)
   match cs_o with
   | None    -> Infinite
   | Some cs ->

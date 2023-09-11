@@ -13,9 +13,7 @@ let name_of_bb (bblock: bb): string =
 let label_of_bb (bblock: bb): string =
     match bblock.bbtype with
     | BB_exit_end | BB_exit_return | BB_exit_unreachable -> name_of_bb bblock
-    (* TODO make it an option to print the BB cost *)
     | _ -> name_of_bb bblock
-(*    | _ -> String.concat [name_of_bb bblock; "(";  string_of_int (bblock.end_op - bblock.start_op); ")"] *)
   
 (**
   cfg_dot_of_bbs
@@ -144,7 +142,7 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): 
                   String.concat["["; name_of_bb hd; "]"]
     | _      -> let bblocks = non_exit_bbs ebblock.bblocks in
                 match bblocks with
-                | [] -> "" (* TODO under what circumstances does this happen? *)
+                | [] -> failwith "Unable to determine ebb label"
                 | hd::[] -> if bb_is_exit hd then
                               name_of_bb hd
                             else
