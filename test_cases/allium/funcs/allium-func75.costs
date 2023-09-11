@@ -1,9 +1,0 @@
-|f75| = list_max([
-  62;
-  list_sum([
-    62;
-    146 + (list_sum([|f16|; |f18|; |f36|]));
-    ((88 + (list_sum([|f16|; |f18|; |f36|]))) * (I([pN2; pn1], [(i64.extend_i32_u(pn1 + 1)) < pN2], [pN2 = pN2; pn1 = pn1], [pN2 = pN2; pn1 = pn1 + 1]))) + 1;
-    1
-  ])
-])

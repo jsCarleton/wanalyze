@@ -1,6 +1,0 @@
-                          br    target
-index start   end nesting dest  labels type        succ/pred
-    0     0    15     0   2            if          s=[1 2] p=[]
-    1    15    17     0                end         s=[2] p=[0]
-    2    17    20    -1                end         s=[3] p=[1 0]
-    3    -1    -1    -1                exit end    s=[] p=[2]
