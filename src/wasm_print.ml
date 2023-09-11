@@ -400,17 +400,15 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
   let local_types = (List.nth_exn w.code_section fidx).locals in
   let w_state = empty_program_state w param_types local_types in
   let ctx = {w; w_e; w_state; param_types; local_types} in
-  let (_: ebb list) (*ebbs*) = ebbs_of_bbs ctx bblocks bblocks in
-(*  let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
+  let ebbs = ebbs_of_bbs ctx bblocks bblocks in
+  let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
     List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
     Out_channel.close oc;
-  (* print ebbs 68m21.958s autocad/83736 *)
 
   (* graphviz command file for ebb flow graph *)
   let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
     Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
     Out_channel.close oc;
-  (* print ebb dot file 67m59.780s autocad/83736 *)
 
   let rec print_ebb_costs oc (ebbs: ebb list) =
     match ebbs with
@@ -424,12 +422,10 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
 
   (* costs *)
   let ebb_paths = paths_of_ebblocks ebbs in
-  (* paths 70m41.839s autocad/83736 *)
 
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
     Out_channel.output_string oc "ebb costs:\n";
     print_ebb_costs oc ebbs;
-  (* print costs 70m41.633s autocad/83736 *)
     Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
     List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_ebblocks p))) ebb_paths;
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
@@ -442,7 +438,7 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
     Out_channel.output_string oc "\n";
   (* print more costs 66m7.387s autocad/83736 *)
   Out_channel.close oc;
-*)  Printf.printf "\r%!"
+  Printf.printf "\r%!"
 
 let print_functions w fnum func_info_dir =
   let oc_costs   = Out_channel.create (String.concat[Filename.chop_extension w.module_name; ".costs"]) in
