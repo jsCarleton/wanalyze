@@ -475,7 +475,7 @@ let print w fnum =
     Out_channel.output_string oc ")\n";
     Out_channel.close oc;
     Printf.printf "module %s %!\n" w.module_name;
-    let func_info_dir = String.concat [w.module_name; "-funcs/"] in
+    let func_info_dir = String.concat [Filename.chop_extension w.module_name; "-funcs/"] in
       (try 
         Core_unix.mkdir func_info_dir
       with

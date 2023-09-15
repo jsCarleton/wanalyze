@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FILELIST="allium gifsicle mozjpeg oxipng vim"
+FILELIST="bubble_sort dhry allium gifsicle mozjpeg oxipng vim"
 WATSUFFIX="-wanalyze.wat"
 D="test_cases/"
 
@@ -13,8 +13,10 @@ do
     nl=$(wc -l <"$ff")
     nf=$(grep "^  (func (;" "$ff" | wc -l)
     np=$(grep "loop" "$ff" | wc -l)
-    lf=$(find "$D$f"/"$f".wasm-funcs -name "*.wat" -print0 | xargs -0 grep -l loop | wc -l)
-    nb=$(find "$D$f"/"$f".wasm-funcs -name "*.ebblocks" -print0 | xargs -0 grep -l 'unknown number' | wc -l)
+    lf=$(find "$D$f"/"$f"-funcs -name "*.wat" -print0 | xargs -0 grep -l loop | wc -l)
+    nb=$(find "$D$f"/"$f"-funcs -name "*.ebblocks" -print0 | xargs -0 grep -l 'unknown number' | wc -l)
+    # Create the cfg diagrams
+    ./create-cfg.sh "$D$f/$f-funcs" png
     # Print the result
     echo "lines of code: $nl"
     echo "# of functions: $nf"
