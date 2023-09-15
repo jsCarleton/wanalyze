@@ -7,7 +7,10 @@ ebb entry:  0
 ebb entry:  31
   ebb type:   loop
   ebb blocks: [31 32 33 34 35 36 37]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  (15 + |f20|) * (N([ln1], [i32.eqz(R(20, 0, i32, 0, ln1 + 20))], [R(20, 84, i32, 0, ((pn0 + -8) - (R(20, 34, i32, 0, pn0 + -8))) + 16)], [R(20, 5, i32, 0, ln1 + 20)]));
+  (25 + |f20|) * (N([ln1], [not(i32.eqz(R(20, 0, i32, 0, ln1 + 16)))], [R(20, 84, i32, 0, ((pn0 + -8) - (R(20, 34, i32, 0, pn0 + -8))) + 16)], [R(20, 13, i32, 0, ln1 + 16)]))
+])) + 1
   ebb exits:  [38]
   ebb succs:  [38]
   1 paths to exit 38
@@ -55,7 +58,10 @@ ebb entry:  60
 ebb entry:  92
   ebb type:   loop
   ebb blocks: [92 93 94 95 96 97 98]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  (15 + |f20|) * (N([pn0], [i32.eqz(R(20, 0, i32, 0, pn0 + 20))], [R(20, 144, i32, 0, ((pn0 + -8) + ((R(20, 22, i32, 0, pn0 + -4)) && -8)) + 16)], [R(20, 5, i32, 0, pn0 + 20)]));
+  (25 + |f20|) * (N([pn0], [not(i32.eqz(R(20, 0, i32, 0, pn0 + 16)))], [R(20, 144, i32, 0, ((pn0 + -8) + ((R(20, 22, i32, 0, pn0 + -4)) && -8)) + 16)], [R(20, 13, i32, 0, pn0 + 16)]))
+])) + 1
   ebb exits:  [99]
   ebb succs:  [99]
   1 paths to exit 99
@@ -109,7 +115,7 @@ ebb entry:  124
 ebb entry:  145
   ebb type:   loop
   ebb blocks: [145 146 147 148 149]
-  ebb cost:   Infinity-z
+  ebb cost:   ((29 + |f20|) * (N([ln3; ln4; pn0], [not(((R(20, 0, i32, 4, R(20, 0, i32, 0, (pn0 + 16) + ((ln4 shr_u 31) shl 2)))) && -8) == ln3)], [((R(20, 91, i32, 0, ((pn0 + -8) + ((R(20, 22, i32, 0, pn0 + -4)) && -8)) + 4)) && -8) + ((R(20, 34, i32, 0, pn0 + -8)) + ((R(20, 22, i32, 0, pn0 + -4)) && -8)); (((R(20, 91, i32, 0, ((pn0 + -8) + ((R(20, 22, i32, 0, pn0 + -4)) && -8)) + 4)) && -8) + ((R(20, 34, i32, 0, pn0 + -8)) + ((R(20, 22, i32, 0, pn0 + -4)) && -8))) shl (25 - (0 shr_u 1)); R(20, 195, i32, 0, (0 shl 2) + 19232)], [ln3; ln4 shl 1; R(20, 11, i32, 0, (pn0 + 16) + ((ln4 shr_u 31) shl 2))]))) + 1
   ebb exits:  [150 153]
   ebb succs:  [153 150]
   1 paths to exit 150
@@ -159,7 +165,7 @@ ebb entry:  156
 ebb entry:  160
   ebb type:   loop
   ebb blocks: [160 161]
-  ebb cost:   Infinity-z
+  ebb cost:   ((9 + |f20|) * (N([pn0], [R(20, 0, i32, 0, pn0)], [(R(20, 223, i32, 0, 19384)) + 8], [(R(20, 2, i32, 0, pn0)) + 8]))) + 1
   ebb exits:  [162]
   ebb succs:  [162]
   1 paths to exit 162

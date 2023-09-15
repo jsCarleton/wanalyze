@@ -7,7 +7,11 @@ ebb entry:  0
 ebb entry:  11
   ebb type:   loop
   ebb blocks: [11 12 13 14 15 16]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  29 * (N([ln3; pn2], [(pn2 + 1) != ln3], [m[10]; 0], [ln3; pn2 + 1]));
+  39 * (N([ln3; pn2], [(pn2 + 1) != ln3], [m[10]; 0], [ln3; pn2 + 1]));
+  51 * (N([ln3; pn2], [(pn2 + 1) != ln3], [m[10]; 0], [ln3; pn2 + 1]))
+])) + (list_max(1, 1, 1))
   ebb exits:  [17]
   ebb succs:  [17]
   3 paths to exit 17
@@ -33,7 +37,7 @@ ebb entry:  19
 ebb entry:  21
   ebb type:   loop
   ebb blocks: [21 22]
-  ebb cost:   Infinity-z
+  ebb cost:   (18 * (N([ln3; pn2], [(pn2 + 1) != ln3], [m[10]; 0 + 1], [ln3; pn2 + 1]))) + 1
   ebb exits:  [23]
   ebb succs:  [23]
   1 paths to exit 23

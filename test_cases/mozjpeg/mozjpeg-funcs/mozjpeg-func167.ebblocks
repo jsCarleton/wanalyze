@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  5
   ebb type:   loop
   ebb blocks: [5 6 7 8 9]
-  ebb cost:   Infinity-z
+  ebb cost:   ((87 + |f34|) * (N([ln6; m[60]], [(ln6 + 1) < m[60]], [0; m[60]], [ln6 + 1; m[60]]))) + 1
   ebb exits:  [10]
   ebb succs:  []
   1 paths to exit 10
@@ -26,7 +26,7 @@ nested ebbs:
   ebb entry:  6
     ebb type:   loop
     ebb blocks: [6 7]
-    ebb cost:   Infinity-z
+    ebb cost:   (34 * (N([ln3; ln4], [(ln3 + 1) != ln4], [0 + 1; m[236]], [ln3 + 1; ln4]))) + 1
     ebb exits:  [8]
     ebb succs:  [8 8]
     1 paths to exit 8
@@ -50,7 +50,7 @@ ebb entry:  10
 ebb entry:  13
   ebb type:   loop
   ebb blocks: [13 14]
-  ebb cost:   Infinity-z
+  ebb cost:   ((46 + |f34|) * (N([ln6; m[60]], [(ln6 + 1) < m[60]], [0 + 1; m[60]], [ln6 + 1; m[60]]))) + 1
   ebb exits:  [15]
   ebb succs:  [15]
   1 paths to exit 15
@@ -74,7 +74,7 @@ ebb entry:  17
 ebb entry:  19
   ebb type:   loop
   ebb blocks: [19 20]
-  ebb cost:   Infinity-z
+  ebb cost:   (36 * (N([ln1; m[60]], [(ln1 + 1) < m[60]], [0 + 1; m[60]], [ln1 + 1; m[60]]))) + 1
   ebb exits:  [21]
   ebb succs:  [21]
   1 paths to exit 21

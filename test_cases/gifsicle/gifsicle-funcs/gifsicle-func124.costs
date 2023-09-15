@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 17
-[4]: Infinity-z
+[4]: ((9 * N([m[0]], [m[0]], [m[0]], [m[0]])) + 1)
 [6]: 13
 [7]: 1
 2 ebb paths found
@@ -8,5 +8,10 @@ ebb costs:
 [0 4 6 7]
 |f124| = list_max([
   list_sum(17, 1);
-  list_sum(17, Infinity-z, 13, 1)
+  list_sum([
+    17;
+    (9 * (N([m[0]], [m[0]], [m[0]], [m[0]]))) + 1;
+    13;
+    1
+  ])
 ])

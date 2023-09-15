@@ -1,8 +1,8 @@
 ebb costs:
 [0]: 47
-[4]: Infinity-z
+[4]: (list_max(((22 + |f106|) * N([ln5; pn3], [(ln5 < pn3)], [0; pn3], [ln5; pn3])), ((47 + |f106|) * N([ln5; pn3], [((ln5 + 1) < pn3)], [0; pn3], [(ln5 + 1); pn3]))) + list_max(1, 1))
 [4]: 21
-[6]: Infinity-z
+[6]: ((20 * N([ln7], [(ln7 + -1)], [(select((select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7))) < (pn3 - 0)), (pn3 - 0), select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7)))) + -1)], [(ln7 + -1)])) + 1)
 [8]: 1
 [9]: 5
 [11]: 1
@@ -14,5 +14,13 @@ ebb costs:
 |f352| = list_max([
   list_sum(47, 2);
   list_sum(47, 21, 5, 1, 2);
-  list_sum(47, 21, Infinity-z, 1, 5, 1, 2)
+  list_sum([
+    47;
+    21;
+    (20 * (N([ln7], [ln7 + -1], [(select((select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7))) < (pn3 - 0), pn3 - 0, select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7)))) + -1], [ln7 + -1]))) + 1;
+    1;
+    5;
+    1;
+    2
+  ])
 ])

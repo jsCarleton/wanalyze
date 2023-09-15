@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 17
-[5]: Infinity-z
+[5]: (list_max((17 * N([ln2; pn0], [((pn0 + 1) < ln2)], [m[4]; 0], [ln2; (pn0 + 1)])), ((23 + |f29|) * N([ln2; pn0], [((pn0 + 1) < ln2)], [m[4]; 0], [ln2; (pn0 + 1)]))) + list_max(1, 1))
 [10]: 1
 [12]: 8
 [14]: 2
@@ -22,10 +22,63 @@ ebb costs:
   list_sum(17, 8, 2);
   list_sum(17, 8, 2, 0);
   list_sum(17, 8, 2, 2);
-  list_sum(17, Infinity-z, 2, 0);
-  list_sum(17, Infinity-z, 2, 2);
-  list_sum(17, Infinity-z, 1, 2);
-  list_sum(17, Infinity-z, 1, 8, 2);
-  list_sum(17, Infinity-z, 1, 8, 2, 0);
-  list_sum(17, Infinity-z, 1, 8, 2, 2)
+  list_sum([
+    17;
+    (list_max([
+      17 * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]));
+      (23 + |f29|) * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]))
+    ])) + (list_max(1, 1));
+    2;
+    0
+  ]);
+  list_sum([
+    17;
+    (list_max([
+      17 * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]));
+      (23 + |f29|) * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]))
+    ])) + (list_max(1, 1));
+    2;
+    2
+  ]);
+  list_sum([
+    17;
+    (list_max([
+      17 * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]));
+      (23 + |f29|) * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]))
+    ])) + (list_max(1, 1));
+    1;
+    2
+  ]);
+  list_sum([
+    17;
+    (list_max([
+      17 * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]));
+      (23 + |f29|) * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]))
+    ])) + (list_max(1, 1));
+    1;
+    8;
+    2
+  ]);
+  list_sum([
+    17;
+    (list_max([
+      17 * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]));
+      (23 + |f29|) * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]))
+    ])) + (list_max(1, 1));
+    1;
+    8;
+    2;
+    0
+  ]);
+  list_sum([
+    17;
+    (list_max([
+      17 * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]));
+      (23 + |f29|) * (N([ln2; pn0], [(pn0 + 1) < ln2], [m[4]; 0], [ln2; pn0 + 1]))
+    ])) + (list_max(1, 1));
+    1;
+    8;
+    2;
+    2
+  ])
 ])

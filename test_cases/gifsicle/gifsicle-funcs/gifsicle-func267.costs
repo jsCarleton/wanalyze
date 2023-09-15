@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 27
-[6]: Infinity-z
+[6]: (((23 + list_sum(|f268|, |f269|)) * N([ln1], [(ln1 == 20)], [(gn0 - 16)], [ln1])) + list_max(1, 2))
 [11]: 6
 [13]: 4
 [14]: 3
@@ -12,7 +12,24 @@ ebb costs:
 [0 6 11 13 14 15]
 |f267| = list_max([
   list_sum(27, 4, 3, 6);
-  list_sum(27, Infinity-z, 6);
-  list_sum(27, Infinity-z, 6, 3, 6);
-  list_sum(27, Infinity-z, 6, 4, 3, 6)
+  list_sum([
+    27;
+    ((23 + (list_sum(|f268|, |f269|))) * (N([ln1], [ln1 == 20], [gn0 - 16], [ln1]))) + (list_max(1, 2));
+    6
+  ]);
+  list_sum([
+    27;
+    ((23 + (list_sum(|f268|, |f269|))) * (N([ln1], [ln1 == 20], [gn0 - 16], [ln1]))) + (list_max(1, 2));
+    6;
+    3;
+    6
+  ]);
+  list_sum([
+    27;
+    ((23 + (list_sum(|f268|, |f269|))) * (N([ln1], [ln1 == 20], [gn0 - 16], [ln1]))) + (list_max(1, 2));
+    6;
+    4;
+    3;
+    6
+  ])
 ])

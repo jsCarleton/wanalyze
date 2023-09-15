@@ -1,9 +1,9 @@
 ebb costs:
 [0]: 13
-[5]: Infinity-z
+[5]: ((21 * N([pn2], [((pn2 - 4) > 3)], [pn2], [(pn2 - 4)])) + 1)
 [8]: 1
 [9]: 5
-[12]: Infinity-z
+[12]: ((21 * N([pn2], [(pn2 - 1)], [pn2], [(pn2 - 1)])) + list_max(1, 1))
 [17]: 4
 [19]: 2
 [21]: 0
@@ -18,11 +18,57 @@ ebb costs:
 [0 5 8 9 12 17 19]
 |f41| = list_max([
   list_sum(13, 5, 2);
-  list_sum(13, 5, Infinity-z, 2);
-  list_sum(13, 5, Infinity-z, 4, 0);
-  list_sum(13, 5, Infinity-z, 4, 2);
-  list_sum(13, Infinity-z, 1, 5, 2);
-  list_sum(13, Infinity-z, 1, 5, Infinity-z, 2);
-  list_sum(13, Infinity-z, 1, 5, Infinity-z, 4, 0);
-  list_sum(13, Infinity-z, 1, 5, Infinity-z, 4, 2)
+  list_sum([
+    13;
+    5;
+    (21 * (N([pn2], [pn2 - 1], [pn2], [pn2 - 1]))) + (list_max(1, 1));
+    2
+  ]);
+  list_sum([
+    13;
+    5;
+    (21 * (N([pn2], [pn2 - 1], [pn2], [pn2 - 1]))) + (list_max(1, 1));
+    4;
+    0
+  ]);
+  list_sum([
+    13;
+    5;
+    (21 * (N([pn2], [pn2 - 1], [pn2], [pn2 - 1]))) + (list_max(1, 1));
+    4;
+    2
+  ]);
+  list_sum([
+    13;
+    (21 * (N([pn2], [(pn2 - 4) > 3], [pn2], [pn2 - 4]))) + 1;
+    1;
+    5;
+    2
+  ]);
+  list_sum([
+    13;
+    (21 * (N([pn2], [(pn2 - 4) > 3], [pn2], [pn2 - 4]))) + 1;
+    1;
+    5;
+    (21 * (N([pn2], [pn2 - 1], [pn2], [pn2 - 1]))) + (list_max(1, 1));
+    2
+  ]);
+  list_sum([
+    13;
+    (21 * (N([pn2], [(pn2 - 4) > 3], [pn2], [pn2 - 4]))) + 1;
+    1;
+    5;
+    (21 * (N([pn2], [pn2 - 1], [pn2], [pn2 - 1]))) + (list_max(1, 1));
+    4;
+    0
+  ]);
+  list_sum([
+    13;
+    (21 * (N([pn2], [(pn2 - 4) > 3], [pn2], [pn2 - 4]))) + 1;
+    1;
+    5;
+    (21 * (N([pn2], [pn2 - 1], [pn2], [pn2 - 1]))) + (list_max(1, 1));
+    4;
+    2
+  ])
 ])

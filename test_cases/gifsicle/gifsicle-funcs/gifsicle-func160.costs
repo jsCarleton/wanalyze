@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 16
-[4]: Infinity-z
+[4]: ((14 * N([ln1; pn0], [((pn0 + 1) != ln1)], [m[0]; (0 + 1)], [ln1; (pn0 + 1)])) + 1)
 [6]: 1
 [7]: 1
 2 ebb paths found
@@ -8,5 +8,10 @@ ebb costs:
 [0 4 6 7]
 |f160| = list_max([
   list_sum(16, 1);
-  list_sum(16, Infinity-z, 1, 1)
+  list_sum([
+    16;
+    (14 * (N([ln1; pn0], [(pn0 + 1) != ln1], [m[0]; 0 + 1], [ln1; pn0 + 1]))) + 1;
+    1;
+    1
+  ])
 ])

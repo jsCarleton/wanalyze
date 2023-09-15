@@ -7,7 +7,10 @@ ebb entry:  0
 ebb entry:  25
   ebb type:   loop
   ebb blocks: [25 26 27]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  18 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
+  10 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
+])) + 1
   ebb exits:  [28]
   ebb succs:  [28]
   1 paths to exit 28
@@ -43,7 +46,10 @@ ebb entry:  45
 ebb entry:  79
   ebb type:   loop
   ebb blocks: [79 80 81]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  18 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
+  10 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
+])) + 1
   ebb exits:  [82]
   ebb succs:  [82]
   1 paths to exit 82
@@ -85,7 +91,7 @@ ebb entry:  99
 ebb entry:  116
   ebb type:   loop
   ebb blocks: [116 117 118]
-  ebb cost:   Infinity-z
+  ebb cost:   (27 * (N([m[0]], [m[0]], [m[0] && -8], [m[0]]))) + 1
   ebb exits:  [119 122]
   ebb succs:  [122 119]
   1 paths to exit 119
@@ -123,7 +129,7 @@ ebb entry:  123
 ebb entry:  125
   ebb type:   loop
   ebb blocks: [125 126]
-  ebb cost:   Infinity-z
+  ebb cost:   (8 * (N([m[0]], [m[0]], [(m[0] && -8) + -1], [m[0]]))) + 1
   ebb exits:  [127]
   ebb succs:  [127]
   1 paths to exit 127

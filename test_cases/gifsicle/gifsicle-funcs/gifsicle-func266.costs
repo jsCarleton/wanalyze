@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 27
-[5]: Infinity-z
+[5]: ((21 * N([ln2; pn1], [((pn1 + 1) < ln2)], [(m[4] + -1); (pn1 + 1)], [ln2; (pn1 + 1)])) + 1)
 [7]: 1
 [8]: 4
 [9]: 1
@@ -11,5 +11,11 @@ ebb costs:
 |f266| = list_max([
   list_sum(27, 1);
   list_sum(27, 4, 1);
-  list_sum(27, Infinity-z, 1, 4, 1)
+  list_sum([
+    27;
+    (21 * (N([ln2; pn1], [(pn1 + 1) < ln2], [m[4] + -1; pn1 + 1], [ln2; pn1 + 1]))) + 1;
+    1;
+    4;
+    1
+  ])
 ])

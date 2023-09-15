@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7 8 9 10]
-  ebb cost:   Infinity-z
+  ebb cost:   (55 + |f24|) * (N([pn0], [not(i32.eqz(pn0 - (select(pn0 < 256, 256, pn0))))], [pn0], [pn0 - (select(pn0 < 256, 256, pn0))]))
   ebb exits:  [13 15]
   ebb succs:  []
   1 paths to exit 13
@@ -26,7 +26,7 @@ nested ebbs:
   ebb entry:  5
     ebb type:   loop
     ebb blocks: [5 6]
-    ebb cost:   Infinity-z
+    ebb cost:   ((29 + |f24|) * (N([ln3; pn2], [pn2 != (ln3 + 1)], [0 + 1; pn2], [ln3 + 1; pn2]))) + 1
     ebb exits:  [7]
     ebb succs:  [7 7]
     1 paths to exit 7

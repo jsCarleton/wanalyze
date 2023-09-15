@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 13
-[3]: Infinity-z
+[3]: ((20 * N([m[1]], [(m[1] == m[1])], [m[1]], [m[1]])) + 1)
 [6]: 1
 [7]: 4
 3 ebb paths found
@@ -9,6 +9,15 @@ ebb costs:
 [0 3 6 7]
 |f29| = list_max([
   list_sum(13, 4);
-  list_sum(13, Infinity-z, 4);
-  list_sum(13, Infinity-z, 1, 4)
+  list_sum([
+    13;
+    (20 * (N([m[1]], [m[1] == m[1]], [m[1]], [m[1]]))) + 1;
+    4
+  ]);
+  list_sum([
+    13;
+    (20 * (N([m[1]], [m[1] == m[1]], [m[1]], [m[1]]))) + 1;
+    1;
+    4
+  ])
 ])

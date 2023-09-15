@@ -1,12 +1,12 @@
 ebb costs:
 [0]: 16
-[5]: Infinity-z
+[5]: ((22 * N([pn0], [((pn0 + 1) && 3)], [pn0], [(pn0 + 1)])) + 1)
 [9]: 1
 [10]: 13
-[14]: Infinity-z
+[14]: ((23 * N([pn1], [((pn1 + -4) > 3)], [pn1], [(pn1 + -4)])) + 1)
 [17]: 1
 [18]: 5
-[21]: Infinity-z
+[21]: ((13 * N([pn1], [(pn1 + -1)], [pn1], [(pn1 + -1)])) + list_max(1, 2))
 [26]: 1
 [27]: 2
 [29]: 0
@@ -44,32 +44,254 @@ ebb costs:
 |f128| = list_max([
   list_sum(16, 13, 2);
   list_sum(16, 13, 5, 2);
-  list_sum(16, 13, 5, Infinity-z, 0);
-  list_sum(16, 13, 5, Infinity-z, 1, 2);
-  list_sum(16, 13, Infinity-z, 5, 2);
-  list_sum(16, 13, Infinity-z, 5, Infinity-z, 0);
-  list_sum(16, 13, Infinity-z, 5, Infinity-z, 1, 2);
-  list_sum(16, 13, Infinity-z, 1, 5, 2);
-  list_sum(16, 13, Infinity-z, 1, 5, Infinity-z, 0);
-  list_sum(16, 13, Infinity-z, 1, 5, Infinity-z, 1, 2);
-  list_sum(16, Infinity-z, 13, 2);
-  list_sum(16, Infinity-z, 13, 5, 2);
-  list_sum(16, Infinity-z, 13, 5, Infinity-z, 0);
-  list_sum(16, Infinity-z, 13, 5, Infinity-z, 1, 2);
-  list_sum(16, Infinity-z, 13, Infinity-z, 5, 2);
-  list_sum(16, Infinity-z, 13, Infinity-z, 5, Infinity-z, 0);
-  list_sum(16, Infinity-z, 13, Infinity-z, 5, Infinity-z, 1, 2);
-  list_sum(16, Infinity-z, 13, Infinity-z, 1, 5, 2);
-  list_sum(16, Infinity-z, 13, Infinity-z, 1, 5, Infinity-z, 0);
-  list_sum(16, Infinity-z, 13, Infinity-z, 1, 5, Infinity-z, 1, 2);
-  list_sum(16, Infinity-z, 1, 13, 2);
-  list_sum(16, Infinity-z, 1, 13, 5, 2);
-  list_sum(16, Infinity-z, 1, 13, 5, Infinity-z, 0);
-  list_sum(16, Infinity-z, 1, 13, 5, Infinity-z, 1, 2);
-  list_sum(16, Infinity-z, 1, 13, Infinity-z, 5, 2);
-  list_sum(16, Infinity-z, 1, 13, Infinity-z, 5, Infinity-z, 0);
-  list_sum(16, Infinity-z, 1, 13, Infinity-z, 5, Infinity-z, 1, 2);
-  list_sum(16, Infinity-z, 1, 13, Infinity-z, 1, 5, 2);
-  list_sum(16, Infinity-z, 1, 13, Infinity-z, 1, 5, Infinity-z, 0);
-  list_sum(16, Infinity-z, 1, 13, Infinity-z, 1, 5, Infinity-z, 1, 2)
+  list_sum([
+    16;
+    13;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    16;
+    13;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    16;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    5;
+    2
+  ]);
+  list_sum([
+    16;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    16;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    16;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    1;
+    5;
+    2
+  ]);
+  list_sum([
+    16;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    16;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    5;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    5;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    1;
+    5;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    5;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    5;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    1;
+    5;
+    2
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    16;
+    (22 * (N([pn0], [(pn0 + 1) && 3], [pn0], [pn0 + 1]))) + 1;
+    1;
+    13;
+    (23 * (N([pn1], [(pn1 + -4) > 3], [pn1], [pn1 + -4]))) + 1;
+    1;
+    5;
+    (13 * (N([pn1], [pn1 + -1], [pn1], [pn1 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ])
 ])

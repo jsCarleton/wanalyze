@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  13
   ebb type:   loop
   ebb blocks: [13 14 15]
-  ebb cost:   Infinity-z
+  ebb cost:   (19 * (N([pn2], [(pn2 + 1) && 3], [pn0], [pn2 + 1]))) + 1
   ebb exits:  [16 17]
   ebb succs:  [17 16]
   1 paths to exit 16
@@ -33,7 +33,7 @@ ebb entry:  17
 ebb entry:  21
   ebb type:   loop
   ebb blocks: [21 22]
-  ebb cost:   Infinity-z
+  ebb cost:   (75 * (N([ln5; pn2], [(pn2 - -64) <= ln5], [((pn0 + pn2) && -4) + -64; (pn0 + 1) - -64], [ln5; pn2 - -64]))) + 1
   ebb exits:  [23]
   ebb succs:  [23]
   1 paths to exit 23
@@ -57,7 +57,7 @@ ebb entry:  24
 ebb entry:  26
   ebb type:   loop
   ebb blocks: [26 27]
-  ebb cost:   Infinity-z
+  ebb cost:   (15 * (N([ln4; pn2], [(pn2 + 4) < ln4], [(pn0 + pn2) && -4; (pn0 + 1) + 4], [ln4; pn2 + 4]))) + 1
   ebb exits:  [28]
   ebb succs:  [28]
   1 paths to exit 28
@@ -81,7 +81,7 @@ ebb entry:  30
 ebb entry:  37
   ebb type:   loop
   ebb blocks: [37 38]
-  ebb cost:   Infinity-z
+  ebb cost:   (27 * (N([ln4; pn2], [(pn2 + 4) <= ln4], [(pn0 + pn2) + -4; pn0 + 4], [ln4; pn2 + 4]))) + 1
   ebb exits:  [39]
   ebb succs:  [39]
   1 paths to exit 39
@@ -105,7 +105,7 @@ ebb entry:  40
 ebb entry:  42
   ebb type:   loop
   ebb blocks: [42 43]
-  ebb cost:   Infinity-z
+  ebb cost:   (15 * (N([ln3; pn2], [(pn2 + 1) != ln3], [pn0 + pn2; (pn0 + 4) + 1], [ln3; pn2 + 1]))) + 1
   ebb exits:  [44]
   ebb succs:  [44]
   1 paths to exit 44

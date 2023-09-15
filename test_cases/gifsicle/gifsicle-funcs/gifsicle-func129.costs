@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 22
-[3]: Infinity-z
+[3]: (list_max((55 * N([pn3], [not(((pn3 + -2) < 2))], [pn3], [(pn3 + -2)])), (57 * N([pn3], [not(((pn3 + -1) < 2))], [pn3], [(pn3 + -1)])), (63 * N([pn3], [not(((pn3 + -2) < 2))], [pn3], [(pn3 + -2)])), (65 * N([pn3], [not(((pn3 + -1) < 2))], [pn3], [(pn3 + -1)]))) + Empty)
 [15]: 1
 [17]: 9
 [19]: 0
@@ -10,6 +10,24 @@ ebb costs:
 [0 3 17]
 |f129| = list_max([
   list_sum(22, 9);
-  list_sum(22, Infinity-z, 0);
-  list_sum(22, Infinity-z, 9)
+  list_sum([
+    22;
+    (list_max([
+      55 * (N([pn3], [not((pn3 + -2) < 2)], [pn3], [pn3 + -2]));
+      57 * (N([pn3], [not((pn3 + -1) < 2)], [pn3], [pn3 + -1]));
+      63 * (N([pn3], [not((pn3 + -2) < 2)], [pn3], [pn3 + -2]));
+      65 * (N([pn3], [not((pn3 + -1) < 2)], [pn3], [pn3 + -1]))
+    ])) + Empty;
+    0
+  ]);
+  list_sum([
+    22;
+    (list_max([
+      55 * (N([pn3], [not((pn3 + -2) < 2)], [pn3], [pn3 + -2]));
+      57 * (N([pn3], [not((pn3 + -1) < 2)], [pn3], [pn3 + -1]));
+      63 * (N([pn3], [not((pn3 + -2) < 2)], [pn3], [pn3 + -2]));
+      65 * (N([pn3], [not((pn3 + -1) < 2)], [pn3], [pn3 + -1]))
+    ])) + Empty;
+    9
+  ])
 ])

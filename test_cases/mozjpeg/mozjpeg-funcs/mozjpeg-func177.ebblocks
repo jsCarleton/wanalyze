@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  28
   ebb type:   loop
   ebb blocks: [28 29]
-  ebb cost:   Infinity-z
+  ebb cost:   (24 * (N([pn0; pn1], [(pn0 + 1) != pn1], [0 + 1; m[36]], [pn0 + 1; pn1]))) + 1
   ebb exits:  [30]
   ebb succs:  [30]
   1 paths to exit 30

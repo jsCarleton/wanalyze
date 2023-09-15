@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 6
-[2]: Infinity-z
+[2]: (((23 + |f97|) * N([ln2; m[8]], [((ln2 + 1) < m[8])], [(0 + 1); m[8]], [(ln2 + 1); m[8]])) + 1)
 [4]: 1
 [5]: 1
 2 ebb paths found
@@ -8,5 +8,10 @@ ebb costs:
 [0 2 4 5]
 |f119| = list_max([
   list_sum(6, 1);
-  list_sum(6, Infinity-z, 1, 1)
+  list_sum([
+    6;
+    ((23 + |f97|) * (N([ln2; m[8]], [(ln2 + 1) < m[8]], [0 + 1; m[8]], [ln2 + 1; m[8]]))) + 1;
+    1;
+    1
+  ])
 ])

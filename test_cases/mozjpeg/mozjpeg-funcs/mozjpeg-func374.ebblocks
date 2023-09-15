@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7 8]
-  ebb cost:   Infinity-z
+  ebb cost:   (52 * (N([pn4], [pn4 > 1], [pn4], [pn4 + -1]))) + 1
   ebb exits:  [9]
   ebb succs:  []
   1 paths to exit 9
@@ -26,7 +26,7 @@ nested ebbs:
   ebb entry:  5
     ebb type:   loop
     ebb blocks: [5 6]
-    ebb cost:   Infinity-z
+    ebb cost:   (17 * (N([ln5; ln6], [(ln5 + 1) != ln6], [0 + 1; m[28]], [ln5 + 1; ln6]))) + 1
     ebb exits:  [7]
     ebb succs:  [7 7]
     1 paths to exit 7

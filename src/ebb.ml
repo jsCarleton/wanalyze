@@ -228,25 +228,6 @@ let branchbacks_of_loop (lbb: bb list): bb list =
   let lh = (List.hd_exn lbb).bbindex in
   List.filter_map ~f:(fun bblock -> if is_branchback bblock lh then Some bblock else None) lbb
 
-(**
-  loops_of_bbs
-  Given the bblocks of a function return a list of loops
-
-  Parameters:
-    bblocks   the list of basic blocks of the function
-  Returns:
-    the list of loops in the basic blocks
-**)
-
-(* let loops_of_bbs (bblocks: bb list): loop list =
-  List.map  ~f:(fun loop_bblocks -> { (* the bblocks that make up the loop from loop ... end *)
-                                      loop_bblocks;
-                                      (* the paths in the loop that loop *)
-                                      looping_paths = looping_paths_of_loop_bblocks loop_bblocks [];
-                                      (* the blocks where the loop loops *)
-                                      branchbacks = branchbacks_of_loop loop_bblocks})
-            (loop_bblocks_of_bbs bblocks) *)
-
 (*
     ebbs_of_bbs
 
@@ -323,7 +304,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
   in
 
-(*  let expr_of_lm (lm: Cost.loop_metric): et =
+let expr_of_lm (lm: Cost.loop_metric): et =
     match lm with
     | Infinite  -> Constant (String_value "Infinity-y")
     | LMI lmi   ->
@@ -341,7 +322,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                               ]}
                   ]}
   in
-*)
+
   let unique_loop_vars (lms: Cost.loop_metric list): var list =
     List.dedup_and_sort ~compare:compare_vars
       (List.fold ~init:[] ~f:(fun acc lm -> match lm with | Infinite -> acc | LMI lm ->List.append lm.loop_vars acc) lms)
@@ -397,22 +378,17 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
               let lms = looping_parts_costs bbacks loop_cps cp in
               let ulv = unique_loop_vars lms in
               let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
-(*              let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
-*)              if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
-let ebb_cost = Constant (String_value "Infinity-z") in
-{ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
-(*              begin
+              let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
+              if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
+              begin
                 (* do we have more than 1 set of loop metrics to consider *)
                 if List.length lms > 1 then
-                  (* yes, we need a max operation *)
                   begin
-                    match exit_cost with
-                    | Empty ->
-                    | _     ->
-                        let ebb_cost = Node {op = "+"; op_disp = Infix; 
-                                         args = [Node {op = "list_max"; op_disp = Function; args = List.map ~f:expr_of_lm lms};
-                                                 exit_cost]} in
-                        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
+                    (* yes, we need a max operation *)
+                    let ebb_cost = Node {op = "+"; op_disp = Infix; 
+                                      args = [Node {op = "list_max"; op_disp = Function; args = List.map ~f:expr_of_lm lms};
+                                              exit_cost]} in
+                    {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
                 else
                   (* no, we need use the cost of the single path through the loop *)
@@ -427,13 +403,13 @@ let ebb_cost = Constant (String_value "Infinity-z") in
                       {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
                   end
               end
-*)            else
+            else
               (* this happens when there are too many loop prefixes and we give up trying to enumerate them *)
               begin
                 let ebb_cost       =  Constant (String_value "Infinity-z") in
                 {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; exit_bbs; codepaths; loop_cps; exit_cps; nested_ebbs}
               end
-          end
+            end
         else
           (* this happens when there are too many looping paths and we give up trying to enumerate them *)
           begin 

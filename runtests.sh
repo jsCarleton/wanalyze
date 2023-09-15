@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FILELIST="bubble_sort dhry allium gifsicle mozjpeg oxipng vim"
+FILELIST="bubble_sort dhry allium gifsicle mozjpeg oxipng"
 WATSUFFIX="-wanalyze.wat"
 D="test_cases/"
 

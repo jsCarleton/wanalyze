@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4 5 6 7]
-  ebb cost:   Infinity-z
+  ebb cost:   (21 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 1))
   ebb exits:  [8 9]
   ebb succs:  [9 8]
   1 paths to exit 8

@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 46
-[5]: Infinity-z
+[5]: (list_max(((73 + |f73|) * N([ln3; ln4], [((ln3 + 1) < ln4)], [0; (gn0 - 16)], [(ln3 + 1); ln4])), ((107 + |f73|) * N([ln3; ln4], [((ln3 + 1) < ln4)], [0; (gn0 - 16)], [(ln3 + 1); ln4]))) + list_max(1, 1))
 [9]: 1
 [10]: 5
 2 ebb paths found
@@ -8,5 +8,13 @@ ebb costs:
 [0 5 9 10]
 |f159| = list_max([
   list_sum(46, 5);
-  list_sum(46, Infinity-z, 1, 5)
+  list_sum([
+    46;
+    (list_max([
+      (73 + |f73|) * (N([ln3; ln4], [(ln3 + 1) < ln4], [0; gn0 - 16], [ln3 + 1; ln4]));
+      (107 + |f73|) * (N([ln3; ln4], [(ln3 + 1) < ln4], [0; gn0 - 16], [ln3 + 1; ln4]))
+    ])) + (list_max(1, 1));
+    1;
+    5
+  ])
 ])

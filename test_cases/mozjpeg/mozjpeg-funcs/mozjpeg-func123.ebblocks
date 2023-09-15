@@ -7,7 +7,10 @@ ebb entry:  0
 ebb entry:  51
   ebb type:   loop
   ebb blocks: [51 52 53]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  18 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
+  10 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
+])) + 1
   ebb exits:  [54]
   ebb succs:  [54]
   1 paths to exit 54

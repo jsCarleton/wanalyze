@@ -7,7 +7,10 @@ ebb entry:  0
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  (4524 + |f19|) * (N([ln2], [(ln2 + 1) != 2], [0], [ln2 + 1]));
+  (4563 + (list_sum(|f19|, |f26|))) * (N([ln2], [(ln2 + 1) != 2], [0], [ln2 + 1]))
+])) + (list_max(1, 1))
   ebb exits:  [8]
   ebb succs:  [8]
   2 paths to exit 8

@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  15
   ebb type:   loop
   ebb blocks: [15 16]
-  ebb cost:   Infinity-z
+  ebb cost:   ((23 + |f116|) * (N([m[0]; m[16]], [m[16] < m[0]], [m[0]; m[16]], [m[0]; m[16]]))) + 1
   ebb exits:  [17]
   ebb succs:  [17]
   1 paths to exit 17
@@ -37,7 +37,7 @@ ebb entry:  22
 ebb entry:  44
   ebb type:   loop
   ebb blocks: [44 45]
-  ebb cost:   Infinity-z
+  ebb cost:   (21 * (N([ln1; ln2], [(ln1 + 1) != ln2], [1 + 1; m[18] * m[20]], [ln1 + 1; ln2]))) + 1
   ebb exits:  [46]
   ebb succs:  [46]
   1 paths to exit 46
@@ -67,7 +67,7 @@ ebb entry:  48
 ebb entry:  59
   ebb type:   loop
   ebb blocks: [59 60 61 62]
-  ebb cost:   Infinity-z
+  ebb cost:   ((39 + |f24|) * (N([ln1; m[10]; m[14]], [(ln1 + 1) != (m[10] + m[14])], [m[14]; m[10]; m[14]], [ln1 + 1; m[10]; m[14]]))) + 1
   ebb exits:  [63]
   ebb succs:  [63]
   1 paths to exit 63
@@ -91,7 +91,11 @@ ebb entry:  64
 ebb entry:  66
   ebb type:   loop
   ebb blocks: [66 67 68 69 70 71 72 73 74]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  20 * (N([ln5; ln6; ln7], [(ln6 + 1) != (ln7 + (ln5 && 65535))], [m[14]; m[14]; m[10]], [ln5; ln6 + 1; ln7]));
+  72 * (N([ln6; m[10]; m[14]], [(ln6 + 1) != (m[10] + (m[14] && 65535))], [m[14]; m[10]; m[14]], [ln6 + 1; m[10]; m[14]]));
+  110 * (N([ln6; m[10]; m[14]], [(ln6 + 1) != (m[10] + (m[14] && 65535))], [m[14]; m[10]; m[14]], [ln6 + 1; m[10]; m[14]]))
+])) + (list_max(1, 1, 1))
   ebb exits:  [75]
   ebb succs:  []
   3 paths to exit 75
@@ -112,7 +116,10 @@ nested ebbs:
   ebb entry:  68
     ebb type:   loop
     ebb blocks: [68 69 70 71]
-    ebb cost:   Infinity-z
+    ebb cost:   (list_max([
+  18 * (N([ln1; ln4], [(ln1 + 1) != (ln4 && 65535)], [0; -1], [ln1 + 1; ln4]));
+  56 * (N([ln1; ln5], [(ln1 + 1) != ((ln5 + (ln1 shl 4)) && 65535)], [0; (pn0 + 144) + ((pn0 + (m[24] * m[14])) shl 4)], [ln1 + 1; ln5]))
+])) + (list_max(1, 1))
     ebb exits:  [72]
     ebb succs:  [72 72]
     2 paths to exit 72

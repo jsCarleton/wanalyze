@@ -236,16 +236,7 @@ let rec expand_et (e: et) (s_src: ssa): et =
       Node {n with args = List.map ~f:(fun e' -> (expand_et[@tailcall]) e' s_src) n.args}
   | _ -> e
 
-(*let explode_var_as_string (s: ssa list) (result: var): string =
-  List.fold_left ~f:(fun (s: string) (s_src: ssa) -> 
-                      (String.substr_replace_all 
-                        ~pattern:(string_of_et (Variable s_src.result)) 
-                        ~with_:(string_of_et s_src.etree)
-                        s))
-                  ~init:(string_of_et (Variable result))
-                  s
-*)
-            
+         
 let explode_var (s: ssa list) (result: var): ssa =
   let v = Variable result in
   {result;  etree = List.fold_left 

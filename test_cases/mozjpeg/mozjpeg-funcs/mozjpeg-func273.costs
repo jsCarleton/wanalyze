@@ -1,9 +1,9 @@
 ebb costs:
 [0]: 8
-[5]: Infinity-z
+[5]: ((24 * N([pN0], [(pN0 > 42949672959)], [(pN0 /u 10)], [(pN0 /u 10)])) + 1)
 [7]: 1
 [8]: 5
-[10]: Infinity-z
+[10]: ((23 * N([ln2], [(ln2 > 9)], [(i32.wrap_i64(pN0 /u 10) /u 10)], [(ln2 /u 10)])) + 1)
 [12]: 1
 [13]: 2
 4 ebb paths found
@@ -13,7 +13,27 @@ ebb costs:
 [0 5 7 8 10 12 13]
 |f273| = list_max([
   list_sum(8, 5, 2);
-  list_sum(8, 5, Infinity-z, 1, 2);
-  list_sum(8, Infinity-z, 1, 5, 2);
-  list_sum(8, Infinity-z, 1, 5, Infinity-z, 1, 2)
+  list_sum([
+    8;
+    5;
+    (23 * (N([ln2], [ln2 > 9], [(i32.wrap_i64(pN0 /u 10)) /u 10], [ln2 /u 10]))) + 1;
+    1;
+    2
+  ]);
+  list_sum([
+    8;
+    (24 * (N([pN0], [pN0 > 42949672959], [pN0 /u 10], [pN0 /u 10]))) + 1;
+    1;
+    5;
+    2
+  ]);
+  list_sum([
+    8;
+    (24 * (N([pN0], [pN0 > 42949672959], [pN0 /u 10], [pN0 /u 10]))) + 1;
+    1;
+    5;
+    (23 * (N([ln2], [ln2 > 9], [(i32.wrap_i64(pN0 /u 10)) /u 10], [ln2 /u 10]))) + 1;
+    1;
+    2
+  ])
 ])

@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 18
-[4]: Infinity-z
+[4]: ((16 * N([ln2; pn0], [((pn0 + 1) != ln2)], [m[4]; 0], [ln2; (pn0 + 1)])) + list_max(1, 2))
 [9]: 1
 [10]: 2
 [12]: 0
@@ -10,6 +10,15 @@ ebb costs:
 [0 4 9 10]
 |f96| = list_max([
   list_sum(18, 2);
-  list_sum(18, Infinity-z, 0);
-  list_sum(18, Infinity-z, 1, 2)
+  list_sum([
+    18;
+    (16 * (N([ln2; pn0], [(pn0 + 1) != ln2], [m[4]; 0], [ln2; pn0 + 1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    18;
+    (16 * (N([ln2; pn0], [(pn0 + 1) != ln2], [m[4]; 0], [ln2; pn0 + 1]))) + (list_max(1, 2));
+    1;
+    2
+  ])
 ])

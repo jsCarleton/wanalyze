@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 5
-[3]: Infinity-z
+[3]: ((21 * N([pn2], [(pn2 + -1)], [pn2], [(pn2 + -1)])) + list_max(1, 1))
 [8]: 5
 [9]: 2
 3 ebb paths found
@@ -9,6 +9,15 @@ ebb costs:
 [0 3 8 9]
 |f61| = list_max([
   list_sum(5, 2);
-  list_sum(5, Infinity-z, 2);
-  list_sum(5, Infinity-z, 5, 2)
+  list_sum([
+    5;
+    (21 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 1));
+    2
+  ]);
+  list_sum([
+    5;
+    (21 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 1));
+    5;
+    2
+  ])
 ])

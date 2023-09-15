@@ -1,13 +1,13 @@
 ebb costs:
 [0]: 20
-[6]: Infinity-z
+[6]: ((22 * N([pn2], [(pn2 + -1)], [pn2], [(pn2 + -1)])) + 1)
 [10]: 1
 [11]: 4
 [13]: 20
-[18]: Infinity-z
+[18]: ((25 * N([pn2], [((pn2 + -4) > 3)], [pn2], [(pn2 + -4)])) + 1)
 [21]: 1
 [22]: 9
-[25]: Infinity-z
+[25]: ((15 * N([pn2], [(pn2 + -1)], [pn2], [(pn2 + -1)])) + list_max(1, 2))
 [31]: 1
 [32]: 2
 [34]: 0
@@ -42,29 +42,244 @@ ebb costs:
 |f38| = list_max([
   list_sum(20, 4, 2);
   list_sum(20, 4, 20, 9, 2);
-  list_sum(20, 4, 20, 9, Infinity-z, 0);
-  list_sum(20, 4, 20, 9, Infinity-z, 1, 2);
-  list_sum(20, 4, 20, Infinity-z, 1, 9, 2);
-  list_sum(20, 4, 20, Infinity-z, 1, 9, Infinity-z, 0);
-  list_sum(20, 4, 20, Infinity-z, 1, 9, Infinity-z, 1, 2);
-  list_sum(20, Infinity-z, 20, 9, 2);
-  list_sum(20, Infinity-z, 20, 9, Infinity-z, 0);
-  list_sum(20, Infinity-z, 20, 9, Infinity-z, 1, 2);
-  list_sum(20, Infinity-z, 20, Infinity-z, 1, 9, 2);
-  list_sum(20, Infinity-z, 20, Infinity-z, 1, 9, Infinity-z, 0);
-  list_sum(20, Infinity-z, 20, Infinity-z, 1, 9, Infinity-z, 1, 2);
-  list_sum(20, Infinity-z, 4, 2);
-  list_sum(20, Infinity-z, 4, 20, 9, 2);
-  list_sum(20, Infinity-z, 4, 20, 9, Infinity-z, 0);
-  list_sum(20, Infinity-z, 4, 20, 9, Infinity-z, 1, 2);
-  list_sum(20, Infinity-z, 4, 20, Infinity-z, 1, 9, 2);
-  list_sum(20, Infinity-z, 4, 20, Infinity-z, 1, 9, Infinity-z, 0);
-  list_sum(20, Infinity-z, 4, 20, Infinity-z, 1, 9, Infinity-z, 1, 2);
-  list_sum(20, Infinity-z, 1, 4, 2);
-  list_sum(20, Infinity-z, 1, 4, 20, 9, 2);
-  list_sum(20, Infinity-z, 1, 4, 20, 9, Infinity-z, 0);
-  list_sum(20, Infinity-z, 1, 4, 20, 9, Infinity-z, 1, 2);
-  list_sum(20, Infinity-z, 1, 4, 20, Infinity-z, 1, 9, 2);
-  list_sum(20, Infinity-z, 1, 4, 20, Infinity-z, 1, 9, Infinity-z, 0);
-  list_sum(20, Infinity-z, 1, 4, 20, Infinity-z, 1, 9, Infinity-z, 1, 2)
+  list_sum([
+    20;
+    4;
+    20;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    20;
+    4;
+    20;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    20;
+    4;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    2
+  ]);
+  list_sum([
+    20;
+    4;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    20;
+    4;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    20;
+    9;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    20;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    20;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    4;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    4;
+    20;
+    9;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    4;
+    20;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    4;
+    20;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    4;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    4;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    4;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    1;
+    4;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    1;
+    4;
+    20;
+    9;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    1;
+    4;
+    20;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    1;
+    4;
+    20;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    1;
+    4;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    2
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    1;
+    4;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    0
+  ]);
+  list_sum([
+    20;
+    (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1;
+    1;
+    4;
+    20;
+    (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1;
+    1;
+    9;
+    (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2));
+    1;
+    2
+  ])
 ])

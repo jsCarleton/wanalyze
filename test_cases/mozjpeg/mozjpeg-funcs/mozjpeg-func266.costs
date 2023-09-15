@@ -1,7 +1,14 @@
 ebb costs:
 [0]: 1
-[1]: Infinity-z
+[1]: (list_max((37 * N([ln3], [((ln3 + 1) != 64)], [0], [(ln3 + 1)])), (38 * N([ln3], [((ln3 + 1) != 64)], [0], [(ln3 + 1)]))) + list_max(1, 1))
 [8]: 1
 1 ebb paths found
 [0 1 8]
-|f266| = list_sum(1, Infinity-z, 1)
+|f266| = list_sum([
+  1;
+  (list_max([
+    37 * (N([ln3], [(ln3 + 1) != 64], [0], [ln3 + 1]));
+    38 * (N([ln3], [(ln3 + 1) != 64], [0], [ln3 + 1]))
+  ])) + 1;
+  1
+])

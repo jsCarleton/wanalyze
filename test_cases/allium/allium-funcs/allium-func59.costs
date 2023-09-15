@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 337
-[4]: Infinity-z
+[4]: (list_max(((34 + |f29|) * N([pn1; pn2], [(pn2 - (64 - pn1))], [R(20, 120, i32, 0, (pn0 - -64)); pn2], [((64 - pn1) + pn1); (pn2 - (64 - pn1))])), ((35 + |f29|) * N([pn2], [(pn2 - pn2)], [pn2], [(pn2 - pn2)])), ((4553 + list_sum(|f19|, |f29|)) * N([pn2], [(pn2 - (64 - 0))], [pn2], [(pn2 - (64 - 0))])), ((4554 + list_sum(|f19|, |f29|)) * N([pn2], [(pn2 - pn2)], [pn2], [(pn2 - pn2)]))) + list_max(1, 1, 1, 1))
 [12]: 41
 [14]: 0
 2 ebb paths found
@@ -8,5 +8,14 @@ ebb costs:
 [0 4 12]
 |f59| = list_max([
   list_sum(337, 0);
-  list_sum(337, Infinity-z, 41)
+  list_sum([
+    337;
+    (list_max([
+      (34 + |f29|) * (N([pn1; pn2], [pn2 - (64 - pn1)], [R(20, 120, i32, 0, pn0 - -64); pn2], [(64 - pn1) + pn1; pn2 - (64 - pn1)]));
+      (35 + |f29|) * (N([pn2], [pn2 - pn2], [pn2], [pn2 - pn2]));
+      (4553 + (list_sum(|f19|, |f29|))) * (N([pn2], [pn2 - (64 - 0)], [pn2], [pn2 - (64 - 0)]));
+      (4554 + (list_sum(|f19|, |f29|))) * (N([pn2], [pn2 - pn2], [pn2], [pn2 - pn2]))
+    ])) + (list_max(1, 1, 1, 1));
+    41
+  ])
 ])

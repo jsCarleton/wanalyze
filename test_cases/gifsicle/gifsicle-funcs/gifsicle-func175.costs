@@ -1,8 +1,8 @@
 ebb costs:
 [0]: 24
-[4]: Infinity-z
+[4]: ((55 + |f24|) * N([pn0], [not(i32.eqz((pn0 - select((pn0 < 256), 256, pn0))))], [pn0], [(pn0 - select((pn0 < 256), 256, pn0))]))
 [4]: 15
-[5]: Infinity-z
+[5]: (((29 + |f24|) * N([ln3; pn2], [(pn2 != (ln3 + 1))], [(0 + 1); pn2], [(ln3 + 1); pn2])) + 1)
 [7]: 10
 [11]: 1
 [13]: 5
@@ -13,6 +13,18 @@ ebb costs:
 [0 4 5 7 13]
 |f175| = list_max([
   list_sum(24, 5);
-  list_sum(24, 15, Infinity-z, 10, 0);
-  list_sum(24, 15, Infinity-z, 10, 5)
+  list_sum([
+    24;
+    15;
+    ((29 + |f24|) * (N([ln3; pn2], [pn2 != (ln3 + 1)], [0 + 1; pn2], [ln3 + 1; pn2]))) + 1;
+    10;
+    0
+  ]);
+  list_sum([
+    24;
+    15;
+    ((29 + |f24|) * (N([ln3; pn2], [pn2 != (ln3 + 1)], [0 + 1; pn2], [ln3 + 1; pn2]))) + 1;
+    10;
+    5
+  ])
 ])

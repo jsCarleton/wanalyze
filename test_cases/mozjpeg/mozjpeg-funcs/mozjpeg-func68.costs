@@ -1,6 +1,6 @@
 ebb costs:
 [0]: 17
-[2]: Infinity-z
+[2]: (((25 + |f34|) * N([pn4], [(pn4 > 1)], [(pn4 + -1)], [(pn4 + -1)])) + 1)
 [4]: 1
 [5]: 1
 2 ebb paths found
@@ -8,5 +8,10 @@ ebb costs:
 [0 2 4 5]
 |f68| = list_max([
   list_sum(17, 1);
-  list_sum(17, Infinity-z, 1, 1)
+  list_sum([
+    17;
+    ((25 + |f34|) * (N([pn4], [pn4 > 1], [pn4 + -1], [pn4 + -1]))) + 1;
+    1;
+    1
+  ])
 ])

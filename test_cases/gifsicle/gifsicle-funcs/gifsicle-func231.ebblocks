@@ -7,7 +7,11 @@ ebb entry:  0
 ebb entry:  2
   ebb type:   loop
   ebb blocks: [2 3 4 5 6 7 8 9 10 11]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  28 * (N([ln1; ln4], [ln1 != ln4], [0; m[4]], [ln1; ln4]));
+  43 * (N([ln1; m[4]], [(ln1 + 1) != m[4]], [0; m[4]], [ln1 + 1; m[4]]));
+  20 * (N([ln1; ln4], [(ln1 + 1) != ln4], [0; m[4]], [ln1 + 1; ln4]))
+])) + (list_max(1, 1, 1))
   ebb exits:  [12]
   ebb succs:  [12]
   3 paths to exit 12

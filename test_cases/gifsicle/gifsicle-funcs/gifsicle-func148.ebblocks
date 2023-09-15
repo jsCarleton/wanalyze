@@ -7,7 +7,14 @@ ebb entry:  0
 ebb entry:  6
   ebb type:   loop
   ebb blocks: [6 7 8 9 10 11 12 13]
-  ebb cost:   Infinity-z
+  ebb cost:   (list_max([
+  (39 + (list_sum(|f60|, |f88|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (45 + (list_sum(|f60|, |f88|, |f148|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (45 + (list_sum(|f60|, |f88|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (51 + (list_sum(|f60|, |f88|, |f148|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (51 + (list_sum(|f60|, |f88|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (57 + (list_sum(|f60|, |f88|, |f148|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]))
+])) + (list_max(1, 1, 1, 1, 1, 1))
   ebb exits:  [14]
   ebb succs:  [14]
   6 paths to exit 14

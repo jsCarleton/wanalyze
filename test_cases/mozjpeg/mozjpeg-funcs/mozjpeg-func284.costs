@@ -1,7 +1,14 @@
 ebb costs:
 [0]: 1
-[1]: Infinity-z
+[1]: (list_max((51 * N([ln4], [((ln4 + 1) != 64)], [0], [(ln4 + 1)])), (53 * N([ln4], [((ln4 + 1) != 64)], [0], [(ln4 + 1)]))) + list_max(1, 1))
 [8]: 1
 1 ebb paths found
 [0 1 8]
-|f284| = list_sum(1, Infinity-z, 1)
+|f284| = list_sum([
+  1;
+  (list_max([
+    51 * (N([ln4], [(ln4 + 1) != 64], [0], [ln4 + 1]));
+    53 * (N([ln4], [(ln4 + 1) != 64], [0], [ln4 + 1]))
+  ])) + 1;
+  1
+])
