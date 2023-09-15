@@ -1,0 +1,76 @@
+ebb costs:
+[0]: 36
+[9]: Infinity-z
+[12]: 9
+[14]: 5
+[17]: Infinity-z
+[30]: 11
+[31]: Infinity-z
+[44]: 3
+[45]: 59
+[51]: Infinity-z
+[51]: 72
+[67]: Infinity-z
+[70]: 2
+[72]: Infinity-z
+[75]: 4
+[77]: 4
+[78]: 3
+[79]: 6
+[82]: 1
+[84]: 3
+[85]: 6
+[87]: 0
+25 ebb paths found
+[0 14 45 51 84 85]
+[0 14 45 51 78 79 87]
+[0 14 45 51 67 77 78 79 87]
+[0 14 45 51 67 70 72 85]
+[0 14 45 51 67 70 72 75 79 87]
+[0 14 45 51 67 70 72 75 77 78 79 87]
+[0 14 17 30 31 44 45 51 84 85]
+[0 14 17 30 31 44 45 51 78 79 87]
+[0 14 17 30 31 44 45 51 67 77 78 79 87]
+[0 14 17 30 31 44 45 51 67 70 72 85]
+[0 14 17 30 31 44 45 51 67 70 72 75 79 87]
+[0 14 17 30 31 44 45 51 67 70 72 75 77 78 79 87]
+[0 9 84 85]
+[0 9 12 14 45 51 84 85]
+[0 9 12 14 45 51 78 79 87]
+[0 9 12 14 45 51 67 77 78 79 87]
+[0 9 12 14 45 51 67 70 72 85]
+[0 9 12 14 45 51 67 70 72 75 79 87]
+[0 9 12 14 45 51 67 70 72 75 77 78 79 87]
+[0 9 12 14 17 30 31 44 45 51 84 85]
+[0 9 12 14 17 30 31 44 45 51 78 79 87]
+[0 9 12 14 17 30 31 44 45 51 67 77 78 79 87]
+[0 9 12 14 17 30 31 44 45 51 67 70 72 85]
+[0 9 12 14 17 30 31 44 45 51 67 70 72 75 79 87]
+[0 9 12 14 17 30 31 44 45 51 67 70 72 75 77 78 79 87]
+|f270| = list_max([
+  list_sum(36, 5, 59, 72, 3, 6);
+  list_sum(36, 5, 59, 72, 3, 6, 0);
+  list_sum(36, 5, 59, 72, Infinity-z, 4, 3, 6, 0);
+  list_sum(36, 5, 59, 72, Infinity-z, 2, Infinity-z, 6);
+  list_sum(36, 5, 59, 72, Infinity-z, 2, Infinity-z, 4, 6, 0);
+  list_sum(36, 5, 59, 72, Infinity-z, 2, Infinity-z, 4, 4, 3, 6, 0);
+  list_sum(36, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, 3, 6);
+  list_sum(36, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, 3, 6, 0);
+  list_sum(36, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, Infinity-z, 4, 3, 6, 0);
+  list_sum(36, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, Infinity-z, 2, Infinity-z, 6);
+  list_sum(36, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, Infinity-z, 2, Infinity-z, 4, 6, 0);
+  list_sum(36, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, Infinity-z, 2, Infinity-z, 4, 4, 3, 6, 0);
+  list_sum(36, Infinity-z, 3, 6);
+  list_sum(36, Infinity-z, 9, 5, 59, 72, 3, 6);
+  list_sum(36, Infinity-z, 9, 5, 59, 72, 3, 6, 0);
+  list_sum(36, Infinity-z, 9, 5, 59, 72, Infinity-z, 4, 3, 6, 0);
+  list_sum(36, Infinity-z, 9, 5, 59, 72, Infinity-z, 2, Infinity-z, 6);
+  list_sum(36, Infinity-z, 9, 5, 59, 72, Infinity-z, 2, Infinity-z, 4, 6, 0);
+  list_sum(36, Infinity-z, 9, 5, 59, 72, Infinity-z, 2, Infinity-z, 4, 4, 3, 6, 0);
+  list_sum(36, Infinity-z, 9, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, 3, 6);
+  list_sum(36, Infinity-z, 9, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, 3, 6, 0);
+  list_sum(36, Infinity-z, 9, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, Infinity-z, 4, 3, 6, 0);
+  list_sum(36, Infinity-z, 9, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, Infinity-z, 2, Infinity-z, 6);
+  list_sum(36, Infinity-z, 9, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, Infinity-z, 2, Infinity-z, 4, 6, 0);
+  list_sum(36, Infinity-z, 9, 5, Infinity-z, 11, Infinity-z, 3, 59, 72, Infinity-z, 2, Infinity-z, 4, 4, 3, 6, 0)
+])

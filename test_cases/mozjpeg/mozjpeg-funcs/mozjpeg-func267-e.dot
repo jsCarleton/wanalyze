@@ -1,0 +1,62 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 267"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 3]"]
+    node [shape=box, color=red, style=dashed] 4[label="[4 ... 10]"]
+    node [shape=box, color=black, style=solid] 11[label="[11 ... 20]"]
+    node [shape=box, color=red, style=dashed] 21[label="[21 ... 31]"]
+    node [shape=box, color=black, style=solid] 32[label="[32 ... 44]"]
+    node [shape=box, color=red, style=dashed] 45[label="[45 ... 55]"]
+    node [shape=box, color=black, style=solid] 56[label="[56 ... 57]"]
+    node [shape=box, color=black, style=solid] 58[label="[58 ... 59]"]
+    node [shape=box, color=black, style=solid] 60[label="[60 ... 76]"]
+    node [shape=box, color=black, style=solid] 77[label="[77 ... 83]"]
+    node [shape=box, color=red, style=dashed] 84[label="[84 ... 90]"]
+    node [shape=box, color=black, style=solid] 91[label="[91 ... 92]"]
+    node [shape=box, color=black, style=solid] 93[label="[93 ... 96]"]
+    node [shape=box, color=black, style=solid] 97[label="[97 ... 99]"]
+    node [shape=box, color=black, style=solid] 100[label="[100 ... 101]"]
+    node [shape=box, color=black, style=solid] 102[label="[102]"]
+    node [shape=box, color=black, style=solid] 103[label="[103]"]
+    0 -> 4;
+    0 -> 102;
+    4 -> 11;
+    4 -> 4[style="dashed" color="red" dir=back];
+    11 -> 21;
+    21 -> 32;
+    21 -> 100;
+    21 -> 21[style="dashed" color="red" dir=back];
+    32 -> 45;
+    32 -> 58;
+    32 -> 60;
+    32 -> 100;
+    45 -> 56;
+    45 -> 60;
+    45 -> 45[style="dashed" color="red" dir=back];
+    56 -> 58;
+    56 -> 77;
+    58 -> 60;
+    58 -> 100;
+    60 -> 77;
+    60 -> 93;
+    60 -> 103;
+    77 -> 84;
+    77 -> 97;
+    84 -> 91;
+    84 -> 84[style="dashed" color="red" dir=back];
+    91 -> 93;
+    91 -> 103;
+    93 -> 97;
+    93 -> 102;
+    97 -> 100;
+    97 -> 103;
+    100 -> 102;
+    100 -> 103;
+    102 -> 103;
+    103 -> E;
+}

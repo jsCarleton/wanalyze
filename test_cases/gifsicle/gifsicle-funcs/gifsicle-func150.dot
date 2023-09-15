@@ -1,0 +1,128 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 150"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
+node [shape=circle, fontcolor=black, style="", label="9"]9
+node [shape=circle, fontcolor=black, style="", label="10"]10
+node [shape=circle, fontcolor=black, style="", label="11"]11
+node [shape=circle, fontcolor=black, style="", label="12"]12
+node [shape=circle, fontcolor=black, style="", label="13"]13
+node [shape=circle, fontcolor=black, style="", label="14"]14
+node [shape=circle, fontcolor=black, style="", label="15"]15
+node [shape=circle, fontcolor=black, style="", label="16"]16
+node [shape=circle, fontcolor=black, style="", label="17"]17
+node [shape=circle, fontcolor=black, style="", label="18"]18
+node [shape=circle, fontcolor=black, style="", label="19"]19
+node [shape=circle, fontcolor=black, style="", label="20"]20
+node [shape=circle, fontcolor=black, style="", label="21"]21
+node [shape=circle, fontcolor=black, style="", label="22"]22
+node [shape=circle, fontcolor=black, style="", label="23"]23
+node [shape=circle, fontcolor=black, style="", label="24"]24
+node [shape=circle, fontcolor=black, style="", label="25"]25
+node [shape=circle, fontcolor=black, style="", label="26"]26
+node [shape=circle, fontcolor=black, style="", label="27"]27
+node [shape=circle, fontcolor=black, style="", label="28"]28
+node [shape=circle, fontcolor=black, style="", label="29"]29
+node [shape=circle, fontcolor=black, style="", label="30"]30
+node [shape=circle, fontcolor=black, style="", label="31"]31
+node [shape=circle, fontcolor=black, style="", label="32"]32
+node [shape=circle, fontcolor=black, style="", label="33"]33
+node [shape=circle, fontcolor=black, style="", label="34"]34
+node [shape=circle, fontcolor=black, style="", label="35"]35
+node [shape=circle, fontcolor=black, style="", label="36"]36
+node [shape=circle, fontcolor=black, style="", label="37"]37
+node [shape=circle, fontcolor=black, style="", label="38"]38
+node [shape=circle, fontcolor=black, style="", label="39"]39
+node [shape=circle, fontcolor=black, style="", label="40"]40
+node [shape=circle, fontcolor=black, style="", label="41"]41
+node [shape=circle, fontcolor=black, style="", label="42"]42
+node [shape=circle, fontcolor=black, style="", label="43"]43
+node [shape=circle, fontcolor=black, style="", label="44"]44
+node [shape=circle, fontcolor=black, style="", label="45"]45
+node [shape=circle, fontcolor=black, style="", label="46"]46
+node [shape=circle, fontcolor=black, style="", label="47"]47
+node [shape=circle, fontcolor=black, style="", label="48"]48
+node [shape=circle, fontcolor=black, style="", label="49"]49
+node [shape=circle, fontcolor=black, style="", label="50"]50
+node [shape=circle, fontcolor=black, style="", label="51"]51
+node [shape=circle, fontcolor=black, style="", label="E"]E
+    0 -> 1[label="block"];
+    1 -> 2[label="block"];
+    2 -> 3[label="block"];
+    3 -> 4[label="if"];
+    3 -> 29[label="else"];
+    4 -> 5[label="block"];
+    5 -> 6[label="if"];
+    5 -> 8[label="else"];
+    6 -> 7[label="~br_if"];
+    6 -> 11[label="br_if"];
+    7 -> 8[label="end"];
+    8 -> 9[label="~br_if"];
+    8 -> 51[label="br_if"];
+    9 -> 51[label="br"];
+    11 -> 12[label="block"];
+    12 -> 13[label="~br_if"];
+    12 -> 15[label="br_if"];
+    13 -> 14[label="~br_if"];
+    13 -> 15[label="br_if"];
+    14 -> 15[label="end"];
+    15 -> 16[label="block"];
+    16 -> 17[label="~br_if"];
+    16 -> 21[label="br_if"];
+    17 -> 18[label="if"];
+    17 -> 20[label="else"];
+    18 -> 21[label="br"];
+    20 -> 21[label="end"];
+    21 -> 22[label="if"];
+    21 -> 24[label="else"];
+    22 -> 44[label="br"];
+    24 -> 25[label="if"];
+    24 -> 27[label="else"];
+    25 -> 44[label="br"];
+    27 -> 44[label="br"];
+    29 -> 30[label="~br_if"];
+    29 -> 47[label="br_if"];
+    30 -> 31[label="block"];
+    31 -> 32[label="block"];
+    32 -> 37[label="br_table"];
+    32 -> 47[label="br_table"];
+    32 -> 47[label="br_table"];
+    32 -> 37[label="br_table"];
+    32 -> 34[label="br_table"];
+    34 -> 35[label="~br_if"];
+    34 -> 47[label="br_if"];
+    35 -> 51[label="br"];
+    37 -> 38[label="~br_if"];
+    37 -> 47[label="br_if"];
+    38 -> 39[label="block"];
+    39 -> 41[label="br_table"];
+    39 -> 47[label="br_table"];
+    39 -> 47[label="br_table"];
+    39 -> 41[label="br_table"];
+    39 -> 47[label="br_table"];
+    41 -> 42[label="~br_if"];
+    41 -> 47[label="br_if"];
+    42 -> 43[label="~br_if"];
+    42 -> 47[label="br_if"];
+    43 -> 44[label="end"];
+    44 -> 45[label="~br_if"];
+    44 -> 47[label="br_if"];
+    45 -> 51[label="br"];
+    47 -> 48[label="if"];
+    47 -> 50[label="else"];
+    48 -> 51[label="br"];
+    50 -> 51[label="end"];
+    51 -> E[label="end"];
+}

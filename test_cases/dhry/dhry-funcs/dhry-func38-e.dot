@@ -1,0 +1,43 @@
+digraph finite_state_machine {
+    label = "dhry.wasm - function 38"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 3]"]
+    node [shape=box, color=red, style=dashed] 4[label="[4 ... 7]"]
+    node [shape=box, color=black, style=solid] 8[label="[8]"]
+    node [shape=box, color=black, style=solid] 9[label="[9 ... 12]"]
+    node [shape=box, color=red, style=dashed] 13[label="[13 ... 15]"]
+    node [shape=box, color=black, style=solid] 16[label="[16]"]
+    node [shape=box, color=black, style=solid] 17[label="[17 ... 19]"]
+    node [shape=box, color=red, style=dashed] 20[label="[20 ... 24]"]
+    node [shape=box, color=black, style=solid] 25[label="[25 ... 26]"]
+    node [shape=box, color=black, style=solid] 27[label="[27 ... 28]"]
+    node [shape=box, color=black, style=solid] 29[label="[29]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 4;
+    0 -> 9;
+    0 -> 27;
+    4 -> 8;
+    4 -> 29;
+    4 -> 4[style="dashed" color="red" dir=back];
+    8 -> 9;
+    9 -> 13;
+    9 -> 17;
+    13 -> 16;
+    13 -> 17;
+    13 -> 13[style="dashed" color="red" dir=back];
+    16 -> 17;
+    17 -> 20;
+    17 -> 29;
+    20 -> 25;
+    20 -> 20[style="dashed" color="red" dir=back];
+    25 -> 27;
+    25 -> R;
+    27 -> 29;
+    27 -> R;
+    29 -> E;
+}

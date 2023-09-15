@@ -1,0 +1,174 @@
+ebb costs:
+[0]: 39
+[15]: Infinity-z
+[18]: 1
+[20]: 10
+[24]: Infinity-z
+[27]: 1
+[28]: 5
+[30]: Infinity-z
+[32]: 1
+[33]: 4
+[35]: Infinity-z
+[37]: 1
+[39]: 5
+[41]: Infinity-z
+[43]: 1
+[44]: 4
+[46]: Infinity-z
+[48]: 1
+[49]: 2
+[51]: 0
+75 ebb paths found
+[0 51]
+[0 49]
+[0 44 49]
+[0 44 46 48 49]
+[0 39 44 49]
+[0 39 44 46 48 49]
+[0 39 41 43 44 49]
+[0 39 41 43 44 46 48 49]
+[0 20 33 49]
+[0 20 33 35 37 49]
+[0 20 33 35 37 39 44 49]
+[0 20 33 35 37 39 44 46 48 49]
+[0 20 33 35 37 39 41 43 44 49]
+[0 20 33 35 37 39 41 43 44 46 48 49]
+[0 20 28 33 49]
+[0 20 28 33 35 37 49]
+[0 20 28 33 35 37 39 44 49]
+[0 20 28 33 35 37 39 44 46 48 49]
+[0 20 28 33 35 37 39 41 43 44 49]
+[0 20 28 33 35 37 39 41 43 44 46 48 49]
+[0 20 28 30 32 33 49]
+[0 20 28 30 32 33 35 37 49]
+[0 20 28 30 32 33 35 37 39 44 49]
+[0 20 28 30 32 33 35 37 39 44 46 48 49]
+[0 20 28 30 32 33 35 37 39 41 43 44 49]
+[0 20 28 30 32 33 35 37 39 41 43 44 46 48 49]
+[0 20 24 49]
+[0 20 24 27 28 33 49]
+[0 20 24 27 28 33 35 37 49]
+[0 20 24 27 28 33 35 37 39 44 49]
+[0 20 24 27 28 33 35 37 39 44 46 48 49]
+[0 20 24 27 28 33 35 37 39 41 43 44 49]
+[0 20 24 27 28 33 35 37 39 41 43 44 46 48 49]
+[0 20 24 27 28 30 32 33 49]
+[0 20 24 27 28 30 32 33 35 37 49]
+[0 20 24 27 28 30 32 33 35 37 39 44 49]
+[0 20 24 27 28 30 32 33 35 37 39 44 46 48 49]
+[0 20 24 27 28 30 32 33 35 37 39 41 43 44 49]
+[0 20 24 27 28 30 32 33 35 37 39 41 43 44 46 48 49]
+[0 15 49]
+[0 15 18 39 44 49]
+[0 15 18 39 44 46 48 49]
+[0 15 18 39 41 43 44 49]
+[0 15 18 39 41 43 44 46 48 49]
+[0 15 18 20 33 49]
+[0 15 18 20 33 35 37 49]
+[0 15 18 20 33 35 37 39 44 49]
+[0 15 18 20 33 35 37 39 44 46 48 49]
+[0 15 18 20 33 35 37 39 41 43 44 49]
+[0 15 18 20 33 35 37 39 41 43 44 46 48 49]
+[0 15 18 20 28 33 49]
+[0 15 18 20 28 33 35 37 49]
+[0 15 18 20 28 33 35 37 39 44 49]
+[0 15 18 20 28 33 35 37 39 44 46 48 49]
+[0 15 18 20 28 33 35 37 39 41 43 44 49]
+[0 15 18 20 28 33 35 37 39 41 43 44 46 48 49]
+[0 15 18 20 28 30 32 33 49]
+[0 15 18 20 28 30 32 33 35 37 49]
+[0 15 18 20 28 30 32 33 35 37 39 44 49]
+[0 15 18 20 28 30 32 33 35 37 39 44 46 48 49]
+[0 15 18 20 28 30 32 33 35 37 39 41 43 44 49]
+[0 15 18 20 28 30 32 33 35 37 39 41 43 44 46 48 49]
+[0 15 18 20 24 49]
+[0 15 18 20 24 27 28 33 49]
+[0 15 18 20 24 27 28 33 35 37 49]
+[0 15 18 20 24 27 28 33 35 37 39 44 49]
+[0 15 18 20 24 27 28 33 35 37 39 44 46 48 49]
+[0 15 18 20 24 27 28 33 35 37 39 41 43 44 49]
+[0 15 18 20 24 27 28 33 35 37 39 41 43 44 46 48 49]
+[0 15 18 20 24 27 28 30 32 33 49]
+[0 15 18 20 24 27 28 30 32 33 35 37 49]
+[0 15 18 20 24 27 28 30 32 33 35 37 39 44 49]
+[0 15 18 20 24 27 28 30 32 33 35 37 39 44 46 48 49]
+[0 15 18 20 24 27 28 30 32 33 35 37 39 41 43 44 49]
+[0 15 18 20 24 27 28 30 32 33 35 37 39 41 43 44 46 48 49]
+|f333| = list_max([
+  list_sum(39, 0);
+  list_sum(39, 2);
+  list_sum(39, 4, 2);
+  list_sum(39, 4, Infinity-z, 1, 2);
+  list_sum(39, 5, 4, 2);
+  list_sum(39, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, 4, 2);
+  list_sum(39, 10, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, 10, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, 10, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, 5, 4, 2);
+  list_sum(39, 10, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, 5, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, 10, 5, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, 5, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, 10, 5, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, Infinity-z, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 2);
+  list_sum(39, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, 4, Infinity-z, 1, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, 2);
+  list_sum(39, Infinity-z, 1, 10, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 5, Infinity-z, 1, 4, Infinity-z, 1, 2)
+])

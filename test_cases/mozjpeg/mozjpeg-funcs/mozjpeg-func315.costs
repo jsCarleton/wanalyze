@@ -1,0 +1,41 @@
+ebb costs:
+[0]: 12
+[2]: Infinity-z
+[2]: 71
+[17]: Infinity-z
+[29]: 1
+[31]: 26
+[34]: Infinity-z
+[55]: 1
+[57]: 28
+[60]: Infinity-z
+[62]: 1
+[64]: 10
+[65]: 13
+[67]: 1
+[68]: 1
+11 ebb paths found
+[0 68]
+[0 2 64 65 67 68]
+[0 2 57 60 62 65 67 68]
+[0 2 57 60 62 64 65 67 68]
+[0 2 31 34 55 65 67 68]
+[0 2 31 34 55 57 60 62 65 67 68]
+[0 2 31 34 55 57 60 62 64 65 67 68]
+[0 2 17 29 65 67 68]
+[0 2 17 29 31 34 55 65 67 68]
+[0 2 17 29 31 34 55 57 60 62 65 67 68]
+[0 2 17 29 31 34 55 57 60 62 64 65 67 68]
+|f315| = list_max([
+  list_sum(12, 1);
+  list_sum(12, 71, 10, 13, 1, 1);
+  list_sum(12, 71, 28, Infinity-z, 1, 13, 1, 1);
+  list_sum(12, 71, 28, Infinity-z, 1, 10, 13, 1, 1);
+  list_sum(12, 71, 26, Infinity-z, 1, 13, 1, 1);
+  list_sum(12, 71, 26, Infinity-z, 1, 28, Infinity-z, 1, 13, 1, 1);
+  list_sum(12, 71, 26, Infinity-z, 1, 28, Infinity-z, 1, 10, 13, 1, 1);
+  list_sum(12, 71, Infinity-z, 1, 13, 1, 1);
+  list_sum(12, 71, Infinity-z, 1, 26, Infinity-z, 1, 13, 1, 1);
+  list_sum(12, 71, Infinity-z, 1, 26, Infinity-z, 1, 28, Infinity-z, 1, 13, 1, 1);
+  list_sum(12, 71, Infinity-z, 1, 26, Infinity-z, 1, 28, Infinity-z, 1, 10, 13, 1, 1)
+])

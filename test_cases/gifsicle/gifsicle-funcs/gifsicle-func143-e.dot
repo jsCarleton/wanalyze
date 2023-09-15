@@ -1,0 +1,85 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 143"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 25]"]
+    node [shape=box, color=red, style=dashed] 26[label="[26 ... 30]"]
+    node [shape=box, color=black, style=solid] 31[label="[31]"]
+    node [shape=box, color=black, style=solid] 32[label="[32 ... 39]"]
+    node [shape=box, color=black, style=solid] 40[label="[40 ... 41]"]
+    node [shape=box, color=black, style=solid] 42[label="[42 ... 43]"]
+    node [shape=box, color=black, style=solid] 44[label="[44 ... 49]"]
+    subgraph cluster_50{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 50[label="[50 ... 133]"]
+    node [shape=box, color=red, style=dashed] 134[label="[134 ... 135]"]
+    node [shape=box, color=black, style=solid] 136[label="[136]"]
+    node [shape=box, color=black, style=solid] 137[label="[137 ... 147]"]
+    }
+    node [shape=box, color=black, style=solid] 148[label="[148 ... 158]"]
+    node [shape=box, color=red, style=dashed] 159[label="[159 ... 161]"]
+    node [shape=box, color=black, style=solid] 162[label="[162]"]
+    node [shape=box, color=black, style=solid] 163[label="[163 ... 165]"]
+    node [shape=box, color=black, style=solid] 166[label="[166 ... 169]"]
+    node [shape=box, color=red, style=dashed] 170[label="[170 ... 172]"]
+    node [shape=box, color=black, style=solid] 173[label="[173]"]
+    node [shape=box, color=black, style=solid] 174[label="[174 ... 175]"]
+    node [shape=box, color=black, style=solid] 176[label="[176 ... 177]"]
+    node [shape=box, color=black, style=solid] 178[label="[178 ... 179]"]
+    node [shape=box, color=black, style=solid] 180[label="[180 ... 181]"]
+    node [shape=box, color=black, style=solid] 182[label="[182 ... 183]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 26;
+    0 -> 32;
+    0 -> 42;
+    0 -> 178;
+    26 -> 31;
+    26 -> 42;
+    26 -> 26[style="dashed" color="red" dir=back];
+    31 -> 32;
+    32 -> 44;
+    32 -> 178;
+    40 -> 42;
+    40 -> U;
+    42 -> 44;
+    42 -> 178;
+    44 -> 50;
+    50 -> 134;
+    50 -> 137;
+    50 -> 169;
+    50 -> 174;
+    50 -> 176;
+    134 -> 136;
+    134 -> 134[style="dashed" color="red" dir=back];
+    136 -> 137;
+    137 -> 50[style="dashed" color="red"];
+    137 -> 148;
+    148 -> 159;
+    148 -> 163;
+    148 -> 166;
+    159 -> 162;
+    159 -> 166;
+    159 -> 159[style="dashed" color="red" dir=back];
+    162 -> 163;
+    163 -> 166;
+    163 -> 178;
+    166 -> 170;
+    166 -> 178;
+    170 -> 173;
+    170 -> 176;
+    170 -> 170[style="dashed" color="red" dir=back];
+    173 -> 174;
+    174 -> 176;
+    174 -> 178;
+    176 -> 178;
+    178 -> R;
+    180 -> U;
+    182 -> E;
+    182 -> U;
+}

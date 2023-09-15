@@ -1,0 +1,79 @@
+ebb costs:
+[0]: 26
+[8]: Infinity-z
+[12]: 1
+[14]: 15
+[18]: Infinity-z
+[21]: 1
+[23]: 3
+[25]: 3
+[26]: 16
+[30]: Infinity-z
+[32]: 1
+[33]: 5
+[35]: Infinity-z
+[37]: 1
+[38]: 6
+[41]: Infinity-z
+[43]: 1
+[44]: 2
+[46]: 0
+28 ebb paths found
+[0 25 26 33 38 44]
+[0 25 26 33 38 41 43 44]
+[0 25 26 33 35 37 38 44]
+[0 25 26 33 35 37 38 41 43 44]
+[0 25 26 30 32 33 38 44]
+[0 25 26 30 32 33 38 41 43 44]
+[0 25 26 30 32 33 35 37 38 44]
+[0 25 26 30 32 33 35 37 38 41 43 44]
+[0 14 23 38 44]
+[0 14 23 38 41 43 44]
+[0 14 23 25 26 33 38 44]
+[0 14 23 25 26 33 38 41 43 44]
+[0 14 23 25 26 33 35 37 38 44]
+[0 14 23 25 26 33 35 37 38 41 43 44]
+[0 14 23 25 26 30 32 33 38 44]
+[0 14 23 25 26 30 32 33 38 41 43 44]
+[0 14 23 25 26 30 32 33 35 37 38 44]
+[0 14 23 25 26 30 32 33 35 37 38 41 43 44]
+[0 14 18 38 44]
+[0 14 18 38 41 43 44]
+[0 8 26 33 38 44]
+[0 8 26 33 38 41 43 44]
+[0 8 26 33 35 37 38 44]
+[0 8 26 33 35 37 38 41 43 44]
+[0 8 26 30 32 33 38 44]
+[0 8 26 30 32 33 38 41 43 44]
+[0 8 26 30 32 33 35 37 38 44]
+[0 8 26 30 32 33 35 37 38 41 43 44]
+|f40| = list_max([
+  list_sum(26, 3, 16, 5, 6, 2);
+  list_sum(26, 3, 16, 5, 6, Infinity-z, 1, 2);
+  list_sum(26, 3, 16, 5, Infinity-z, 1, 6, 2);
+  list_sum(26, 3, 16, 5, Infinity-z, 1, 6, Infinity-z, 1, 2);
+  list_sum(26, 3, 16, Infinity-z, 1, 5, 6, 2);
+  list_sum(26, 3, 16, Infinity-z, 1, 5, 6, Infinity-z, 1, 2);
+  list_sum(26, 3, 16, Infinity-z, 1, 5, Infinity-z, 1, 6, 2);
+  list_sum(26, 3, 16, Infinity-z, 1, 5, Infinity-z, 1, 6, Infinity-z, 1, 2);
+  list_sum(26, 15, 3, 6, 2);
+  list_sum(26, 15, 3, 6, Infinity-z, 1, 2);
+  list_sum(26, 15, 3, 3, 16, 5, 6, 2);
+  list_sum(26, 15, 3, 3, 16, 5, 6, Infinity-z, 1, 2);
+  list_sum(26, 15, 3, 3, 16, 5, Infinity-z, 1, 6, 2);
+  list_sum(26, 15, 3, 3, 16, 5, Infinity-z, 1, 6, Infinity-z, 1, 2);
+  list_sum(26, 15, 3, 3, 16, Infinity-z, 1, 5, 6, 2);
+  list_sum(26, 15, 3, 3, 16, Infinity-z, 1, 5, 6, Infinity-z, 1, 2);
+  list_sum(26, 15, 3, 3, 16, Infinity-z, 1, 5, Infinity-z, 1, 6, 2);
+  list_sum(26, 15, 3, 3, 16, Infinity-z, 1, 5, Infinity-z, 1, 6, Infinity-z, 1, 2);
+  list_sum(26, 15, Infinity-z, 6, 2);
+  list_sum(26, 15, Infinity-z, 6, Infinity-z, 1, 2);
+  list_sum(26, Infinity-z, 16, 5, 6, 2);
+  list_sum(26, Infinity-z, 16, 5, 6, Infinity-z, 1, 2);
+  list_sum(26, Infinity-z, 16, 5, Infinity-z, 1, 6, 2);
+  list_sum(26, Infinity-z, 16, 5, Infinity-z, 1, 6, Infinity-z, 1, 2);
+  list_sum(26, Infinity-z, 16, Infinity-z, 1, 5, 6, 2);
+  list_sum(26, Infinity-z, 16, Infinity-z, 1, 5, 6, Infinity-z, 1, 2);
+  list_sum(26, Infinity-z, 16, Infinity-z, 1, 5, Infinity-z, 1, 6, 2);
+  list_sum(26, Infinity-z, 16, Infinity-z, 1, 5, Infinity-z, 1, 6, Infinity-z, 1, 2)
+])

@@ -1,0 +1,640 @@
+digraph finite_state_machine {
+    label = "dhry.wasm - function 46"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
+node [shape=circle, fontcolor=black, style="", label="9"]9
+node [shape=circle, fontcolor=black, style="", label="10"]10
+node [shape=circle, fontcolor=black, style="", label="11"]11
+node [shape=circle, fontcolor=black, style="", label="12"]12
+node [shape=circle, fontcolor=black, style="", label="13"]13
+node [shape=circle, fontcolor=black, style="", label="14"]14
+node [shape=circle, fontcolor=black, style="", label="15"]15
+node [shape=circle, fontcolor=black, style="", label="16"]16
+node [shape=circle, fontcolor=black, style="", label="17"]17
+node [shape=circle, fontcolor=black, style="", label="18"]18
+node [shape=circle, fontcolor=black, style="", label="19"]19
+node [shape=circle, fontcolor=black, style="", label="20"]20
+node [shape=circle, fontcolor=black, style="", label="21"]21
+node [shape=circle, fontcolor=black, style="", label="22"]22
+node [shape=circle, fontcolor=black, style="", label="23"]23
+node [shape=circle, fontcolor=black, style="", label="24"]24
+node [shape=circle, fontcolor=black, style="", label="25"]25
+node [shape=circle, fontcolor=black, style="", label="26"]26
+node [shape=circle, fontcolor=black, style="", label="27"]27
+node [shape=circle, fontcolor=black, style="", label="28"]28
+node [shape=circle, fontcolor=black, style="", label="29"]29
+node [shape=circle, fontcolor=black, style="", label="30"]30
+node [shape=circle, fontcolor=black, style="", label="31"]31
+node [shape=circle, fontcolor=black, style="", label="32"]32
+node [shape=circle, fontcolor=black, style="", label="33"]33
+node [shape=circle, fontcolor=black, style="", label="34"]34
+node [shape=circle, fontcolor=black, style="", label="35"]35
+node [shape=circle, fontcolor=black, style="", label="36"]36
+node [shape=circle, fontcolor=black, style="", label="37"]37
+node [shape=circle, fontcolor=black, style="", label="38"]38
+node [shape=circle, fontcolor=black, style="", label="39"]39
+node [shape=circle, fontcolor=black, style="", label="40"]40
+node [shape=circle, fontcolor=black, style="", label="41"]41
+node [shape=circle, fontcolor=black, style="", label="42"]42
+node [shape=circle, fontcolor=black, style="", label="43"]43
+node [shape=circle, fontcolor=black, style="", label="44"]44
+node [shape=circle, fontcolor=black, style="", label="45"]45
+node [shape=circle, fontcolor=black, style="", label="46"]46
+node [shape=circle, fontcolor=black, style="", label="47"]47
+node [shape=circle, fontcolor=black, style="", label="48"]48
+node [shape=circle, fontcolor=black, style="", label="49"]49
+node [shape=circle, fontcolor=black, style="", label="50"]50
+node [shape=circle, fontcolor=black, style="", label="51"]51
+node [shape=circle, fontcolor=black, style="", label="52"]52
+node [shape=circle, fontcolor=black, style="", label="53"]53
+node [shape=circle, fontcolor=black, style="", label="54"]54
+node [shape=circle, fontcolor=black, style="", label="55"]55
+node [shape=circle, fontcolor=black, style="", label="56"]56
+node [shape=circle, fontcolor=black, style="", label="57"]57
+node [shape=circle, fontcolor=black, style="", label="58"]58
+node [shape=circle, fontcolor=black, style="", label="59"]59
+node [shape=circle, fontcolor=black, style="", label="60"]60
+node [shape=circle, fontcolor=black, style="", label="61"]61
+node [shape=circle, fontcolor=black, style="", label="62"]62
+node [shape=circle, fontcolor=black, style="", label="63"]63
+node [shape=circle, fontcolor=black, style="", label="64"]64
+node [shape=circle, fontcolor=black, style="", label="65"]65
+node [shape=circle, fontcolor=black, style="", label="66"]66
+node [shape=circle, fontcolor=black, style="", label="67"]67
+node [shape=circle, fontcolor=black, style="", label="68"]68
+node [shape=circle, fontcolor=black, style="", label="69"]69
+node [shape=circle, fontcolor=black, style="", label="70"]70
+node [shape=circle, fontcolor=black, style="", label="71"]71
+node [shape=circle, fontcolor=black, style="", label="72"]72
+node [shape=circle, fontcolor=black, style="", label="73"]73
+node [shape=circle, fontcolor=black, style="", label="74"]74
+node [shape=circle, fontcolor=black, style="", label="75"]75
+node [shape=circle, fontcolor=black, style="", label="76"]76
+node [shape=circle, fontcolor=black, style="", label="77"]77
+node [shape=circle, fontcolor=black, style="", label="78"]78
+node [shape=circle, fontcolor=black, style="", label="79"]79
+node [shape=circle, fontcolor=black, style="", label="80"]80
+node [shape=circle, fontcolor=black, style="", label="81"]81
+node [shape=circle, fontcolor=black, style="", label="82"]82
+node [shape=circle, fontcolor=black, style="", label="83"]83
+node [shape=circle, fontcolor=black, style="", label="84"]84
+node [shape=circle, fontcolor=black, style="", label="85"]85
+node [shape=circle, fontcolor=black, style="", label="86"]86
+node [shape=circle, fontcolor=black, style="", label="87"]87
+node [shape=circle, fontcolor=black, style="", label="88"]88
+node [shape=circle, fontcolor=black, style="", label="89"]89
+node [shape=circle, fontcolor=black, style="", label="90"]90
+node [shape=circle, fontcolor=black, style="", label="91"]91
+node [shape=circle, fontcolor=black, style="", label="92"]92
+node [shape=circle, fontcolor=black, style="", label="93"]93
+node [shape=circle, fontcolor=black, style="", label="94"]94
+node [shape=circle, fontcolor=black, style="", label="95"]95
+node [shape=circle, fontcolor=black, style="", label="96"]96
+node [shape=circle, fontcolor=black, style="", label="97"]97
+node [shape=circle, fontcolor=black, style="", label="98"]98
+node [shape=circle, fontcolor=black, style="", label="99"]99
+node [shape=circle, fontcolor=black, style="", label="100"]100
+node [shape=circle, fontcolor=black, style="", label="101"]101
+node [shape=circle, fontcolor=black, style="", label="102"]102
+node [shape=circle, fontcolor=black, style="", label="103"]103
+node [shape=circle, fontcolor=black, style="", label="104"]104
+node [shape=circle, fontcolor=black, style="", label="105"]105
+node [shape=circle, fontcolor=black, style="", label="106"]106
+node [shape=circle, fontcolor=black, style="", label="107"]107
+node [shape=circle, fontcolor=black, style="", label="108"]108
+node [shape=circle, fontcolor=black, style="", label="109"]109
+node [shape=circle, fontcolor=black, style="", label="110"]110
+node [shape=circle, fontcolor=black, style="", label="111"]111
+node [shape=circle, fontcolor=black, style="", label="112"]112
+node [shape=circle, fontcolor=black, style="", label="113"]113
+node [shape=circle, fontcolor=black, style="", label="114"]114
+node [shape=circle, fontcolor=black, style="", label="115"]115
+node [shape=circle, fontcolor=black, style="", label="116"]116
+node [shape=circle, fontcolor=black, style="", label="117"]117
+node [shape=circle, fontcolor=black, style="", label="118"]118
+node [shape=circle, fontcolor=black, style="", label="119"]119
+node [shape=circle, fontcolor=black, style="", label="120"]120
+node [shape=circle, fontcolor=black, style="", label="121"]121
+node [shape=circle, fontcolor=black, style="", label="122"]122
+node [shape=circle, fontcolor=black, style="", label="123"]123
+node [shape=circle, fontcolor=black, style="", label="124"]124
+node [shape=circle, fontcolor=black, style="", label="125"]125
+node [shape=circle, fontcolor=black, style="", label="126"]126
+node [shape=circle, fontcolor=black, style="", label="127"]127
+node [shape=circle, fontcolor=black, style="", label="128"]128
+node [shape=circle, fontcolor=black, style="", label="129"]129
+node [shape=circle, fontcolor=black, style="", label="130"]130
+node [shape=circle, fontcolor=black, style="", label="131"]131
+node [shape=circle, fontcolor=black, style="", label="132"]132
+node [shape=circle, fontcolor=black, style="", label="133"]133
+node [shape=circle, fontcolor=black, style="", label="134"]134
+node [shape=circle, fontcolor=black, style="", label="135"]135
+node [shape=circle, fontcolor=black, style="", label="136"]136
+node [shape=circle, fontcolor=black, style="", label="137"]137
+node [shape=circle, fontcolor=black, style="", label="138"]138
+node [shape=circle, fontcolor=black, style="", label="139"]139
+node [shape=circle, fontcolor=black, style="", label="140"]140
+node [shape=circle, fontcolor=black, style="", label="141"]141
+node [shape=circle, fontcolor=black, style="", label="142"]142
+node [shape=circle, fontcolor=black, style="", label="143"]143
+node [shape=circle, fontcolor=black, style="", label="144"]144
+node [shape=circle, fontcolor=black, style="", label="145"]145
+node [shape=circle, fontcolor=black, style="", label="146"]146
+node [shape=circle, fontcolor=black, style="", label="147"]147
+node [shape=circle, fontcolor=black, style="", label="148"]148
+node [shape=circle, fontcolor=black, style="", label="149"]149
+node [shape=circle, fontcolor=black, style="", label="150"]150
+node [shape=circle, fontcolor=black, style="", label="151"]151
+node [shape=circle, fontcolor=black, style="", label="152"]152
+node [shape=circle, fontcolor=black, style="", label="153"]153
+node [shape=circle, fontcolor=black, style="", label="154"]154
+node [shape=circle, fontcolor=black, style="", label="155"]155
+node [shape=circle, fontcolor=black, style="", label="156"]156
+node [shape=circle, fontcolor=black, style="", label="157"]157
+node [shape=circle, fontcolor=black, style="", label="158"]158
+node [shape=circle, fontcolor=black, style="", label="159"]159
+node [shape=circle, fontcolor=black, style="", label="160"]160
+node [shape=circle, fontcolor=black, style="", label="161"]161
+node [shape=circle, fontcolor=black, style="", label="162"]162
+node [shape=circle, fontcolor=black, style="", label="163"]163
+node [shape=circle, fontcolor=black, style="", label="164"]164
+node [shape=circle, fontcolor=black, style="", label="165"]165
+node [shape=circle, fontcolor=black, style="", label="166"]166
+node [shape=circle, fontcolor=black, style="", label="167"]167
+node [shape=circle, fontcolor=black, style="", label="168"]168
+node [shape=circle, fontcolor=black, style="", label="169"]169
+node [shape=circle, fontcolor=black, style="", label="170"]170
+node [shape=circle, fontcolor=black, style="", label="171"]171
+node [shape=circle, fontcolor=black, style="", label="172"]172
+node [shape=circle, fontcolor=black, style="", label="173"]173
+node [shape=circle, fontcolor=black, style="", label="174"]174
+node [shape=circle, fontcolor=black, style="", label="175"]175
+node [shape=circle, fontcolor=black, style="", label="176"]176
+node [shape=circle, fontcolor=black, style="", label="177"]177
+node [shape=circle, fontcolor=black, style="", label="178"]178
+node [shape=circle, fontcolor=black, style="", label="179"]179
+node [shape=circle, fontcolor=black, style="", label="180"]180
+node [shape=circle, fontcolor=black, style="", label="181"]181
+node [shape=circle, fontcolor=black, style="", label="182"]182
+node [shape=circle, fontcolor=black, style="", label="183"]183
+node [shape=circle, fontcolor=black, style="", label="184"]184
+node [shape=circle, fontcolor=black, style="", label="185"]185
+node [shape=circle, fontcolor=black, style="", label="186"]186
+node [shape=circle, fontcolor=black, style="", label="187"]187
+node [shape=circle, fontcolor=black, style="", label="188"]188
+node [shape=circle, fontcolor=black, style="", label="189"]189
+node [shape=circle, fontcolor=black, style="", label="190"]190
+node [shape=circle, fontcolor=black, style="", label="191"]191
+node [shape=circle, fontcolor=black, style="", label="192"]192
+node [shape=circle, fontcolor=black, style="", label="193"]193
+node [shape=circle, fontcolor=black, style="", label="194"]194
+node [shape=circle, fontcolor=black, style="", label="195"]195
+node [shape=circle, fontcolor=black, style="", label="196"]196
+node [shape=circle, fontcolor=black, style="", label="197"]197
+node [shape=circle, fontcolor=black, style="", label="198"]198
+node [shape=circle, fontcolor=black, style="", label="199"]199
+node [shape=circle, fontcolor=black, style="", label="200"]200
+node [shape=circle, fontcolor=black, style="", label="201"]201
+node [shape=circle, fontcolor=black, style="", label="202"]202
+node [shape=circle, fontcolor=black, style="", label="203"]203
+node [shape=circle, fontcolor=black, style="", label="204"]204
+node [shape=circle, fontcolor=black, style="", label="205"]205
+node [shape=circle, fontcolor=black, style="", label="206"]206
+node [shape=circle, fontcolor=black, style="", label="207"]207
+node [shape=circle, fontcolor=black, style="", label="208"]208
+node [shape=circle, fontcolor=black, style="", label="209"]209
+node [shape=circle, fontcolor=black, style="", label="210"]210
+node [shape=circle, fontcolor=black, style="", label="211"]211
+node [shape=circle, fontcolor=black, style="", label="212"]212
+node [shape=circle, fontcolor=black, style="", label="213"]213
+node [shape=circle, fontcolor=black, style="", label="214"]214
+node [shape=circle, fontcolor=black, style="", label="215"]215
+node [shape=circle, fontcolor=black, style="", label="216"]216
+node [shape=circle, fontcolor=black, style="", label="217"]217
+node [shape=circle, fontcolor=black, style="", label="218"]218
+node [shape=circle, fontcolor=black, style="", label="219"]219
+node [shape=circle, fontcolor=black, style="", label="220"]220
+node [shape=circle, fontcolor=black, style="", label="221"]221
+node [shape=circle, fontcolor=black, style="", label="222"]222
+node [shape=circle, fontcolor=black, style="", label="223"]223
+node [shape=circle, fontcolor=black, style="", label="224"]224
+node [shape=circle, fontcolor=black, style="", label="225"]225
+node [shape=circle, fontcolor=black, style="", label="226"]226
+node [shape=circle, fontcolor=black, style="", label="227"]227
+node [shape=circle, fontcolor=black, style="", label="228"]228
+node [shape=circle, fontcolor=black, style="", label="229"]229
+node [shape=circle, fontcolor=black, style="", label="230"]230
+node [shape=circle, fontcolor=black, style="", label="231"]231
+node [shape=circle, fontcolor=black, style="", label="232"]232
+node [shape=circle, fontcolor=black, style="", label="233"]233
+node [shape=circle, fontcolor=black, style="", label="234"]234
+node [shape=circle, fontcolor=black, style="", label="235"]235
+node [shape=circle, fontcolor=black, style="", label="236"]236
+node [shape=circle, fontcolor=black, style="", label="237"]237
+node [shape=circle, fontcolor=black, style="", label="238"]238
+node [shape=circle, fontcolor=black, style="", label="239"]239
+node [shape=circle, fontcolor=black, style="", label="240"]240
+node [shape=circle, fontcolor=black, style="", label="241"]241
+node [shape=circle, fontcolor=black, style="", label="242"]242
+node [shape=circle, fontcolor=black, style="", label="243"]243
+node [shape=circle, fontcolor=black, style="", label="244"]244
+node [shape=circle, fontcolor=black, style="", label="245"]245
+node [shape=circle, fontcolor=black, style="", label="246"]246
+node [shape=circle, fontcolor=black, style="", label="247"]247
+node [shape=circle, fontcolor=black, style="", label="248"]248
+node [shape=circle, fontcolor=black, style="", label="249"]249
+node [shape=circle, fontcolor=black, style="", label="250"]250
+node [shape=circle, fontcolor=black, style="", label="251"]251
+node [shape=circle, fontcolor=black, style="", label="252"]252
+node [shape=circle, fontcolor=black, style="", label="253"]253
+node [shape=circle, fontcolor=black, style="", label="254"]254
+node [shape=circle, fontcolor=black, style="", label="255"]255
+node [shape=circle, fontcolor=black, style="", label="256"]256
+node [shape=circle, fontcolor=black, style="", label="257"]257
+node [shape=circle, fontcolor=black, style="", label="258"]258
+node [shape=circle, fontcolor=black, style="", label="259"]259
+node [shape=circle, fontcolor=black, style="", label="260"]260
+node [shape=circle, fontcolor=black, style="", label="261"]261
+node [shape=circle, fontcolor=black, style="", label="262"]262
+node [shape=circle, fontcolor=black, style="", label="263"]263
+node [shape=circle, fontcolor=black, style="", label="264"]264
+node [shape=circle, fontcolor=black, style="", label="265"]265
+node [shape=circle, fontcolor=black, style="", label="266"]266
+node [shape=circle, fontcolor=black, style="", label="267"]267
+node [shape=circle, fontcolor=black, style="", label="268"]268
+node [shape=circle, fontcolor=black, style="", label="269"]269
+node [shape=circle, fontcolor=black, style="", label="270"]270
+node [shape=circle, fontcolor=black, style="", label="271"]271
+node [shape=circle, fontcolor=black, style="", label="272"]272
+node [shape=circle, fontcolor=black, style="", label="273"]273
+node [shape=circle, fontcolor=black, style="", label="274"]274
+node [shape=circle, fontcolor=black, style="", label="275"]275
+node [shape=circle, fontcolor=black, style="", label="276"]276
+node [shape=circle, fontcolor=black, style="", label="277"]277
+node [shape=circle, fontcolor=black, style="", label="278"]278
+node [shape=circle, fontcolor=black, style="", label="279"]279
+node [shape=circle, fontcolor=black, style="", label="E"]E
+node [shape=circle, fontcolor=black, style="", label="U"]U
+    0 -> 1[label="loop"];
+    1 -> 2[label="if"];
+    1 -> 33[label="else"];
+    2 -> 3[label="loop"];
+    3 -> 4[label="if"];
+    3 -> 9[label="else"];
+    4 -> 5[label="loop"];
+    5 -> 5[style="dashed" color="red" fontcolor="red" label="br"];
+    7 -> U[label="unreachable"];
+    9 -> 10[label="if"];
+    9 -> 11[label="else"];
+    10 -> 12[label="end"];
+    11 -> 12[label="end"];
+    12 -> 13[label="if"];
+    12 -> 14[label="else"];
+    13 -> 15[label="end"];
+    14 -> 15[label="end"];
+    15 -> 16[label="block"];
+    16 -> 17[label="if"];
+    16 -> 19[label="else"];
+    17 -> 20[label="br"];
+    19 -> 20[label="end"];
+    20 -> 21[label="if"];
+    20 -> 30[label="else"];
+    21 -> 22[label="loop"];
+    22 -> 23[label="if"];
+    22 -> 24[label="else"];
+    23 -> 25[label="end"];
+    24 -> 25[label="end"];
+    25 -> 26[label="if"];
+    25 -> 27[label="else"];
+    26 -> 27[label="end"];
+    27 -> 28[label="~br_if"];
+    27 -> 22[style="dashed" color="red" fontcolor="red" label="br_if"];
+    28 -> 29[label="end"];
+    29 -> 30[label="end"];
+    30 -> 31[label="~br_if"];
+    30 -> 3[style="dashed" color="red" fontcolor="red" label="br_if"];
+    31 -> 32[label="end"];
+    32 -> 33[label="end"];
+    33 -> 34[label="block"];
+    34 -> 35[label="if"];
+    34 -> 37[label="else"];
+    35 -> 38[label="br"];
+    37 -> 38[label="end"];
+    38 -> 39[label="block"];
+    39 -> 40[label="if"];
+    39 -> 42[label="else"];
+    40 -> 44[label="br"];
+    42 -> 43[label="~br_if"];
+    42 -> 1[style="dashed" color="red" fontcolor="red" label="br_if"];
+    43 -> 44[label="end"];
+    44 -> 45[label="end"];
+    45 -> 46[label="block"];
+    46 -> 47[label="if"];
+    46 -> 49[label="else"];
+    47 -> 279[label="br"];
+    49 -> 50[label="if"];
+    49 -> 51[label="else"];
+    50 -> 81[label="end"];
+    51 -> 52[label="block"];
+    52 -> 53[label="~br_if"];
+    52 -> 80[label="br_if"];
+    53 -> 54[label="~br_if"];
+    53 -> 80[label="br_if"];
+    54 -> 55[label="~br_if"];
+    54 -> 80[label="br_if"];
+    55 -> 56[label="loop"];
+    56 -> 57[label="block"];
+    57 -> 58[label="block"];
+    58 -> 59[label="~br_if"];
+    58 -> 72[label="br_if"];
+    59 -> 60[label="block"];
+    60 -> 61[label="~br_if"];
+    60 -> 71[label="br_if"];
+    61 -> 62[label="loop"];
+    62 -> 63[label="block"];
+    63 -> 64[label="~br_if"];
+    63 -> 69[label="br_if"];
+    64 -> 65[label="~br_if"];
+    64 -> 69[label="br_if"];
+    65 -> 66[label="~br_if"];
+    65 -> 69[label="br_if"];
+    66 -> 67[label="~br_if"];
+    66 -> 62[style="dashed" color="red" fontcolor="red" label="br_if"];
+    67 -> 71[label="br"];
+    69 -> 70[label="end"];
+    70 -> 71[label="end"];
+    71 -> 72[label="end"];
+    72 -> 73[label="if"];
+    72 -> 75[label="else"];
+    73 -> 74[label="~br_if"];
+    73 -> 78[label="br_if"];
+    74 -> 75[label="end"];
+    75 -> 76[label="~br_if"];
+    75 -> 56[style="dashed" color="red" fontcolor="red" label="br_if"];
+    76 -> 80[label="br"];
+    78 -> 79[label="end"];
+    79 -> 80[label="end"];
+    80 -> 81[label="end"];
+    81 -> 82[label="block"];
+    82 -> 83[label="if"];
+    82 -> 85[label="else"];
+    83 -> 84[label="~br_if"];
+    83 -> 171[label="br_if"];
+    84 -> 85[label="end"];
+    85 -> 86[label="loop"];
+    86 -> 87[label="~br_if"];
+    86 -> 86[style="dashed" color="red" fontcolor="red" label="br_if"];
+    87 -> 88[label="end"];
+    88 -> 89[label="if"];
+    88 -> 117[label="else"];
+    89 -> 90[label="block"];
+    90 -> 91[label="block"];
+    91 -> 92[label="if"];
+    91 -> 99[label="else"];
+    92 -> 93[label="loop"];
+    93 -> 94[label="~br_if"];
+    93 -> 100[label="br_if"];
+    94 -> 95[label="if"];
+    94 -> 96[label="else"];
+    95 -> 96[label="end"];
+    96 -> 97[label="~br_if"];
+    96 -> 93[style="dashed" color="red" fontcolor="red" label="br_if"];
+    97 -> 98[label="end"];
+    98 -> 99[label="end"];
+    99 -> 100[label="end"];
+    100 -> 101[label="if"];
+    100 -> 103[label="else"];
+    101 -> 113[label="br"];
+    103 -> 104[label="if"];
+    103 -> 106[label="else"];
+    104 -> 113[label="br"];
+    106 -> 107[label="if"];
+    106 -> 109[label="else"];
+    107 -> 108[label="~br_if"];
+    107 -> 113[label="br_if"];
+    108 -> 109[label="end"];
+    109 -> 110[label="if"];
+    109 -> 111[label="else"];
+    110 -> 111[label="end"];
+    111 -> 112[label="~br_if"];
+    111 -> 113[label="br_if"];
+    112 -> 113[label="end"];
+    113 -> 114[label="if"];
+    113 -> 115[label="else"];
+    114 -> 116[label="end"];
+    115 -> 116[label="end"];
+    116 -> 117[label="end"];
+    117 -> 118[label="if"];
+    117 -> 119[label="else"];
+    118 -> 119[label="end"];
+    119 -> 120[label="block"];
+    120 -> 121[label="if"];
+    120 -> 123[label="else"];
+    121 -> 124[label="br"];
+    123 -> 124[label="end"];
+    124 -> 125[label="if"];
+    124 -> 126[label="else"];
+    125 -> 126[label="end"];
+    126 -> 127[label="block"];
+    127 -> 128[label="block"];
+    128 -> 129[label="block"];
+    129 -> 130[label="~br_if"];
+    129 -> 135[label="br_if"];
+    130 -> 131[label="~br_if"];
+    130 -> 152[label="br_if"];
+    131 -> 132[label="~br_if"];
+    131 -> 152[label="br_if"];
+    132 -> 133[label="~br_if"];
+    132 -> 135[label="br_if"];
+    133 -> 136[label="br"];
+    135 -> 136[label="end"];
+    136 -> 137[label="block"];
+    137 -> 138[label="if"];
+    137 -> 143[label="else"];
+    138 -> 139[label="if"];
+    138 -> 141[label="else"];
+    139 -> 140[label="~br_if"];
+    139 -> 151[label="br_if"];
+    140 -> 141[label="end"];
+    141 -> 151[label="br"];
+    143 -> 144[label="~br_if"];
+    143 -> 151[label="br_if"];
+    144 -> 145[label="~br_if"];
+    144 -> 151[label="br_if"];
+    145 -> 146[label="loop"];
+    146 -> 147[label="~br_if"];
+    146 -> 151[label="br_if"];
+    147 -> 146[style="dashed" color="red" fontcolor="red" label="br"];
+    149 -> U[label="unreachable"];
+    151 -> 152[label="end"];
+    152 -> 153[label="if"];
+    152 -> 154[label="else"];
+    153 -> 154[label="end"];
+    154 -> 155[label="block"];
+    155 -> 156[label="if"];
+    155 -> 167[label="else"];
+    156 -> 157[label="block"];
+    157 -> 158[label="block"];
+    158 -> 159[label="block"];
+    159 -> 163[label="br_table"];
+    159 -> 161[label="br_table"];
+    159 -> 163[label="br_table"];
+    159 -> 161[label="br_table"];
+    161 -> 162[label="~br_if"];
+    161 -> 165[label="br_if"];
+    162 -> 163[label="end"];
+    163 -> 168[label="br"];
+    165 -> 168[label="br"];
+    167 -> 168[label="end"];
+    168 -> 169[label="~br_if"];
+    168 -> 171[label="br_if"];
+    169 -> 170[label="~br_if"];
+    169 -> 171[label="br_if"];
+    170 -> 171[label="end"];
+    171 -> 172[label="block"];
+    172 -> 173[label="block"];
+    173 -> 174[label="~br_if"];
+    173 -> 231[label="br_if"];
+    174 -> 175[label="block"];
+    175 -> 176[label="block"];
+    176 -> 177[label="block"];
+    177 -> 178[label="block"];
+    178 -> 180[label="br_table"];
+    178 -> 227[label="br_table"];
+    178 -> 183[label="br_table"];
+    180 -> 181[label="~br_if"];
+    180 -> 227[label="br_if"];
+    181 -> 228[label="br"];
+    183 -> 184[label="loop"];
+    184 -> 185[label="block"];
+    185 -> 186[label="if"];
+    185 -> 188[label="else"];
+    186 -> 189[label="br"];
+    188 -> 189[label="end"];
+    189 -> 190[label="~br_if"];
+    189 -> 184[style="dashed" color="red" fontcolor="red" label="br_if"];
+    190 -> 191[label="end"];
+    191 -> 192[label="~br_if"];
+    191 -> 227[label="br_if"];
+    192 -> 193[label="block"];
+    193 -> 194[label="block"];
+    194 -> 195[label="block"];
+    195 -> 196[label="if"];
+    195 -> 217[label="else"];
+    196 -> 197[label="block"];
+    197 -> 198[label="if"];
+    197 -> 200[label="else"];
+    198 -> 201[label="br"];
+    200 -> 201[label="end"];
+    201 -> 202[label="if"];
+    201 -> 214[label="else"];
+    202 -> 203[label="block"];
+    203 -> 204[label="~br_if"];
+    203 -> 209[label="br_if"];
+    204 -> 205[label="loop"];
+    205 -> 206[label="~br_if"];
+    205 -> 209[label="br_if"];
+    206 -> 207[label="~br_if"];
+    206 -> 205[style="dashed" color="red" fontcolor="red" label="br_if"];
+    207 -> 208[label="end"];
+    208 -> 209[label="end"];
+    209 -> 210[label="if"];
+    209 -> 212[label="else"];
+    210 -> 228[label="br"];
+    212 -> 228[label="br"];
+    214 -> 215[label="~br_if"];
+    214 -> 220[label="br_if"];
+    215 -> 226[label="br"];
+    217 -> 218[label="~br_if"];
+    217 -> 226[label="br_if"];
+    218 -> 219[label="~br_if"];
+    218 -> 225[label="br_if"];
+    219 -> 220[label="end"];
+    220 -> 221[label="if"];
+    220 -> 223[label="else"];
+    221 -> 225[label="br"];
+    223 -> 224[label="~br_if"];
+    223 -> 225[label="br_if"];
+    224 -> 225[label="end"];
+    225 -> 226[label="end"];
+    226 -> 227[label="end"];
+    227 -> 228[label="end"];
+    228 -> 229[label="~br_if"];
+    228 -> 231[label="br_if"];
+    229 -> 253[label="br"];
+    231 -> 232[label="block"];
+    232 -> 233[label="block"];
+    233 -> 234[label="if"];
+    233 -> 236[label="else"];
+    234 -> 250[label="br"];
+    236 -> 237[label="loop"];
+    237 -> 238[label="~br_if"];
+    237 -> 237[style="dashed" color="red" fontcolor="red" label="br_if"];
+    238 -> 239[label="end"];
+    239 -> 240[label="loop"];
+    240 -> 241[label="~br_if"];
+    240 -> 240[style="dashed" color="red" fontcolor="red" label="br_if"];
+    241 -> 242[label="end"];
+    242 -> 243[label="if"];
+    242 -> 247[label="else"];
+    243 -> 244[label="~br_if"];
+    243 -> 250[label="br_if"];
+    244 -> 245[label="~br_if"];
+    244 -> 250[label="br_if"];
+    245 -> 252[label="br"];
+    247 -> 248[label="~br_if"];
+    247 -> 252[label="br_if"];
+    248 -> 249[label="~br_if"];
+    248 -> 252[label="br_if"];
+    249 -> 250[label="end"];
+    250 -> 253[label="br"];
+    252 -> 253[label="end"];
+    253 -> 254[label="block"];
+    254 -> 255[label="~br_if"];
+    254 -> 262[label="br_if"];
+    255 -> 256[label="if"];
+    255 -> 260[label="else"];
+    256 -> 257[label="loop"];
+    257 -> 258[label="~br_if"];
+    257 -> 257[style="dashed" color="red" fontcolor="red" label="br_if"];
+    258 -> 259[label="end"];
+    259 -> 260[label="end"];
+    260 -> 261[label="~br_if"];
+    260 -> 262[label="br_if"];
+    261 -> 262[label="end"];
+    262 -> 263[label="if"];
+    262 -> 264[label="else"];
+    263 -> 265[label="end"];
+    264 -> 265[label="end"];
+    265 -> 266[label="if"];
+    265 -> 268[label="else"];
+    266 -> U[label="unreachable"];
+    268 -> 269[label="if"];
+    268 -> 273[label="else"];
+    269 -> 270[label="loop"];
+    270 -> 271[label="~br_if"];
+    270 -> 270[style="dashed" color="red" fontcolor="red" label="br_if"];
+    271 -> 272[label="end"];
+    272 -> 273[label="end"];
+    273 -> 274[label="if"];
+    273 -> 278[label="else"];
+    274 -> 275[label="loop"];
+    275 -> 276[label="~br_if"];
+    275 -> 275[style="dashed" color="red" fontcolor="red" label="br_if"];
+    276 -> 277[label="end"];
+    277 -> 278[label="end"];
+    278 -> 279[label="end"];
+    279 -> E[label="end"];
+}

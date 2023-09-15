@@ -1,0 +1,72 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 33"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 24]"]
+    node [shape=box, color=red, style=dashed] 25[label="[25 ... 27]"]
+    node [shape=box, color=black, style=solid] 28[label="[28]"]
+    node [shape=box, color=black, style=solid] 29[label="[29 ... 41]"]
+    node [shape=box, color=black, style=solid] 42[label="[42 ... 44]"]
+    node [shape=box, color=black, style=solid] 45[label="[45 ... 78]"]
+    node [shape=box, color=red, style=dashed] 79[label="[79 ... 81]"]
+    node [shape=box, color=black, style=solid] 82[label="[82]"]
+    node [shape=box, color=black, style=solid] 83[label="[83 ... 94]"]
+    node [shape=box, color=black, style=solid] 95[label="[95 ... 97]"]
+    node [shape=box, color=black, style=solid] 98[label="[98]"]
+    node [shape=box, color=black, style=solid] 99[label="[99 ... 115]"]
+    node [shape=box, color=red, style=dashed] 116[label="[116 ... 118]"]
+    node [shape=box, color=black, style=solid] 119[label="[119]"]
+    node [shape=box, color=black, style=solid] 120[label="[120 ... 121]"]
+    node [shape=box, color=black, style=solid] 122[label="[122]"]
+    node [shape=box, color=black, style=solid] 123[label="[123 ... 124]"]
+    node [shape=box, color=red, style=dashed] 125[label="[125 ... 126]"]
+    node [shape=box, color=black, style=solid] 127[label="[127]"]
+    node [shape=box, color=black, style=solid] 128[label="[128]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 25;
+    0 -> 29;
+    0 -> 42;
+    0 -> 45;
+    0 -> 128;
+    25 -> 28;
+    25 -> 25[style="dashed" color="red" dir=back];
+    28 -> 29;
+    29 -> 42;
+    29 -> 45;
+    42 -> 45;
+    42 -> R;
+    45 -> 79;
+    45 -> 83;
+    45 -> 95;
+    45 -> 98;
+    45 -> 128;
+    45 -> R;
+    79 -> 82;
+    79 -> 79[style="dashed" color="red" dir=back];
+    82 -> 83;
+    83 -> 95;
+    95 -> 98;
+    95 -> 99;
+    95 -> R;
+    98 -> 99;
+    99 -> 116;
+    99 -> 120;
+    99 -> R;
+    116 -> 119;
+    116 -> 122;
+    116 -> 116[style="dashed" color="red" dir=back];
+    119 -> 120;
+    120 -> 122;
+    120 -> 123;
+    122 -> 123;
+    123 -> 125;
+    123 -> 128;
+    125 -> 127;
+    125 -> 125[style="dashed" color="red" dir=back];
+    127 -> 128;
+    128 -> E;
+}

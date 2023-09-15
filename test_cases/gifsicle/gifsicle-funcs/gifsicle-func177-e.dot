@@ -1,0 +1,33 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 177"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 19]"]
+    node [shape=box, color=red, style=dashed] 20[label="[20 ... 23]"]
+    node [shape=box, color=black, style=solid] 24[label="[24 ... 25]"]
+    node [shape=box, color=black, style=solid] 26[label="[26 ... 27]"]
+    node [shape=box, color=black, style=solid] 28[label="[28]"]
+    node [shape=box, color=black, style=solid] 29[label="[29]"]
+    node [shape=box, color=black, style=solid] 30[label="[30]"]
+    node [shape=box, color=black, style=solid] 31[label="[31]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 20;
+    0 -> 26;
+    0 -> 28;
+    0 -> 29;
+    0 -> 30;
+    0 -> R;
+    20 -> 24;
+    20 -> 20[style="dashed" color="red" dir=back];
+    24 -> 26;
+    26 -> 28;
+    26 -> R;
+    28 -> 29;
+    29 -> 31;
+    30 -> 31;
+    31 -> E;
+}

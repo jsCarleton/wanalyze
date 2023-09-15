@@ -1,0 +1,59 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 112"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 17]"]
+    node [shape=box, color=red, style=dashed] 18[label="[18 ... 19]"]
+    node [shape=box, color=black, style=solid] 20[label="[20]"]
+    subgraph cluster_21{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 21[label="[21 ... 24]"]
+    node [shape=box, color=red, style=dashed] 25[label="[25 ... 28]"]
+    node [shape=box, color=black, style=solid] 29[label="[29]"]
+    node [shape=box, color=black, style=solid] 30[label="[30 ... 33]"]
+    }
+    node [shape=box, color=black, style=solid] 34[label="[34 ... 35]"]
+    node [shape=box, color=black, style=solid] 36[label="[36 ... 38]"]
+    node [shape=box, color=black, style=solid] 39[label="[39 ... 40]"]
+    node [shape=box, color=black, style=solid] 41[label="[41 ... 48]"]
+    node [shape=box, color=red, style=dashed] 49[label="[49 ... 50]"]
+    node [shape=box, color=black, style=solid] 51[label="[51]"]
+    node [shape=box, color=red, style=dashed] 52[label="[52 ... 57]"]
+    node [shape=box, color=black, style=solid] 58[label="[58]"]
+    node [shape=box, color=black, style=solid] 59[label="[59 ... 61]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 18;
+    0 -> 36;
+    0 -> 39;
+    0 -> 41;
+    18 -> 20;
+    18 -> 18[style="dashed" color="red" dir=back];
+    20 -> 21;
+    21 -> 25;
+    21 -> 30;
+    25 -> 29;
+    25 -> 25[style="dashed" color="red" dir=back];
+    29 -> 30;
+    30 -> 21[style="dashed" color="red"];
+    30 -> 36;
+    30 -> U;
+    34 -> 36;
+    34 -> U;
+    36 -> 39;
+    39 -> 41;
+    39 -> 59;
+    41 -> 49;
+    41 -> 59;
+    49 -> 51;
+    49 -> 49[style="dashed" color="red" dir=back];
+    51 -> 52;
+    52 -> 58;
+    52 -> 52[style="dashed" color="red" dir=back];
+    58 -> 59;
+    59 -> E;
+}

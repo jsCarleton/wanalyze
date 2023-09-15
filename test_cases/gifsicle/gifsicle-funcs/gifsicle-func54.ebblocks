@@ -1,0 +1,197 @@
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19]
+  ebb cost:   103
+  ebb exits:  [20 23 27 114]
+  ebb succs:  [114 27 20]
+ebb entry:  20
+  ebb type:   loop
+  ebb blocks: [20 21]
+  ebb cost:   Infinity-z
+  ebb exits:  [22]
+  ebb succs:  [22]
+  1 paths to exit 22
+  [20 21]
+  1 loop paths
+  [20]
+  1 post loop exit paths
+  [21]
+ebb entry:  22
+  ebb type:   block
+  ebb blocks: [22 23]
+  ebb cost:   11
+  ebb exits:  [24]
+  ebb succs:  [24]
+ebb entry:  24
+  ebb type:   loop
+  ebb blocks: [24 25]
+  ebb cost:   Infinity-z
+  ebb exits:  [26]
+  ebb succs:  [26]
+  1 paths to exit 26
+  [24 25]
+  1 loop paths
+  [24]
+  1 post loop exit paths
+  [25]
+ebb entry:  26
+  ebb type:   block
+  ebb blocks: [26]
+  ebb cost:   1
+  ebb exits:  [27]
+  ebb succs:  [27]
+ebb entry:  27
+  ebb type:   block
+  ebb blocks: [27 28 29 30 31 32 33 34]
+  ebb cost:   40
+  ebb exits:  [35 39 40 44]
+  ebb succs:  [44 39 35]
+ebb entry:  35
+  ebb type:   loop
+  ebb blocks: [35 36]
+  ebb cost:   Infinity-z
+  ebb exits:  [37]
+  ebb succs:  [37]
+  1 paths to exit 37
+  [35 36]
+  1 loop paths
+  [35]
+  1 post loop exit paths
+  [36]
+ebb entry:  37
+  ebb type:   block
+  ebb blocks: [37 38]
+  ebb cost:   1
+  ebb exits:  [39 40]
+  ebb succs:  [39]
+ebb entry:  39
+  ebb type:   block
+  ebb blocks: [39 40]
+  ebb cost:   22
+  ebb exits:  [41]
+  ebb succs:  [41]
+ebb entry:  41
+  ebb type:   loop
+  ebb blocks: [41 42]
+  ebb cost:   Infinity-z
+  ebb exits:  [43]
+  ebb succs:  [43]
+  1 paths to exit 43
+  [41 42]
+  1 loop paths
+  [41]
+  1 post loop exit paths
+  [42]
+ebb entry:  43
+  ebb type:   block
+  ebb blocks: [43]
+  ebb cost:   1
+  ebb exits:  [44]
+  ebb succs:  [44]
+ebb entry:  44
+  ebb type:   block
+  ebb blocks: [44 45 46 47 48 49 50 51 52 53 54 55 56 57]
+  ebb cost:   31
+  ebb exits:  [58 67 69 73 79]
+  ebb succs:  [79 73 69 67 58]
+ebb entry:  58
+  ebb type:   loop
+  ebb blocks: [58 59 60 61 62 63 64 65]
+  ebb cost:   Infinity-z
+  ebb exits:  [66 67]
+  ebb succs:  []
+  2 paths to exit 66
+  [58 63 64 65]
+  [58 59 60 61 62 63 64 65]
+  2 paths to exit 67
+  [58 63]
+  [58 59 60 61 62 63]
+  2 loop paths
+  [58 63 64]  [58 59 60 61 62 63 64]
+  2 post loop exit paths
+  [65]  [65]
+nested ebbs:
+  ebb entry:  58
+    ebb type:   block
+    ebb blocks: [58 59]
+    ebb cost:   12
+    ebb exits:  [60 63]
+    ebb succs:  [63 60 63 60]
+  ebb entry:  60
+    ebb type:   loop
+    ebb blocks: [60 61]
+    ebb cost:   Infinity-z
+    ebb exits:  [62]
+    ebb succs:  [62 62]
+    1 paths to exit 62
+    [60 61]
+    1 loop paths
+    [60]
+    1 post loop exit paths
+    [61]
+  ebb entry:  62
+    ebb type:   block
+    ebb blocks: [62]
+    ebb cost:   1
+    ebb exits:  [63]
+    ebb succs:  [63 63]
+  ebb entry:  63
+    ebb type:   block
+    ebb blocks: [63 64 65]
+    ebb cost:   12
+    ebb exits:  [58 66 67]
+    ebb succs:  [67 66 58 58]
+ebb entry:  66
+  ebb type:   block
+  ebb blocks: [66]
+  ebb cost:   1
+  ebb exits:  [67]
+  ebb succs:  [67]
+ebb entry:  67
+  ebb type:   block
+  ebb blocks: [67 68]
+  ebb cost:   5
+  ebb exits:  [69 73]
+  ebb succs:  [73 69]
+ebb entry:  69
+  ebb type:   block
+  ebb blocks: [69 70 71 72]
+  ebb cost:   11
+  ebb exits:  [73 75]
+  ebb succs:  [73]
+ebb entry:  73
+  ebb type:   block
+  ebb blocks: [73 74 75]
+  ebb cost:   12
+  ebb exits:  [76 79]
+  ebb succs:  [79 76]
+ebb entry:  76
+  ebb type:   loop
+  ebb blocks: [76 77]
+  ebb cost:   Infinity-z
+  ebb exits:  [78]
+  ebb succs:  [78]
+  1 paths to exit 78
+  [76 77]
+  1 loop paths
+  [76]
+  1 post loop exit paths
+  [77]
+ebb entry:  78
+  ebb type:   block
+  ebb blocks: [78]
+  ebb cost:   4
+  ebb exits:  [79]
+  ebb succs:  [79]
+ebb entry:  79
+  ebb type:   block
+  ebb blocks: [79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113]
+  ebb cost:   148
+  ebb exits:  [114]
+  ebb succs:  [114]
+ebb entry:  114
+  ebb type:   block
+  ebb blocks: [114 115]
+  ebb cost:   14
+  ebb exits:  [115]
+  ebb succs:  []

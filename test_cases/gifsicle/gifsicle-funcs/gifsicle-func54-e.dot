@@ -1,0 +1,84 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 54"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 19]"]
+    node [shape=box, color=red, style=dashed] 20[label="[20 ... 21]"]
+    node [shape=box, color=black, style=solid] 22[label="[22 ... 23]"]
+    node [shape=box, color=red, style=dashed] 24[label="[24 ... 25]"]
+    node [shape=box, color=black, style=solid] 26[label="[26]"]
+    node [shape=box, color=black, style=solid] 27[label="[27 ... 34]"]
+    node [shape=box, color=red, style=dashed] 35[label="[35 ... 36]"]
+    node [shape=box, color=black, style=solid] 37[label="[37 ... 38]"]
+    node [shape=box, color=black, style=solid] 39[label="[39 ... 40]"]
+    node [shape=box, color=red, style=dashed] 41[label="[41 ... 42]"]
+    node [shape=box, color=black, style=solid] 43[label="[43]"]
+    node [shape=box, color=black, style=solid] 44[label="[44 ... 57]"]
+    subgraph cluster_58{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 58[label="[58 ... 59]"]
+    node [shape=box, color=red, style=dashed] 60[label="[60 ... 61]"]
+    node [shape=box, color=black, style=solid] 62[label="[62]"]
+    node [shape=box, color=black, style=solid] 63[label="[63 ... 65]"]
+    }
+    node [shape=box, color=black, style=solid] 66[label="[66]"]
+    node [shape=box, color=black, style=solid] 67[label="[67 ... 68]"]
+    node [shape=box, color=black, style=solid] 69[label="[69 ... 72]"]
+    node [shape=box, color=black, style=solid] 73[label="[73 ... 75]"]
+    node [shape=box, color=red, style=dashed] 76[label="[76 ... 77]"]
+    node [shape=box, color=black, style=solid] 78[label="[78]"]
+    node [shape=box, color=black, style=solid] 79[label="[79 ... 113]"]
+    node [shape=box, color=black, style=solid] 114[label="[114]"]
+    0 -> 20;
+    0 -> 23;
+    0 -> 27;
+    0 -> 114;
+    20 -> 22;
+    20 -> 20[style="dashed" color="red" dir=back];
+    22 -> 24;
+    24 -> 26;
+    24 -> 24[style="dashed" color="red" dir=back];
+    26 -> 27;
+    27 -> 35;
+    27 -> 39;
+    27 -> 40;
+    27 -> 44;
+    35 -> 37;
+    35 -> 35[style="dashed" color="red" dir=back];
+    37 -> 39;
+    37 -> 40;
+    39 -> 41;
+    41 -> 43;
+    41 -> 41[style="dashed" color="red" dir=back];
+    43 -> 44;
+    44 -> 58;
+    44 -> 67;
+    44 -> 69;
+    44 -> 73;
+    44 -> 79;
+    58 -> 60;
+    58 -> 63;
+    60 -> 62;
+    60 -> 60[style="dashed" color="red" dir=back];
+    62 -> 63;
+    63 -> 58[style="dashed" color="red"];
+    63 -> 66;
+    63 -> 67;
+    66 -> 67;
+    67 -> 69;
+    67 -> 73;
+    69 -> 73;
+    69 -> 75;
+    73 -> 76;
+    73 -> 79;
+    76 -> 78;
+    76 -> 76[style="dashed" color="red" dir=back];
+    78 -> 79;
+    79 -> 114;
+    114 -> E;
+}

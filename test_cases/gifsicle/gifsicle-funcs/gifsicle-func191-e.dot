@@ -1,0 +1,19 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 191"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 4]"]
+    node [shape=box, color=red, style=dashed] 5[label="[5 ... 20]"]
+    node [shape=box, color=black, style=solid] 21[label="[21 ... 24]"]
+    node [shape=box, color=black, style=solid] 25[label="[25]"]
+    0 -> 5;
+    5 -> 21;
+    5 -> 25;
+    5 -> 5[style="dashed" color="red" dir=back];
+    21 -> 25;
+    25 -> E;
+}

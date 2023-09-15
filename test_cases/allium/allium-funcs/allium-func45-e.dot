@@ -1,0 +1,43 @@
+digraph finite_state_machine {
+    label = "allium.wasm - function 45"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 6]"]
+    node [shape=box, color=red, style=dashed] 7[label="[7 ... 8]"]
+    node [shape=box, color=black, style=solid] 9[label="[9 ... 12]"]
+    node [shape=box, color=red, style=dashed] 13[label="[13 ... 16]"]
+    node [shape=box, color=black, style=solid] 17[label="[17]"]
+    node [shape=box, color=red, style=dashed] 18[label="[18 ... 23]"]
+    node [shape=box, color=black, style=solid] 24[label="[24]"]
+    subgraph cluster_25{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 25[label="[25 ... 28]"]
+    node [shape=box, color=red, style=dashed] 29[label="[29 ... 30]"]
+    node [shape=box, color=black, style=solid] 31[label="[31 ... 34]"]
+    }
+    node [shape=box, color=black, style=solid] 35[label="[35]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 7;
+    0 -> R;
+    7 -> 9;
+    7 -> 7[style="dashed" color="red" dir=back];
+    9 -> 13;
+    9 -> R;
+    13 -> 17;
+    13 -> 13[style="dashed" color="red" dir=back];
+    17 -> 18;
+    18 -> 24;
+    18 -> 18[style="dashed" color="red" dir=back];
+    24 -> 25;
+    25 -> 29;
+    29 -> 31;
+    29 -> 29[style="dashed" color="red" dir=back];
+    31 -> 25[style="dashed" color="red"];
+    31 -> 35;
+    35 -> E;
+}

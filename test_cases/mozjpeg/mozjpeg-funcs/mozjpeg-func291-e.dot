@@ -1,0 +1,47 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 291"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0]"]
+    node [shape=box, color=red, style=dashed] 1[label="[1 ... 2]"]
+    node [shape=box, color=black, style=solid] 3[label="[3 ... 4]"]
+    subgraph cluster_5{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 5[label="[5 ... 7]"]
+    node [shape=box, color=red, style=dashed] 8[label="[8 ... 14]"]
+    node [shape=box, color=black, style=solid] 15[label="[15 ... 17]"]
+    node [shape=box, color=red, style=dashed] 18[label="[18 ... 26]"]
+    node [shape=box, color=black, style=solid] 27[label="[27 ... 28]"]
+    node [shape=box, color=black, style=solid] 29[label="[29]"]
+    node [shape=box, color=black, style=solid] 30[label="[30 ... 31]"]
+    }
+    node [shape=box, color=black, style=solid] 32[label="[32]"]
+    node [shape=box, color=black, style=solid] 33[label="[33]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 1;
+    1 -> 3;
+    1 -> 1[style="dashed" color="red" dir=back];
+    3 -> 5;
+    3 -> 33;
+    5 -> 8;
+    5 -> 30;
+    8 -> 15;
+    8 -> 8[style="dashed" color="red" dir=back];
+    15 -> 18;
+    15 -> 29;
+    18 -> 29;
+    18 -> U;
+    18 -> 18[style="dashed" color="red" dir=back];
+    27 -> 29;
+    27 -> U;
+    29 -> 30;
+    30 -> 5[style="dashed" color="red"];
+    30 -> 32;
+    32 -> 33;
+    33 -> E;
+}

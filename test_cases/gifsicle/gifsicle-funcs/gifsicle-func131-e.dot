@@ -1,0 +1,123 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 131"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 2]"]
+    subgraph cluster_3{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 3[label="[3 ... 13]"]
+    subgraph cluster_14{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 14[label="[14 ... 20]"]
+    node [shape=box, color=red, style=dashed] 21[label="[21 ... 23]"]
+    node [shape=box, color=black, style=solid] 24[label="[24]"]
+    node [shape=box, color=black, style=solid] 25[label="[25 ... 38]"]
+    node [shape=box, color=red, style=dashed] 39[label="[39 ... 41]"]
+    node [shape=box, color=black, style=solid] 42[label="[42]"]
+    node [shape=box, color=black, style=solid] 43[label="[43 ... 78]"]
+    node [shape=box, color=red, style=dashed] 79[label="[79 ... 81]"]
+    node [shape=box, color=black, style=solid] 82[label="[82 ... 176]"]
+    node [shape=box, color=red, style=dashed] 177[label="[177 ... 182]"]
+    node [shape=box, color=black, style=solid] 183[label="[183 ... 184]"]
+    node [shape=box, color=black, style=solid] 185[label="[185 ... 188]"]
+    node [shape=box, color=red, style=dashed] 189[label="[189 ... 192]"]
+    node [shape=box, color=black, style=solid] 193[label="[193]"]
+    node [shape=box, color=black, style=solid] 194[label="[194 ... 195]"]
+    node [shape=box, color=black, style=solid] 196[label="[196 ... 197]"]
+    node [shape=box, color=black, style=solid] 198[label="[198 ... 199]"]
+    node [shape=box, color=black, style=solid] 200[label="[200 ... 202]"]
+    }
+    node [shape=box, color=black, style=solid] 203[label="[203 ... 204]"]
+    node [shape=box, color=black, style=solid] 205[label="[205 ... 207]"]
+    node [shape=box, color=red, style=dashed] 208[label="[208 ... 212]"]
+    node [shape=box, color=black, style=solid] 213[label="[213 ... 214]"]
+    node [shape=box, color=red, style=dashed] 215[label="[215 ... 217]"]
+    node [shape=box, color=black, style=solid] 218[label="[218 ... 219]"]
+    node [shape=box, color=black, style=solid] 220[label="[220]"]
+    node [shape=box, color=black, style=solid] 221[label="[221 ... 222]"]
+    node [shape=box, color=black, style=solid] 223[label="[223]"]
+    }
+    node [shape=box, color=black, style=solid] 224[label="[224 ... 225]"]
+    node [shape=box, color=black, style=solid] 226[label="[226]"]
+    node [shape=box, color=black, style=solid] 227[label="[227]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 3;
+    3 -> 14;
+    3 -> 205;
+    14 -> 21;
+    14 -> 25;
+    14 -> 200;
+    21 -> 24;
+    21 -> 25;
+    21 -> 21[style="dashed" color="red" dir=back];
+    24 -> 25;
+    25 -> 3[style="dashed" color="red"];
+    25 -> 39;
+    25 -> 43;
+    39 -> 42;
+    39 -> 43;
+    39 -> 39[style="dashed" color="red" dir=back];
+    42 -> 43;
+    43 -> 79;
+    43 -> 226;
+    79 -> 82;
+    79 -> 227;
+    79 -> 79[style="dashed" color="red" dir=back];
+    82 -> 3[style="dashed" color="red"];
+    82 -> 177;
+    82 -> 194;
+    82 -> 196;
+    82 -> 198;
+    82 -> 220;
+    82 -> 221;
+    82 -> 223;
+    82 -> 227;
+    177 -> 183;
+    177 -> 185;
+    177 -> 177[style="dashed" color="red" dir=back];
+    183 -> 185;
+    183 -> 227;
+    185 -> 189;
+    185 -> 194;
+    189 -> 193;
+    189 -> 194;
+    189 -> 189[style="dashed" color="red" dir=back];
+    193 -> 194;
+    194 -> 3[style="dashed" color="red"];
+    194 -> 196;
+    196 -> 3[style="dashed" color="red"];
+    196 -> 198;
+    198 -> 200;
+    198 -> 221;
+    200 -> 14[style="dashed" color="red"];
+    200 -> U;
+    203 -> 205;
+    203 -> U;
+    205 -> 208;
+    205 -> 223;
+    205 -> 227;
+    208 -> 213;
+    208 -> 227;
+    208 -> 208[style="dashed" color="red" dir=back];
+    213 -> 215;
+    213 -> 227;
+    215 -> 218;
+    215 -> 227;
+    215 -> 215[style="dashed" color="red" dir=back];
+    218 -> 220;
+    218 -> 227;
+    220 -> 221;
+    221 -> 3[style="dashed" color="red"];
+    221 -> 223;
+    223 -> 224;
+    224 -> 226;
+    224 -> 227;
+    226 -> 227;
+    227 -> E;
+}

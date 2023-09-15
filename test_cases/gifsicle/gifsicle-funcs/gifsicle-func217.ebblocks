@@ -1,0 +1,34 @@
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0 1]
+  ebb cost:   31
+  ebb exits:  [2 11]
+  ebb succs:  [11 2]
+ebb entry:  2
+  ebb type:   loop
+  ebb blocks: [2 3 4 5 6 7 8 9]
+  ebb cost:   Infinity-z
+  ebb exits:  [10]
+  ebb succs:  [10]
+  5 paths to exit 10
+  [2 3 8 9]
+  [2 3 4 8 9]
+  [2 3 4 5 8 9]
+  [2 3 4 5 6 8 9]
+  [2 3 4 5 6 7 8 9]
+  5 loop paths
+  [2 3 8]  [2 3 4 8]  [2 3 4 5 8]  [2 3 4 5 6 8]  [2 3 4 5 6 7 8]
+  5 post loop exit paths
+  [9]  [9]  [9]  [9]  [9]
+ebb entry:  10
+  ebb type:   block
+  ebb blocks: [10]
+  ebb cost:   1
+  ebb exits:  [11]
+  ebb succs:  [11]
+ebb entry:  11
+  ebb type:   block
+  ebb blocks: [11 12]
+  ebb cost:   5
+  ebb exits:  [12]
+  ebb succs:  []

@@ -1,0 +1,69 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 333"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 14]"]
+    node [shape=box, color=red, style=dashed] 15[label="[15 ... 17]"]
+    node [shape=box, color=black, style=solid] 18[label="[18 ... 19]"]
+    node [shape=box, color=black, style=solid] 20[label="[20 ... 23]"]
+    node [shape=box, color=red, style=dashed] 24[label="[24 ... 26]"]
+    node [shape=box, color=black, style=solid] 27[label="[27]"]
+    node [shape=box, color=black, style=solid] 28[label="[28 ... 29]"]
+    node [shape=box, color=red, style=dashed] 30[label="[30 ... 31]"]
+    node [shape=box, color=black, style=solid] 32[label="[32]"]
+    node [shape=box, color=black, style=solid] 33[label="[33 ... 34]"]
+    node [shape=box, color=red, style=dashed] 35[label="[35 ... 36]"]
+    node [shape=box, color=black, style=solid] 37[label="[37 ... 38]"]
+    node [shape=box, color=black, style=solid] 39[label="[39 ... 40]"]
+    node [shape=box, color=red, style=dashed] 41[label="[41 ... 42]"]
+    node [shape=box, color=black, style=solid] 43[label="[43]"]
+    node [shape=box, color=black, style=solid] 44[label="[44 ... 45]"]
+    node [shape=box, color=red, style=dashed] 46[label="[46 ... 47]"]
+    node [shape=box, color=black, style=solid] 48[label="[48]"]
+    node [shape=box, color=black, style=solid] 49[label="[49]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 15;
+    0 -> 20;
+    0 -> 39;
+    0 -> 44;
+    0 -> 49;
+    0 -> R;
+    15 -> 18;
+    15 -> 49;
+    15 -> 15[style="dashed" color="red" dir=back];
+    18 -> 20;
+    18 -> 39;
+    20 -> 24;
+    20 -> 28;
+    20 -> 33;
+    24 -> 27;
+    24 -> 49;
+    24 -> 24[style="dashed" color="red" dir=back];
+    27 -> 28;
+    28 -> 30;
+    28 -> 33;
+    30 -> 32;
+    30 -> 30[style="dashed" color="red" dir=back];
+    32 -> 33;
+    33 -> 35;
+    33 -> 49;
+    35 -> 37;
+    35 -> 35[style="dashed" color="red" dir=back];
+    37 -> 39;
+    37 -> 49;
+    39 -> 41;
+    39 -> 44;
+    41 -> 43;
+    41 -> 41[style="dashed" color="red" dir=back];
+    43 -> 44;
+    44 -> 46;
+    44 -> 49;
+    46 -> 48;
+    46 -> 46[style="dashed" color="red" dir=back];
+    48 -> 49;
+    49 -> E;
+}

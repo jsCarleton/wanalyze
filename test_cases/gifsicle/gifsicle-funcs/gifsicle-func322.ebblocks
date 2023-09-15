@@ -1,0 +1,147 @@
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13]
+  ebb cost:   101
+  ebb exits:  [14 35 60]
+  ebb succs:  [60 35 14]
+ebb entry:  14
+  ebb type:   loop
+  ebb blocks: [14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33]
+  ebb cost:   Infinity-z
+  ebb exits:  [34 35]
+  ebb succs:  [35 34]
+  1 paths to exit 34
+  [14 17 20 23 26 29 32 33]
+  6 paths to exit 35
+  [14 17 20 23 26 29 30]
+  [14 17 20 23 26 27]
+  [14 17 20 23 24]
+  [14 17 20 21]
+  [14 17 18]
+  [14 15]
+  1 loop paths
+  [14 17 20 23 26 29 32]
+  7 post loop exit paths
+  [33]  [30]  [27]  [24]  [21]  [18]  [15]
+ebb entry:  34
+  ebb type:   block
+  ebb blocks: [34]
+  ebb cost:   1
+  ebb exits:  [35]
+  ebb succs:  [35]
+ebb entry:  35
+  ebb type:   block
+  ebb blocks: [35 36 37 38]
+  ebb cost:   50
+  ebb exits:  [39 42]
+  ebb succs:  [42 39]
+ebb entry:  39
+  ebb type:   loop
+  ebb blocks: [39 40]
+  ebb cost:   Infinity-z
+  ebb exits:  [41]
+  ebb succs:  [41]
+  1 paths to exit 41
+  [39 40]
+  1 loop paths
+  [39]
+  1 post loop exit paths
+  [40]
+ebb entry:  41
+  ebb type:   block
+  ebb blocks: [41]
+  ebb cost:   1
+  ebb exits:  [42]
+  ebb succs:  [42]
+ebb entry:  42
+  ebb type:   block
+  ebb blocks: [42 43]
+  ebb cost:   5
+  ebb exits:  [44 47]
+  ebb succs:  [47 44]
+ebb entry:  44
+  ebb type:   loop
+  ebb blocks: [44 45]
+  ebb cost:   Infinity-z
+  ebb exits:  [46]
+  ebb succs:  [46]
+  1 paths to exit 46
+  [44 45]
+  1 loop paths
+  [44]
+  1 post loop exit paths
+  [45]
+ebb entry:  46
+  ebb type:   block
+  ebb blocks: [46]
+  ebb cost:   1
+  ebb exits:  [47]
+  ebb succs:  [47]
+ebb entry:  47
+  ebb type:   block
+  ebb blocks: [47 48 49 50]
+  ebb cost:   14
+  ebb exits:  [51 59]
+  ebb succs:  [59 51]
+ebb entry:  51
+  ebb type:   loop
+  ebb blocks: [51 52 53 54 55 56 57]
+  ebb cost:   Infinity-z
+  ebb exits:  [58]
+  ebb succs:  []
+  2 paths to exit 58
+  [51 56 57]
+  [51 52 53 54 55 56 57]
+  2 loop paths
+  [51 56]  [51 52 53 54 55 56]
+  2 post loop exit paths
+  [57]  [57]
+nested ebbs:
+  ebb entry:  51
+    ebb type:   block
+    ebb blocks: [51 52]
+    ebb cost:   29
+    ebb exits:  [53 56]
+    ebb succs:  [56 53 56 53]
+  ebb entry:  53
+    ebb type:   loop
+    ebb blocks: [53 54]
+    ebb cost:   Infinity-z
+    ebb exits:  [55]
+    ebb succs:  [55 55]
+    1 paths to exit 55
+    [53 54]
+    1 loop paths
+    [53]
+    1 post loop exit paths
+    [54]
+  ebb entry:  55
+    ebb type:   block
+    ebb blocks: [55]
+    ebb cost:   1
+    ebb exits:  [56]
+    ebb succs:  [56 56]
+  ebb entry:  56
+    ebb type:   block
+    ebb blocks: [56 57]
+    ebb cost:   14
+    ebb exits:  [51 58]
+    ebb succs:  [58 51 51]
+ebb entry:  58
+  ebb type:   block
+  ebb blocks: [58]
+  ebb cost:   1
+  ebb exits:  [59]
+  ebb succs:  [59]
+ebb entry:  59
+  ebb type:   block
+  ebb blocks: [59]
+  ebb cost:   6
+  ebb exits:  [60]
+  ebb succs:  [60]
+ebb entry:  60
+  ebb type:   block
+  ebb blocks: [60 61]
+  ebb cost:   14
+  ebb exits:  [61]
+  ebb succs:  []

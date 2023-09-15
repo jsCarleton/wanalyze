@@ -1,0 +1,62 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 154"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 5]"]
+    node [shape=box, color=red, style=dashed] 6[label="[6 ... 12]"]
+    node [shape=box, color=black, style=solid] 13[label="[13]"]
+    node [shape=box, color=black, style=solid] 14[label="[14 ... 23]"]
+    node [shape=box, color=black, style=solid] 24[label="[24 ... 25]"]
+    node [shape=box, color=black, style=solid] 26[label="[26 ... 32]"]
+    node [shape=box, color=red, style=dashed] 33[label="[33 ... 39]"]
+    node [shape=box, color=black, style=solid] 40[label="[40]"]
+    node [shape=box, color=black, style=solid] 41[label="[41 ... 44]"]
+    node [shape=box, color=black, style=solid] 45[label="[45 ... 47]"]
+    node [shape=box, color=red, style=dashed] 48[label="[48 ... 54]"]
+    node [shape=box, color=black, style=solid] 55[label="[55 ... 56]"]
+    node [shape=box, color=red, style=dashed] 57[label="[57 ... 68]"]
+    node [shape=box, color=black, style=solid] 69[label="[69]"]
+    node [shape=box, color=black, style=solid] 70[label="[70 ... 73]"]
+    node [shape=box, color=red, style=dashed] 74[label="[74 ... 80]"]
+    node [shape=box, color=black, style=solid] 81[label="[81]"]
+    node [shape=box, color=black, style=solid] 82[label="[82 ... 103]"]
+    node [shape=box, color=black, style=solid] 104[label="[104]"]
+    0 -> 6;
+    0 -> 14;
+    0 -> 24;
+    0 -> 26;
+    6 -> 13;
+    6 -> 6[style="dashed" color="red" dir=back];
+    13 -> 14;
+    14 -> 24;
+    24 -> 26;
+    24 -> 70;
+    26 -> 33;
+    26 -> 41;
+    26 -> 45;
+    33 -> 40;
+    33 -> 33[style="dashed" color="red" dir=back];
+    40 -> 41;
+    41 -> 45;
+    45 -> 48;
+    45 -> 56;
+    45 -> 70;
+    48 -> 55;
+    48 -> 48[style="dashed" color="red" dir=back];
+    55 -> 57;
+    57 -> 69;
+    57 -> 57[style="dashed" color="red" dir=back];
+    69 -> 70;
+    70 -> 74;
+    70 -> 82;
+    70 -> 104;
+    74 -> 81;
+    74 -> 74[style="dashed" color="red" dir=back];
+    81 -> 82;
+    82 -> 104;
+    104 -> E;
+}

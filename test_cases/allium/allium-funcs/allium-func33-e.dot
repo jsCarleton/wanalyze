@@ -1,0 +1,83 @@
+digraph finite_state_machine {
+    label = "allium.wasm - function 33"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 30]"]
+    node [shape=box, color=red, style=dashed] 31[label="[31 ... 37]"]
+    node [shape=box, color=black, style=solid] 38[label="[38]"]
+    node [shape=box, color=black, style=solid] 39[label="[39]"]
+    node [shape=box, color=black, style=solid] 40[label="[40]"]
+    node [shape=box, color=black, style=solid] 41[label="[41 ... 58]"]
+    node [shape=box, color=black, style=solid] 59[label="[59]"]
+    node [shape=box, color=black, style=solid] 60[label="[60 ... 91]"]
+    node [shape=box, color=red, style=dashed] 92[label="[92 ... 98]"]
+    node [shape=box, color=black, style=solid] 99[label="[99]"]
+    node [shape=box, color=black, style=solid] 100[label="[100]"]
+    node [shape=box, color=black, style=solid] 101[label="[101]"]
+    node [shape=box, color=black, style=solid] 102[label="[102 ... 118]"]
+    node [shape=box, color=black, style=solid] 119[label="[119]"]
+    node [shape=box, color=black, style=solid] 120[label="[120 ... 123]"]
+    node [shape=box, color=black, style=solid] 124[label="[124 ... 144]"]
+    node [shape=box, color=red, style=dashed] 145[label="[145 ... 149]"]
+    node [shape=box, color=black, style=solid] 150[label="[150 ... 151]"]
+    node [shape=box, color=black, style=solid] 152[label="[152]"]
+    node [shape=box, color=black, style=solid] 153[label="[153]"]
+    node [shape=box, color=black, style=solid] 154[label="[154]"]
+    node [shape=box, color=black, style=solid] 155[label="[155]"]
+    node [shape=box, color=black, style=solid] 156[label="[156 ... 159]"]
+    node [shape=box, color=red, style=dashed] 160[label="[160 ... 161]"]
+    node [shape=box, color=black, style=solid] 162[label="[162]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 31;
+    0 -> 39;
+    0 -> 41;
+    0 -> 59;
+    0 -> 60;
+    0 -> R;
+    31 -> 38;
+    31 -> 31[style="dashed" color="red" dir=back];
+    38 -> 40;
+    39 -> 40;
+    40 -> 41;
+    41 -> 59;
+    41 -> 60;
+    59 -> 60;
+    60 -> 92;
+    60 -> 100;
+    60 -> 102;
+    60 -> 119;
+    60 -> 124;
+    60 -> R;
+    92 -> 99;
+    92 -> 92[style="dashed" color="red" dir=back];
+    99 -> 101;
+    100 -> 101;
+    101 -> 102;
+    102 -> 119;
+    102 -> 120;
+    119 -> 120;
+    120 -> 124;
+    120 -> R;
+    124 -> 145;
+    124 -> 152;
+    124 -> 154;
+    124 -> R;
+    145 -> 150;
+    145 -> 153;
+    145 -> 145[style="dashed" color="red" dir=back];
+    150 -> 152;
+    150 -> 156;
+    152 -> 153;
+    153 -> 155;
+    154 -> 155;
+    155 -> 156;
+    156 -> 160;
+    156 -> R;
+    160 -> 162;
+    160 -> 160[style="dashed" color="red" dir=back];
+    162 -> E;
+}

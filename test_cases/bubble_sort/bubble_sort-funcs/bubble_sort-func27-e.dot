@@ -1,0 +1,35 @@
+digraph finite_state_machine {
+    label = "bubble_sort.wasm - function 27"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 11]"]
+    node [shape=box, color=red, style=dashed] 12[label="[12 ... 14]"]
+    node [shape=box, color=black, style=solid] 15[label="[15 ... 16]"]
+    node [shape=box, color=black, style=solid] 17[label="[17 ... 20]"]
+    node [shape=box, color=black, style=solid] 21[label="[21 ... 33]"]
+    node [shape=box, color=red, style=dashed] 34[label="[34 ... 45]"]
+    node [shape=box, color=black, style=solid] 46[label="[46 ... 47]"]
+    node [shape=box, color=black, style=solid] 48[label="[48 ... 67]"]
+    node [shape=box, color=black, style=solid] 68[label="[68]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 12;
+    0 -> 21;
+    0 -> 68;
+    12 -> 15;
+    12 -> 17;
+    12 -> 12[style="dashed" color="red" dir=back];
+    15 -> 17;
+    15 -> 21;
+    17 -> 21;
+    21 -> 34;
+    34 -> 48;
+    34 -> 34[style="dashed" color="red" dir=back];
+    46 -> 48;
+    46 -> U;
+    48 -> 68;
+    68 -> E;
+}

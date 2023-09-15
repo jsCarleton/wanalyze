@@ -1,0 +1,368 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 207"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 873]"]
+    node [shape=box, color=red, style=dashed] 874[label="[874 ... 884]"]
+    node [shape=box, color=black, style=solid] 885[label="[885]"]
+    node [shape=box, color=black, style=solid] 886[label="[886 ... 902]"]
+    node [shape=box, color=black, style=solid] 903[label="[903 ... 908]"]
+    node [shape=box, color=red, style=dashed] 909[label="[909 ... 919]"]
+    node [shape=box, color=black, style=solid] 920[label="[920]"]
+    node [shape=box, color=black, style=solid] 921[label="[921 ... 937]"]
+    node [shape=box, color=black, style=solid] 938[label="[938 ... 943]"]
+    node [shape=box, color=red, style=dashed] 944[label="[944 ... 954]"]
+    node [shape=box, color=black, style=solid] 955[label="[955]"]
+    node [shape=box, color=black, style=solid] 956[label="[956 ... 972]"]
+    node [shape=box, color=black, style=solid] 973[label="[973 ... 978]"]
+    node [shape=box, color=red, style=dashed] 979[label="[979 ... 989]"]
+    node [shape=box, color=black, style=solid] 990[label="[990]"]
+    node [shape=box, color=black, style=solid] 991[label="[991 ... 1007]"]
+    node [shape=box, color=black, style=solid] 1008[label="[1008 ... 1013]"]
+    node [shape=box, color=red, style=dashed] 1014[label="[1014 ... 1024]"]
+    node [shape=box, color=black, style=solid] 1025[label="[1025]"]
+    node [shape=box, color=black, style=solid] 1026[label="[1026 ... 1042]"]
+    node [shape=box, color=black, style=solid] 1043[label="[1043 ... 1048]"]
+    node [shape=box, color=red, style=dashed] 1049[label="[1049 ... 1059]"]
+    node [shape=box, color=black, style=solid] 1060[label="[1060]"]
+    node [shape=box, color=black, style=solid] 1061[label="[1061 ... 1077]"]
+    node [shape=box, color=black, style=solid] 1078[label="[1078 ... 1083]"]
+    node [shape=box, color=red, style=dashed] 1084[label="[1084 ... 1094]"]
+    node [shape=box, color=black, style=solid] 1095[label="[1095]"]
+    node [shape=box, color=black, style=solid] 1096[label="[1096 ... 1112]"]
+    node [shape=box, color=black, style=solid] 1113[label="[1113 ... 1118]"]
+    node [shape=box, color=red, style=dashed] 1119[label="[1119 ... 1129]"]
+    node [shape=box, color=black, style=solid] 1130[label="[1130]"]
+    node [shape=box, color=black, style=solid] 1131[label="[1131 ... 1147]"]
+    node [shape=box, color=black, style=solid] 1148[label="[1148 ... 1153]"]
+    node [shape=box, color=red, style=dashed] 1154[label="[1154 ... 1164]"]
+    node [shape=box, color=black, style=solid] 1165[label="[1165]"]
+    node [shape=box, color=black, style=solid] 1166[label="[1166 ... 1182]"]
+    node [shape=box, color=black, style=solid] 1183[label="[1183 ... 1188]"]
+    node [shape=box, color=red, style=dashed] 1189[label="[1189 ... 1199]"]
+    node [shape=box, color=black, style=solid] 1200[label="[1200]"]
+    node [shape=box, color=black, style=solid] 1201[label="[1201 ... 1217]"]
+    node [shape=box, color=black, style=solid] 1218[label="[1218 ... 1223]"]
+    node [shape=box, color=red, style=dashed] 1224[label="[1224 ... 1234]"]
+    node [shape=box, color=black, style=solid] 1235[label="[1235]"]
+    node [shape=box, color=black, style=solid] 1236[label="[1236 ... 1252]"]
+    node [shape=box, color=black, style=solid] 1253[label="[1253 ... 1258]"]
+    node [shape=box, color=red, style=dashed] 1259[label="[1259 ... 1269]"]
+    node [shape=box, color=black, style=solid] 1270[label="[1270]"]
+    node [shape=box, color=black, style=solid] 1271[label="[1271 ... 1287]"]
+    node [shape=box, color=black, style=solid] 1288[label="[1288 ... 1293]"]
+    node [shape=box, color=red, style=dashed] 1294[label="[1294 ... 1304]"]
+    node [shape=box, color=black, style=solid] 1305[label="[1305]"]
+    node [shape=box, color=black, style=solid] 1306[label="[1306 ... 1322]"]
+    node [shape=box, color=black, style=solid] 1323[label="[1323 ... 1328]"]
+    node [shape=box, color=red, style=dashed] 1329[label="[1329 ... 1339]"]
+    node [shape=box, color=black, style=solid] 1340[label="[1340]"]
+    node [shape=box, color=black, style=solid] 1341[label="[1341 ... 1357]"]
+    node [shape=box, color=black, style=solid] 1358[label="[1358 ... 1363]"]
+    node [shape=box, color=red, style=dashed] 1364[label="[1364 ... 1374]"]
+    node [shape=box, color=black, style=solid] 1375[label="[1375]"]
+    node [shape=box, color=black, style=solid] 1376[label="[1376 ... 1392]"]
+    node [shape=box, color=black, style=solid] 1393[label="[1393 ... 1398]"]
+    node [shape=box, color=red, style=dashed] 1399[label="[1399 ... 1409]"]
+    node [shape=box, color=black, style=solid] 1410[label="[1410]"]
+    node [shape=box, color=black, style=solid] 1411[label="[1411 ... 1427]"]
+    node [shape=box, color=black, style=solid] 1428[label="[1428 ... 1433]"]
+    node [shape=box, color=red, style=dashed] 1434[label="[1434 ... 1444]"]
+    node [shape=box, color=black, style=solid] 1445[label="[1445]"]
+    node [shape=box, color=black, style=solid] 1446[label="[1446 ... 1462]"]
+    node [shape=box, color=black, style=solid] 1463[label="[1463 ... 1468]"]
+    node [shape=box, color=red, style=dashed] 1469[label="[1469 ... 1479]"]
+    node [shape=box, color=black, style=solid] 1480[label="[1480]"]
+    node [shape=box, color=black, style=solid] 1481[label="[1481 ... 1497]"]
+    node [shape=box, color=black, style=solid] 1498[label="[1498 ... 1503]"]
+    node [shape=box, color=red, style=dashed] 1504[label="[1504 ... 1514]"]
+    node [shape=box, color=black, style=solid] 1515[label="[1515]"]
+    node [shape=box, color=black, style=solid] 1516[label="[1516 ... 1532]"]
+    node [shape=box, color=black, style=solid] 1533[label="[1533 ... 1538]"]
+    node [shape=box, color=red, style=dashed] 1539[label="[1539 ... 1549]"]
+    node [shape=box, color=black, style=solid] 1550[label="[1550]"]
+    node [shape=box, color=black, style=solid] 1551[label="[1551 ... 1567]"]
+    node [shape=box, color=black, style=solid] 1568[label="[1568 ... 1573]"]
+    node [shape=box, color=red, style=dashed] 1574[label="[1574 ... 1584]"]
+    node [shape=box, color=black, style=solid] 1585[label="[1585]"]
+    node [shape=box, color=black, style=solid] 1586[label="[1586 ... 1602]"]
+    node [shape=box, color=black, style=solid] 1603[label="[1603 ... 1608]"]
+    node [shape=box, color=red, style=dashed] 1609[label="[1609 ... 1619]"]
+    node [shape=box, color=black, style=solid] 1620[label="[1620]"]
+    node [shape=box, color=black, style=solid] 1621[label="[1621 ... 1637]"]
+    node [shape=box, color=black, style=solid] 1638[label="[1638 ... 1643]"]
+    node [shape=box, color=red, style=dashed] 1644[label="[1644 ... 1654]"]
+    node [shape=box, color=black, style=solid] 1655[label="[1655]"]
+    node [shape=box, color=black, style=solid] 1656[label="[1656 ... 1672]"]
+    node [shape=box, color=black, style=solid] 1673[label="[1673 ... 1678]"]
+    node [shape=box, color=red, style=dashed] 1679[label="[1679 ... 1689]"]
+    node [shape=box, color=black, style=solid] 1690[label="[1690]"]
+    node [shape=box, color=black, style=solid] 1691[label="[1691 ... 1707]"]
+    node [shape=box, color=black, style=solid] 1708[label="[1708 ... 1713]"]
+    node [shape=box, color=red, style=dashed] 1714[label="[1714 ... 1724]"]
+    node [shape=box, color=black, style=solid] 1725[label="[1725]"]
+    node [shape=box, color=black, style=solid] 1726[label="[1726 ... 1742]"]
+    node [shape=box, color=black, style=solid] 1743[label="[1743 ... 1748]"]
+    node [shape=box, color=red, style=dashed] 1749[label="[1749 ... 1759]"]
+    node [shape=box, color=black, style=solid] 1760[label="[1760]"]
+    node [shape=box, color=black, style=solid] 1761[label="[1761 ... 1777]"]
+    node [shape=box, color=black, style=solid] 1778[label="[1778 ... 1783]"]
+    node [shape=box, color=red, style=dashed] 1784[label="[1784 ... 1794]"]
+    node [shape=box, color=black, style=solid] 1795[label="[1795]"]
+    node [shape=box, color=black, style=solid] 1796[label="[1796 ... 1812]"]
+    node [shape=box, color=black, style=solid] 1813[label="[1813 ... 1818]"]
+    node [shape=box, color=red, style=dashed] 1819[label="[1819 ... 1829]"]
+    node [shape=box, color=black, style=solid] 1830[label="[1830]"]
+    node [shape=box, color=black, style=solid] 1831[label="[1831 ... 1847]"]
+    node [shape=box, color=black, style=solid] 1848[label="[1848 ... 1853]"]
+    node [shape=box, color=red, style=dashed] 1854[label="[1854 ... 1864]"]
+    node [shape=box, color=black, style=solid] 1865[label="[1865]"]
+    node [shape=box, color=black, style=solid] 1866[label="[1866 ... 1882]"]
+    node [shape=box, color=black, style=solid] 1883[label="[1883 ... 1888]"]
+    node [shape=box, color=red, style=dashed] 1889[label="[1889 ... 1899]"]
+    node [shape=box, color=black, style=solid] 1900[label="[1900]"]
+    node [shape=box, color=black, style=solid] 1901[label="[1901 ... 1917]"]
+    node [shape=box, color=black, style=solid] 1918[label="[1918 ... 1921]"]
+    node [shape=box, color=red, style=dashed] 1922[label="[1922 ... 1932]"]
+    node [shape=box, color=black, style=solid] 1933[label="[1933]"]
+    node [shape=box, color=black, style=solid] 1934[label="[1934 ... 1951]"]
+    node [shape=box, color=black, style=solid] 1952[label="[1952 ... 1959]"]
+    node [shape=box, color=black, style=solid] 1960[label="[1960 ... 1963]"]
+    node [shape=box, color=red, style=dashed] 1964[label="[1964 ... 1970]"]
+    node [shape=box, color=black, style=solid] 1971[label="[1971 ... 1972]"]
+    node [shape=box, color=black, style=solid] 1973[label="[1973]"]
+    node [shape=box, color=black, style=solid] 1974[label="[1974]"]
+    0 -> 874;
+    0 -> 886;
+    0 -> 903;
+    874 -> 885;
+    874 -> 874[style="dashed" color="red" dir=back];
+    885 -> 886;
+    886 -> 903;
+    903 -> 909;
+    903 -> 921;
+    903 -> 938;
+    909 -> 920;
+    909 -> 909[style="dashed" color="red" dir=back];
+    920 -> 921;
+    921 -> 938;
+    938 -> 944;
+    938 -> 956;
+    938 -> 973;
+    944 -> 955;
+    944 -> 944[style="dashed" color="red" dir=back];
+    955 -> 956;
+    956 -> 973;
+    973 -> 979;
+    973 -> 991;
+    973 -> 1008;
+    979 -> 990;
+    979 -> 979[style="dashed" color="red" dir=back];
+    990 -> 991;
+    991 -> 1008;
+    1008 -> 1014;
+    1008 -> 1026;
+    1008 -> 1043;
+    1014 -> 1025;
+    1014 -> 1014[style="dashed" color="red" dir=back];
+    1025 -> 1026;
+    1026 -> 1043;
+    1043 -> 1049;
+    1043 -> 1061;
+    1043 -> 1078;
+    1049 -> 1060;
+    1049 -> 1049[style="dashed" color="red" dir=back];
+    1060 -> 1061;
+    1061 -> 1078;
+    1078 -> 1084;
+    1078 -> 1096;
+    1078 -> 1113;
+    1084 -> 1095;
+    1084 -> 1084[style="dashed" color="red" dir=back];
+    1095 -> 1096;
+    1096 -> 1113;
+    1113 -> 1119;
+    1113 -> 1131;
+    1113 -> 1148;
+    1119 -> 1130;
+    1119 -> 1119[style="dashed" color="red" dir=back];
+    1130 -> 1131;
+    1131 -> 1148;
+    1148 -> 1154;
+    1148 -> 1166;
+    1148 -> 1183;
+    1154 -> 1165;
+    1154 -> 1154[style="dashed" color="red" dir=back];
+    1165 -> 1166;
+    1166 -> 1183;
+    1183 -> 1189;
+    1183 -> 1201;
+    1183 -> 1218;
+    1189 -> 1200;
+    1189 -> 1189[style="dashed" color="red" dir=back];
+    1200 -> 1201;
+    1201 -> 1218;
+    1218 -> 1224;
+    1218 -> 1236;
+    1218 -> 1253;
+    1224 -> 1235;
+    1224 -> 1224[style="dashed" color="red" dir=back];
+    1235 -> 1236;
+    1236 -> 1253;
+    1253 -> 1259;
+    1253 -> 1271;
+    1253 -> 1288;
+    1259 -> 1270;
+    1259 -> 1259[style="dashed" color="red" dir=back];
+    1270 -> 1271;
+    1271 -> 1288;
+    1288 -> 1294;
+    1288 -> 1306;
+    1288 -> 1323;
+    1294 -> 1305;
+    1294 -> 1294[style="dashed" color="red" dir=back];
+    1305 -> 1306;
+    1306 -> 1323;
+    1323 -> 1329;
+    1323 -> 1341;
+    1323 -> 1358;
+    1329 -> 1340;
+    1329 -> 1329[style="dashed" color="red" dir=back];
+    1340 -> 1341;
+    1341 -> 1358;
+    1358 -> 1364;
+    1358 -> 1376;
+    1358 -> 1393;
+    1364 -> 1375;
+    1364 -> 1364[style="dashed" color="red" dir=back];
+    1375 -> 1376;
+    1376 -> 1393;
+    1393 -> 1399;
+    1393 -> 1411;
+    1393 -> 1428;
+    1399 -> 1410;
+    1399 -> 1399[style="dashed" color="red" dir=back];
+    1410 -> 1411;
+    1411 -> 1428;
+    1428 -> 1434;
+    1428 -> 1446;
+    1428 -> 1463;
+    1434 -> 1445;
+    1434 -> 1434[style="dashed" color="red" dir=back];
+    1445 -> 1446;
+    1446 -> 1463;
+    1463 -> 1469;
+    1463 -> 1481;
+    1463 -> 1498;
+    1469 -> 1480;
+    1469 -> 1469[style="dashed" color="red" dir=back];
+    1480 -> 1481;
+    1481 -> 1498;
+    1498 -> 1504;
+    1498 -> 1516;
+    1498 -> 1533;
+    1504 -> 1515;
+    1504 -> 1504[style="dashed" color="red" dir=back];
+    1515 -> 1516;
+    1516 -> 1533;
+    1533 -> 1539;
+    1533 -> 1551;
+    1533 -> 1568;
+    1539 -> 1550;
+    1539 -> 1539[style="dashed" color="red" dir=back];
+    1550 -> 1551;
+    1551 -> 1568;
+    1568 -> 1574;
+    1568 -> 1586;
+    1568 -> 1603;
+    1574 -> 1585;
+    1574 -> 1574[style="dashed" color="red" dir=back];
+    1585 -> 1586;
+    1586 -> 1603;
+    1603 -> 1609;
+    1603 -> 1621;
+    1603 -> 1638;
+    1609 -> 1620;
+    1609 -> 1609[style="dashed" color="red" dir=back];
+    1620 -> 1621;
+    1621 -> 1638;
+    1638 -> 1644;
+    1638 -> 1656;
+    1638 -> 1673;
+    1644 -> 1655;
+    1644 -> 1644[style="dashed" color="red" dir=back];
+    1655 -> 1656;
+    1656 -> 1673;
+    1673 -> 1679;
+    1673 -> 1691;
+    1673 -> 1708;
+    1679 -> 1690;
+    1679 -> 1679[style="dashed" color="red" dir=back];
+    1690 -> 1691;
+    1691 -> 1708;
+    1708 -> 1714;
+    1708 -> 1726;
+    1708 -> 1743;
+    1714 -> 1725;
+    1714 -> 1714[style="dashed" color="red" dir=back];
+    1725 -> 1726;
+    1726 -> 1743;
+    1743 -> 1749;
+    1743 -> 1761;
+    1743 -> 1778;
+    1749 -> 1760;
+    1749 -> 1749[style="dashed" color="red" dir=back];
+    1760 -> 1761;
+    1761 -> 1778;
+    1778 -> 1784;
+    1778 -> 1796;
+    1778 -> 1813;
+    1784 -> 1795;
+    1784 -> 1784[style="dashed" color="red" dir=back];
+    1795 -> 1796;
+    1796 -> 1813;
+    1813 -> 1819;
+    1813 -> 1831;
+    1813 -> 1848;
+    1819 -> 1830;
+    1819 -> 1819[style="dashed" color="red" dir=back];
+    1830 -> 1831;
+    1831 -> 1848;
+    1848 -> 1854;
+    1848 -> 1866;
+    1848 -> 1883;
+    1854 -> 1865;
+    1854 -> 1854[style="dashed" color="red" dir=back];
+    1865 -> 1866;
+    1866 -> 1883;
+    1883 -> 1889;
+    1883 -> 1901;
+    1883 -> 1918;
+    1889 -> 1900;
+    1889 -> 1889[style="dashed" color="red" dir=back];
+    1900 -> 1901;
+    1901 -> 1918;
+    1918 -> 1922;
+    1918 -> 1934;
+    1918 -> 1952;
+    1922 -> 1933;
+    1922 -> 1922[style="dashed" color="red" dir=back];
+    1933 -> 1934;
+    1934 -> 1952;
+    1934 -> 1960;
+    1952 -> 1960;
+    1960 -> 1964;
+    1960 -> 1973;
+    1960 -> 1974;
+    1964 -> 1971;
+    1964 -> 1974;
+    1964 -> 1964[style="dashed" color="red" dir=back];
+    1971 -> 1973;
+    1971 -> 1974;
+    1973 -> 1974;
+    1974 -> E;
+}

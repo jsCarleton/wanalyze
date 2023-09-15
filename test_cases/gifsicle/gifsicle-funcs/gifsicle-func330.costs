@@ -1,0 +1,20 @@
+ebb costs:
+[0]: 73
+[19]: Infinity-z
+[21]: 1
+[22]: 17
+[24]: 13
+[28]: 2
+5 ebb paths found
+[0 24 28]
+[0 22 28]
+[0 22 24 28]
+[0 19 21 22 28]
+[0 19 21 22 24 28]
+|f330| = list_max([
+  list_sum(73, 13, 2);
+  list_sum(73, 17, 2);
+  list_sum(73, 17, 13, 2);
+  list_sum(73, Infinity-z, 1, 17, 2);
+  list_sum(73, Infinity-z, 1, 17, 13, 2)
+])

@@ -1,0 +1,221 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 342"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 13]"]
+    node [shape=box, color=red, style=dashed] 14[label="[14 ... 15]"]
+    node [shape=box, color=black, style=solid] 16[label="[16 ... 19]"]
+    node [shape=box, color=red, style=dashed] 20[label="[20 ... 21]"]
+    node [shape=box, color=black, style=solid] 22[label="[22 ... 23]"]
+    node [shape=box, color=red, style=dashed] 24[label="[24 ... 30]"]
+    node [shape=box, color=black, style=solid] 31[label="[31]"]
+    node [shape=box, color=black, style=solid] 32[label="[32 ... 39]"]
+    node [shape=box, color=red, style=dashed] 40[label="[40 ... 43]"]
+    node [shape=box, color=black, style=solid] 44[label="[44 ... 45]"]
+    subgraph cluster_46{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 46[label="[46 ... 51]"]
+    node [shape=box, color=red, style=dashed] 52[label="[52 ... 55]"]
+    node [shape=box, color=black, style=solid] 56[label="[56]"]
+    node [shape=box, color=red, style=dashed] 57[label="[57 ... 65]"]
+    node [shape=box, color=black, style=solid] 66[label="[66 ... 67]"]
+    node [shape=box, color=black, style=solid] 68[label="[68]"]
+    node [shape=box, color=black, style=solid] 69[label="[69 ... 83]"]
+    subgraph cluster_84{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 84[label="[84 ... 91]"]
+    subgraph cluster_92{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 92[label="[92 ... 93]"]
+    node [shape=box, color=red, style=dashed] 94[label="[94 ... 96]"]
+    node [shape=box, color=black, style=solid] 97[label="[97]"]
+    node [shape=box, color=black, style=solid] 98[label="[98 ... 100]"]
+    }
+    node [shape=box, color=black, style=solid] 101[label="[101]"]
+    node [shape=box, color=black, style=solid] 102[label="[102 ... 105]"]
+    subgraph cluster_106{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 106[label="[106 ... 107]"]
+    node [shape=box, color=red, style=dashed] 108[label="[108 ... 110]"]
+    node [shape=box, color=black, style=solid] 111[label="[111]"]
+    node [shape=box, color=black, style=solid] 112[label="[112 ... 114]"]
+    }
+    node [shape=box, color=black, style=solid] 115[label="[115]"]
+    node [shape=box, color=black, style=solid] 116[label="[116 ... 120]"]
+    subgraph cluster_121{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 121[label="[121]"]
+    node [shape=box, color=red, style=dashed] 122[label="[122 ... 124]"]
+    node [shape=box, color=black, style=solid] 125[label="[125 ... 127]"]
+    }
+    node [shape=box, color=black, style=solid] 128[label="[128]"]
+    node [shape=box, color=black, style=solid] 129[label="[129 ... 131]"]
+    subgraph cluster_132{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 132[label="[132]"]
+    node [shape=box, color=red, style=dashed] 133[label="[133 ... 135]"]
+    node [shape=box, color=black, style=solid] 136[label="[136 ... 138]"]
+    }
+    node [shape=box, color=black, style=solid] 139[label="[139]"]
+    node [shape=box, color=black, style=solid] 140[label="[140 ... 142]"]
+    node [shape=box, color=black, style=solid] 143[label="[143 ... 144]"]
+    node [shape=box, color=black, style=solid] 145[label="[145 ... 146]"]
+    node [shape=box, color=black, style=solid] 147[label="[147]"]
+    }
+    node [shape=box, color=black, style=solid] 148[label="[148 ... 149]"]
+    node [shape=box, color=black, style=solid] 150[label="[150 ... 151]"]
+    node [shape=box, color=black, style=solid] 152[label="[152]"]
+    node [shape=box, color=black, style=solid] 153[label="[153 ... 154]"]
+    }
+    node [shape=box, color=black, style=solid] 155[label="[155 ... 156]"]
+    node [shape=box, color=red, style=dashed] 157[label="[157 ... 190]"]
+    node [shape=box, color=black, style=solid] 191[label="[191]"]
+    node [shape=box, color=black, style=solid] 192[label="[192 ... 199]"]
+    node [shape=box, fontcolor=white, style=filled, fillcolor=red] 200[label="[200 ... 351]"]
+    node [shape=box, color=black, style=solid] 352[label="[352]"]
+    node [shape=box, color=black, style=solid] 353[label="[353 ... 386]"]
+    node [shape=box, color=red, style=dashed] 387[label="[387 ... 418]"]
+    node [shape=box, color=black, style=solid] 419[label="[419 ... 430]"]
+    node [shape=box, color=black, style=solid] 431[label="[431 ... 432]"]
+    node [shape=box, color=black, style=solid] 433[label="[433 ... 434]"]
+    node [shape=box, color=black, style=solid] 435[label="[435 ... 443]"]
+    node [shape=box, color=black, style=solid] 444[label="[444 ... 447]"]
+    node [shape=box, color=red, style=dashed] 448[label="[448 ... 452]"]
+    node [shape=box, color=black, style=solid] 453[label="[453]"]
+    node [shape=box, color=black, style=solid] 454[label="[454]"]
+    node [shape=box, color=black, style=solid] 455[label="[455]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 14;
+    0 -> 32;
+    0 -> 455;
+    14 -> 16;
+    14 -> 14[style="dashed" color="red" dir=back];
+    16 -> 20;
+    16 -> 32;
+    20 -> 22;
+    20 -> 20[style="dashed" color="red" dir=back];
+    22 -> 24;
+    22 -> 32;
+    24 -> 31;
+    24 -> 24[style="dashed" color="red" dir=back];
+    31 -> 32;
+    32 -> 40;
+    32 -> 192;
+    40 -> 44;
+    40 -> 40[style="dashed" color="red" dir=back];
+    44 -> 46;
+    44 -> 192;
+    46 -> 52;
+    46 -> 68;
+    46 -> 153;
+    52 -> 56;
+    52 -> 52[style="dashed" color="red" dir=back];
+    56 -> 57;
+    57 -> 66;
+    57 -> 57[style="dashed" color="red" dir=back];
+    66 -> 68;
+    66 -> 69;
+    68 -> 69;
+    69 -> 84;
+    69 -> 150;
+    69 -> 153;
+    84 -> 92;
+    84 -> 102;
+    84 -> 143;
+    84 -> 145;
+    84 -> 147;
+    92 -> 94;
+    92 -> 98;
+    94 -> 97;
+    94 -> 102;
+    94 -> 94[style="dashed" color="red" dir=back];
+    97 -> 98;
+    98 -> 92[style="dashed" color="red"];
+    98 -> 101;
+    98 -> 102;
+    101 -> 102;
+    102 -> 106;
+    102 -> 116;
+    106 -> 108;
+    106 -> 112;
+    108 -> 111;
+    108 -> 116;
+    108 -> 108[style="dashed" color="red" dir=back];
+    111 -> 112;
+    112 -> 106[style="dashed" color="red"];
+    112 -> 115;
+    112 -> 116;
+    115 -> 116;
+    116 -> 121;
+    116 -> 129;
+    116 -> 140;
+    121 -> 122;
+    122 -> 125;
+    122 -> 129;
+    122 -> 122[style="dashed" color="red" dir=back];
+    125 -> 121[style="dashed" color="red"];
+    125 -> 128;
+    125 -> 129;
+    128 -> 129;
+    129 -> 132;
+    129 -> 140;
+    132 -> 133;
+    133 -> 136;
+    133 -> 140;
+    133 -> 133[style="dashed" color="red" dir=back];
+    136 -> 132[style="dashed" color="red"];
+    136 -> 139;
+    136 -> 140;
+    139 -> 140;
+    140 -> 143;
+    143 -> 145;
+    145 -> 84[style="dashed" color="red"];
+    145 -> 147;
+    147 -> 148;
+    148 -> 150;
+    148 -> 152;
+    150 -> 152;
+    150 -> 153;
+    152 -> 153;
+    153 -> 46[style="dashed" color="red"];
+    153 -> 155;
+    155 -> 157;
+    155 -> 192;
+    157 -> 191;
+    157 -> 157[style="dashed" color="red" dir=back];
+    191 -> 192;
+    192 -> 200;
+    192 -> 353;
+    200 -> 352;
+    200 -> 200[style="dashed" color="red" dir=back];
+    352 -> 353;
+    353 -> 387;
+    353 -> 435;
+    353 -> 444;
+    387 -> 419;
+    387 -> 387[style="dashed" color="red" dir=back];
+    419 -> 435;
+    419 -> 444;
+    431 -> U;
+    433 -> 435;
+    433 -> U;
+    435 -> 444;
+    444 -> 448;
+    444 -> 454;
+    448 -> 453;
+    448 -> 454;
+    448 -> 448[style="dashed" color="red" dir=back];
+    453 -> 454;
+    454 -> 455;
+    455 -> E;
+}

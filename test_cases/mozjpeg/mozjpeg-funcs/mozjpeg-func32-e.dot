@@ -1,0 +1,213 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 32"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 38]"]
+    node [shape=box, color=red, style=dashed] 39[label="[39 ... 45]"]
+    node [shape=box, color=black, style=solid] 46[label="[46 ... 54]"]
+    node [shape=box, color=red, style=dashed] 55[label="[55 ... 57]"]
+    node [shape=box, color=black, style=solid] 58[label="[58 ... 59]"]
+    node [shape=box, color=black, style=solid] 60[label="[60 ... 70]"]
+    node [shape=box, color=red, style=dashed] 71[label="[71 ... 77]"]
+    node [shape=box, color=black, style=solid] 78[label="[78]"]
+    node [shape=box, color=black, style=solid] 79[label="[79 ... 84]"]
+    node [shape=box, color=red, style=dashed] 85[label="[85 ... 89]"]
+    node [shape=box, color=black, style=solid] 90[label="[90]"]
+    node [shape=box, color=black, style=solid] 91[label="[91 ... 101]"]
+    node [shape=box, color=red, style=dashed] 102[label="[102 ... 104]"]
+    node [shape=box, color=black, style=solid] 105[label="[105 ... 106]"]
+    node [shape=box, color=black, style=solid] 107[label="[107 ... 130]"]
+    node [shape=box, color=red, style=dashed] 131[label="[131 ... 135]"]
+    node [shape=box, color=black, style=solid] 136[label="[136]"]
+    node [shape=box, color=black, style=solid] 137[label="[137 ... 160]"]
+    node [shape=box, color=black, style=solid] 161[label="[161 ... 169]"]
+    node [shape=box, color=black, style=solid] 170[label="[170 ... 171]"]
+    node [shape=box, color=black, style=solid] 172[label="[172 ... 173]"]
+    node [shape=box, color=black, style=solid] 174[label="[174 ... 175]"]
+    node [shape=box, color=black, style=solid] 176[label="[176 ... 199]"]
+    node [shape=box, color=black, style=solid] 200[label="[200]"]
+    node [shape=box, color=black, style=solid] 201[label="[201 ... 218]"]
+    node [shape=box, color=black, style=solid] 219[label="[219 ... 225]"]
+    node [shape=box, color=red, style=dashed] 226[label="[226 ... 228]"]
+    node [shape=box, color=black, style=solid] 229[label="[229 ... 230]"]
+    node [shape=box, color=black, style=solid] 231[label="[231 ... 233]"]
+    node [shape=box, color=red, style=dashed] 234[label="[234 ... 235]"]
+    node [shape=box, color=black, style=solid] 236[label="[236 ... 237]"]
+    node [shape=box, color=black, style=solid] 238[label="[238 ... 240]"]
+    node [shape=box, color=black, style=solid] 241[label="[241 ... 249]"]
+    node [shape=box, color=red, style=dashed] 250[label="[250 ... 254]"]
+    node [shape=box, color=black, style=solid] 255[label="[255 ... 257]"]
+    node [shape=box, color=red, style=dashed] 258[label="[258 ... 263]"]
+    node [shape=box, color=black, style=solid] 264[label="[264 ... 265]"]
+    node [shape=box, color=black, style=solid] 266[label="[266 ... 291]"]
+    node [shape=box, color=red, style=dashed] 292[label="[292 ... 294]"]
+    node [shape=box, color=black, style=solid] 295[label="[295]"]
+    node [shape=box, color=black, style=solid] 296[label="[296 ... 307]"]
+    node [shape=box, color=black, style=solid] 308[label="[308]"]
+    node [shape=box, color=black, style=solid] 309[label="[309 ... 323]"]
+    node [shape=box, color=red, style=dashed] 324[label="[324 ... 326]"]
+    node [shape=box, color=black, style=solid] 327[label="[327]"]
+    node [shape=box, color=black, style=solid] 328[label="[328 ... 330]"]
+    node [shape=box, color=red, style=dashed] 331[label="[331 ... 332]"]
+    node [shape=box, color=black, style=solid] 333[label="[333 ... 348]"]
+    node [shape=box, color=red, style=dashed] 349[label="[349 ... 351]"]
+    node [shape=box, color=black, style=solid] 352[label="[352]"]
+    node [shape=box, color=black, style=solid] 353[label="[353 ... 354]"]
+    node [shape=box, color=black, style=solid] 355[label="[355]"]
+    node [shape=box, color=black, style=solid] 356[label="[356 ... 357]"]
+    node [shape=box, color=black, style=solid] 358[label="[358]"]
+    node [shape=box, color=black, style=solid] 359[label="[359 ... 361]"]
+    node [shape=box, color=black, style=solid] 362[label="[362 ... 363]"]
+    node [shape=box, color=black, style=solid] 364[label="[364 ... 396]"]
+    node [shape=box, color=red, style=dashed] 397[label="[397 ... 399]"]
+    node [shape=box, color=black, style=solid] 400[label="[400]"]
+    node [shape=box, color=black, style=solid] 401[label="[401 ... 402]"]
+    node [shape=box, color=black, style=solid] 403[label="[403]"]
+    node [shape=box, color=black, style=solid] 404[label="[404 ... 405]"]
+    node [shape=box, color=black, style=solid] 406[label="[406 ... 431]"]
+    node [shape=box, color=black, style=solid] 432[label="[432]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 39;
+    0 -> 60;
+    0 -> 107;
+    0 -> 432;
+    39 -> 46;
+    39 -> 39[style="dashed" color="red" dir=back];
+    46 -> 55;
+    46 -> 170;
+    46 -> 406;
+    55 -> 58;
+    55 -> 55[style="dashed" color="red" dir=back];
+    58 -> 60;
+    58 -> 406;
+    60 -> 71;
+    60 -> 79;
+    60 -> 107;
+    71 -> 78;
+    71 -> 84;
+    71 -> 71[style="dashed" color="red" dir=back];
+    78 -> 79;
+    79 -> 85;
+    79 -> 91;
+    79 -> 107;
+    85 -> 90;
+    85 -> 85[style="dashed" color="red" dir=back];
+    90 -> 91;
+    91 -> 102;
+    91 -> 107;
+    91 -> 172;
+    91 -> 364;
+    102 -> 105;
+    102 -> 102[style="dashed" color="red" dir=back];
+    105 -> 107;
+    105 -> 364;
+    107 -> 131;
+    107 -> 137;
+    107 -> 201;
+    107 -> 432;
+    131 -> 136;
+    131 -> 161;
+    131 -> 131[style="dashed" color="red" dir=back];
+    136 -> 137;
+    137 -> 161;
+    137 -> 176;
+    137 -> 200;
+    137 -> 219;
+    161 -> 170;
+    161 -> 174;
+    161 -> 176;
+    161 -> 200;
+    161 -> 219;
+    170 -> 172;
+    170 -> 406;
+    172 -> 174;
+    172 -> 364;
+    174 -> 176;
+    174 -> 200;
+    176 -> 200;
+    176 -> 219;
+    200 -> 201;
+    201 -> 219;
+    201 -> 362;
+    219 -> 226;
+    219 -> 231;
+    226 -> 229;
+    226 -> 238;
+    226 -> 226[style="dashed" color="red" dir=back];
+    229 -> 231;
+    229 -> 241;
+    231 -> 234;
+    234 -> 236;
+    234 -> 234[style="dashed" color="red" dir=back];
+    236 -> 238;
+    236 -> 359;
+    238 -> 241;
+    238 -> 359;
+    241 -> 250;
+    250 -> 255;
+    250 -> 257;
+    250 -> 250[style="dashed" color="red" dir=back];
+    255 -> 258;
+    255 -> 266;
+    258 -> 330;
+    258 -> U;
+    258 -> 258[style="dashed" color="red" dir=back];
+    264 -> 266;
+    264 -> U;
+    266 -> 292;
+    266 -> 296;
+    266 -> 308;
+    266 -> 309;
+    266 -> 356;
+    292 -> 295;
+    292 -> 292[style="dashed" color="red" dir=back];
+    295 -> 296;
+    296 -> 308;
+    308 -> 309;
+    309 -> 324;
+    309 -> 328;
+    309 -> 356;
+    324 -> 327;
+    324 -> 355;
+    324 -> 324[style="dashed" color="red" dir=back];
+    327 -> 328;
+    328 -> 331;
+    328 -> 356;
+    331 -> 333;
+    331 -> 331[style="dashed" color="red" dir=back];
+    333 -> 349;
+    333 -> 353;
+    333 -> 359;
+    349 -> 352;
+    349 -> 358;
+    349 -> 349[style="dashed" color="red" dir=back];
+    352 -> 353;
+    353 -> 355;
+    353 -> 359;
+    355 -> 356;
+    356 -> 358;
+    356 -> 432;
+    358 -> 359;
+    359 -> 362;
+    359 -> 432;
+    362 -> 364;
+    362 -> 432;
+    364 -> 397;
+    364 -> 401;
+    364 -> 404;
+    397 -> 400;
+    397 -> 403;
+    397 -> 397[style="dashed" color="red" dir=back];
+    400 -> 401;
+    401 -> 403;
+    401 -> 404;
+    403 -> 404;
+    404 -> 406;
+    404 -> 432;
+    406 -> 432;
+    432 -> E;
+}

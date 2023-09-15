@@ -1,0 +1,121 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 325"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 1]"]
+    subgraph cluster_2{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 2[label="[2 ... 618]"]
+    node [shape=box, color=red, style=dashed] 619[label="[619 ... 645]"]
+    node [shape=box, color=black, style=solid] 646[label="[646 ... 662]"]
+    node [shape=box, color=black, style=solid] 663[label="[663 ... 670]"]
+    node [shape=box, color=black, style=solid] 671[label="[671 ... 682]"]
+    node [shape=box, color=black, style=solid] 683[label="[683 ... 687]"]
+    node [shape=box, color=black, style=solid] 688[label="[688 ... 689]"]
+    node [shape=box, color=black, style=solid] 690[label="[690 ... 691]"]
+    node [shape=box, color=black, style=solid] 692[label="[692 ... 693]"]
+    node [shape=box, color=black, style=solid] 694[label="[694 ... 701]"]
+    node [shape=box, color=black, style=solid] 702[label="[702 ... 706]"]
+    node [shape=box, color=black, style=solid] 707[label="[707 ... 711]"]
+    node [shape=box, color=black, style=solid] 712[label="[712 ... 713]"]
+    node [shape=box, color=black, style=solid] 714[label="[714 ... 715]"]
+    node [shape=box, color=black, style=solid] 716[label="[716 ... 726]"]
+    node [shape=box, color=black, style=solid] 727[label="[727 ... 745]"]
+    node [shape=box, color=black, style=solid] 746[label="[746 ... 776]"]
+    node [shape=box, color=red, style=dashed] 777[label="[777 ... 785]"]
+    node [shape=box, color=black, style=solid] 786[label="[786]"]
+    node [shape=box, color=black, style=solid] 787[label="[787 ... 788]"]
+    node [shape=box, color=red, style=dashed] 789[label="[789 ... 797]"]
+    node [shape=box, color=black, style=solid] 798[label="[798]"]
+    node [shape=box, color=black, style=solid] 799[label="[799 ... 802]"]
+    node [shape=box, color=red, style=dashed] 803[label="[803 ... 811]"]
+    node [shape=box, color=black, style=solid] 812[label="[812]"]
+    node [shape=box, color=black, style=solid] 813[label="[813 ... 814]"]
+    node [shape=box, color=black, style=solid] 815[label="[815 ... 816]"]
+    node [shape=box, color=black, style=solid] 817[label="[817 ... 818]"]
+    node [shape=box, color=black, style=solid] 819[label="[819 ... 820]"]
+    node [shape=box, color=black, style=solid] 821[label="[821]"]
+    }
+    node [shape=box, color=black, style=solid] 822[label="[822 ... 823]"]
+    node [shape=box, color=black, style=solid] 824[label="[824 ... 825]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 2;
+    2 -> 619;
+    2 -> 663;
+    2 -> 671;
+    2 -> 683;
+    2 -> 688;
+    2 -> 690;
+    2 -> 692;
+    2 -> 694;
+    2 -> 702;
+    2 -> 707;
+    2 -> 716;
+    2 -> 727;
+    2 -> 746;
+    2 -> 817;
+    2 -> 819;
+    2 -> 821;
+    2 -> U;
+    2 -> 2[style="dashed" color="red" dir=back];
+    619 -> 646;
+    619 -> 819;
+    619 -> 619[style="dashed" color="red" dir=back];
+    646 -> 2[style="dashed" color="red"];
+    646 -> 663;
+    663 -> 2[style="dashed" color="red"];
+    663 -> 671;
+    671 -> 2[style="dashed" color="red"];
+    671 -> 683;
+    683 -> 2[style="dashed" color="red"];
+    683 -> 688;
+    688 -> 2[style="dashed" color="red"];
+    688 -> 690;
+    690 -> 2[style="dashed" color="red"];
+    690 -> 692;
+    692 -> 2[style="dashed" color="red"];
+    692 -> 694;
+    694 -> 2[style="dashed" color="red"];
+    694 -> 702;
+    702 -> 2[style="dashed" color="red"];
+    702 -> 707;
+    707 -> 2[style="dashed" color="red"];
+    712 -> U;
+    714 -> 716;
+    714 -> U;
+    716 -> 2[style="dashed" color="red"];
+    716 -> 727;
+    727 -> 2[style="dashed" color="red"];
+    727 -> 746;
+    746 -> 777;
+    746 -> 787;
+    777 -> 786;
+    777 -> 777[style="dashed" color="red" dir=back];
+    786 -> 787;
+    787 -> 789;
+    787 -> 799;
+    789 -> 798;
+    789 -> 789[style="dashed" color="red" dir=back];
+    798 -> 799;
+    799 -> 803;
+    799 -> 813;
+    803 -> 812;
+    803 -> 803[style="dashed" color="red" dir=back];
+    812 -> 813;
+    813 -> R;
+    815 -> 817;
+    815 -> U;
+    817 -> 2[style="dashed" color="red"];
+    817 -> 819;
+    819 -> 2[style="dashed" color="red"];
+    819 -> 821;
+    822 -> U;
+    824 -> E;
+    824 -> U;
+}

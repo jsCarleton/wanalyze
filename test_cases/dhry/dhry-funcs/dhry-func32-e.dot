@@ -1,0 +1,66 @@
+digraph finite_state_machine {
+    label = "dhry.wasm - function 32"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 22]"]
+    node [shape=box, color=red, style=dashed] 23[label="[23 ... 25]"]
+    node [shape=box, color=black, style=solid] 26[label="[26]"]
+    node [shape=box, color=black, style=solid] 27[label="[27 ... 39]"]
+    node [shape=box, color=black, style=solid] 40[label="[40 ... 42]"]
+    node [shape=box, color=black, style=solid] 43[label="[43 ... 70]"]
+    node [shape=box, color=red, style=dashed] 71[label="[71 ... 73]"]
+    node [shape=box, color=black, style=solid] 74[label="[74]"]
+    node [shape=box, color=black, style=solid] 75[label="[75 ... 86]"]
+    node [shape=box, color=black, style=solid] 87[label="[87 ... 89]"]
+    node [shape=box, color=black, style=solid] 90[label="[90]"]
+    node [shape=box, color=black, style=solid] 91[label="[91 ... 107]"]
+    node [shape=box, color=red, style=dashed] 108[label="[108 ... 110]"]
+    node [shape=box, color=black, style=solid] 111[label="[111]"]
+    node [shape=box, color=black, style=solid] 112[label="[112 ... 113]"]
+    node [shape=box, color=black, style=solid] 114[label="[114]"]
+    node [shape=box, color=black, style=solid] 115[label="[115]"]
+    node [shape=box, color=black, style=solid] 116[label="[116]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 23;
+    0 -> 27;
+    0 -> 40;
+    0 -> 43;
+    0 -> 116;
+    23 -> 26;
+    23 -> 23[style="dashed" color="red" dir=back];
+    26 -> 27;
+    27 -> 40;
+    27 -> 43;
+    40 -> 43;
+    40 -> R;
+    43 -> 71;
+    43 -> 75;
+    43 -> 87;
+    43 -> 90;
+    43 -> 116;
+    43 -> R;
+    71 -> 74;
+    71 -> 71[style="dashed" color="red" dir=back];
+    74 -> 75;
+    75 -> 87;
+    87 -> 90;
+    87 -> 91;
+    87 -> R;
+    90 -> 91;
+    91 -> 108;
+    91 -> 112;
+    91 -> R;
+    108 -> 111;
+    108 -> 114;
+    108 -> 108[style="dashed" color="red" dir=back];
+    111 -> 112;
+    112 -> 114;
+    112 -> 115;
+    114 -> 115;
+    115 -> 116;
+    116 -> E;
+}

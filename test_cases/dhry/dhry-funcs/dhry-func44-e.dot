@@ -1,0 +1,27 @@
+digraph finite_state_machine {
+    label = "dhry.wasm - function 44"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 3]"]
+    node [shape=box, color=red, style=dashed] 4[label="[4 ... 7]"]
+    node [shape=box, color=black, style=solid] 8[label="[8 ... 10]"]
+    node [shape=box, color=red, style=dashed] 11[label="[11 ... 17]"]
+    node [shape=box, color=black, style=solid] 18[label="[18]"]
+    node [shape=box, color=black, style=solid] 19[label="[19]"]
+    0 -> 4;
+    0 -> 10;
+    0 -> 19;
+    4 -> 8;
+    4 -> 4[style="dashed" color="red" dir=back];
+    8 -> 11;
+    8 -> 19;
+    11 -> 18;
+    11 -> 19;
+    11 -> 11[style="dashed" color="red" dir=back];
+    18 -> 19;
+    19 -> E;
+}

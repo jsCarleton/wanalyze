@@ -1,0 +1,39 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 154"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 3]"]
+    node [shape=box, color=red, style=dashed] 4[label="[4 ... 9]"]
+    node [shape=box, color=black, style=solid] 10[label="[10]"]
+    node [shape=box, color=black, style=solid] 11[label="[11 ... 16]"]
+    subgraph cluster_17{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 17[label="[17 ... 20]"]
+    node [shape=box, color=red, style=dashed] 21[label="[21 ... 31]"]
+    node [shape=box, color=black, style=solid] 32[label="[32]"]
+    node [shape=box, color=black, style=solid] 33[label="[33 ... 34]"]
+    }
+    node [shape=box, color=black, style=solid] 35[label="[35]"]
+    node [shape=box, color=black, style=solid] 36[label="[36]"]
+    0 -> 4;
+    0 -> 11;
+    4 -> 10;
+    4 -> 4[style="dashed" color="red" dir=back];
+    10 -> 11;
+    11 -> 17;
+    11 -> 36;
+    17 -> 21;
+    17 -> 33;
+    21 -> 32;
+    21 -> 21[style="dashed" color="red" dir=back];
+    32 -> 33;
+    33 -> 17[style="dashed" color="red"];
+    33 -> 35;
+    35 -> 36;
+    36 -> E;
+}

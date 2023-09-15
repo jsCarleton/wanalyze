@@ -1,0 +1,122 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 202"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 1]"]
+    subgraph cluster_2{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 2[label="[2 ... 3]"]
+    subgraph cluster_4{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 4[label="[4 ... 7]"]
+    subgraph cluster_8{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 8[label="[8 ... 9]"]
+    subgraph cluster_10{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 10[label="[10 ... 15]"]
+    node [shape=box, color=red, style=dashed] 16[label="[16 ... 17]"]
+    node [shape=box, color=black, style=solid] 18[label="[18 ... 19]"]
+    node [shape=box, color=black, style=solid] 20[label="[20 ... 22]"]
+    node [shape=box, color=red, style=dashed] 23[label="[23 ... 24]"]
+    node [shape=box, color=black, style=solid] 25[label="[25]"]
+    node [shape=box, color=black, style=solid] 26[label="[26 ... 27]"]
+    }
+    node [shape=box, color=black, style=solid] 28[label="[28]"]
+    node [shape=box, color=black, style=solid] 29[label="[29 ... 32]"]
+    }
+    node [shape=box, color=black, style=solid] 33[label="[33 ... 35]"]
+    subgraph cluster_36{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 36[label="[36 ... 37]"]
+    subgraph cluster_38{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 38[label="[38 ... 45]"]
+    node [shape=box, color=red, style=dashed] 46[label="[46 ... 47]"]
+    node [shape=box, color=black, style=solid] 48[label="[48 ... 49]"]
+    node [shape=box, color=black, style=solid] 50[label="[50 ... 51]"]
+    node [shape=box, color=red, style=dashed] 52[label="[52 ... 53]"]
+    node [shape=box, color=black, style=solid] 54[label="[54]"]
+    node [shape=box, color=black, style=solid] 55[label="[55 ... 56]"]
+    }
+    node [shape=box, color=black, style=solid] 57[label="[57]"]
+    node [shape=box, color=black, style=solid] 58[label="[58 ... 59]"]
+    }
+    node [shape=box, color=black, style=solid] 60[label="[60]"]
+    node [shape=box, color=black, style=solid] 61[label="[61 ... 65]"]
+    }
+    node [shape=box, color=black, style=solid] 66[label="[66]"]
+    node [shape=box, color=black, style=solid] 67[label="[67 ... 68]"]
+    }
+    node [shape=box, color=black, style=solid] 69[label="[69]"]
+    node [shape=box, color=black, style=solid] 70[label="[70 ... 72]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 2;
+    0 -> 70;
+    2 -> 4;
+    2 -> 67;
+    4 -> 8;
+    4 -> 35;
+    4 -> 61;
+    8 -> 10;
+    8 -> 29;
+    10 -> 16;
+    10 -> 20;
+    10 -> 26;
+    16 -> 18;
+    16 -> 16[style="dashed" color="red" dir=back];
+    18 -> 20;
+    18 -> 26;
+    20 -> 23;
+    20 -> 26;
+    23 -> 25;
+    23 -> 23[style="dashed" color="red" dir=back];
+    25 -> 26;
+    26 -> 10[style="dashed" color="red"];
+    26 -> 28;
+    28 -> 29;
+    29 -> 8[style="dashed" color="red"];
+    29 -> 61;
+    29 -> U;
+    33 -> 36;
+    33 -> U;
+    36 -> 38;
+    36 -> 58;
+    38 -> 46;
+    38 -> 50;
+    38 -> 55;
+    46 -> 48;
+    46 -> 46[style="dashed" color="red" dir=back];
+    48 -> 50;
+    48 -> 55;
+    50 -> 52;
+    50 -> 55;
+    52 -> 54;
+    52 -> 52[style="dashed" color="red" dir=back];
+    54 -> 55;
+    55 -> 38[style="dashed" color="red"];
+    55 -> 57;
+    57 -> 58;
+    58 -> 36[style="dashed" color="red"];
+    58 -> 60;
+    60 -> 61;
+    61 -> 4[style="dashed" color="red"];
+    61 -> 66;
+    61 -> R;
+    66 -> 67;
+    67 -> 2[style="dashed" color="red"];
+    67 -> 69;
+    69 -> 70;
+    70 -> E;
+}

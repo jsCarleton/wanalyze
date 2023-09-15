@@ -1,0 +1,56 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 34"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 12]"]
+    node [shape=box, color=red, style=dashed] 13[label="[13 ... 15]"]
+    node [shape=box, color=black, style=solid] 16[label="[16]"]
+    node [shape=box, color=black, style=solid] 17[label="[17 ... 20]"]
+    node [shape=box, color=red, style=dashed] 21[label="[21 ... 22]"]
+    node [shape=box, color=black, style=solid] 23[label="[23]"]
+    node [shape=box, color=black, style=solid] 24[label="[24 ... 25]"]
+    node [shape=box, color=red, style=dashed] 26[label="[26 ... 27]"]
+    node [shape=box, color=black, style=solid] 28[label="[28 ... 29]"]
+    node [shape=box, color=black, style=solid] 30[label="[30 ... 36]"]
+    node [shape=box, color=red, style=dashed] 37[label="[37 ... 38]"]
+    node [shape=box, color=black, style=solid] 39[label="[39]"]
+    node [shape=box, color=black, style=solid] 40[label="[40 ... 41]"]
+    node [shape=box, color=red, style=dashed] 42[label="[42 ... 43]"]
+    node [shape=box, color=black, style=solid] 44[label="[44]"]
+    node [shape=box, color=black, style=solid] 45[label="[45]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 13;
+    0 -> 17;
+    0 -> 30;
+    0 -> R;
+    13 -> 16;
+    13 -> 17;
+    13 -> 13[style="dashed" color="red" dir=back];
+    16 -> 17;
+    17 -> 21;
+    17 -> 24;
+    21 -> 23;
+    21 -> 21[style="dashed" color="red" dir=back];
+    23 -> 24;
+    24 -> 26;
+    24 -> 40;
+    26 -> 28;
+    26 -> 26[style="dashed" color="red" dir=back];
+    28 -> 30;
+    28 -> 40;
+    30 -> 37;
+    30 -> 40;
+    37 -> 39;
+    37 -> 37[style="dashed" color="red" dir=back];
+    39 -> 40;
+    40 -> 42;
+    40 -> 45;
+    42 -> 44;
+    42 -> 42[style="dashed" color="red" dir=back];
+    44 -> 45;
+    45 -> E;
+}

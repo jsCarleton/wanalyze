@@ -1,0 +1,94 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 318"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
+node [shape=circle, fontcolor=black, style="", label="9"]9
+node [shape=circle, fontcolor=black, style="", label="10"]10
+node [shape=circle, fontcolor=black, style="", label="11"]11
+node [shape=circle, fontcolor=black, style="", label="12"]12
+node [shape=circle, fontcolor=black, style="", label="13"]13
+node [shape=circle, fontcolor=black, style="", label="14"]14
+node [shape=circle, fontcolor=black, style="", label="15"]15
+node [shape=circle, fontcolor=black, style="", label="16"]16
+node [shape=circle, fontcolor=black, style="", label="17"]17
+node [shape=circle, fontcolor=black, style="", label="18"]18
+node [shape=circle, fontcolor=black, style="", label="19"]19
+node [shape=circle, fontcolor=black, style="", label="20"]20
+node [shape=circle, fontcolor=black, style="", label="21"]21
+node [shape=circle, fontcolor=black, style="", label="22"]22
+node [shape=circle, fontcolor=black, style="", label="23"]23
+node [shape=circle, fontcolor=black, style="", label="24"]24
+node [shape=circle, fontcolor=black, style="", label="25"]25
+node [shape=circle, fontcolor=black, style="", label="26"]26
+node [shape=circle, fontcolor=black, style="", label="27"]27
+node [shape=circle, fontcolor=black, style="", label="28"]28
+node [shape=circle, fontcolor=black, style="", label="29"]29
+node [shape=circle, fontcolor=black, style="", label="30"]30
+node [shape=circle, fontcolor=black, style="", label="31"]31
+node [shape=circle, fontcolor=black, style="", label="32"]32
+node [shape=circle, fontcolor=black, style="", label="33"]33
+node [shape=circle, fontcolor=black, style="", label="34"]34
+node [shape=circle, fontcolor=black, style="", label="35"]35
+node [shape=circle, fontcolor=black, style="", label="E"]E
+    0 -> 1[label="block"];
+    1 -> 2[label="~br_if"];
+    1 -> 14[label="br_if"];
+    2 -> 3[label="~br_if"];
+    2 -> 14[label="br_if"];
+    3 -> 4[label="block"];
+    4 -> 5[label="~br_if"];
+    4 -> 10[label="br_if"];
+    5 -> 6[label="~br_if"];
+    5 -> 10[label="br_if"];
+    6 -> 7[label="loop"];
+    7 -> 8[label="~br_if"];
+    7 -> 7[style="dashed" color="red" fontcolor="red" label="br_if"];
+    8 -> 9[label="end"];
+    9 -> 10[label="end"];
+    10 -> 11[label="loop"];
+    11 -> 12[label="~br_if"];
+    11 -> 11[style="dashed" color="red" fontcolor="red" label="br_if"];
+    12 -> 13[label="end"];
+    13 -> 14[label="end"];
+    14 -> 15[label="block"];
+    15 -> 16[label="if"];
+    15 -> 18[label="else"];
+    16 -> 23[label="br"];
+    18 -> 19[label="~br_if"];
+    18 -> 23[label="br_if"];
+    19 -> 20[label="loop"];
+    20 -> 21[label="~br_if"];
+    20 -> 20[style="dashed" color="red" fontcolor="red" label="br_if"];
+    21 -> 22[label="end"];
+    22 -> 23[label="end"];
+    23 -> 24[label="block"];
+    24 -> 25[label="~br_if"];
+    24 -> 35[label="br_if"];
+    25 -> 26[label="if"];
+    25 -> 30[label="else"];
+    26 -> 27[label="loop"];
+    27 -> 28[label="~br_if"];
+    27 -> 27[style="dashed" color="red" fontcolor="red" label="br_if"];
+    28 -> 29[label="end"];
+    29 -> 30[label="end"];
+    30 -> 31[label="~br_if"];
+    30 -> 35[label="br_if"];
+    31 -> 32[label="loop"];
+    32 -> 33[label="~br_if"];
+    32 -> 32[style="dashed" color="red" fontcolor="red" label="br_if"];
+    33 -> 34[label="end"];
+    34 -> 35[label="end"];
+    35 -> E[label="end"];
+}

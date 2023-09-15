@@ -1,0 +1,45 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 214"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 42]"]
+    subgraph cluster_43{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 43[label="[43 ... 93]"]
+    node [shape=box, color=red, style=dashed] 94[label="[94 ... 96]"]
+    node [shape=box, color=black, style=solid] 97[label="[97 ... 98]"]
+    node [shape=box, color=black, style=solid] 99[label="[99 ... 100]"]
+    }
+    node [shape=box, color=black, style=solid] 101[label="[101 ... 102]"]
+    node [shape=box, color=black, style=solid] 103[label="[103 ... 104]"]
+    node [shape=box, color=black, style=solid] 105[label="[105]"]
+    node [shape=box, color=black, style=solid] 106[label="[106 ... 109]"]
+    node [shape=box, color=black, style=solid] 110[label="[110]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 43;
+    0 -> 103;
+    0 -> 106;
+    0 -> 110;
+    43 -> 94;
+    43 -> 99;
+    43 -> 105;
+    94 -> 99;
+    94 -> U;
+    94 -> 94[style="dashed" color="red" dir=back];
+    97 -> 99;
+    97 -> U;
+    99 -> 43[style="dashed" color="red"];
+    99 -> 101;
+    101 -> 103;
+    101 -> 105;
+    103 -> 105;
+    103 -> 106;
+    105 -> 106;
+    106 -> 110;
+    110 -> E;
+}

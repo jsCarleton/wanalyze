@@ -1,0 +1,16 @@
+                          br    target
+index start   end nesting dest  labels type        succ/pred
+    0     0     5     0   6            if          s=[1 6] p=[]
+    1     5    12     1   4            if          s=[2 4] p=[0]
+    2    12    20     2                return      s=[13] p=[1]
+    3    20    21     1                end         s=[4] p=[]
+    4    21    24     1                return      s=[13] p=[3 1]
+    5    24    25     0                end         s=[6] p=[]
+    6    25    26     0   11           block       s=[7] p=[5 0]
+    7    26    33     1   10           if          s=[8 10] p=[6]
+    8    33    41     2              1 br          s=[11] p=[7]
+    9    41    42     1                end         s=[10] p=[]
+   10    42    45     0                end         s=[11] p=[9 7]
+   11    45    46    -1                end         s=[12] p=[10 8]
+   12    -1    -1    -1                exit end    s=[] p=[11]
+   13    -1    -1    -1                exit return s=[] p=[4 2]

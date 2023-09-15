@@ -1,0 +1,71 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 270"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 8]"]
+    node [shape=box, color=red, style=dashed] 9[label="[9 ... 11]"]
+    node [shape=box, color=black, style=solid] 12[label="[12 ... 13]"]
+    node [shape=box, color=black, style=solid] 14[label="[14 ... 16]"]
+    node [shape=box, color=red, style=dashed] 17[label="[17 ... 29]"]
+    node [shape=box, color=black, style=solid] 30[label="[30]"]
+    node [shape=box, color=red, style=dashed] 31[label="[31 ... 43]"]
+    node [shape=box, color=black, style=solid] 44[label="[44]"]
+    node [shape=box, color=black, style=solid] 45[label="[45 ... 50]"]
+    subgraph cluster_51{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 51[label="[51 ... 66]"]
+    node [shape=box, color=red, style=dashed] 67[label="[67 ... 69]"]
+    node [shape=box, color=black, style=solid] 70[label="[70 ... 71]"]
+    node [shape=box, color=red, style=dashed] 72[label="[72 ... 74]"]
+    node [shape=box, color=black, style=solid] 75[label="[75 ... 76]"]
+    node [shape=box, color=black, style=solid] 77[label="[77]"]
+    node [shape=box, color=black, style=solid] 78[label="[78]"]
+    node [shape=box, color=black, style=solid] 79[label="[79 ... 81]"]
+    }
+    node [shape=box, color=black, style=solid] 82[label="[82 ... 83]"]
+    node [shape=box, color=black, style=solid] 84[label="[84]"]
+    node [shape=box, color=black, style=solid] 85[label="[85]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 9;
+    0 -> 14;
+    9 -> 12;
+    9 -> 84;
+    9 -> 9[style="dashed" color="red" dir=back];
+    12 -> 14;
+    12 -> 16;
+    14 -> 17;
+    14 -> 45;
+    17 -> 30;
+    17 -> 17[style="dashed" color="red" dir=back];
+    30 -> 31;
+    31 -> 44;
+    31 -> 31[style="dashed" color="red" dir=back];
+    44 -> 45;
+    45 -> 51;
+    51 -> 67;
+    51 -> 71;
+    51 -> 78;
+    51 -> 84;
+    67 -> 70;
+    67 -> 77;
+    67 -> 67[style="dashed" color="red" dir=back];
+    70 -> 72;
+    72 -> 75;
+    72 -> 85;
+    72 -> 72[style="dashed" color="red" dir=back];
+    75 -> 77;
+    75 -> 79;
+    77 -> 78;
+    78 -> 79;
+    79 -> 51[style="dashed" color="red"];
+    79 -> U;
+    82 -> 84;
+    82 -> U;
+    84 -> 85;
+    85 -> E;
+}

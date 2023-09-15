@@ -1,0 +1,16 @@
+digraph finite_state_machine {
+    label = "allium.wasm - function 71"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 11]"]
+    node [shape=box, color=red, style=dashed] 12[label="[12 ... 13]"]
+    node [shape=box, color=black, style=solid] 14[label="[14]"]
+    0 -> 12;
+    12 -> 14;
+    12 -> 12[style="dashed" color="red" dir=back];
+    14 -> E;
+}

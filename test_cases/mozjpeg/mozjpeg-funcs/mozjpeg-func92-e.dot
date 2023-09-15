@@ -1,0 +1,118 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 92"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 2]"]
+    subgraph cluster_3{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 3[label="[3 ... 13]"]
+    subgraph cluster_14{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 14[label="[14 ... 20]"]
+    node [shape=box, color=red, style=dashed] 21[label="[21 ... 23]"]
+    node [shape=box, color=black, style=solid] 24[label="[24]"]
+    node [shape=box, color=black, style=solid] 25[label="[25 ... 38]"]
+    node [shape=box, color=red, style=dashed] 39[label="[39 ... 41]"]
+    node [shape=box, color=black, style=solid] 42[label="[42]"]
+    node [shape=box, color=black, style=solid] 43[label="[43 ... 78]"]
+    node [shape=box, color=red, style=dashed] 79[label="[79 ... 81]"]
+    node [shape=box, color=black, style=solid] 82[label="[82 ... 171]"]
+    node [shape=box, color=red, style=dashed] 172[label="[172 ... 177]"]
+    node [shape=box, color=black, style=solid] 178[label="[178 ... 179]"]
+    node [shape=box, color=black, style=solid] 180[label="[180 ... 181]"]
+    node [shape=box, color=red, style=dashed] 182[label="[182 ... 187]"]
+    node [shape=box, color=black, style=solid] 188[label="[188]"]
+    node [shape=box, color=black, style=solid] 189[label="[189 ... 190]"]
+    node [shape=box, color=black, style=solid] 191[label="[191 ... 192]"]
+    node [shape=box, color=black, style=solid] 193[label="[193 ... 195]"]
+    }
+    node [shape=box, color=black, style=solid] 196[label="[196 ... 197]"]
+    node [shape=box, color=black, style=solid] 198[label="[198 ... 200]"]
+    node [shape=box, color=red, style=dashed] 201[label="[201 ... 205]"]
+    node [shape=box, color=black, style=solid] 206[label="[206 ... 207]"]
+    node [shape=box, color=red, style=dashed] 208[label="[208 ... 210]"]
+    node [shape=box, color=black, style=solid] 211[label="[211 ... 212]"]
+    node [shape=box, color=black, style=solid] 213[label="[213]"]
+    node [shape=box, color=black, style=solid] 214[label="[214 ... 215]"]
+    node [shape=box, color=black, style=solid] 216[label="[216]"]
+    }
+    node [shape=box, color=black, style=solid] 217[label="[217 ... 218]"]
+    node [shape=box, color=black, style=solid] 219[label="[219]"]
+    node [shape=box, color=black, style=solid] 220[label="[220]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 3;
+    3 -> 14;
+    3 -> 198;
+    14 -> 21;
+    14 -> 25;
+    14 -> 193;
+    21 -> 24;
+    21 -> 25;
+    21 -> 21[style="dashed" color="red" dir=back];
+    24 -> 25;
+    25 -> 3[style="dashed" color="red"];
+    25 -> 39;
+    25 -> 43;
+    39 -> 42;
+    39 -> 43;
+    39 -> 39[style="dashed" color="red" dir=back];
+    42 -> 43;
+    43 -> 79;
+    43 -> 219;
+    79 -> 82;
+    79 -> 220;
+    79 -> 79[style="dashed" color="red" dir=back];
+    82 -> 3[style="dashed" color="red"];
+    82 -> 172;
+    82 -> 189;
+    82 -> 191;
+    82 -> 213;
+    82 -> 214;
+    82 -> 216;
+    82 -> 220;
+    172 -> 178;
+    172 -> 180;
+    172 -> 172[style="dashed" color="red" dir=back];
+    178 -> 180;
+    178 -> 220;
+    180 -> 182;
+    180 -> 189;
+    182 -> 188;
+    182 -> 182[style="dashed" color="red" dir=back];
+    188 -> 189;
+    189 -> 3[style="dashed" color="red"];
+    189 -> 191;
+    191 -> 193;
+    191 -> 214;
+    193 -> 14[style="dashed" color="red"];
+    193 -> U;
+    196 -> 198;
+    196 -> U;
+    198 -> 201;
+    198 -> 216;
+    198 -> 220;
+    201 -> 206;
+    201 -> 220;
+    201 -> 201[style="dashed" color="red" dir=back];
+    206 -> 208;
+    206 -> 220;
+    208 -> 211;
+    208 -> 220;
+    208 -> 208[style="dashed" color="red" dir=back];
+    211 -> 213;
+    211 -> 220;
+    213 -> 214;
+    214 -> 3[style="dashed" color="red"];
+    214 -> 216;
+    216 -> 217;
+    217 -> 219;
+    217 -> 220;
+    219 -> 220;
+    220 -> E;
+}

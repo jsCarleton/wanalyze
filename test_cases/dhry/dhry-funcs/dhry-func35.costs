@@ -1,0 +1,12 @@
+ebb costs:
+[0]: 10
+[4]: Infinity-z
+[8]: 2
+[10]: 0
+2 ebb paths found
+[0 10]
+[0 4 8]
+|f35| = list_max([
+  list_sum(10, 0);
+  list_sum(10, Infinity-z, 2)
+])

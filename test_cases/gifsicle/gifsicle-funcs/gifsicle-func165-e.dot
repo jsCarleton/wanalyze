@@ -1,0 +1,64 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 165"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 22]"]
+    node [shape=box, color=red, style=dashed] 23[label="[23 ... 25]"]
+    node [shape=box, color=black, style=solid] 26[label="[26]"]
+    node [shape=box, color=black, style=solid] 27[label="[27 ... 39]"]
+    node [shape=box, color=black, style=solid] 40[label="[40 ... 42]"]
+    node [shape=box, color=black, style=solid] 43[label="[43 ... 70]"]
+    node [shape=box, color=red, style=dashed] 71[label="[71 ... 73]"]
+    node [shape=box, color=black, style=solid] 74[label="[74]"]
+    node [shape=box, color=black, style=solid] 75[label="[75 ... 86]"]
+    node [shape=box, color=black, style=solid] 87[label="[87 ... 89]"]
+    node [shape=box, color=black, style=solid] 90[label="[90]"]
+    node [shape=box, color=black, style=solid] 91[label="[91 ... 106]"]
+    node [shape=box, color=red, style=dashed] 107[label="[107 ... 109]"]
+    node [shape=box, color=black, style=solid] 110[label="[110]"]
+    node [shape=box, color=black, style=solid] 111[label="[111 ... 112]"]
+    node [shape=box, color=black, style=solid] 113[label="[113]"]
+    node [shape=box, color=black, style=solid] 114[label="[114]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 23;
+    0 -> 27;
+    0 -> 40;
+    0 -> 43;
+    0 -> 114;
+    23 -> 26;
+    23 -> 23[style="dashed" color="red" dir=back];
+    26 -> 27;
+    27 -> 40;
+    27 -> 43;
+    40 -> 43;
+    40 -> R;
+    43 -> 71;
+    43 -> 75;
+    43 -> 87;
+    43 -> 90;
+    43 -> 114;
+    43 -> R;
+    71 -> 74;
+    71 -> 71[style="dashed" color="red" dir=back];
+    74 -> 75;
+    75 -> 87;
+    87 -> 90;
+    87 -> 91;
+    87 -> R;
+    90 -> 91;
+    91 -> 107;
+    91 -> 111;
+    91 -> R;
+    107 -> 110;
+    107 -> 113;
+    107 -> 107[style="dashed" color="red" dir=back];
+    110 -> 111;
+    111 -> 113;
+    111 -> R;
+    113 -> 114;
+    114 -> E;
+}

@@ -1,0 +1,57 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 117"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 3]"]
+    node [shape=box, color=red, style=dashed] 4[label="[4 ... 5]"]
+    node [shape=box, color=black, style=solid] 6[label="[6]"]
+    node [shape=box, color=black, style=solid] 7[label="[7 ... 12]"]
+    node [shape=box, color=red, style=dashed] 13[label="[13 ... 14]"]
+    node [shape=box, color=black, style=solid] 15[label="[15]"]
+    node [shape=box, color=black, style=solid] 16[label="[16 ... 19]"]
+    subgraph cluster_20{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 20[label="[20 ... 23]"]
+    node [shape=box, color=red, style=dashed] 24[label="[24 ... 27]"]
+    node [shape=box, color=black, style=solid] 28[label="[28 ... 29]"]
+    node [shape=box, color=black, style=solid] 30[label="[30 ... 31]"]
+    node [shape=box, color=red, style=dashed] 32[label="[32 ... 33]"]
+    node [shape=box, color=black, style=solid] 34[label="[34]"]
+    node [shape=box, color=black, style=solid] 35[label="[35 ... 36]"]
+    }
+    node [shape=box, color=black, style=solid] 37[label="[37]"]
+    node [shape=box, color=black, style=solid] 38[label="[38 ... 40]"]
+    0 -> 4;
+    0 -> 7;
+    4 -> 6;
+    4 -> 4[style="dashed" color="red" dir=back];
+    6 -> 7;
+    7 -> 13;
+    7 -> 16;
+    13 -> 15;
+    13 -> 13[style="dashed" color="red" dir=back];
+    15 -> 16;
+    16 -> 20;
+    16 -> 38;
+    20 -> 24;
+    20 -> 30;
+    20 -> 35;
+    24 -> 28;
+    24 -> 24[style="dashed" color="red" dir=back];
+    28 -> 30;
+    28 -> 35;
+    30 -> 32;
+    30 -> 35;
+    32 -> 34;
+    32 -> 32[style="dashed" color="red" dir=back];
+    34 -> 35;
+    35 -> 20[style="dashed" color="red"];
+    35 -> 37;
+    37 -> 38;
+    38 -> E;
+}

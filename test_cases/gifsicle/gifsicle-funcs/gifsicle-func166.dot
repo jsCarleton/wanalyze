@@ -1,0 +1,240 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 166"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+node [shape=circle, fontcolor=black, style="", label="0"]0
+node [shape=circle, fontcolor=black, style="", label="1"]1
+node [shape=circle, fontcolor=black, style="", label="2"]2
+node [shape=circle, fontcolor=black, style="", label="3"]3
+node [shape=circle, fontcolor=black, style="", label="4"]4
+node [shape=circle, fontcolor=black, style="", label="5"]5
+node [shape=circle, fontcolor=black, style="", label="6"]6
+node [shape=circle, fontcolor=black, style="", label="7"]7
+node [shape=circle, fontcolor=black, style="", label="8"]8
+node [shape=circle, fontcolor=black, style="", label="9"]9
+node [shape=circle, fontcolor=black, style="", label="10"]10
+node [shape=circle, fontcolor=black, style="", label="11"]11
+node [shape=circle, fontcolor=black, style="", label="12"]12
+node [shape=circle, fontcolor=black, style="", label="13"]13
+node [shape=circle, fontcolor=black, style="", label="14"]14
+node [shape=circle, fontcolor=black, style="", label="15"]15
+node [shape=circle, fontcolor=black, style="", label="16"]16
+node [shape=circle, fontcolor=black, style="", label="17"]17
+node [shape=circle, fontcolor=black, style="", label="18"]18
+node [shape=circle, fontcolor=black, style="", label="19"]19
+node [shape=circle, fontcolor=black, style="", label="20"]20
+node [shape=circle, fontcolor=black, style="", label="21"]21
+node [shape=circle, fontcolor=black, style="", label="22"]22
+node [shape=circle, fontcolor=black, style="", label="23"]23
+node [shape=circle, fontcolor=black, style="", label="24"]24
+node [shape=circle, fontcolor=black, style="", label="25"]25
+node [shape=circle, fontcolor=black, style="", label="26"]26
+node [shape=circle, fontcolor=black, style="", label="27"]27
+node [shape=circle, fontcolor=black, style="", label="28"]28
+node [shape=circle, fontcolor=black, style="", label="29"]29
+node [shape=circle, fontcolor=black, style="", label="30"]30
+node [shape=circle, fontcolor=black, style="", label="31"]31
+node [shape=circle, fontcolor=black, style="", label="32"]32
+node [shape=circle, fontcolor=black, style="", label="33"]33
+node [shape=circle, fontcolor=black, style="", label="34"]34
+node [shape=circle, fontcolor=black, style="", label="35"]35
+node [shape=circle, fontcolor=black, style="", label="36"]36
+node [shape=circle, fontcolor=black, style="", label="37"]37
+node [shape=circle, fontcolor=black, style="", label="38"]38
+node [shape=circle, fontcolor=black, style="", label="39"]39
+node [shape=circle, fontcolor=black, style="", label="40"]40
+node [shape=circle, fontcolor=black, style="", label="41"]41
+node [shape=circle, fontcolor=black, style="", label="42"]42
+node [shape=circle, fontcolor=black, style="", label="43"]43
+node [shape=circle, fontcolor=black, style="", label="44"]44
+node [shape=circle, fontcolor=black, style="", label="45"]45
+node [shape=circle, fontcolor=black, style="", label="46"]46
+node [shape=circle, fontcolor=black, style="", label="47"]47
+node [shape=circle, fontcolor=black, style="", label="48"]48
+node [shape=circle, fontcolor=black, style="", label="49"]49
+node [shape=circle, fontcolor=black, style="", label="50"]50
+node [shape=circle, fontcolor=black, style="", label="51"]51
+node [shape=circle, fontcolor=black, style="", label="52"]52
+node [shape=circle, fontcolor=black, style="", label="53"]53
+node [shape=circle, fontcolor=black, style="", label="54"]54
+node [shape=circle, fontcolor=black, style="", label="55"]55
+node [shape=circle, fontcolor=black, style="", label="56"]56
+node [shape=circle, fontcolor=black, style="", label="57"]57
+node [shape=circle, fontcolor=black, style="", label="58"]58
+node [shape=circle, fontcolor=black, style="", label="59"]59
+node [shape=circle, fontcolor=black, style="", label="60"]60
+node [shape=circle, fontcolor=black, style="", label="61"]61
+node [shape=circle, fontcolor=black, style="", label="62"]62
+node [shape=circle, fontcolor=black, style="", label="63"]63
+node [shape=circle, fontcolor=black, style="", label="64"]64
+node [shape=circle, fontcolor=black, style="", label="65"]65
+node [shape=circle, fontcolor=black, style="", label="66"]66
+node [shape=circle, fontcolor=black, style="", label="67"]67
+node [shape=circle, fontcolor=black, style="", label="68"]68
+node [shape=circle, fontcolor=black, style="", label="69"]69
+node [shape=circle, fontcolor=black, style="", label="70"]70
+node [shape=circle, fontcolor=black, style="", label="71"]71
+node [shape=circle, fontcolor=black, style="", label="72"]72
+node [shape=circle, fontcolor=black, style="", label="73"]73
+node [shape=circle, fontcolor=black, style="", label="74"]74
+node [shape=circle, fontcolor=black, style="", label="75"]75
+node [shape=circle, fontcolor=black, style="", label="76"]76
+node [shape=circle, fontcolor=black, style="", label="77"]77
+node [shape=circle, fontcolor=black, style="", label="78"]78
+node [shape=circle, fontcolor=black, style="", label="79"]79
+node [shape=circle, fontcolor=black, style="", label="80"]80
+node [shape=circle, fontcolor=black, style="", label="81"]81
+node [shape=circle, fontcolor=black, style="", label="82"]82
+node [shape=circle, fontcolor=black, style="", label="83"]83
+node [shape=circle, fontcolor=black, style="", label="84"]84
+node [shape=circle, fontcolor=black, style="", label="85"]85
+node [shape=circle, fontcolor=black, style="", label="86"]86
+node [shape=circle, fontcolor=black, style="", label="87"]87
+node [shape=circle, fontcolor=black, style="", label="88"]88
+node [shape=circle, fontcolor=black, style="", label="89"]89
+node [shape=circle, fontcolor=black, style="", label="90"]90
+node [shape=circle, fontcolor=black, style="", label="91"]91
+node [shape=circle, fontcolor=black, style="", label="92"]92
+node [shape=circle, fontcolor=black, style="", label="93"]93
+node [shape=circle, fontcolor=black, style="", label="94"]94
+node [shape=circle, fontcolor=black, style="", label="95"]95
+node [shape=circle, fontcolor=black, style="", label="96"]96
+node [shape=circle, fontcolor=black, style="", label="97"]97
+node [shape=circle, fontcolor=black, style="", label="98"]98
+node [shape=circle, fontcolor=black, style="", label="99"]99
+node [shape=circle, fontcolor=black, style="", label="100"]100
+node [shape=circle, fontcolor=black, style="", label="101"]101
+node [shape=circle, fontcolor=black, style="", label="102"]102
+node [shape=circle, fontcolor=black, style="", label="103"]103
+node [shape=circle, fontcolor=black, style="", label="104"]104
+node [shape=circle, fontcolor=black, style="", label="105"]105
+node [shape=circle, fontcolor=black, style="", label="106"]106
+node [shape=circle, fontcolor=black, style="", label="E"]E
+node [shape=circle, fontcolor=black, style="", label="R"]R
+    0 -> 1[label="block"];
+    1 -> 2[label="block"];
+    2 -> 3[label="block"];
+    3 -> 4[label="~br_if"];
+    3 -> 102[label="br_if"];
+    4 -> 5[label="~br_if"];
+    4 -> 102[label="br_if"];
+    5 -> 6[label="if"];
+    5 -> 8[label="else"];
+    6 -> R[label="return"];
+    8 -> 9[label="block"];
+    9 -> 10[label="block"];
+    10 -> 11[label="block"];
+    11 -> 12[label="block"];
+    12 -> 13[label="~br_if"];
+    12 -> 18[label="br_if"];
+    13 -> 14[label="~br_if"];
+    13 -> 18[label="br_if"];
+    14 -> 15[label="~br_if"];
+    14 -> 18[label="br_if"];
+    15 -> 16[label="~br_if"];
+    15 -> 21[label="br_if"];
+    16 -> 17[label="~br_if"];
+    16 -> 18[label="br_if"];
+    17 -> 18[label="end"];
+    18 -> 19[label="~br_if"];
+    18 -> 24[label="br_if"];
+    19 -> 43[label="br"];
+    21 -> 22[label="~br_if"];
+    21 -> 43[label="br_if"];
+    22 -> 23[label="~br_if"];
+    22 -> 24[label="br_if"];
+    23 -> 24[label="end"];
+    24 -> 25[label="if"];
+    24 -> 31[label="else"];
+    25 -> 26[label="~br_if"];
+    25 -> 102[label="br_if"];
+    26 -> 27[label="if"];
+    26 -> 29[label="else"];
+    27 -> R[label="return"];
+    29 -> R[label="return"];
+    31 -> 32[label="if"];
+    31 -> 37[label="else"];
+    32 -> 33[label="if"];
+    32 -> 35[label="else"];
+    33 -> R[label="return"];
+    35 -> R[label="return"];
+    37 -> 38[label="if"];
+    37 -> 40[label="else"];
+    38 -> R[label="return"];
+    40 -> 41[label="~br_if"];
+    40 -> 43[label="br_if"];
+    41 -> R[label="return"];
+    43 -> 44[label="if"];
+    43 -> 50[label="else"];
+    44 -> 45[label="~br_if"];
+    44 -> 102[label="br_if"];
+    45 -> 46[label="if"];
+    45 -> 48[label="else"];
+    46 -> R[label="return"];
+    48 -> R[label="return"];
+    50 -> 51[label="block"];
+    51 -> 52[label="~br_if"];
+    51 -> 59[label="br_if"];
+    52 -> 53[label="block"];
+    53 -> 54[label="block"];
+    54 -> 56[label="br_table"];
+    54 -> 58[label="br_table"];
+    54 -> 59[label="br_table"];
+    56 -> R[label="return"];
+    58 -> 59[label="end"];
+    59 -> 60[label="block"];
+    60 -> 61[label="if"];
+    60 -> 75[label="else"];
+    61 -> 62[label="if"];
+    61 -> 67[label="else"];
+    62 -> 63[label="if"];
+    62 -> 65[label="else"];
+    63 -> R[label="return"];
+    65 -> R[label="return"];
+    67 -> 68[label="if"];
+    67 -> 70[label="else"];
+    68 -> R[label="return"];
+    70 -> 71[label="if"];
+    70 -> 73[label="else"];
+    71 -> R[label="return"];
+    73 -> 82[label="br"];
+    75 -> 76[label="block"];
+    76 -> 77[label="~br_if"];
+    76 -> 81[label="br_if"];
+    77 -> 78[label="if"];
+    77 -> 80[label="else"];
+    78 -> 81[label="br"];
+    80 -> 81[label="end"];
+    81 -> 82[label="end"];
+    82 -> 83[label="block"];
+    83 -> 84[label="if"];
+    83 -> 88[label="else"];
+    84 -> 85[label="~br_if"];
+    84 -> 104[label="br_if"];
+    85 -> 86[label="~br_if"];
+    85 -> 93[label="br_if"];
+    86 -> 104[label="br"];
+    88 -> 89[label="~br_if"];
+    88 -> 93[label="br_if"];
+    89 -> 90[label="~br_if"];
+    89 -> 106[label="br_if"];
+    90 -> 91[label="~br_if"];
+    90 -> 93[label="br_if"];
+    91 -> 106[label="br"];
+    93 -> 94[label="block"];
+    94 -> 95[label="if"];
+    94 -> 96[label="else"];
+    95 -> 97[label="end"];
+    96 -> 97[label="end"];
+    97 -> 98[label="if"];
+    97 -> 100[label="else"];
+    98 -> 101[label="br"];
+    100 -> 101[label="end"];
+    101 -> 102[label="end"];
+    102 -> R[label="return"];
+    104 -> R[label="return"];
+    106 -> E[label="end"];
+}

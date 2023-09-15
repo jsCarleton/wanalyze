@@ -1,0 +1,115 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 170"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 6]"]
+    node [shape=box, color=red, style=dashed] 7[label="[7 ... 8]"]
+    node [shape=box, color=black, style=solid] 9[label="[9 ... 12]"]
+    subgraph cluster_13{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 13[label="[13 ... 16]"]
+    subgraph cluster_17{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 17[label="[17 ... 18]"]
+    node [shape=box, color=red, style=dashed] 19[label="[19 ... 20]"]
+    node [shape=box, color=black, style=solid] 21[label="[21 ... 33]"]
+    node [shape=box, color=red, style=dashed] 34[label="[34 ... 35]"]
+    node [shape=box, color=black, style=solid] 36[label="[36]"]
+    node [shape=box, color=black, style=solid] 37[label="[37]"]
+    node [shape=box, color=black, style=solid] 38[label="[38 ... 44]"]
+    node [shape=box, color=red, style=dashed] 45[label="[45 ... 46]"]
+    node [shape=box, color=black, style=solid] 47[label="[47]"]
+    node [shape=box, color=black, style=solid] 48[label="[48 ... 49]"]
+    }
+    node [shape=box, color=black, style=solid] 50[label="[50]"]
+    node [shape=box, color=black, style=solid] 51[label="[51 ... 55]"]
+    node [shape=box, color=red, style=dashed] 56[label="[56 ... 57]"]
+    node [shape=box, color=black, style=solid] 58[label="[58 ... 70]"]
+    node [shape=box, color=red, style=dashed] 71[label="[71 ... 72]"]
+    node [shape=box, color=black, style=solid] 73[label="[73]"]
+    node [shape=box, color=black, style=solid] 74[label="[74]"]
+    node [shape=box, color=black, style=solid] 75[label="[75 ... 83]"]
+    node [shape=box, color=red, style=dashed] 84[label="[84 ... 85]"]
+    node [shape=box, color=black, style=solid] 86[label="[86]"]
+    node [shape=box, color=black, style=solid] 87[label="[87 ... 88]"]
+    node [shape=box, color=black, style=solid] 89[label="[89]"]
+    node [shape=box, color=black, style=solid] 90[label="[90 ... 91]"]
+    }
+    node [shape=box, color=black, style=solid] 92[label="[92 ... 93]"]
+    node [shape=box, color=black, style=solid] 94[label="[94]"]
+    node [shape=box, color=black, style=solid] 95[label="[95 ... 98]"]
+    node [shape=box, color=red, style=dashed] 99[label="[99 ... 100]"]
+    node [shape=box, color=black, style=solid] 101[label="[101 ... 113]"]
+    node [shape=box, color=red, style=dashed] 114[label="[114 ... 115]"]
+    node [shape=box, color=black, style=solid] 116[label="[116]"]
+    node [shape=box, color=black, style=solid] 117[label="[117]"]
+    node [shape=box, color=black, style=solid] 118[label="[118 ... 123]"]
+    0 -> 7;
+    0 -> 94;
+    7 -> 9;
+    7 -> 7[style="dashed" color="red" dir=back];
+    9 -> 13;
+    9 -> 95;
+    13 -> 17;
+    13 -> 51;
+    13 -> 89;
+    17 -> 19;
+    17 -> 38;
+    19 -> 21;
+    19 -> 19[style="dashed" color="red" dir=back];
+    21 -> 34;
+    21 -> 37;
+    34 -> 36;
+    34 -> 34[style="dashed" color="red" dir=back];
+    36 -> 37;
+    37 -> 38;
+    38 -> 45;
+    38 -> 48;
+    45 -> 47;
+    45 -> 45[style="dashed" color="red" dir=back];
+    47 -> 48;
+    48 -> 17[style="dashed" color="red"];
+    48 -> 50;
+    50 -> 51;
+    51 -> 56;
+    51 -> 75;
+    51 -> 90;
+    56 -> 58;
+    56 -> 56[style="dashed" color="red" dir=back];
+    58 -> 71;
+    58 -> 74;
+    71 -> 73;
+    71 -> 71[style="dashed" color="red" dir=back];
+    73 -> 74;
+    74 -> 75;
+    75 -> 84;
+    75 -> 87;
+    84 -> 86;
+    84 -> 84[style="dashed" color="red" dir=back];
+    86 -> 87;
+    87 -> 89;
+    87 -> 90;
+    89 -> 90;
+    90 -> 13[style="dashed" color="red"];
+    90 -> 92;
+    92 -> 94;
+    92 -> 95;
+    94 -> 95;
+    95 -> 99;
+    95 -> 118;
+    99 -> 101;
+    99 -> 99[style="dashed" color="red" dir=back];
+    101 -> 114;
+    101 -> 117;
+    114 -> 116;
+    114 -> 114[style="dashed" color="red" dir=back];
+    116 -> 117;
+    117 -> 118;
+    118 -> E;
+}

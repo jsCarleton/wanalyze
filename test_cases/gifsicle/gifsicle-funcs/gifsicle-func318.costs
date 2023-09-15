@@ -1,0 +1,59 @@
+ebb costs:
+[0]: 29
+[7]: Infinity-z
+[9]: 11
+[11]: Infinity-z
+[13]: 1
+[14]: 53
+[20]: Infinity-z
+[22]: 1
+[23]: 61
+[27]: Infinity-z
+[29]: 1
+[30]: 5
+[32]: Infinity-z
+[34]: 1
+[35]: 1
+20 ebb paths found
+[0 14 23 35]
+[0 14 23 30 35]
+[0 14 23 30 32 34 35]
+[0 14 23 27 29 30 35]
+[0 14 23 27 29 30 32 34 35]
+[0 14 20 22 23 35]
+[0 14 20 22 23 30 35]
+[0 14 20 22 23 30 32 34 35]
+[0 14 20 22 23 27 29 30 35]
+[0 14 20 22 23 27 29 30 32 34 35]
+[0 7 9 11 13 14 23 35]
+[0 7 9 11 13 14 23 30 35]
+[0 7 9 11 13 14 23 30 32 34 35]
+[0 7 9 11 13 14 23 27 29 30 35]
+[0 7 9 11 13 14 23 27 29 30 32 34 35]
+[0 7 9 11 13 14 20 22 23 35]
+[0 7 9 11 13 14 20 22 23 30 35]
+[0 7 9 11 13 14 20 22 23 30 32 34 35]
+[0 7 9 11 13 14 20 22 23 27 29 30 35]
+[0 7 9 11 13 14 20 22 23 27 29 30 32 34 35]
+|f318| = list_max([
+  list_sum(29, 53, 61, 1);
+  list_sum(29, 53, 61, 5, 1);
+  list_sum(29, 53, 61, 5, Infinity-z, 1, 1);
+  list_sum(29, 53, 61, Infinity-z, 1, 5, 1);
+  list_sum(29, 53, 61, Infinity-z, 1, 5, Infinity-z, 1, 1);
+  list_sum(29, 53, Infinity-z, 1, 61, 1);
+  list_sum(29, 53, Infinity-z, 1, 61, 5, 1);
+  list_sum(29, 53, Infinity-z, 1, 61, 5, Infinity-z, 1, 1);
+  list_sum(29, 53, Infinity-z, 1, 61, Infinity-z, 1, 5, 1);
+  list_sum(29, 53, Infinity-z, 1, 61, Infinity-z, 1, 5, Infinity-z, 1, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, 61, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, 61, 5, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, 61, 5, Infinity-z, 1, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, 61, Infinity-z, 1, 5, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, 61, Infinity-z, 1, 5, Infinity-z, 1, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, Infinity-z, 1, 61, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, Infinity-z, 1, 61, 5, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, Infinity-z, 1, 61, 5, Infinity-z, 1, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, Infinity-z, 1, 61, Infinity-z, 1, 5, 1);
+  list_sum(29, Infinity-z, 11, Infinity-z, 1, 53, Infinity-z, 1, 61, Infinity-z, 1, 5, Infinity-z, 1, 1)
+])

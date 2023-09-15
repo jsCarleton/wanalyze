@@ -1,0 +1,42 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 345"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 4]"]
+    node [shape=box, color=red, style=dashed] 5[label="[5 ... 10]"]
+    node [shape=box, color=black, style=solid] 11[label="[11 ... 12]"]
+    node [shape=box, color=black, style=solid] 13[label="[13 ... 16]"]
+    node [shape=box, color=red, style=dashed] 17[label="[17 ... 20]"]
+    node [shape=box, color=black, style=solid] 21[label="[21 ... 22]"]
+    node [shape=box, color=black, style=solid] 23[label="[23 ... 29]"]
+    node [shape=box, color=red, style=dashed] 30[label="[30 ... 31]"]
+    node [shape=box, color=black, style=solid] 32[label="[32]"]
+    node [shape=box, color=black, style=solid] 33[label="[33 ... 38]"]
+    node [shape=box, color=black, style=solid] 39[label="[39]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 5;
+    0 -> 13;
+    5 -> 13;
+    5 -> U;
+    5 -> 5[style="dashed" color="red" dir=back];
+    11 -> 13;
+    11 -> U;
+    13 -> 17;
+    13 -> 23;
+    13 -> 39;
+    17 -> 21;
+    17 -> 17[style="dashed" color="red" dir=back];
+    21 -> 23;
+    21 -> 39;
+    23 -> 30;
+    23 -> 33;
+    30 -> 32;
+    30 -> 30[style="dashed" color="red" dir=back];
+    32 -> 33;
+    33 -> 39;
+    39 -> E;
+}

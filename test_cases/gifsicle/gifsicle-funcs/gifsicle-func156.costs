@@ -1,0 +1,59 @@
+ebb costs:
+[0]: 11
+[5]: Infinity-z
+[8]: 2
+[10]: 26
+[20]: Infinity-z
+[22]: 1
+[24]: 27
+[26]: Infinity-z
+[30]: 1
+[31]: 2
+[33]: 0
+22 ebb paths found
+[0 10 33]
+[0 10 31]
+[0 10 24 31]
+[0 10 24 26 30 31]
+[0 10 20 22 31]
+[0 10 20 22 24 31]
+[0 10 20 22 24 26 30 31]
+[0 5 10 33]
+[0 5 10 31]
+[0 5 10 24 31]
+[0 5 10 24 26 30 31]
+[0 5 10 20 22 31]
+[0 5 10 20 22 24 31]
+[0 5 10 20 22 24 26 30 31]
+[0 5 8 33]
+[0 5 8 10 33]
+[0 5 8 10 31]
+[0 5 8 10 24 31]
+[0 5 8 10 24 26 30 31]
+[0 5 8 10 20 22 31]
+[0 5 8 10 20 22 24 31]
+[0 5 8 10 20 22 24 26 30 31]
+|f156| = list_max([
+  list_sum(11, 26, 0);
+  list_sum(11, 26, 2);
+  list_sum(11, 26, 27, 2);
+  list_sum(11, 26, 27, Infinity-z, 1, 2);
+  list_sum(11, 26, Infinity-z, 1, 2);
+  list_sum(11, 26, Infinity-z, 1, 27, 2);
+  list_sum(11, 26, Infinity-z, 1, 27, Infinity-z, 1, 2);
+  list_sum(11, Infinity-z, 26, 0);
+  list_sum(11, Infinity-z, 26, 2);
+  list_sum(11, Infinity-z, 26, 27, 2);
+  list_sum(11, Infinity-z, 26, 27, Infinity-z, 1, 2);
+  list_sum(11, Infinity-z, 26, Infinity-z, 1, 2);
+  list_sum(11, Infinity-z, 26, Infinity-z, 1, 27, 2);
+  list_sum(11, Infinity-z, 26, Infinity-z, 1, 27, Infinity-z, 1, 2);
+  list_sum(11, Infinity-z, 2, 0);
+  list_sum(11, Infinity-z, 2, 26, 0);
+  list_sum(11, Infinity-z, 2, 26, 2);
+  list_sum(11, Infinity-z, 2, 26, 27, 2);
+  list_sum(11, Infinity-z, 2, 26, 27, Infinity-z, 1, 2);
+  list_sum(11, Infinity-z, 2, 26, Infinity-z, 1, 2);
+  list_sum(11, Infinity-z, 2, 26, Infinity-z, 1, 27, 2);
+  list_sum(11, Infinity-z, 2, 26, Infinity-z, 1, 27, Infinity-z, 1, 2)
+])

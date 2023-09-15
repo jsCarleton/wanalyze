@@ -1,0 +1,22 @@
+digraph finite_state_machine {
+    label = "mozjpeg.wasm - function 368"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 17]"]
+    node [shape=box, color=red, style=dashed] 18[label="[18 ... 20]"]
+    node [shape=box, color=black, style=solid] 21[label="[21 ... 23]"]
+    node [shape=box, color=black, style=solid] 24[label="[24]"]
+    node [shape=box, color=black, style=solid] 25[label="[25]"]
+    0 -> 18;
+    18 -> 21;
+    18 -> 24;
+    18 -> 18[style="dashed" color="red" dir=back];
+    21 -> 24;
+    21 -> 25;
+    24 -> 25;
+    25 -> E;
+}

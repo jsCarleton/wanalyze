@@ -1,0 +1,67 @@
+ebb costs:
+[0]: 58
+[9]: Infinity-z
+[18]: 3
+[20]: 7
+[24]: Infinity-z
+[33]: 1
+[34]: 3
+[35]: 17
+[37]: Infinity-z
+[37]: 22
+[41]: Infinity-z
+[57]: 11
+[58]: 9
+[60]: 4
+[61]: 22
+24 ebb paths found
+[0 35 61]
+[0 35 37 41 58 60 61]
+[0 35 37 41 57 58 60 61]
+[0 9 20 35 61]
+[0 9 20 35 37 41 58 60 61]
+[0 9 20 35 37 41 57 58 60 61]
+[0 9 20 24 35 61]
+[0 9 20 24 35 37 41 58 60 61]
+[0 9 20 24 35 37 41 57 58 60 61]
+[0 9 20 24 33 34 35 61]
+[0 9 20 24 33 34 35 37 41 58 60 61]
+[0 9 20 24 33 34 35 37 41 57 58 60 61]
+[0 9 18 34 35 61]
+[0 9 18 34 35 37 41 58 60 61]
+[0 9 18 34 35 37 41 57 58 60 61]
+[0 9 18 20 35 61]
+[0 9 18 20 35 37 41 58 60 61]
+[0 9 18 20 35 37 41 57 58 60 61]
+[0 9 18 20 24 35 61]
+[0 9 18 20 24 35 37 41 58 60 61]
+[0 9 18 20 24 35 37 41 57 58 60 61]
+[0 9 18 20 24 33 34 35 61]
+[0 9 18 20 24 33 34 35 37 41 58 60 61]
+[0 9 18 20 24 33 34 35 37 41 57 58 60 61]
+|f343| = list_max([
+  list_sum(58, 17, 22);
+  list_sum(58, 17, 22, Infinity-z, 9, 4, 22);
+  list_sum(58, 17, 22, Infinity-z, 11, 9, 4, 22);
+  list_sum(58, Infinity-z, 7, 17, 22);
+  list_sum(58, Infinity-z, 7, 17, 22, Infinity-z, 9, 4, 22);
+  list_sum(58, Infinity-z, 7, 17, 22, Infinity-z, 11, 9, 4, 22);
+  list_sum(58, Infinity-z, 7, Infinity-z, 17, 22);
+  list_sum(58, Infinity-z, 7, Infinity-z, 17, 22, Infinity-z, 9, 4, 22);
+  list_sum(58, Infinity-z, 7, Infinity-z, 17, 22, Infinity-z, 11, 9, 4, 22);
+  list_sum(58, Infinity-z, 7, Infinity-z, 1, 3, 17, 22);
+  list_sum(58, Infinity-z, 7, Infinity-z, 1, 3, 17, 22, Infinity-z, 9, 4, 22);
+  list_sum(58, Infinity-z, 7, Infinity-z, 1, 3, 17, 22, Infinity-z, 11, 9, 4, 22);
+  list_sum(58, Infinity-z, 3, 3, 17, 22);
+  list_sum(58, Infinity-z, 3, 3, 17, 22, Infinity-z, 9, 4, 22);
+  list_sum(58, Infinity-z, 3, 3, 17, 22, Infinity-z, 11, 9, 4, 22);
+  list_sum(58, Infinity-z, 3, 7, 17, 22);
+  list_sum(58, Infinity-z, 3, 7, 17, 22, Infinity-z, 9, 4, 22);
+  list_sum(58, Infinity-z, 3, 7, 17, 22, Infinity-z, 11, 9, 4, 22);
+  list_sum(58, Infinity-z, 3, 7, Infinity-z, 17, 22);
+  list_sum(58, Infinity-z, 3, 7, Infinity-z, 17, 22, Infinity-z, 9, 4, 22);
+  list_sum(58, Infinity-z, 3, 7, Infinity-z, 17, 22, Infinity-z, 11, 9, 4, 22);
+  list_sum(58, Infinity-z, 3, 7, Infinity-z, 1, 3, 17, 22);
+  list_sum(58, Infinity-z, 3, 7, Infinity-z, 1, 3, 17, 22, Infinity-z, 9, 4, 22);
+  list_sum(58, Infinity-z, 3, 7, Infinity-z, 1, 3, 17, 22, Infinity-z, 11, 9, 4, 22)
+])

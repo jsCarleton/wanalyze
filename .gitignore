@@ -30,33 +30,14 @@ setup.log
 
 # Local OPAM switch
 _opam/
-*.log
-*.1
-*.2
-*.paths
-*.png
-!test_cases/allium/funcs/*.png
 *.svg
-*.bblocks
-*.dot
-!test_cases/bubble_sort/*.dot
-*.loops
-*.3
-*.4
-*.5
-*.data
-*.old
-*.out
+*.log
 .DS_Store
-*.wat
-*.costs
-*.ebblocks
-*.csv
-!test_cases/allium/funcs/*.costs
-!test_cases/bubble_sort/funcs/*.costs
-!test_cases/dhry/funcs/*.costs
-!test_cases/simple_loop/funcs/*.costs
-!test_cases/allium/funcs/*.ebblocks
-!test_cases/bubble_sort/funcs/*.ebblocks
-!test_cases/dhry/funcs/*.ebblocks
-!test_cases/simple_loop/funcs/*.ebblocks
+test_cases/*
+!test_cases/bubble_sort
+!test_cases/dhry
+!test_cases/allium
+!test_cases/gifsicle 
+!test_cases/mozjpeg 
+!test_cases/oxipng vim
+

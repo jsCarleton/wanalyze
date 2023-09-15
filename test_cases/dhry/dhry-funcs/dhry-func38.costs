@@ -1,0 +1,70 @@
+ebb costs:
+[0]: 11
+[4]: Infinity-z
+[8]: 1
+[9]: 30
+[13]: Infinity-z
+[16]: 1
+[17]: 13
+[20]: Infinity-z
+[25]: 2
+[27]: 5
+[29]: 2
+[31]: 0
+27 ebb paths found
+[0 27 31]
+[0 27 29]
+[0 9 17 29]
+[0 9 17 20 25 31]
+[0 9 17 20 25 27 31]
+[0 9 17 20 25 27 29]
+[0 9 13 17 29]
+[0 9 13 17 20 25 31]
+[0 9 13 17 20 25 27 31]
+[0 9 13 17 20 25 27 29]
+[0 9 13 16 17 29]
+[0 9 13 16 17 20 25 31]
+[0 9 13 16 17 20 25 27 31]
+[0 9 13 16 17 20 25 27 29]
+[0 4 29]
+[0 4 8 9 17 29]
+[0 4 8 9 17 20 25 31]
+[0 4 8 9 17 20 25 27 31]
+[0 4 8 9 17 20 25 27 29]
+[0 4 8 9 13 17 29]
+[0 4 8 9 13 17 20 25 31]
+[0 4 8 9 13 17 20 25 27 31]
+[0 4 8 9 13 17 20 25 27 29]
+[0 4 8 9 13 16 17 29]
+[0 4 8 9 13 16 17 20 25 31]
+[0 4 8 9 13 16 17 20 25 27 31]
+[0 4 8 9 13 16 17 20 25 27 29]
+|f38| = list_max([
+  list_sum(11, 5, 0);
+  list_sum(11, 5, 2);
+  list_sum(11, 30, 13, 2);
+  list_sum(11, 30, 13, Infinity-z, 2, 0);
+  list_sum(11, 30, 13, Infinity-z, 2, 5, 0);
+  list_sum(11, 30, 13, Infinity-z, 2, 5, 2);
+  list_sum(11, 30, Infinity-z, 13, 2);
+  list_sum(11, 30, Infinity-z, 13, Infinity-z, 2, 0);
+  list_sum(11, 30, Infinity-z, 13, Infinity-z, 2, 5, 0);
+  list_sum(11, 30, Infinity-z, 13, Infinity-z, 2, 5, 2);
+  list_sum(11, 30, Infinity-z, 1, 13, 2);
+  list_sum(11, 30, Infinity-z, 1, 13, Infinity-z, 2, 0);
+  list_sum(11, 30, Infinity-z, 1, 13, Infinity-z, 2, 5, 0);
+  list_sum(11, 30, Infinity-z, 1, 13, Infinity-z, 2, 5, 2);
+  list_sum(11, Infinity-z, 2);
+  list_sum(11, Infinity-z, 1, 30, 13, 2);
+  list_sum(11, Infinity-z, 1, 30, 13, Infinity-z, 2, 0);
+  list_sum(11, Infinity-z, 1, 30, 13, Infinity-z, 2, 5, 0);
+  list_sum(11, Infinity-z, 1, 30, 13, Infinity-z, 2, 5, 2);
+  list_sum(11, Infinity-z, 1, 30, Infinity-z, 13, 2);
+  list_sum(11, Infinity-z, 1, 30, Infinity-z, 13, Infinity-z, 2, 0);
+  list_sum(11, Infinity-z, 1, 30, Infinity-z, 13, Infinity-z, 2, 5, 0);
+  list_sum(11, Infinity-z, 1, 30, Infinity-z, 13, Infinity-z, 2, 5, 2);
+  list_sum(11, Infinity-z, 1, 30, Infinity-z, 1, 13, 2);
+  list_sum(11, Infinity-z, 1, 30, Infinity-z, 1, 13, Infinity-z, 2, 0);
+  list_sum(11, Infinity-z, 1, 30, Infinity-z, 1, 13, Infinity-z, 2, 5, 0);
+  list_sum(11, Infinity-z, 1, 30, Infinity-z, 1, 13, Infinity-z, 2, 5, 2)
+])

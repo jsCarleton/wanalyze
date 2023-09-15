@@ -1,0 +1,179 @@
+digraph finite_state_machine {
+    label = "gifsicle.wasm - function 282"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E U ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 7]"]
+    subgraph cluster_8{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 8[label="[8 ... 11]"]
+    node [shape=box, color=red, style=dashed] 12[label="[12 ... 13]"]
+    node [shape=box, color=black, style=solid] 14[label="[14]"]
+    node [shape=box, color=red, style=dashed] 15[label="[15 ... 21]"]
+    node [shape=box, color=black, style=solid] 22[label="[22 ... 28]"]
+    node [shape=box, color=black, style=solid] 29[label="[29 ... 58]"]
+    node [shape=box, color=red, style=dashed] 59[label="[59 ... 60]"]
+    node [shape=box, color=black, style=solid] 61[label="[61]"]
+    node [shape=box, color=black, style=solid] 62[label="[62 ... 91]"]
+    node [shape=box, color=red, style=dashed] 92[label="[92 ... 98]"]
+    node [shape=box, color=black, style=solid] 99[label="[99 ... 104]"]
+    node [shape=box, color=black, style=solid] 105[label="[105 ... 148]"]
+    subgraph cluster_149{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 149[label="[149 ... 160]"]
+    node [shape=box, color=red, style=dashed] 161[label="[161 ... 162]"]
+    node [shape=box, color=black, style=solid] 163[label="[163]"]
+    node [shape=box, color=black, style=solid] 164[label="[164]"]
+    node [shape=box, color=black, style=solid] 165[label="[165 ... 167]"]
+    }
+    node [shape=box, color=black, style=solid] 168[label="[168 ... 169]"]
+    node [shape=box, color=black, style=solid] 170[label="[170 ... 171]"]
+    node [shape=box, color=black, style=solid] 172[label="[172 ... 173]"]
+    node [shape=box, color=black, style=solid] 174[label="[174]"]
+    node [shape=box, color=black, style=solid] 175[label="[175 ... 180]"]
+    node [shape=box, color=black, style=solid] 181[label="[181 ... 182]"]
+    node [shape=box, color=black, style=solid] 183[label="[183 ... 184]"]
+    node [shape=box, color=black, style=solid] 185[label="[185 ... 186]"]
+    node [shape=box, color=black, style=solid] 187[label="[187 ... 193]"]
+    node [shape=box, color=red, style=dashed] 194[label="[194 ... 206]"]
+    node [shape=box, color=black, style=solid] 207[label="[207 ... 208]"]
+    node [shape=box, color=black, style=solid] 209[label="[209 ... 214]"]
+    node [shape=box, color=black, style=solid] 215[label="[215 ... 217]"]
+    subgraph cluster_218{
+    label = "";
+    style = dashed color = red;
+    node [shape=box, color=black, style=solid] 218[label="[218]"]
+    node [shape=box, color=red, style=dashed] 219[label="[219 ... 228]"]
+    node [shape=box, color=black, style=solid] 229[label="[229 ... 230]"]
+    }
+    node [shape=box, color=black, style=solid] 231[label="[231 ... 232]"]
+    node [shape=box, color=black, style=solid] 233[label="[233 ... 234]"]
+    node [shape=box, color=red, style=dashed] 235[label="[235 ... 247]"]
+    node [shape=box, color=black, style=solid] 248[label="[248 ... 250]"]
+    node [shape=box, color=red, style=dashed] 251[label="[251 ... 257]"]
+    node [shape=box, color=black, style=solid] 258[label="[258]"]
+    node [shape=box, color=black, style=solid] 259[label="[259 ... 277]"]
+    node [shape=box, color=black, style=solid] 278[label="[278]"]
+    node [shape=box, color=black, style=solid] 279[label="[279 ... 281]"]
+    node [shape=box, color=black, style=solid] 282[label="[282]"]
+    }
+    node [shape=box, color=black, style=solid] 283[label="[283]"]
+    node [shape=box, color=black, style=solid] 284[label="[284]"]
+    node [shape=box, color=black, style=solid] 285[label="[285 ... 286]"]
+    node [shape=box, color=black, style=solid] 287[label="[287]"]
+    node [shape=box, color=black, style=solid] U[label="U"]
+    0 -> 8;
+    0 -> 287;
+    8 -> 12;
+    8 -> 29;
+    12 -> 14;
+    12 -> 12[style="dashed" color="red" dir=back];
+    14 -> 15;
+    15 -> 22;
+    15 -> 15[style="dashed" color="red" dir=back];
+    22 -> 29;
+    22 -> 279;
+    29 -> 59;
+    29 -> 62;
+    29 -> 279;
+    29 -> 284;
+    29 -> 287;
+    59 -> 61;
+    59 -> 59[style="dashed" color="red" dir=back];
+    61 -> 62;
+    62 -> 92;
+    62 -> 105;
+    62 -> 279;
+    62 -> 284;
+    92 -> 99;
+    92 -> 92[style="dashed" color="red" dir=back];
+    99 -> 105;
+    105 -> 149;
+    105 -> 170;
+    105 -> 172;
+    105 -> 174;
+    105 -> 175;
+    105 -> 181;
+    105 -> 183;
+    105 -> 185;
+    105 -> 187;
+    105 -> 278;
+    105 -> 284;
+    105 -> 285;
+    149 -> 161;
+    149 -> 164;
+    149 -> 165;
+    149 -> 187;
+    149 -> 284;
+    161 -> 163;
+    161 -> 161[style="dashed" color="red" dir=back];
+    163 -> 164;
+    164 -> 165;
+    165 -> 149[style="dashed" color="red"];
+    165 -> U;
+    168 -> 170;
+    168 -> U;
+    170 -> 172;
+    170 -> 175;
+    172 -> 174;
+    172 -> 175;
+    174 -> 175;
+    175 -> 181;
+    175 -> 278;
+    175 -> 285;
+    181 -> 183;
+    181 -> 278;
+    183 -> 185;
+    183 -> 278;
+    185 -> 187;
+    185 -> 278;
+    187 -> 194;
+    187 -> 215;
+    187 -> 282;
+    194 -> 207;
+    194 -> 209;
+    194 -> 284;
+    194 -> 194[style="dashed" color="red" dir=back];
+    207 -> 209;
+    207 -> 284;
+    209 -> 215;
+    209 -> 259;
+    209 -> 284;
+    215 -> 218;
+    215 -> 233;
+    215 -> 282;
+    218 -> 219;
+    219 -> 229;
+    219 -> 259;
+    219 -> 219[style="dashed" color="red" dir=back];
+    229 -> 218[style="dashed" color="red"];
+    229 -> 231;
+    231 -> 233;
+    231 -> 284;
+    233 -> 235;
+    233 -> 250;
+    235 -> 259;
+    235 -> U;
+    235 -> 235[style="dashed" color="red" dir=back];
+    248 -> 251;
+    248 -> U;
+    251 -> 258;
+    251 -> 251[style="dashed" color="red" dir=back];
+    258 -> 259;
+    259 -> 278;
+    259 -> 285;
+    278 -> 279;
+    279 -> 8[style="dashed" color="red"];
+    279 -> 282;
+    279 -> 287;
+    282 -> 283;
+    283 -> 284;
+    284 -> 285;
+    285 -> 287;
+    287 -> E;
+}

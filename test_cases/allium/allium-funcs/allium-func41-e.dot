@@ -1,0 +1,23 @@
+digraph finite_state_machine {
+    label = "allium.wasm - function 41"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 8]"]
+    node [shape=box, color=red, style=dashed] 9[label="[9 ... 21]"]
+    node [shape=box, color=black, style=solid] 22[label="[22 ... 26]"]
+    node [shape=box, color=black, style=solid] 27[label="[27]"]
+    node [shape=box, color=black, style=solid] 28[label="[28]"]
+    0 -> 9;
+    0 -> 27;
+    9 -> 22;
+    9 -> 27;
+    9 -> 9[style="dashed" color="red" dir=back];
+    22 -> 27;
+    22 -> 28;
+    27 -> 28;
+    28 -> E;
+}
