@@ -20,7 +20,27 @@ type ebb =
     exit_cps:     cp list;        (* codepaths in the ebb that aren't in the loop *)
     nested_ebbs:  ebb list;       (* ebbs containing nested loops *)
   }
+  type loop = {
+    codepaths:    Cp.cp list option list;  (* corresponding code paths to the exit bb *)
+    loop_cps:     Cp.cp list;     (* codepaths in the ebb that loop *)
+    exit_cps:     Cp.cp list;     (* codepaths in the ebb that aren't the loop *)
+  }
+  
+  type ebb' = 
+  {
+    ebbtype:      ebb_type;       (* either a block or a loop*)
+    ebb_cost:     Et.et;          (* cost of executing this ebb *)
+    entry_bb:     Bb.bb;          (* bb that's the entry to the ebb *)
+    bblocks:      Bb.bb list;     (* list of bbs that make up the ebb *)
+    mutable
+    succ_ebbs:    ebb list;       (* list of ebblocks directly reachable from this one*)
+    exit_bbs:     Bb.bb list;     (* bb external to the ebb to which it can exit *)
+    ebb_loop:     loop option;
+  }
 
+let compare_ebbs (e1: ebb) (e2: ebb): int =
+  Bb.compare_bbs e1.entry_bb e2.entry_bb
+  
 let string_of_ebb_type (t: ebb_type): string =
   match t with
   | EBB_block -> "block"
@@ -522,7 +542,7 @@ let expr_of_lm (lm: Cost.loop_metric): et =
         let update_succ'' (ebbs: ebb list) (ebb: ebb) (exit_bb: bb) =
           let s = ebb_of_bb ebbs exit_bb in
           match s with
-          | Some succ   -> ebb.succ_ebbs <- succ::ebb.succ_ebbs
+          | Some succ   -> ebb.succ_ebbs <- List.dedup_and_sort ~compare:compare_ebbs (succ::ebb.succ_ebbs)
           | None        -> ()
         in
       List.iter ~f:(update_succ'' ebbs ebb) ebb.exit_bbs;

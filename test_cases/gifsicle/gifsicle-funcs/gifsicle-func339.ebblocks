@@ -29,7 +29,7 @@ ebb entry:  11
   ebb blocks: [11 12 13]
   ebb cost:   (8 * (N([m[4]], [m[4]], [0], [m[4]]))) + 1
   ebb exits:  [14 21]
-  ebb succs:  [21 14]
+  ebb succs:  [14 21]
   1 paths to exit 14
   [11 12 13]
   1 paths to exit 21
@@ -43,7 +43,7 @@ ebb entry:  14
   ebb blocks: [14 15 16]
   ebb cost:   4
   ebb exits:  [17 20]
-  ebb succs:  [20 17]
+  ebb succs:  [17 20]
 ebb entry:  17
   ebb type:   loop
   ebb blocks: [17 18]

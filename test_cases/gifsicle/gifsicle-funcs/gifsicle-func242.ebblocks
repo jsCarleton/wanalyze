@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3 4 5 6 7]
   ebb cost:   52
   ebb exits:  [8 39]
-  ebb succs:  [39 8]
+  ebb succs:  [8 39]
 ebb entry:  8
   ebb type:   loop
   ebb blocks: [8 9]
@@ -21,7 +21,7 @@ ebb entry:  10
   ebb blocks: [10 11 12 13 14 15 16 17 18 19 20 21 22 23]
   ebb cost:   49
   ebb exits:  [24 37 39]
-  ebb succs:  [39 37 24]
+  ebb succs:  [24 37 39]
 ebb entry:  24
   ebb type:   loop
   ebb blocks: [24 25 26 27 28 29 30 31 32 33 34 35]
@@ -50,7 +50,7 @@ nested ebbs:
     ebb blocks: [24 25]
     ebb cost:   16
     ebb exits:  [26 34]
-    ebb succs:  [34 26 34 26]
+    ebb succs:  [26 34]
   ebb entry:  26
     ebb type:   loop
     ebb blocks: [26 27 28 29 30 31 32]
@@ -60,7 +60,7 @@ nested ebbs:
   45 * (N([ln12; pn2], [(pn2 + 1) != ln12], [m[8]; 0], [ln12; pn2 + 1]))
 ])) + (list_max(1, 1, 1))
     ebb exits:  [33 37]
-    ebb succs:  [37 33 33]
+    ebb succs:  [33 37]
     3 paths to exit 33
     [26 27 31 32]
     [26 27 28 31 32]
@@ -76,13 +76,13 @@ nested ebbs:
     ebb blocks: [33]
     ebb cost:   1
     ebb exits:  [34]
-    ebb succs:  [34 34]
+    ebb succs:  [34]
   ebb entry:  34
     ebb type:   block
     ebb blocks: [34 35]
     ebb cost:   8
     ebb exits:  [24 36]
-    ebb succs:  [36 24 24]
+    ebb succs:  [24 36]
 ebb entry:  36
   ebb type:   block
   ebb blocks: [36]

@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3]
   ebb cost:   47
   ebb exits:  [4 12]
-  ebb succs:  [12 4]
+  ebb succs:  [4 12]
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7 8 9 10]
@@ -26,13 +26,13 @@ nested ebbs:
     ebb blocks: [4 5]
     ebb cost:   21
     ebb exits:  [6 9]
-    ebb succs:  [9 6 9 6]
+    ebb succs:  [6 9]
   ebb entry:  6
     ebb type:   loop
     ebb blocks: [6 7]
     ebb cost:   (20 * (N([ln7], [ln7 + -1], [(select((select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7))) < (pn3 - 0), pn3 - 0, select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7)))) + -1], [ln7 + -1]))) + 1
     ebb exits:  [8]
-    ebb succs:  [8 8]
+    ebb succs:  [8]
     1 paths to exit 8
     [6 7]
     1 loop paths
@@ -44,13 +44,13 @@ nested ebbs:
     ebb blocks: [8]
     ebb cost:   1
     ebb exits:  [9]
-    ebb succs:  [9 9]
+    ebb succs:  [9]
   ebb entry:  9
     ebb type:   block
     ebb blocks: [9 10]
     ebb cost:   5
     ebb exits:  [4 11]
-    ebb succs:  [11 4 4]
+    ebb succs:  [4 11]
 ebb entry:  11
   ebb type:   block
   ebb blocks: [11]

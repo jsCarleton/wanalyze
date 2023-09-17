@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3]
   ebb cost:   18
   ebb exits:  [4 17]
-  ebb succs:  [17 4]
+  ebb succs:  [4 17]
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7 8 9 10 11 12 13 14]
@@ -16,7 +16,7 @@ ebb entry:  4
   10 + |f330|
 ]))
   ebb exits:  [15 19 21]
-  ebb succs:  [21 19 15]
+  ebb succs:  [15 19 21]
   1 paths to exit 15
   [4 5 6 7 14]
   1 paths to exit 19
@@ -32,13 +32,13 @@ ebb entry:  15
   ebb blocks: [15 16]
   ebb cost:   1
   ebb exits:  [17 19]
-  ebb succs:  [19 17]
+  ebb succs:  [17 19]
 ebb entry:  17
   ebb type:   block
   ebb blocks: [17 18]
   ebb cost:   1
   ebb exits:  [19 21]
-  ebb succs:  [21 19]
+  ebb succs:  [19 21]
 ebb entry:  19
   ebb type:   block
   ebb blocks: [19 20]

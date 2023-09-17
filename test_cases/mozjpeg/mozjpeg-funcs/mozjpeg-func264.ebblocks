@@ -12,7 +12,7 @@ ebb entry:  3
   24 * (N([m[104]; m[4]], [not(m[4] < m[104])], [m[104]; m[4]], [m[104]; m[4] + 1]))
 ])) + (list_max(12, 19, 4))
   ebb exits:  [15 16 26]
-  ebb succs:  [26 16 15]
+  ebb succs:  [15 16 26]
   1 paths to exit 15
   [3 4 5 6 14]
   1 paths to exit 16
@@ -34,7 +34,7 @@ ebb entry:  16
   ebb blocks: [16 17]
   ebb cost:   8
   ebb exits:  [18 26]
-  ebb succs:  [26 18]
+  ebb succs:  [18 26]
 ebb entry:  18
   ebb type:   loop
   ebb blocks: [18 19 20 21 22 23 24]
@@ -62,7 +62,7 @@ ebb entry:  26
   ebb blocks: [26 27 28 29 30 31 32 33]
   ebb cost:   23
   ebb exits:  [34 57]
-  ebb succs:  [57 34]
+  ebb succs:  [34 57]
 ebb entry:  34
   ebb type:   loop
   ebb blocks: [34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55]
@@ -79,7 +79,7 @@ ebb entry:  34
   41 * (N([m[0]], [(m[0] == 46) || ((m[0] + -48) < 10)], [m[0]], [m[0]]))
 ])) + (list_max(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5))
   ebb exits:  [56 63]
-  ebb succs:  [63 56]
+  ebb succs:  [56 63]
   10 paths to exit 56
   [34 35 41 47 49 50 53 54 55]
   [34 35 41 47 49 50 51 54 55]
@@ -108,7 +108,7 @@ ebb entry:  57
   ebb blocks: [57 58 59 60 61 62]
   ebb cost:   24
   ebb exits:  [63 65 68 195]
-  ebb succs:  [195 68 65 63]
+  ebb succs:  [63 65 68 195]
 ebb entry:  63
   ebb type:   block
   ebb blocks: [63 64]
@@ -120,7 +120,7 @@ ebb entry:  65
   ebb blocks: [65 66 67]
   ebb cost:   6
   ebb exits:  [68 69 195]
-  ebb succs:  [195 69 68]
+  ebb succs:  [68 69 195]
 ebb entry:  68
   ebb type:   block
   ebb blocks: [68]
@@ -132,7 +132,7 @@ ebb entry:  69
   ebb blocks: [69 70 71 72 73 74 75 76 77 78 79 80 81 82 83]
   ebb cost:   71
   ebb exits:  [84 87 88 196]
-  ebb succs:  [196 88 87 84]
+  ebb succs:  [84 87 88 196]
 ebb entry:  84
   ebb type:   loop
   ebb blocks: [84 85]
@@ -162,7 +162,7 @@ ebb entry:  88
   ebb blocks: [88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107]
   ebb cost:   91
   ebb exits:  [108 112 113 196]
-  ebb succs:  [196 112 108]
+  ebb succs:  [108 112 196]
 ebb entry:  108
   ebb type:   loop
   ebb blocks: [108 109]
@@ -2520,7 +2520,7 @@ nested ebbs:
     ebb blocks: [114]
     ebb cost:   9
     ebb exits:  [115]
-    ebb succs:  [115 115]
+    ebb succs:  [115]
   ebb entry:  115
     ebb type:   loop
     ebb blocks: [115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187]
@@ -4857,7 +4857,7 @@ nested ebbs:
       ebb blocks: [115 116 117 118 119 120 121]
       ebb cost:   19
       ebb exits:  [122 180]
-      ebb succs:  [122 122 122]
+      ebb succs:  [122]
     ebb entry:  122
       ebb type:   loop
       ebb blocks: [122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155]
@@ -4906,7 +4906,7 @@ nested ebbs:
         ebb blocks: [122]
         ebb cost:   19
         ebb exits:  [123]
-        ebb succs:  [123 123 123 123]
+        ebb succs:  [123]
       ebb entry:  123
         ebb type:   loop
         ebb blocks: [123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154]
@@ -4961,7 +4961,7 @@ nested ebbs:
           ebb blocks: [123 124]
           ebb cost:   9
           ebb exits:  [125]
-          ebb succs:  [125 125 125 125 125]
+          ebb succs:  [125]
         ebb entry:  125
           ebb type:   loop
           ebb blocks: [125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144]
@@ -5019,13 +5019,13 @@ nested ebbs:
             ebb blocks: [125 126]
             ebb cost:   6
             ebb exits:  [127]
-            ebb succs:  [127 127 127 127 127 127]
+            ebb succs:  [127]
           ebb entry:  127
             ebb type:   loop
             ebb blocks: [127 128 129 130 131 132 133]
             ebb cost:   (39 * (N([pn1], [(pn1 + 1) != 4], [0], [pn1 + 1]))) + (list_max(1, 1, 2))
             ebb exits:  [134 143]
-            ebb succs:  [143 134 143 134 143 134 143 134 143 134 143 134]
+            ebb succs:  [134 143]
             3 paths to exit 134
             [127 128 133]
             [127 128 129 133]
@@ -5041,7 +5041,7 @@ nested ebbs:
             ebb blocks: [134 135]
             ebb cost:   11
             ebb exits:  [136 143]
-            ebb succs:  [143 136 143 136 143 136 143 136 143 136 143 136]
+            ebb succs:  [136 143]
           ebb entry:  136
             ebb type:   loop
             ebb blocks: [136 137 138 139]
@@ -5050,7 +5050,7 @@ nested ebbs:
   (67 + (list_sum(|f31|, |f38|, |f61|))) * (N([pn1], [(pn1 + 1) != 4], [0], [pn1 + 1]))
 ])) + (list_max(1, 1))
             ebb exits:  [140]
-            ebb succs:  [140 140 140 140 140 140]
+            ebb succs:  [140]
             2 paths to exit 140
             [136 138 139]
             [136 137 138 139]
@@ -5063,25 +5063,25 @@ nested ebbs:
             ebb blocks: [140 141 142]
             ebb cost:   48
             ebb exits:  [143 154 157]
-            ebb succs:  [157 154 143 157 154 143 157 154 143 154 143 154 143 143]
+            ebb succs:  [143 154 157]
           ebb entry:  143
             ebb type:   block
             ebb blocks: [143 144]
             ebb cost:   10
             ebb exits:  [125 145]
-            ebb succs:  [145 125 145 125 145 125 145 125 145 125 125]
+            ebb succs:  [125 145]
         ebb entry:  145
           ebb type:   block
           ebb blocks: [145]
           ebb cost:   15
           ebb exits:  [146]
-          ebb succs:  [146 146 146 146 146]
+          ebb succs:  [146]
         ebb entry:  146
           ebb type:   loop
           ebb blocks: [146 147]
           ebb cost:   (54 * (N([ln7; ln9], [((ln9 + 1) && 2047) != ln7], [0; 0], [ln7; (ln9 + 1) && 2047]))) + 1
           ebb exits:  [148]
-          ebb succs:  [148 148 148 148 148]
+          ebb succs:  [148]
           1 paths to exit 148
           [146 147]
           1 loop paths
@@ -5093,31 +5093,31 @@ nested ebbs:
           ebb blocks: [148 149 150 151 152 153]
           ebb cost:   19
           ebb exits:  [122 123 154]
-          ebb succs:  [154 123 122 154 123 122 154 123 122 154 123 122 154 123]
+          ebb succs:  [122 123 154]
         ebb entry:  154
           ebb type:   block
           ebb blocks: [154]
           ebb cost:   1
           ebb exits:  [155]
-          ebb succs:  [155 155 155 155]
+          ebb succs:  [155]
       ebb entry:  155
         ebb type:   block
         ebb blocks: [155]
         ebb cost:   1
         ebb exits:  [156]
-        ebb succs:  [156 156 156]
+        ebb succs:  [156]
     ebb entry:  156
       ebb type:   block
       ebb blocks: [156]
       ebb cost:   73
       ebb exits:  [157]
-      ebb succs:  [157 157 157]
+      ebb succs:  [157]
     ebb entry:  157
       ebb type:   block
       ebb blocks: [157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180]
       ebb cost:   206
       ebb exits:  [181 196]
-      ebb succs:  [196 181 181 181]
+      ebb succs:  [181 196]
     ebb entry:  181
       ebb type:   loop
       ebb blocks: [181 182 183 184 185]
@@ -5126,7 +5126,7 @@ nested ebbs:
   71 * (N([ln12; pn2], [(ln12 && 2047) != pn2], [0; pn2], [(ln12 && 2047) + -1; pn2]))
 ])) + (list_max(1, 1))
       ebb exits:  [186]
-      ebb succs:  [186 186 186]
+      ebb succs:  [186]
       2 paths to exit 186
       [181 182 184 185]
       [181 182 183 184 185]
@@ -5139,19 +5139,19 @@ nested ebbs:
       ebb blocks: [186 187]
       ebb cost:   8
       ebb exits:  [115 188]
-      ebb succs:  [188 115 188 115 115]
+      ebb succs:  [115 188]
   ebb entry:  188
     ebb type:   block
     ebb blocks: [188 189 190 191 192]
     ebb cost:   53
     ebb exits:  [114 198]
-    ebb succs:  [198 114 114]
+    ebb succs:  [114 198]
 ebb entry:  193
   ebb type:   block
   ebb blocks: [193 194]
   ebb cost:   1
   ebb exits:  [195 198]
-  ebb succs:  [198 195]
+  ebb succs:  [195 198]
 ebb entry:  195
   ebb type:   block
   ebb blocks: [195]

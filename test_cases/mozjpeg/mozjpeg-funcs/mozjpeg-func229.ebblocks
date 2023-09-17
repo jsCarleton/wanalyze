@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]
   ebb cost:   46
   ebb exits:  [16 36 40 69 71]
-  ebb succs:  [71 69 40 36 16]
+  ebb succs:  [16 36 40 69 71]
 ebb entry:  16
   ebb type:   loop
   ebb blocks: [16 17 18 19 20 21 22 23 24 25 26 27 28 29 30]
@@ -13,7 +13,7 @@ ebb entry:  16
   (47 + |f87|) * (N([m[8]], [not(m[8] && 2)], [m[8]], [m[8]]))
 ])) + (list_max(1, 1, 1))
   ebb exits:  [31 33]
-  ebb succs:  [33 31]
+  ebb succs:  [31 33]
   2 paths to exit 31
   [16 17 30]
   [16 17 18 30]
@@ -30,7 +30,7 @@ ebb entry:  31
   ebb blocks: [31 32]
   ebb cost:   8
   ebb exits:  [33 34]
-  ebb succs:  [34 33]
+  ebb succs:  [33 34]
 ebb entry:  33
   ebb type:   block
   ebb blocks: [33]
@@ -42,25 +42,25 @@ ebb entry:  34
   ebb blocks: [34 35]
   ebb cost:   6
   ebb exits:  [36 69]
-  ebb succs:  [69 36]
+  ebb succs:  [36 69]
 ebb entry:  36
   ebb type:   block
   ebb blocks: [36 37 38 39]
   ebb cost:   23
   ebb exits:  [40 69 71]
-  ebb succs:  [71 69 40]
+  ebb succs:  [40 69 71]
 ebb entry:  40
   ebb type:   block
   ebb blocks: [40 41 42 43 44 45]
   ebb cost:   41
   ebb exits:  [46 51 69]
-  ebb succs:  [69 51 46]
+  ebb succs:  [46 51 69]
 ebb entry:  46
   ebb type:   loop
   ebb blocks: [46 47 48]
   ebb cost:   ((16 + |f70|) * (N([ln5; ln6], [(ln5 + 8) < ln6], [pn0 + 24; (pn0 + 16) + (m[12] shl 3)], [ln5 + 8; ln6]))) + 1
   ebb exits:  [49 69]
-  ebb succs:  [69 49]
+  ebb succs:  [49 69]
   1 paths to exit 49
   [46 47 48]
   1 paths to exit 69
@@ -74,7 +74,7 @@ ebb entry:  49
   ebb blocks: [49 50]
   ebb cost:   1
   ebb exits:  [51 69]
-  ebb succs:  [69 51]
+  ebb succs:  [51 69]
 ebb entry:  51
   ebb type:   block
   ebb blocks: [51 52]
@@ -86,7 +86,7 @@ ebb entry:  53
   ebb blocks: [53 54 55 56 57 58]
   ebb cost:   ((21 + |f70|) * (N([ln5; ln6], [(ln5 + 8) < ln6], [pn0 + 24; (pn0 + 16) + (m[12] shl 3)], [ln5 + 8; ln6]))) + 1
   ebb exits:  [69 72]
-  ebb succs:  [72 69]
+  ebb succs:  [69 72]
   3 paths to exit 69
   [53 54 55 56]
   [53 54]
@@ -102,7 +102,7 @@ ebb entry:  59
   ebb blocks: [59 60 61]
   ebb cost:   1
   ebb exits:  [62 72]
-  ebb succs:  [72 62]
+  ebb succs:  [62 72]
 ebb entry:  62
   ebb type:   loop
   ebb blocks: [62 63 64 65 66 67]
@@ -111,7 +111,7 @@ ebb entry:  62
   (27 + |f70|) * (N([ln5; ln6], [(ln5 + 8) < ln6], [pn0 + 24; (pn0 + 16) + (m[12] shl 3)], [ln5 + 8; ln6]))
 ])) + (list_max(1, 1))
   ebb exits:  [68 69]
-  ebb succs:  [69 68]
+  ebb succs:  [68 69]
   2 paths to exit 68
   [62 63 66 67]
   [62 63 64 65 66 67]

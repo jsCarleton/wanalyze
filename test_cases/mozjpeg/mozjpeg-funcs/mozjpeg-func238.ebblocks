@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3]
   ebb cost:   26
   ebb exits:  [4 18 22]
-  ebb succs:  [22 4]
+  ebb succs:  [4 22]
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7 8 9 10 11 12 13 14 15]
@@ -26,7 +26,7 @@ ebb entry:  4
   (113 + |f27|) * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0; m[244]], [ln4 + 1; m[244]]))
 ])) + (list_max(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1))
   ebb exits:  [22 24]
-  ebb succs:  [24 22]
+  ebb succs:  [22 24]
   16 paths to exit 22
   [4 6 8 10 12 13]
   [4 6 8 10 11 12 13]
@@ -55,7 +55,7 @@ ebb entry:  16
   ebb blocks: [16 17 18]
   ebb cost:   1
   ebb exits:  [19 24]
-  ebb succs:  [24 19]
+  ebb succs:  [19 24]
 ebb entry:  19
   ebb type:   loop
   ebb blocks: [19 20]

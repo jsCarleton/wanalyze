@@ -9,7 +9,7 @@ ebb entry:  3
   ebb blocks: [3 4 5]
   ebb cost:   (11 * (N([ln1], [(ln1 + 1) && 3], [pn0], [ln1 + 1]))) + 1
   ebb exits:  [6 17]
-  ebb succs:  [17 6]
+  ebb succs:  [6 17]
   1 paths to exit 6
   [3 4 5]
   1 paths to exit 17
@@ -41,7 +41,7 @@ ebb entry:  10
   ebb blocks: [10 11 12 13]
   ebb cost:   9
   ebb exits:  [14 19]
-  ebb succs:  [19 14]
+  ebb succs:  [14 19]
 ebb entry:  14
   ebb type:   loop
   ebb blocks: [14 15]

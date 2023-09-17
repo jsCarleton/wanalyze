@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3 4 5 6 7 8 9]
   ebb cost:   54
   ebb exits:  [10 13 22 31]
-  ebb succs:  [31 22 13 10]
+  ebb succs:  [10 13 22 31]
 ebb entry:  10
   ebb type:   loop
   ebb blocks: [10 11]
@@ -27,13 +27,13 @@ ebb entry:  13
   ebb blocks: [13 14 15 16 17 18 19 20 21]
   ebb cost:   83
   ebb exits:  [22 31]
-  ebb succs:  [31 22]
+  ebb succs:  [22 31]
 ebb entry:  22
   ebb type:   block
   ebb blocks: [22 23 24 25]
   ebb cost:   40
   ebb exits:  [26 29]
-  ebb succs:  [29 26]
+  ebb succs:  [26 29]
 ebb entry:  26
   ebb type:   loop
   ebb blocks: [26 27]

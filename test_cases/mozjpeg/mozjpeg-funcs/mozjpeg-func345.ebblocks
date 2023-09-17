@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3 4 5 6]
   ebb cost:   54
   ebb exits:  [7 17]
-  ebb succs:  [17 7]
+  ebb succs:  [7 17]
 ebb entry:  7
   ebb type:   loop
   ebb blocks: [7 8 9 10 11 12 13 14 15]
@@ -12,7 +12,7 @@ ebb entry:  7
   32 * (N([ln6], [ln6 > 1], [m[320]], [ln6 + -1]))
 ])) + (list_max(1, 1, 1))
   ebb exits:  [16 17]
-  ebb succs:  [17 16]
+  ebb succs:  [16 17]
   2 paths to exit 16
   [7 8 12 13 14 15]
   [7 8 9 14 15]
@@ -34,7 +34,7 @@ ebb entry:  17
   ebb blocks: [17 18 19]
   ebb cost:   22
   ebb exits:  [20 55]
-  ebb succs:  [55 20]
+  ebb succs:  [20 55]
 ebb entry:  20
   ebb type:   loop
   ebb blocks: [20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52]
@@ -87,7 +87,7 @@ nested ebbs:
     ebb blocks: [20]
     ebb cost:   15
     ebb exits:  [21]
-    ebb succs:  [21 21]
+    ebb succs:  [21]
   ebb entry:  21
     ebb type:   loop
     ebb blocks: [21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49]
@@ -145,13 +145,13 @@ nested ebbs:
       ebb blocks: [21 22 23 24 25 26 27 28 29 30 31 32 33 34 35]
       ebb cost:   84
       ebb exits:  [36 39 47]
-      ebb succs:  [47 39 36 47 39 36 47 39 36]
+      ebb succs:  [36 39 47]
     ebb entry:  36
       ebb type:   loop
       ebb blocks: [36 37]
       ebb cost:   ((17 + |f28|) * (N([ln10], [ln10 shr_s 1], [(((pn0 shr_s m[328]) + -1) shr_s 2) shr_s 1], [ln10 shr_s 1]))) + 1
       ebb exits:  [38]
-      ebb succs:  [38 38 38]
+      ebb succs:  [38]
       1 paths to exit 38
       [36 37]
       1 loop paths
@@ -163,19 +163,19 @@ nested ebbs:
       ebb blocks: [38]
       ebb cost:   1
       ebb exits:  [39]
-      ebb succs:  [39 39 39]
+      ebb succs:  [39]
     ebb entry:  39
       ebb type:   block
       ebb blocks: [39 40]
       ebb cost:   14
       ebb exits:  [41 44]
-      ebb succs:  [44 41 44 41 44 41]
+      ebb succs:  [41 44]
     ebb entry:  41
       ebb type:   loop
       ebb blocks: [41 42]
       ebb cost:   ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
       ebb exits:  [43]
-      ebb succs:  [43 43 43]
+      ebb succs:  [43]
       1 paths to exit 43
       [41 42]
       1 loop paths
@@ -187,19 +187,19 @@ nested ebbs:
       ebb blocks: [43]
       ebb cost:   1
       ebb exits:  [44]
-      ebb succs:  [44 44 44]
+      ebb succs:  [44]
     ebb entry:  44
       ebb type:   block
       ebb blocks: [44 45 46]
       ebb cost:   12
       ebb exits:  [20 47 55]
-      ebb succs:  [55 47 20 47 20 47]
+      ebb succs:  [20 47 55]
     ebb entry:  47
       ebb type:   block
       ebb blocks: [47 48 49]
       ebb cost:   15
       ebb exits:  [21 59]
-      ebb succs:  [59 21 21 21]
+      ebb succs:  [21 59]
   ebb entry:  50
     ebb type:   block
     ebb blocks: [50 51 52]
@@ -211,7 +211,7 @@ ebb entry:  53
   ebb blocks: [53 54]
   ebb cost:   1
   ebb exits:  [55 59]
-  ebb succs:  [59 55]
+  ebb succs:  [55 59]
 ebb entry:  55
   ebb type:   block
   ebb blocks: [55 56 57 58]

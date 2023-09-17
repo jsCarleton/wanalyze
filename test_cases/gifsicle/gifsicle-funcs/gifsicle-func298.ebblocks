@@ -3,13 +3,13 @@ ebb entry:  0
   ebb blocks: [0 1 2 3 4 5 6 7]
   ebb cost:   58
   ebb exits:  [8 17]
-  ebb succs:  [17 8]
+  ebb succs:  [8 17]
 ebb entry:  8
   ebb type:   loop
   ebb blocks: [8 9 10 11 12 13 14 15]
   ebb cost:   ((26 + |f134|) * (N([ln3; m[32]], [ln3 - m[32]], [m[8]; m[32]], [ln3 - (R(0, 8, i32, m[32], pn2, ln3)); m[32]]))) + (list_max(1, 4, 5))
   ebb exits:  [16 19]
-  ebb succs:  [19 16]
+  ebb succs:  [16 19]
   1 paths to exit 16
   [8 9 10 14 15]
   2 paths to exit 19

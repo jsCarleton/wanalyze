@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42]
   ebb cost:   108
   ebb exits:  [43 103 106 110]
-  ebb succs:  [110 106 103 43]
+  ebb succs:  [43 103 106 110]
 ebb entry:  43
   ebb type:   loop
   ebb blocks: [43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100]
@@ -6064,7 +6064,7 @@ nested ebbs:
     ebb blocks: [43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93]
     ebb cost:   192
     ebb exits:  [94 99 105]
-    ebb succs:  [105 99 94 99 94]
+    ebb succs:  [94 99 105]
   ebb entry:  94
     ebb type:   loop
     ebb blocks: [94 95 96]
@@ -6082,7 +6082,7 @@ nested ebbs:
   (5 + |f79|) * (N([pn1], [(R(79, 0, i32, pn1)) + 1], [pn1], [pn1]))
 ])) + Empty
     ebb exits:  [99 112]
-    ebb succs:  [112 99 99]
+    ebb succs:  [99 112]
     2 paths to exit 99
     [94]
     [94]
@@ -6095,25 +6095,25 @@ nested ebbs:
     ebb blocks: [97 98]
     ebb cost:   1
     ebb exits:  [99 112]
-    ebb succs:  [112 99 99]
+    ebb succs:  [99 112]
   ebb entry:  99
     ebb type:   block
     ebb blocks: [99 100]
     ebb cost:   7
     ebb exits:  [43 101]
-    ebb succs:  [101 43 43]
+    ebb succs:  [43 101]
 ebb entry:  101
   ebb type:   block
   ebb blocks: [101 102]
   ebb cost:   3
   ebb exits:  [103 105]
-  ebb succs:  [105 103]
+  ebb succs:  [103 105]
 ebb entry:  103
   ebb type:   block
   ebb blocks: [103 104]
   ebb cost:   9
   ebb exits:  [105 106]
-  ebb succs:  [106 105]
+  ebb succs:  [105 106]
 ebb entry:  105
   ebb type:   block
   ebb blocks: [105]

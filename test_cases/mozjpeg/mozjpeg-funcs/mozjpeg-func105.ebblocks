@@ -3,13 +3,13 @@ ebb entry:  0
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10]
   ebb cost:   27
   ebb exits:  [11 16 17 19]
-  ebb succs:  [19 17 16 11]
+  ebb succs:  [11 16 17 19]
 ebb entry:  11
   ebb type:   loop
   ebb blocks: [11 12 13]
   ebb cost:   (14 * (N([m[0]], [m[0] != 10], [m[0]], [m[0]]))) + 1
   ebb exits:  [14 16]
-  ebb succs:  [16 14]
+  ebb succs:  [14 16]
   1 paths to exit 14
   [11 12 13]
   1 paths to exit 16
@@ -23,7 +23,7 @@ ebb entry:  14
   ebb blocks: [14 15]
   ebb cost:   24
   ebb exits:  [16 17]
-  ebb succs:  [17 16]
+  ebb succs:  [16 17]
 ebb entry:  16
   ebb type:   block
   ebb blocks: [16]

@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2]
   ebb cost:   22
   ebb exits:  [3 17]
-  ebb succs:  [17 3]
+  ebb succs:  [3 17]
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4 5 6 7 8 9 10 11 12 13 14]
@@ -14,7 +14,7 @@ ebb entry:  3
   65 * (N([pn3], [not((pn3 + -1) < 2)], [pn3], [pn3 + -1]))
 ])) + Empty
   ebb exits:  [17 19]
-  ebb succs:  [19 17]
+  ebb succs:  [17 19]
   5 paths to exit 17
   [3 6 7 10 11]
   [3 6 7 8 11]
@@ -30,7 +30,7 @@ ebb entry:  15
   ebb blocks: [15 16]
   ebb cost:   1
   ebb exits:  [17 19]
-  ebb succs:  [19 17]
+  ebb succs:  [17 19]
 ebb entry:  17
   ebb type:   block
   ebb blocks: [17 18]

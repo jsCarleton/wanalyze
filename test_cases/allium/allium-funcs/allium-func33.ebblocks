@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30]
   ebb cost:   93
   ebb exits:  [31 39 41 59 60 164]
-  ebb succs:  [164 60 59 41 39 31]
+  ebb succs:  [31 39 41 59 60 164]
 ebb entry:  31
   ebb type:   loop
   ebb blocks: [31 32 33 34 35 36 37]
@@ -42,7 +42,7 @@ ebb entry:  41
   ebb blocks: [41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58]
   ebb cost:   78
   ebb exits:  [59 60]
-  ebb succs:  [60 59]
+  ebb succs:  [59 60]
 ebb entry:  59
   ebb type:   block
   ebb blocks: [59]
@@ -54,7 +54,7 @@ ebb entry:  60
   ebb blocks: [60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91]
   ebb cost:   78
   ebb exits:  [92 100 102 119 124 164]
-  ebb succs:  [164 124 119 102 100 92]
+  ebb succs:  [92 100 102 119 124 164]
 ebb entry:  92
   ebb type:   loop
   ebb blocks: [92 93 94 95 96 97 98]
@@ -93,7 +93,7 @@ ebb entry:  102
   ebb blocks: [102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118]
   ebb cost:   75
   ebb exits:  [119 120]
-  ebb succs:  [120 119]
+  ebb succs:  [119 120]
 ebb entry:  119
   ebb type:   block
   ebb blocks: [119]
@@ -105,19 +105,19 @@ ebb entry:  120
   ebb blocks: [120 121 122 123]
   ebb cost:   23
   ebb exits:  [124 164]
-  ebb succs:  [164 124]
+  ebb succs:  [124 164]
 ebb entry:  124
   ebb type:   block
   ebb blocks: [124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144]
   ebb cost:   127
   ebb exits:  [145 152 154 164]
-  ebb succs:  [164 154 152 145]
+  ebb succs:  [145 152 154 164]
 ebb entry:  145
   ebb type:   loop
   ebb blocks: [145 146 147 148 149]
   ebb cost:   ((29 + |f20|) * (N([ln3; ln4; pn0], [not(((R(20, 0, i32, 4, R(20, 0, i32, 0, (pn0 + 16) + ((ln4 shr_u 31) shl 2)))) && -8) == ln3)], [((R(20, 91, i32, 0, ((pn0 + -8) + ((R(20, 22, i32, 0, pn0 + -4)) && -8)) + 4)) && -8) + ((R(20, 34, i32, 0, pn0 + -8)) + ((R(20, 22, i32, 0, pn0 + -4)) && -8)); (((R(20, 91, i32, 0, ((pn0 + -8) + ((R(20, 22, i32, 0, pn0 + -4)) && -8)) + 4)) && -8) + ((R(20, 34, i32, 0, pn0 + -8)) + ((R(20, 22, i32, 0, pn0 + -4)) && -8))) shl (25 - (0 shr_u 1)); R(20, 195, i32, 0, (0 shl 2) + 19232)], [ln3; ln4 shl 1; R(20, 11, i32, 0, (pn0 + 16) + ((ln4 shr_u 31) shl 2))]))) + 1
   ebb exits:  [150 153]
-  ebb succs:  [153 150]
+  ebb succs:  [150 153]
   1 paths to exit 150
   [145 149]
   1 paths to exit 153
@@ -131,7 +131,7 @@ ebb entry:  150
   ebb blocks: [150 151]
   ebb cost:   17
   ebb exits:  [152 156]
-  ebb succs:  [156 152]
+  ebb succs:  [152 156]
 ebb entry:  152
   ebb type:   block
   ebb blocks: [152]
@@ -161,7 +161,7 @@ ebb entry:  156
   ebb blocks: [156 157 158 159]
   ebb cost:   14
   ebb exits:  [160 164]
-  ebb succs:  [164 160]
+  ebb succs:  [160 164]
 ebb entry:  160
   ebb type:   loop
   ebb blocks: [160 161]

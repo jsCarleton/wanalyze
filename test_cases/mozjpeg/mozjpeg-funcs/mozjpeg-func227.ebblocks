@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2 3 4 5]
   ebb cost:   59
   ebb exits:  [6 19 21]
-  ebb succs:  [21 19 6]
+  ebb succs:  [6 19 21]
 ebb entry:  6
   ebb type:   loop
   ebb blocks: [6 7 8 9 10 11 12 13 14 15 16 17]
@@ -13,7 +13,7 @@ ebb entry:  6
   (45 + |f87|) * (N([ln6; ln9], [(ln6 + 8) < ln9], [pn0 + 24; (pn0 + 16) + (m[12] shl 3)], [ln6 + 8; ln9]))
 ])) + (list_max(1, 1, 1, 1))
   ebb exits:  [18 19]
-  ebb succs:  [19 18]
+  ebb succs:  [18 19]
   3 paths to exit 18
   [6 7 8 13 16 17]
   [6 7 8 13 14 15 16 17]

@@ -3,7 +3,7 @@ ebb entry:  0
   ebb blocks: [0 1 2]
   ebb cost:   27
   ebb exits:  [3 44]
-  ebb succs:  [44 3]
+  ebb succs:  [3 44]
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4]
@@ -59,7 +59,7 @@ ebb entry:  27
   (37 + (list_sum(|f101|, |f176|))) * (N([m[12]], [not(m[12])], [m[12]], [m[12]]))
 ])) + 1
   ebb exits:  [44 46]
-  ebb succs:  [46 44]
+  ebb succs:  [44 46]
   1 paths to exit 44
   [27 28 29 30 31 32]
   0 paths to exit 46
@@ -73,7 +73,7 @@ ebb entry:  42
   ebb blocks: [42 43]
   ebb cost:   1
   ebb exits:  [44 46]
-  ebb succs:  [46 44]
+  ebb succs:  [44 46]
 ebb entry:  44
   ebb type:   block
   ebb blocks: [44 45]
