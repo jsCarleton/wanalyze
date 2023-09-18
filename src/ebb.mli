@@ -1,10 +1,11 @@
 type ebb_type = EBB_loop | EBB_block
 
+type ebb_path = Bb.bb list  (* a list of entry_bbs for the ebbs in the path *)
 
 type loop = {
-  codepaths:    Cp.cp list option list;  (* corresponding code paths to the exit bb *)
-  loop_cps:     Cp.cp list;     (* codepaths in the ebb that loop *)
-  exit_cps:     Cp.cp list;     (* codepaths in the ebb that aren't the loop *)
+  codepaths:    ebb_path list option list;  (* corresponding code paths to the exit bb *)
+  loop_cps:     ebb_path list;       (* codepaths in the ebb that loop *)
+  exit_cps:     ebb_path list;     (* codepaths in the ebb that aren't the loop *)
 }
 
 type ebb = 

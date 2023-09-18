@@ -5,10 +5,12 @@ open Et
 
 type ebb_type = EBB_loop | EBB_block
 
+type ebb_path = Bb.bb list
+
 type loop = {
-  codepaths:    Cp.cp list option list;  (* corresponding code paths to the exit bb *)
-  loop_cps:     Cp.cp list;     (* codepaths in the ebb that loop *)
-  exit_cps:     Cp.cp list;     (* codepaths in the ebb that aren't the loop *)
+  codepaths:    ebb_path list option list;  (* corresponding code paths to the exit bb *)
+  loop_cps:     ebb_path list;              (* codepaths in the ebb that loop *)
+  exit_cps:     ebb_path list;              (* codepaths in the ebb that aren't the loop *)
 }
 
 type ebb = 
@@ -378,11 +380,11 @@ let expr_of_lm (lm: Cost.loop_metric): et =
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
-        let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
         let bbacks    = branchbacks_of_loop bblocks in
         let loop_cps  = looping_paths_of_loop_bblocks bblocks bbacks in
         if List.length loop_cps > 0 then
           begin
+            let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
             let exit_cps    = exit_paths (exit_cps codepaths) loop_cps in
             let nested_ebbs = sub_ebbs_of_bbs bblocks in
             let root_bb     = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
@@ -432,9 +434,8 @@ let expr_of_lm (lm: Cost.loop_metric): et =
           (* this happens when there are too many looping paths and we give up trying to enumerate them *)
           begin 
             let ebb_cost    = Constant (String_value "Infinity-t") in
-            let exit_cps    = [] in
             let nested_ebbs = [] in
-            {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}}
+            {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = None}
           end
       | EBB_block ->
         let nested_ebbs = [] in
