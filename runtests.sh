@@ -15,8 +15,10 @@ do
     np=$(grep "loop" "$ff" | wc -l)
     lf=$(find "$D$f"/"$f"-funcs -name "*.wat" -print0 | xargs -0 grep -l loop | wc -l)
     nb=$(find "$D$f"/"$f"-funcs -name "*.ebblocks" -print0 | xargs -0 grep -l 'unknown number' | wc -l)
-    # Create the cfg diagrams
-    ./create-cfg.sh "$D$f/$f-funcs" png
+    # Create the cfg diagrams except on Mac
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        ./create-cfg.sh "$D$f/$f-funcs" png
+    fi
     # Print the result
     echo "lines of code: $nl"
     echo "# of functions: $nf"
@@ -25,10 +27,15 @@ do
     echo "# functions with too many paths: $nb"
     # Compare the source file we created to the one created by wabt
     diff -y --suppress-common-lines "$D$f"/*t.wat "$D$f"/*e.wat | grep -v f64 | grep -v f32 >diff.out
-    ds=$(stat --format=%s diff.out)
-    if [ $ds -gt 0 ]
-    then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        ds=$(stat -f %z "$D$f"/diff.out)
+    else
+        ds=$(stat --format=%s "$D$f"/diff.out)
+    fi
+    if [ $ds -gt 0 ]; then
         echo "Check diff output"
+    else
+        rm diff.out
     fi
     echo ""
 done
