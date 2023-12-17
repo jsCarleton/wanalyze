@@ -15,7 +15,7 @@ ebb costs:
 [86]: (list_max(((44 + list_sum(|f29|, |f41|)) * N([m[8]], [i64.eqz(m[8])], [m[8]], [m[8]])), ((49 + |f41|) * N([m[8]], [i64.eqz(m[8])], [m[8]], [m[8]]))) + list_max(1, 1))
 [95]: 1
 [97]: 20
-[99]: (list_max(((29 + |f29|) * N([ln3; ln4; ln7; m[0]; pn1], [select((pn1 > m[0]), 0, ((ln3 || (ln4 shl ln7)) <= 134217727))], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; (ln3 || (ln4 shl ln7)); ln7; m[0]; pn1])), (34 * N([ln3; ln4; ln7; m[0]; pn1], [select((pn1 > m[0]), 0, ((ln3 || (ln4 shl ln7)) <= 134217727))], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; (ln3 || (ln4 shl ln7)); ln7; m[0]; pn1]))) + list_max(1, 1))
+[99]: (list_max(((29 + |f29|) * N([ln3; ln4; ln7; m[0]; pn1], [select((pn1 > m[0]), 0, ((ln3 | (ln4 shl ln7)) <= 134217727))], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; (ln3 | (ln4 shl ln7)); ln7; m[0]; pn1])), (34 * N([ln3; ln4; ln7; m[0]; pn1], [select((pn1 > m[0]), 0, ((ln3 | (ln4 shl ln7)) <= 134217727))], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; (ln3 | (ln4 shl ln7)); ln7; m[0]; pn1]))) + list_max(1, 1))
 [106]: 4
 [107]: 14
 [109]: (list_max(((33 + |f29|) * N([m[0]; pn1], [(pn1 > m[0])], [m[0]; select(pn1, 10, pn1)], [m[0]; pn1])), (38 * N([m[0]; pn1], [(pn1 > m[0])], [m[0]; select(pn1, 10, pn1)], [m[0]; pn1]))) + list_max(1, 1))
@@ -522,8 +522,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -541,8 +541,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -565,8 +565,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -588,8 +588,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -616,8 +616,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -640,8 +640,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -939,8 +939,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -964,8 +964,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -994,8 +994,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1023,8 +1023,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1057,8 +1057,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1087,8 +1087,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1451,8 +1451,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1481,8 +1481,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1516,8 +1516,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1550,8 +1550,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1589,8 +1589,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1624,8 +1624,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1827,8 +1827,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1848,8 +1848,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1874,8 +1874,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1899,8 +1899,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1929,8 +1929,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -1955,8 +1955,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2280,8 +2280,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2307,8 +2307,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2339,8 +2339,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2370,8 +2370,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2406,8 +2406,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2438,8 +2438,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2828,8 +2828,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2860,8 +2860,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2897,8 +2897,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2933,8 +2933,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -2974,8 +2974,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3011,8 +3011,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3254,8 +3254,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3279,8 +3279,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3309,8 +3309,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3338,8 +3338,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3372,8 +3372,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3402,8 +3402,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3779,8 +3779,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3810,8 +3810,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3846,8 +3846,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3881,8 +3881,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3921,8 +3921,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -3957,8 +3957,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4399,8 +4399,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4435,8 +4435,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4476,8 +4476,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4516,8 +4516,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4561,8 +4561,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4602,8 +4602,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4894,8 +4894,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4920,8 +4920,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4951,8 +4951,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -4981,8 +4981,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -5016,8 +5016,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -5047,8 +5047,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -5437,8 +5437,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -5469,8 +5469,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -5506,8 +5506,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -5542,8 +5542,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -5583,8 +5583,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -5620,8 +5620,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6075,8 +6075,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6112,8 +6112,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6154,8 +6154,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6195,8 +6195,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6241,8 +6241,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6283,8 +6283,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6536,8 +6536,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6562,8 +6562,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6593,8 +6593,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6623,8 +6623,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6658,8 +6658,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -6689,8 +6689,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7079,8 +7079,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7111,8 +7111,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7148,8 +7148,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7184,8 +7184,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7225,8 +7225,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7262,8 +7262,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7717,8 +7717,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7754,8 +7754,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7796,8 +7796,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7837,8 +7837,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7883,8 +7883,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -7925,8 +7925,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8218,8 +8218,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8248,8 +8248,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8283,8 +8283,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8317,8 +8317,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8356,8 +8356,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8391,8 +8391,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8833,8 +8833,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8869,8 +8869,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8910,8 +8910,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8950,8 +8950,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -8995,8 +8995,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -9036,8 +9036,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -9543,8 +9543,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -9584,8 +9584,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -9630,8 +9630,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -9675,8 +9675,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -9725,8 +9725,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -9771,8 +9771,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10123,8 +10123,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10154,8 +10154,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10190,8 +10190,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10225,8 +10225,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10265,8 +10265,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10301,8 +10301,8 @@ ebb costs:
     15;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10756,8 +10756,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10793,8 +10793,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10835,8 +10835,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10876,8 +10876,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10922,8 +10922,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -10964,8 +10964,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -11484,8 +11484,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -11526,8 +11526,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -11573,8 +11573,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -11619,8 +11619,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -11670,8 +11670,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;
@@ -11717,8 +11717,8 @@ ebb costs:
     1;
     20;
     (list_max([
-      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]));
-      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 || (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 || (ln4 shl ln7); ln7; m[0]; pn1]))
+      (29 + |f29|) * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]));
+      34 * (N([ln3; ln4; ln7; m[0]; pn1], [select(pn1 > m[0], 0, (ln3 | (ln4 shl ln7)) <= 134217727)], [m[0]; 0; m[0]; m[0]; select(pn1, 10, pn1)], [m[0]; ln3 | (ln4 shl ln7); ln7; m[0]; pn1]))
     ])) + (list_max(1, 1));
     4;
     14;

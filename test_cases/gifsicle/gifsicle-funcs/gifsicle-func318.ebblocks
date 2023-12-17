@@ -49,7 +49,7 @@ ebb entry:  14
 ebb entry:  20
   ebb type:   loop
   ebb blocks: [20 21]
-  ebb cost:   (13 * (N([ln2; ln4], [((ln2 shl 1) && 65532) < ln4], [(2 shl 1) && 65532; 0], [(ln2 shl 1) && 65532; ln4]))) + 1
+  ebb cost:   (13 * (N([ln2; ln4], [((ln2 shl 1) & 65532) < ln4], [(2 shl 1) & 65532; 0], [(ln2 shl 1) & 65532; ln4]))) + 1
   ebb exits:  [22]
   ebb succs:  [22]
   1 paths to exit 22

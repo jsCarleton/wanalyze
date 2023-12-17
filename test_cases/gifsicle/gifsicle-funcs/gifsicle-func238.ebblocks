@@ -2671,7 +2671,7 @@ nested ebbs:
   ebb entry:  834
     ebb type:   loop
     ebb blocks: [834 835]
-    ebb cost:   (13 * (N([ln4; pn2], [((ln4 shl 1) && 65532) < pn2], [0; pn2], [(ln4 shl 1) && 65532; pn2]))) + 1
+    ebb cost:   (13 * (N([ln4; pn2], [((ln4 shl 1) & 65532) < pn2], [0; pn2], [(ln4 shl 1) & 65532; pn2]))) + 1
     ebb exits:  [836]
     ebb succs:  [836]
     1 paths to exit 836

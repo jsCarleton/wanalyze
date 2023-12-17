@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  5
   ebb type:   loop
   ebb blocks: [5 6 7]
-  ebb cost:   (19 * (N([pn1], [(pn1 + 1) && 3], [pn1], [pn1 + 1]))) + 1
+  ebb cost:   (19 * (N([pn1], [(pn1 + 1) & 3], [pn1], [pn1 + 1]))) + 1
   ebb exits:  [8 19]
   ebb succs:  [8 19]
   1 paths to exit 8
@@ -33,7 +33,7 @@ ebb entry:  9
 ebb entry:  11
   ebb type:   loop
   ebb blocks: [11 12]
-  ebb cost:   (25 * (N([m[4]], [i32.eqz(((m[4] + -16843009) && (m[4] xor -1)) && -2139062144)], [m[4]], [m[4]]))) + 1
+  ebb cost:   (25 * (N([m[4]], [i32.eqz(((m[4] + -16843009) & (m[4] xor -1)) & -2139062144)], [m[4]], [m[4]]))) + 1
   ebb exits:  [13]
   ebb succs:  [13]
   1 paths to exit 13

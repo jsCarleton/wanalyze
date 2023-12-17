@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-FILELIST="bubble_sort dhry allium gifsicle mozjpeg oxipng"
+#FILELIST="bubble_sort dhry allium gifsicle mozjpeg oxipng"
+FILELIST="vim"
 WATSUFFIX="-wanalyze.wat"
 D="test_cases/"
 
@@ -16,9 +17,9 @@ do
     lf=$(find "$D$f"/"$f"-funcs -name "*.wat" -print0 | xargs -0 grep -l loop | wc -l)
     nb=$(find "$D$f"/"$f"-funcs -name "*.ebblocks" -print0 | xargs -0 grep -l 'unknown number' | wc -l)
     # Create the cfg diagrams except on Mac
-    if [[ "$OSTYPE" != "darwin"* ]]; then
-        ./create-cfg.sh "$D$f/$f-funcs" png
-    fi
+ #   if [[ "$OSTYPE" != "darwin"* ]]; then
+ #       ./create-cfg.sh "$D$f/$f-funcs" png
+ #   fi
     # Print the result
     echo "lines of code: $nl"
     echo "# of functions: $nf"

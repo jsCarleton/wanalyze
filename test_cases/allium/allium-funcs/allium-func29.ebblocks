@@ -27,7 +27,7 @@ ebb entry:  12
 ebb entry:  13
   ebb type:   loop
   ebb blocks: [13 14 15 16]
-  ebb cost:   ((169 + (list_sum(|f24|, |f27|))) * (N([ln5; pn0], [pn0 <= ln5], [((pn0 + pn2) && -4) + -64; pn0], [ln5; pn0 - -64]))) + 1
+  ebb cost:   ((169 + (list_sum(|f24|, |f27|))) * (N([ln5; pn0], [pn0 <= ln5], [((pn0 + pn2) & -4) + -64; pn0], [ln5; pn0 - -64]))) + 1
   ebb exits:  [17]
   ebb succs:  [17]
   1 paths to exit 17
@@ -45,7 +45,7 @@ ebb entry:  17
 ebb entry:  18
   ebb type:   loop
   ebb blocks: [18 19 20 21]
-  ebb cost:   ((19 + (list_sum(|f24|, |f27|))) * (N([pn0; pn2], [pn0 < pn2], [pn0; (pn0 + pn2) && -4], [pn0 + 4; pn2]))) + 1
+  ebb cost:   ((19 + (list_sum(|f24|, |f27|))) * (N([pn0; pn2], [pn0 < pn2], [pn0; (pn0 + pn2) & -4], [pn0 + 4; pn2]))) + 1
   ebb exits:  [22]
   ebb succs:  [22]
   1 paths to exit 22

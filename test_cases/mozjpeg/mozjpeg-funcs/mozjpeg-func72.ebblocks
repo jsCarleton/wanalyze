@@ -264,7 +264,7 @@ nested ebbs:
   ebb entry:  47
     ebb type:   loop
     ebb blocks: [47 48]
-    ebb cost:   (22 * (N([ln3; ln5], [((ln3 shl 2) + (ln5 + 1040)) > -1], [((select(((i32.eqz(0)) || (0 > 1000000000)) || (0 == (select((i32.eqz(0)) || (0 > 1000000000), 0, -1))), 0, -1)) + 1) + 1; R(27, 43, i32, 1028, 255, gn0 - 2128)], [m[0] + 1; ln5]))) + 1
+    ebb cost:   (22 * (N([ln3; ln5], [((ln3 shl 2) + (ln5 + 1040)) > -1], [((select(((i32.eqz(0)) | (0 > 1000000000)) | (0 == (select((i32.eqz(0)) | (0 > 1000000000), 0, -1))), 0, -1)) + 1) + 1; R(27, 43, i32, 1028, 255, gn0 - 2128)], [m[0] + 1; ln5]))) + 1
     ebb exits:  [49]
     ebb succs:  [49]
     1 paths to exit 49

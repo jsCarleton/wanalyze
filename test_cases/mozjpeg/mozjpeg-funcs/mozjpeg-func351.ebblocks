@@ -30,7 +30,7 @@ nested ebbs:
   ebb entry:  8
     ebb type:   loop
     ebb blocks: [8 9]
-    ebb cost:   (20 * (N([ln5], [ln5 + -1], [(select((select((999999988 /u ((pn2 + 15) && -16)) < pn3, pn3, 999999988 /u ((pn2 + 15) && -16))) < (pn3 - 0), pn3 - 0, select((999999988 /u ((pn2 + 15) && -16)) < pn3, pn3, 999999988 /u ((pn2 + 15) && -16)))) + -1], [ln5 + -1]))) + 1
+    ebb cost:   (20 * (N([ln5], [ln5 + -1], [(select((select((999999988 /u ((pn2 + 15) & -16)) < pn3, pn3, 999999988 /u ((pn2 + 15) & -16))) < (pn3 - 0), pn3 - 0, select((999999988 /u ((pn2 + 15) & -16)) < pn3, pn3, 999999988 /u ((pn2 + 15) & -16)))) + -1], [ln5 + -1]))) + 1
     ebb exits:  [10]
     ebb succs:  [10]
     1 paths to exit 10

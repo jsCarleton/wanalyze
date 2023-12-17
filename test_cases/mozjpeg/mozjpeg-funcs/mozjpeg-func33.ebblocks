@@ -91,7 +91,7 @@ ebb entry:  99
 ebb entry:  116
   ebb type:   loop
   ebb blocks: [116 117 118]
-  ebb cost:   (27 * (N([m[0]], [m[0]], [m[0] && -8], [m[0]]))) + 1
+  ebb cost:   (27 * (N([m[0]], [m[0]], [m[0] & -8], [m[0]]))) + 1
   ebb exits:  [119 122]
   ebb succs:  [119 122]
   1 paths to exit 119
@@ -129,7 +129,7 @@ ebb entry:  123
 ebb entry:  125
   ebb type:   loop
   ebb blocks: [125 126]
-  ebb cost:   (8 * (N([m[0]], [m[0]], [(m[0] && -8) + -1], [m[0]]))) + 1
+  ebb cost:   (8 * (N([m[0]], [m[0]], [(m[0] & -8) + -1], [m[0]]))) + 1
   ebb exits:  [127]
   ebb succs:  [127]
   1 paths to exit 127

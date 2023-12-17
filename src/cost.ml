@@ -18,6 +18,46 @@ type loop_path_parts =
   loop_part:    Cp.cp;  (* the code path inside the loop *)
 }
 
+let classify_cond (lm: loop_metric): string =
+  let rec has_function (cond: Et.et): bool =
+    match cond with
+    | Empty | Constant _ | Variable _ | ExprList _ -> false
+    | Node n when (String.compare n.op "R") = 0 -> true
+    | Node n -> List.exists ~f:has_function n.args
+  in
+  let rec operator_ok (cond: Et.et): bool =
+    let op_list = [">"; "<"; "="; "<="; ">="; "i32.eqz"; "+"; "-"; "not"; "=="; "!="] in
+    match cond with
+    | Empty | Constant _ | Variable _ | ExprList _ -> true
+    | Node n when not (List.exists ~f:(fun x -> String.compare x n.op = 0) op_list) -> false
+    | Node n -> List.for_all ~f:(fun x -> operator_ok x) n.args
+  in
+
+  let classify_cond' (cond: Et.et): string =
+    if has_function cond then 
+      ("Function")
+    else
+      (if operator_ok cond then
+        ("OK")
+      else
+        ("Constraint complex"))
+  in
+
+  match lm with
+  | Infinite -> "infinite"
+  | LMI lmi -> classify_cond' lmi.loop_cond
+
+let string_of_lm (lm: loop_metric): string =
+  match lm with
+  | Infinite -> "infinite"
+  | LMI lmi ->
+    String.concat ~sep:"\n" [
+      Et.string_of_et lmi.loop_cond;
+      String.concat ~sep:";" (List.map ~f:Et.string_of_var lmi.loop_vars);
+      String.concat ~sep:";" (List.map ~f:Ssa.string_of_ssa lmi.lv_entry_vals);
+      String.concat ~sep:";" (List.map ~f:Ssa.string_of_ssa lmi.lv_loop_vals)
+    ]
+
 (* TODO this isn't right and might not be needed *)
 let compare_metrics (lm1: loop_metric) (lm2: loop_metric): int =
   match lm1, lm2 with

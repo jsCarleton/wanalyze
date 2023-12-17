@@ -8,8 +8,8 @@ ebb entry:  49
   ebb type:   loop
   ebb blocks: [49 50 51 52 53 54 55]
   ebb cost:   (list_max([
-  34 * (N([ln5], [ln5 && 1], [1], [0]));
-  35 * (N([ln5], [ln5 && 1], [1], [0]))
+  34 * (N([ln5], [ln5 & 1], [1], [0]));
+  35 * (N([ln5], [ln5 & 1], [1], [0]))
 ])) + (list_max(1, 1))
   ebb exits:  [56]
   ebb succs:  [56]

@@ -161,8 +161,8 @@ ebb entry:  106
   ebb type:   loop
   ebb blocks: [106 107 108 109 110 111 112]
   ebb cost:   (list_max([
-  (29 + |f31|) * (N([ln5; ln8; m[0]; pn1; pn2], [select(pn1 > m[0], 0, (pn2 || (ln5 shl ln8)) <= 134217727)], [0; m[0]; m[0]; select(pn1, 10, pn1); m[0]], [pn2 || (ln5 shl ln8); ln8; m[0]; pn1; m[0]]));
-  34 * (N([ln5; ln8; m[0]; pn1; pn2], [select(pn1 > m[0], 0, (pn2 || (ln5 shl ln8)) <= 134217727)], [0; m[0]; m[0]; select(pn1, 10, pn1); m[0]], [pn2 || (ln5 shl ln8); ln8; m[0]; pn1; m[0]]))
+  (29 + |f31|) * (N([ln5; ln8; m[0]; pn1; pn2], [select(pn1 > m[0], 0, (pn2 | (ln5 shl ln8)) <= 134217727)], [0; m[0]; m[0]; select(pn1, 10, pn1); m[0]], [pn2 | (ln5 shl ln8); ln8; m[0]; pn1; m[0]]));
+  34 * (N([ln5; ln8; m[0]; pn1; pn2], [select(pn1 > m[0], 0, (pn2 | (ln5 shl ln8)) <= 134217727)], [0; m[0]; m[0]; select(pn1, 10, pn1); m[0]], [pn2 | (ln5 shl ln8); ln8; m[0]; pn1; m[0]]))
 ])) + (list_max(1, 1))
   ebb exits:  [113]
   ebb succs:  [113]

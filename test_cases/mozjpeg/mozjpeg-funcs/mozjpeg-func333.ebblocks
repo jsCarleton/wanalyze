@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  15
   ebb type:   loop
   ebb blocks: [15 16 17]
-  ebb cost:   (22 * (N([ln3], [(ln3 + 1) && 3], [pn0], [ln3 + 1]))) + 1
+  ebb cost:   (22 * (N([ln3], [(ln3 + 1) & 3], [pn0], [ln3 + 1]))) + 1
   ebb exits:  [18 49]
   ebb succs:  [18 49]
   1 paths to exit 18
@@ -33,7 +33,7 @@ ebb entry:  20
 ebb entry:  24
   ebb type:   loop
   ebb blocks: [24 25 26]
-  ebb cost:   (19 * (N([pn0; pn2], [(pn0 + (pn2 + -1)) && 3], [pn0; pn2], [pn0; pn2 + -1]))) + 1
+  ebb cost:   (19 * (N([pn0; pn2], [(pn0 + (pn2 + -1)) & 3], [pn0; pn2], [pn0; pn2 + -1]))) + 1
   ebb exits:  [27 49]
   ebb succs:  [27 49]
   1 paths to exit 27

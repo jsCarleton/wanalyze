@@ -139,7 +139,7 @@ ebb entry:  74
 ebb entry:  90
   ebb type:   loop
   ebb blocks: [90 91]
-  ebb cost:   ((52 + (list_sum(|f38|, |f339|))) * (N([lN13; lN17; ln7], [((ln7 shl 1) || ((R(339, 0, i32, lN17, lN13)) > -1)) > -1], [m[400]; m[408]; (0 shl 1) || ((R(339, 108, i32, 0, 0)) > -1)], [m[400]; m[408]; (ln7 shl 1) || ((R(339, 9, i32, lN17, lN13)) > -1)]))) + 1
+  ebb cost:   ((52 + (list_sum(|f38|, |f339|))) * (N([lN13; lN17; ln7], [((ln7 shl 1) | ((R(339, 0, i32, lN17, lN13)) > -1)) > -1], [m[400]; m[408]; (0 shl 1) | ((R(339, 108, i32, 0, 0)) > -1)], [m[400]; m[408]; (ln7 shl 1) | ((R(339, 9, i32, lN17, lN13)) > -1)]))) + 1
   ebb exits:  [92]
   ebb succs:  [92]
   1 paths to exit 92

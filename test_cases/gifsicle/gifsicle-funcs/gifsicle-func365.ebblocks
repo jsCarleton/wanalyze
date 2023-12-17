@@ -61,8 +61,8 @@ nested ebbs:
     ebb type:   loop
     ebb blocks: [14 15 16 17]
     ebb cost:   (list_max([
-  24 * (N([ln7; ln8], [(ln8 + 1) < (ln7 && 65535)], [m[8]; 0], [ln7; ln8 + 1]));
-  50 * (N([ln8; m[8]], [(ln8 + 1) < (m[8] && 65535)], [0; m[8]], [ln8 + 1; m[8]]))
+  24 * (N([ln7; ln8], [(ln8 + 1) < (ln7 & 65535)], [m[8]; 0], [ln7; ln8 + 1]));
+  50 * (N([ln8; m[8]], [(ln8 + 1) < (m[8] & 65535)], [0; m[8]], [ln8 + 1; m[8]]))
 ])) + (list_max(1, 1))
     ebb exits:  [18]
     ebb succs:  [18]

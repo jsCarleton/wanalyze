@@ -25,3 +25,5 @@ val max_cost_info:    Bb.bb -> Bb.bb -> path_cost_info
 val max_cost_paths:   Bb.bb list -> Bb.bb list -> Bb.bb list list
 val string_of_pci:    path_cost_info -> string
 val empty_pci:        Bb.bb -> path_cost_info
+val string_of_lm:     loop_metric -> string
+val classify_cond:    loop_metric -> string
