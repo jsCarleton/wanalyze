@@ -74,11 +74,27 @@ let vtype_of_idx (idx: int) ctx: var_type =
 (************************* *)
 
 let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
+  let param_count (w: wm) (arg: op_arg): int = 
+    match arg with
+    | Blocktype bt -> (
+      match bt with
+      | Emptytype | Valuetype _  -> 0
+      | Typeindex n -> List.length (List.nth_exn w.type_section n).rt1
+    )
+    | _ -> failwith "Invalid blocktype arg"
+  in
+
   match op.instrtype with
   | Control  ->
       (match opcode_of_int op.opcode with
-      | OP_unreachable | OP_nop | OP_block | OP_loop | OP_else | OP_end | OP_br | OP_return -> acc
-      | OP_if | OP_br_if | OP_br_table -> 
+      | OP_unreachable | OP_nop | OP_else | OP_end | OP_br | OP_return -> acc
+      | OP_loop ->
+        mark_dead acc (param_count ctx.w op.arg); acc
+      | OP_block ->
+        mark_dead acc (param_count ctx.w op.arg); acc
+      | OP_if ->
+        mark_dead acc ((param_count ctx.w op.arg) + 1); acc
+      | OP_br_if | OP_br_table -> 
           mark_dead acc 1; acc
       | OP_call ->
         (match op.arg with

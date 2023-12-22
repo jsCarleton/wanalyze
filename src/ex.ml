@@ -299,8 +299,8 @@ let update_state_controlop (w: wm) (op: op_type) (s: program_state): et =
       Empty
   (* if - pop values from the stack, get the condition from the top of the stack *)
   | 0x04 ->
-      drop_n_values s (param_count w op.arg);
       let succ_cond = pop_value s in
+      drop_n_values s (param_count w op.arg);
       succ_cond
   (* br_if, br_table - get the condition from the top of the stack *) (* TODO fix br_table *)
   | 0x0d | 0x0e ->

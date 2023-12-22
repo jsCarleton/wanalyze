@@ -83,6 +83,14 @@ Loop: OK
 ln4;pn0
 ln4 = (pn0 + pn2);pn0 = pn0
 ln4 = ln4;pn0 = (pn0 + 1)
+(GOAL COMPLEXITY)
+(STARTTERM (FUNCTIONSYMBOLS init_node))
+(VAR pn0 pn2 ln4)
+(RULES
+ init_node(pn0,pn2,ln4) -> Com_1(evalfbb1in(pn0,pn2,ln4))
+ evalfbb1in(pn0,pn2,ln4) -> Com_1(evalfbb1in(pn0+1,pn2,ln4)) :|: pn0 < pn2
+ evalfbb1in(pn0,pn2,ln4) -> Com_1(exit_node(pn0,pn2,ln4))
+)
 
 Loop: No, function return value
 i32.eqz(R(20, 0, i32, 0, (ln1 + 20)))

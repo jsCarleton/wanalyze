@@ -375,7 +375,7 @@ let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string
 let print_function_details (w: wm) dir prefix fidx type_idx =
   (* function source code *)
   let fnum  = fidx + w.last_import_func in
-  Printf.printf "function %d %!" fnum;
+  Printf.printf "\nfunction %d %!" fnum;
   let fn = List.nth_exn w.code_section fidx in
   let w_e = fn.e in
   let fname = String.concat[dir; prefix; string_of_int fnum] in

@@ -396,8 +396,9 @@ let expr_of_lm (lm: Cost.loop_metric): et =
               (* TODO why do we only consider one prefix? *)
               | cps  -> List.rev (List.hd_exn cps)) in (* TODO this reverse should be done earlier *)
               let lms = looping_parts_costs bbacks loop_cps cp in
-              List.iter ~f:(fun x -> Printf.printf "Loop: %s\n%s\n" (Cost.classify_cond x) (Cost.string_of_lm x)) lms;
-              let ulv = unique_loop_vars lms in
+              List.iter2_exn ~f:(fun x y -> Printf.printf "Loop: %s\n%s\n%s\n%!" (string_of_raw_bblocks x) (Cost.classify_cond y) (Cost.string_of_lm y)) loop_cps lms;
+(*              List.iter ~f:(fun x -> Printf.printf "Loop: %s " (Cost.classify_cond x)) lms;
+*)              let ulv = unique_loop_vars lms in
               let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
               let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
               if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
