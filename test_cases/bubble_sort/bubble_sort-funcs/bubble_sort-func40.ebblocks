@@ -68,7 +68,7 @@ ebb entry:  26
 ebb entry:  30
   ebb type:   loop
   ebb blocks: [30 31]
-  ebb cost:   (75 * (N([ln5; pn2], [(pn2 + 64) <= ln5], [((pn0 + pn2) && -4) + -64; pn0 + 64], [ln5; pn2 + 64]))) + 1
+  ebb cost:   (75 * (N([ln5; pn2], [(pn2 + 64) <= ln5], [((pn0 + pn2) & -4) + -64; pn0 + 64], [ln5; pn2 + 64]))) + 1
   ebb exits:  [32]
   ebb succs:  [32]
   1 paths to exit 32
@@ -92,7 +92,7 @@ ebb entry:  33
 ebb entry:  35
   ebb type:   loop
   ebb blocks: [35 36]
-  ebb cost:   (15 * (N([ln4; pn2], [(pn2 + 4) < ln4], [(pn0 + pn2) && -4; pn0 + 4], [ln4; pn2 + 4]))) + 1
+  ebb cost:   (15 * (N([ln4; pn2], [(pn2 + 4) < ln4], [(pn0 + pn2) & -4; pn0 + 4], [ln4; pn2 + 4]))) + 1
   ebb exits:  [37]
   ebb succs:  [37]
   1 paths to exit 37

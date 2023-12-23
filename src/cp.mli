@@ -32,7 +32,7 @@ val cost_of_codepath:       Wm.expr -> cp -> Et.et
 val max_cost_of_codepaths:  Wm.expr -> cp list -> Et.et
 val paths_with_no_loops:    cp list -> cp list
 val exit_bblocks_of_loop:   loop -> Bb.bb list
-val paths_from_bblocks:     Bb.bb list -> cp list
+(* val paths_from_bblocks:     Bb.bb list -> cp list *)
 val condition_of_loop:      Ex.execution_context -> Bb.bb -> cp -> Et.et
 val conditions_of_paths:    Ex.execution_context -> cp list -> cp list -> Bb.bb -> Et.et list
 val expr_of_codepath:       Wm.expr -> cp -> Bb.bb -> Wm.expr
@@ -48,9 +48,9 @@ val exit_paths:                    cp list -> cp list -> cp list
 (* loops *)
 val has_loop:             Bb.bb list -> bool
 val compare_cps:          cp -> cp -> int
-val loop_codepaths:       Bb.bb list -> cp list -> cp list
-val ids_with_loops:       Bb.bb list -> int list
-val classify_loops:       loop list -> loops_class
+(* val loop_codepaths:       Bb.bb list -> cp list -> cp list *)
+(* val ids_with_loops:       Bb.bb list -> int list *)
+(* val classify_loops:       loop list -> loops_class *)
 val loop_bblocks_of_bbs:  Bb.bb list -> Bb.bb list list
 
 (* simple case analysis *)
@@ -58,5 +58,5 @@ val analyze_simple_loop:            Ex.execution_context -> Bb.bb -> Et.et
 val simple_brif_loop:               Bb.bb list -> Bb.bb -> int option
 val simple_br_loop:                 Bb.bb list -> Bb.bb -> int option
 val ids_with_simple_brif_loops:     Bb.bb list -> int list
-val ids_with_simple_br_loops:       Bb.bb list -> int list
-val bblocks_with_simple_brif_loops: Bb.bb list -> Bb.bb list
+(* val ids_with_simple_br_loops:       Bb.bb list -> int list *)
+(* val bblocks_with_simple_brif_loops: Bb.bb list -> Bb.bb list *)

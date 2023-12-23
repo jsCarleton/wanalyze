@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #FILELIST="bubble_sort dhry allium gifsicle mozjpeg oxipng vim"
-FILELIST="allium"
+FILELIST="bubble_sort"
 WATSUFFIX="-wanalyze.wat"
 D="test_cases/"
 

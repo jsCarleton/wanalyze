@@ -320,10 +320,11 @@ let rec codepath_has_loop (codepath: cp)=
   match codepath with
   | hd::tl -> (match bblock_is_loop hd with | false -> codepath_has_loop tl | _ -> true)
   | _ -> false
-
+(*
 let codepath_with_loop (codepath: cp): cp option =
   match codepath_has_loop codepath with |true -> Some codepath | _ -> None
-
+*)
+(*
 let rec loop_prefix_of_codepath (bblocks: bb list) (acc: cp) (codepath: cp) : cp =
   match codepath with
   | []      -> acc
@@ -331,10 +332,11 @@ let rec loop_prefix_of_codepath (bblocks: bb list) (acc: cp) (codepath: cp) : cp
       (match bblock_is_loop hd with
         | true  -> List.rev (hd::acc)
         | _     -> loop_prefix_of_codepath bblocks (hd::acc) tl)
-
+*)
+(*
 let loop_codepaths (bblocks: bb list) (codepaths: cp list): cp list =
   List.map ~f:(loop_prefix_of_codepath bblocks []) (List.filter_map ~f:codepath_with_loop codepaths)
-
+*)
 let rec compare_cps (cp1: cp) (cp2: cp): int =
   match cp1, cp2 with
   | [], []              ->  0
@@ -569,15 +571,16 @@ let exit_bblocks_of_loop (l: loop): bb list =
     the list of code paths
 
 **)
-
+(*
 let rec paths_from_bblock (acc: cp list) (bblock: bb): cp list =
   match bblock.succ with
   | []  -> List.map ~f:List.rev (List.map ~f:(fun codepath -> bblock::codepath) acc)
   | _   -> List.concat (List.map ~f:(fun bblock' -> paths_from_bblock (List.map ~f:(fun codepath -> bblock::codepath) acc) bblock') bblock.succ)
-
+*)
+(*
 let paths_from_bblocks (bblocks: bb list): cp list =
   List.concat (List.map ~f:(paths_from_bblock [[]]) bblocks)
-
+*)
 (*
   expr_of_codepath
 
@@ -648,14 +651,17 @@ type loops_class = {
   loops_nested:   bool;
 }
 
+(*
 let paths_from_to_loops (l1: loop) (l2: loop): cp list option =
   let end1  = List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1) in
   let loop2 = List.hd_exn l2.loop_bblocks in
   codepaths_from_to_bb end1 loop2
-
+*)
+(*
 let loop_hd_bbidx (l: loop): int =
   (List.hd_exn l.loop_bblocks).bbindex
-
+*)
+(*
 let loop_pair_nested (lp: loop*loop): bool =
   let l1 = fst lp in
   let l2 = snd lp in
@@ -664,7 +670,8 @@ let loop_pair_nested (lp: loop*loop): bool =
   let tl1_idx = (List.nth_exn l1.loop_bblocks ((List.length l1.loop_bblocks) - 1)).bbindex in
   let tl2_idx = (List.nth_exn l2.loop_bblocks ((List.length l2.loop_bblocks) - 1)).bbindex in
     hd2_idx > hd1_idx && tl2_idx < tl1_idx
-
+*)
+(*
 let loop_pair_parallel (lp: loop*loop): bool =
   if loop_pair_nested lp then
     false
@@ -673,7 +680,8 @@ let loop_pair_parallel (lp: loop*loop): bool =
     match ap with
     | Some [] -> true
     | _       -> false
-
+*)
+(*
 let loop_pair_series (lp: loop*loop): bool =
   let l1 = fst lp in
   let l2 = snd lp in
@@ -690,7 +698,8 @@ let loop_pair_series (lp: loop*loop): bool =
                           &&  List.exists ~f:(fun bblock -> bblock.bbindex = loop2.bbindex) p)
                   ap')
       | false ->  false)
-
+*)
+(*
 let rec all_pairs (ls1: loop list) (ls2: loop list) (ls2_init: loop list) (acc: (loop*loop) list): (loop*loop) list =
   match ls1, ls2 with
   | [], _             ->  acc
@@ -699,23 +708,23 @@ let rec all_pairs (ls1: loop list) (ls2: loop list) (ls2_init: loop list) (acc: 
                             all_pairs ls1 tl2 ls2_init ((hd1, hd2)::acc)
                           else
                             all_pairs ls1 tl2 ls2_init acc
-
+*)
 (* TODO we could improve the performance of this by not generating all pairs but a lazy list of pairs *)
-let loops_classify (loop_classifier: loop*loop -> bool) (ls: loop list): bool =
+(*let loops_classify (loop_classifier: loop*loop -> bool) (ls: loop list): bool =
   match List.length ls with
   | 0 | 1 -> false
   | _     ->
     match List.find ~f:loop_classifier (all_pairs ls ls ls []) with
     | Some _  -> true
-    | _       -> false
-
+    | _       -> false *)
+(*
 let classify_loops (ls: loop list): loops_class =
   {
     loops_series    = loops_classify loop_pair_series ls;
     loops_parallel  = loops_classify loop_pair_parallel ls;
     loops_nested    = loops_classify loop_pair_nested ls
   }
-
+*)
 
 
 
@@ -730,10 +739,10 @@ let rec has_loop (bblocks: bb list): bool =
     | true  -> true
     | _     -> has_loop tl)
   | _ ->  false
-
+(*
 let ids_with_loops (bblocks: bb list): int list =
   List.filter_map ~f:(fun s -> match bblock_is_loop s with | true -> Some (s.bbindex+1) | _ -> None) bblocks
-
+*)
 let simple_br_loop (bblocks: bb list) (s: bb): int option =
   match List.length bblocks - s.bbindex >= 5 with
     | true -> (match s.bbtype,
@@ -753,16 +762,16 @@ let simple_brif_loop (bblocks: bb list) (b: bb): int option =
                 | BB_loop, BB_br_if, BB_end -> Some (b.bbindex+1)
                 | _ -> None)
     | false -> None
-
+(*
 let ids_with_simple_br_loops (bblocks: bb list): int list =
   List.filter_map ~f:(simple_br_loop bblocks) bblocks
-  
+*)  
 let ids_with_simple_brif_loops (bblocks: bb list): int list =
     List.filter_map ~f:(simple_brif_loop bblocks) bblocks
- 
+(* 
 let bblocks_with_simple_brif_loops (bblocks: bb list): bb list =
     List.map ~f:(fun i -> List.nth_exn bblocks i) (ids_with_simple_brif_loops bblocks)
-
+*)
 (** 
 
   analyze_simple_loop
