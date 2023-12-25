@@ -58,29 +58,6 @@ let string_of_lm (lm: loop_metric): string =
       String.concat ~sep:";" (List.map ~f:Ssa.string_of_ssa lmi.lv_loop_vals)
     ]
 
-(* TODO this isn't right and might not be needed *)
-(*
-let compare_metrics (lm1: loop_metric) (lm2: loop_metric): int =
-  match lm1, lm2 with
-  | Infinite, Infinite  -> 0
-  | Infinite, _         -> 1
-  | _, Infinite         -> -1
-  | LMI m1, LMI m2      ->
-      if String.compare (Et.string_of_et m1.prefix_cost) (Et.string_of_et m2.prefix_cost) = 0 then
-        if String.compare (Et.string_of_et m1.loop_cost) (Et.string_of_et m2.loop_cost) = 0 then
-          String.compare (Et.string_of_et m1.loop_cond) (Et.string_of_et m2.loop_cond)
-        else
-          String.compare (Et.string_of_et m1.loop_cost) (Et.string_of_et m2.loop_cost) 
-      else
-        String.compare (Et.string_of_et m1.prefix_cost) (Et.string_of_et m2.prefix_cost)
-
-let rec all_loops (prefixes: Cp.cp list) (loop_paths: Cp.cp list) (all_loop_paths: Cp.cp list) (acc: loop_path_parts list):
-          loop_path_parts list =
-  match prefixes, loop_paths with
-  | [], _        -> acc
-  | _::tl1, []   -> all_loops tl1 all_loop_paths all_loop_paths acc
-  | _, hd2::tl2  -> all_loops prefixes tl2 all_loop_paths ({prefix_part = (List.hd_exn prefixes); loop_part = hd2}::acc)    
-*)
 type cond_site =
 {
     cond_bb:    Bb.bb;  (* basic block where the evaluation of the condition is done *)
@@ -136,11 +113,6 @@ let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts
             lv_entry_vals;
             lv_loop_vals}
  
-(* let cost_of_loops (ctx: Ex.execution_context) (prefixes: Cp.cp list) (loop_paths: Cp.cp list)
-      (bback: Bb.bb): loop_metric list =
-  List.dedup_and_sort ~compare:compare_metrics (* TODO is this dedup needed? *)
-    (List.map ~f:(cost_of_loop ctx bback) (all_loops prefixes loop_paths loop_paths []))
-*)
 (*
     cost_of_bb_path
 
@@ -157,14 +129,7 @@ let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts
 
 (* path cost info - the max cost from the start bb to terminal *)
 type path_cost_info = {terminal: Bb.bb; mutable path: Bb.bb list; mutable cost: int}
-(* let empty_pci (terminal: Bb.bb) = {terminal; path = []; cost = 0} *)
-(*
-let string_of_pci (pci: path_cost_info): string =
-  sprintf "terminal: %d cost: %d path: %s" 
-    pci.terminal.bbindex
-    pci.cost
-    (Bb.string_of_raw_bblocks pci.path)
-*)
+
 let rec path_cost' (start_bb: Bb.bb) (end_bb: Bb.bb) (pcil: path_cost_info list): path_cost_info =
 
   (* pc1 > pc2 if path is deeper or if equal depth then cost is greater *)
@@ -215,23 +180,6 @@ let cost_of_bb_path (start_bb: Bb.bb) (end_bb: Bb.bb): int =
   let pci = path_cost' start_bb end_bb [{terminal=start_bb; path=[]; cost=0}] in
     pci.cost
 
-(*
-    cost_of_bb_path
-
-    Given a source and destination bb determine the cost info for the max cost path
-    from the source to the destination
-
-    Parameters:
-      src:    source bblock
-      dst:    dest bblock
-
-    Returns:
-      path_cost_info
-*)
-(*
-let max_cost_info (start_bb: Bb.bb) (end_bb: Bb.bb): path_cost_info =
-  path_cost' start_bb end_bb [{terminal=start_bb; path=[]; cost=0}]
-*)
 (*
     max_cost_paths
 
