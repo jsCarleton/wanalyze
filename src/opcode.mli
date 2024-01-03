@@ -47,5 +47,3 @@ type wasm_opcode =
 
 val opcode_of_int       : int -> wasm_opcode
 val string_of_opcode    : wasm_opcode -> string
-
-
