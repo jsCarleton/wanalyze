@@ -32,3 +32,11 @@ ebb entry:  12
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
+ebb costs:
+[0]: 10
+[5]: (list_max(((21 + |f37|) * N([m[1]], [R(37, 0, i32, m[1])], [m[1]], [m[1]])), ((40 + |f37|) * N([m[1]], [R(37, 0, i32, m[1])], [m[1]], [m[1]]))) + list_max(1, 1))
+[10]: 2
+[12]: 0
+2 ebb paths found
+[0 12]
+[0 5 10]

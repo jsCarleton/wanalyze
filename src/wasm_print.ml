@@ -1,11 +1,8 @@
 open Core
 open Wm
 open Bb
-open Ssa
 open Et
-open Cp
 open Ex
-open Cost
 open Cfg
 open Ebb
 
@@ -293,7 +290,7 @@ let print_function_section oc (w: wm) =
 let string_of_table i (t: tabletype) = String.concat ["  "; (string_of_tabletype t i)]
 let string_of_table_section section = String.concat ~sep:"\n" (List.mapi ~f:string_of_table section)
 
-  (* Memory section *) 
+(* Memory section *) 
 let string_of_memory i (m: memtype) = String.concat ["  "; (string_of_memtype m i)]
 let string_of_memory_section section = String.concat ~sep:"\n" (List.mapi ~f:string_of_memory section)
 
@@ -396,21 +393,6 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
     Out_channel.close oc;
 
   (* ebblocks in function *)
-  let param_types = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
-  let local_types = (List.nth_exn w.code_section fidx).locals in
-  let w_state = empty_program_state w param_types local_types in
-  let ctx = {w; w_e; w_state; param_types; local_types} in
-  let ebbs = ebbs_of_bbs ctx bblocks bblocks in
-  let (_:Xbb.xbb list) = Xbb.xbbs_of_bbs bblocks in
-  let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
-    List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
-    Out_channel.close oc;
-
-  (* graphviz command file for ebb flow graph *)
-  let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
-    Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
-    Out_channel.close oc;
-
   let rec print_ebb_costs oc (ebbs: ebb list) =
     match ebbs with
     | []      -> () 
@@ -420,14 +402,28 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
         print_ebb_costs oc tl
       )
     in
-
-  (* costs *)
+  let param_types = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
+  let local_types = (List.nth_exn w.code_section fidx).locals in
+  let w_state = empty_program_state w param_types local_types in
+  let ctx = {w; w_e; w_state; param_types; local_types} in
+  let ebbs = ebbs_of_bbs ctx bblocks bblocks in
+  let (_:Xbb.xbb list) = Xbb.xbbs_of_bbs bblocks in
   let ebb_paths = paths_of_ebblocks ebbs in
-  let oc = Out_channel.create (String.concat[fname; ".costs"]) in
+  let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
+    List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
     Out_channel.output_string oc "ebb costs:\n";
     print_ebb_costs oc ebbs;
     Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
     List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_ebblocks p))) ebb_paths;
+    Out_channel.close oc;
+
+  (* graphviz command file for ebb flow graph *)
+  let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
+    Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
+    Out_channel.close oc;
+
+  (* costs *)
+  let oc = Out_channel.create (String.concat[fname; ".costs"]) in
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
     (match List.length ebb_paths with
     | 0 -> Out_channel.output_string oc "Inf"

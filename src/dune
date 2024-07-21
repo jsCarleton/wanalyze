@@ -1,0 +1,4 @@
+(executable
+ (name wanalyze)
+ (libraries core core_unix)
+ (preprocess (pps ppx_jane)))

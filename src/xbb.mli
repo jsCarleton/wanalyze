@@ -8,4 +8,5 @@ type xbb = {
   nested_xbbs:  xbb list;
 }
 
-val xbbs_of_bbs:  Bb.bb list -> xbb list
+val xbb_bbs_of_bbs: Bb.bb list -> Bb.bb list list
+val xbbs_of_bbs:    Bb.bb list -> xbb list

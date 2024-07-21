@@ -25,7 +25,5 @@ let xbb_bbs_of_bbs (bblocks: Bb.bb list): Bb.bb list list =
             )
     )
 
-let xbbs_of_bbs (bblocks: Bb.bb list): xbb list = 
-  let z = xbb_bbs_of_bbs bblocks in
-  List.iter ~f:(fun x -> Printf.printf "%s\n" (Bb.string_of_raw_bblocks x)) z;
+let xbbs_of_bbs (_: Bb.bb list): xbb list = 
   []
