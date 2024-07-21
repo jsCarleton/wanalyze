@@ -40,15 +40,15 @@ ebb entry:  34
   ebb type:   loop
   ebb blocks: [34 35 36 37 38 39 40 41 42 43 44 45]
   ebb cost:   (list_max([
-  (41 + |f61|) * (N([m[8]], [not(m[8] != 0)], [m[8]], [m[8]]));
-  (52 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-48 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; lN12; m[0]]));
-  (61 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-48 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; (lN12 * lN11) + (i64.extend_i32_u(-48 + m[0])); m[0]]));
-  (51 + |f61|) * (N([m[8]], [not(m[8] != 0)], [m[8]], [m[8]]));
-  (62 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-87 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; lN12; m[0]]));
-  (71 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-87 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; (lN12 * lN11) + (i64.extend_i32_u(-87 + m[0])); m[0]]));
-  (62 + |f61|) * (N([m[8]], [not(m[8] != 0)], [m[8]], [m[8]]));
+  (82 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-55 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; (lN12 * lN11) + (i64.extend_i32_u(-55 + m[0])); m[0]]));
   (73 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-55 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; lN12; m[0]]));
-  (82 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-55 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; (lN12 * lN11) + (i64.extend_i32_u(-55 + m[0])); m[0]]))
+  (62 + |f61|) * (N([m[8]], [not(m[8] != 0)], [m[8]], [m[8]]));
+  (71 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-87 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; (lN12 * lN11) + (i64.extend_i32_u(-87 + m[0])); m[0]]));
+  (62 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-87 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; lN12; m[0]]));
+  (51 + |f61|) * (N([m[8]], [not(m[8] != 0)], [m[8]], [m[8]]));
+  (61 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-48 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; (lN12 * lN11) + (i64.extend_i32_u(-48 + m[0])); m[0]]));
+  (52 + |f61|) * (N([lN11; lN12; m[0]], [not((lN12 * lN11) > ((i64.extend_i32_u(-48 + m[0])) xor -1))], [i64.extend_i32_u(select(pn2, 10, pn2)); 0; m[0]], [lN11; lN12; m[0]]));
+  (41 + |f61|) * (N([m[8]], [not(m[8] != 0)], [m[8]], [m[8]]))
 ])) + Empty
   ebb exits:  [48]
   ebb succs:  [48]
@@ -89,7 +89,7 @@ ebb costs:
 [15]: 3
 [17]: 19
 [21]: 42
-[34]: (list_max(((41 + |f61|) * N([m[8]], [not((m[8] != 0))], [m[8]], [m[8]])), ((52 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-48 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; lN12; m[0]])), ((61 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-48 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; ((lN12 * lN11) + i64.extend_i32_u(-48 + m[0])); m[0]])), ((51 + |f61|) * N([m[8]], [not((m[8] != 0))], [m[8]], [m[8]])), ((62 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-87 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; lN12; m[0]])), ((71 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-87 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; ((lN12 * lN11) + i64.extend_i32_u(-87 + m[0])); m[0]])), ((62 + |f61|) * N([m[8]], [not((m[8] != 0))], [m[8]], [m[8]])), ((73 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-55 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; lN12; m[0]])), ((82 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-55 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; ((lN12 * lN11) + i64.extend_i32_u(-55 + m[0])); m[0]]))) + Empty)
+[34]: (list_max(((82 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-55 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; ((lN12 * lN11) + i64.extend_i32_u(-55 + m[0])); m[0]])), ((73 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-55 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; lN12; m[0]])), ((62 + |f61|) * N([m[8]], [not((m[8] != 0))], [m[8]], [m[8]])), ((71 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-87 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; ((lN12 * lN11) + i64.extend_i32_u(-87 + m[0])); m[0]])), ((62 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-87 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; lN12; m[0]])), ((51 + |f61|) * N([m[8]], [not((m[8] != 0))], [m[8]], [m[8]])), ((61 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-48 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; ((lN12 * lN11) + i64.extend_i32_u(-48 + m[0])); m[0]])), ((52 + |f61|) * N([lN11; lN12; m[0]], [not(((lN12 * lN11) > (i64.extend_i32_u((-48 + m[0])) xor -1)))], [i64.extend_i32_uselect(pn2, 10, pn2); 0; m[0]], [lN11; lN12; m[0]])), ((41 + |f61|) * N([m[8]], [not((m[8] != 0))], [m[8]], [m[8]]))) + Empty)
 [46]: 1
 [48]: 52
 [68]: 6

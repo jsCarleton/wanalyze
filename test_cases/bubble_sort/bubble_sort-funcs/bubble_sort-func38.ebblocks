@@ -67,7 +67,7 @@ ebb entry:  22
 ebb entry:  25
   ebb type:   loop
   ebb blocks: [25 26 27 28 29 30]
-  ebb cost:   (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + (list_max(1, 2))
+  ebb cost:   (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 2
   ebb exits:  [31 34]
   ebb succs:  [31 34]
   1 paths to exit 31
@@ -105,7 +105,7 @@ ebb costs:
 [18]: ((25 * N([pn2], [((pn2 + -4) > 3)], [pn2], [(pn2 + -4)])) + 1)
 [21]: 1
 [22]: 9
-[25]: ((15 * N([pn2], [(pn2 + -1)], [pn2], [(pn2 + -1)])) + list_max(1, 2))
+[25]: ((15 * N([pn2], [(pn2 + -1)], [pn2], [(pn2 + -1)])) + 2)
 [31]: 1
 [32]: 2
 [34]: 0

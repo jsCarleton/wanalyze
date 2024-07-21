@@ -291,40 +291,49 @@ let et_of_local_value (param_types: resulttype list) (local_types: local_type li
   an equivalent, possibly simplified, expression tree
  *)
 
- let rec simplify (e: et): et =
-
-  let rec simplify_max (n: node): et =
-    match n.args with
-    | []    -> Constant (Int_value 0)
-    | [e1]  -> e1
-    | e1::e2::tl ->
-      match e1, e2 with
-      | Constant (Int_value i1), Constant (Int_value i2) ->
-          simplify_max
-            { n with
-              args = if i1 > i2 then (Constant (Int_value i1))::tl else (Constant (Int_value i2))::tl
-            }
-      | _ -> Node n
+let simplify_sum (args: et list): et =
+  let simplify_result (acc: int) (args': et list): et =
+    match args' with
+    | [] -> Constant (Int_value acc)
+    | _  -> if acc = 0 then 
+              Node {op="list_sum"; op_disp=Function; args=args'}
+            else 
+              Node {op="list_sum"; op_disp=Function; args=(Constant (Int_value acc)::args')}
   in
-
-  let rec simplify_sum (n: node): et =
-    match n.args with
-    | []    -> Constant (Int_value 0)
-    | [e1]  -> e1
-    | e1::e2::tl ->
-      match e1, e2 with
-      | Constant (Int_value i1), Constant (Int_value i2) ->
-          simplify_sum
-            { n with
-              args = (Constant (Int_value (i1+i2)))::tl
-            }
-      | _ -> Node n
+  let rec simplify_sum' (args: et list) (acc: int) (args': et list): et =
+    match args with
+    | []     -> simplify_result acc args'
+    | hd::tl -> (
+      match hd with
+      | Constant (Int_value i1) -> simplify_sum' tl (acc+i1) args'
+      | _                       -> simplify_sum' tl acc (hd::args'))
   in
+  simplify_sum' args 0 []
 
+let simplify_max (args: et list): et =
+  let simplify_result (max: int) (args': et list): et =
+    match args' with
+    | [] -> Constant (Int_value max)
+    | _  -> if max = 0 then
+              Node {op="list_max"; op_disp=Function; args=args'}
+            else
+              Node {op="list_max"; op_disp=Function; args=(Constant (Int_value max)::args')}
+  in
+  let rec simplify_max' (args: et list) (max: int) (args': et list): et =
+    match args with
+    | []     -> simplify_result max args'
+    | hd::tl -> (
+      match hd with
+      | Constant (Int_value i1) -> simplify_max' tl (if i1 > max then i1 else max) args'
+      | _                       -> simplify_max' tl max (hd::args'))
+  in
+  simplify_max' args 0 []
+  
+let rec simplify (e: et): et =
   match e with
   | Empty | Constant _ | Variable _ | ExprList _ -> e
   | Node n ->
       match n.op with
-      | "list_max" -> simplify_max {op = "list_max"; op_disp = Function; args = List.map ~f:simplify n.args}
-      | "list_sum" -> simplify_sum {op = "list_sum"; op_disp = Function; args = List.map ~f:simplify n.args}
+      | "list_max" -> simplify_max (List.map ~f:simplify n.args)
+      | "list_sum" -> simplify_sum (List.map ~f:simplify n.args)
       | _ -> Node { n with args = List.map ~f:simplify n.args}

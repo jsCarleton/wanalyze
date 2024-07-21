@@ -21,7 +21,7 @@ let cost_of_codepath (e: expr) (codepath: cp): et =
     match fns with
     | []    -> Empty
     | [hd]  -> cost_of_fn hd
-    | _     -> Node {op = "list_sum"; op_disp = Function; args = List.map ~f:cost_of_fn fns}
+    | _     -> Et.simplify_sum (List.map ~f:cost_of_fn fns)
   in
 
   let fns_of_cp (e: expr) (codepath: cp): int list =
@@ -43,7 +43,7 @@ let max_cost_of_codepaths (e: expr) (codepaths: cp list): et =
   match codepaths with
   | []    -> Empty
   | [hd]  -> cost_of_codepath e hd
-  | _     -> Node {op = "list_max"; op_disp = Function; args = List.map ~f:(cost_of_codepath e) codepaths}
+  | _     -> simplify_max (List.map ~f:(cost_of_codepath e) codepaths)
   
 (*
   succ_of_cp

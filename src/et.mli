@@ -31,5 +31,7 @@ val format_et:              et -> string
 val print_et:               et -> (string -> unit) -> unit
 val compare:                et -> et -> int
 val simplify:               et -> et
+val simplify_sum:           et list -> et
+val simplify_max:           et list -> et
 val initialize_local_value: Wm.local_type list -> int -> int -> constant_value
 val et_of_local_value:      Wm.resulttype list -> Wm.local_type list -> int -> et

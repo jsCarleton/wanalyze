@@ -289,17 +289,6 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     )
   in
 
-(*
-  let rec cost_of_ebb (e: ebb): et =
-    match e.ebbtype with
-    | EBB_block -> cost_of_block_ebb e.entry_bb e.exit_bbs
-    | EBB_loop -> (
-      match e.nest_ebbs with
-      | [] -> Node {op = "list_max"; args = List.map ~f:expr_of_lm lms}
-      | _  -> Empty (* TODO *)
-    )
-*)
-
   let sub_ebbs_of_bbs (sub_bbs: bb list): ebb list =
     if List.exists ~f:(fun bblock -> match bblock.bbtype with | BB_loop -> true | _ -> false) sub_bbs then
       ebbs_of_bbs ctx all_bbs sub_bbs
@@ -405,9 +394,9 @@ let expr_of_lm (lm: Cost.loop_metric): et =
                 if List.length lms > 1 then
                   begin
                     (* yes, we need a max operation *)
-                    let ebb_cost = Node {op = "+"; op_disp = Infix; 
-                                      args = [Node {op = "list_max"; op_disp = Function; args = List.map ~f:expr_of_lm lms};
-                                              exit_cost]} in
+                    let ebb_cost = Node { op = "+";
+                                          op_disp = Infix; 
+                                          args = [simplify_max (List.map ~f:expr_of_lm lms); exit_cost]} in
                     {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}}
                   end
                 else
@@ -566,10 +555,10 @@ let ebb_path_cost (ebb_path: ebb list): et =
   match ebb_path with
   | []    -> Constant (Int_value 0)
   | [hd]  -> hd.ebb_cost
-  | _     -> Node { op = "list_sum"; op_disp = Function; args = List.map ~f:(fun ebb -> ebb.ebb_cost) ebb_path}
+  | _     -> Et.simplify_sum (List.map ~f:(fun ebb -> ebb.ebb_cost) ebb_path)
 
 let ebb_paths_max_cost (ebb_paths: ebb list list): et =
   match ebb_paths with
   | []    -> Empty
   | [hd]  -> ebb_path_cost hd
-  | _     -> Node {op = "list_max"; op_disp = Function; args = List.map ~f:ebb_path_cost ebb_paths}
+  | _     -> simplify_max (List.map ~f:ebb_path_cost ebb_paths)
