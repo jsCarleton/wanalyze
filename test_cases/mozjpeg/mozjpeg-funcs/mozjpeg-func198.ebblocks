@@ -28,3 +28,11 @@ ebb entry:  7
   ebb cost:   1
   ebb exits:  [8]
   ebb succs:  []
+ebb costs:
+[0]: 30
+[4]: ((32 * N([ln2; m[60]], [((ln2 + 1) < m[60])], [(0 + 1); m[60]], [(ln2 + 1); m[60]])) + 1)
+[6]: 1
+[7]: 1
+2 ebb paths found
+[0 7]
+[0 4 6 7]

@@ -34,3 +34,12 @@ ebb entry:  18
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
+ebb costs:
+[0]: 66
+[12]: (((6 + |f20|) * N([m[56]], [m[56]], [m[56]], [m[56]])) + 1)
+[14]: 1
+[15]: 12
+[18]: 0
+2 ebb paths found
+[0 18]
+[0 12 14]

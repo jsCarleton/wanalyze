@@ -25,7 +25,7 @@ ebb entry:  5
 ebb entry:  6
   ebb type:   loop
   ebb blocks: [6 7]
-  ebb cost:   ((43 + (list_sum(|f20|, |f25|))) * (N([ln52], [(ln52 + 1) != 8], [1 + 1], [ln52 + 1]))) + 1
+  ebb cost:   ((43 + (list_sum(|f25|, |f20|))) * (N([ln52], [(ln52 + 1) != 8], [1 + 1], [ln52 + 1]))) + 1
   ebb exits:  [8]
   ebb succs:  [8]
   1 paths to exit 8
@@ -40,3 +40,11 @@ ebb entry:  8
   ebb cost:   1
   ebb exits:  [9]
   ebb succs:  []
+ebb costs:
+[0]: 421
+[1]: ((6453 * N([ln52], [((ln52 + 1) != 11)], [0], [(ln52 + 1)])) + 1)
+[5]: 153
+[6]: (((43 + list_sum(|f25|, |f20|)) * N([ln52], [((ln52 + 1) != 8)], [(1 + 1)], [(ln52 + 1)])) + 1)
+[8]: 1
+1 ebb paths found
+[0 1 5 6 8]

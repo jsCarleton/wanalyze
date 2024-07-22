@@ -28,3 +28,11 @@ ebb entry:  5
   ebb cost:   2
   ebb exits:  [6]
   ebb succs:  []
+ebb costs:
+[0]: 11
+[2]: ((24 * N([m[1]], [((m[1] - 48) < 10)], [m[1]], [m[1]])) + 1)
+[4]: 1
+[5]: 2
+2 ebb paths found
+[0 5]
+[0 2 4 5]

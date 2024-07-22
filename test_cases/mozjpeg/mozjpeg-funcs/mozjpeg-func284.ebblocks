@@ -8,9 +8,9 @@ ebb entry:  1
   ebb type:   loop
   ebb blocks: [1 2 3 4 5 6 7]
   ebb cost:   (list_max([
-  51 * (N([ln4], [(ln4 + 1) != 64], [0], [ln4 + 1]));
-  53 * (N([ln4], [(ln4 + 1) != 64], [0], [ln4 + 1]))
-])) + (list_max(1, 1))
+  53 * (N([ln4], [(ln4 + 1) != 64], [0], [ln4 + 1]));
+  51 * (N([ln4], [(ln4 + 1) != 64], [0], [ln4 + 1]))
+])) + 1
   ebb exits:  [8]
   ebb succs:  [8]
   2 paths to exit 8
@@ -26,3 +26,9 @@ ebb entry:  8
   ebb cost:   1
   ebb exits:  [9]
   ebb succs:  []
+ebb costs:
+[0]: 1
+[1]: (list_max((53 * N([ln4], [((ln4 + 1) != 64)], [0], [(ln4 + 1)])), (51 * N([ln4], [((ln4 + 1) != 64)], [0], [(ln4 + 1)]))) + 1)
+[8]: 1
+1 ebb paths found
+[0 1 8]

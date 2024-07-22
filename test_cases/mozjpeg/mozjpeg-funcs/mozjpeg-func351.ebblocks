@@ -8,9 +8,9 @@ ebb entry:  6
   ebb type:   loop
   ebb blocks: [6 7 8 9 10 11 12]
   ebb cost:   (list_max([
-  (24 + |f106|) * (N([pn2; pn3], [pn2 < pn3], [0; pn3], [pn2; pn3]));
-  (47 + |f106|) * (N([pn2; pn3], [(pn2 + 1) < pn3], [0; pn3], [pn2 + 1; pn3]))
-])) + (list_max(1, 1))
+  (47 + |f106|) * (N([pn2; pn3], [(pn2 + 1) < pn3], [0; pn3], [pn2 + 1; pn3]));
+  (24 + |f106|) * (N([pn2; pn3], [pn2 < pn3], [0; pn3], [pn2; pn3]))
+])) + 1
   ebb exits:  [13]
   ebb succs:  []
   2 paths to exit 13
@@ -63,3 +63,16 @@ ebb entry:  14
   ebb cost:   2
   ebb exits:  [15]
   ebb succs:  []
+ebb costs:
+[0]: 61
+[6]: (list_max(((47 + |f106|) * N([pn2; pn3], [((pn2 + 1) < pn3)], [0; pn3], [(pn2 + 1); pn3])), ((24 + |f106|) * N([pn2; pn3], [(pn2 < pn3)], [0; pn3], [pn2; pn3]))) + 1)
+[6]: 21
+[8]: ((20 * N([ln5], [(ln5 + -1)], [(select((select(((999999988 /u ((pn2 + 15) & -16)) < pn3), pn3, (999999988 /u ((pn2 + 15) & -16))) < (pn3 - 0)), (pn3 - 0), select(((999999988 /u ((pn2 + 15) & -16)) < pn3), pn3, (999999988 /u ((pn2 + 15) & -16)))) + -1)], [(ln5 + -1)])) + 1)
+[10]: 1
+[11]: 5
+[13]: 1
+[14]: 2
+3 ebb paths found
+[0 14]
+[0 6 11 13 14]
+[0 6 8 10 11 13 14]

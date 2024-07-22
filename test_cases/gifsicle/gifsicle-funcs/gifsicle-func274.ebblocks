@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  1
   ebb type:   loop
   ebb blocks: [1 2 3 4 5]
-  ebb cost:   (14 * (N([m[0]], [m[0] != 47], [m[0]], [m[0]]))) + (list_max(1, 2))
+  ebb cost:   (14 * (N([m[0]], [m[0] != 47], [m[0]], [m[0]]))) + 2
   ebb exits:  [6 8]
   ebb succs:  [6 8]
   1 paths to exit 6
@@ -30,3 +30,11 @@ ebb entry:  8
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
+ebb costs:
+[0]: 1
+[1]: ((14 * N([m[0]], [(m[0] != 47)], [m[0]], [m[0]])) + 2)
+[6]: 2
+[8]: 0
+2 ebb paths found
+[0 1 8]
+[0 1 6]

@@ -1,16 +1,7 @@
-ebb costs:
-[0]: 49
-[4]: (((498 + list_sum(|f16|, |f18|, |f36|)) * N([ln17; pN4], [(i64.extend_i32_u((ln17 + 1)) < pN4)], [(0 + 1); pN4], [(ln17 + 1); pN4])) + 1)
-[6]: 1
-[8]: 0
-2 ebb paths found
-[0 8]
-[0 4 6]
 |f72| = list_max([
-  list_sum(49, 0);
+  49;
   list_sum([
-    49;
-    ((498 + (list_sum(|f16|, |f18|, |f36|))) * (N([ln17; pN4], [(i64.extend_i32_u(ln17 + 1)) < pN4], [0 + 1; pN4], [ln17 + 1; pN4]))) + 1;
-    1
+    50;
+    ((498 + (list_sum(|f36|, |f18|, |f16|))) * (N([ln17; pN4], [(i64.extend_i32_u(ln17 + 1)) < pN4], [0 + 1; pN4], [ln17 + 1; pN4]))) + 1
   ])
 ])

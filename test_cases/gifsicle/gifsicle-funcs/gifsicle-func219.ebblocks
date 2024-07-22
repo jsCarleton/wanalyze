@@ -8,9 +8,9 @@ ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4 5 6 7 8 9]
   ebb cost:   (list_max([
-  34 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]));
-  35 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]))
-])) + (list_max(1, 1))
+  35 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]));
+  34 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]))
+])) + 1
   ebb exits:  [10]
   ebb succs:  [10]
   2 paths to exit 10
@@ -56,3 +56,17 @@ ebb entry:  17
   ebb cost:   4
   ebb exits:  [18]
   ebb succs:  []
+ebb costs:
+[0]: 32
+[3]: (list_max((35 * N([ln4; ln6], [((ln4 + 1) != ln6)], [0; (pn1 * pn2)], [(ln4 + 1); ln6])), (34 * N([ln4; ln6], [((ln4 + 1) != ln6)], [0; (pn1 * pn2)], [(ln4 + 1); ln6]))) + 1)
+[10]: 1
+[12]: 7
+[14]: ((23 * N([ln4; ln6], [((ln4 + 1) != ln6)], [(0 + 1); (pn1 * pn2)], [(ln4 + 1); ln6])) + 1)
+[16]: 1
+[17]: 4
+5 ebb paths found
+[0 12 17]
+[0 12 14 16 17]
+[0 3 10 17]
+[0 3 10 12 17]
+[0 3 10 12 14 16 17]

@@ -7,7 +7,7 @@ ebb entry:  0
 ebb entry:  5
   ebb type:   loop
   ebb blocks: [5 6 7 8]
-  ebb cost:   ((68 + (list_sum(|f6|, |f93|))) * (N([ln3; ln7; m[12]; m[4]; m[60]; pn1], [i32.eqz(R(93, 0, i32, R(6, 0, i32, ln3 + 12, ln7 - (m[12] > m[4]), select(m[12] > m[4], pn1, pn1 + 8), m[60])))], [gn0 - 32; 2; m[12]; m[4]; m[60]; (gn0 - 32) + 16], [ln3; ln7 - (pn1 > m[4]); m[12]; m[4]; m[60]; select(pn1 > m[4], pn1, pn1 + 8)]))) + 1
+  ebb cost:   ((68 + (list_sum(|f93|, |f6|))) * (N([ln3; ln7; m[12]; m[4]; m[60]; pn1], [i32.eqz(R(93, 0, i32, R(6, 0, i32, ln3 + 12, ln7 - (m[12] > m[4]), select(m[12] > m[4], pn1, pn1 + 8), m[60])))], [gn0 - 32; 2; m[12]; m[4]; m[60]; (gn0 - 32) + 16], [ln3; ln7 - (pn1 > m[4]); m[12]; m[4]; m[60]; select(pn1 > m[4], pn1, pn1 + 8)]))) + 1
   ebb exits:  [9 12 14]
   ebb succs:  [9 12 14]
   1 paths to exit 9
@@ -50,3 +50,21 @@ ebb entry:  16
   ebb cost:   7
   ebb exits:  [17]
   ebb succs:  []
+ebb costs:
+[0]: 52
+[5]: (((68 + list_sum(|f93|, |f6|)) * N([ln3; ln7; m[12]; m[4]; m[60]; pn1], [i32.eqz(R(93, 0, i32, R(6, 0, i32, (ln3 + 12), (ln7 - (m[12] > m[4])), select((m[12] > m[4]), pn1, (pn1 + 8)), m[60])))], [(gn0 - 32); 2; m[12]; m[4]; m[60]; ((gn0 - 32) + 16)], [ln3; (ln7 - (pn1 > m[4])); m[12]; m[4]; m[60]; select((pn1 > m[4]), pn1, (pn1 + 8))])) + 1)
+[9]: 1
+[10]: 8
+[12]: 16
+[14]: 23
+[16]: 7
+9 ebb paths found
+[0 10 14 16]
+[0 10 12 16]
+[0 10 12 14 16]
+[0 5 14 16]
+[0 5 12 16]
+[0 5 12 14 16]
+[0 5 9 10 14 16]
+[0 5 9 10 12 16]
+[0 5 9 10 12 14 16]

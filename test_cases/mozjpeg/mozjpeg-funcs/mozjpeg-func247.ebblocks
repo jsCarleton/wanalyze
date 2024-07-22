@@ -40,3 +40,12 @@ ebb entry:  17
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
+ebb costs:
+[0]: 29
+[7]: (((17 + |f59|) * N([pn1; pn2], [(pn1 != pn2)], [pn1; pn2], [(pn1 + 1); pn2])) + 1)
+[11]: 4
+[13]: 2
+[16]: 0
+[17]: 0
+1 ebb paths found
+[0 7 11 16]

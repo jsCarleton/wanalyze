@@ -28,3 +28,11 @@ ebb entry:  8
   ebb cost:   43
   ebb exits:  [9]
   ebb succs:  []
+ebb costs:
+[0]: 18
+[5]: (((19 + |f23|) * N([ln3; pn0], [(ln3 >= pn0)], [m[0]; pn0], [ln3; pn0])) + 1)
+[7]: 1
+[8]: 43
+2 ebb paths found
+[0 8]
+[0 5 7 8]

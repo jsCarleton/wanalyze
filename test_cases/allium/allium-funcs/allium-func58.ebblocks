@@ -8,9 +8,9 @@ ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7]
   ebb cost:   (list_max([
-  (4524 + |f19|) * (N([ln2], [(ln2 + 1) != 2], [0], [ln2 + 1]));
-  (4563 + (list_sum(|f19|, |f26|))) * (N([ln2], [(ln2 + 1) != 2], [0], [ln2 + 1]))
-])) + (list_max(1, 1))
+  (4563 + (list_sum(|f26|, |f19|))) * (N([ln2], [(ln2 + 1) != 2], [0], [ln2 + 1]));
+  (4524 + |f19|) * (N([ln2], [(ln2 + 1) != 2], [0], [ln2 + 1]))
+])) + 1
   ebb exits:  [8]
   ebb succs:  [8]
   2 paths to exit 8
@@ -26,3 +26,9 @@ ebb entry:  8
   ebb cost:   377
   ebb exits:  [10]
   ebb succs:  []
+ebb costs:
+[0]: 327
+[4]: (list_max(((4563 + list_sum(|f26|, |f19|)) * N([ln2], [((ln2 + 1) != 2)], [0], [(ln2 + 1)])), ((4524 + |f19|) * N([ln2], [((ln2 + 1) != 2)], [0], [(ln2 + 1)]))) + 1)
+[8]: 377
+1 ebb paths found
+[0 4 8]

@@ -44,11 +44,11 @@ ebb entry:  18
   ebb type:   loop
   ebb blocks: [18 19 20 21 22 23]
   ebb cost:   (list_max([
-  (58 + (list_sum(|f20|, |f44|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]));
-  (61 + (list_sum(|f20|, |f44|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]));
-  (61 + (list_sum(|f20|, |f44|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]));
-  (64 + (list_sum(|f20|, |f44|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]))
-])) + (list_max(1, 1, 1, 1))
+  (64 + (list_sum(|f44|, |f20|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]));
+  (61 + (list_sum(|f44|, |f20|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]));
+  (61 + (list_sum(|f44|, |f20|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]));
+  (58 + (list_sum(|f44|, |f20|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]))
+])) + 1
   ebb exits:  [24]
   ebb succs:  [24]
   4 paths to exit 24
@@ -70,9 +70,9 @@ ebb entry:  25
   ebb type:   loop
   ebb blocks: [25 26 27 28 29 30 31 32 33 34]
   ebb cost:   (list_max([
-  (61 + (list_sum(|f16|, |f20|, |f72|))) * (N([lN7], [lN7 < 1], [1], [lN7 + 1]));
-  (61 + (list_sum(|f16|, |f20|, |f72|))) * (N([lN7], [lN7 < 1], [1], [lN7 + 1]))
-])) + (list_max(1, 1))
+  (61 + (list_sum(|f72|, |f20|, |f16|))) * (N([lN7], [lN7 < 1], [1], [lN7 + 1]));
+  (61 + (list_sum(|f72|, |f20|, |f16|))) * (N([lN7], [lN7 < 1], [1], [lN7 + 1]))
+])) + 1
   ebb exits:  [35]
   ebb succs:  []
   2 paths to exit 35
@@ -92,7 +92,7 @@ nested ebbs:
   ebb entry:  29
     ebb type:   loop
     ebb blocks: [29 30]
-    ebb cost:   ((37 + (list_sum(|f16|, |f20|, |f72|))) * (N([lN6; lN8], [((lN6 + lN8) rem_u 8) != 0], [(0 + 3) rem_u 8; 3], [(lN6 + lN8) rem_u 8; lN8]))) + 1
+    ebb cost:   ((37 + (list_sum(|f72|, |f20|, |f16|))) * (N([lN6; lN8], [((lN6 + lN8) rem_u 8) != 0], [(0 + 3) rem_u 8; 3], [(lN6 + lN8) rem_u 8; lN8]))) + 1
     ebb exits:  [31]
     ebb succs:  [31]
     1 paths to exit 31
@@ -119,3 +119,21 @@ ebb entry:  37
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
+ebb costs:
+[0]: 18
+[7]: (((20 + |f17|) * N([lN8], [((lN8 + 1) < 8)], [(0 + 1)], [(lN8 + 1)])) + 1)
+[9]: 87
+[13]: (((18 + |f76|) * N([lN7], [(lN7 < 1)], [0], [(lN7 + 1)])) + 1)
+[17]: 37
+[18]: (list_max(((64 + list_sum(|f44|, |f20|)) * N([lN8], [((lN8 + 1) < 8)], [3], [(lN8 + 1)])), ((61 + list_sum(|f44|, |f20|)) * N([lN8], [((lN8 + 1) < 8)], [3], [(lN8 + 1)])), ((61 + list_sum(|f44|, |f20|)) * N([lN8], [((lN8 + 1) < 8)], [3], [(lN8 + 1)])), ((58 + list_sum(|f44|, |f20|)) * N([lN8], [((lN8 + 1) < 8)], [3], [(lN8 + 1)]))) + 1)
+[24]: 3
+[25]: (list_max(((61 + list_sum(|f72|, |f20|, |f16|)) * N([lN7], [(lN7 < 1)], [1], [(lN7 + 1)])), ((61 + list_sum(|f72|, |f20|, |f16|)) * N([lN7], [(lN7 < 1)], [1], [(lN7 + 1)]))) + 1)
+[25]: 12
+[29]: (((37 + list_sum(|f72|, |f20|, |f16|)) * N([lN6; lN8], [(((lN6 + lN8) rem_u 8) != 0)], [((0 + 3) rem_u 8); 3], [((lN6 + lN8) rem_u 8); lN8])) + 1)
+[31]: 11
+[35]: 15
+[37]: 0
+3 ebb paths found
+[0 37]
+[0 7 9 37]
+[0 7 9 13 17 18 24 25 29 31 35]

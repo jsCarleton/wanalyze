@@ -22,3 +22,9 @@ ebb entry:  11
   ebb cost:   325
   ebb exits:  [12]
   ebb succs:  []
+ebb costs:
+[0]: 264
+[9]: (((1710 + |f16|) * N([ln3], [((ln3 + 2) < 10)], [(0 + 2)], [(ln3 + 2)])) + 1)
+[11]: 325
+1 ebb paths found
+[0 9 11]

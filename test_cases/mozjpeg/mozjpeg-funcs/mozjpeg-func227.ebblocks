@@ -8,10 +8,10 @@ ebb entry:  6
   ebb type:   loop
   ebb blocks: [6 7 8 9 10 11 12 13 14 15 16 17]
   ebb cost:   (list_max([
-  (38 + |f87|) * (N([ln6; ln9], [(ln6 + 8) < ln9], [pn0 + 24; (pn0 + 16) + (m[12] shl 3)], [ln6 + 8; ln9]));
   (45 + |f87|) * (N([ln6; ln9], [(ln6 + 8) < ln9], [pn0 + 24; (pn0 + 16) + (m[12] shl 3)], [ln6 + 8; ln9]));
-  (45 + |f87|) * (N([ln6; ln9], [(ln6 + 8) < ln9], [pn0 + 24; (pn0 + 16) + (m[12] shl 3)], [ln6 + 8; ln9]))
-])) + (list_max(1, 1, 1, 1))
+  (45 + |f87|) * (N([ln6; ln9], [(ln6 + 8) < ln9], [pn0 + 24; (pn0 + 16) + (m[12] shl 3)], [ln6 + 8; ln9]));
+  (38 + |f87|) * (N([ln6; ln9], [(ln6 + 8) < ln9], [pn0 + 24; (pn0 + 16) + (m[12] shl 3)], [ln6 + 8; ln9]))
+])) + 1
   ebb exits:  [18 19]
   ebb succs:  [18 19]
   3 paths to exit 18
@@ -45,3 +45,14 @@ ebb entry:  21
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
+ebb costs:
+[0]: 59
+[6]: (list_max(((45 + |f87|) * N([ln6; ln9], [((ln6 + 8) < ln9)], [(pn0 + 24); ((pn0 + 16) + (m[12] shl 3))], [(ln6 + 8); ln9])), ((45 + |f87|) * N([ln6; ln9], [((ln6 + 8) < ln9)], [(pn0 + 24); ((pn0 + 16) + (m[12] shl 3))], [(ln6 + 8); ln9])), ((38 + |f87|) * N([ln6; ln9], [((ln6 + 8) < ln9)], [(pn0 + 24); ((pn0 + 16) + (m[12] shl 3))], [(ln6 + 8); ln9]))) + 1)
+[18]: 1
+[19]: 15
+[21]: 0
+4 ebb paths found
+[0 21]
+[0 19]
+[0 6 19]
+[0 6 18 19]

@@ -59,3 +59,16 @@ ebb entry:  15
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
+ebb costs:
+[0]: 24
+[4]: ((55 + |f24|) * N([pn0], [not(i32.eqz((pn0 - select((pn0 < 256), 256, pn0))))], [pn0], [(pn0 - select((pn0 < 256), 256, pn0))]))
+[4]: 15
+[5]: (((29 + |f24|) * N([ln3; pn2], [(pn2 != (ln3 + 1))], [(0 + 1); pn2], [(ln3 + 1); pn2])) + 1)
+[7]: 10
+[11]: 1
+[13]: 5
+[15]: 0
+3 ebb paths found
+[0 13]
+[0 4 5 7 15]
+[0 4 5 7 13]
