@@ -407,7 +407,6 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
   let w_state = empty_program_state w param_types local_types in
   let ctx = {w; w_e; w_state; param_types; local_types} in
   let ebbs = ebbs_of_bbs ctx bblocks bblocks in
-  let (_:Xbb.xbb list) = Xbb.xbbs_of_bbs bblocks in
   let ebb_paths = paths_of_ebblocks ebbs in
   let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
     List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
