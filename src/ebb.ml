@@ -176,7 +176,7 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
       in
 
       if iters > 1_000_000 then
-        (Printf.printf "ebb path explosion %!"; [])
+        (Printf.printf "ebb path explosion %d%!" last_bb; [])
       else 
         match nterm with
           | []        -> term

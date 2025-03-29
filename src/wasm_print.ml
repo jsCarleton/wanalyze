@@ -387,6 +387,17 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
     Out_channel.output_string oc (string_of_bbs_detail bblocks);
     Out_channel.close oc;
 
+  (* loops in function *)
+  let loop_info = String.concat ~sep:"\n" (List.map ~f:Lb.string_of_lb (Lb.lbs_of_fn bblocks)) in
+  if String.length loop_info > 0 then
+    (let oc = Out_channel.create (String.concat[fname; ".loops"]) in
+      Out_channel.output_string oc loop_info;
+      Out_channel.output_string oc "\n";
+      Out_channel.close oc)
+    else
+      ()
+    ;
+
   (* graphviz command file for bb flow graph *)
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
     Out_channel.output_string oc (cfg_dot_of_bbs w.module_name fnum bblocks);
