@@ -1,0 +1,41 @@
+digraph finite_state_machine {
+    label = "bubble_sort_only.wasm - function 21"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E R ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 5]"]
+    node [shape=box, color=red, style=dashed] 6[label="[6 ... 9]"]
+    node [shape=box, color=black, style=solid] 10[label="[10]"]
+    node [shape=box, color=black, style=solid] 11[label="[11 ... 15]"]
+    node [shape=box, color=red, style=dashed] 16[label="[16 ... 18]"]
+    node [shape=box, color=black, style=solid] 19[label="[19]"]
+    node [shape=box, color=black, style=solid] 20[label="[20 ... 22]"]
+    node [shape=box, color=red, style=dashed] 23[label="[23 ... 28]"]
+    node [shape=box, color=black, style=solid] 29[label="[29]"]
+    node [shape=box, color=black, style=solid] 30[label="[30]"]
+    node [shape=box, color=black, style=solid] R[label="R"]
+    0 -> 6;
+    0 -> 11;
+    6 -> 10;
+    6 -> 11;
+    6 -> 22;
+    6 -> 6[style="dashed" color="red" dir=back];
+    10 -> 11;
+    11 -> 16;
+    11 -> 20;
+    11 -> 30;
+    16 -> 19;
+    16 -> 22;
+    16 -> 16[style="dashed" color="red" dir=back];
+    19 -> 20;
+    20 -> 23;
+    20 -> 30;
+    23 -> 29;
+    23 -> R;
+    23 -> 23[style="dashed" color="red" dir=back];
+    29 -> 30;
+    30 -> E;
+}

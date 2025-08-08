@@ -1,0 +1,7 @@
+|f32| = list_max([
+  7;
+  list_sum([
+    8;
+    (24 * (N([pN0], [pN0 > 15], [pN0 shr_u 4], [pN0 shr_u 4]))) + 1
+  ])
+])

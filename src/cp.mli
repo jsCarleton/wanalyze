@@ -39,10 +39,10 @@ val expr_of_codepath:       Wm.expr -> cp -> Bb.bb -> Wm.expr
 (* code paths*)
 val unique_paths_to_bblock:        cp list -> Bb.bb -> cp list
 val codepaths_of_bbs:              Bb.bb list -> cp list -> cp list -> cp list
-val codepaths_from_to_bb:          Bb.bb -> Bb.bb -> cp list option
-val codepaths_from_to_bb_exn:      Bb.bb -> Bb.bb -> cp list
+val codepaths_from_to_bb_exn:      Bb.bb -> Bb.bb -> bool -> cp list
 val codepaths_from_bbs_to_bb:      Bb.bb list -> Bb.bb -> cp list option
 val exit_paths:                    cp list -> cp list -> cp list
+val string_of_cps:                 cp list -> string
 
 (* loops *)
 val has_loop:             Bb.bb list -> bool

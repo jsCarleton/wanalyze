@@ -192,7 +192,7 @@ let codepaths_of_bbs (bblocks: bb list) (nterm: cp list) (term: cp list): cp lis
       the list containing all code paths from the first bb to the second
 *)
 
-let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
+let codepaths_from_to_bb (from_bb: bb) (to_bb: bb) (include_to: bool): cp list option =
 
   let succ_of_cp_to (to_bb: bb) (codepath: cp): bb list = 
     List.filter ~f:(fun x -> to_bb.bbindex < 0 || x.bbindex <= to_bb.bbindex) (List.hd_exn codepath).succ
@@ -200,7 +200,7 @@ let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
   
   let term_of_cp_to (to_bb: bb) (codepath: cp) (succ: bb): cp option =
     match succ.bbindex = to_bb.bbindex with
-    | true  -> Some codepath
+    | true  -> if include_to then Some (to_bb::codepath) else Some codepath
     |  _    -> None
   in
   
@@ -227,7 +227,7 @@ let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
       end
     else
       match nterm with
-        | []        -> Some term
+        | []        -> Some (List.map ~f:List.rev term)
         | hd::tl    ->
             let n = nterms_of_cp_to to_bb hd in
             let t = terms_of_cp_to to_bb hd in
@@ -239,8 +239,8 @@ let codepaths_from_to_bb (from_bb: bb) (to_bb: bb): cp list option =
   else
     codepaths_to_bb to_bb [[from_bb]] [] 0
     
-let codepaths_from_to_bb_exn (from_bb: bb) (to_bb: bb): cp list =
-  let cps_o = codepaths_from_to_bb from_bb to_bb in
+let codepaths_from_to_bb_exn (from_bb: bb) (to_bb: bb) (include_to: bool): cp list =
+  let cps_o = codepaths_from_to_bb from_bb to_bb include_to in
   match cps_o with
     | None            -> []
     | Some codepaths  -> codepaths
@@ -578,8 +578,8 @@ let condition_of_loop ctx (bback: bb) (codepath: cp): et =
                                       (expr_of_codepath ctx.w_e codepath bback) 
                                       (empty_program_state ctx.w ctx.param_types ctx.local_types) in
         loop_cond
-  | BB_br_table ->  Empty (* TODO *)
-  | BB_br ->        Empty (* TODO *)
+  | BB_br_table ->  failwith "br_table not supported yet"
+  | BB_br ->        failwith "br not supported yet"
   | _ ->            failwith "Invalid branchback"
                     
 let conditions_of_paths (ctx: execution_context) (prefixes: cp list) (loop_paths: cp list) (bback: bb): 
@@ -661,3 +661,6 @@ let ids_with_simple_brif_loops (bblocks: bb list): int list =
 let analyze_simple_loop (ctx: execution_context) (bblock: bb): et =
   let _,loop_cond = reduce_bblock ctx.w (expr_of_bb ctx.w_e bblock) (empty_program_state ctx.w ctx.param_types ctx.local_types) in
     loop_cond
+
+let string_of_cps (_: cp list): string =
+  ""

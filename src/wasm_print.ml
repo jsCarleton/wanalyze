@@ -150,7 +150,8 @@ match a with
     | 5 -> "i64.trunc_sat_f32_u"
     | 6 -> "i64.trunc_sat_f64_s"
     | 7 -> "i64.trunc_sat_f64_u"
-    | _ -> failwith (String.concat ["invalid trunc_sat: " ; (string_of_int i)])
+    (* TODO *)
+    | _ -> String.concat ["invalid trunc_sat: " ; (string_of_int i)]
     )
 | EmptyArg -> ""
 

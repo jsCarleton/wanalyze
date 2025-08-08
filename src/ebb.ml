@@ -380,10 +380,10 @@ let expr_of_lm (lm: Cost.loop_metric): et =
             (* TODO goal is to replace this call to Cp.codepaths_from_to_bb_exn with a function
                that returns the paths that update any of the loop vars rather than all paths *)
             let cp =
-              (match Cp.codepaths_from_to_bb_exn root_bb entry_bb with
+              (match Cp.codepaths_from_to_bb_exn root_bb entry_bb false with
               | [] -> []
               (* TODO why do we only consider one prefix? *)
-              | cps  -> List.rev (List.hd_exn cps)) in (* TODO this reverse should be done earlier *)
+              | cps  -> List.hd_exn cps) in
               let lms = looping_parts_costs bbacks loop_cps cp in
               let ulv = unique_loop_vars lms in
               let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in

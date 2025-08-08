@@ -1,0 +1,126 @@
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0 1 2 3 4 5]
+  ebb cost:   20
+  ebb exits:  [6 11]
+  ebb succs:  [6 11]
+ebb entry:  6
+  ebb type:   loop
+  ebb blocks: [6 7 8 9]
+  ebb cost:   (22 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 1
+  ebb exits:  [10 11 22]
+  ebb succs:  [10 11]
+  1 paths to exit 10
+  [6 7 8 9]
+  1 paths to exit 11
+  [6 7]
+  1 paths to exit 22
+  [6]
+  1 loop paths
+  [6 7 8]
+  1 post loop exit paths
+  [9]
+ebb entry:  10
+  ebb type:   block
+  ebb blocks: [10]
+  ebb cost:   1
+  ebb exits:  [11]
+  ebb succs:  [11]
+ebb entry:  11
+  ebb type:   block
+  ebb blocks: [11 12 13 14 15]
+  ebb cost:   22
+  ebb exits:  [16 20 30]
+  ebb succs:  [16 20 30]
+ebb entry:  16
+  ebb type:   loop
+  ebb blocks: [16 17 18]
+  ebb cost:   (25 * (N([pn2], [(pn2 + -4) > 3], [pn2], [pn2 + -4]))) + 1
+  ebb exits:  [19 22]
+  ebb succs:  [19]
+  1 paths to exit 19
+  [16 17 18]
+  1 paths to exit 22
+  [16]
+  1 loop paths
+  [16 17]
+  1 post loop exit paths
+  [18]
+ebb entry:  19
+  ebb type:   block
+  ebb blocks: [19]
+  ebb cost:   1
+  ebb exits:  [20]
+  ebb succs:  [20]
+ebb entry:  20
+  ebb type:   block
+  ebb blocks: [20 21 22]
+  ebb cost:   9
+  ebb exits:  [23 30]
+  ebb succs:  [23 30]
+ebb entry:  23
+  ebb type:   loop
+  ebb blocks: [23 24 25 26 27 28]
+  ebb cost:   (15 * (N([pn2], [pn2 + -1], [pn2], [pn2 + -1]))) + 2
+  ebb exits:  [29 32]
+  ebb succs:  [29 32]
+  1 paths to exit 29
+  [23 24 27 28]
+  1 paths to exit 32
+  [23 24 25]
+  1 loop paths
+  [23 24 27]
+  2 post loop exit paths
+  [28]  [25]
+ebb entry:  29
+  ebb type:   block
+  ebb blocks: [29]
+  ebb cost:   1
+  ebb exits:  [30]
+  ebb succs:  [30]
+ebb entry:  30
+  ebb type:   block
+  ebb blocks: [30 31]
+  ebb cost:   2
+  ebb exits:  [31]
+  ebb succs:  []
+ebb entry:  32
+  ebb type:   block
+  ebb blocks: [32]
+  ebb cost:   0
+  ebb exits:  []
+  ebb succs:  []
+ebb costs:
+[0]: 20
+[6]: ((22 * N([pn2], [(pn2 + -1)], [pn2], [(pn2 + -1)])) + 1)
+[10]: 1
+[11]: 22
+[16]: ((25 * N([pn2], [((pn2 + -4) > 3)], [pn2], [(pn2 + -4)])) + 1)
+[19]: 1
+[20]: 9
+[23]: ((15 * N([pn2], [(pn2 + -1)], [pn2], [(pn2 + -1)])) + 2)
+[29]: 1
+[30]: 2
+[32]: 0
+21 ebb paths found
+[0 11 30]
+[0 11 20 30]
+[0 11 20 23 32]
+[0 11 20 23 29 30]
+[0 11 16 19 20 30]
+[0 11 16 19 20 23 32]
+[0 11 16 19 20 23 29 30]
+[0 6 11 30]
+[0 6 11 20 30]
+[0 6 11 20 23 32]
+[0 6 11 20 23 29 30]
+[0 6 11 16 19 20 30]
+[0 6 11 16 19 20 23 32]
+[0 6 11 16 19 20 23 29 30]
+[0 6 10 11 30]
+[0 6 10 11 20 30]
+[0 6 10 11 20 23 32]
+[0 6 10 11 20 23 29 30]
+[0 6 10 11 16 19 20 30]
+[0 6 10 11 16 19 20 23 32]
+[0 6 10 11 16 19 20 23 29 30]

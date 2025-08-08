@@ -1,0 +1,45 @@
+digraph finite_state_machine {
+    label = "bubble_sort_only.wasm - function 45"
+    labelloc =  t
+    labelfontsize = 16
+    labelfontcolor = black
+    labelfontname = "Helvetica"
+    node [shape = doublecircle]; E ;
+    node [shape = box];
+    node [shape=box, color=black, style=solid] 0[label="[0 ... 33]"]
+    node [shape=box, color=red, style=dashed] 34[label="[34 ... 36]"]
+    node [shape=box, color=black, style=solid] 37[label="[37 ... 38]"]
+    node [shape=box, color=black, style=solid] 39[label="[39]"]
+    node [shape=box, color=black, style=solid] 40[label="[40 ... 59]"]
+    node [shape=box, color=black, style=solid] 60[label="[60]"]
+    node [shape=box, color=black, style=solid] 61[label="[61 ... 80]"]
+    node [shape=box, color=red, style=dashed] 81[label="[81 ... 83]"]
+    node [shape=box, color=black, style=solid] 84[label="[84]"]
+    node [shape=box, color=black, style=solid] 85[label="[85 ... 86]"]
+    node [shape=box, color=black, style=solid] 87[label="[87]"]
+    node [shape=box, color=black, style=solid] 88[label="[88]"]
+    0 -> 34;
+    0 -> 39;
+    0 -> 40;
+    0 -> 60;
+    0 -> 61;
+    0 -> 88;
+    34 -> 37;
+    34 -> 34[style="dashed" color="red" dir=back];
+    37 -> 39;
+    37 -> 40;
+    39 -> 40;
+    40 -> 60;
+    60 -> 61;
+    61 -> 81;
+    61 -> 85;
+    61 -> 88;
+    81 -> 84;
+    81 -> 87;
+    81 -> 81[style="dashed" color="red" dir=back];
+    84 -> 85;
+    85 -> 87;
+    85 -> 88;
+    87 -> 88;
+    88 -> E;
+}

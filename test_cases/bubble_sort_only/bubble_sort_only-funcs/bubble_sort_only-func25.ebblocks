@@ -1,0 +1,76 @@
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14]
+  ebb cost:   38
+  ebb exits:  [15 23 25 27]
+  ebb succs:  [15 23 25 27]
+ebb entry:  15
+  ebb type:   loop
+  ebb blocks: [15 16 17 18]
+  ebb cost:   17 * (N([ln3], [not(i32.eqz(ln3 + -1))], [pn1], [ln3 + -1]))
+  ebb exits:  [19 20 23]
+  ebb succs:  [19 20 23]
+  0 paths to exit 19
+
+  1 paths to exit 20
+  [15]
+  1 paths to exit 23
+  [15 16]
+  1 loop paths
+  [15 16 17]
+ebb entry:  19
+  ebb type:   block
+  ebb blocks: [19]
+  ebb cost:   1
+  ebb exits:  [20]
+  ebb succs:  [20]
+ebb entry:  20
+  ebb type:   block
+  ebb blocks: [20 21 22]
+  ebb cost:   18
+  ebb exits:  [23 24 25]
+  ebb succs:  [23 24 25]
+ebb entry:  23
+  ebb type:   block
+  ebb blocks: [23]
+  ebb cost:   5
+  ebb exits:  [24]
+  ebb succs:  [24]
+ebb entry:  24
+  ebb type:   block
+  ebb blocks: [24]
+  ebb cost:   16
+  ebb exits:  [25]
+  ebb succs:  [25]
+ebb entry:  25
+  ebb type:   block
+  ebb blocks: [25 26]
+  ebb cost:   2
+  ebb exits:  [26]
+  ebb succs:  []
+ebb entry:  27
+  ebb type:   block
+  ebb blocks: [27]
+  ebb cost:   0
+  ebb exits:  []
+  ebb succs:  []
+ebb costs:
+[0]: 38
+[15]: (17 * N([ln3], [not(i32.eqz((ln3 + -1)))], [pn1], [(ln3 + -1)]))
+[19]: 1
+[20]: 18
+[23]: 5
+[24]: 16
+[25]: 2
+[27]: 0
+10 ebb paths found
+[0 27]
+[0 25]
+[0 23 24 25]
+[0 15 23 24 25]
+[0 15 20 25]
+[0 15 20 24 25]
+[0 15 20 23 24 25]
+[0 15 19 20 25]
+[0 15 19 20 24 25]
+[0 15 19 20 23 24 25]

@@ -1,0 +1,208 @@
+ebb entry:  0
+  ebb type:   block
+  ebb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
+  ebb cost:   29
+  ebb exits:  [17 21 34 54]
+  ebb succs:  [17 21 34 54]
+ebb entry:  17
+  ebb type:   loop
+  ebb blocks: [17 18 19]
+  ebb cost:   (20 * (N([ln3; pn2], [(pn2 + 1) < ln3], [pn0 + pn2; pn0], [ln3; pn2 + 1]))) + 1
+  ebb exits:  [20 21]
+  ebb succs:  [20 21]
+  1 paths to exit 20
+  [17 18 19]
+  1 paths to exit 21
+  [17]
+  1 loop paths
+  [17 18]
+  1 post loop exit paths
+  [19]
+ebb entry:  20
+  ebb type:   block
+  ebb blocks: [20]
+  ebb cost:   1
+  ebb exits:  [21]
+  ebb succs:  [21]
+ebb entry:  21
+  ebb type:   block
+  ebb blocks: [21 22 23 24]
+  ebb cost:   17
+  ebb exits:  [25 28]
+  ebb succs:  [25 28]
+ebb entry:  25
+  ebb type:   loop
+  ebb blocks: [25 26]
+  ebb cost:   (75 * (N([ln5; pn2], [(pn2 + 64) <= ln5], [((pn0 + pn2) & -4) + -64; (pn0 + 1) + 64], [ln5; pn2 + 64]))) + 1
+  ebb exits:  [27]
+  ebb succs:  [27]
+  1 paths to exit 27
+  [25 26]
+  1 loop paths
+  [25]
+  1 post loop exit paths
+  [26]
+ebb entry:  27
+  ebb type:   block
+  ebb blocks: [27]
+  ebb cost:   1
+  ebb exits:  [28]
+  ebb succs:  [28]
+ebb entry:  28
+  ebb type:   block
+  ebb blocks: [28 29]
+  ebb cost:   5
+  ebb exits:  [30 46]
+  ebb succs:  [30 46]
+ebb entry:  30
+  ebb type:   loop
+  ebb blocks: [30 31 32]
+  ebb cost:   (15 * (N([ln4; pn2], [(pn2 + 4) < ln4], [(pn0 + pn2) & -4; (pn0 + 1) + 4], [ln4; pn2 + 4]))) + 1
+  ebb exits:  [33 46]
+  ebb succs:  [33 46]
+  0 paths to exit 33
+
+  1 paths to exit 46
+  [30 31]
+  1 loop paths
+  [30]
+  1 post loop exit paths
+  [31]
+ebb entry:  33
+  ebb type:   block
+  ebb blocks: [33]
+  ebb cost:   1
+  ebb exits:  [34]
+  ebb succs:  [34]
+ebb entry:  34
+  ebb type:   block
+  ebb blocks: [34 35 36 37 38 39 40 41 42]
+  ebb cost:   16
+  ebb exits:  [43 46]
+  ebb succs:  [43 46]
+ebb entry:  43
+  ebb type:   loop
+  ebb blocks: [43 44]
+  ebb cost:   (27 * (N([ln4; pn2], [(pn2 + 4) <= ln4], [(pn0 + pn2) + -4; pn0 + 4], [ln4; pn2 + 4]))) + 1
+  ebb exits:  [45]
+  ebb succs:  [45]
+  1 paths to exit 45
+  [43 44]
+  1 loop paths
+  [43]
+  1 post loop exit paths
+  [44]
+ebb entry:  45
+  ebb type:   block
+  ebb blocks: [45]
+  ebb cost:   1
+  ebb exits:  [46]
+  ebb succs:  [46]
+ebb entry:  46
+  ebb type:   block
+  ebb blocks: [46 47 48]
+  ebb cost:   6
+  ebb exits:  [49 52]
+  ebb succs:  [49 52]
+ebb entry:  49
+  ebb type:   loop
+  ebb blocks: [49 50]
+  ebb cost:   (15 * (N([ln3; pn2], [(pn2 + 1) != ln3], [pn0 + pn2; (pn0 + 4) + 1], [ln3; pn2 + 1]))) + 1
+  ebb exits:  [51]
+  ebb succs:  [51]
+  1 paths to exit 51
+  [49 50]
+  1 loop paths
+  [49]
+  1 post loop exit paths
+  [50]
+ebb entry:  51
+  ebb type:   block
+  ebb blocks: [51]
+  ebb cost:   1
+  ebb exits:  [52]
+  ebb succs:  [52]
+ebb entry:  52
+  ebb type:   block
+  ebb blocks: [52 53]
+  ebb cost:   2
+  ebb exits:  [53]
+  ebb succs:  []
+ebb entry:  54
+  ebb type:   block
+  ebb blocks: [54]
+  ebb cost:   0
+  ebb exits:  []
+  ebb succs:  []
+ebb costs:
+[0]: 29
+[17]: ((20 * N([ln3; pn2], [((pn2 + 1) < ln3)], [(pn0 + pn2); pn0], [ln3; (pn2 + 1)])) + 1)
+[20]: 1
+[21]: 17
+[25]: ((75 * N([ln5; pn2], [((pn2 + 64) <= ln5)], [(((pn0 + pn2) & -4) + -64); ((pn0 + 1) + 64)], [ln5; (pn2 + 64)])) + 1)
+[27]: 1
+[28]: 5
+[30]: ((15 * N([ln4; pn2], [((pn2 + 4) < ln4)], [((pn0 + pn2) & -4); ((pn0 + 1) + 4)], [ln4; (pn2 + 4)])) + 1)
+[33]: 1
+[34]: 16
+[43]: ((27 * N([ln4; pn2], [((pn2 + 4) <= ln4)], [((pn0 + pn2) + -4); (pn0 + 4)], [ln4; (pn2 + 4)])) + 1)
+[45]: 1
+[46]: 6
+[49]: ((15 * N([ln3; pn2], [((pn2 + 1) != ln3)], [(pn0 + pn2); ((pn0 + 4) + 1)], [ln3; (pn2 + 1)])) + 1)
+[51]: 1
+[52]: 2
+[54]: 0
+53 ebb paths found
+[0 54]
+[0 34 46 52]
+[0 34 46 49 51 52]
+[0 34 43 45 46 52]
+[0 34 43 45 46 49 51 52]
+[0 21 28 46 52]
+[0 21 28 46 49 51 52]
+[0 21 28 30 46 52]
+[0 21 28 30 46 49 51 52]
+[0 21 28 30 33 34 46 52]
+[0 21 28 30 33 34 46 49 51 52]
+[0 21 28 30 33 34 43 45 46 52]
+[0 21 28 30 33 34 43 45 46 49 51 52]
+[0 21 25 27 28 46 52]
+[0 21 25 27 28 46 49 51 52]
+[0 21 25 27 28 30 46 52]
+[0 21 25 27 28 30 46 49 51 52]
+[0 21 25 27 28 30 33 34 46 52]
+[0 21 25 27 28 30 33 34 46 49 51 52]
+[0 21 25 27 28 30 33 34 43 45 46 52]
+[0 21 25 27 28 30 33 34 43 45 46 49 51 52]
+[0 17 21 28 46 52]
+[0 17 21 28 46 49 51 52]
+[0 17 21 28 30 46 52]
+[0 17 21 28 30 46 49 51 52]
+[0 17 21 28 30 33 34 46 52]
+[0 17 21 28 30 33 34 46 49 51 52]
+[0 17 21 28 30 33 34 43 45 46 52]
+[0 17 21 28 30 33 34 43 45 46 49 51 52]
+[0 17 21 25 27 28 46 52]
+[0 17 21 25 27 28 46 49 51 52]
+[0 17 21 25 27 28 30 46 52]
+[0 17 21 25 27 28 30 46 49 51 52]
+[0 17 21 25 27 28 30 33 34 46 52]
+[0 17 21 25 27 28 30 33 34 46 49 51 52]
+[0 17 21 25 27 28 30 33 34 43 45 46 52]
+[0 17 21 25 27 28 30 33 34 43 45 46 49 51 52]
+[0 17 20 21 28 46 52]
+[0 17 20 21 28 46 49 51 52]
+[0 17 20 21 28 30 46 52]
+[0 17 20 21 28 30 46 49 51 52]
+[0 17 20 21 28 30 33 34 46 52]
+[0 17 20 21 28 30 33 34 46 49 51 52]
+[0 17 20 21 28 30 33 34 43 45 46 52]
+[0 17 20 21 28 30 33 34 43 45 46 49 51 52]
+[0 17 20 21 25 27 28 46 52]
+[0 17 20 21 25 27 28 46 49 51 52]
+[0 17 20 21 25 27 28 30 46 52]
+[0 17 20 21 25 27 28 30 46 49 51 52]
+[0 17 20 21 25 27 28 30 33 34 46 52]
+[0 17 20 21 25 27 28 30 33 34 46 49 51 52]
+[0 17 20 21 25 27 28 30 33 34 43 45 46 52]
+[0 17 20 21 25 27 28 30 33 34 43 45 46 49 51 52]
