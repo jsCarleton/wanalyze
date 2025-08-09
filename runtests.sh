@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #FILELIST="bubble_sort dhry allium gifsicle mozjpeg oxipng vim"
-FILELIST="bubble_sort_only"
+FILELIST="simple_case"
 WATSUFFIX="-wanalyze.wat"
 D="test_cases/"
 W="./_build/default/src/wanalyze.exe"

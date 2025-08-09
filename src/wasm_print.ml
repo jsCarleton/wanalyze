@@ -388,17 +388,6 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
     Out_channel.output_string oc (string_of_bbs_detail bblocks);
     Out_channel.close oc;
 
-  (* loops in function *)
-  let loop_info = String.concat ~sep:"\n" (List.map ~f:Lb.string_of_lb (Lb.lbs_of_fn bblocks)) in
-  if String.length loop_info > 0 then
-    (let oc = Out_channel.create (String.concat[fname; ".loops"]) in
-      Out_channel.output_string oc loop_info;
-      Out_channel.output_string oc "\n";
-      Out_channel.close oc)
-    else
-      ()
-    ;
-
   (* graphviz command file for bb flow graph *)
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
     Out_channel.output_string oc (cfg_dot_of_bbs w.module_name fnum bblocks);
@@ -418,6 +407,18 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
   let local_types = (List.nth_exn w.code_section fidx).locals in
   let w_state = empty_program_state w param_types local_types in
   let ctx = {w; w_e; w_state; param_types; local_types} in
+
+  (* loops in function *)
+  let loop_info = String.concat ~sep:"\n" (List.map ~f:Lb.string_of_lb (Lb.lbs_of_fn ctx bblocks)) in
+  if String.length loop_info > 0 then
+    (let oc = Out_channel.create (String.concat[fname; ".loops"]) in
+      Out_channel.output_string oc loop_info;
+      Out_channel.output_string oc "\n";
+      Out_channel.close oc)
+    else
+      ()
+    ;
+
   let ebbs = ebbs_of_bbs ctx bblocks bblocks in
   let ebb_paths = paths_of_ebblocks ebbs in
   let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
