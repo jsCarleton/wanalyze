@@ -495,26 +495,27 @@ let read_local ic = (fun _ ->
 
 let rec read_expr' ic (opnesting: int) (acc_instr: op_type list) : op_type list =
   let opcode = read_byte ic in
+  let opsym = opcode_of_int opcode in (* TODO this is wrong 0xfc *)
   let opname, arg, instrtype = (read_instr ic opcode read_expr') in
-  match opcode with
+  match opsym with
   (* end *)
-  | 0x0b ->
+  | OP_end ->
       (* does this end mark the end of the program? *)
       ( match opnesting with
         (* yes *)
-        | 0 -> {opcode; opname; arg; opnesting=opnesting-1; instrtype} :: acc_instr
+        | 0 -> {opsym; opname; arg; opnesting=opnesting-1; instrtype} :: acc_instr
         (* no, it's the end of a block, loop, if [else] - decrease the opnesting *)
-        | _ -> read_expr' ic  (opnesting-1)  ({opcode; opname; arg; opnesting=opnesting-1; instrtype} :: acc_instr)
+        | _ -> read_expr' ic  (opnesting-1)  ({opsym; opname; arg; opnesting=opnesting-1; instrtype} :: acc_instr)
       )
   (* block, loop, if - increase the opnesting *)
-  | 0x02 | 0x03 | 0x04 ->
-      read_expr' ic (opnesting+1) ({opcode; opname; arg; opnesting; instrtype} :: acc_instr)
+  | OP_block | OP_loop | OP_if ->
+      read_expr' ic (opnesting+1) ({opsym; opname; arg; opnesting; instrtype} :: acc_instr)
   (* else - descrease the opnesting *)
-  | 0x05 ->  
-      read_expr' ic  opnesting ({opcode; opname; arg; opnesting=opnesting-1; instrtype} :: acc_instr)
+  | OP_else ->  
+      read_expr' ic  opnesting ({opsym; opname; arg; opnesting=opnesting-1; instrtype} :: acc_instr)
   (* all others - same opnesting *)
   | _ ->  
-      read_expr' ic opnesting ({opcode; opname; arg; opnesting; instrtype} :: acc_instr)
+      read_expr' ic opnesting ({opsym; opname; arg; opnesting; instrtype} :: acc_instr)
   
 let read_expr ic = List.rev (read_expr' ic 0 [])
 

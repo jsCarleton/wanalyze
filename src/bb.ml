@@ -29,19 +29,19 @@ type bb =
   mutable br_dest:	bb option;  (* for LOOP, BLOCK and IF instructions the bb that's the target of a branch for this instruction  *)
 }
 
-let bb_type_of_opcode (op: int): bb_type =
+let bb_type_of_opcode (op: Opcode.wasm_opcode): bb_type =
   match op with
-  | (* unreachable *) 0x00 -> BB_unreachable
-  | (* block *)       0x02 -> BB_block
-  | (* loop *)        0x03 -> BB_loop
-  | (* if *)          0x04 -> BB_if
-  | (* else *)        0x05 -> BB_else
-  | (* end *)         0x0b -> BB_end
-  | (* br *)          0x0c -> BB_br
-  | (* br_if *)       0x0d -> BB_br_if
-  | (* br_table *)    0x0e -> BB_br_table   
-  | (* return *)      0x0f -> BB_return
-  | _                      -> failwith (sprintf "Invalid opcode for bb %x" op)
+  | (* unreachable *) OP_unreachable -> BB_unreachable
+  | (* block *)       OP_block -> BB_block
+  | (* loop *)        OP_loop -> BB_loop
+  | (* if *)          OP_if -> BB_if
+  | (* else *)        OP_else -> BB_else
+  | (* end *)         OP_end -> BB_end
+  | (* br *)          OP_br -> BB_br
+  | (* br_if *)       OP_br_if -> BB_br_if
+  | (* br_table *)    OP_br_table -> BB_br_table   
+  | (* return *)      OP_return -> BB_return
+  | _                      -> failwith (sprintf "Invalid opcode for bb %s" (Opcode.string_of_opcode op))
 
 let cost_of_bb (bblock: bb): int = bblock.end_op - bblock.start_op
 
@@ -108,18 +108,18 @@ let rec bblocks_of_expr' (e: expr) (bb_acc: bb list) (current: bb): bb list =
 match e with
 | [] -> List.rev (unreachable_bblock (return_bblock ((exit_bblock (List.length bb_acc) BB_exit_end)::bb_acc)))
 | _  ->
-  match (List.hd_exn e).opcode with
+  match (List.hd_exn e).opsym with
     (* 1. each of these control instructions cause the current bb to end *)
-    | (* unreachable *) 0x00
-    | (* block *)       0x02
-    | (* loop *)        0x03
-    | (* if *)          0x04
-    | (* else *)        0x05
-    | (* end *)         0x0b
-    | (* br *)          0x0c
-    | (* br_if *)       0x0d
-    | (* br_table *)    0x0e
-    | (* return *)      0x0f ->
+    | (* unreachable *) OP_unreachable
+    | (* block *)       OP_block
+    | (* loop *)        OP_loop
+    | (* if *)          OP_if
+    | (* else *)        OP_else
+    | (* end *)         OP_end
+    | (* br *)          OP_br
+    | (* br_if *)       OP_br_if
+    | (* br_table *)    OP_br_table
+    | (* return *)      OP_return ->
       (* 1.1 if we have a branch instruction we remember the labels *)
       (match (List.hd_exn e).arg with
       | Labelidx labelidx  -> current.labels <- [labelidx]
@@ -127,7 +127,7 @@ match e with
       | _ -> ()
       );
       (* 1.2 end the bb, start a new one*)
-      current.bbtype <- bb_type_of_opcode (List.hd_exn e).opcode;
+      current.bbtype <- bb_type_of_opcode (List.hd_exn e).opsym;
       current.nesting <- (List.hd_exn e).opnesting;
       (* the new block doesn't have a correct type until we discover what it is*)
       bblocks_of_expr' (List.tl_exn e) (current::bb_acc) 

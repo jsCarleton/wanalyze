@@ -176,3 +176,6 @@ let string_of_opcode (code: wasm_opcode): string =
   | OP_i32_extend8_s -> "i32.extend8_s" | OP_i32_extend16_s -> "i32.extend16_s" | OP_i64_extend8_s -> "i64.extend8_s" 
   | OP_i64_extend16_s -> "i64.extend16_s" | OP_i64_extend32_s -> "i64.extend32_s"
   | OP_trunc_sat -> "trunc_sat"
+(*  | OP_memory_init -> "memory.init" | OP_data_drop -> "data.drop" | OP_memory_copy -> "memory.copy" | OP_memory_fill -> "memory.fill"
+  | OP_table_init -> "table.init" | OP_elem_drop -> "elem.drop" | OP_table_copy -> "table.copy" | OP_table_grow -> "table.grow" | OP_table_size -> "table.size"| OP_table_fill -> "table.fill"
+*)

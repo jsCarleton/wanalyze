@@ -150,8 +150,8 @@ match a with
     | 5 -> "i64.trunc_sat_f32_u"
     | 6 -> "i64.trunc_sat_f64_s"
     | 7 -> "i64.trunc_sat_f64_u"
-    (* TODO *)
-    | _ -> String.concat ["invalid trunc_sat: " ; (string_of_int i)]
+    |10 -> "memory.copy"
+    | _ -> failwith (String.concat ["invalid trunc_sat: " ; (string_of_int i)])
     )
 | EmptyArg -> ""
 
@@ -176,15 +176,15 @@ let string_of_br_arg nesting arg =
   string_of_br_target nesting (label_index_of_arg arg)
 
 let string_of_opcode' (op: op_type) (idx: int) (annotate:bool) =
-  match op.opcode with (* some special cases need to be handled here *)
-  | 0x02 (* block *)
-  | 0x03 (* loop *)
-  | 0x04 (* if *)
+  match op.opsym with (* some special cases need to be handled here *)
+  | OP_block (* block *)
+  | OP_loop  (* loop *)
+  | OP_if    (* if *)
       -> string_of_opcode'' op.opnesting op idx (String.concat ["  ;; label = @" ; string_of_int (op.opnesting + 1)]) annotate
-  | 0x0c (* br *)
-  | 0x0d (* br_if *)
+  | OP_br    (* br *)
+  | OP_br_if (* br_if *)
       -> string_of_opcode'' op.opnesting op idx (string_of_br_arg op.opnesting op.arg) annotate
-  | 0x0b (* end *) ->
+  | OP_end   (* end *) ->
     (match op.opnesting with
     | -1 -> ""
     | _ -> string_of_opcode'' op.opnesting op idx "" annotate
@@ -388,6 +388,22 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
     Out_channel.output_string oc (string_of_bbs_detail bblocks);
     Out_channel.close oc;
 
+  let param_types = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
+  let local_types = (List.nth_exn w.code_section fidx).locals in
+  let w_state = empty_program_state w param_types local_types in
+  let ctx = {w; w_e; w_state; param_types; local_types} in
+  (* TODO loops in function
+  let loop_info = String.concat ~sep:"\n" (List.map ~f:Lb.string_of_lb (Lb.lbs_of_fn ctx bblocks)) in
+  if String.length loop_info > 0 then
+    (let oc = Out_channel.create (String.concat[fname; ".loops"]) in
+      Out_channel.output_string oc loop_info;
+      Out_channel.output_string oc "\n";
+      Out_channel.close oc)
+    else
+      ()
+    ;
+  *)
+
   (* graphviz command file for bb flow graph *)
   let oc = Out_channel.create (String.concat[fname; ".dot"]) in
     Out_channel.output_string oc (cfg_dot_of_bbs w.module_name fnum bblocks);
@@ -403,22 +419,6 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
         print_ebb_costs oc tl
       )
     in
-  let param_types = (List.nth_exn w.type_section (List.nth_exn w.function_section fnum)).rt1 in
-  let local_types = (List.nth_exn w.code_section fidx).locals in
-  let w_state = empty_program_state w param_types local_types in
-  let ctx = {w; w_e; w_state; param_types; local_types} in
-
-  (* loops in function *)
-  let loop_info = String.concat ~sep:"\n" (List.map ~f:Lb.string_of_lb (Lb.lbs_of_fn ctx bblocks)) in
-  if String.length loop_info > 0 then
-    (let oc = Out_channel.create (String.concat[fname; ".loops"]) in
-      Out_channel.output_string oc loop_info;
-      Out_channel.output_string oc "\n";
-      Out_channel.close oc)
-    else
-      ()
-    ;
-
   let ebbs = ebbs_of_bbs ctx bblocks bblocks in
   let ebb_paths = paths_of_ebblocks ebbs in
   let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in

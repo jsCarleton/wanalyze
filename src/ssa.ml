@@ -86,7 +86,7 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
 
   match op.instrtype with
   | Control  ->
-      (match opcode_of_int op.opcode with
+      (match op.opsym with
       | OP_unreachable | OP_nop | OP_else | OP_end | OP_br | OP_return -> acc
       | OP_loop ->
         mark_dead acc (param_count ctx.w op.arg); acc
@@ -116,10 +116,10 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
               (* create SSAs for each of the return values *)
               List.append (List.mapi ~f:(ssa_of_rt (List.length acc) c.x params) (List.nth_exn ctx.w.type_section c.y).rt2) acc (*TODO c.x might not be enough *)
           | _ -> failwith "Invalid call_indirect argument")
-      | _ -> failwith (sprintf "Invalid control opcode %x" op.opcode))
+      | _ -> failwith (sprintf "Invalid control opcode %s" (string_of_opcode op.opsym)))
   | Reference  -> failwith "Reference"
   | Parametric  ->
-      (match opcode_of_int op.opcode with
+      (match op.opsym with
         | OP_drop ->
           mark_dead acc 1;
           acc
@@ -130,7 +130,7 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
             { result = {vtype = Var_temp; nt = Numtype I32; idx = List.length acc; vname = ""}; (* TODO nt wrong *)
               etree = Node {op = "select"; op_disp = Function; args = [c; val2; val1]}; alive = true}
               :: acc
-        | _ -> failwith (sprintf "Invalid parametric opcode %x" op.opcode))
+        | _ -> failwith (sprintf "Invalid parametric opcode %s" (string_of_opcode op.opsym)))
   | VariableGL ->
       let idx = int_of_get_argL op.arg in
       { result = {vtype = Var_temp; nt = Numtype I32; idx = List.length acc; vname = ""}; (* TODO nt wrong *)

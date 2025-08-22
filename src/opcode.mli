@@ -44,6 +44,8 @@ type wasm_opcode =
   | OP_i32_reinterpret_f32 | OP_i64_reinterpret_f64 | OP_f32_reinterpret_i32 | OP_f64_reinterpret_i64
   | OP_i32_extend8_s | OP_i32_extend16_s | OP_i64_extend8_s | OP_i64_extend16_s | OP_i64_extend32_s
   | OP_trunc_sat
-
+(*  | OP_memory_init | OP_data_drop | OP_memory_copy | OP_memory_fill
+  | OP_table_init | OP_elem_drop | OP_table_copy | OP_table_grow | OP_table_size | OP_table_fill
+*)
 val opcode_of_int       : int -> wasm_opcode
 val string_of_opcode    : wasm_opcode -> string

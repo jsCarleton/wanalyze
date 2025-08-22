@@ -200,7 +200,7 @@ type instr_type =
 (* this type is supplemented with additional information to facilitate analysis *)
 type op_type =
 {
-  opcode:     int;
+  opsym:      Opcode.wasm_opcode;
   opname:     string;
   arg:        op_arg;
   opnesting:  int;            (* the lexical nesting level of the instruction *)

@@ -28,7 +28,7 @@ let cost_of_codepath (e: expr) (codepath: cp): et =
 
     let fns_of_bb (e: expr) (bblock: bb): int list =
       List.map ~f:(fun op -> match op.arg with | Funcidx idx -> idx | _ -> failwith "invalid argument in call op")
-        (List.filter ~f:(fun op -> match opcode_of_int op.opcode with | OP_call -> true | _ -> false) (expr_of_bb e bblock))
+        (List.filter ~f:(fun op -> match op.opsym with | OP_call -> true | _ -> false) (expr_of_bb e bblock))
     in
 
     List.dedup_and_sort ~compare:Int.compare (List.concat (List.map ~f:(fns_of_bb e) codepath))

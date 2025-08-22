@@ -349,7 +349,7 @@ let expr_of_lm (lm: Cost.loop_metric): et =
           ~f:(fun bb -> (bb.bbindex <= entry_bb.bbindex) &&
             (List.exists 
               ~f:(fun op -> 
-                match (Opcode.opcode_of_int op.opcode) with 
+                match op.opsym with 
                 | OP_local_set | OP_local_tee ->
                     (match op.arg with
                     | Localidx i' when i = i'

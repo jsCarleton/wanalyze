@@ -189,15 +189,14 @@ let et_of_binop (op: string) (arg1: et) (arg2: et): et =
 
 (* Parametric operators *)
 let update_state_parametricop (op: op_type) (s: program_state) = 
-  match op.opcode with
-  | 0x1a -> (* drop *)      drop_value s
-  | 0x1b    (* select *)
-  | 0x1c -> (* select t* *)  
+  match op.opsym with
+  | OP_drop -> (* drop *)      drop_value s
+  | OP_select -> (* select t* *)  
       let c  = pop_value s in
       let v1 = pop_value s in
       let v2 = pop_value s in
       push_value s (Node{op = "select"; op_disp = Function; args = [c; v1; v2]})
-  | _ -> failwith (sprintf "Invalid parametric %x " op.opcode)  
+  | _ -> failwith (sprintf "Invalid parametric %s " (Opcode.string_of_opcode op.opsym))  
 
 (* Control operators *)
 (* call op handling *)
@@ -269,8 +268,8 @@ let update_state_testop (op: op_type) (state: program_state) =
  
 (* cvt operators *)
 let update_state_cvtop (op: op_type) (state: program_state) =
-  match op.opcode with
-  | 0xfc ->
+  match op.opsym with
+  | OP_trunc_sat ->
       poke_value state (et_of_unop "TODO" (peek_value state))
   | _ ->
       poke_value state (et_of_unop op.opname (peek_value state))
@@ -290,36 +289,36 @@ let update_state_controlop (w: wm) (op: op_type) (s: program_state): et =
     | _ -> failwith "Invalid blocktype arg"
   in
 
-  match op.opcode with
+  match op.opsym with
   (* unreachable, nop, else, end, br, return - nothing to do *)
-  | 0x00 | 0x01 | 0x0b | 0x05 | 0x0c | 0x0f -> Empty
+  | OP_unreachable | OP_nop | OP_else | OP_end | OP_br | OP_return -> Empty
   (* block, loop - pop values from the stack *)
-  | 0x02 | 0x03 ->
+  | OP_block | OP_loop ->
       drop_n_values s (param_count w op.arg);
       Empty
   (* if - pop values from the stack, get the condition from the top of the stack *)
-  | 0x04 ->
+  | OP_if ->
       let succ_cond = pop_value s in
       drop_n_values s (param_count w op.arg);
       succ_cond
   (* br_if, br_table - get the condition from the top of the stack *) (* TODO fix br_table *)
-  | 0x0d | 0x0e ->
+  | OP_br_if | OP_br_table ->
       let succ_cond = pop_value s in
       succ_cond
   (* call *)
-  | 0x10 ->
+  | OP_call ->
     (match op.arg with
     | Funcidx fidx -> 
         update_state_callop w (nparams w fidx) (ret_types w fidx) s fidx
     | _ -> failwith "Invalid call argument"); Empty
   (* call_indirect *)
-  | 0x11 -> Empty (* TODO *)
+  | OP_call_indirect -> Empty (* TODO *)
   (* all other op codes *)
   | _ -> failwith "Invalid control op"
       
 let reduce_op (w: wm) (op: op_type) (s: program_state) (trace: bool): et =
   if trace then
-      Printf.printf "%s [%s] \n%!" (Opcode.string_of_opcode (Opcode.opcode_of_int op.opcode)) (string_of_ets s.value_stack)
+      Printf.printf "%s [%s] \n%!" (Opcode.string_of_opcode op.opsym) (string_of_ets s.value_stack)
   else ();
   update_instr_count s;
   match op.instrtype with
