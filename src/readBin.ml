@@ -477,14 +477,62 @@ match opcode_of_int opcode with
   | OP_i64_extend8_s
   | OP_i64_extend16_s
   | OP_i64_extend32_s -> EmptyArg, Cvtop
+  | _ -> failwith "Invalid opcode"
 
-  | OP_trunc_sat -> TruncSat (read_i32 ic), Cvtop (* ixx.trunc_sat_fyy_z *)
-
-
-let read_instr ic opcode _ =
-  let opname = string_of_opcode (opcode_of_int opcode) in
-  let arg, instrtype = read_instr' ic opcode in
-  opname, arg, instrtype
+let read_instr ic =
+  let opcode = read_byte ic in
+  if opcode = 0xFC then (
+    match read_u32 ic with
+    |  0 -> OP_i32_trunc_sat_f32_s, "i32_trunc_sat_f32_s", EmptyArg, Cvtop
+    |  1 -> OP_i32_trunc_sat_f32_u, "i32_trunc_sat_f32_u", EmptyArg, Cvtop
+    |  2 -> OP_i32_trunc_sat_f64_s, "i32_trunc_sat_f32_s", EmptyArg, Cvtop
+    |  3 -> OP_i32_trunc_sat_f64_u, "i32_trunc_sat_f32_u", EmptyArg, Cvtop
+    |  4 -> OP_i64_trunc_sat_f32_s, "i64_trunc_sat_f32_s", EmptyArg, Cvtop
+    |  5 -> OP_i64_trunc_sat_f32_u, "i64_trunc_sat_f32_u", EmptyArg, Cvtop
+    |  6 -> OP_i64_trunc_sat_f64_s, "i64_trunc_sat_f32_s", EmptyArg, Cvtop
+    |  7 -> OP_i64_trunc_sat_f64_u, "i64_trunc_sat_f32_u", EmptyArg, Cvtop
+    |  8 -> OP_memory_init, "memory_init",
+                            ( let x = read_idx ic in
+                              let y = read_idx ic in
+                              if y <> 0 then
+                                failwith "Invalid memory_init argument"
+                              else
+                                Dataidx(x)),
+                            MemoryM
+    |  9 -> OP_data_drop, "data.drop", Dataidx (read_idx ic), MemoryM
+    | 10 -> OP_memory_copy, "memory_copy",
+                            ( let x = read_idx ic in
+                              let y = read_idx ic in
+                              if y <> 0 && x <> 0 then
+                                failwith "Invalid memory_copy argument"
+                              else
+                                EmptyArg), MemoryM
+    | 11 -> OP_memory_fill, "memory_fill",
+                            ( let x = read_idx ic in
+                              if x <> 0 then
+                                failwith "Invalid memory_copy argument"
+                              else
+                                EmptyArg), MemoryM
+    | 12 -> OP_table_init, "table_init",
+                            ( let y = read_idx ic in
+                              let x = read_idx ic in
+                              TableInit {y; x}), Table
+    | 13 -> OP_elem_drop, "elem_drop", Elemidx (read_idx ic), Table
+    | 14 -> OP_table_copy, "table_copy",
+                            ( let x = read_idx ic in
+                              let y = read_idx ic in
+                              TableCopy {x; y}), MemoryM
+    | 15 -> OP_table_grow, "table_grow", Tableidx(read_idx ic), Table
+    | 16 -> OP_table_size, "table_size", Tableidx(read_idx ic), Table
+    | 17 -> OP_table_fill, "table_fill", Tableidx(read_idx ic), Table
+    | _ -> failwith "Invalid 0xFC operation"
+  )
+  else (
+    let opsym = opcode_of_int opcode in
+    let opname = string_of_opcode (opcode_of_int opcode) in
+    let arg, instrtype = read_instr' ic opcode in
+    opsym, opname, arg, instrtype
+  )
 
 let read_valtype ic = valtype_of_int (read_byte ic)
 
@@ -494,9 +542,7 @@ let read_local ic = (fun _ ->
   {n; v})
 
 let rec read_expr' ic (opnesting: int) (acc_instr: op_type list) : op_type list =
-  let opcode = read_byte ic in
-  let opsym = opcode_of_int opcode in (* TODO this is wrong 0xfc *)
-  let opname, arg, instrtype = (read_instr ic opcode read_expr') in
+  let opsym, opname, arg, instrtype = read_instr ic in
   match opsym with
   (* end *)
   | OP_end ->

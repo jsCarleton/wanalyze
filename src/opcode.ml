@@ -45,7 +45,13 @@ type wasm_opcode =
   | OP_f64_convert_i32_s | OP_f64_convert_i32_u | OP_f64_convert_i64_s | OP_f64_convert_i64_u | OP_f64_promote_f32 
   | OP_i32_reinterpret_f32 | OP_i64_reinterpret_f64 | OP_f32_reinterpret_i32 | OP_f64_reinterpret_i64
   | OP_i32_extend8_s | OP_i32_extend16_s | OP_i64_extend8_s | OP_i64_extend16_s | OP_i64_extend32_s
-  | OP_trunc_sat
+  | OP_i32_trunc_sat_f32_s | OP_i32_trunc_sat_f32_u
+  | OP_i32_trunc_sat_f64_s | OP_i32_trunc_sat_f64_u
+  | OP_i64_trunc_sat_f32_s | OP_i64_trunc_sat_f32_u
+  | OP_i64_trunc_sat_f64_s | OP_i64_trunc_sat_f64_u
+  | OP_memory_init | OP_data_drop | OP_memory_copy | OP_memory_fill
+  | OP_table_init  | OP_elem_drop | OP_table_copy | OP_table_grow 
+  | OP_table_size | OP_table_fill
 
 let opcode_of_int (code: int): wasm_opcode =
   match code with
@@ -109,7 +115,6 @@ let opcode_of_int (code: int): wasm_opcode =
     | 0xbf -> OP_f64_reinterpret_i64
     | 0xc0 -> OP_i32_extend8_s | 0xc1 -> OP_i32_extend16_s | 0xc2 -> OP_i64_extend8_s | 0xc3 -> OP_i64_extend16_s
     | 0xc4 -> OP_i64_extend32_s
-    | 0xfc -> OP_trunc_sat
     | _ -> failwith (sprintf "Invalid opcode %x" code)
 
 let string_of_opcode (code: wasm_opcode): string =
@@ -175,7 +180,9 @@ let string_of_opcode (code: wasm_opcode): string =
   | OP_f32_reinterpret_i32 -> "f32.reinterpret_i32" | OP_f64_reinterpret_i64 -> "f64.reinterpret_i64"
   | OP_i32_extend8_s -> "i32.extend8_s" | OP_i32_extend16_s -> "i32.extend16_s" | OP_i64_extend8_s -> "i64.extend8_s" 
   | OP_i64_extend16_s -> "i64.extend16_s" | OP_i64_extend32_s -> "i64.extend32_s"
-  | OP_trunc_sat -> "trunc_sat"
-(*  | OP_memory_init -> "memory.init" | OP_data_drop -> "data.drop" | OP_memory_copy -> "memory.copy" | OP_memory_fill -> "memory.fill"
+  | OP_i32_trunc_sat_f32_s -> "i32.trunc_sat_f32_s" | OP_i32_trunc_sat_f32_u -> "i32.trunc_sat_f32_u"
+  | OP_i32_trunc_sat_f64_s -> "i32.trunc_sat_f64_s" | OP_i32_trunc_sat_f64_u -> "i32.trunc_sat_f64_u"
+  | OP_i64_trunc_sat_f32_s -> "i64.trunc_sat_f32_s" | OP_i64_trunc_sat_f32_u -> "i64.trunc_sat_f32_u"
+  | OP_i64_trunc_sat_f64_s -> "i64.trunc_sat_f64_s" | OP_i64_trunc_sat_f64_u -> "i64.trunc_sat_f64_u"
+  | OP_memory_init -> "memory.init" | OP_data_drop -> "data.drop" | OP_memory_copy -> "memory.copy" | OP_memory_fill -> "memory.fill"
   | OP_table_init -> "table.init" | OP_elem_drop -> "elem.drop" | OP_table_copy -> "table.copy" | OP_table_grow -> "table.grow" | OP_table_size -> "table.size"| OP_table_fill -> "table.fill"
-*)

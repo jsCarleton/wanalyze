@@ -4,7 +4,7 @@
 0000    call 0
 0001    f64.const 1000.
 0002    f64.div
-0003    trunc_sat i64.trunc_sat_f64_s
+0003    i64_trunc_sat_f32_s
 0004    local.set 1
 0005    block  ;; label = @1
 1 ------------------------------------------------------------

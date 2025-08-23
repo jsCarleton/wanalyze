@@ -164,6 +164,7 @@ type op_arg =
   | ValtypeList of valtype list
   | Globalidx of globalidx
   | Localidx of localidx
+  | TableInit of table_init
   | Tableidx of tableidx
   | Elemidx of elemidx
   | TableCopy of table_copy
@@ -174,7 +175,6 @@ type op_arg =
   | I64value of int64
   | F32value of int (* since OCAML doesn't seem to have 32 bit floats we just keep the bits *)
   | F64value of float
-  | TruncSat of int
   | EmptyArg
 
 type instr_type =

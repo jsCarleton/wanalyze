@@ -269,7 +269,11 @@ let update_state_testop (op: op_type) (state: program_state) =
 (* cvt operators *)
 let update_state_cvtop (op: op_type) (state: program_state) =
   match op.opsym with
-  | OP_trunc_sat ->
+  | OP_i32_trunc_sat_f32_s | OP_i32_trunc_sat_f32_u
+  | OP_i32_trunc_sat_f64_s | OP_i32_trunc_sat_f64_u
+  | OP_i64_trunc_sat_f32_s | OP_i64_trunc_sat_f32_u
+  | OP_i64_trunc_sat_f64_s | OP_i64_trunc_sat_f64_u
+      ->
       poke_value state (et_of_unop "TODO" (peek_value state))
   | _ ->
       poke_value state (et_of_unop op.opname (peek_value state))

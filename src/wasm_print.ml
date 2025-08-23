@@ -132,6 +132,7 @@ match a with
 | Localidx l -> string_of_int l
 | Tableidx t-> string_of_int t
 | Elemidx e -> string_of_int e
+| TableInit ti -> String.concat [(string_of_int ti.x) ; "," ; (string_of_int ti.y)]
 | TableCopy tc -> String.concat [(string_of_int tc.x) ; "," ; (string_of_int tc.y)]
 | Memarg m -> string_of_memarg m
 | IgnoreArg _ -> ""
@@ -140,19 +141,6 @@ match a with
 | I64value i -> sprintf "%Ld" i
 | F32value f -> sprintf "0x%x" f
 | F64value f -> string_of_float f
-| TruncSat i -> 
-    (match i with
-    | 0 -> "i32.trunc_sat_f32_s"
-    | 1 -> "i32.trunc_sat_f32_u"
-    | 2 -> "i32.trunc_sat_f64_s"
-    | 3 -> "i32.trunc_sat_f64_u"
-    | 4 -> "i64.trunc_sat_f32_s"
-    | 5 -> "i64.trunc_sat_f32_u"
-    | 6 -> "i64.trunc_sat_f64_s"
-    | 7 -> "i64.trunc_sat_f64_u"
-    |10 -> "memory.copy"
-    | _ -> failwith (String.concat ["invalid trunc_sat: " ; (string_of_int i)])
-    )
 | EmptyArg -> ""
 
 let label_index_of_arg a =
