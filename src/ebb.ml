@@ -16,6 +16,7 @@ type loop = {
 type ebb = 
 {
   ebbtype:      ebb_type;       (* either a block or a loop*)
+  mutable
   ebb_cost:     Et.et;          (* cost of executing this ebb *)
   entry_bb:     Bb.bb;          (* bb that's the entry to the ebb *)
   bblocks:      Bb.bb list;     (* list of bbs that make up the ebb *)
@@ -24,6 +25,7 @@ type ebb =
   nested_ebbs:  ebb list;       (* ebbs containing nested loops *)
   exit_bbs:     Bb.bb list;     (* bb external to the ebb to which it can exit *)
   ebb_loop:     loop option;
+  lms:          Cost.loop_metric list;
 }
 
 let compare_ebbs (e1: ebb) (e2: ebb): int =
@@ -74,7 +76,6 @@ let string_of_ebblock (ebb: ebb): string =
                   | _   -> sprintf "%s%d post loop exit paths\n%s\n" spaces (List.length l.exit_cps) 
                             (String.concat (List.map ~f:(fun cp -> String.concat[spaces; string_of_raw_bblocks cp]) l.exit_cps)))]
     in
-
       String.concat [
       sprintf "%sebb entry:  %d\n"  (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb type:   %s\n"  spaces (string_of_ebb_type ebb.ebbtype);
@@ -88,7 +89,6 @@ let string_of_ebblock (ebb: ebb): string =
       | _   -> String.concat ["nested ebbs:\n"; String.concat (List.map ~f:(string_of_ebblock' (indent+2)) ebb.nested_ebbs)])
     ]
   in
-
   string_of_ebblock' 0 ebb
 
 let ebb_to_unreachable (ebb: ebb): bool =
@@ -151,10 +151,10 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
         after the given path without looping *)
       let succ_of_ebbs (ebbs: ebb list): ebb list list =
         let t = List.hd_exn ebbs in
-        let succs = List.dedup_and_sort ~compare:(fun e1 e2 -> Int.compare e1.entry_bb.bbindex e2.entry_bb.bbindex)
-          ( match t.nested_ebbs with
+        let succs = List.dedup_and_sort ~compare:(fun e1 e2 -> Int.compare e1.entry_bb.bbindex e2.entry_bb.bbindex) t.succ_ebbs
+(*          ( match t.nested_ebbs with
           |   []    -> t.succ_ebbs
-          |   hd::_ -> List.append t.succ_ebbs (hd.succ_ebbs)) in
+          |   hd::_ -> List.append t.succ_ebbs (hd.succ_ebbs))*) in
         let succs' =
               List.filter 
                 ~f:(fun e -> e.entry_bb.bbindex > t.entry_bb.bbindex
@@ -248,6 +248,31 @@ let branchbacks_of_loop (lbb: bb list): bb list =
   let lh = (List.hd_exn lbb).bbindex in
   List.filter_map ~f:(fun bblock -> if is_branchback bblock lh then Some bblock else None) lbb
 
+
+(*
+    ebb_path_cost
+
+    Takes an ebb path and returns the cost as a symbolic expr tree
+
+    Parameters:
+      ebb_path  ebb list list
+
+    Returns:
+      cost
+*)
+
+let ebb_path_cost (ebb_path: ebb list): et =
+  match ebb_path with
+  | []    -> Constant (Int_value 0)
+  | [hd]  -> hd.ebb_cost
+  | _     -> Et.simplify_sum (List.map ~f:(fun ebb -> ebb.ebb_cost) ebb_path)
+
+let ebb_paths_max_cost (ebb_paths: ebb list list): et =
+  match ebb_paths with
+  | []    -> Empty
+  | [hd]  -> ebb_path_cost hd
+  | _     -> simplify_max (List.map ~f:ebb_path_cost ebb_paths)
+
 (*
     ebbs_of_bbs
 
@@ -313,7 +338,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     List.map ~f:(fun loop_part -> Cost.cost_of_loop ctx (bback_of_cp loop_part bbacks) {prefix_part; loop_part}) loop_cps
   in
 
-let expr_of_lm (lm: Cost.loop_metric): et =
+  let expr_of_lm (lm: Cost.loop_metric): et =
     match lm with
     | Infinite  -> Constant (String_value "Infinity-y")
     | LMI lmi   ->
@@ -397,7 +422,7 @@ let expr_of_lm (lm: Cost.loop_metric): et =
                     let ebb_cost = Node { op = "+";
                                           op_disp = Infix; 
                                           args = [simplify_max (List.map ~f:expr_of_lm lms); exit_cost]} in
-                    {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}}
+                    {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}; lms}
                   end
                 else
                   (* no, we need use the cost of the single path through the loop *)
@@ -406,17 +431,17 @@ let expr_of_lm (lm: Cost.loop_metric): et =
                     match exit_cost with
                     | Empty ->
                         let ebb_cost = expr_of_lm (List.hd_exn lms) in
-                        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}}
+                        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}; lms}
                     | _     ->
                       let ebb_cost = Node {op = "+"; op_disp = Infix; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
-                      {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}}
+                      {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}; lms}
                   end
               end
             else
               (* this happens when there are too many loop prefixes and we give up trying to enumerate them *)
               begin
                 let ebb_cost       =  Constant (String_value "Infinity-z") in
-                {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}}
+                {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}; lms = []}
               end
             end
         else
@@ -424,12 +449,12 @@ let expr_of_lm (lm: Cost.loop_metric): et =
           begin 
             let ebb_cost    = Constant (String_value "Infinity-t") in
             let nested_ebbs = [] in
-            {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = None}
+            {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = None; lms = []}
           end
       | EBB_block ->
         let nested_ebbs = [] in
         let ebb_cost    = cost_of_block_ebb bblocks in
-        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = None}
+        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = None; lms = []}
       in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bb list): ebb =
@@ -515,7 +540,7 @@ let expr_of_lm (lm: Cost.loop_metric): et =
                 ~f:(fun acc e -> 
                     match e.nested_ebbs with 
                     | [] -> e::acc 
-                    | _ -> List.append (flatten e.nested_ebbs) acc)
+                    | _ -> List.append (flatten e.nested_ebbs) (e::acc))
                 ebbs
     in
 
@@ -534,31 +559,54 @@ let expr_of_lm (lm: Cost.loop_metric): et =
      in
      List.iter ~f:(update_succ' ebbs) ebbs;
     in
+  let ebbs_from_bbs (ebbs: ebb list) (bbs: bb list): ebb list =
+    List.fold ~init:[] ~f:(fun acc x ->
+                            (match List.find ~f:(fun y -> x.bbindex = y.entry_bb.bbindex) ebbs with
+                            | Some e -> List.cons e acc
+                            | _ -> acc)) bbs
+    in
+  let loop_iters (lm: Cost.loop_metric): et = 
+    match lm with
+    | Infinite  -> Constant (String_value "Infinity-y")
+    | LMI lmi   ->
+        Node {
+          op = "N";
+          op_disp = Function; 
+          args = [  ExprList (List.map ~f:(fun lv -> Variable lv) lmi.loop_vars);
+                    ExprList [lmi.loop_cond];
+                    ExprList (List.map ~f:(fun lvev -> lvev.etree) lmi.lv_entry_vals);
+                    ExprList (List.map ~f:(fun lvlv -> lvlv.etree) lmi.lv_loop_vals)
+                  ]}
+    in
+  let rec update_costs (ebbs: ebb list) =
+    match ebbs with
+    | [] -> ()
+    | hd::tl -> (
+      match hd.ebbtype with
+        | EBB_block -> ()
+        | EBB_loop  -> (
+          update_costs hd.nested_ebbs;
+          match hd.nested_ebbs with
+          | [] -> ()
+          | _  -> (match hd.ebb_loop with
+              | None -> failwith "Missing loop"
+              | Some z -> let x = List.length z.loop_cps in
+                          let y = List.length hd.lms in
+                          if x <> y then
+                            failwith "code paths and loop info have different lengths"
+                          else
+                            ()
+                          ;
+                          hd.ebb_cost <- Node {op="list_MAX"; 
+                            op_disp=Function; 
+                            args=(List.map2_exn ~f:(fun x y -> Node {op="*"; op_disp=Infix; args=[ebb_path_cost (ebbs_from_bbs hd.nested_ebbs x); (loop_iters y)]}) z.loop_cps hd.lms)}
+          )
+        )
+      );
+      update_costs tl
+    in
 
   let ebbs = eblock_of_bbs' bbs_todo [] [] (-1) None in
   update_succ (List.rev (flatten ebbs));
+  update_costs ebbs;
   ebbs
-
-(*
-    ebb_path_cost
-
-    Takes an ebb path and returns the cost as a symbolic expr tree
-
-    Parameters:
-      ebb_path  ebb list list
-
-    Returns:
-      cost
-*)
-
-let ebb_path_cost (ebb_path: ebb list): et =
-  match ebb_path with
-  | []    -> Constant (Int_value 0)
-  | [hd]  -> hd.ebb_cost
-  | _     -> Et.simplify_sum (List.map ~f:(fun ebb -> ebb.ebb_cost) ebb_path)
-
-let ebb_paths_max_cost (ebb_paths: ebb list list): et =
-  match ebb_paths with
-  | []    -> Empty
-  | [hd]  -> ebb_path_cost hd
-  | _     -> simplify_max (List.map ~f:ebb_path_cost ebb_paths)

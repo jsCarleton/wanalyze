@@ -45,6 +45,11 @@ ebb costs:
 [6]: (list_max(((57 + list_sum(|f148|, |f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((51 + list_sum(|f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((51 + list_sum(|f148|, |f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((45 + list_sum(|f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((45 + list_sum(|f148|, |f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((39 + list_sum(|f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2]))) + 1)
 [14]: 1
 [15]: 9
+ebb costs':
+[0]: 25
+[6]: (list_max(((57 + list_sum(|f148|, |f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((51 + list_sum(|f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((51 + list_sum(|f148|, |f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((45 + list_sum(|f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((45 + list_sum(|f148|, |f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((39 + list_sum(|f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2]))) + 1)
+[14]: 1
+[15]: 9
 2 ebb paths found
 [0 15]
 [0 6 14 15]

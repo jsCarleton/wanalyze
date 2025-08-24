@@ -11,6 +11,7 @@ type loop = {
 type ebb = 
 {
   ebbtype:      ebb_type;       (* either a block or a loop*)
+  mutable
   ebb_cost:     Et.et;          (* cost of executing this ebb *)
   entry_bb:     Bb.bb;          (* bb that's the entry to the ebb *)
   bblocks:      Bb.bb list;     (* list of bbs that make up the ebb *)
@@ -19,6 +20,7 @@ type ebb =
   nested_ebbs:  ebb list;       (* ebbs containing nested loops *)
   exit_bbs:     Bb.bb list;     (* bb external to the ebb to which it can exit *)
   ebb_loop:     loop option;
+  lms:          Cost.loop_metric list;
 }
 
 val string_of_ebblock:  ebb -> string

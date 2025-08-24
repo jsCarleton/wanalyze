@@ -7,12 +7,15 @@ ebb entry:  0
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7 8 9 10]
-  ebb cost:   (list_max([
-  (47 + |f106|) * (N([ln5; pn3], [(ln5 + 1) < pn3], [0; pn3], [ln5 + 1; pn3]));
-  (22 + |f106|) * (N([ln5; pn3], [ln5 < pn3], [0; pn3], [ln5; pn3]))
-])) + 1
+  ebb cost:   list_MAX([
+  26 * (N([ln5; pn3], [ln5 < pn3], [0; pn3], [ln5; pn3]));
+  (list_sum([
+    27;
+    (20 * (N([ln7], [ln7 + -1], [(select((select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7))) < (pn3 - 0), pn3 - 0, select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7)))) + -1], [ln7 + -1]))) + 1
+  ])) * (N([ln5; pn3], [(ln5 + 1) < pn3], [0; pn3], [ln5 + 1; pn3]))
+])
   ebb exits:  [11]
-  ebb succs:  []
+  ebb succs:  [11]
   2 paths to exit 11
   [4 9 10]
   [4 5 6 7 8 9 10]
@@ -65,14 +68,13 @@ ebb entry:  12
   ebb succs:  []
 ebb costs:
 [0]: 47
-[4]: (list_max(((47 + |f106|) * N([ln5; pn3], [((ln5 + 1) < pn3)], [0; pn3], [(ln5 + 1); pn3])), ((22 + |f106|) * N([ln5; pn3], [(ln5 < pn3)], [0; pn3], [ln5; pn3]))) + 1)
+[4]: list_MAX((26 * N([ln5; pn3], [(ln5 < pn3)], [0; pn3], [ln5; pn3])), (list_sum(27, ((20 * N([ln7], [(ln7 + -1)], [(select((select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7))) < (pn3 - 0)), (pn3 - 0), select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7)))) + -1)], [(ln7 + -1)])) + 1)) * N([ln5; pn3], [((ln5 + 1) < pn3)], [0; pn3], [(ln5 + 1); pn3])))
 [4]: 21
 [6]: ((20 * N([ln7], [(ln7 + -1)], [(select((select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7))) < (pn3 - 0)), (pn3 - 0), select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7)))) + -1)], [(ln7 + -1)])) + 1)
 [8]: 1
 [9]: 5
 [11]: 1
 [12]: 2
-3 ebb paths found
+2 ebb paths found
 [0 12]
-[0 4 9 11 12]
-[0 4 6 8 9 11 12]
+[0 4 11 12]

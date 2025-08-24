@@ -7,9 +7,14 @@ ebb entry:  0
 ebb entry:  4
   ebb type:   loop
   ebb blocks: [4 5 6 7 8]
-  ebb cost:   (171 * (N([pn4], [pn4 > 1], [pn4], [pn4 + -1]))) + 1
+  ebb cost:   list_MAX([
+  (list_sum([
+    54;
+    (117 * (N([ln11; ln7], [(ln7 + 1) != ln11], [m[28]; 0 + 1], [ln11; ln7 + 1]))) + 1
+  ])) * (N([pn4], [pn4 > 1], [pn4], [pn4 + -1]))
+])
   ebb exits:  [9]
-  ebb succs:  []
+  ebb succs:  [9]
   1 paths to exit 9
   [4 5 6 7 8]
   1 loop paths
@@ -55,7 +60,7 @@ ebb entry:  10
   ebb succs:  []
 ebb costs:
 [0]: 15
-[4]: ((171 * N([pn4], [(pn4 > 1)], [pn4], [(pn4 + -1)])) + 1)
+[4]: list_MAX((list_sum(54, ((117 * N([ln11; ln7], [((ln7 + 1) != ln11)], [m[28]; (0 + 1)], [ln11; (ln7 + 1)])) + 1)) * N([pn4], [(pn4 > 1)], [pn4], [(pn4 + -1)])))
 [4]: 37
 [5]: ((117 * N([ln11; ln7], [((ln7 + 1) != ln11)], [m[28]; (0 + 1)], [ln11; (ln7 + 1)])) + 1)
 [7]: 17
@@ -63,4 +68,4 @@ ebb costs:
 [10]: 1
 2 ebb paths found
 [0 10]
-[0 4 5 7 9 10]
+[0 4 9 10]

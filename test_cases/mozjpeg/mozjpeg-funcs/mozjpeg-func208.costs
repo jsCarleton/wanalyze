@@ -1,83 +1,91 @@
 |f208| = list_max([
-  312;
+  221;
   list_sum([
-    314;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1;
+    215;
+    list_MAX([
+      98 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      82 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]))
+    ]);
     (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
   ]);
   list_sum([
-    311;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1;
+    212;
+    list_MAX([
+      98 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      82 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]))
+    ]);
     (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
   ]);
   list_sum([
-    254;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1;
+    164;
+    list_MAX([
+      98 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      82 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]))
+    ]);
     (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
   ]);
   list_sum([
-    298;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1;
-    (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
-  ]);
-  list_sum([
-    295;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1;
-    (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
-  ]);
-  list_sum([
-    238;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1;
-    (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
-  ]);
-  list_sum([
-    229;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1;
-    (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
-  ]);
-  list_sum([
-    313;
-    (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
-  ]);
-  list_sum([
-    310;
-    (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
-  ]);
-  list_sum([
-    253;
-    (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
-  ]);
-  list_sum([
-    297;
-    (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
-  ]);
-  list_sum([
-    294;
-    (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
-  ]);
-  list_sum([
-    237;
+    155;
+    list_MAX([
+      98 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      82 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]))
+    ]);
     (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
   ]);
   list_sum([
@@ -112,53 +120,88 @@
     (15 * (N([ln4; m[244]], [(ln4 + 1) < m[244]], [0 + 1; m[244]], [ln4 + 1; m[244]]))) + 1
   ]);
   list_sum([
-    313;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1
+    214;
+    list_MAX([
+      98 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      82 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]))
+    ])
   ]);
   list_sum([
-    310;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1
+    211;
+    list_MAX([
+      98 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      82 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]))
+    ])
   ]);
   list_sum([
-    253;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1
+    163;
+    list_MAX([
+      98 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      82 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]))
+    ])
   ]);
   list_sum([
-    297;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1
-  ]);
-  list_sum([
-    294;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1
-  ]);
-  list_sum([
-    237;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1
-  ]);
-  list_sum([
-    228;
-    (list_max([
-      (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
-      (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
-    ])) + 1
+    154;
+    list_MAX([
+      98 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      82 * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]));
+      (list_sum([
+        83;
+        (list_max([
+          (58 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[4]]));
+          (37 + |f34|) * (N([ln3; ln4], [ln3 - (select(ln3 < ln4, ln4, ln3))], [0 - ((gn0 - 304) + 48); m[4]], [ln3 - (select(ln3 < ln4, ln4, ln3)); m[12] - (select(ln3 < ln4, ln4, ln3))]))
+        ])) + 1
+      ])) * (N([ln7; m[272]], [not((ln7 + 1) >= m[272])], [0; m[272]], [ln7 + 1; m[272]]))
+    ])
   ]);
   list_sum([
     222;

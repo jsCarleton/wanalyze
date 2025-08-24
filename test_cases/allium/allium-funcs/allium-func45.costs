@@ -1,8 +1,17 @@
 |f45| = list_max([
   18;
   list_sum([
-    183;
-    ((37 + (list_sum(|f72|, |f20|, |f16|))) * (N([lN6; lN8], [((lN6 + lN8) rem_u 8) != 0], [(0 + 3) rem_u 8; 3], [(lN6 + lN8) rem_u 8; lN8]))) + 1;
+    160;
+    list_MAX([
+      (list_sum([
+        23;
+        ((37 + (list_sum(|f72|, |f20|, |f16|))) * (N([lN6; lN8], [((lN6 + lN8) rem_u 8) != 0], [(0 + 3) rem_u 8; 3], [(lN6 + lN8) rem_u 8; lN8]))) + 1
+      ])) * (N([lN7], [lN7 < 1], [1], [lN7 + 1]));
+      (list_sum([
+        23;
+        ((37 + (list_sum(|f72|, |f20|, |f16|))) * (N([lN6; lN8], [((lN6 + lN8) rem_u 8) != 0], [(0 + 3) rem_u 8; 3], [(lN6 + lN8) rem_u 8; lN8]))) + 1
+      ])) * (N([lN7], [lN7 < 1], [1], [lN7 + 1]))
+    ]);
     (list_max([
       (64 + (list_sum(|f44|, |f20|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]));
       (61 + (list_sum(|f44|, |f20|))) * (N([lN8], [(lN8 + 1) < 8], [3], [lN8 + 1]));
