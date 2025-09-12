@@ -42,17 +42,13 @@ ebb entry:  23
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
-ebb costs:
-[0]: 27
+ebb costs
+%![0]: 27
 [13]: ((14 * N([m[0]], [(m[0] != 10)], [m[0]], [m[0]])) + 3)
 [18]: 22
 [20]: 15
 [21]: 2
 [23]: 0
-6 ebb paths found
+2 ebb paths found
 [0 23]
-[0 21]
-[0 20 21]
-[0 13 20 21]
-[0 13 18 21]
 [0 13 18 20 21]

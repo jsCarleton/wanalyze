@@ -1,11 +1,4 @@
-|f42| = list_max([
-  124;
-  list_sum([
-    125;
-    (34 * (N([ln5; m[0]; pn0; pn1], [(select(m[0] < pn1, ((ln5 - pn0) shr_u 1) + pn0, ln5)) > (select(m[0] < pn1, pn0, (((ln5 - pn0) shr_u 1) + pn0) + 1))], [m[20]; m[0]; 0; pn1], [select(m[0] < pn1, ((ln5 - pn0) shr_u 1) + pn0, ln5); m[0]; select(m[0] < pn1, pn0, (((ln5 - pn0) shr_u 1) + pn0) + 1); pn1]))) + 3
-  ]);
-  list_sum([
-    124;
-    (34 * (N([ln5; m[0]; pn0; pn1], [(select(m[0] < pn1, ((ln5 - pn0) shr_u 1) + pn0, ln5)) > (select(m[0] < pn1, pn0, (((ln5 - pn0) shr_u 1) + pn0) + 1))], [m[20]; m[0]; 0; pn1], [select(m[0] < pn1, ((ln5 - pn0) shr_u 1) + pn0, ln5); m[0]; select(m[0] < pn1, pn0, (((ln5 - pn0) shr_u 1) + pn0) + 1); pn1]))) + 3
-  ])
+|f42| = list_sum([
+  125;
+  (34 * (N([ln5; m[0]; pn0; pn1], [(select(m[0] < pn1, ((ln5 - pn0) shr_u 1) + pn0, ln5)) > (select(m[0] < pn1, pn0, (((ln5 - pn0) shr_u 1) + pn0) + 1))], [m[20]; m[0]; 0; pn1], [select(m[0] < pn1, ((ln5 - pn0) shr_u 1) + pn0, ln5); m[0]; select(m[0] < pn1, pn0, (((ln5 - pn0) shr_u 1) + pn0) + 1); pn1]))) + 3
 ])

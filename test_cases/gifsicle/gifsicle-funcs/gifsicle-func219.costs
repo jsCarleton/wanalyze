@@ -1,29 +1,8 @@
-|f219| = list_max([
-  43;
-  list_sum([
-    45;
-    (23 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0 + 1; pn1 * pn2], [ln4 + 1; ln6]))) + 1;
-    (list_max([
-      35 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]));
-      34 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]))
-    ])) + 1
-  ]);
-  list_sum([
-    44;
-    (list_max([
-      35 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]));
-      34 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]))
-    ])) + 1
-  ]);
-  list_sum([
-    37;
-    (list_max([
-      35 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]));
-      34 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]))
-    ])) + 1
-  ]);
-  list_sum([
-    44;
-    (23 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0 + 1; pn1 * pn2], [ln4 + 1; ln6]))) + 1
-  ])
+|f219| = list_sum([
+  45;
+  (list_max([
+    34 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]));
+    35 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0; pn1 * pn2], [ln4 + 1; ln6]))
+  ])) + 1;
+  (23 * (N([ln4; ln6], [(ln4 + 1) != ln6], [0 + 1; pn1 * pn2], [ln4 + 1; ln6]))) + 1
 ])

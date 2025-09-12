@@ -44,7 +44,7 @@ let ssa_of_rt (index: int) (fidx: int) (params: et list) ( start: int) (r: resul
 let string_of_ssa (s: ssa): string = 
   String.concat[string_of_var s.result; " = "; string_of_et s.etree]
     
-let string_of_ssa_list (sl: ssa list) (sep: string) (alive: bool): string =
+let string_of_ssas (sl: ssa list) (sep: string) (alive: bool): string =
   
   let string_of_ssa' (alive: bool) (s: ssa): string =
     String.concat[

@@ -35,3 +35,4 @@ val simplify_sum:           et list -> et
 val simplify_max:           et list -> et
 val initialize_local_value: Wm.local_type list -> int -> int -> constant_value
 val et_of_local_value:      Wm.resulttype list -> Wm.local_type list -> int -> et
+val node_count:             et -> int

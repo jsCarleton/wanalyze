@@ -18,8 +18,9 @@ type loop_path_parts =
 
 type path_cost_info = {terminal: Bb.bb; mutable path: Bb.bb list; mutable cost: int}
 
-val cost_of_loop:     Ex.execution_context -> Bb.bb -> loop_path_parts -> loop_metric
-val cost_of_bb_path:  Bb.bb -> Bb.bb -> int
-val max_cost_paths:   Bb.bb list -> Bb.bb list -> Bb.bb list list
-val string_of_lm:     loop_metric -> string
-val classify_cond:    loop_metric -> string
+val cost_of_loop:       Ex.execution_context -> Bb.bb -> loop_path_parts -> loop_metric
+val cost_of_bb_path:    Bb.bb -> Bb.bb -> int
+val max_cost_paths:     Bb.bb list -> Bb.bb list -> Bb.bb list list
+val string_of_lm:       loop_metric -> string
+val classify_cond:      loop_metric -> string
+val compare_loop_conds: loop_metric -> loop_metric -> bool

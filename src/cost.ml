@@ -202,3 +202,46 @@ let max_cost_paths (path_bbs: Bb.bb list) (exit_bbs: Bb.bb list): Bb.bb list lis
   in
 
   List.map ~f:(fun pci -> pci.path) (List.map ~f:(pci_of_bb_path (List.hd_exn path_bbs)) exit_bbs)
+
+
+(*
+    compare_loop_conds
+
+    Compares the loop conditions fields in 2 loop metrics and returns true if they are the same
+
+    Parameters:
+      lm1:    the first loop metric
+      lm2:    the second loop metric
+
+    Returns:
+      true if they are the same
+*)
+
+let compare_loop_conds (lm1: loop_metric) (lm2: loop_metric): bool =
+  let compare_ssas (ssas1: Ssa.ssa list) (ssas2: Ssa.ssa list): int =
+    String.compare (Ssa.string_of_ssas ssas1 " " false) (Ssa.string_of_ssas ssas2 " " false)
+  in
+  let compare_varlist (vars1: Et.var list) (vars2: Et.var list): int =
+    String.compare (Et.string_of_vars vars1) (Et.string_of_vars vars2)
+  in
+  let compare_loop_conds' (lmi1: loop_metric_info) (lmi2: loop_metric_info): bool =
+    if   Et.compare lmi1.loop_cond lmi2.loop_cond = 0 
+      && compare_varlist lmi1.loop_vars lmi2.loop_vars = 0
+      && compare_ssas lmi1.lv_entry_vals lmi2.lv_entry_vals = 0
+      && compare_ssas lmi1.lv_loop_vals lmi2.lv_loop_vals = 0  then
+      true
+    else 
+      false
+  in
+
+  (* we peel off the outer wrapper on the lm and compare the underlying lmis if any *)
+  match lm1 with
+    | LMI x ->
+        (match lm2 with
+          | LMI y -> compare_loop_conds' x y
+          | Infinite -> false)
+    | Infinite ->
+        (match lm2 with
+          | LMI _ -> false
+          | Infinite -> true)
+            

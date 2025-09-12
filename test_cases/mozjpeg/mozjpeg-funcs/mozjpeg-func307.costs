@@ -1,9 +1,7 @@
 |f307| = list_max([
-  42;
   list_sum([
     42;
     list_MAX([
-      34 * (N([pn4; pn6], [(pn4 + 1) != pn6], [0; pn6], [pn4 + 1; pn6]));
       (list_sum([
         35;
         (list_max([
@@ -23,7 +21,6 @@
   list_sum([
     41;
     list_MAX([
-      34 * (N([pn4; pn6], [(pn4 + 1) != pn6], [0; pn6], [pn4 + 1; pn6]));
       (list_sum([
         35;
         (list_max([

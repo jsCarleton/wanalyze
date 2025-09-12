@@ -337,3 +337,15 @@ let rec simplify (e: et): et =
       | "list_max" -> simplify_max (List.map ~f:simplify n.args)
       | "list_sum" -> simplify_sum (List.map ~f:simplify n.args)
       | _ -> Node { n with args = List.map ~f:simplify n.args}
+
+let node_count (e: et): int =
+
+  let rec node_count' (acc: int) (e: et): int =
+      if acc > 10000 then acc else (
+      match e with
+    | Empty | Constant _ | Variable _  -> acc + 1
+    | ExprList l -> acc + (List.length l)
+    | Node n -> 
+      acc + 1 + (List.fold ~init:0 ~f:(+) (List.map ~f:(node_count' acc) n.args)))
+  in
+  node_count' 1 e

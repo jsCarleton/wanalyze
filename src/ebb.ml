@@ -80,7 +80,11 @@ let string_of_ebblock (ebb: ebb): string =
       sprintf "%sebb entry:  %d\n"  (String.make indent ' ') ebb.entry_bb.bbindex;
       sprintf "%sebb type:   %s\n"  spaces (string_of_ebb_type ebb.ebbtype);
       sprintf "%sebb blocks: %s\n"  spaces (string_of_raw_bblocks ebb.bblocks);
-      sprintf "%sebb cost:   %s\n"  spaces (format_et ebb.ebb_cost);
+      sprintf "%sebb cost:   %s\n"  spaces (let c = node_count ebb.ebb_cost in
+                                      if c > 10000 then
+                                        sprintf "Cost too large %d" c
+                                      else
+                                        format_et ebb.ebb_cost);
       sprintf "%sebb exits:  %s\n"  spaces (string_of_raw_bblocks ebb.exit_bbs);
       sprintf "%sebb succs:  %s\n"  spaces (string_of_ebblocks ebb.succ_ebbs);
       string_of_loop ebb.ebb_loop ebb;
@@ -248,7 +252,6 @@ let branchbacks_of_loop (lbb: bb list): bb list =
   let lh = (List.hd_exn lbb).bbindex in
   List.filter_map ~f:(fun bblock -> if is_branchback bblock lh then Some bblock else None) lbb
 
-
 (*
     ebb_path_cost
 
@@ -272,6 +275,42 @@ let ebb_paths_max_cost (ebb_paths: ebb list list): et =
   | []    -> Empty
   | [hd]  -> ebb_path_cost hd
   | _     -> simplify_max (List.map ~f:ebb_path_cost ebb_paths)
+
+(* pruning ebb paths *)
+let ids_of_ep (ep: ebb_path): int list = 
+  List.map ~f:(fun b -> b.bbindex) ep
+
+let bbs_of_ebbs (ebbs: ebb list): bb list =
+  List.map ~f:(fun x -> List.hd_exn x.bblocks) ebbs
+
+let list_in (l1: int list) (l2: int list): bool =
+  List.for_all ~f:(fun x -> (List.mem l1 x ~equal:(=))) l2
+
+(* thinking of l1, l2 as sets
+    returns +1 if l2 is a subset of l1,
+            -1 if l1 is a subset of l2,
+              0 otherwise, i.e. at least one of them has an element not in the other *)
+let path_compare (ep1: ebb_path) (ep2: ebb_path): int =
+  if list_in (ids_of_ep ep1) (ids_of_ep ep2) then
+    +1
+  else if list_in (ids_of_ep ep2) (ids_of_ep ep1) then
+      -1
+  else
+      0
+
+let bigger_loop (ep1: ebb_path) (ep2: ebb_path) (lmi1: Cost.loop_metric) (lmi2: Cost.loop_metric): bool =
+  (* either the first path contains the second and the loop metrics are the same
+      or the first path contains *)
+  (not (Cost.compare_loop_conds lmi1 lmi2)) || (path_compare ep1 ep2 = 1 && Cost.compare_loop_conds lmi1 lmi2) || (path_compare ep1 ep2 = 0)
+
+let prune_loop_paths (ebbpaths: ebb_path list) (lmis: Cost.loop_metric list): ebb_path list * Cost.loop_metric list =
+  let zip = List.zip_exn ebbpaths lmis in
+  List.unzip
+    (List.filter ~f:(fun a -> List.for_all ~f:(fun b -> bigger_loop (fst a) (fst b) (snd a) (snd b)) zip) zip)
+
+let prune_ebb_paths (ebbpaths: ebb list list): ebb list list =
+  List.filter ~f:(fun a -> List.for_all ~f:(fun b -> bigger_loop (bbs_of_ebbs a) (bbs_of_ebbs b) Cost.Infinite Cost.Infinite) ebbpaths) ebbpaths
+
 
 (*
     ebbs_of_bbs
@@ -386,6 +425,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
       idx
   in
 
+
   let finish_ebblock' (ebbtype: ebb_type) (bblocks: bb list): ebb =
 
     let entry_bb    = List.hd_exn bblocks in
@@ -409,34 +449,39 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
               | [] -> []
               (* TODO why do we only consider one prefix? *)
               | cps  -> List.hd_exn cps) in
-              let lms = looping_parts_costs bbacks loop_cps cp in
-              let ulv = unique_loop_vars lms in
-              let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
-              let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
-              if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
-              begin
-                (* do we have more than 1 set of loop metrics to consider *)
-                if List.length lms > 1 then
-                  begin
-                    (* yes, we need a max operation *)
-                    let ebb_cost = Node { op = "+";
-                                          op_disp = Infix; 
-                                          args = [simplify_max (List.map ~f:expr_of_lm lms); exit_cost]} in
-                    {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}; lms}
-                  end
-                else
-                  (* no, we need use the cost of the single path through the loop *)
-                  begin
-                    (* somehow this code is a problem *)
-                    match exit_cost with
-                    | Empty ->
-                        let ebb_cost = expr_of_lm (List.hd_exn lms) in
-                        {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}; lms}
-                    | _     ->
-                      let ebb_cost = Node {op = "+"; op_disp = Infix; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
+            let lms = looping_parts_costs bbacks loop_cps cp in
+            let ulv = unique_loop_vars lms in
+            let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
+            if List.length exit_cps > 30_000 then
+              Printf.printf "exit_cost %d\n%!" (List.length exit_cps)
+            else
+              ()
+            ; 
+            let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
+            if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
+            begin
+              (* do we have more than 1 set of loop metrics to consider *)
+              if List.length lms > 1 then
+                begin
+                  (* yes, we need a max operation *)
+                  let ebb_cost = Node { op = "+";
+                                        op_disp = Infix; 
+                                        args = [simplify_max (List.map ~f:expr_of_lm lms); exit_cost]} in
+                  {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}; lms}
+                end
+              else
+                (* no, we need use the cost of the single path through the loop *)
+                begin
+                  (* somehow this code is a problem *)
+                  match exit_cost with
+                  | Empty ->
+                      let ebb_cost = expr_of_lm (List.hd_exn lms) in
                       {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}; lms}
-                  end
-              end
+                  | _     ->
+                    let ebb_cost = Node {op = "+"; op_disp = Infix; args = [expr_of_lm (List.hd_exn lms); exit_cost]} in
+                    {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = Some {codepaths; loop_cps; exit_cps}; lms}
+                end
+            end
             else
               (* this happens when there are too many loop prefixes and we give up trying to enumerate them *)
               begin
@@ -455,7 +500,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
         let nested_ebbs = [] in
         let ebb_cost    = cost_of_block_ebb bblocks in
         {ebbtype; ebb_cost; entry_bb; bblocks; succ_ebbs; nested_ebbs; exit_bbs; ebb_loop = None; lms = []}
-      in
+  in
 
   let finish_ebblock (ebbtype: ebb_type) (bbs_acc: bb list): ebb =
     finish_ebblock' ebbtype (List.rev bbs_acc)
@@ -528,43 +573,46 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
           match bbs_acc with
           | []  -> List.rev ebbs_acc
           | _   -> List.rev (finish_ebblock' EBB_block (List.rev bbs_acc)::ebbs_acc)
-    in
+  in
 
-    let ebb_of_bb (ebbs: ebb list) (bblock: bb): ebb option =
-      List.find 
-        ~f:(fun ebb ->  ebb.entry_bb.bbindex = bblock.bbindex) ebbs
-    in
+  let ebb_of_bb (ebbs: ebb list) (bblock: bb): ebb option =
+    List.find ~f:(fun ebb ->  ebb.entry_bb.bbindex = bblock.bbindex) ebbs
+  in
 
-    let rec flatten (ebbs: ebb list): ebb list =
-      List.fold ~init:[] 
-                ~f:(fun acc e -> 
-                    match e.nested_ebbs with 
-                    | [] -> e::acc 
-                    | _ -> List.append (flatten e.nested_ebbs) (e::acc))
-                ebbs
-    in
+  let rec flatten (ebbs: ebb list): ebb list =
+    List.fold ~init:[] 
+              ~f:(fun acc e -> 
+                  match e.nested_ebbs with 
+                  | [] -> e::acc 
+                  | _ -> List.append (flatten e.nested_ebbs) (e::acc))
+              ebbs
+  in
 
-    (* update the successor ebbs for all ebbs *)
-    let update_succ (ebbs: ebb list) =
+  (* update the successor ebbs for all ebbs *)
+  let update_succ (ebbs: ebb list) =
 
-      let update_succ' (ebbs: ebb list) (ebb: ebb) =
+    let update_succ' (ebbs: ebb list) (ebb: ebb) =
 
-        let update_succ'' (ebbs: ebb list) (ebb: ebb) (exit_bb: bb) =
+      let update_succ'' (ebbs: ebb list) (ebb: ebb) (exit_bb: bb) =
           let s = ebb_of_bb ebbs exit_bb in
           match s with
           | Some succ   -> ebb.succ_ebbs <- List.dedup_and_sort ~compare:compare_ebbs (succ::ebb.succ_ebbs)
           | None        -> ()
-        in
+      in
+
       List.iter ~f:(update_succ'' ebbs ebb) ebb.exit_bbs;
-     in
-     List.iter ~f:(update_succ' ebbs) ebbs;
     in
+
+       List.iter ~f:(update_succ' ebbs) ebbs;
+  in
+
   let ebbs_from_bbs (ebbs: ebb list) (bbs: bb list): ebb list =
     List.fold ~init:[] ~f:(fun acc x ->
                             (match List.find ~f:(fun y -> x.bbindex = y.entry_bb.bbindex) ebbs with
                             | Some e -> List.cons e acc
                             | _ -> acc)) bbs
-    in
+  in
+
   let loop_iters (lm: Cost.loop_metric): et = 
     match lm with
     | Infinite  -> Constant (String_value "Infinity-y")
@@ -577,7 +625,8 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                     ExprList (List.map ~f:(fun lvev -> lvev.etree) lmi.lv_entry_vals);
                     ExprList (List.map ~f:(fun lvlv -> lvlv.etree) lmi.lv_loop_vals)
                   ]}
-    in
+  in
+
   let rec update_costs (ebbs: ebb list) =
     match ebbs with
     | [] -> ()
@@ -597,16 +646,19 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                           else
                             ()
                           ;
+                          let paths = z.loop_cps in
+                          let lmis  = hd.lms in
+                          let paths, lmis = prune_loop_paths paths lmis in
                           hd.ebb_cost <- Node {op="list_MAX"; 
                             op_disp=Function; 
-                            args=(List.map2_exn ~f:(fun x y -> Node {op="*"; op_disp=Infix; args=[ebb_path_cost (ebbs_from_bbs hd.nested_ebbs x); (loop_iters y)]}) z.loop_cps hd.lms)}
+                            args=(List.map2_exn ~f:(fun a b -> Node {op="*"; op_disp=Infix; args=[ebb_path_cost (ebbs_from_bbs hd.nested_ebbs a); (loop_iters b)]}) paths lmis)}
           )
         )
       );
       update_costs tl
-    in
+  in
 
   let ebbs = eblock_of_bbs' bbs_todo [] [] (-1) None in
-  update_succ (List.rev (flatten ebbs));
-  update_costs ebbs;
-  ebbs
+    update_succ (List.rev (flatten ebbs));
+    update_costs ebbs;
+    ebbs

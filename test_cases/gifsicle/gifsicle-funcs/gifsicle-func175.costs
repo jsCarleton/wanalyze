@@ -1,11 +1,20 @@
 |f175| = list_max([
-  29;
   list_sum([
-    54;
-    ((29 + |f24|) * (N([ln3; pn2], [pn2 != (ln3 + 1)], [0 + 1; pn2], [ln3 + 1; pn2]))) + 1
+    29;
+    list_MAX([
+      (list_sum([
+        25;
+        ((29 + |f24|) * (N([ln3; pn2], [pn2 != (ln3 + 1)], [0 + 1; pn2], [ln3 + 1; pn2]))) + 1
+      ])) * (N([pn0], [not(i32.eqz(pn0 - (select(pn0 < 256, 256, pn0))))], [pn0], [pn0 - (select(pn0 < 256, 256, pn0))]))
+    ])
   ]);
   list_sum([
-    49;
-    ((29 + |f24|) * (N([ln3; pn2], [pn2 != (ln3 + 1)], [0 + 1; pn2], [ln3 + 1; pn2]))) + 1
+    24;
+    list_MAX([
+      (list_sum([
+        25;
+        ((29 + |f24|) * (N([ln3; pn2], [pn2 != (ln3 + 1)], [0 + 1; pn2], [ln3 + 1; pn2]))) + 1
+      ])) * (N([pn0], [not(i32.eqz(pn0 - (select(pn0 < 256, 256, pn0))))], [pn0], [pn0 - (select(pn0 < 256, 256, pn0))]))
+    ])
   ])
 ])
