@@ -280,9 +280,6 @@ let ebb_paths_max_cost (ebb_paths: ebb list list): et =
 let ids_of_ep (ep: ebb_path): int list = 
   List.map ~f:(fun b -> b.bbindex) ep
 
-let bbs_of_ebbs (ebbs: ebb list): bb list =
-  List.map ~f:(fun x -> List.hd_exn x.bblocks) ebbs
-
 let list_in (l1: int list) (l2: int list): bool =
   List.for_all ~f:(fun x -> (List.mem l1 x ~equal:(=))) l2
 
@@ -309,8 +306,30 @@ let prune_loop_paths (ebbpaths: ebb_path list) (lmis: Cost.loop_metric list): eb
     (List.filter ~f:(fun a -> List.for_all ~f:(fun b -> bigger_loop (fst a) (fst b) (snd a) (snd b)) zip) zip)
 
 let prune_ebb_paths (ebbpaths: ebb list list): ebb list list =
-  List.filter ~f:(fun a -> List.for_all ~f:(fun b -> bigger_loop (bbs_of_ebbs a) (bbs_of_ebbs b) Cost.Infinite Cost.Infinite) ebbpaths) ebbpaths
+  let ebb_in_path (e: ebb) (path: ebb list): bool =
+    List.exists ~f:(fun e' -> e.entry_bb.bbindex = e'.entry_bb.bbindex) path
+  in
+  let path_in_path (path: ebb list) (path': ebb list): bool =
+    List.for_all ~f:(fun e -> ebb_in_path e path) path'
+  in
+  let path_in_paths (path: ebb list) (paths: ebb list list): bool =
+    List.exists ~f:(fun p -> path_in_path p path) paths
+  in
+  List.fold ~init:[] ~f:(fun acc a -> if path_in_paths a acc then acc else a::acc)
+    (List.sort ~compare:(fun a b -> Int.compare (List.length b) (List.length a)) ebbpaths)
 
+let prune_cps (cps: cp list): cp list =
+  let bb_in_path (b: bb) (path: cp): bool =
+    List.exists ~f:(fun b' -> b.bbindex = b'.bbindex) path
+  in
+  let path_in_path (path: cp) (path': cp): bool =
+    List.for_all ~f:(fun b -> bb_in_path b path) path'
+  in
+  let path_in_paths (path: cp) (paths: cp list): bool =
+    List.exists ~f:(fun p -> path_in_path p path) paths
+  in
+  List.fold ~init:[] ~f:(fun acc a -> if path_in_paths a acc then acc else a::acc)
+    (List.sort ~compare:(fun a b -> Int.compare (List.length b) (List.length a)) cps)
 
 (*
     ebbs_of_bbs
@@ -427,7 +446,6 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
 
 
   let finish_ebblock' (ebbtype: ebb_type) (bblocks: bb list): ebb =
-
     let entry_bb    = List.hd_exn bblocks in
     let succ_ebbs   = [] in
     let exit_bbs    = exit_bbs_of_bbs bblocks in
@@ -440,6 +458,11 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
           begin
             let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
             let exit_cps    = exit_paths (exit_cps codepaths) loop_cps in
+            if List.length exit_cps > 100_000 then
+              Printf.printf " exit_cps %d%!" (List.length exit_cps);
+            let exit_cps = prune_cps exit_cps in
+            if List.length exit_cps > 5_000 then
+              Printf.printf " pruned exit_cps %d%!" (List.length exit_cps);
             let nested_ebbs = sub_ebbs_of_bbs bblocks in
             let root_bb     = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
             (* TODO goal is to replace this call to Cp.codepaths_from_to_bb_exn with a function
@@ -648,6 +671,8 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                           ;
                           let paths = z.loop_cps in
                           let lmis  = hd.lms in
+                          if List.length paths > 1_000 then
+                            Printf.printf " prune_loop_paths %d%!" (List.length paths);
                           let paths, lmis = prune_loop_paths paths lmis in
                           hd.ebb_cost <- Node {op="list_MAX"; 
                             op_disp=Function; 

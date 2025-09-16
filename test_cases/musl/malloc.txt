@@ -1,28 +1,10 @@
-module realloc.wasm 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-exploded
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
 module reallocarray.wasm 
+
 function 2 
 function 3 
 function 4 
 function 5 
-function 6 
-exploded
+function 6 ebb path explosion 457
 function 7 
 function 8 
 function 9 
@@ -34,7 +16,28 @@ function 14
 function 15 
 function 16 
 function 17 
+done
+module realloc.wasm 
+
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 ebb path explosion 457
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+done
 module posix_memalign.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -44,13 +47,14 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module memalign.wasm 
+
 function 1 
 function 2 
 function 3 
 function 4 
-function 5 
-exploded
+function 5 ebb path explosion 457
 function 6 
 function 7 
 function 8 
@@ -61,7 +65,9 @@ function 12
 function 13 
 function 14 
 function 15 
+done
 module free.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -71,3 +77,4 @@ function 5
 function 6 
 function 7 
 function 8 
+done

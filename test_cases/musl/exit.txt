@@ -1,4 +1,5 @@
 module quick_exit.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -9,7 +10,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module exit.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -21,18 +24,9 @@ function 8
 function 9 
 function 10 
 function 11 
-module at_quick_exit.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
+done
 module atexit.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -40,8 +34,7 @@ function 4
 function 5 
 function 6 
 function 7 
-function 8 
-exploded
+function 8 ebb path explosion 457
 function 9 
 function 10 
 function 11 
@@ -50,7 +43,9 @@ function 13
 function 14 
 function 15 
 function 16 
-module assert.wasm 
+done
+module at_quick_exit.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -58,3 +53,17 @@ function 3
 function 4 
 function 5 
 function 6 
+function 7 
+function 8 
+function 9 
+done
+module assert.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+done

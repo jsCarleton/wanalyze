@@ -1,4 +1,5 @@
 module srand48.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -9,7 +10,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module seed48.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -18,33 +21,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module __seed48.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-module rand.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module rand_r.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module random.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -55,7 +34,9 @@ function 6
 function 7 
 function 8 
 function 9 
-module __rand48_step.wasm 
+done
+module rand.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -64,8 +45,20 @@ function 4
 function 5 
 function 6 
 function 7 
-function 8 
+done
+module rand_r.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
 module mrand48.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -75,7 +68,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module lrand48.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -85,7 +80,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module lcong48.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -94,7 +91,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module drand48.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -104,3 +103,26 @@ function 5
 function 6 
 function 7 
 function 8 
+done
+module __seed48.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+done
+module __rand48_step.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+done

@@ -1,4 +1,5 @@
 module tre-mem.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -6,7 +7,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module regexec.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -42,8 +45,7 @@ function 33
 function 34 
 function 35 
 function 36 
-function 37 
-exploded
+function 37 ebb path explosion 457
 function 38 
 function 39 
 function 40 
@@ -53,14 +55,14 @@ function 43
 function 44 
 function 45 
 function 46 
+done
 module regcomp.wasm 
+
 function 2 
-function 3 
-exploded
+function 3  exit_cps 114297
 function 4 
-function 5 
+function 5 pruning 2990 
 function 6 
-exploded
 function 7 
 function 8 
 function 9 
@@ -104,8 +106,7 @@ function 46
 function 47 
 function 48 
 function 49 
-function 50 
-exploded
+function 50 ebb path explosion 457
 function 51 
 function 52 
 function 53 
@@ -118,7 +119,9 @@ function 59
 function 60 
 function 61 
 function 62 
+done
 module glob.wasm 
+
 function 11 
 function 12 
 function 13 
@@ -192,8 +195,7 @@ function 80
 function 81 
 function 82 
 function 83 
-function 84 
-exploded
+function 84 ebb path explosion 457
 function 85 
 function 86 
 function 87 
@@ -206,3 +208,4 @@ function 93
 function 94 
 function 95 
 function 96 
+done

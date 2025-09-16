@@ -1,4 +1,5 @@
 module sockatmark.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -9,7 +10,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module serv.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -17,7 +20,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module send.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -32,7 +37,9 @@ function 11
 function 12 
 function 13 
 function 14 
+done
 module res_state.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -40,7 +47,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module res_send.wasm 
+
 function 15 
 function 16 
 function 17 
@@ -125,7 +134,23 @@ function 95
 function 96 
 function 97 
 function 98 
+done
+module res_querydomain.wasm 
+
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+done
 module res_query.wasm 
+
 function 15 
 function 16 
 function 17 
@@ -214,19 +239,9 @@ function 99
 function 100 
 function 101 
 function 102 
-module res_querydomain.wasm 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
+done
 module res_mkquery.wasm 
+
 function 4 
 function 5 
 function 6 
@@ -240,7 +255,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module res_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -249,7 +266,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module recv.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -262,7 +281,9 @@ function 9
 function 10 
 function 11 
 function 12 
+done
 module proto.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -270,7 +291,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module ntohs.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -279,7 +302,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module ntohl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -288,7 +313,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module ns_parse.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -296,7 +323,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module netname.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -304,7 +333,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module lookup_ipliteral.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -312,7 +343,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module inet_pton.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -324,7 +357,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module inet_ntop.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -355,8 +390,7 @@ function 27
 function 28 
 function 29 
 function 30 
-function 31 
-exploded
+function 31 pruning 44355 
 function 32 
 function 33 
 function 34 
@@ -375,7 +409,9 @@ function 46
 function 47 
 function 48 
 function 49 
+done
 module inet_ntoa.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -400,8 +436,7 @@ function 21
 function 22 
 function 23 
 function 24 
-function 25 
-exploded
+function 25 pruning 44355 
 function 26 
 function 27 
 function 28 
@@ -420,7 +455,9 @@ function 40
 function 41 
 function 42 
 function 43 
+done
 module inet_legacy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -428,7 +465,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module inet_aton.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -441,7 +480,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module inet_addr.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -456,7 +497,9 @@ function 10
 function 11 
 function 12 
 function 13 
+done
 module in6addr_loopback.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -464,7 +507,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module in6addr_any.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -472,7 +517,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module if_nameindex.wasm 
+
 function 7 
 function 8 
 function 9 
@@ -483,8 +530,7 @@ function 13
 function 14 
 function 15 
 function 16 
-function 17 
-exploded
+function 17 ebb path explosion 457
 function 18 
 function 19 
 function 20 
@@ -502,7 +548,9 @@ function 31
 function 32 
 function 33 
 function 34 
+done
 module if_freenameindex.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -512,7 +560,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module htons.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -521,7 +571,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module htonl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -530,7 +582,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module herror.wasm 
+
 function 4 
 function 5 
 function 6 
@@ -578,7 +632,9 @@ function 47
 function 48 
 function 49 
 function 50 
+done
 module getservbyport.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -595,7 +651,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module getservbyport_r.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -613,7 +671,9 @@ function 14
 function 15 
 function 16 
 function 17 
+done
 module getservbyname.wasm 
+
 function 5 
 function 6 
 function 7 
@@ -661,7 +721,9 @@ function 48
 function 49 
 function 50 
 function 51 
+done
 module getservbyname_r.wasm 
+
 function 5 
 function 6 
 function 7 
@@ -708,39 +770,9 @@ function 47
 function 48 
 function 49 
 function 50 
-module gethostbyname.wasm 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-exploded
-module gethostbyname_r.wasm 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-exploded
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
+done
 module gethostbyname2.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -749,8 +781,7 @@ function 6
 function 7 
 function 8 
 function 9 
-function 10 
-exploded
+function 10 ebb path explosion 457
 function 11 
 function 12 
 function 13 
@@ -759,7 +790,9 @@ function 15
 function 16 
 function 17 
 function 18 
+done
 module gethostbyname2_r.wasm 
+
 function 17 
 function 18 
 function 19 
@@ -878,7 +911,9 @@ function 131
 function 132 
 function 133 
 function 134 
-module gethostbyaddr.wasm 
+done
+module gethostbyname.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -888,7 +923,40 @@ function 7
 function 8 
 function 9 
 function 10 
-exploded
+function 11 
+function 12 
+function 13 
+function 14 ebb path explosion 457
+done
+module gethostbyname_r.wasm 
+
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 ebb path explosion 457
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+done
+module gethostbyaddr.wasm 
+
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 ebb path explosion 457
 function 11 
 function 12 
 function 13 
@@ -899,7 +967,9 @@ function 17
 function 18 
 function 19 
 function 20 
+done
 module gethostbyaddr_r.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -913,7 +983,9 @@ function 11
 function 12 
 function 13 
 function 14 
+done
 module getaddrinfo.wasm 
+
 function 18 
 function 19 
 function 20 
@@ -1016,8 +1088,7 @@ function 116
 function 117 
 function 118 
 function 119 
-function 120 
-exploded
+function 120 ebb path explosion 457
 function 121 
 function 122 
 function 123 
@@ -1041,7 +1112,9 @@ function 140
 function 141 
 function 142 
 function 143 
+done
 module freeaddrinfo.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1053,7 +1126,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module ether.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1061,7 +1136,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module ent.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1069,7 +1146,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module dns_parse.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1077,7 +1156,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module dn_skipname.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1086,7 +1167,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module dn_expand.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1095,7 +1178,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module dn_comp.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -1108,3 +1193,4 @@ function 9
 function 10 
 function 11 
 function 12 
+done

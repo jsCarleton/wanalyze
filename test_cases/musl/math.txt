@@ -1,13 +1,5 @@
-module trunc.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
 module truncl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -25,7 +17,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module truncf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -34,7 +28,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module tgamma.wasm 
+done
+module trunc.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -43,29 +39,9 @@ function 4
 function 5 
 function 6 
 function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
-function 18 
-function 19 
-function 20 
-function 21 
-function 22 
-function 23 
-function 24 
-function 25 
-function 26 
-function 27 
-function 28 
-function 29 
+done
 module tgammal.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -105,7 +81,9 @@ function 35
 function 36 
 function 37 
 function 38 
+done
 module tgammaf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -140,7 +118,9 @@ function 30
 function 31 
 function 32 
 function 33 
-module tan.wasm 
+done
+module tgamma.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -154,19 +134,29 @@ function 9
 function 10 
 function 11 
 function 12 
-module __tan.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+function 18 
+function 19 
+function 20 
+function 21 
+function 22 
+function 23 
+function 24 
+function 25 
+function 26 
+function 27 
+function 28 
+function 29 
+done
 module tanl.wasm 
+
 function 0 
 function 1 
-function 2 
+function 2  prune_loop_paths 5880
 function 3 
 function 4 
 function 5 
@@ -195,40 +185,9 @@ function 27
 function 28 
 function 29 
 function 30 
-module __tanl.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
-function 18 
-function 19 
-function 20 
-module tanh.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
+done
 module tanhl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -245,7 +204,9 @@ function 12
 function 13 
 function 14 
 function 15 
+done
 module tanhf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -255,10 +216,25 @@ function 5
 function 6 
 function 7 
 function 8 
+done
+module tanh.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+done
 module tanf.wasm 
+
 function 0 
 function 1 
-function 2 
+function 2  prune_loop_paths 5880
 function 3 
 function 4 
 function 5 
@@ -269,26 +245,25 @@ function 9
 function 10 
 function 11 
 function 12 
-module __tandf.wasm 
+done
+module tan.wasm 
+
 function 0 
 function 1 
 function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module sqrt.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
+function 3  prune_loop_paths 5880
 function 4 
 function 5 
 function 6 
 function 7 
 function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+done
 module sqrtl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -308,7 +283,9 @@ function 15
 function 16 
 function 17 
 function 18 
+done
 module sqrtf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -318,7 +295,21 @@ function 5
 function 6 
 function 7 
 function 8 
+done
+module sqrt.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+done
 module sqrt_data.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -326,35 +317,13 @@ function 3
 function 4 
 function 5 
 function 6 
-module sin.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-module __sin.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module sinl.wasm 
+
 function 0 
 function 1 
 function 2 
-function 3 
+function 3  prune_loop_paths 5880
 function 4 
 function 5 
 function 6 
@@ -380,45 +349,9 @@ function 25
 function 26 
 function 27 
 function 28 
-module __sinl.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-module sinh.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
-function 18 
-function 19 
+done
 module sinhl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -445,7 +378,9 @@ function 22
 function 23 
 function 24 
 function 25 
+done
 module sinhf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -462,11 +397,36 @@ function 12
 function 13 
 function 14 
 function 15 
+done
+module sinh.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+function 18 
+function 19 
+done
 module sinf.wasm 
+
 function 0 
 function 1 
 function 2 
-function 3 
+function 3  prune_loop_paths 5880
 function 4 
 function 5 
 function 6 
@@ -477,35 +437,13 @@ function 10
 function 11 
 function 12 
 function 13 
-module __sindf.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module sincos.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
+done
 module sincosl.wasm 
+
 function 0 
 function 1 
 function 2 
-function 3 
+function 3  prune_loop_paths 5880
 function 4 
 function 5 
 function 6 
@@ -531,11 +469,13 @@ function 25
 function 26 
 function 27 
 function 28 
+done
 module sincosf.wasm 
+
 function 0 
 function 1 
 function 2 
-function 3 
+function 3  prune_loop_paths 5880
 function 4 
 function 5 
 function 6 
@@ -546,18 +486,43 @@ function 10
 function 11 
 function 12 
 function 13 
-module significand.wasm 
+done
+module sincos.wasm 
+
 function 0 
 function 1 
 function 2 
 function 3 
-function 4 
+function 4  prune_loop_paths 5880
 function 5 
 function 6 
 function 7 
 function 8 
 function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+done
+module sin.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4  prune_loop_paths 5880
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+done
 module significandf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -568,7 +533,22 @@ function 6
 function 7 
 function 8 
 function 9 
+done
+module significand.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+done
 module signgam.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -576,54 +556,9 @@ function 3
 function 4 
 function 5 
 function 6 
-module __signbit.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module __signbitl.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-module __signbitf.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module scalb.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-module scalbn.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module scalbnl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -636,7 +571,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module scalbnf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -645,7 +582,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module scalbln.wasm 
+done
+module scalbn.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -654,8 +593,9 @@ function 4
 function 5 
 function 6 
 function 7 
-function 8 
+done
 module scalblnl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -669,7 +609,9 @@ function 9
 function 10 
 function 11 
 function 12 
+done
 module scalblnf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -679,7 +621,21 @@ function 5
 function 6 
 function 7 
 function 8 
+done
+module scalbln.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+done
 module scalbf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -689,7 +645,9 @@ function 5
 function 6 
 function 7 
 function 8 
-module round.wasm 
+done
+module scalb.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -698,7 +656,10 @@ function 4
 function 5 
 function 6 
 function 7 
+function 8 
+done
 module roundl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -717,7 +678,9 @@ function 14
 function 15 
 function 16 
 function 17 
+done
 module roundf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -726,7 +689,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module rint.wasm 
+done
+module round.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -735,7 +700,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module rintl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -752,7 +719,9 @@ function 12
 function 13 
 function 14 
 function 15 
+done
 module rintf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -761,7 +730,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module remquo.wasm 
+done
+module rint.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -770,7 +741,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module remquol.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -792,7 +765,9 @@ function 17
 function 18 
 function 19 
 function 20 
+done
 module remquof.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -801,7 +776,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module __rem_pio2.wasm 
+done
+module remquo.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -810,70 +787,9 @@ function 4
 function 5 
 function 6 
 function 7 
-function 8 
-function 9 
-function 10 
-module __rem_pio2l.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
-function 18 
-function 19 
-function 20 
-function 21 
-function 22 
-function 23 
-function 24 
-function 25 
-module __rem_pio2_large.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-module __rem_pio2f.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-module remainder.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
+done
 module remainderl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -896,7 +812,9 @@ function 18
 function 19 
 function 20 
 function 21 
+done
 module remainderf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -907,7 +825,9 @@ function 6
 function 7 
 function 8 
 function 9 
-module pow.wasm 
+done
+module remainder.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -918,12 +838,9 @@ function 6
 function 7 
 function 8 
 function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
+done
 module powl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -952,7 +869,9 @@ function 24
 function 25 
 function 26 
 function 27 
+done
 module powf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -966,7 +885,9 @@ function 9
 function 10 
 function 11 
 function 12 
+done
 module powf_data.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -974,7 +895,27 @@ function 3
 function 4 
 function 5 
 function 6 
+done
+module pow.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+done
 module pow_data.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -982,43 +923,9 @@ function 3
 function 4 
 function 5 
 function 6 
-module __polevll.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-module nexttoward.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
-function 18 
+done
 module nexttowardl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1036,7 +943,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module nexttowardf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1056,7 +965,9 @@ function 15
 function 16 
 function 17 
 function 18 
-module nextafter.wasm 
+done
+module nexttoward.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1065,7 +976,20 @@ function 4
 function 5 
 function 6 
 function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+function 18 
+done
 module nextafterl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1083,7 +1007,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module nextafterf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1092,7 +1018,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module nearbyint.wasm 
+done
+module nextafter.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1101,7 +1029,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module nearbyintl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1119,7 +1049,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module nearbyintf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1128,7 +1060,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module nan.wasm 
+done
+module nearbyint.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1137,7 +1071,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module nanl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1146,7 +1082,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module nanf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1155,7 +1093,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module modf.wasm 
+done
+module nan.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1164,7 +1104,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module modfl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1183,7 +1125,9 @@ function 14
 function 15 
 function 16 
 function 17 
+done
 module modff.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1192,7 +1136,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module __math_xflow.wasm 
+done
+module modf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1201,124 +1147,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module __math_xflowf.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module __math_uflow.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-module __math_uflowf.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-module __math_oflow.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-module __math_oflowf.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-module __math_invalid.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module __math_invalidl.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-module __math_invalidf.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module __math_divzero.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module __math_divzerof.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module lround.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
+done
 module lroundl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1339,7 +1170,9 @@ function 16
 function 17 
 function 18 
 function 19 
+done
 module lroundf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1349,7 +1182,9 @@ function 5
 function 6 
 function 7 
 function 8 
-module lrint.wasm 
+done
+module lround.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1358,7 +1193,10 @@ function 4
 function 5 
 function 6 
 function 7 
+function 8 
+done
 module lrintl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1377,7 +1215,9 @@ function 14
 function 15 
 function 16 
 function 17 
+done
 module lrintf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1386,7 +1226,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module log.wasm 
+done
+module lrint.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1395,10 +1237,9 @@ function 4
 function 5 
 function 6 
 function 7 
-function 8 
-function 9 
-function 10 
+done
 module logl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1417,7 +1258,9 @@ function 14
 function 15 
 function 16 
 function 17 
+done
 module logf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1429,7 +1272,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module logf_data.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1437,25 +1282,9 @@ function 3
 function 4 
 function 5 
 function 6 
-module log_data.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-module logb.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
+done
 module logbl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1474,7 +1303,9 @@ function 14
 function 15 
 function 16 
 function 17 
+done
 module logbf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1484,7 +1315,9 @@ function 5
 function 6 
 function 7 
 function 8 
-module log2.wasm 
+done
+module logb.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1494,9 +1327,9 @@ function 5
 function 6 
 function 7 
 function 8 
-function 9 
-function 10 
+done
 module log2l.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1515,7 +1348,9 @@ function 14
 function 15 
 function 16 
 function 17 
+done
 module log2f.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1527,7 +1362,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module log2f_data.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1535,7 +1372,23 @@ function 3
 function 4 
 function 5 
 function 6 
+done
+module log2.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+done
 module log2_data.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1543,16 +1396,9 @@ function 3
 function 4 
 function 5 
 function 6 
-module log1p.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module log1pl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1567,7 +1413,9 @@ function 10
 function 11 
 function 12 
 function 13 
+done
 module log1pf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1576,7 +1424,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module log10.wasm 
+done
+module log1p.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1585,7 +1435,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module log10l.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1600,7 +1452,9 @@ function 10
 function 11 
 function 12 
 function 13 
+done
 module log10f.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1609,7 +1463,20 @@ function 4
 function 5 
 function 6 
 function 7 
-module llround.wasm 
+done
+module log10.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module log.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1620,7 +1487,20 @@ function 6
 function 7 
 function 8 
 function 9 
+function 10 
+done
+module log_data.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+done
 module llroundl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1641,7 +1521,9 @@ function 16
 function 17 
 function 18 
 function 19 
+done
 module llroundf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1652,7 +1534,9 @@ function 6
 function 7 
 function 8 
 function 9 
-module llrint.wasm 
+done
+module llround.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1662,7 +1546,10 @@ function 5
 function 6 
 function 7 
 function 8 
+function 9 
+done
 module llrintl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1681,7 +1568,9 @@ function 14
 function 15 
 function 16 
 function 17 
+done
 module llrintf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1691,7 +1580,9 @@ function 5
 function 6 
 function 7 
 function 8 
-module lgamma.wasm 
+done
+module llrint.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1701,32 +1592,9 @@ function 5
 function 6 
 function 7 
 function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
-module lgamma_r.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
+done
 module lgammal.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1750,7 +1618,9 @@ function 19
 function 20 
 function 21 
 function 22 
+done
 module lgammaf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1768,7 +1638,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module lgammaf_r.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1783,17 +1655,9 @@ function 10
 function 11 
 function 12 
 function 13 
-module ldexp.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-module ldexpl.wasm 
+done
+module lgamma.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1807,7 +1671,14 @@ function 9
 function 10 
 function 11 
 function 12 
-module ldexpf.wasm 
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+done
+module lgamma_r.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1817,11 +1688,92 @@ function 5
 function 6 
 function 7 
 function 8 
-module jn.wasm 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+done
+module ldexpl.wasm 
+
 function 0 
 function 1 
 function 2 
 function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+done
+module ldexpf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+done
+module ldexp.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+done
+module jnf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6  prune_loop_paths 5880
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+function 18 
+function 19 
+function 20 
+function 21 
+function 22 
+function 23 
+function 24 
+function 25 
+function 26 
+function 27 
+function 28 
+function 29 
+done
+module jn.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3  prune_loop_paths 5880
 function 4 
 function 5 
 function 6 
@@ -1849,61 +1801,34 @@ function 27
 function 28 
 function 29 
 function 30 
-module jnf.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
-function 18 
-function 19 
-function 20 
-function 21 
-function 22 
-function 23 
-function 24 
-function 25 
-function 26 
-function 27 
-function 28 
-function 29 
-module j1.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
+done
 module j1f.wasm 
+
 function 0 
 function 1 
 function 2 
 function 3 
 function 4 
+function 5  prune_loop_paths 5880
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+done
+module j1.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4  prune_loop_paths 5880
 function 5 
 function 6 
 function 7 
@@ -1916,30 +1841,34 @@ function 13
 function 14 
 function 15 
 function 16 
-module j0.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
+done
 module j0f.wasm 
+
 function 0 
 function 1 
 function 2 
 function 3 
 function 4 
+function 5  prune_loop_paths 5880
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+done
+module j0.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4  prune_loop_paths 5880
 function 5 
 function 6 
 function 7 
@@ -1952,24 +1881,9 @@ function 13
 function 14 
 function 15 
 function 16 
-module __invtrigl.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-module ilogb.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module ilogbl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1983,7 +1897,9 @@ function 9
 function 10 
 function 11 
 function 12 
+done
 module ilogbf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -1992,7 +1908,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module hypot.wasm 
+done
+module ilogb.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2001,7 +1919,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module hypotl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2037,7 +1957,9 @@ function 31
 function 32 
 function 33 
 function 34 
+done
 module hypotf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2046,7 +1968,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module frexp.wasm 
+done
+module hypot.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2055,7 +1979,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module frexpl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2069,7 +1995,9 @@ function 9
 function 10 
 function 11 
 function 12 
+done
 module frexpf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2078,7 +2006,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module __fpclassify.wasm 
+done
+module frexp.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2087,35 +2017,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module __fpclassifyl.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-module __fpclassifyf.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module fmod.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module fmodl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2132,7 +2036,9 @@ function 12
 function 13 
 function 14 
 function 15 
+done
 module fmodf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2141,7 +2047,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module fmin.wasm 
+done
+module fmod.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2150,7 +2058,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module fminl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2163,7 +2073,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module fminf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2172,7 +2084,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module fmax.wasm 
+done
+module fmin.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2181,7 +2095,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module fmaxl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2194,7 +2110,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module fmaxf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2203,7 +2121,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module fma.wasm 
+done
+module fmax.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2212,8 +2132,9 @@ function 4
 function 5 
 function 6 
 function 7 
-function 8 
+done
 module fmal.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2244,7 +2165,9 @@ function 26
 function 27 
 function 28 
 function 29 
+done
 module fmaf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2254,7 +2177,9 @@ function 5
 function 6 
 function 7 
 function 8 
-module floor.wasm 
+done
+module fma.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2263,7 +2188,10 @@ function 4
 function 5 
 function 6 
 function 7 
+function 8 
+done
 module floorl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2281,7 +2209,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module floorf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2290,7 +2220,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module finite.wasm 
+done
+module floor.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2299,7 +2231,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module finitef.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2308,7 +2242,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module fdim.wasm 
+done
+module finite.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2317,7 +2253,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module fdiml.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2335,7 +2273,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module fdimf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2344,7 +2284,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module fabs.wasm 
+done
+module fdim.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2353,7 +2295,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module fabsl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2363,7 +2307,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module fabsf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2372,7 +2318,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module exp.wasm 
+done
+module fabs.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2381,54 +2329,9 @@ function 4
 function 5 
 function 6 
 function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-module __expo2.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-module __expo2f.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-module expm1.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module expm1l.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2444,7 +2347,9 @@ function 11
 function 12 
 function 13 
 function 14 
+done
 module expm1f.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2453,7 +2358,20 @@ function 4
 function 5 
 function 6 
 function 7 
+done
+module expm1.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
 module expl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2476,7 +2394,9 @@ function 18
 function 19 
 function 20 
 function 21 
+done
 module expf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2489,29 +2409,9 @@ function 8
 function 9 
 function 10 
 function 11 
-module exp_data.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-module exp2.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
+done
 module exp2l.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2534,7 +2434,9 @@ function 18
 function 19 
 function 20 
 function 21 
+done
 module exp2f.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2547,7 +2449,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module exp2f_data.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2555,7 +2459,9 @@ function 3
 function 4 
 function 5 
 function 6 
-module exp10.wasm 
+done
+module exp2.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2569,23 +2475,9 @@ function 9
 function 10 
 function 11 
 function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
-function 18 
-function 19 
-function 20 
-function 21 
-function 22 
-function 23 
-function 24 
-function 25 
-function 26 
-function 27 
-function 28 
+done
 module exp10l.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2630,7 +2522,9 @@ function 40
 function 41 
 function 42 
 function 43 
+done
 module exp10f.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2655,7 +2549,9 @@ function 20
 function 21 
 function 22 
 function 23 
-module erf.wasm 
+done
+module exp10.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2674,7 +2570,46 @@ function 14
 function 15 
 function 16 
 function 17 
+function 18 
+function 19 
+function 20 
+function 21 
+function 22 
+function 23 
+function 24 
+function 25 
+function 26 
+function 27 
+function 28 
+done
+module exp.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+done
+module exp_data.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+done
 module erfl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2701,7 +2636,9 @@ function 22
 function 23 
 function 24 
 function 25 
+done
 module erff.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2717,7 +2654,9 @@ function 11
 function 12 
 function 13 
 function 14 
-module cos.wasm 
+done
+module erf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2732,20 +2671,17 @@ function 10
 function 11 
 function 12 
 function 13 
-module __cos.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+function 14 
+function 15 
+function 16 
+function 17 
+done
 module cosl.wasm 
+
 function 0 
 function 1 
 function 2 
-function 3 
+function 3  prune_loop_paths 5880
 function 4 
 function 5 
 function 6 
@@ -2771,45 +2707,9 @@ function 25
 function 26 
 function 27 
 function 28 
-module __cosl.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-module cosh.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
-function 15 
-function 16 
-function 17 
-function 18 
-function 19 
+done
 module coshl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2836,7 +2736,9 @@ function 22
 function 23 
 function 24 
 function 25 
+done
 module coshf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2853,11 +2755,36 @@ function 12
 function 13 
 function 14 
 function 15 
+done
+module cosh.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+function 18 
+function 19 
+done
 module cosf.wasm 
+
 function 0 
 function 1 
 function 2 
-function 3 
+function 3  prune_loop_paths 5880
 function 4 
 function 5 
 function 6 
@@ -2868,25 +2795,26 @@ function 10
 function 11 
 function 12 
 function 13 
-module __cosdf.wasm 
+done
+module cos.wasm 
+
 function 0 
 function 1 
 function 2 
 function 3 
-function 4 
+function 4  prune_loop_paths 5880
 function 5 
 function 6 
 function 7 
-module copysign.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+done
 module copysignl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2896,7 +2824,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module copysignf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2905,7 +2835,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module ceil.wasm 
+done
+module copysign.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2914,7 +2846,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module ceill.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2931,7 +2865,9 @@ function 12
 function 13 
 function 14 
 function 15 
+done
 module ceilf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2940,7 +2876,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module cbrt.wasm 
+done
+module ceil.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2949,7 +2887,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module cbrtl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2971,7 +2911,9 @@ function 17
 function 18 
 function 19 
 function 20 
+done
 module cbrtf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2980,7 +2922,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module atan.wasm 
+done
+module cbrt.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -2989,7 +2933,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module atanl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3010,17 +2956,9 @@ function 16
 function 17 
 function 18 
 function 19 
-module atanh.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
+done
 module atanhl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3044,7 +2982,9 @@ function 19
 function 20 
 function 21 
 function 22 
+done
 module atanhf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3054,7 +2994,21 @@ function 5
 function 6 
 function 7 
 function 8 
+done
+module atanh.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+done
 module atanf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3063,19 +3017,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module atan2.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
+done
 module atan2l.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3100,7 +3044,9 @@ function 20
 function 21 
 function 22 
 function 23 
+done
 module atan2f.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3112,7 +3058,9 @@ function 7
 function 8 
 function 9 
 function 10 
-module asin.wasm 
+done
+module atan2.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3121,7 +3069,23 @@ function 4
 function 5 
 function 6 
 function 7 
+function 8 
+function 9 
+function 10 
+done
+module atan.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
 module asinl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3157,22 +3121,9 @@ function 31
 function 32 
 function 33 
 function 34 
-module asinh.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
+done
 module asinhl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3194,7 +3145,9 @@ function 17
 function 18 
 function 19 
 function 20 
+done
 module asinhf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3208,7 +3161,26 @@ function 9
 function 10 
 function 11 
 function 12 
+done
+module asinh.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+done
 module asinf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3217,7 +3189,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module acos.wasm 
+done
+module asin.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3226,7 +3200,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module acosl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3262,22 +3238,9 @@ function 31
 function 32 
 function 33 
 function 34 
-module acosh.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
+done
 module acoshl.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3299,7 +3262,9 @@ function 17
 function 18 
 function 19 
 function 20 
+done
 module acoshf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3313,7 +3278,9 @@ function 9
 function 10 
 function 11 
 function 12 
-module acosf.wasm 
+done
+module acosh.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -3322,3 +3289,500 @@ function 4
 function 5 
 function 6 
 function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+done
+module acosf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module acos.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __tanl.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+function 18 
+function 19 
+function 20 
+done
+module __tandf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __tan.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __sinl.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+done
+module __sindf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __sin.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __signbitl.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+done
+module __signbitf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __signbit.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __rem_pio2l.wasm 
+
+function 0 
+function 1 
+function 2  prune_loop_paths 5880
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+function 17 
+function 18 
+function 19 
+function 20 
+function 21 
+function 22 
+function 23 
+function 24 
+function 25 
+done
+module __rem_pio2f.wasm 
+
+function 0 
+function 1 
+function 2  prune_loop_paths 5880
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+done
+module __rem_pio2.wasm 
+
+function 0 
+function 1 
+function 2  prune_loop_paths 5880
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+done
+module __rem_pio2_large.wasm 
+
+function 0 
+function 1  prune_loop_paths 7840pruning 2244 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+done
+module __polevll.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+done
+module __math_xflowf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __math_xflow.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __math_uflowf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+done
+module __math_uflow.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+done
+module __math_oflowf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+done
+module __math_oflow.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+done
+module __math_invalidl.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+done
+module __math_invalidf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __math_invalid.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __math_divzerof.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __math_divzero.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __invtrigl.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+done
+module __fpclassifyl.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+done
+module __fpclassifyf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __fpclassify.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __expo2f.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+done
+module __expo2.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+function 16 
+done
+module __cosl.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+function 15 
+done
+module __cosdf.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __cos.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done

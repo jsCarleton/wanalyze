@@ -1,16 +1,5 @@
-module __xstat.wasm 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
-function 12 
-function 13 
-function 14 
 module stat.wasm 
+
 function 4 
 function 5 
 function 6 
@@ -21,18 +10,9 @@ function 10
 function 11 
 function 12 
 function 13 
-module mkfifo.wasm 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
+done
 module mkfifoat.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -43,7 +23,22 @@ function 7
 function 8 
 function 9 
 function 10 
+done
+module mkfifo.wasm 
+
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+done
 module lstat.wasm 
+
 function 4 
 function 5 
 function 6 
@@ -54,7 +49,9 @@ function 10
 function 11 
 function 12 
 function 13 
+done
 module lchmod.wasm 
+
 function 4 
 function 5 
 function 6 
@@ -66,7 +63,9 @@ function 11
 function 12 
 function 13 
 function 14 
+done
 module futimens.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -77,3 +76,18 @@ function 7
 function 8 
 function 9 
 function 10 
+done
+module __xstat.wasm 
+
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+function 12 
+function 13 
+function 14 
+done

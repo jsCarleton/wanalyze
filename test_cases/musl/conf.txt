@@ -1,4 +1,5 @@
 module pathconf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -8,7 +9,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module legacy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -16,7 +19,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module fpathconf.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -25,7 +30,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module confstr.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -50,8 +57,7 @@ function 21
 function 22 
 function 23 
 function 24 
-function 25 
-exploded
+function 25 pruning 44355 
 function 26 
 function 27 
 function 28 
@@ -70,3 +76,4 @@ function 40
 function 41 
 function 42 
 function 43 
+done

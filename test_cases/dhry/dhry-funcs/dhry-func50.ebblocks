@@ -18,8 +18,8 @@ ebb entry:  24
   [24 25 26 29 30]
   2 loop paths
   [24 25 28 29]  [24 25 26 29]
-  2 post loop exit paths
-  [30]  [30]
+  1 post loop exit paths
+  [30]
 ebb entry:  31
   ebb type:   block
   ebb blocks: [31 32 33 34 35]
@@ -47,8 +47,8 @@ ebb entry:  36
   [36 37 38 39 40 41 42 43 44 45 46 47 48 49]
   6 loop paths
   [36 37 43 44 47 48]  [36 37 43 44 45 46 47 48]  [36 37 38 39 40 41 43 44 47 48]  [36 37 38 39 40 41 43 44 45 46 47 48]  [36 37 38 39 40 41 42 43 44 47 48]  [36 37 38 39 40 41 42 43 44 45 46 47 48]
-  6 post loop exit paths
-  [49]  [49]  [49]  [49]  [49]  [49]
+  1 post loop exit paths
+  [49]
 nested ebbs:
   ebb entry:  36
     ebb type:   block
@@ -85,8 +85,8 @@ nested ebbs:
     [44 45 46 47]
     1 loop paths
     [44 45]
-    2 post loop exit paths
-    [47]    [46 47]
+    1 post loop exit paths
+    [46 47]
   ebb entry:  48
     ebb type:   block
     ebb blocks: [48 49]
@@ -123,8 +123,8 @@ ebb entry:  53
   [53 54 55 62 63]
   3 loop paths
   [53 54 57 58 59 60 62]  [53 54 57 58 59 60 61 62]  [53 54 55 62]
-  3 post loop exit paths
-  [63]  [63]  [63]
+  1 post loop exit paths
+  [63]
 nested ebbs:
   ebb entry:  53
     ebb type:   block
@@ -230,8 +230,8 @@ ebb entry:  94
   [94 95 96 97]
   2 loop paths
   [94 96]  [94 95 96]
-  2 post loop exit paths
-  [97]  [97]
+  1 post loop exit paths
+  [97]
 ebb entry:  98
   ebb type:   block
   ebb blocks: [98]
@@ -279,8 +279,8 @@ ebb entry:  106
   [106 107 108 109]
   1 loop paths
   [106 107]
-  2 post loop exit paths
-  [109]  [108 109]
+  1 post loop exit paths
+  [108 109]
 ebb entry:  110
   ebb type:   block
   ebb blocks: [110 111 112 113 114 115 116 117 118 119]
@@ -366,8 +366,8 @@ ebb entry:  146
   [146 147 148 149 150 151 152 156 157]
   4 loop paths
   [146 147 154 156]  [146 147 154 155 156]  [146 147 148 156]  [146 147 148 149 150 151 152 156]
-  4 post loop exit paths
-  [157]  [157]  [157]  [157]
+  1 post loop exit paths
+  [157]
 nested ebbs:
   ebb entry:  146
     ebb type:   block
@@ -430,8 +430,8 @@ ebb entry:  163
   [163 164 165 166 167 168]
   2 loop paths
   [163 168 169]  [163 164 165 166 167 168 169]
-  2 post loop exit paths
-  [170]  [170]
+  1 post loop exit paths
+  [170]
 nested ebbs:
   ebb entry:  163
     ebb type:   block
@@ -514,8 +514,8 @@ ebb entry:  176
   [176 177 178 179 180 181 182 183 184 188]
   8 loop paths
   [176 178 179 186 188 189]  [176 178 179 186 187 188 189]  [176 178 179 180 188 189]  [176 178 179 180 181 182 183 184 188 189]  [176 177 178 179 186 188 189]  [176 177 178 179 186 187 188 189]  [176 177 178 179 180 188 189]  [176 177 178 179 180 181 182 183 184 188 189]
-  8 post loop exit paths
-  [190]  [190]  [190]  [190]  [190]  [190]  [190]  [190]
+  1 post loop exit paths
+  [190]
 nested ebbs:
   ebb entry:  176
     ebb type:   block
@@ -643,8 +643,8 @@ ebb entry:  210
   [210 211 212 215 216 217 218 219 220 221 222 223 224]
   10 loop paths
   [210 211 214 215 216 223]  [210 211 214 215 216 217 218 222 223]  [210 211 214 215 216 217 218 219 222 223]  [210 211 214 215 216 217 218 219 220 223]  [210 211 214 215 216 217 218 219 220 221 222 223]  [210 211 212 215 216 223]  [210 211 212 215 216 217 218 222 223]  [210 211 212 215 216 217 218 219 222 223]  [210 211 212 215 216 217 218 219 220 223]  [210 211 212 215 216 217 218 219 220 221 222 223]
-  10 post loop exit paths
-  [224]  [224]  [224]  [224]  [224]  [224]  [224]  [224]  [224]  [224]
+  1 post loop exit paths
+  [224]
 ebb entry:  225
   ebb type:   block
   ebb blocks: [225 226 227 228 229 230 231 232 233]
@@ -657,8 +657,8 @@ ebb entry:  234
   ebb cost:   6
   ebb exits:  [235]
   ebb succs:  []
-ebb costs
-%![0]: 102
+ebb costs:
+[0]: 102
 [24]: (list_max((29 * N([pF1], [(((pF1 - f64.convert_i32_u(i32.trunc_f64_u(pF1))) * 1000000000.) != 0.)], [(R(37, 61, f64, ((gn0 - 560) + 44), 44) + R(37, 61, f64, ((gn0 - 560) + 44), 44))], [((pF1 - f64.convert_i32_ui32.trunc_f64_upF1) * 1000000000.)])), (28 * N([pF1], [(((pF1 - f64.convert_i32_u(0)) * 1000000000.) != 0.)], [(R(37, 61, f64, ((gn0 - 560) + 44), 44) + R(37, 61, f64, ((gn0 - 560) + 44), 44))], [((pF1 - f64.convert_i32_u0) * 1000000000.)]))) + 1)
 [31]: 12
 [36]: list_MAX((list_sum(48, ((25 * N([ln6; ln8], [((ln6 - 4) >= ln8)], [((((((gn0 - 560) + 48) + select((0 < 0), 288, 0)) + 4) - 4) - 4); (((gn0 - 560) + 48) + select((0 < 0), 288, 0))], [(ln6 - 4); ln8])) + 1), ((12 * N([m[0]], [i32.eqz(m[0])], [0], [m[0]])) + 2)) * N([m[44]; pn3], [((m[44] - select((pn3 < 29), 29, pn3)) > 0)], [0; 0], [(m[44] - select((pn3 < 29), 29, pn3)); (m[44] - select((pn3 < 29), 29, pn3))])))
@@ -730,4 +730,5 @@ ebb costs
 [210]: (list_max((61 * N([pF1], [(((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)])), (52 * N([pF1], [(((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)])), (56 * N([pF1], [(((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)])), (52 * N([pF1], [(((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)])), (41 * N([pF1], [(((pF1 - f64.convert_i32_s(i32.trunc_f64_s(pF1))) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_si32.trunc_f64_spF1) * 16.)])), (60 * N([pF1], [(((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_s-2147483648) * 16.)])), (51 * N([pF1], [(((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_s-2147483648) * 16.)])), (55 * N([pF1], [(((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_s-2147483648) * 16.)])), (51 * N([pF1], [(((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_s-2147483648) * 16.)])), (40 * N([pF1], [(((pF1 - f64.convert_i32_s(-2147483648)) * 16.) != 0.)], [pF1], [((pF1 - f64.convert_i32_s-2147483648) * 16.)]))) + 1)
 [225]: 92
 [234]: 6
-0 ebb paths found
+1 ebb paths found
+[0 24 31 36 50 51 53 64 65 69 71 72 75 77 78 94 98 99 101 103 104 106 110 120 122 123 127 135 137 138 140 146 158 163 171 173 176 191 192 194 195 196 198 201 203 207 210 225 234]

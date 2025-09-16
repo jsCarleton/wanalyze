@@ -77,7 +77,7 @@ ebb entry:  25
   1 loop paths
   [25 28]
   2 post loop exit paths
-  [29]  [26]
+  [26]  [29]
 ebb entry:  30
   ebb type:   block
   ebb blocks: [30]
@@ -96,8 +96,8 @@ ebb entry:  33
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
-ebb costs
-%![0]: 20
+ebb costs:
+[0]: 20
 [6]: ((22 * N([pn2], [(pn2 - 1)], [pn2], [(pn2 - 1)])) + 1)
 [10]: 1
 [11]: 4

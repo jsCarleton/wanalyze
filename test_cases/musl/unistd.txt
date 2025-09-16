@@ -1,4 +1,5 @@
 module usleep.wasm 
+
 function 3 
 function 4 
 function 5 
@@ -12,7 +13,9 @@ function 12
 function 13 
 function 14 
 function 15 
+done
 module ualarm.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -24,7 +27,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module ttyname.wasm 
+
 function 6 
 function 7 
 function 8 
@@ -41,7 +46,9 @@ function 18
 function 19 
 function 20 
 function 21 
+done
 module tcsetpgrp.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -52,7 +59,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module tcgetpgrp.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -63,7 +72,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module sleep.wasm 
+
 function 3 
 function 4 
 function 5 
@@ -77,7 +88,9 @@ function 12
 function 13 
 function 14 
 function 15 
+done
 module setpgrp.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -89,7 +102,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module posix_close.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -101,7 +116,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module getlogin.wasm 
+
 function 3 
 function 4 
 function 5 
@@ -110,8 +127,7 @@ function 7
 function 8 
 function 9 
 function 10 
-function 11 
-exploded
+function 11 ebb path explosion 457
 function 12 
 function 13 
 function 14 
@@ -119,7 +135,9 @@ function 15
 function 16 
 function 17 
 function 18 
+done
 module getlogin_r.wasm 
+
 function 3 
 function 4 
 function 5 
@@ -131,8 +149,7 @@ function 10
 function 11 
 function 12 
 function 13 
-function 14 
-exploded
+function 14 ebb path explosion 457
 function 15 
 function 16 
 function 17 
@@ -140,7 +157,9 @@ function 18
 function 19 
 function 20 
 function 21 
+done
 module gethostname.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -152,7 +171,20 @@ function 7
 function 8 
 function 9 
 function 10 
+done
+module ctermid.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
 module _exit.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -162,12 +194,4 @@ function 6
 function 7 
 function 8 
 function 9 
-module ctermid.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done

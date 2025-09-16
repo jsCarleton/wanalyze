@@ -26,11 +26,8 @@
     ])) + 14
   ]);
   list_sum([
-    294;
-    (list_max([
-      27 * (N([ln7; ln9], [not((ln7 + 1) == ln9)], [0; m[112]], [ln7 + 1; ln9]));
-      19 * (N([ln7; ln9], [not((ln7 + 1) == ln9)], [0; m[112]], [ln7 + 1; ln9]))
-    ])) + Empty;
+    590;
+    (34 * (N([ln1; ln3; ln9; m[0]], [(select(m[0] < ln9, ((ln1 - ln3) shr_u 1) + ln3, ln1)) > (select(m[0] < ln9, ln3, (((ln1 - ln3) shr_u 1) + ln3) + 1))], [m[20]; 0; m[12]; m[0]], [select(m[0] < ln9, ((ln1 - ln3) shr_u 1) + ln3, ln1); select(m[0] < ln9, ln3, (((ln1 - ln3) shr_u 1) + ln3) + 1); ln9; m[0]]))) + 3;
     list_MAX([
       (list_sum([
         35;
@@ -46,8 +43,11 @@
     ])) + 14
   ]);
   list_sum([
-    590;
-    (34 * (N([ln1; ln3; ln9; m[0]], [(select(m[0] < ln9, ((ln1 - ln3) shr_u 1) + ln3, ln1)) > (select(m[0] < ln9, ln3, (((ln1 - ln3) shr_u 1) + ln3) + 1))], [m[20]; 0; m[12]; m[0]], [select(m[0] < ln9, ((ln1 - ln3) shr_u 1) + ln3, ln1); select(m[0] < ln9, ln3, (((ln1 - ln3) shr_u 1) + ln3) + 1); ln9; m[0]]))) + 3;
+    294;
+    (list_max([
+      27 * (N([ln7; ln9], [not((ln7 + 1) == ln9)], [0; m[112]], [ln7 + 1; ln9]));
+      19 * (N([ln7; ln9], [not((ln7 + 1) == ln9)], [0; m[112]], [ln7 + 1; ln9]))
+    ])) + Empty;
     list_MAX([
       (list_sum([
         35;

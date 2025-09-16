@@ -17,7 +17,7 @@ ebb entry:  15
   1 loop paths
   [15 16 19]
   2 post loop exit paths
-  [20]  [17]
+  [17]  [20]
 ebb entry:  21
   ebb type:   block
   ebb blocks: [21 22]
@@ -49,10 +49,6 @@ ebb costs:
 [23]: 16
 [24]: 2
 [26]: 0
-6 ebb paths found
+2 ebb paths found
 [0 26]
-[0 24]
-[0 23 24]
-[0 15 23 24]
-[0 15 21 24]
 [0 15 21 23 24]

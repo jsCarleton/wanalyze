@@ -1,9 +1,9 @@
 module valloc.wasm 
+
 function 1 
 function 2 
 function 3 
-function 4 
-exploded
+function 4 ebb path explosion 457
 function 5 
 function 6 
 function 7 
@@ -14,7 +14,9 @@ function 11
 function 12 
 function 13 
 function 14 
+done
 module utmpx.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -22,7 +24,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module ulimit.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -39,7 +43,9 @@ function 12
 function 13 
 function 14 
 function 15 
+done
 module lutimes.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -50,7 +56,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module isastream.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -61,7 +69,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module getusershell.wasm 
+
 function 9 
 function 10 
 function 11 
@@ -99,8 +109,7 @@ function 42
 function 43 
 function 44 
 function 45 
-function 46 
-exploded
+function 46 ebb path explosion 457
 function 47 
 function 48 
 function 49 
@@ -115,7 +124,9 @@ function 57
 function 58 
 function 59 
 function 60 
+done
 module getpass.wasm 
+
 function 6 
 function 7 
 function 8 
@@ -151,8 +162,7 @@ function 37
 function 38 
 function 39 
 function 40 
-function 41 
-exploded
+function 41 pruning 44355 
 function 42 
 function 43 
 function 44 
@@ -170,7 +180,9 @@ function 55
 function 56 
 function 57 
 function 58 
+done
 module getpagesize.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -179,7 +191,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module getloadavg.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -188,7 +202,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module getdtablesize.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -201,7 +217,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module futimes.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -213,7 +231,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module ftw.wasm 
+
 function 10 
 function 11 
 function 12 
@@ -238,8 +258,7 @@ function 30
 function 31 
 function 32 
 function 33 
-function 34 
-exploded
+function 34 ebb path explosion 457
 function 35 
 function 36 
 function 37 
@@ -249,7 +268,9 @@ function 40
 function 41 
 function 42 
 function 43 
+done
 module euidaccess.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -260,7 +281,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module err.wasm 
+
 function 6 
 function 7 
 function 8 
@@ -314,8 +337,7 @@ function 55
 function 56 
 function 57 
 function 58 
-function 59 
-exploded
+function 59 pruning 44355 
 function 60 
 function 61 
 function 62 
@@ -333,7 +355,9 @@ function 73
 function 74 
 function 75 
 function 76 
+done
 module daemon.wasm 
+
 function 6 
 function 7 
 function 8 
@@ -355,7 +379,9 @@ function 23
 function 24 
 function 25 
 function 26 
+done
 module cuserid.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -370,3 +396,4 @@ function 11
 function 12 
 function 13 
 function 14 
+done

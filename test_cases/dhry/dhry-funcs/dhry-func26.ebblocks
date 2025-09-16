@@ -17,7 +17,7 @@ ebb entry:  13
   1 loop paths
   [13 16]
   2 post loop exit paths
-  [17]  [14]
+  [14]  [17]
 ebb entry:  18
   ebb type:   block
   ebb blocks: [18 19]
@@ -42,8 +42,8 @@ ebb entry:  23
   ebb cost:   0
   ebb exits:  []
   ebb succs:  []
-ebb costs
-%![0]: 27
+ebb costs:
+[0]: 27
 [13]: ((14 * N([m[0]], [(m[0] != 10)], [m[0]], [m[0]])) + 3)
 [18]: 22
 [20]: 15

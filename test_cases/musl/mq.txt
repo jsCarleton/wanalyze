@@ -1,4 +1,5 @@
 module mq_send.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -7,7 +8,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module mq_receive.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -16,3 +19,4 @@ function 5
 function 6 
 function 7 
 function 8 
+done

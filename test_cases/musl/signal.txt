@@ -1,17 +1,5 @@
-module sigwait.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-function 8 
-function 9 
-function 10 
-function 11 
 module sigwaitinfo.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -24,7 +12,34 @@ function 8
 function 9 
 function 10 
 function 11 
+done
+module sigwait.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+function 8 
+function 9 
+function 10 
+function 11 
+done
+module sigsetjmp.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+done
 module sigset.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -47,15 +62,9 @@ function 20
 function 21 
 function 22 
 function 23 
-module sigsetjmp.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
+done
 module sigrtmin.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -63,7 +72,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module sigrtmax.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -71,7 +82,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module sigrelse.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -93,7 +106,9 @@ function 19
 function 20 
 function 21 
 function 22 
+done
 module sigprocmask.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -113,7 +128,9 @@ function 17
 function 18 
 function 19 
 function 20 
+done
 module sigpause.wasm 
+
 function 3 
 function 4 
 function 5 
@@ -134,7 +151,9 @@ function 19
 function 20 
 function 21 
 function 22 
+done
 module sigorset.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -143,7 +162,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sigismember.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -152,7 +173,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sigisemptyset.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -161,7 +184,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module siginterrupt.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -172,7 +197,9 @@ function 7
 function 8 
 function 9 
 function 10 
+done
 module sigignore.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -184,7 +211,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module sighold.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -206,7 +235,9 @@ function 19
 function 20 
 function 21 
 function 22 
+done
 module sigfillset.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -215,7 +246,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sigemptyset.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -224,7 +257,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sigdelset.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -233,7 +268,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sigandset.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -242,7 +279,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sigaddset.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -251,7 +290,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module restore.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -259,7 +300,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module psiginfo.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -268,7 +311,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module killpg.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -285,3 +330,4 @@ function 13
 function 14 
 function 15 
 function 16 
+done

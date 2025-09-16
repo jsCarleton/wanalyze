@@ -7,21 +7,25 @@ ebb entry:  0
 ebb entry:  3
   ebb type:   loop
   ebb blocks: [3 4 5 6 7 8 9 10 11 12 13]
-  ebb cost:   (list_max([
-  58 * (N([ln2; ln3], [(ln2 + 1) != ln3], [0; pn0 + -1], [ln2 + 1; ln3]));
-  51 * (N([ln2; ln3], [(ln2 + 1) != ln3], [0; pn0 + -1], [ln2 + 1; ln3]));
-  22 * (N([ln2; ln3], [(ln2 + 1) != ln3], [0; pn0 + -1], [ln2 + 1; ln3]))
-])) + 1
+  ebb cost:   list_MAX([
+  (list_sum([
+    25;
+    (list_max([
+      33 * (N([ln4; ln5], [(ln5 + 1) != ln4], [pn0 + -1; 0], [ln4; ln5 + 1]));
+      26 * (N([ln4; ln5], [(ln5 + 1) != ln4], [pn0 + -1; 0], [ln4; ln5 + 1]))
+    ])) + 1
+  ])) * (N([ln2; ln3], [(ln2 + 1) != ln3], [0; pn0 + -1], [ln2 + 1; ln3]))
+])
   ebb exits:  [14]
-  ebb succs:  []
+  ebb succs:  [14]
   3 paths to exit 14
   [3 4 12 13]
   [3 4 5 6 7 9 10 11 12 13]
   [3 4 5 6 7 8 9 10 11 12 13]
   3 loop paths
   [3 4 12]  [3 4 5 6 7 9 10 11 12]  [3 4 5 6 7 8 9 10 11 12]
-  3 post loop exit paths
-  [13]  [13]  [13]
+  1 post loop exit paths
+  [13]
 nested ebbs:
   ebb entry:  3
     ebb type:   block
@@ -43,8 +47,8 @@ nested ebbs:
     [6 7 8 9 10]
     2 loop paths
     [6 7 9]    [6 7 8 9]
-    2 post loop exit paths
-    [10]    [10]
+    1 post loop exit paths
+    [10]
   ebb entry:  11
     ebb type:   block
     ebb blocks: [11]
@@ -71,14 +75,12 @@ ebb entry:  15
   ebb succs:  []
 ebb costs:
 [0]: 13
-[3]: (list_max((58 * N([ln2; ln3], [((ln2 + 1) != ln3)], [0; (pn0 + -1)], [(ln2 + 1); ln3])), (51 * N([ln2; ln3], [((ln2 + 1) != ln3)], [0; (pn0 + -1)], [(ln2 + 1); ln3])), (22 * N([ln2; ln3], [((ln2 + 1) != ln3)], [0; (pn0 + -1)], [(ln2 + 1); ln3]))) + 1)
+[3]: list_MAX((list_sum(25, (list_max((33 * N([ln4; ln5], [((ln5 + 1) != ln4)], [(pn0 + -1); 0], [ln4; (ln5 + 1)])), (26 * N([ln4; ln5], [((ln5 + 1) != ln4)], [(pn0 + -1); 0], [ln4; (ln5 + 1)]))) + 1)) * N([ln2; ln3], [((ln2 + 1) != ln3)], [0; (pn0 + -1)], [(ln2 + 1); ln3])))
 [3]: 12
 [6]: (list_max((33 * N([ln4; ln5], [((ln5 + 1) != ln4)], [(pn0 + -1); 0], [ln4; (ln5 + 1)])), (26 * N([ln4; ln5], [((ln5 + 1) != ln4)], [(pn0 + -1); 0], [ln4; (ln5 + 1)]))) + 1)
 [11]: 1
 [12]: 12
 [14]: 1
 [15]: 1
-3 ebb paths found
-[0 15]
-[0 3 12 14 15]
-[0 3 6 11 12 14 15]
+1 ebb paths found
+[0 3 14 15]

@@ -1,4 +1,5 @@
 module twalk.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -8,13 +9,14 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module tsearch.wasm 
+
 function 1 
 function 2 
 function 3 
 function 4 
-function 5 
-exploded
+function 5 ebb path explosion 457
 function 6 
 function 7 
 function 8 
@@ -22,7 +24,9 @@ function 9
 function 10 
 function 11 
 function 12 
+done
 module tfind.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -31,7 +35,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module tdestroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -41,7 +47,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module tdelete.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -54,7 +62,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module lsearch.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -64,7 +74,9 @@ function 6
 function 7 
 function 8 
 function 9 
+done
 module insque.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -73,7 +85,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module hsearch.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -81,8 +95,7 @@ function 4
 function 5 
 function 6 
 function 7 
-function 8 
-exploded
+function 8 ebb path explosion 457
 function 9 
 function 10 
 function 11 
@@ -92,3 +105,4 @@ function 14
 function 15 
 function 16 
 function 17 
+done

@@ -1,4 +1,5 @@
 module setjmp.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -7,8 +8,7 @@ function 6
 function 7 
 function 8 
 function 9 
-function 10 
-exploded
+function 10 ebb path explosion 457
 function 11 
 function 12 
 function 13 
@@ -17,7 +17,9 @@ function 15
 function 16 
 function 17 
 function 18 
+done
 module longjmp.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -25,3 +27,4 @@ function 3
 function 4 
 function 5 
 function 6 
+done

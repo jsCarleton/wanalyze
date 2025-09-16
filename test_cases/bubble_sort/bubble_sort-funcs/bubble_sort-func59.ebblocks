@@ -72,8 +72,8 @@ ebb entry:  82
   [82 83 84 85]
   2 loop paths
   [82 83 87]  [82 83 84 87]
-  3 post loop exit paths
-  [88]  [88]  [85]
+  2 post loop exit paths
+  [85]  [88]
 ebb entry:  89
   ebb type:   block
   ebb blocks: [89]
@@ -100,8 +100,8 @@ ebb entry:  97
   [97 98 99 100 101]
   2 loop paths
   [97 98 100]  [97 98 99 100]
-  2 post loop exit paths
-  [101]  [101]
+  1 post loop exit paths
+  [101]
 ebb entry:  102
   ebb type:   block
   ebb blocks: [102]
@@ -157,8 +157,8 @@ ebb entry:  151
   [151 152 153]
   2 loop paths
   [151 152 155]  [151 152 153 154 155]
-  2 post loop exit paths
-  [156]  [156]
+  1 post loop exit paths
+  [156]
 ebb entry:  157
   ebb type:   block
   ebb blocks: [157]

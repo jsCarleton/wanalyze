@@ -1,13 +1,5 @@
-module __wait.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
 module vmlock.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -15,7 +7,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module tss_delete.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -25,7 +19,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module tss_create.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -35,7 +31,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module tls.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -43,7 +41,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module thrd_join.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -53,7 +53,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module thrd_exit.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -63,7 +65,9 @@ function 6
 function 7 
 function 8 
 function 9 
+done
 module syscall_cp.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -71,16 +75,9 @@ function 3
 function 4 
 function 5 
 function 6 
-module __set_thread_area.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module sem_wait.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -89,7 +86,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module sem_unlink.wasm 
+
 function 2 
 function 3 
 function 4 
@@ -105,7 +104,9 @@ function 13
 function 14 
 function 15 
 function 16 
+done
 module sem_trywait.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -114,7 +115,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sem_timedwait.wasm 
+
 function 1 
 function 2 
 function 3 
@@ -129,7 +132,9 @@ function 11
 function 12 
 function 13 
 function 14 
+done
 module sem_post.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -138,7 +143,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sem_open.wasm 
+
 function 16 
 function 17 
 function 18 
@@ -188,8 +195,7 @@ function 61
 function 62 
 function 63 
 function 64 
-function 65 
-exploded
+function 65 pruning 44355 
 function 66 
 function 67 
 function 68 
@@ -201,8 +207,7 @@ function 73
 function 74 
 function 75 
 function 76 
-function 77 
-exploded
+function 77 ebb path explosion 457
 function 78 
 function 79 
 function 80 
@@ -218,7 +223,9 @@ function 89
 function 90 
 function 91 
 function 92 
+done
 module sem_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -227,7 +234,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sem_getvalue.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -236,7 +245,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module sem_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -245,7 +256,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_spin_unlock.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -254,7 +267,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_spin_trylock.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -263,7 +278,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_spin_lock.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -272,7 +289,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_spin_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -281,7 +300,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_spin_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -290,7 +311,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_setname_np.wasm 
+
 function 5 
 function 6 
 function 7 
@@ -325,8 +348,7 @@ function 35
 function 36 
 function 37 
 function 38 
-function 39 
-exploded
+function 39 pruning 44355 
 function 40 
 function 41 
 function 42 
@@ -343,7 +365,9 @@ function 52
 function 53 
 function 54 
 function 55 
+done
 module pthread_setconcurrency.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -352,25 +376,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module pthread_rwlock_init.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
-module pthread_rwlock_destroy.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module pthread_rwlockattr_setpshared.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -379,7 +387,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_rwlockattr_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -388,7 +398,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_rwlockattr_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -397,7 +409,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module pthread_mutex_setprioceiling.wasm 
+done
+module pthread_rwlock_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -406,7 +420,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module pthread_mutex_init.wasm 
+done
+module pthread_rwlock_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -415,16 +431,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module pthread_mutex_getprioceiling.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module pthread_mutexattr_settype.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -433,7 +442,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_mutexattr_setpshared.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -442,7 +453,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_mutexattr_setprotocol.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -451,7 +464,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_mutexattr_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -460,7 +475,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_mutexattr_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -469,7 +486,42 @@ function 4
 function 5 
 function 6 
 function 7 
+done
+module pthread_mutex_setprioceiling.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module pthread_mutex_init.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module pthread_mutex_getprioceiling.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
 module pthread_getname_np.wasm 
+
 function 5 
 function 6 
 function 7 
@@ -505,8 +557,7 @@ function 36
 function 37 
 function 38 
 function 39 
-function 40 
-exploded
+function 40 pruning 44355 
 function 41 
 function 42 
 function 43 
@@ -522,7 +573,9 @@ function 52
 function 53 
 function 54 
 function 55 
+done
 module pthread_getcpuclockid.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -531,7 +584,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_getconcurrency.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -540,7 +595,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_getattr_np.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -553,7 +610,9 @@ function 8
 function 9 
 function 10 
 function 11 
+done
 module pthread_equal.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -562,16 +621,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module pthread_cond_init.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module pthread_condattr_setpshared.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -580,7 +632,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_condattr_setclock.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -589,7 +643,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_condattr_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -598,7 +654,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_condattr_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -607,7 +665,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module pthread_barrier_init.wasm 
+done
+module pthread_cond_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -616,7 +676,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_barrierattr_setpshared.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -625,7 +687,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_barrierattr_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -634,7 +698,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_barrierattr_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -643,7 +709,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module pthread_attr_setstack.wasm 
+done
+module pthread_barrier_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -652,7 +720,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_attr_setstacksize.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -661,7 +731,20 @@ function 4
 function 5 
 function 6 
 function 7 
+done
+module pthread_attr_setstack.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
 module pthread_attr_setscope.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -670,7 +753,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_attr_setschedpolicy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -679,7 +764,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_attr_setschedparam.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -688,7 +775,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_attr_setinheritsched.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -697,7 +786,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_attr_setguardsize.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -706,7 +797,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_attr_setdetachstate.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -715,7 +808,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module pthread_attr_get.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -723,7 +818,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module pthread_attr_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -732,7 +829,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module mtx_unlock.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -742,7 +841,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module mtx_timedlock.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -752,7 +853,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module mtx_lock.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -763,7 +866,9 @@ function 6
 function 7 
 function 8 
 function 9 
+done
 module mtx_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -772,7 +877,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module mtx_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -781,16 +888,9 @@ function 4
 function 5 
 function 6 
 function 7 
-module __lock.wasm 
-function 0 
-function 1 
-function 2 
-function 3 
-function 4 
-function 5 
-function 6 
-function 7 
+done
 module lock_ptc.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -798,7 +898,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module default_attr.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -806,7 +908,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module cnd_wait.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -817,7 +921,9 @@ function 6
 function 7 
 function 8 
 function 9 
+done
 module cnd_timedwait.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -827,7 +933,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module cnd_signal.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -837,7 +945,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module cnd_init.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -846,7 +956,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module cnd_destroy.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -855,7 +967,9 @@ function 4
 function 5 
 function 6 
 function 7 
+done
 module cnd_broadcast.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -865,7 +979,9 @@ function 5
 function 6 
 function 7 
 function 8 
+done
 module clone.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -873,7 +989,9 @@ function 3
 function 4 
 function 5 
 function 6 
+done
 module call_once.wasm 
+
 function 0 
 function 1 
 function 2 
@@ -883,3 +1001,37 @@ function 5
 function 6 
 function 7 
 function 8 
+done
+module __wait.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __set_thread_area.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
+module __lock.wasm 
+
+function 0 
+function 1 
+function 2 
+function 3 
+function 4 
+function 5 
+function 6 
+function 7 
+done
