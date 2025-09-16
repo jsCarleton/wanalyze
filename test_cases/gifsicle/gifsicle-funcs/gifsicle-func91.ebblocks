@@ -12,7 +12,6 @@ ebb entry:  4
   43 * (N([ln6; ln7], [ln7 >= ln6], [5; 0], [ln6; ln7 + 1]))
 ])) + (list_max([
   1;
-  10 + |f330|;
   11 + |f330|
 ]))
   ebb exits:  [15 19 21]
@@ -25,8 +24,8 @@ ebb entry:  4
   [4 5 11]
   2 loop paths
   [4 5 6 9]  [4 5 6 7 8 9]
-  3 post loop exit paths
-  [14]  [11 12]  [11]
+  2 post loop exit paths
+  [14]  [11 12]
 ebb entry:  15
   ebb type:   block
   ebb blocks: [15 16]
@@ -53,7 +52,7 @@ ebb entry:  21
   ebb succs:  []
 ebb costs:
 [0]: 18
-[4]: (list_max(((58 + |f30|) * N([ln4; ln6], [not(i32.eqz(R(30, 0, i32, (ln6 * 40), ln4)))], [R(26, 12, i32, 100); 5], [R(30, 25, i32, (ln6 * 40), 40); (ln6 shl 1)])), (43 * N([ln6; ln7], [(ln7 >= ln6)], [5; 0], [ln6; (ln7 + 1)]))) + list_max(1, (10 + |f330|), (11 + |f330|)))
+[4]: (list_max(((58 + |f30|) * N([ln4; ln6], [not(i32.eqz(R(30, 0, i32, (ln6 * 40), ln4)))], [R(26, 12, i32, 100); 5], [R(30, 25, i32, (ln6 * 40), 40); (ln6 shl 1)])), (43 * N([ln6; ln7], [(ln7 >= ln6)], [5; 0], [ln6; (ln7 + 1)]))) + list_max(1, (11 + |f330|)))
 [15]: 1
 [17]: 1
 [19]: 6

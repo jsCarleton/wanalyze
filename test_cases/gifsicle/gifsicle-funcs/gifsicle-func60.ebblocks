@@ -42,8 +42,8 @@ ebb entry:  13
   [13 14 15 16]
   2 loop paths
   [13 15]  [13 14 15]
-  2 post loop exit paths
-  [16]  [16]
+  1 post loop exit paths
+  [16]
 ebb entry:  17
   ebb type:   block
   ebb blocks: [17]
@@ -121,8 +121,8 @@ ebb entry:  28
   [28 29 30 31 32 33 34 35 36 37 38 39 40 41 42]
   15 loop paths
   [28 29 32 33 41]  [28 29 32 33 34 35 38 39 41]  [28 29 32 33 34 35 38 39 40 41]  [28 29 32 33 34 35 36 37 38 39 41]  [28 29 32 33 34 35 36 37 38 39 40 41]  [28 29 30 32 33 41]  [28 29 30 32 33 34 35 38 39 41]  [28 29 30 32 33 34 35 38 39 40 41]  [28 29 30 32 33 34 35 36 37 38 39 41]  [28 29 30 32 33 34 35 36 37 38 39 40 41]  [28 29 30 31 32 33 41]  [28 29 30 31 32 33 34 35 38 39 41]  [28 29 30 31 32 33 34 35 38 39 40 41]  [28 29 30 31 32 33 34 35 36 37 38 39 41]  [28 29 30 31 32 33 34 35 36 37 38 39 40 41]
-  15 post loop exit paths
-  [42]  [42]  [42]  [42]  [42]  [42]  [42]  [42]  [42]  [42]  [42]  [42]  [42]  [42]  [42]
+  1 post loop exit paths
+  [42]
 nested ebbs:
   ebb entry:  28
     ebb type:   block
@@ -141,8 +141,8 @@ nested ebbs:
     [35 36 37 38]
     1 loop paths
     [35 36]
-    2 post loop exit paths
-    [38]    [37 38]
+    1 post loop exit paths
+    [37 38]
   ebb entry:  39
     ebb type:   block
     ebb blocks: [39 40]
@@ -181,8 +181,8 @@ ebb entry:  46
   [46 47 48 49]
   2 loop paths
   [46 48]  [46 47 48]
-  2 post loop exit paths
-  [49]  [49]
+  1 post loop exit paths
+  [49]
 ebb entry:  50
   ebb type:   block
   ebb blocks: [50]

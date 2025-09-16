@@ -24,8 +24,8 @@ ebb entry:  18
   [18 19 20 21 22]
   2 loop paths
   [18 19 21 22 23 24 25]  [18 19 20 21 22 23 24 25]
-  2 post loop exit paths
-  [27]  [27]
+  1 post loop exit paths
+  [27]
 ebb entry:  28
   ebb type:   block
   ebb blocks: [28 29]
@@ -58,8 +58,8 @@ ebb entry:  32
   [32]
   3 loop paths
   [32 33 34 40]  [32 33 34 35 40]  [32 33 34 35 36 37 38 39 40]
-  3 post loop exit paths
-  [41]  [41]  [41]
+  1 post loop exit paths
+  [41]
 nested ebbs:
   ebb entry:  32
     ebb type:   block

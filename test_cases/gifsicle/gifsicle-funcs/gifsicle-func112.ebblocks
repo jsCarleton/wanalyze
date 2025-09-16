@@ -67,8 +67,8 @@ nested ebbs:
     [25 26 27 28]
     2 loop paths
     [25 27]    [25 26 27]
-    2 post loop exit paths
-    [28]    [28]
+    1 post loop exit paths
+    [28]
   ebb entry:  29
     ebb type:   block
     ebb blocks: [29]
@@ -139,8 +139,8 @@ ebb entry:  52
   [52 53 54 55 56 57]
   3 loop paths
   [52 53 56]  [52 53 54 56]  [52 53 54 55 56]
-  3 post loop exit paths
-  [57]  [57]  [57]
+  1 post loop exit paths
+  [57]
 ebb entry:  58
   ebb type:   block
   ebb blocks: [58]

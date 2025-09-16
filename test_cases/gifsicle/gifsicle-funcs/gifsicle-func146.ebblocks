@@ -109,8 +109,8 @@ ebb entry:  66
   [66 67 68 69 70 71 72 73 74]
   3 loop paths
   [66 73]  [66 67 68 70 71 72 73]  [66 67 68 69 70 71 72 73]
-  3 post loop exit paths
-  [74]  [74]  [74]
+  1 post loop exit paths
+  [74]
 nested ebbs:
   ebb entry:  66
     ebb type:   block
@@ -132,8 +132,8 @@ nested ebbs:
     [68 69 70 71]
     2 loop paths
     [68 70]    [68 69 70]
-    2 post loop exit paths
-    [71]    [71]
+    1 post loop exit paths
+    [71]
   ebb entry:  72
     ebb type:   block
     ebb blocks: [72]

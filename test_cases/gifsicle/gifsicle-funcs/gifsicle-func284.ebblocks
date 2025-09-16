@@ -23,8 +23,8 @@ ebb entry:  8
 
   2 loop paths
   [8 9 14 17]  [8 9 14 15]
-  3 post loop exit paths
-  [10 11 21]  [10 11 12]  [10]
+  2 post loop exit paths
+  [10 11 12]  [10 11 21]
 ebb entry:  22
   ebb type:   block
   ebb blocks: [22]
@@ -51,8 +51,8 @@ ebb entry:  25
   [25 26 27 30 31]
   2 loop paths
   [25 26 29 30]  [25 26 27 30]
-  2 post loop exit paths
-  [31]  [31]
+  1 post loop exit paths
+  [31]
 ebb entry:  32
   ebb type:   block
   ebb blocks: [32]

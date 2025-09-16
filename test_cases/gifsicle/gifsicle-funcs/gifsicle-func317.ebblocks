@@ -44,8 +44,8 @@ ebb entry:  9
   [9 10 11 12 13 14 15]
   2 loop paths
   [9 14]  [9 10 11 12 13 14]
-  2 post loop exit paths
-  [15]  [15]
+  1 post loop exit paths
+  [15]
 nested ebbs:
   ebb entry:  9
     ebb type:   block
@@ -235,8 +235,8 @@ ebb entry:  83
   [83 84 85 86 87 88]
   2 loop paths
   [83 88 89]  [83 84 85 86 87 88 89]
-  2 post loop exit paths
-  [90]  [90]
+  1 post loop exit paths
+  [90]
 nested ebbs:
   ebb entry:  83
     ebb type:   block

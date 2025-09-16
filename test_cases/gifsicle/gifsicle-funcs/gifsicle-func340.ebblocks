@@ -57,8 +57,8 @@ ebb entry:  2
   [2 3 4 5 6 7 8 9 10 11 17 18 19 20 21]
   7 loop paths
   [2 3 20]  [2 3 4 5 6 7 13 17 18 19 20]  [2 3 4 5 6 7 13 14 15 20]  [2 3 4 5 6 7 8 17 18 19 20]  [2 3 4 5 6 7 8 9 17 18 19 20]  [2 3 4 5 6 7 8 9 10 15 20]  [2 3 4 5 6 7 8 9 10 11 17 18 19 20]
-  7 post loop exit paths
-  [21]  [21]  [21]  [21]  [21]  [21]  [21]
+  1 post loop exit paths
+  [21]
 nested ebbs:
   ebb entry:  2
     ebb type:   block
@@ -87,8 +87,8 @@ nested ebbs:
     [5 6 7 8 9 10 15]
     4 loop paths
     [5 6 7 13 17]    [5 6 7 8 17]    [5 6 7 8 9 17]    [5 6 7 8 9 10 11 17]
-    6 post loop exit paths
-    [18]    [18]    [18]    [18]    [14 15]    [15]
+    2 post loop exit paths
+    [18]    [14 15]
   ebb entry:  19
     ebb type:   block
     ebb blocks: [19]

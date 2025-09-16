@@ -180,7 +180,8 @@ let paths_of_ebblocks (ebbs: ebb list): ebb list list =
       in
 
       if iters > 1_000_000 then
-        (Printf.printf "ebb path explosion %d%!" last_bb; [])
+        (* ebb path explosion, give up *)
+        []
       else 
         match nterm with
           | []        -> term
@@ -276,34 +277,22 @@ let ebb_paths_max_cost (ebb_paths: ebb list list): et =
   | [hd]  -> ebb_path_cost hd
   | _     -> simplify_max (List.map ~f:ebb_path_cost ebb_paths)
 
-(* pruning ebb paths *)
-let ids_of_ep (ep: ebb_path): int list = 
-  List.map ~f:(fun b -> b.bbindex) ep
-
-let list_in (l1: int list) (l2: int list): bool =
-  List.for_all ~f:(fun x -> (List.mem l1 x ~equal:(=))) l2
-
-(* thinking of l1, l2 as sets
-    returns +1 if l2 is a subset of l1,
-            -1 if l1 is a subset of l2,
-              0 otherwise, i.e. at least one of them has an element not in the other *)
-let path_compare (ep1: ebb_path) (ep2: ebb_path): int =
-  if list_in (ids_of_ep ep1) (ids_of_ep ep2) then
-    +1
-  else if list_in (ids_of_ep ep2) (ids_of_ep ep1) then
-      -1
-  else
-      0
-
-let bigger_loop (ep1: ebb_path) (ep2: ebb_path) (lmi1: Cost.loop_metric) (lmi2: Cost.loop_metric): bool =
-  (* either the first path contains the second and the loop metrics are the same
-      or the first path contains *)
-  (not (Cost.compare_loop_conds lmi1 lmi2)) || (path_compare ep1 ep2 = 1 && Cost.compare_loop_conds lmi1 lmi2) || (path_compare ep1 ep2 = 0)
+(* pruning paths of various types *)
 
 let prune_loop_paths (ebbpaths: ebb_path list) (lmis: Cost.loop_metric list): ebb_path list * Cost.loop_metric list =
-  let zip = List.zip_exn ebbpaths lmis in
-  List.unzip
-    (List.filter ~f:(fun a -> List.for_all ~f:(fun b -> bigger_loop (fst a) (fst b) (snd a) (snd b)) zip) zip)
+  let bb_in_path (b: bb) (path: cp): bool =
+    List.exists ~f:(fun b' -> b.bbindex = b'.bbindex) path
+  in
+  let path_in_path (loop_path: (ebb_path)*(Cost.loop_metric)) (loop_path': (ebb_path)*(Cost.loop_metric)): bool =
+    (Cost.compare_loop_conds (snd loop_path) (snd loop_path')) && (List.for_all ~f:(fun b -> bb_in_path b (fst loop_path)) (fst loop_path'))
+  in
+  let path_in_paths (loop_path: (ebb_path)*(Cost.loop_metric)) (loop_paths: ((ebb_path)*(Cost.loop_metric)) list): bool =
+    List.exists ~f:(fun p -> path_in_path p loop_path) loop_paths
+  in
+  List.unzip 
+    (List.fold ~init:[] ~f:(fun acc a -> if path_in_paths a acc then acc else a::acc)
+      (List.sort ~compare:(fun a b -> Int.compare (List.length (fst b)) (List.length (fst a)))
+        (List.zip_exn ebbpaths lmis)))
 
 let prune_ebb_paths (ebbpaths: ebb list list): ebb list list =
   let ebb_in_path (e: ebb) (path: ebb list): bool =
@@ -456,13 +445,8 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
         let loop_cps  = looping_paths_of_loop_bblocks bblocks bbacks in
         if List.length loop_cps > 0 then
           begin
-            let codepaths = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
-            let exit_cps    = exit_paths (exit_cps codepaths) loop_cps in
-            if List.length exit_cps > 100_000 then
-              Printf.printf " exit_cps %d%!" (List.length exit_cps);
-            let exit_cps = prune_cps exit_cps in
-            if List.length exit_cps > 5_000 then
-              Printf.printf " pruned exit_cps %d%!" (List.length exit_cps);
+            let codepaths   = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
+            let exit_cps    = prune_cps (exit_paths (exit_cps codepaths) loop_cps) in
             let nested_ebbs = sub_ebbs_of_bbs bblocks in
             let root_bb     = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
             (* TODO goal is to replace this call to Cp.codepaths_from_to_bb_exn with a function
@@ -669,11 +653,7 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
                           else
                             ()
                           ;
-                          let paths = z.loop_cps in
-                          let lmis  = hd.lms in
-                          if List.length paths > 1_000 then
-                            Printf.printf " prune_loop_paths %d%!" (List.length paths);
-                          let paths, lmis = prune_loop_paths paths lmis in
+                          let paths, lmis = prune_loop_paths z.loop_cps hd.lms in
                           hd.ebb_cost <- Node {op="list_MAX"; 
                             op_disp=Function; 
                             args=(List.map2_exn ~f:(fun a b -> Node {op="*"; op_disp=Infix; args=[ebb_path_cost (ebbs_from_bbs hd.nested_ebbs a); (loop_iters b)]}) paths lmis)}

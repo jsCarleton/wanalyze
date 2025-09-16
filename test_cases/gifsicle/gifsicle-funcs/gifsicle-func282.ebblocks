@@ -86,8 +86,8 @@ nested ebbs:
     [15 16 17 20 21]
     2 loop paths
     [15 16 19 20]    [15 16 17 20]
-    2 post loop exit paths
-    [21]    [21]
+    1 post loop exit paths
+    [21]
   ebb entry:  22
     ebb type:   block
     ebb blocks: [22 23 24 25 26 27 28]
@@ -138,8 +138,8 @@ nested ebbs:
     [92 93 94 97 98]
     2 loop paths
     [92 93 96 97]    [92 93 94 97]
-    2 post loop exit paths
-    [98]    [98]
+    1 post loop exit paths
+    [98]
   ebb entry:  99
     ebb type:   block
     ebb blocks: [99 100 101 102 103 104]
@@ -297,8 +297,8 @@ nested ebbs:
     [194 195 196 199 200 201]
     10 loop paths
     [194 195 198 199 200 201 202 204 205]    [194 195 198 199 200 201 202 204]    [194 195 198 199 200 201 202 203 204 205]    [194 195 198 199 200 201 202 203 204]    [194 195 198 199 200]    [194 195 196 199 200 201 202 204 205]    [194 195 196 199 200 201 202 204]    [194 195 196 199 200 201 202 203 204 205]    [194 195 196 199 200 201 202 203 204]    [194 195 196 199 200]
-    4 post loop exit paths
-    [206]    [206]    [206]    [206]
+    1 post loop exit paths
+    [206]
   ebb entry:  207
     ebb type:   block
     ebb blocks: [207 208]
@@ -346,8 +346,8 @@ nested ebbs:
     [218 219 220 221 224 225]
     2 loop paths
     [218 219 220 223 224 227 228 229]    [218 219 220 221 224 227 228 229]
-    4 post loop exit paths
-    [230]    [230]    [225]    [225]
+    2 post loop exit paths
+    [225]    [230]
 nested ebbs:
     ebb entry:  218
       ebb type:   block
@@ -372,8 +372,8 @@ nested ebbs:
       [219 220 221 224 225]
       2 loop paths
       [219 220 223 224 227]      [219 220 221 224 227]
-      4 post loop exit paths
-      [228]      [228]      [225]      [225]
+      2 post loop exit paths
+      [225]      [228]
     ebb entry:  229
       ebb type:   block
       ebb blocks: [229 230]
@@ -408,8 +408,8 @@ nested ebbs:
 
     2 loop paths
     [235 236 239 240 241]    [235 236 237 240 241]
-    2 post loop exit paths
-    [243]    [243]
+    1 post loop exit paths
+    [243]
   ebb entry:  248
     ebb type:   block
     ebb blocks: [248 249 250]
@@ -430,8 +430,8 @@ nested ebbs:
     [251 252 253 256 257]
     2 loop paths
     [251 252 255 256]    [251 252 253 256]
-    2 post loop exit paths
-    [257]    [257]
+    1 post loop exit paths
+    [257]
   ebb entry:  258
     ebb type:   block
     ebb blocks: [258]

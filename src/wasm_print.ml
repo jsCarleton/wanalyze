@@ -408,10 +408,7 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
       )
     in
   let ebbs = ebbs_of_bbs ctx bblocks bblocks in
-  let p = paths_of_ebblocks ebbs in
-  if List.length p > 1_000 then
-    Printf.printf "pruning %d %!" (List.length p);
-  let ebb_paths = prune_ebb_paths p in
+  let ebb_paths = prune_ebb_paths (paths_of_ebblocks ebbs) in
   let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
     List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
     Out_channel.output_string oc "ebb costs:\n";

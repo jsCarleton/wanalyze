@@ -195,7 +195,7 @@ nested ebbs:
       1 loop paths
       [172 173 174]
       2 post loop exit paths
-      [177]      [175]
+      [175]      [177]
     ebb entry:  178
       ebb type:   block
       ebb blocks: [178 179]
@@ -220,8 +220,8 @@ nested ebbs:
       [182 183 184 185 186 187]
       1 loop paths
       [182 183 184 185]
-      3 post loop exit paths
-      [187]      [187]      [186 187]
+      1 post loop exit paths
+      [186 187]
     ebb entry:  188
       ebb type:   block
       ebb blocks: [188]
@@ -271,7 +271,7 @@ nested ebbs:
     1 loop paths
     [201 202]
     2 post loop exit paths
-    [205]    [203]
+    [203]    [205]
   ebb entry:  206
     ebb type:   block
     ebb blocks: [206 207]
