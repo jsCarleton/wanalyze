@@ -132,6 +132,49 @@ let exit_bbs_of_bbs (bblocks: bb list): bb list =
 let exits_of_bbs (bblocks: bb list) (exit_bbs: bb list): cp list option list =
   List.map ~f:(fun exit_bb -> Cp.codepaths_from_bbs_to_bb bblocks exit_bb) exit_bbs
 
+  (* pruning paths of various types *)
+
+let prune_loop_paths (ebbpaths: ebb_path list) (lmis: Cost.loop_metric list): ebb_path list * Cost.loop_metric list =
+  let bb_in_path (b: bb) (path: cp): bool =
+    List.exists ~f:(fun b' -> b.bbindex = b'.bbindex) path
+  in
+  let path_in_path (loop_path: (ebb_path)*(Cost.loop_metric)) (loop_path': (ebb_path)*(Cost.loop_metric)): bool =
+    (Cost.compare_loop_conds (snd loop_path) (snd loop_path')) && (List.for_all ~f:(fun b -> bb_in_path b (fst loop_path)) (fst loop_path'))
+  in
+  let path_in_paths (loop_path: (ebb_path)*(Cost.loop_metric)) (loop_paths: ((ebb_path)*(Cost.loop_metric)) list): bool =
+    List.exists ~f:(fun p -> path_in_path p loop_path) loop_paths
+  in
+  List.unzip 
+    (List.fold ~init:[] ~f:(fun acc a -> if path_in_paths a acc then acc else a::acc)
+      (List.sort ~compare:(fun a b -> Int.compare (List.length (fst b)) (List.length (fst a)))
+        (List.zip_exn ebbpaths lmis)))
+
+let prune_ebb_paths (ebbpaths: ebb list list): ebb list list =
+  let ebb_in_path (e: ebb) (path: ebb list): bool =
+    List.exists ~f:(fun e' -> e.entry_bb.bbindex = e'.entry_bb.bbindex) path
+  in
+  let path_in_path (path: ebb list) (path': ebb list): bool =
+    List.for_all ~f:(fun e -> ebb_in_path e path) path'
+  in
+  let path_in_paths (path: ebb list) (paths: ebb list list): bool =
+    List.exists ~f:(fun p -> path_in_path p path) paths
+  in
+  List.fold ~init:[] ~f:(fun acc a -> if path_in_paths a acc then acc else a::acc)
+    (List.sort ~compare:(fun a b -> Int.compare (List.length b) (List.length a)) ebbpaths)
+
+let prune_cps (cps: cp list): cp list =
+  let bb_in_path (b: bb) (path: cp): bool =
+    List.exists ~f:(fun b' -> b.bbindex = b'.bbindex) path
+  in
+  let path_in_path (path: cp) (path': cp): bool =
+    List.for_all ~f:(fun b -> bb_in_path b path) path'
+  in
+  let path_in_paths (path: cp) (paths: cp list): bool =
+    List.exists ~f:(fun p -> path_in_path p path) paths
+  in
+  List.fold ~init:[] ~f:(fun acc a -> if path_in_paths a acc then acc else a::acc)
+    (List.sort ~compare:(fun a b -> Int.compare (List.length b) (List.length a)) cps)
+
 (*
     paths_of_ebblocks
 
@@ -276,49 +319,6 @@ let ebb_paths_max_cost (ebb_paths: ebb list list): et =
   | []    -> Empty
   | [hd]  -> ebb_path_cost hd
   | _     -> simplify_max (List.map ~f:ebb_path_cost ebb_paths)
-
-(* pruning paths of various types *)
-
-let prune_loop_paths (ebbpaths: ebb_path list) (lmis: Cost.loop_metric list): ebb_path list * Cost.loop_metric list =
-  let bb_in_path (b: bb) (path: cp): bool =
-    List.exists ~f:(fun b' -> b.bbindex = b'.bbindex) path
-  in
-  let path_in_path (loop_path: (ebb_path)*(Cost.loop_metric)) (loop_path': (ebb_path)*(Cost.loop_metric)): bool =
-    (Cost.compare_loop_conds (snd loop_path) (snd loop_path')) && (List.for_all ~f:(fun b -> bb_in_path b (fst loop_path)) (fst loop_path'))
-  in
-  let path_in_paths (loop_path: (ebb_path)*(Cost.loop_metric)) (loop_paths: ((ebb_path)*(Cost.loop_metric)) list): bool =
-    List.exists ~f:(fun p -> path_in_path p loop_path) loop_paths
-  in
-  List.unzip 
-    (List.fold ~init:[] ~f:(fun acc a -> if path_in_paths a acc then acc else a::acc)
-      (List.sort ~compare:(fun a b -> Int.compare (List.length (fst b)) (List.length (fst a)))
-        (List.zip_exn ebbpaths lmis)))
-
-let prune_ebb_paths (ebbpaths: ebb list list): ebb list list =
-  let ebb_in_path (e: ebb) (path: ebb list): bool =
-    List.exists ~f:(fun e' -> e.entry_bb.bbindex = e'.entry_bb.bbindex) path
-  in
-  let path_in_path (path: ebb list) (path': ebb list): bool =
-    List.for_all ~f:(fun e -> ebb_in_path e path) path'
-  in
-  let path_in_paths (path: ebb list) (paths: ebb list list): bool =
-    List.exists ~f:(fun p -> path_in_path p path) paths
-  in
-  List.fold ~init:[] ~f:(fun acc a -> if path_in_paths a acc then acc else a::acc)
-    (List.sort ~compare:(fun a b -> Int.compare (List.length b) (List.length a)) ebbpaths)
-
-let prune_cps (cps: cp list): cp list =
-  let bb_in_path (b: bb) (path: cp): bool =
-    List.exists ~f:(fun b' -> b.bbindex = b'.bbindex) path
-  in
-  let path_in_path (path: cp) (path': cp): bool =
-    List.for_all ~f:(fun b -> bb_in_path b path) path'
-  in
-  let path_in_paths (path: cp) (paths: cp list): bool =
-    List.exists ~f:(fun p -> path_in_path p path) paths
-  in
-  List.fold ~init:[] ~f:(fun acc a -> if path_in_paths a acc then acc else a::acc)
-    (List.sort ~compare:(fun a b -> Int.compare (List.length b) (List.length a)) cps)
 
 (*
     ebbs_of_bbs
