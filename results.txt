@@ -1,0 +1,107 @@
+john@Johns-Mac-mini-10 wanalyze % ./runtests.sh
+bubble_sort
+module bubble_sort.wasm 
+function 64 
+done
+real 11.63
+user 10.80
+sys 0.08
+lines of code:     7210
+# of functions:       60
+# of loops:       50
+# functions with loops:       17
+# functions with too many paths:        1
+
+bubble_sort_only
+module bubble_sort_only.wasm 
+function 51 
+done
+real 18.48
+user 17.25
+sys 0.12
+lines of code:     6648
+# of functions:       49
+# of loops:       49
+# functions with loops:       17
+# functions with too many paths:        1
+diff: test_cases/bubble_sort_only/*t.wat: No such file or directory
+
+dhry
+module dhry.wasm 
+function 53 
+done
+real 13.38
+user 12.15
+sys 0.11
+lines of code:    12992
+# of functions:       47
+# of loops:       95
+# functions with loops:       21
+# functions with too many paths:        1
+
+allium
+module allium.wasm 
+function 83 
+done
+real 2.02
+user 1.39
+sys 0.05
+lines of code:    61949
+# of functions:       68
+# of loops:       52
+# functions with loops:       21
+# functions with too many paths:        0
+
+gifsicle
+module gifsicle.wasm 
+function 374 
+done
+real 65.35
+user 59.29
+sys 0.51
+lines of code:    89663
+# of functions:      353
+# of loops:      756
+# functions with loops:      165
+# functions with too many paths:       10
+
+mozjpeg
+module mozjpeg.wasm 
+function 376 
+done
+real 29.85
+user 22.66
+sys 0.26
+lines of code:    80554
+# of functions:      350
+# of loops:      568
+# functions with loops:      125
+# functions with too many paths:        3
+
+oxipng
+module oxipng.wasm 
+function 426 
+done
+real 707.59
+user 690.29
+sys 7.48
+lines of code:   147027
+# of functions:      426
+# of loops:      871
+# functions with loops:      158
+# functions with too many paths:       10
+
+vim
+module vim.wasm 
+function 4927 
+done
+real 510.41
+user 351.39
+sys 18.33
+lines of code:   644081
+# of functions:     4833
+# of loops:     3875
+# functions with loops:     1768
+# functions with too many paths:       50
+
+john@Johns-Mac-mini-10 wanalyze % 

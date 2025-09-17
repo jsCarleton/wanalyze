@@ -459,11 +459,6 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
             let lms = looping_parts_costs bbacks loop_cps cp in
             let ulv = unique_loop_vars lms in
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
-            if List.length exit_cps > 30_000 then
-              Printf.printf "exit_cost %d\n%!" (List.length exit_cps)
-            else
-              ()
-            ; 
             let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
             if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
             begin

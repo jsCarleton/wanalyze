@@ -9,302 +9,302 @@ ebb entry:  6
   ebb blocks: [6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66]
   ebb cost:   list_MAX([
   (list_sum([
-    215;
-    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    215;
-    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    193;
-    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    215;
-    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    215;
-    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    193;
-    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    214;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    214;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    192;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    214;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    214;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    192;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    168;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
-    168;
-    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
-    list_MAX([
-      (list_sum([
-        127;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        126;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
-      (list_sum([
-        128;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-      (list_sum([
-        127;
-        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
-        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
-    ])
-  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
-  (list_sum([
     146;
     (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    192;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    192;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    193;
+    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    193;
+    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    168;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    168;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    214;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    214;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    215;
+    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    214;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    215;
+    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    214;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    215;
+    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
+  ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]));
+  (list_sum([
+    215;
+    ((17 + |f28|) * (N([ln4], [ln4 shr_s 1], [(((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1], [ln4 shr_s 1]))) + 1;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1;
+    (25 * (N([ln7], [ln7 > 1], [63], [ln7 + -1]))) + 1;
+    list_MAX([
+      (list_sum([
+        126;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        127;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+      (list_sum([
+        127;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
+      (list_sum([
+        128;
+        ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+        ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+        ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+      ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
+    ])
   ])) * (N([ln11; m[272]], [(ln11 + 1) < m[272]], [0; m[272]], [ln11 + 1; m[272]]))
 ])
   ebb exits:  [67]
@@ -1040,23 +1040,23 @@ nested ebbs:
     ebb blocks: [40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61]
     ebb cost:   list_MAX([
   (list_sum([
-    127;
-    ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
+    126;
     ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
   ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
   (list_sum([
-    126;
+    127;
+    ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
+    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
+  ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
+  (list_sum([
+    127;
+    ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
     ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
   ])) * (N([ln3; ln7], [ln3 < ln7], [1; 63], [ln3 + 1; ln7]));
   (list_sum([
     128;
     ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
     ((17 + |f28|) * (N([ln8], [ln8 shr_s 1], [((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1], [ln8 shr_s 1]))) + 1;
-    ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
-  ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]));
-  (list_sum([
-    127;
-    ((29 + |f28|) * (N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]]))) + 1;
     ((13 + |f28|) * (N([ln2], [ln2 shr_s 1], [(1 shr_s 1) shr_s 1], [ln2 shr_s 1]))) + 1
   ])) * (N([ln3; ln7], [(ln3 + 1) < ln7], [1; 63], [(ln3 + 1) + 1; ln7]))
 ])
@@ -1194,7 +1194,7 @@ ebb entry:  68
   ebb succs:  []
 ebb costs:
 [0]: 45
-[6]: list_MAX((list_sum(215, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(215, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(193, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(215, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(215, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(193, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(214, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(214, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(192, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(214, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(214, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(192, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(168, ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(168, ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(146, ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])))
+[6]: list_MAX((list_sum(146, ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(192, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(192, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(193, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(193, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(168, ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(168, ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(214, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(214, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(215, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(214, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(215, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(214, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(215, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])), (list_sum(215, (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1), ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1), list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))) * N([ln11; m[272]], [((ln11 + 1) < m[272])], [0; m[272]], [(ln11 + 1); m[272]])))
 [6]: 113
 [16]: (((17 + |f28|) * N([ln4], [(ln4 shr_s 1)], [((((((((m[276] shl 2) + m[364]) - m[36]) + ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) xor ((((m[276] shl 2) + m[364]) - m[36]) shr_s 31)) + -1) shr_u 1) shr_s 1)], [(ln4 shr_s 1)])) + 1)
 [18]: 1
@@ -1204,7 +1204,7 @@ ebb costs:
 [30]: 8
 [33]: ((25 * N([ln7], [(ln7 > 1)], [63], [(ln7 + -1)])) + 1)
 [38]: 17
-[40]: list_MAX((list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))
+[40]: list_MAX((list_sum(126, (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(127, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])), (list_sum(127, (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [(ln3 < ln7)], [1; 63], [(ln3 + 1); ln7])), (list_sum(128, (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1), (((17 + |f28|) * N([ln8], [(ln8 shr_s 1)], [(((((((m[0] shl 16) shr_s 16) + ((m[0] shl 16) shr_s 31)) xor ((m[0] shl 16) shr_s 31)) + -1) shr_s 2) shr_s 1)], [(ln8 shr_s 1)])) + 1), (((13 + |f28|) * N([ln2], [(ln2 shr_s 1)], [((1 shr_s 1) shr_s 1)], [(ln2 shr_s 1)])) + 1)) * N([ln3; ln7], [((ln3 + 1) < ln7)], [1; 63], [((ln3 + 1) + 1); ln7])))
 [40]: 32
 [42]: (((29 + |f28|) * N([m[0]], [i32.eqz(m[0])], [m[0]], [m[0]])) + 1)
 [44]: 1
