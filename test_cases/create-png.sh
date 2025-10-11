@@ -1,4 +1,4 @@
-for FILE in "$1"/"$1"-funcs/*.bblocks; do
+for FILE in "$1"/"$1"-funcs/*func8*.bblocks; do
     to='timeout'
     if [[ "$OSTYPE" == "darwin"* ]]; then
         to='gtimeout'

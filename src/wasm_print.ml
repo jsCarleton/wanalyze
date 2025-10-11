@@ -407,8 +407,11 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
         print_ebb_costs oc tl
       )
     in
+  Printf.printf "calling ebbs_of_bbs\n%!";
   let ebbs = ebbs_of_bbs ctx bblocks bblocks in
+  Printf.printf "calling prune_ebb_paths\n%!";
   let ebb_paths = prune_ebb_paths (paths_of_ebblocks ebbs) in
+  Printf.printf "returned\n%!";
   let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
     List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
     Out_channel.output_string oc "ebb costs:\n";

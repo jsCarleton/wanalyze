@@ -441,14 +441,22 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
     (* only a loop can have a nested loop *)
     match ebbtype with
     | EBB_loop ->
+    Printf.printf "finishing %d\n%!" entry_bb.bbindex;
         let bbacks    = branchbacks_of_loop bblocks in
+    Printf.printf "bbacks\n%!";
         let loop_cps  = looping_paths_of_loop_bblocks bblocks bbacks in
+    Printf.printf "loop_cps\n%!";
         if List.length loop_cps > 0 then
           begin
+Printf.printf "length loop_cps %d\n%!" (List.length loop_cps);
             let codepaths   = exits_of_bbs bblocks (exit_bbs_of_bbs bblocks) in
+    Printf.printf "codepaths\n%!";
             let exit_cps    = prune_cps (exit_paths (exit_cps codepaths) loop_cps) in
+    Printf.printf "exit_cps\n%!";
             let nested_ebbs = sub_ebbs_of_bbs bblocks in
+    Printf.printf "nested_ebbs\n%!";
             let root_bb     = List.hd_exn all_bbs in (* TODO doesn't work for nested loops *)
+    Printf.printf "root_bb\n%!";
             (* TODO goal is to replace this call to Cp.codepaths_from_to_bb_exn with a function
                that returns the paths that update any of the loop vars rather than all paths *)
             let cp =
@@ -456,10 +464,15 @@ let rec ebbs_of_bbs (ctx: Ex.execution_context)
               | [] -> []
               (* TODO why do we only consider one prefix? *)
               | cps  -> List.hd_exn cps) in
+    Printf.printf "chop_extension\n%!";
             let lms = looping_parts_costs bbacks loop_cps cp in
+    Printf.printf "lms\n%!";
             let ulv = unique_loop_vars lms in
+    Printf.printf "ulv\n%!";
             let ulv_bb = bblocks_of_parameters bblocks entry_bb ulv in
+    Printf.printf "ulv_bb\n%!";
             let exit_cost = max_cost_of_codepaths ctx.w_e exit_cps in
+    Printf.printf "exit_cost\n%!";
             if ((List.fold ~init:0 ~f:(fun acc lv_bb -> acc + List.length lv_bb) ulv_bb) = 0) || (List.length lms > 0) then
             begin
               (* do we have more than 1 set of loop metrics to consider *)

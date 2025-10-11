@@ -101,7 +101,7 @@ let rec string_of_et (e: et): string =
         | Function 
             -> String.concat [n.op; "("; String.concat ~sep:", " (List.map ~f:string_of_et n.args); ")"]
         | Prefix when List.length n.args = 1
-            -> String.concat[n.op; string_of_et (List.hd_exn n.args)]
+            -> String.concat[n.op; " "; string_of_et (List.hd_exn n.args)]
         | Infix  when List.length n.args = 2
             -> String.concat["("; string_of_et (List.hd_exn n.args); " "; n.op; " "; string_of_et (List.hd_exn (List.tl_exn n.args)); ")"]
         | _ -> String.concat [n.op; "("; String.concat ~sep:", " (List.map ~f:string_of_et n.args); ")"]
