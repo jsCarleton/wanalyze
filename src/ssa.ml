@@ -239,52 +239,22 @@ let ssa_of_codepath (ctx: execution_context) (codepath: Cp.cp) (init_locals: boo
   List.fold ~f:(ssa_of_bb ctx) 
             ~init:(if init_locals then (initial_ssas_of_locals (List.length ctx.param_types) ctx.local_types) else [])
             codepath
-(*
+
 let rec expand_et (e: et) (s_src: ssa): et =
   match e with 
   | Variable v
       -> if compare_vars v s_src.result = 0 then (
-Printf.printf "expanding tree %s %s\n%!" (string_of_var v) (string_of_et s_src.etree);
             s_src.etree)
           else 
             e
-  | Node n ->
-(* Printf.printf "expand_et %s %d\n%!" n.op (node_count e);*)
-      Node {n with args = List.map ~f:(fun e' -> (expand_et[@tailcall]) e' s_src) n.args}
+  | Node n -> (
+      Node {n with args = List.map ~f:(fun e' -> (expand_et[@tailcall]) e' s_src) n.args})
   | _ -> e
-
          
 let explode_var (s: ssa list) (result: var): ssa =
-Printf.printf "explode_var %d %s\n%!"  (List.length s) (string_of_var result);
-Printf.printf "%s\n%!" (string_of_ssas s "\n" true);
   let v = Variable result in
   {result;  etree = List.fold_left 
                       ~f:expand_et
                       ~init:v 
                       s; 
             alive = true}
-*)
-
-let explode_var (s: ssa list) (r: var): ssa =
-let rec explode_var' (s: ssa list) (r: var): ssa =
-  let rec explode_arg (e: et) (s: ssa list): et =
-    match e with
-    | Empty | Constant _ -> e
-    | Variable v -> (explode_var' s v).etree
-    | ExprList l -> ExprList (List.map ~f:(fun e' -> explode_arg e' s) l)
-    | Node n ->
-        Node {n with args = List.map ~f:(fun e' -> explode_arg e' s) n.args}
-  in
-  match s with
-  | [] -> {result = r; etree = Variable r; alive=true}
-  | hd::tl ->
-      if compare_vars r hd.result = 0 then
-        {result = hd.result; etree = explode_arg hd.etree tl; alive=true}
-      else
-        explode_var' tl r
-  in
-    Printf.printf "exploding %s\n%!" (string_of_var r);
-    let t = explode_var' s r in
-    Printf.printf "found %s %s\n%!" (string_of_var r) (string_of_ssa t);
-    t
-

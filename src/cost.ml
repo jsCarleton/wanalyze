@@ -88,7 +88,6 @@ let site_of_nesting_if (lp: Cp.cp): cond_site option =
 
 let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts): loop_metric =
   (* a key part of this is locating the bb that the condition of the loop is tested ... *)
-  Printf.printf "cost_of_loop\n%!";
   let cs_o =
     (match bback.bbtype with
         | BB_br_if      -> Some {cond_bb = bback; sense = true}
@@ -102,17 +101,11 @@ let cost_of_loop (ctx: Ex.execution_context) (bback: Bb.bb) (lp: loop_path_parts
     let _, loop_cond = Ex.reduce_bblock ctx.w 
         (Cp.expr_of_codepath ctx.w_e lp.loop_part cs.cond_bb)
         (Ex.empty_program_state ctx.w ctx.param_types ctx.local_types) in
-Printf.printf "loop_cond\n%!";
     let loop_vars     = Et.vars_of_et loop_cond in
-Printf.printf "loop_vars %d\n%!" (List.length loop_vars);
     let prefix_ssa    = Ssa.ssa_of_codepath ctx lp.prefix_part true in
-Printf.printf "prefix_ssa %d\n%!" (List.length prefix_ssa);
     let lv_entry_vals = List.map ~f:(Ssa.explode_var prefix_ssa) loop_vars in
-Printf.printf "lv_entry_vals\n%!";
     let loop_ssa      = Ssa.ssa_of_codepath ctx lp.loop_part false in
-Printf.printf "loop_ssa\n%!";
     let lv_loop_vals  = List.map ~f:(Ssa.explode_var loop_ssa) loop_vars in
-Printf.printf "loop_vals\n%!";
     LMI { prefix_cost = Cp.cost_of_codepath ctx.w_e lp.prefix_part;
             loop_cost = Cp.cost_of_codepath ctx.w_e lp.loop_part;
             loop_cond = if cs.sense then loop_cond else Node { op = "not"; op_disp = Et.Function; args = [loop_cond]};
