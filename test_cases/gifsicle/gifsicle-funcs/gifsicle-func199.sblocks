@@ -1,0 +1,78 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4]
+  sb cost:   19
+  sb exits:  [5 9 21]
+  sb succs:  [5 9 21]
+sb entry:  5
+  sb type:   loop
+  sb blocks: [5 6]
+  sb cost:   (41 * (N([pn0], [(pn0 + 1) != 216], [0 + 1], [pn0 + 1]))) + 1
+  sb exits:  [7]
+  sb succs:  [7]
+  1 paths to exit 7
+  [5 6]
+  1 loop paths
+  [5]
+  1 post loop exit paths
+  [6]
+sb entry:  7
+  sb type:   block
+  sb blocks: [7 8]
+  sb cost:   1
+  sb exits:  [9 22]
+  sb succs:  [9 22]
+sb entry:  9
+  sb type:   block
+  sb blocks: [9 10 11 12 13]
+  sb cost:   19
+  sb exits:  [14 18]
+  sb succs:  [14 18]
+sb entry:  14
+  sb type:   loop
+  sb blocks: [14 15]
+  sb cost:   (21 * (N([pn0], [(pn0 + 1) != 256], [0 + 1], [pn0 + 1]))) + 1
+  sb exits:  [16]
+  sb succs:  [16]
+  1 paths to exit 16
+  [14 15]
+  1 loop paths
+  [14]
+  1 post loop exit paths
+  [15]
+sb entry:  16
+  sb type:   block
+  sb blocks: [16 17]
+  sb cost:   1
+  sb exits:  [18 22]
+  sb succs:  [18 22]
+sb entry:  18
+  sb type:   block
+  sb blocks: [18 19 20]
+  sb cost:   22
+  sb exits:  [21 22]
+  sb succs:  [21 22]
+sb entry:  21
+  sb type:   block
+  sb blocks: [21]
+  sb cost:   5
+  sb exits:  [22]
+  sb succs:  [22]
+sb entry:  22
+  sb type:   block
+  sb blocks: [22 23]
+  sb cost:   4
+  sb exits:  [23]
+  sb succs:  []
+sb costs:
+[0]: 19
+[5]: ((41 * N([pn0], [((pn0 + 1) != 216)], [(0 + 1)], [(pn0 + 1)])) + 1)
+[7]: 1
+[9]: 19
+[14]: ((21 * N([pn0], [((pn0 + 1) != 256)], [(0 + 1)], [(pn0 + 1)])) + 1)
+[16]: 1
+[18]: 22
+[21]: 5
+[22]: 4
+1 sb paths found
+[0 5 7 9 14 16 18 21 22]

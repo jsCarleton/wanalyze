@@ -1,0 +1,111 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4]
+  sb cost:   19
+  sb exits:  [5 13]
+  sb succs:  [5 13]
+sb entry:  5
+  sb type:   loop
+  sb blocks: [5 6 7 8 9 10]
+  sb cost:   (list_max([
+  27 * (N([ln2; ln4], [not((ln2 + 1) == ln4)], [0; m[112]], [ln2 + 1; ln4]));
+  19 * (N([ln2; ln4], [not((ln2 + 1) == ln4)], [0; m[112]], [ln2 + 1; ln4]))
+])) + Empty
+  sb exits:  [13 41]
+  sb succs:  [13 41]
+  2 paths to exit 13
+  [5 7]
+  [5 6 7]
+  0 paths to exit 41
+
+  2 loop paths
+  [5 7 8]  [5 6 7 8]
+sb entry:  11
+  sb type:   block
+  sb blocks: [11 12]
+  sb cost:   1
+  sb exits:  [13 41]
+  sb succs:  [13 41]
+sb entry:  13
+  sb type:   block
+  sb blocks: [13 14 15 16]
+  sb cost:   16
+  sb exits:  [17 23 39]
+  sb succs:  [17 23 39]
+sb entry:  17
+  sb type:   loop
+  sb blocks: [17 18 19 20]
+  sb cost:   (16 * (N([ln2; ln4], [(ln2 + 1) < ln4], [0; m[112]], [ln2 + 1; ln4]))) + 2
+  sb exits:  [21]
+  sb succs:  [21]
+  2 paths to exit 21
+  [17 20]
+  [17 18 19 20]
+  1 loop paths
+  [17 18]
+  1 post loop exit paths
+  [19 20]
+sb entry:  21
+  sb type:   block
+  sb blocks: [21 22]
+  sb cost:   5
+  sb exits:  [23 39]
+  sb succs:  [23 39]
+sb entry:  23
+  sb type:   block
+  sb blocks: [23 24 25 26 27 28 29]
+  sb cost:   32
+  sb exits:  [30 33]
+  sb succs:  [30 33]
+sb entry:  30
+  sb type:   loop
+  sb blocks: [30 31]
+  sb cost:   (31 * (N([ln2; ln4], [(ln2 + 1) != ln4], [0 + 1; m[112]], [ln2 + 1; ln4]))) + 1
+  sb exits:  [32]
+  sb succs:  [32]
+  1 paths to exit 32
+  [30 31]
+  1 loop paths
+  [30]
+  1 post loop exit paths
+  [31]
+sb entry:  32
+  sb type:   block
+  sb blocks: [32]
+  sb cost:   1
+  sb exits:  [33]
+  sb succs:  [33]
+sb entry:  33
+  sb type:   block
+  sb blocks: [33 34 35 36 37 38]
+  sb cost:   28
+  sb exits:  [39]
+  sb succs:  [39]
+sb entry:  39
+  sb type:   block
+  sb blocks: [39 40]
+  sb cost:   1
+  sb exits:  [40]
+  sb succs:  []
+sb entry:  41
+  sb type:   block
+  sb blocks: [41]
+  sb cost:   0
+  sb exits:  []
+  sb succs:  []
+sb costs:
+[0]: 19
+[5]: (list_max((27 * N([ln2; ln4], [not(((ln2 + 1) == ln4))], [0; m[112]], [(ln2 + 1); ln4])), (19 * N([ln2; ln4], [not(((ln2 + 1) == ln4))], [0; m[112]], [(ln2 + 1); ln4]))) + Empty)
+[11]: 1
+[13]: 16
+[17]: ((16 * N([ln2; ln4], [((ln2 + 1) < ln4)], [0; m[112]], [(ln2 + 1); ln4])) + 2)
+[21]: 5
+[23]: 32
+[30]: ((31 * N([ln2; ln4], [((ln2 + 1) != ln4)], [(0 + 1); m[112]], [(ln2 + 1); ln4])) + 1)
+[32]: 1
+[33]: 28
+[39]: 1
+[41]: 0
+2 sb paths found
+[0 5 41]
+[0 5 13 17 21 23 30 32 33 39]

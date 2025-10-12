@@ -1,0 +1,38 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3]
+  sb cost:   49
+  sb exits:  [4 8]
+  sb succs:  [4 8]
+sb entry:  4
+  sb type:   loop
+  sb blocks: [4 5]
+  sb cost:   ((498 + (list_sum(|f36|, |f18|, |f16|))) * (N([ln17; pN4], [(i64.extend_i32_u(ln17 + 1)) < pN4], [0 + 1; pN4], [ln17 + 1; pN4]))) + 1
+  sb exits:  [6]
+  sb succs:  [6]
+  1 paths to exit 6
+  [4 5]
+  1 loop paths
+  [4]
+  1 post loop exit paths
+  [5]
+sb entry:  6
+  sb type:   block
+  sb blocks: [6 7]
+  sb cost:   1
+  sb exits:  [7]
+  sb succs:  []
+sb entry:  8
+  sb type:   block
+  sb blocks: [8]
+  sb cost:   0
+  sb exits:  []
+  sb succs:  []
+sb costs:
+[0]: 49
+[4]: (((498 + list_sum(|f36|, |f18|, |f16|)) * N([ln17; pN4], [(i64.extend_i32_u((ln17 + 1)) < pN4)], [(0 + 1); pN4], [(ln17 + 1); pN4])) + 1)
+[6]: 1
+[8]: 0
+2 sb paths found
+[0 8]
+[0 4 6]

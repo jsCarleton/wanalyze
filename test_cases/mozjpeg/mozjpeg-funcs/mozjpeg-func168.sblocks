@@ -1,0 +1,64 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1]
+  sb cost:   19
+  sb exits:  [2 21]
+  sb succs:  [2 21]
+sb entry:  2
+  sb type:   loop
+  sb blocks: [2 3]
+  sb cost:   (10 * (N([ln3], [ln3 shr_s 1], [m[56] shr_s 1], [ln3 shr_s 1]))) + 1
+  sb exits:  [4]
+  sb succs:  [4]
+  1 paths to exit 4
+  [2 3]
+  1 loop paths
+  [2]
+  1 post loop exit paths
+  [3]
+sb entry:  4
+  sb type:   block
+  sb blocks: [4 5 6 7 8 9 10 11 12 13 14 15 16]
+  sb cost:   72
+  sb exits:  [17 20]
+  sb succs:  [17 20]
+sb entry:  17
+  sb type:   loop
+  sb blocks: [17 18]
+  sb cost:   ((14 + |f30|) * (N([ln2], [ln2 + -1], [m[60] + -1], [ln2 + -1]))) + 1
+  sb exits:  [19]
+  sb succs:  [19]
+  1 paths to exit 19
+  [17 18]
+  1 loop paths
+  [17]
+  1 post loop exit paths
+  [18]
+sb entry:  19
+  sb type:   block
+  sb blocks: [19]
+  sb cost:   1
+  sb exits:  [20]
+  sb succs:  [20]
+sb entry:  20
+  sb type:   block
+  sb blocks: [20]
+  sb cost:   4
+  sb exits:  [21]
+  sb succs:  [21]
+sb entry:  21
+  sb type:   block
+  sb blocks: [21 22]
+  sb cost:   18
+  sb exits:  [22]
+  sb succs:  []
+sb costs:
+[0]: 19
+[2]: ((10 * N([ln3], [(ln3 shr_s 1)], [(m[56] shr_s 1)], [(ln3 shr_s 1)])) + 1)
+[4]: 72
+[17]: (((14 + |f30|) * N([ln2], [(ln2 + -1)], [(m[60] + -1)], [(ln2 + -1)])) + 1)
+[19]: 1
+[20]: 4
+[21]: 18
+1 sb paths found
+[0 2 4 17 19 20 21]

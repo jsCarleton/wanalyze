@@ -1,0 +1,53 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2]
+  sb cost:   16
+  sb exits:  [3 7]
+  sb succs:  [3]
+sb entry:  3
+  sb type:   loop
+  sb blocks: [3 4 5]
+  sb cost:   (30 * (N([m[4]], [i32.eqz(((m[4] + -16843009) & (m[4] xor -1)) & -2139062144)], [m[4]], [m[4]]))) + 1
+  sb exits:  [6 7]
+  sb succs:  [6]
+  1 paths to exit 6
+  [3 4 5]
+  1 paths to exit 7
+  [3]
+  1 loop paths
+  [3 4]
+  1 post loop exit paths
+  [5]
+sb entry:  6
+  sb type:   block
+  sb blocks: [6 7]
+  sb cost:   2
+  sb exits:  [8]
+  sb succs:  [8]
+sb entry:  8
+  sb type:   loop
+  sb blocks: [8 9 10 11]
+  sb cost:   (13 * (N([m[0]], [m[0]], [m[0]], [m[0]]))) + 2
+  sb exits:  [12]
+  sb succs:  [12]
+  2 paths to exit 12
+  [8 11]
+  [8 9 10 11]
+  1 loop paths
+  [8 9]
+  1 post loop exit paths
+  [10 11]
+sb entry:  12
+  sb type:   block
+  sb blocks: [12 13]
+  sb cost:   2
+  sb exits:  [13]
+  sb succs:  []
+sb costs:
+[0]: 16
+[3]: ((30 * N([m[4]], [i32.eqz((((m[4] + -16843009) & (m[4] xor -1)) & -2139062144))], [m[4]], [m[4]])) + 1)
+[6]: 2
+[8]: ((13 * N([m[0]], [m[0]], [m[0]], [m[0]])) + 2)
+[12]: 2
+1 sb paths found
+[0 3 6 8 12]

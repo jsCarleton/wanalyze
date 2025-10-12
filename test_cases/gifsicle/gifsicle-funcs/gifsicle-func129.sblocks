@@ -1,0 +1,54 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2]
+  sb cost:   22
+  sb exits:  [3 17]
+  sb succs:  [3 17]
+sb entry:  3
+  sb type:   loop
+  sb blocks: [3 4 5 6 7 8 9 10 11 12 13 14]
+  sb cost:   (list_max([
+  65 * (N([pn3], [not((pn3 + -1) < 2)], [pn3], [pn3 + -1]));
+  63 * (N([pn3], [not((pn3 + -2) < 2)], [pn3], [pn3 + -2]));
+  57 * (N([pn3], [not((pn3 + -1) < 2)], [pn3], [pn3 + -1]));
+  55 * (N([pn3], [not((pn3 + -2) < 2)], [pn3], [pn3 + -2]))
+])) + Empty
+  sb exits:  [17 19]
+  sb succs:  [17 19]
+  5 paths to exit 17
+  [3 6 7 10 11]
+  [3 6 7 8 11]
+  [3 4 5 6 7 10 11]
+  [3 4 5 6 7 8 11]
+  [3 4]
+  0 paths to exit 19
+
+  4 loop paths
+  [3 6 7 10 11 12]  [3 6 7 8 11 12]  [3 4 5 6 7 10 11 12]  [3 4 5 6 7 8 11 12]
+sb entry:  15
+  sb type:   block
+  sb blocks: [15 16]
+  sb cost:   1
+  sb exits:  [17 19]
+  sb succs:  [17 19]
+sb entry:  17
+  sb type:   block
+  sb blocks: [17 18]
+  sb cost:   9
+  sb exits:  [18]
+  sb succs:  []
+sb entry:  19
+  sb type:   block
+  sb blocks: [19]
+  sb cost:   0
+  sb exits:  []
+  sb succs:  []
+sb costs:
+[0]: 22
+[3]: (list_max((65 * N([pn3], [not(((pn3 + -1) < 2))], [pn3], [(pn3 + -1)])), (63 * N([pn3], [not(((pn3 + -2) < 2))], [pn3], [(pn3 + -2)])), (57 * N([pn3], [not(((pn3 + -1) < 2))], [pn3], [(pn3 + -1)])), (55 * N([pn3], [not(((pn3 + -2) < 2))], [pn3], [(pn3 + -2)]))) + Empty)
+[15]: 1
+[17]: 9
+[19]: 0
+2 sb paths found
+[0 3 17]
+[0 3 19]

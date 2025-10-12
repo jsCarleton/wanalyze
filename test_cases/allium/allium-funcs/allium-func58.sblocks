@@ -1,0 +1,34 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3]
+  sb cost:   327
+  sb exits:  [4]
+  sb succs:  [4]
+sb entry:  4
+  sb type:   loop
+  sb blocks: [4 5 6 7]
+  sb cost:   (list_max([
+  (4563 + (list_sum(|f26|, |f19|))) * (N([ln2], [(ln2 + 1) != 2], [0], [ln2 + 1]));
+  (4524 + |f19|) * (N([ln2], [(ln2 + 1) != 2], [0], [ln2 + 1]))
+])) + 1
+  sb exits:  [8]
+  sb succs:  [8]
+  2 paths to exit 8
+  [4 6 7]
+  [4 5 6 7]
+  2 loop paths
+  [4 6]  [4 5 6]
+  1 post loop exit paths
+  [7]
+sb entry:  8
+  sb type:   block
+  sb blocks: [8 9 10]
+  sb cost:   377
+  sb exits:  [10]
+  sb succs:  []
+sb costs:
+[0]: 327
+[4]: (list_max(((4563 + list_sum(|f26|, |f19|)) * N([ln2], [((ln2 + 1) != 2)], [0], [(ln2 + 1)])), ((4524 + |f19|) * N([ln2], [((ln2 + 1) != 2)], [0], [(ln2 + 1)]))) + 1)
+[8]: 377
+1 sb paths found
+[0 4 8]

@@ -1,0 +1,80 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21]
+  sb cost:   140
+  sb exits:  [22 33 47]
+  sb succs:  [22 33 47]
+sb entry:  22
+  sb type:   loop
+  sb blocks: [22 23 24 25 26 27 28 29 30 31]
+  sb cost:   (list_max([
+  46 * (N([ln6; ln7], [(ln6 + -1) > ln7], [(i32.wrap_i64(m[104] shr_u 48)) + -120; (i32.wrap_i64(pN4 shr_u 48)) & 32767], [ln6 + -1; ln7]));
+  43 * (N([ln6; ln7], [(ln6 + -1) > ln7], [(i32.wrap_i64(m[104] shr_u 48)) + -120; (i32.wrap_i64(pN4 shr_u 48)) & 32767], [ln6 + -1; ln7]))
+])) + (list_max([
+  1;
+  15 + |f31|
+]))
+  sb exits:  [32 47]
+  sb succs:  [32 47]
+  2 paths to exit 32
+  [22 23 29 30 31]
+  [22 23 24 27 30 31]
+  1 paths to exit 47
+  [22 23 24 25]
+  2 loop paths
+  [22 23 29 30]  [22 23 24 27 30]
+  2 post loop exit paths
+  [25]  [31]
+sb entry:  32
+  sb type:   block
+  sb blocks: [32]
+  sb cost:   3
+  sb exits:  [33]
+  sb succs:  [33]
+sb entry:  33
+  sb type:   block
+  sb blocks: [33 34 35 36 37 38 39]
+  sb cost:   27
+  sb exits:  [40 43 47]
+  sb succs:  [40 43 47]
+sb entry:  40
+  sb type:   loop
+  sb blocks: [40 41]
+  sb cost:   (21 * (N([lN10; pN4], [((pN4 shr_u 63) | (lN10 shl 1)) < 281474976710656], [(m[96] shr_u 63) | (((m[104] & 281474976710655) | 281474976710656) shl 1); m[96] shl 1], [(pN4 shr_u 63) | (lN10 shl 1); pN4 shl 1]))) + 1
+  sb exits:  [42]
+  sb succs:  [42]
+  1 paths to exit 42
+  [40 41]
+  1 loop paths
+  [40]
+  1 post loop exit paths
+  [41]
+sb entry:  42
+  sb type:   block
+  sb blocks: [42]
+  sb cost:   1
+  sb exits:  [43]
+  sb succs:  [43]
+sb entry:  43
+  sb type:   block
+  sb blocks: [43 44 45 46]
+  sb cost:   34
+  sb exits:  [47]
+  sb succs:  [47]
+sb entry:  47
+  sb type:   block
+  sb blocks: [47 48]
+  sb cost:   11
+  sb exits:  [48]
+  sb succs:  []
+sb costs:
+[0]: 140
+[22]: (list_max((46 * N([ln6; ln7], [((ln6 + -1) > ln7)], [(i32.wrap_i64 (m[104] shr_u 48) + -120); (i32.wrap_i64 (pN4 shr_u 48) & 32767)], [(ln6 + -1); ln7])), (43 * N([ln6; ln7], [((ln6 + -1) > ln7)], [(i32.wrap_i64 (m[104] shr_u 48) + -120); (i32.wrap_i64 (pN4 shr_u 48) & 32767)], [(ln6 + -1); ln7]))) + list_max(1, (15 + |f31|)))
+[32]: 3
+[33]: 27
+[40]: ((21 * N([lN10; pN4], [(((pN4 shr_u 63) | (lN10 shl 1)) < 281474976710656)], [((m[96] shr_u 63) | (((m[104] & 281474976710655) | 281474976710656) shl 1)); (m[96] shl 1)], [((pN4 shr_u 63) | (lN10 shl 1)); (pN4 shl 1)])) + 1)
+[42]: 1
+[43]: 34
+[47]: 11
+1 sb paths found
+[0 22 32 33 40 42 43 47]

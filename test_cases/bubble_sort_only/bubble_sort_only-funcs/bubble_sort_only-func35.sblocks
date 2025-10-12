@@ -1,0 +1,44 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4 5]
+  sb cost:   32
+  sb exits:  [6 9 10]
+  sb succs:  [6 9 10]
+sb entry:  6
+  sb type:   loop
+  sb blocks: [6 7]
+  sb cost:   ((11 + |f29|) * (N([pn3], [(pn3 + -256) > 255], [(pn2 - pn3) + -256], [pn3 + -256]))) + 1
+  sb exits:  [8]
+  sb succs:  [8]
+  1 paths to exit 8
+  [6 7]
+  1 loop paths
+  [6]
+  1 post loop exit paths
+  [7]
+sb entry:  8
+  sb type:   block
+  sb blocks: [8]
+  sb cost:   1
+  sb exits:  [9]
+  sb succs:  [9]
+sb entry:  9
+  sb type:   block
+  sb blocks: [9]
+  sb cost:   5
+  sb exits:  [10]
+  sb succs:  [10]
+sb entry:  10
+  sb type:   block
+  sb blocks: [10 11]
+  sb cost:   5
+  sb exits:  [11]
+  sb succs:  []
+sb costs:
+[0]: 32
+[6]: (((11 + |f29|) * N([pn3], [((pn3 + -256) > 255)], [((pn2 - pn3) + -256)], [(pn3 + -256)])) + 1)
+[8]: 1
+[9]: 5
+[10]: 5
+1 sb paths found
+[0 6 8 9 10]

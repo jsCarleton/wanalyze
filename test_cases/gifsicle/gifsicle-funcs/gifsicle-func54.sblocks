@@ -1,0 +1,231 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19]
+  sb cost:   103
+  sb exits:  [20 23 27 114]
+  sb succs:  [20 27 114]
+sb entry:  20
+  sb type:   loop
+  sb blocks: [20 21]
+  sb cost:   (23 * (N([ln5; ln7], [(ln5 + 1) != ln7], [0 + 1; m[4]], [ln5 + 1; ln7]))) + 1
+  sb exits:  [22]
+  sb succs:  [22]
+  1 paths to exit 22
+  [20 21]
+  1 loop paths
+  [20]
+  1 post loop exit paths
+  [21]
+sb entry:  22
+  sb type:   block
+  sb blocks: [22 23]
+  sb cost:   11
+  sb exits:  [24]
+  sb succs:  [24]
+sb entry:  24
+  sb type:   loop
+  sb blocks: [24 25]
+  sb cost:   (9 * (N([ln3; ln7], [ln3 < ln7], [2 shl 1; select(0 < 256, 256, 0)], [ln3 shl 1; ln7]))) + 1
+  sb exits:  [26]
+  sb succs:  [26]
+  1 paths to exit 26
+  [24 25]
+  1 loop paths
+  [24]
+  1 post loop exit paths
+  [25]
+sb entry:  26
+  sb type:   block
+  sb blocks: [26]
+  sb cost:   1
+  sb exits:  [27]
+  sb succs:  [27]
+sb entry:  27
+  sb type:   block
+  sb blocks: [27 28 29 30 31 32 33 34]
+  sb cost:   40
+  sb exits:  [35 39 40 44]
+  sb succs:  [35 39 44]
+sb entry:  35
+  sb type:   loop
+  sb blocks: [35 36]
+  sb cost:   (23 * (N([ln6; pn2], [(pn2 + 1) != ln6], [m[4]; 0 + 1], [ln6; pn2 + 1]))) + 1
+  sb exits:  [37]
+  sb succs:  [37]
+  1 paths to exit 37
+  [35 36]
+  1 loop paths
+  [35]
+  1 post loop exit paths
+  [36]
+sb entry:  37
+  sb type:   block
+  sb blocks: [37 38]
+  sb cost:   1
+  sb exits:  [39 40]
+  sb succs:  [39]
+sb entry:  39
+  sb type:   block
+  sb blocks: [39 40]
+  sb cost:   22
+  sb exits:  [41]
+  sb succs:  [41]
+sb entry:  41
+  sb type:   loop
+  sb blocks: [41 42]
+  sb cost:   (9 * (N([ln3; ln6], [ln3 < ln6], [2 shl 1; select(0 < 256, 256, 0)], [ln3 shl 1; ln6]))) + 1
+  sb exits:  [43]
+  sb succs:  [43]
+  1 paths to exit 43
+  [41 42]
+  1 loop paths
+  [41]
+  1 post loop exit paths
+  [42]
+sb entry:  43
+  sb type:   block
+  sb blocks: [43]
+  sb cost:   1
+  sb exits:  [44]
+  sb succs:  [44]
+sb entry:  44
+  sb type:   block
+  sb blocks: [44 45 46 47 48 49 50 51 52 53 54 55 56 57]
+  sb cost:   31
+  sb exits:  [58 67 69 73 79]
+  sb succs:  [58 67 69 73 79]
+sb entry:  58
+  sb type:   loop
+  sb blocks: [58 59 60 61 62 63 64 65]
+  sb cost:   list_MAX([
+  24 * (N([pn2], [pn2 < 128], [0], [pn2]));
+  (list_sum([
+    25;
+    (23 * (N([ln3], [ln3 > 1], [0 + -1], [ln3 + -1]))) + 1
+  ])) * (N([m[0]; pn2], [(select(pn2 < m[0], pn2, m[0])) < 128], [0; 0], [m[0]; select(pn2 < m[0], pn2, m[0])]))
+])
+  sb exits:  [66 67]
+  sb succs:  [66 67]
+  2 paths to exit 66
+  [58 63 64 65]
+  [58 59 60 61 62 63 64 65]
+  2 paths to exit 67
+  [58 63]
+  [58 59 60 61 62 63]
+  2 loop paths
+  [58 63 64]  [58 59 60 61 62 63 64]
+  1 post loop exit paths
+  [65]
+nested sbs:
+  sb entry:  58
+    sb type:   block
+    sb blocks: [58 59]
+    sb cost:   12
+    sb exits:  [60 63]
+    sb succs:  [60 63]
+  sb entry:  60
+    sb type:   loop
+    sb blocks: [60 61]
+    sb cost:   (23 * (N([ln3], [ln3 > 1], [0 + -1], [ln3 + -1]))) + 1
+    sb exits:  [62]
+    sb succs:  [62]
+    1 paths to exit 62
+    [60 61]
+    1 loop paths
+    [60]
+    1 post loop exit paths
+    [61]
+  sb entry:  62
+    sb type:   block
+    sb blocks: [62]
+    sb cost:   1
+    sb exits:  [63]
+    sb succs:  [63]
+  sb entry:  63
+    sb type:   block
+    sb blocks: [63 64 65]
+    sb cost:   12
+    sb exits:  [58 66 67]
+    sb succs:  [58 66 67]
+sb entry:  66
+  sb type:   block
+  sb blocks: [66]
+  sb cost:   1
+  sb exits:  [67]
+  sb succs:  [67]
+sb entry:  67
+  sb type:   block
+  sb blocks: [67 68]
+  sb cost:   5
+  sb exits:  [69 73]
+  sb succs:  [69 73]
+sb entry:  69
+  sb type:   block
+  sb blocks: [69 70 71 72]
+  sb cost:   11
+  sb exits:  [73 75]
+  sb succs:  [73]
+sb entry:  73
+  sb type:   block
+  sb blocks: [73 74 75]
+  sb cost:   12
+  sb exits:  [76 79]
+  sb succs:  [76 79]
+sb entry:  76
+  sb type:   loop
+  sb blocks: [76 77]
+  sb cost:   (11 * (N([ln3; pn2], [(ln3 shl 1) < pn2], [4 shl 1; 0 shl 0], [ln3 shl 1; pn2]))) + 1
+  sb exits:  [78]
+  sb succs:  [78]
+  1 paths to exit 78
+  [76 77]
+  1 loop paths
+  [76]
+  1 post loop exit paths
+  [77]
+sb entry:  78
+  sb type:   block
+  sb blocks: [78]
+  sb cost:   4
+  sb exits:  [79]
+  sb succs:  [79]
+sb entry:  79
+  sb type:   block
+  sb blocks: [79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113]
+  sb cost:   148
+  sb exits:  [114]
+  sb succs:  [114]
+sb entry:  114
+  sb type:   block
+  sb blocks: [114 115]
+  sb cost:   14
+  sb exits:  [115]
+  sb succs:  []
+sb costs:
+[0]: 103
+[20]: ((23 * N([ln5; ln7], [((ln5 + 1) != ln7)], [(0 + 1); m[4]], [(ln5 + 1); ln7])) + 1)
+[22]: 11
+[24]: ((9 * N([ln3; ln7], [(ln3 < ln7)], [(2 shl 1); select((0 < 256), 256, 0)], [(ln3 shl 1); ln7])) + 1)
+[26]: 1
+[27]: 40
+[35]: ((23 * N([ln6; pn2], [((pn2 + 1) != ln6)], [m[4]; (0 + 1)], [ln6; (pn2 + 1)])) + 1)
+[37]: 1
+[39]: 22
+[41]: ((9 * N([ln3; ln6], [(ln3 < ln6)], [(2 shl 1); select((0 < 256), 256, 0)], [(ln3 shl 1); ln6])) + 1)
+[43]: 1
+[44]: 31
+[58]: list_MAX((24 * N([pn2], [(pn2 < 128)], [0], [pn2])), (list_sum(25, ((23 * N([ln3], [(ln3 > 1)], [(0 + -1)], [(ln3 + -1)])) + 1)) * N([m[0]; pn2], [(select((pn2 < m[0]), pn2, m[0]) < 128)], [0; 0], [m[0]; select((pn2 < m[0]), pn2, m[0])])))
+[58]: 12
+[60]: ((23 * N([ln3], [(ln3 > 1)], [(0 + -1)], [(ln3 + -1)])) + 1)
+[62]: 1
+[63]: 12
+[66]: 1
+[67]: 5
+[69]: 11
+[73]: 12
+[76]: ((11 * N([ln3; pn2], [((ln3 shl 1) < pn2)], [(4 shl 1); (0 shl 0)], [(ln3 shl 1); pn2])) + 1)
+[78]: 4
+[79]: 148
+[114]: 14
+1 sb paths found
+[0 20 22 24 26 27 35 37 39 41 43 44 58 66 67 69 73 76 78 79 114]

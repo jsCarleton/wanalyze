@@ -4,7 +4,7 @@ open Bb
 open Et
 open Ex
 open Cfg
-open Ebb
+open Sb
 
 (* Part 1 *)
 
@@ -397,38 +397,38 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
     Out_channel.output_string oc (cfg_dot_of_bbs w.module_name fnum bblocks);
     Out_channel.close oc;
 
-  (* ebblocks in function *)
-  let rec print_ebb_costs oc (ebbs: ebb list) =
-    match ebbs with
+  (* sblocks in function *)
+  let rec print_sb_costs oc (sbs: sb list) =
+    match sbs with
     | []      -> () 
     | hd::tl  -> (
-        Out_channel.output_string oc (sprintf "[%d]: %s\n" (hd.entry_bb.bbindex) (string_of_et hd.ebb_cost));
-        print_ebb_costs oc hd.nested_ebbs;
-        print_ebb_costs oc tl
+        Out_channel.output_string oc (sprintf "[%d]: %s\n" (hd.entry_bb.bbindex) (string_of_et hd.sb_cost));
+        print_sb_costs oc hd.nested_sbs;
+        print_sb_costs oc tl
       )
     in
-  let ebbs = ebbs_of_bbs ctx bblocks bblocks in
-  let ebb_paths = prune_ebb_paths (paths_of_ebblocks ebbs) in
-  let oc = Out_channel.create (String.concat[fname; ".ebblocks"]) in
-    List.iter ~f:(fun ebb -> Out_channel.output_string oc (string_of_ebblock ebb)) ebbs;
-    Out_channel.output_string oc "ebb costs:\n";
-    print_ebb_costs oc ebbs;
-    Out_channel.output_string oc (sprintf "%d ebb paths found\n" (List.length ebb_paths));
-    List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_ebblocks p))) ebb_paths;
+  let sbs = sbs_of_bbs ctx bblocks bblocks in
+  let sb_paths = prune_sb_paths (paths_of_sblocks sbs) in
+  let oc = Out_channel.create (String.concat[fname; ".sblocks"]) in
+    List.iter ~f:(fun sb -> Out_channel.output_string oc (string_of_sblock sb)) sbs;
+    Out_channel.output_string oc "sb costs:\n";
+    print_sb_costs oc sbs;
+    Out_channel.output_string oc (sprintf "%d sb paths found\n" (List.length sb_paths));
+    List.iter ~f:(fun p -> Out_channel.output_string oc (sprintf "%s\n" (string_of_sblocks p))) sb_paths;
     Out_channel.close oc;
 
-  (* graphviz command file for ebb flow graph *)
+  (* graphviz command file for sb flow graph *)
   let oc = Out_channel.create (String.concat[fname; "-e.dot"]) in
-    Out_channel.output_string oc (cfg_dot_of_ebblocks w.module_name fnum ebbs);
+    Out_channel.output_string oc (cfg_dot_of_sblocks w.module_name fnum sbs);
     Out_channel.close oc;
 
   (* costs *)
   let oc = Out_channel.create (String.concat[fname; ".costs"]) in
     Out_channel.output_string oc (sprintf "|f%d| = " fnum);
-    (match List.length ebb_paths with
+    (match List.length sb_paths with
     | 0 -> Out_channel.output_string oc "Inf"
-    | 1 -> Out_channel.output_string oc (format_et (simplify (ebb_path_cost (List.hd_exn ebb_paths))))
-    | _ -> (let max_cost = ebb_paths_max_cost ebb_paths in
+    | 1 -> Out_channel.output_string oc (format_et (simplify (sb_path_cost (List.hd_exn sb_paths))))
+    | _ -> (let max_cost = sb_paths_max_cost sb_paths in
            let p = Out_channel.output_string oc in
            print_et max_cost p));
     Out_channel.output_string oc "\n";

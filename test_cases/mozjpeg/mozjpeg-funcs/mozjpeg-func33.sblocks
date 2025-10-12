@@ -1,0 +1,183 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24]
+  sb cost:   80
+  sb exits:  [25 29 42 45 128]
+  sb succs:  [25 29 42 45 128]
+sb entry:  25
+  sb type:   loop
+  sb blocks: [25 26 27]
+  sb cost:   (list_max([
+  10 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
+  18 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
+])) + 1
+  sb exits:  [28]
+  sb succs:  [28]
+  1 paths to exit 28
+  [25 26 27]
+  2 loop paths
+  [25 26]  [25]
+  1 post loop exit paths
+  [27]
+sb entry:  28
+  sb type:   block
+  sb blocks: [28]
+  sb cost:   4
+  sb exits:  [29]
+  sb succs:  [29]
+sb entry:  29
+  sb type:   block
+  sb blocks: [29 30 31 32 33 34 35 36 37 38 39 40 41]
+  sb cost:   57
+  sb exits:  [42 45]
+  sb succs:  [42 45]
+sb entry:  42
+  sb type:   block
+  sb blocks: [42 43 44]
+  sb cost:   27
+  sb exits:  [45 130]
+  sb succs:  [45 130]
+sb entry:  45
+  sb type:   block
+  sb blocks: [45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78]
+  sb cost:   78
+  sb exits:  [79 83 95 98 128 130]
+  sb succs:  [79 83 95 98 128 130]
+sb entry:  79
+  sb type:   loop
+  sb blocks: [79 80 81]
+  sb cost:   (list_max([
+  10 * (N([m[0]], [m[0]], [m[0]], [m[0]]));
+  18 * (N([m[0]], [m[0]], [m[0]], [m[0]]))
+])) + 1
+  sb exits:  [82]
+  sb succs:  [82]
+  1 paths to exit 82
+  [79 80 81]
+  2 loop paths
+  [79 80]  [79]
+  1 post loop exit paths
+  [81]
+sb entry:  82
+  sb type:   block
+  sb blocks: [82]
+  sb cost:   4
+  sb exits:  [83]
+  sb succs:  [83]
+sb entry:  83
+  sb type:   block
+  sb blocks: [83 84 85 86 87 88 89 90 91 92 93 94]
+  sb cost:   57
+  sb exits:  [95]
+  sb succs:  [95]
+sb entry:  95
+  sb type:   block
+  sb blocks: [95 96 97]
+  sb cost:   19
+  sb exits:  [98 99 130]
+  sb succs:  [98 99 130]
+sb entry:  98
+  sb type:   block
+  sb blocks: [98]
+  sb cost:   16
+  sb exits:  [99]
+  sb succs:  [99]
+sb entry:  99
+  sb type:   block
+  sb blocks: [99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115]
+  sb cost:   108
+  sb exits:  [116 120 130]
+  sb succs:  [116 120 130]
+sb entry:  116
+  sb type:   loop
+  sb blocks: [116 117 118]
+  sb cost:   (27 * (N([m[0]], [m[0]], [m[0] & -8], [m[0]]))) + 1
+  sb exits:  [119 122]
+  sb succs:  [119 122]
+  1 paths to exit 119
+  [116 117 118]
+  1 paths to exit 122
+  [116]
+  1 loop paths
+  [116 117]
+  1 post loop exit paths
+  [118]
+sb entry:  119
+  sb type:   block
+  sb blocks: [119]
+  sb cost:   7
+  sb exits:  [120]
+  sb succs:  [120]
+sb entry:  120
+  sb type:   block
+  sb blocks: [120 121]
+  sb cost:   7
+  sb exits:  [122 123]
+  sb succs:  [122 123]
+sb entry:  122
+  sb type:   block
+  sb blocks: [122]
+  sb cost:   18
+  sb exits:  [123]
+  sb succs:  [123]
+sb entry:  123
+  sb type:   block
+  sb blocks: [123 124]
+  sb cost:   12
+  sb exits:  [125 128]
+  sb succs:  [125 128]
+sb entry:  125
+  sb type:   loop
+  sb blocks: [125 126]
+  sb cost:   (8 * (N([m[0]], [m[0]], [(m[0] & -8) + -1], [m[0]]))) + 1
+  sb exits:  [127]
+  sb succs:  [127]
+  1 paths to exit 127
+  [125 126]
+  1 loop paths
+  [125]
+  1 post loop exit paths
+  [126]
+sb entry:  127
+  sb type:   block
+  sb blocks: [127]
+  sb cost:   4
+  sb exits:  [128]
+  sb succs:  [128]
+sb entry:  128
+  sb type:   block
+  sb blocks: [128 129]
+  sb cost:   1
+  sb exits:  [129]
+  sb succs:  []
+sb entry:  130
+  sb type:   block
+  sb blocks: [130]
+  sb cost:   0
+  sb exits:  []
+  sb succs:  []
+sb costs:
+[0]: 80
+[25]: (list_max((10 * N([m[0]], [m[0]], [m[0]], [m[0]])), (18 * N([m[0]], [m[0]], [m[0]], [m[0]]))) + 1)
+[28]: 4
+[29]: 57
+[42]: 27
+[45]: 78
+[79]: (list_max((10 * N([m[0]], [m[0]], [m[0]], [m[0]])), (18 * N([m[0]], [m[0]], [m[0]], [m[0]]))) + 1)
+[82]: 4
+[83]: 57
+[95]: 19
+[98]: 16
+[99]: 108
+[116]: ((27 * N([m[0]], [m[0]], [(m[0] & -8)], [m[0]])) + 1)
+[119]: 7
+[120]: 7
+[122]: 18
+[123]: 12
+[125]: ((8 * N([m[0]], [m[0]], [((m[0] & -8) + -1)], [m[0]])) + 1)
+[127]: 4
+[128]: 1
+[130]: 0
+2 sb paths found
+[0 25 28 29 42 45 79 82 83 95 98 99 130]
+[0 25 28 29 42 45 79 82 83 95 98 99 116 119 120 122 123 125 127 128]

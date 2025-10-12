@@ -295,7 +295,7 @@ let codepaths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): cp list option =
     List.filter_map ~f:(nterm_of_cp_from_to to_bb codepath) (succ_of_cp_from_to from_bbs to_bb codepath)
   in
   
-  let rec codepaths_from_to_ebb' (from_bbs: bb list) (to_bb: bb) (nterm: cp list)
+  let rec codepaths_from_to_sb' (from_bbs: bb list) (to_bb: bb) (nterm: cp list)
       (term: cp list) (n_iters: int): cp list option =
     if n_iters > 1_000_000 then
       None
@@ -305,10 +305,10 @@ let codepaths_from_bbs_to_bb (from_bbs: bb list) (to_bb: bb): cp list option =
         | hd::tl    ->
             let n = nterms_of_cp_from_to from_bbs to_bb hd in
             let t = terms_of_cp_from_to from_bbs to_bb hd in
-              codepaths_from_to_ebb' from_bbs to_bb (List.append n tl) (List.append t term) (n_iters + 1)
+              codepaths_from_to_sb' from_bbs to_bb (List.append n tl) (List.append t term) (n_iters + 1)
   in
 
-  codepaths_from_to_ebb' from_bbs to_bb [[List.hd_exn from_bbs]] [] 0
+  codepaths_from_to_sb' from_bbs to_bb [[List.hd_exn from_bbs]] [] 0
     
     
 let bblock_is_loop (bblock: bb): bool =

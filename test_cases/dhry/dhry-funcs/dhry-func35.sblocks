@@ -1,0 +1,42 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3]
+  sb cost:   10
+  sb exits:  [4 10]
+  sb succs:  [4 10]
+sb entry:  4
+  sb type:   loop
+  sb blocks: [4 5 6 7]
+  sb cost:   (list_max([
+  42 * (N([m[1]], [(m[1] - 48) < 10], [m[1]], [m[1]]));
+  23 * (N([m[1]], [(m[1] - 48) < 10], [m[1]], [m[1]]))
+])) + 1
+  sb exits:  [8]
+  sb succs:  [8]
+  2 paths to exit 8
+  [4 6 7]
+  [4 5 6 7]
+  2 loop paths
+  [4 6]  [4 5 6]
+  1 post loop exit paths
+  [7]
+sb entry:  8
+  sb type:   block
+  sb blocks: [8 9]
+  sb cost:   2
+  sb exits:  [9]
+  sb succs:  []
+sb entry:  10
+  sb type:   block
+  sb blocks: [10]
+  sb cost:   0
+  sb exits:  []
+  sb succs:  []
+sb costs:
+[0]: 10
+[4]: (list_max((42 * N([m[1]], [((m[1] - 48) < 10)], [m[1]], [m[1]])), (23 * N([m[1]], [((m[1] - 48) < 10)], [m[1]], [m[1]]))) + 1)
+[8]: 2
+[10]: 0
+2 sb paths found
+[0 10]
+[0 4 8]

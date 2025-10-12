@@ -1,0 +1,62 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4 5 6 7 8]
+  sb cost:   56
+  sb exits:  [9 17]
+  sb succs:  [9 17]
+sb entry:  9
+  sb type:   loop
+  sb blocks: [9 10 11 12 13 14 15]
+  sb cost:   ((65 + (list_sum(|f52|, |f4|))) * (N([ln3; ln4; ln7; m[12]; m[4]; m[60]], [i32.eqz(R(52, 0, i32, R(4, 0, i32, ln3 + 12, ln7 - (m[12] > m[4]), ln4 + ((m[12] > m[4]) shl 3), m[60])))], [gn0 - 32; (gn0 - 32) + 16; 2; m[12]; m[4]; m[60]], [ln3; m[12] + ((ln4 > m[4]) shl 3); ln7 - (ln4 > m[4]); m[12]; m[4]; m[60]]))) + 3
+  sb exits:  [16 19 21]
+  sb succs:  [16 19 21]
+  1 paths to exit 16
+  [9 10 11 14 15]
+  1 paths to exit 19
+  [9]
+  1 paths to exit 21
+  [9 10 11 12]
+  1 loop paths
+  [9 10 11 14]
+  2 post loop exit paths
+  [12]  [15]
+sb entry:  16
+  sb type:   block
+  sb blocks: [16]
+  sb cost:   1
+  sb exits:  [17]
+  sb succs:  [17]
+sb entry:  17
+  sb type:   block
+  sb blocks: [17 18]
+  sb cost:   5
+  sb exits:  [19 21]
+  sb succs:  [19 21]
+sb entry:  19
+  sb type:   block
+  sb blocks: [19 20]
+  sb cost:   17
+  sb exits:  [21 23]
+  sb succs:  [21 23]
+sb entry:  21
+  sb type:   block
+  sb blocks: [21 22]
+  sb cost:   24
+  sb exits:  [23]
+  sb succs:  [23]
+sb entry:  23
+  sb type:   block
+  sb blocks: [23 24]
+  sb cost:   6
+  sb exits:  [24]
+  sb succs:  []
+sb costs:
+[0]: 56
+[9]: (((65 + list_sum(|f52|, |f4|)) * N([ln3; ln4; ln7; m[12]; m[4]; m[60]], [i32.eqz(R(52, 0, i32, R(4, 0, i32, (ln3 + 12), (ln7 - (m[12] > m[4])), (ln4 + ((m[12] > m[4]) shl 3)), m[60])))], [(gn0 - 32); ((gn0 - 32) + 16); 2; m[12]; m[4]; m[60]], [ln3; (m[12] + ((ln4 > m[4]) shl 3)); (ln7 - (ln4 > m[4])); m[12]; m[4]; m[60]])) + 3)
+[16]: 1
+[17]: 5
+[19]: 17
+[21]: 24
+[23]: 6
+1 sb paths found
+[0 9 16 17 19 21 23]

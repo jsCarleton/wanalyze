@@ -1,0 +1,202 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4]
+  sb cost:   20
+  sb exits:  [5 10 59]
+  sb succs:  [5 10 59]
+sb entry:  5
+  sb type:   loop
+  sb blocks: [5 6 7 8]
+  sb cost:   (list_max([
+  17 * (N([m[12]], [m[12]], [m[12]], [m[12]]));
+  9 * (N([m[12]], [m[12]], [m[12]], [m[12]]))
+])) + 1
+  sb exits:  [9]
+  sb succs:  [9]
+  2 paths to exit 9
+  [5 7 8]
+  [5 6 7 8]
+  2 loop paths
+  [5 7]  [5 6 7]
+  1 post loop exit paths
+  [8]
+sb entry:  9
+  sb type:   block
+  sb blocks: [9]
+  sb cost:   1
+  sb exits:  [10]
+  sb succs:  [10]
+sb entry:  10
+  sb type:   block
+  sb blocks: [10 11 12]
+  sb cost:   18
+  sb exits:  [13 16 17]
+  sb succs:  [13 16 17]
+sb entry:  13
+  sb type:   loop
+  sb blocks: [13 14]
+  sb cost:   ((18 + |f22|) * (N([ln1; m[8]], [(ln1 + 1) < m[8]], [0 + 1; m[8]], [ln1 + 1; m[8]]))) + 1
+  sb exits:  [15]
+  sb succs:  [15]
+  1 paths to exit 15
+  [13 14]
+  1 loop paths
+  [13]
+  1 post loop exit paths
+  [14]
+sb entry:  15
+  sb type:   block
+  sb blocks: [15]
+  sb cost:   1
+  sb exits:  [16]
+  sb succs:  [16]
+sb entry:  16
+  sb type:   block
+  sb blocks: [16]
+  sb cost:   8
+  sb exits:  [17]
+  sb succs:  [17]
+sb entry:  17
+  sb type:   block
+  sb blocks: [17 18]
+  sb cost:   5
+  sb exits:  [19 35]
+  sb succs:  [19 35]
+sb entry:  19
+  sb type:   loop
+  sb blocks: [19 20 21 22 23 24 25 26 27 28 29 30 31 32 33]
+  sb cost:   list_MAX([
+  (list_sum([
+    54;
+    (13 * (N([m[0]], [m[0]], [m[0]], [m[0]]))) + 2
+  ])) * (N([m[36]], [m[36]], [m[36]], [m[36]]))
+])
+  sb exits:  [34]
+  sb succs:  [34]
+  15 paths to exit 34
+  [19 20 23 24 32 33]
+  [19 20 23 24 25 26 29 30 32 33]
+  [19 20 23 24 25 26 29 30 31 32 33]
+  [19 20 23 24 25 26 27 28 29 30 32 33]
+  [19 20 23 24 25 26 27 28 29 30 31 32 33]
+  [19 20 21 23 24 32 33]
+  [19 20 21 23 24 25 26 29 30 32 33]
+  [19 20 21 23 24 25 26 29 30 31 32 33]
+  [19 20 21 23 24 25 26 27 28 29 30 32 33]
+  [19 20 21 23 24 25 26 27 28 29 30 31 32 33]
+  [19 20 21 22 23 24 32 33]
+  [19 20 21 22 23 24 25 26 29 30 32 33]
+  [19 20 21 22 23 24 25 26 29 30 31 32 33]
+  [19 20 21 22 23 24 25 26 27 28 29 30 32 33]
+  [19 20 21 22 23 24 25 26 27 28 29 30 31 32 33]
+  15 loop paths
+  [19 20 23 24 32]  [19 20 23 24 25 26 29 30 32]  [19 20 23 24 25 26 29 30 31 32]  [19 20 23 24 25 26 27 28 29 30 32]  [19 20 23 24 25 26 27 28 29 30 31 32]  [19 20 21 23 24 32]  [19 20 21 23 24 25 26 29 30 32]  [19 20 21 23 24 25 26 29 30 31 32]  [19 20 21 23 24 25 26 27 28 29 30 32]  [19 20 21 23 24 25 26 27 28 29 30 31 32]  [19 20 21 22 23 24 32]  [19 20 21 22 23 24 25 26 29 30 32]  [19 20 21 22 23 24 25 26 29 30 31 32]  [19 20 21 22 23 24 25 26 27 28 29 30 32]  [19 20 21 22 23 24 25 26 27 28 29 30 31 32]
+  1 post loop exit paths
+  [33]
+nested sbs:
+  sb entry:  19
+    sb type:   block
+    sb blocks: [19 20 21 22 23 24 25]
+    sb cost:   39
+    sb exits:  [26 32]
+    sb succs:  [26 32]
+  sb entry:  26
+    sb type:   loop
+    sb blocks: [26 27 28 29]
+    sb cost:   (13 * (N([m[0]], [m[0]], [m[0]], [m[0]]))) + 2
+    sb exits:  [30]
+    sb succs:  [30]
+    2 paths to exit 30
+    [26 29]
+    [26 27 28 29]
+    1 loop paths
+    [26 27]
+    1 post loop exit paths
+    [28 29]
+  sb entry:  30
+    sb type:   block
+    sb blocks: [30 31]
+    sb cost:   8
+    sb exits:  [32]
+    sb succs:  [32]
+  sb entry:  32
+    sb type:   block
+    sb blocks: [32 33]
+    sb cost:   7
+    sb exits:  [19 34]
+    sb succs:  [19 34]
+sb entry:  34
+  sb type:   block
+  sb blocks: [34]
+  sb cost:   1
+  sb exits:  [35]
+  sb succs:  [35]
+sb entry:  35
+  sb type:   block
+  sb blocks: [35 36 37 38 39]
+  sb cost:   22
+  sb exits:  [40 45 46]
+  sb succs:  [40 45 46]
+sb entry:  40
+  sb type:   loop
+  sb blocks: [40 41 42 43]
+  sb cost:   (list_max([
+  17 * (N([m[12]], [m[12]], [m[12] + -1], [m[12]]));
+  9 * (N([m[12]], [m[12]], [m[12] + -1], [m[12]]))
+])) + 1
+  sb exits:  [44]
+  sb succs:  [44]
+  2 paths to exit 44
+  [40 42 43]
+  [40 41 42 43]
+  2 loop paths
+  [40 42]  [40 41 42]
+  1 post loop exit paths
+  [43]
+sb entry:  44
+  sb type:   block
+  sb blocks: [44]
+  sb cost:   1
+  sb exits:  [45]
+  sb succs:  [45]
+sb entry:  45
+  sb type:   block
+  sb blocks: [45]
+  sb cost:   6
+  sb exits:  [46]
+  sb succs:  [46]
+sb entry:  46
+  sb type:   block
+  sb blocks: [46 47 48 49 50 51 52 53 54 55 56 57 58]
+  sb cost:   51
+  sb exits:  [59]
+  sb succs:  [59]
+sb entry:  59
+  sb type:   block
+  sb blocks: [59 60]
+  sb cost:   1
+  sb exits:  [60]
+  sb succs:  []
+sb costs:
+[0]: 20
+[5]: (list_max((17 * N([m[12]], [m[12]], [m[12]], [m[12]])), (9 * N([m[12]], [m[12]], [m[12]], [m[12]]))) + 1)
+[9]: 1
+[10]: 18
+[13]: (((18 + |f22|) * N([ln1; m[8]], [((ln1 + 1) < m[8])], [(0 + 1); m[8]], [(ln1 + 1); m[8]])) + 1)
+[15]: 1
+[16]: 8
+[17]: 5
+[19]: list_MAX((list_sum(54, ((13 * N([m[0]], [m[0]], [m[0]], [m[0]])) + 2)) * N([m[36]], [m[36]], [m[36]], [m[36]])))
+[19]: 39
+[26]: ((13 * N([m[0]], [m[0]], [m[0]], [m[0]])) + 2)
+[30]: 8
+[32]: 7
+[34]: 1
+[35]: 22
+[40]: (list_max((17 * N([m[12]], [m[12]], [(m[12] + -1)], [m[12]])), (9 * N([m[12]], [m[12]], [(m[12] + -1)], [m[12]]))) + 1)
+[44]: 1
+[45]: 6
+[46]: 51
+[59]: 1
+1 sb paths found
+[0 5 9 10 13 15 16 17 19 34 35 40 44 45 46 59]

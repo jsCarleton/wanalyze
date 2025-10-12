@@ -1,0 +1,104 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33]
+  sb cost:   89
+  sb exits:  [34 39 40 60 61 88]
+  sb succs:  [34 39 40 60 61 88]
+sb entry:  34
+  sb type:   loop
+  sb blocks: [34 35 36]
+  sb cost:   (list_max([
+  11 * (N([m[20]], [m[20]], [m[20]], [m[20]]));
+  19 * (N([m[20]], [m[20]], [m[20]], [m[20]]))
+])) + 1
+  sb exits:  [37]
+  sb succs:  [37]
+  1 paths to exit 37
+  [34 35 36]
+  2 loop paths
+  [34 35]  [34]
+  1 post loop exit paths
+  [36]
+sb entry:  37
+  sb type:   block
+  sb blocks: [37 38]
+  sb cost:   4
+  sb exits:  [39 40]
+  sb succs:  [39 40]
+sb entry:  39
+  sb type:   block
+  sb blocks: [39]
+  sb cost:   3
+  sb exits:  [40]
+  sb succs:  [40]
+sb entry:  40
+  sb type:   block
+  sb blocks: [40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59]
+  sb cost:   60
+  sb exits:  [60]
+  sb succs:  [60]
+sb entry:  60
+  sb type:   block
+  sb blocks: [60]
+  sb cost:   11
+  sb exits:  [61]
+  sb succs:  [61]
+sb entry:  61
+  sb type:   block
+  sb blocks: [61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80]
+  sb cost:   87
+  sb exits:  [81 85 88]
+  sb succs:  [81 85 88]
+sb entry:  81
+  sb type:   loop
+  sb blocks: [81 82 83]
+  sb cost:   (25 * (N([m[16]], [m[16]], [0], [m[16]]))) + 1
+  sb exits:  [84 87]
+  sb succs:  [84 87]
+  1 paths to exit 84
+  [81 82 83]
+  1 paths to exit 87
+  [81]
+  1 loop paths
+  [81 82]
+  1 post loop exit paths
+  [83]
+sb entry:  84
+  sb type:   block
+  sb blocks: [84]
+  sb cost:   9
+  sb exits:  [85]
+  sb succs:  [85]
+sb entry:  85
+  sb type:   block
+  sb blocks: [85 86]
+  sb cost:   7
+  sb exits:  [87 88]
+  sb succs:  [87 88]
+sb entry:  87
+  sb type:   block
+  sb blocks: [87]
+  sb cost:   18
+  sb exits:  [88]
+  sb succs:  [88]
+sb entry:  88
+  sb type:   block
+  sb blocks: [88 89]
+  sb cost:   4
+  sb exits:  [89]
+  sb succs:  []
+sb costs:
+[0]: 89
+[34]: (list_max((11 * N([m[20]], [m[20]], [m[20]], [m[20]])), (19 * N([m[20]], [m[20]], [m[20]], [m[20]]))) + 1)
+[37]: 4
+[39]: 3
+[40]: 60
+[60]: 11
+[61]: 87
+[81]: ((25 * N([m[16]], [m[16]], [0], [m[16]])) + 1)
+[84]: 9
+[85]: 7
+[87]: 18
+[88]: 4
+1 sb paths found
+[0 34 37 39 40 60 61 81 84 85 87 88]

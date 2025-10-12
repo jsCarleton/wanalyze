@@ -1,7 +1,6 @@
 open Core
 open Bb
-open Ebb
-
+open Sb
 
 let name_of_bb (bblock: bb): string =
   match bblock.bbtype with
@@ -99,29 +98,29 @@ let cfg_dot_of_bbs (module_name: string) (func_idx: int) (bblocks: bb list): str
                   graph_suffix]
 
 (**
-  cfg_dot_of_ebblocks
+  cfg_dot_of_sblocks
 
-  Given a module name, a function index and a list of ebblocks create the .dot file
-  contents that can be used to create a printable cfg of the ebb structure. Typically
-  the list of ebblocks is those for some function. The module name and function index are
-  used for diagram labelling purposes. The list of ebblocks is used to create the 
+  Given a module name, a function index and a list of sblocks create the .dot file
+  contents that can be used to create a printable cfg of the sb structure. Typically
+  the list of sblocks is those for some function. The module name and function index are
+  used for diagram labelling purposes. The list of sblocks is used to create the 
   structure of the cfg and to label the nodes and edges.
 
   Parameters:
     module_name:  string        name of the wasm module
     func_idx:     int           module index of the function
-    ebbs:         ebb list  extended basic blocks of the function
+    sbs:         sb list  extended basic blocks of the function
   Returns:
     a string containing the .dot file commands to produce the cfg
 **)
 
-let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): string =
+let cfg_dot_of_sblocks (module_name: string) (func_idx: int) (sbs: sb list): string =
 
   let graph_prefix (module_name: string) (func_idx: int): string =
     let terminals = 
       String.concat ["E ";
-        if List.exists ~f:ebb_to_unreachable ebbs  then "U " else "";
-        if List.exists ~f:ebb_to_return ebbs       then "R " else "";
+        if List.exists ~f:sb_to_unreachable sbs  then "U " else "";
+        if List.exists ~f:sb_to_return sbs       then "R " else "";
       ] in
       String.concat[
             "digraph finite_state_machine {\n";
@@ -134,15 +133,15 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): 
             "    node [shape = box];\n"]
   in
 
-  let label_of_ebb (ebblock: ebb): string =
-    match ebblock.bblocks with
+  let label_of_sb (sblock: sb): string =
+    match sblock.bblocks with
     | hd::[] -> if bb_is_exit hd then
                   name_of_bb hd
                 else
                   String.concat["["; name_of_bb hd; "]"]
-    | _      -> let bblocks = non_exit_bbs ebblock.bblocks in
+    | _      -> let bblocks = non_exit_bbs sblock.bblocks in
                 match bblocks with
-                | [] -> failwith "Unable to determine ebb label"
+                | [] -> failwith "Unable to determine sb label"
                 | hd::[] -> if bb_is_exit hd then
                               name_of_bb hd
                             else
@@ -152,62 +151,62 @@ let cfg_dot_of_ebblocks (module_name: string) (func_idx: int) (ebbs: ebb list): 
                               "]"]
   in
 
-  let name_of_ebb (ebblock: ebb): string = 
-    name_of_bb ebblock.entry_bb
+  let name_of_sb (sblock: sb): string = 
+    name_of_bb sblock.entry_bb
   in
 
-  let node_of_ebb (ebblock: ebb): string =
+  let node_of_sb (sblock: sb): string =
     String.concat[ 
-      if ebb_too_many_paths ebblock then
+      if sb_too_many_paths sblock then
         "    node [shape=box, fontcolor=white, style=filled, fillcolor=red] "
       else
-      (match ebblock.ebbtype with
-        | EBB_loop  -> "    node [shape=box, color=red, style=dashed] "
+      (match sblock.sbtype with
+        | SB_loop  -> "    node [shape=box, color=red, style=dashed] "
         | _         -> "    node [shape=box, color=black, style=solid] ");
-      name_of_ebb ebblock; 
+      name_of_sb sblock; 
       "[label=\""; 
-      label_of_ebb ebblock;
+      label_of_sb sblock;
       "\"]\n"]
   in
 
-  let rec graph_node (ebblock: ebb): string  =
-    match ebblock.nested_ebbs with
-    | []  -> node_of_ebb ebblock
+  let rec graph_node (sblock: sb): string  =
+    match sblock.nested_sbs with
+    | []  -> node_of_sb sblock
     | _   -> String.concat [
-              "    subgraph cluster_"; name_of_ebb ebblock; "{\n";
+              "    subgraph cluster_"; name_of_sb sblock; "{\n";
               "    label = \"\";\n";
               "    style = dashed color = red;\n";
-              String.concat (List.map ~f:graph_node ebblock.nested_ebbs);
+              String.concat (List.map ~f:graph_node sblock.nested_sbs);
               "    }\n"
              ]
   in
 
-  let graph_edge (src_ebblock: ebb) (dest_exit: bb): string =
-    if src_ebblock.entry_bb.bbindex >= dest_exit.bbindex then
-      String.concat ["    "; name_of_ebb src_ebblock; " -> "; name_of_bb dest_exit; "[style=\"dashed\" color=\"red\"];\n"]
+  let graph_edge (src_sblock: sb) (dest_exit: bb): string =
+    if src_sblock.entry_bb.bbindex >= dest_exit.bbindex then
+      String.concat ["    "; name_of_sb src_sblock; " -> "; name_of_bb dest_exit; "[style=\"dashed\" color=\"red\"];\n"]
     else
-      String.concat ["    "; name_of_ebb src_ebblock; " -> "; name_of_bb dest_exit; ";\n"]
+      String.concat ["    "; name_of_sb src_sblock; " -> "; name_of_bb dest_exit; ";\n"]
   in
 
-  let rec graph_edges (ebblock: ebb): string =
+  let rec graph_edges (sblock: sb): string =
     String.concat [
-      match ebblock.nested_ebbs with
+      match sblock.nested_sbs with
         | []  ->
             String.concat[
-              String.concat (List.map ~f:(graph_edge ebblock) ebblock.exit_bbs);
-              if ebb_has_branchback ebblock then
-                String.concat ["    "; name_of_ebb ebblock; " -> "; name_of_ebb ebblock; "[style=\"dashed\" color=\"red\" dir=back];\n"]
+              String.concat (List.map ~f:(graph_edge sblock) sblock.exit_bbs);
+              if sb_has_branchback sblock then
+                String.concat ["    "; name_of_sb sblock; " -> "; name_of_sb sblock; "[style=\"dashed\" color=\"red\" dir=back];\n"]
               else 
                 ""
             ]
         | _   ->
-            String.concat (List.map ~f:graph_edges ebblock.nested_ebbs)
+            String.concat (List.map ~f:graph_edges sblock.nested_sbs)
     ]
   in
 
   let graph_suffix = "}\n" in
 
   String.concat [ graph_prefix module_name func_idx; 
-                  String.concat (List.map ~f:graph_node  ebbs);
-                  String.concat (List.map ~f:graph_edges ebbs);
+                  String.concat (List.map ~f:graph_node  sbs);
+                  String.concat (List.map ~f:graph_edges sbs);
                   graph_suffix]

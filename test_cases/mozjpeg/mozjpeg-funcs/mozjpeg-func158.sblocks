@@ -1,0 +1,97 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3]
+  sb cost:   32
+  sb exits:  [4 7]
+  sb succs:  [4 7]
+sb entry:  4
+  sb type:   loop
+  sb blocks: [4 5]
+  sb cost:   ((26 + |f27|) * (N([ln4; ln9], [ln4 != ln9], [0 + 1; m[236] + 1], [ln4 + 1; ln9]))) + 1
+  sb exits:  [6]
+  sb succs:  [6]
+  1 paths to exit 6
+  [4 5]
+  1 loop paths
+  [4]
+  1 post loop exit paths
+  [5]
+sb entry:  6
+  sb type:   block
+  sb blocks: [6]
+  sb cost:   1
+  sb exits:  [7]
+  sb succs:  [7]
+sb entry:  7
+  sb type:   block
+  sb blocks: [7 8]
+  sb cost:   24
+  sb exits:  [9 17]
+  sb succs:  [9 17]
+sb entry:  9
+  sb type:   loop
+  sb blocks: [9 10 11 12 13 14 15]
+  sb cost:   list_MAX([
+  (list_sum([
+    151;
+    (100 * (N([pn0], [pn0], [(m[28] shl 3) + -2], [pn0 + -1]))) + 1
+  ])) * (N([ln15; m[12]], [(ln15 + 1) < m[12]], [0; m[12]], [ln15 + 1; m[12]]))
+])
+  sb exits:  [16]
+  sb succs:  [16]
+  1 paths to exit 16
+  [9 10 13 14 15]
+  1 loop paths
+  [9 10 13 14]
+  1 post loop exit paths
+  [15]
+nested sbs:
+  sb entry:  9
+    sb type:   block
+    sb blocks: [9]
+    sb cost:   108
+    sb exits:  [10]
+    sb succs:  [10]
+  sb entry:  10
+    sb type:   loop
+    sb blocks: [10 11 12 13]
+    sb cost:   (100 * (N([pn0], [pn0], [(m[28] shl 3) + -2], [pn0 + -1]))) + 1
+    sb exits:  [14]
+    sb succs:  [14]
+    1 paths to exit 14
+    [10 13]
+    1 loop paths
+    [10 11]
+    1 post loop exit paths
+    [13]
+  sb entry:  14
+    sb type:   block
+    sb blocks: [14 15]
+    sb cost:   43
+    sb exits:  [9 16]
+    sb succs:  [9 16]
+sb entry:  16
+  sb type:   block
+  sb blocks: [16]
+  sb cost:   1
+  sb exits:  [17]
+  sb succs:  [17]
+sb entry:  17
+  sb type:   block
+  sb blocks: [17 18]
+  sb cost:   1
+  sb exits:  [18]
+  sb succs:  []
+sb costs:
+[0]: 32
+[4]: (((26 + |f27|) * N([ln4; ln9], [(ln4 != ln9)], [(0 + 1); (m[236] + 1)], [(ln4 + 1); ln9])) + 1)
+[6]: 1
+[7]: 24
+[9]: list_MAX((list_sum(151, ((100 * N([pn0], [pn0], [((m[28] shl 3) + -2)], [(pn0 + -1)])) + 1)) * N([ln15; m[12]], [((ln15 + 1) < m[12])], [0; m[12]], [(ln15 + 1); m[12]])))
+[9]: 108
+[10]: ((100 * N([pn0], [pn0], [((m[28] shl 3) + -2)], [(pn0 + -1)])) + 1)
+[14]: 43
+[16]: 1
+[17]: 1
+1 sb paths found
+[0 4 6 7 9 16 17]

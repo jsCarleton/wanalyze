@@ -1,0 +1,44 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2]
+  sb cost:   11
+  sb exits:  [3 7]
+  sb succs:  [3 7]
+sb entry:  3
+  sb type:   loop
+  sb blocks: [3 4]
+  sb cost:   (37 * (N([ln4; ln5], [(ln4 + 1) != ln5], [0 + 1; m[4]], [ln4 + 1; ln5]))) + 1
+  sb exits:  [5]
+  sb succs:  [5]
+  1 paths to exit 5
+  [3 4]
+  1 loop paths
+  [3]
+  1 post loop exit paths
+  [4]
+sb entry:  5
+  sb type:   block
+  sb blocks: [5 6]
+  sb cost:   3
+  sb exits:  [7 8]
+  sb succs:  [7 8]
+sb entry:  7
+  sb type:   block
+  sb blocks: [7]
+  sb cost:   7
+  sb exits:  [8]
+  sb succs:  [8]
+sb entry:  8
+  sb type:   block
+  sb blocks: [8 9 10 11 12 13 14 15]
+  sb cost:   29
+  sb exits:  [15]
+  sb succs:  []
+sb costs:
+[0]: 11
+[3]: ((37 * N([ln4; ln5], [((ln4 + 1) != ln5)], [(0 + 1); m[4]], [(ln4 + 1); ln5])) + 1)
+[5]: 3
+[7]: 7
+[8]: 29
+1 sb paths found
+[0 3 5 7 8]

@@ -1,0 +1,49 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4 5]
+  sb cost:   25
+  sb exits:  [6 15]
+  sb succs:  [6 15]
+sb entry:  6
+  sb type:   loop
+  sb blocks: [6 7 8 9 10 11 12 13]
+  sb cost:   (list_max([
+  (57 + (list_sum(|f148|, |f88|, |f60|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (51 + (list_sum(|f88|, |f60|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (51 + (list_sum(|f148|, |f88|, |f60|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (45 + (list_sum(|f88|, |f60|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (45 + (list_sum(|f148|, |f88|, |f60|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]));
+  (39 + (list_sum(|f88|, |f60|))) * (N([pn1; pn2], [pn1 != pn2], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [pn1 + 1; pn2]))
+])) + 1
+  sb exits:  [14]
+  sb succs:  [14]
+  6 paths to exit 14
+  [6 7 10 12 13]
+  [6 7 10 11 12 13]
+  [6 7 8 10 12 13]
+  [6 7 8 10 11 12 13]
+  [6 7 8 9 10 12 13]
+  [6 7 8 9 10 11 12 13]
+  6 loop paths
+  [6 7 10 12]  [6 7 10 11 12]  [6 7 8 10 12]  [6 7 8 10 11 12]  [6 7 8 9 10 12]  [6 7 8 9 10 11 12]
+  1 post loop exit paths
+  [13]
+sb entry:  14
+  sb type:   block
+  sb blocks: [14]
+  sb cost:   1
+  sb exits:  [15]
+  sb succs:  [15]
+sb entry:  15
+  sb type:   block
+  sb blocks: [15 16 17 18]
+  sb cost:   9
+  sb exits:  [18]
+  sb succs:  []
+sb costs:
+[0]: 25
+[6]: (list_max(((57 + list_sum(|f148|, |f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((51 + list_sum(|f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((51 + list_sum(|f148|, |f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((45 + list_sum(|f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((45 + list_sum(|f148|, |f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2])), ((39 + list_sum(|f88|, |f60|)) * N([pn1; pn2], [(pn1 != pn2)], [select(pn3, pn1, 0); select(pn3, pn2, -1)], [(pn1 + 1); pn2]))) + 1)
+[14]: 1
+[15]: 9
+1 sb paths found
+[0 6 14 15]

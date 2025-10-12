@@ -1,0 +1,54 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3 4 5]
+  sb cost:   27
+  sb exits:  [6 13]
+  sb succs:  [6 13]
+sb entry:  6
+  sb type:   loop
+  sb blocks: [6 7 8 9 10]
+  sb cost:   ((23 + (list_sum(|f269|, |f268|))) * (N([ln1], [ln1 == 20], [gn0 - 16], [ln1]))) + 2
+  sb exits:  [11 15]
+  sb succs:  [11 15]
+  2 paths to exit 11
+  [6 7 10]
+  [6 7 8 9 10]
+  1 paths to exit 15
+  [6]
+  1 loop paths
+  [6 7 8]
+  1 post loop exit paths
+  [9 10]
+sb entry:  11
+  sb type:   block
+  sb blocks: [11 12]
+  sb cost:   6
+  sb exits:  [13 14]
+  sb succs:  [13 14]
+sb entry:  13
+  sb type:   block
+  sb blocks: [13]
+  sb cost:   4
+  sb exits:  [14]
+  sb succs:  [14]
+sb entry:  14
+  sb type:   block
+  sb blocks: [14]
+  sb cost:   3
+  sb exits:  [15]
+  sb succs:  [15]
+sb entry:  15
+  sb type:   block
+  sb blocks: [15 16]
+  sb cost:   6
+  sb exits:  [16]
+  sb succs:  []
+sb costs:
+[0]: 27
+[6]: (((23 + list_sum(|f269|, |f268|)) * N([ln1], [(ln1 == 20)], [(gn0 - 16)], [ln1])) + 2)
+[11]: 6
+[13]: 4
+[14]: 3
+[15]: 6
+1 sb paths found
+[0 6 11 13 14 15]

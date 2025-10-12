@@ -1,0 +1,79 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0 1 2 3]
+  sb cost:   47
+  sb exits:  [4 12]
+  sb succs:  [4 12]
+sb entry:  4
+  sb type:   loop
+  sb blocks: [4 5 6 7 8 9 10]
+  sb cost:   list_MAX([
+  26 * (N([ln5; pn3], [ln5 < pn3], [0; pn3], [ln5; pn3]));
+  (list_sum([
+    27;
+    (20 * (N([ln7], [ln7 + -1], [(select((select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7))) < (pn3 - 0), pn3 - 0, select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7)))) + -1], [ln7 + -1]))) + 1
+  ])) * (N([ln5; pn3], [(ln5 + 1) < pn3], [0; pn3], [ln5 + 1; pn3]))
+])
+  sb exits:  [11]
+  sb succs:  [11]
+  2 paths to exit 11
+  [4 9 10]
+  [4 5 6 7 8 9 10]
+  2 loop paths
+  [4 9]  [4 5 6 7 8 9]
+  1 post loop exit paths
+  [10]
+nested sbs:
+  sb entry:  4
+    sb type:   block
+    sb blocks: [4 5]
+    sb cost:   21
+    sb exits:  [6 9]
+    sb succs:  [6 9]
+  sb entry:  6
+    sb type:   loop
+    sb blocks: [6 7]
+    sb cost:   (20 * (N([ln7], [ln7 + -1], [(select((select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7))) < (pn3 - 0), pn3 - 0, select((999999988 /u (pn2 shl 7)) < pn3, pn3, 999999988 /u (pn2 shl 7)))) + -1], [ln7 + -1]))) + 1
+    sb exits:  [8]
+    sb succs:  [8]
+    1 paths to exit 8
+    [6 7]
+    1 loop paths
+    [6]
+    1 post loop exit paths
+    [7]
+  sb entry:  8
+    sb type:   block
+    sb blocks: [8]
+    sb cost:   1
+    sb exits:  [9]
+    sb succs:  [9]
+  sb entry:  9
+    sb type:   block
+    sb blocks: [9 10]
+    sb cost:   5
+    sb exits:  [4 11]
+    sb succs:  [4 11]
+sb entry:  11
+  sb type:   block
+  sb blocks: [11]
+  sb cost:   1
+  sb exits:  [12]
+  sb succs:  [12]
+sb entry:  12
+  sb type:   block
+  sb blocks: [12 13]
+  sb cost:   2
+  sb exits:  [13]
+  sb succs:  []
+sb costs:
+[0]: 47
+[4]: list_MAX((26 * N([ln5; pn3], [(ln5 < pn3)], [0; pn3], [ln5; pn3])), (list_sum(27, ((20 * N([ln7], [(ln7 + -1)], [(select((select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7))) < (pn3 - 0)), (pn3 - 0), select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7)))) + -1)], [(ln7 + -1)])) + 1)) * N([ln5; pn3], [((ln5 + 1) < pn3)], [0; pn3], [(ln5 + 1); pn3])))
+[4]: 21
+[6]: ((20 * N([ln7], [(ln7 + -1)], [(select((select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7))) < (pn3 - 0)), (pn3 - 0), select(((999999988 /u (pn2 shl 7)) < pn3), pn3, (999999988 /u (pn2 shl 7)))) + -1)], [(ln7 + -1)])) + 1)
+[8]: 1
+[9]: 5
+[11]: 1
+[12]: 2
+1 sb paths found
+[0 4 11 12]

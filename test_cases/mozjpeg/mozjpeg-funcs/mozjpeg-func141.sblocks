@@ -1,0 +1,105 @@
+sb entry:  0
+  sb type:   block
+  sb blocks: [0]
+  sb cost:   6
+  sb exits:  [1]
+  sb succs:  [1]
+sb entry:  1
+  sb type:   loop
+  sb blocks: [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23]
+  sb cost:   list_MAX([
+  95 * (N([m[0]], [not(i32.eqz(m[0]))], [m[0]], [m[0]]));
+  (list_sum([
+    86;
+    (13 * (N([m[0]], [m[0] != 44], [(gn0 - 32) + 28], [m[0]]))) + 1
+  ])) * (N([ln2], [not(i32.eqz(ln2))], [gn0 - 32], [ln2]));
+  (list_sum([
+    87;
+    (13 * (N([m[0]], [m[0] != 44], [(gn0 - 32) + 28], [m[0]]))) + 1
+  ])) * (N([ln2], [not(ln2 != 44)], [gn0 - 32], [ln2]))
+])
+  sb exits:  [27 28]
+  sb succs:  [27 28]
+  5 paths to exit 27
+  [1 2 3 4 5 12]
+  [1 2 3 4 5 6 7 12]
+  [1 2 3 4 5 6 7 8 12]
+  [1 2 3 4 5 6 7 8 9 12]
+  [1 2 3 4 5 6 7 8 9 10 11 12]
+  0 paths to exit 28
+
+  3 loop paths
+  [1 2 3 4 5 6 20 21]  [1 2 3 4 5 6 7 8 9 10 14 15 21]  [1 2 3 4 5 6 7 8 9 10 14 15 16 17 18 21]
+  1 post loop exit paths
+  [11 12]
+nested sbs:
+  sb entry:  1
+    sb type:   block
+    sb blocks: [1 2 3 4 5 6 7 8 9 10 11 12 13 14]
+    sb cost:   81
+    sb exits:  [15 20 27]
+    sb succs:  [15 20 27]
+  sb entry:  15
+    sb type:   loop
+    sb blocks: [15 16 17]
+    sb cost:   (13 * (N([m[0]], [m[0] != 44], [(gn0 - 32) + 28], [m[0]]))) + 1
+    sb exits:  [18 21]
+    sb succs:  [18 21]
+    1 paths to exit 18
+    [15 16 17]
+    1 paths to exit 21
+    [15]
+    1 loop paths
+    [15 16]
+    1 post loop exit paths
+    [17]
+  sb entry:  18
+    sb type:   block
+    sb blocks: [18 19]
+    sb cost:   1
+    sb exits:  [20 21]
+    sb succs:  [20 21]
+  sb entry:  20
+    sb type:   block
+    sb blocks: [20]
+    sb cost:   9
+    sb exits:  [21]
+    sb succs:  [21]
+  sb entry:  21
+    sb type:   block
+    sb blocks: [21 22 23]
+    sb cost:   5
+    sb exits:  [1 28]
+    sb succs:  [1 28]
+sb entry:  24
+  sb type:   block
+  sb blocks: [24 25 26]
+  sb cost:   1
+  sb exits:  [26 28]
+  sb succs:  [28]
+sb entry:  27
+  sb type:   block
+  sb blocks: [27]
+  sb cost:   0
+  sb exits:  []
+  sb succs:  []
+sb entry:  28
+  sb type:   block
+  sb blocks: [28]
+  sb cost:   0
+  sb exits:  []
+  sb succs:  []
+sb costs:
+[0]: 6
+[1]: list_MAX((95 * N([m[0]], [not(i32.eqz(m[0]))], [m[0]], [m[0]])), (list_sum(86, ((13 * N([m[0]], [(m[0] != 44)], [((gn0 - 32) + 28)], [m[0]])) + 1)) * N([ln2], [not(i32.eqz(ln2))], [(gn0 - 32)], [ln2])), (list_sum(87, ((13 * N([m[0]], [(m[0] != 44)], [((gn0 - 32) + 28)], [m[0]])) + 1)) * N([ln2], [not((ln2 != 44))], [(gn0 - 32)], [ln2])))
+[1]: 81
+[15]: ((13 * N([m[0]], [(m[0] != 44)], [((gn0 - 32) + 28)], [m[0]])) + 1)
+[18]: 1
+[20]: 9
+[21]: 5
+[24]: 1
+[27]: 0
+[28]: 0
+2 sb paths found
+[0 1 27]
+[0 1 28]
