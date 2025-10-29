@@ -30,6 +30,3 @@ val expr_of_bb        : Wm.expr -> bb -> Wm.expr
 val bblocks_of_expr   : Wm.expr -> bb list
 val mult_succ_count   : bb list -> int
 val string_of_bb_type : bb_type -> string
-val loop_count_of_bbs : bb list -> int -> int
-val first_loop_of_bbs : bb list -> bb
-val back_pred         : bb -> bb
