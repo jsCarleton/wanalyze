@@ -1,1 +1,1 @@
-val print   : Wm.wm -> int -> unit
+val print   : Wm.wm -> int -> int -> unit

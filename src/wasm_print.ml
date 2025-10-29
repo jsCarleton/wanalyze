@@ -361,7 +361,8 @@ let string_of_data_section section = String.concat ~sep:"\n" (List.map ~f:string
 let print_function_details (w: wm) dir prefix fidx type_idx =
   (* function source code *)
   let fnum  = fidx + w.last_import_func in
-  Printf.printf "function %d %!" fnum;
+  let start = Core_unix.gettimeofday () in
+  Printf.printf "%d %!" fnum;
   let fn = List.nth_exn w.code_section fidx in
   let w_e = fn.e in
   let fname = String.concat[dir; prefix; string_of_int fnum] in
@@ -433,20 +434,28 @@ let print_function_details (w: wm) dir prefix fidx type_idx =
            print_et max_cost p));
     Out_channel.output_string oc "\n";
   Out_channel.close oc;
-  Printf.printf "\r%!"
+  let stop = Core_unix.gettimeofday () in
+  Printf.printf "%f\n%!" (stop -. start)
 
-let print_functions w fnum func_info_dir =
-  (match fnum with
-  | -1 -> List.iteri 
-            ~f:(print_function_details w func_info_dir (String.concat[Filename.chop_extension w.module_name; "-func"]))
-            (List.drop w.function_section w.last_import_func)
-  | _  -> print_function_details
-            w
-            func_info_dir
-            (String.concat[Filename.chop_extension w.module_name; "-func"])
-            (fnum - w.last_import_func)
-            (List.nth_exn (List.drop w.function_section w.last_import_func) fnum))
-          
+let print_functions w fnum fstart func_info_dir =
+  if fnum = -1 && fstart = -1 then
+    List.iteri
+      ~f:(print_function_details w func_info_dir (String.concat[Filename.chop_extension w.module_name; "-func"]))
+      (List.drop w.function_section w.last_import_func)
+  else if fstart = -1 then
+    print_function_details
+      w
+      func_info_dir
+      (String.concat[Filename.chop_extension w.module_name; "-func"])
+      (fnum - w.last_import_func)
+      (List.nth_exn (List.drop w.function_section w.last_import_func) fnum)
+  else
+    List.iteri
+      ~f:(fun fnum f -> if fnum >= fstart then 
+            print_function_details 
+              w func_info_dir (String.concat[Filename.chop_extension w.module_name; "-func"]) (fnum - w.last_import_func) f)
+      w.function_section
+    
 (* Print the whole wasm module *)
 
 let print_section oc s =
@@ -455,7 +464,7 @@ let print_section oc s =
     | _  -> Out_channel.output_string oc "\n";
             Out_channel.output_string oc s
 
-let print w fnum =
+let print w fnum fstart =
   let oc = Out_channel.create (String.concat[Filename.chop_extension w.module_name; "-wanalyze.wat"]) in
     Out_channel.output_string oc "(module";
     print_section oc (string_of_type_section w.type_section);
@@ -476,5 +485,5 @@ let print w fnum =
         Core_unix.mkdir func_info_dir
       with
         _ -> ());
-      print_functions w fnum func_info_dir;
+      print_functions w fnum fstart func_info_dir;
       Printf.printf "\ndone\n%!"
