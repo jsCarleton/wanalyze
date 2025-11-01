@@ -215,11 +215,7 @@ type element =
 
 (* Code, including bblocks *)
 
-type local_type =
-{
-  n:  int;
-  v:  valtype;
-}
+type local_type = valtype
 
 (* type that describes a function that's implement in a wasm module *)
 type func =

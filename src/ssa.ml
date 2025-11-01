@@ -204,9 +204,6 @@ let ssa_of_op (ctx: execution_context) (acc: ssa list) (op: op_type): ssa list =
         etree = Node {op = op.opname; op_disp = Prefix; args = [find_and_kill acc]};
         alive = true} :: acc         
 
-let ssa_of_expr (ctx: execution_context): ssa list =
- List.fold_left ~f:(ssa_of_op ctx) ~init:[] ctx.w_e
-
 let initial_local_value (nt: valtype): et =
   match nt with
   | Numtype I32 -> Constant (Int_value 0)
@@ -215,19 +212,13 @@ let initial_local_value (nt: valtype): et =
   | Numtype F64 -> Constant (Float_value 0.0)
   | Reftype _   -> failwith "Unexpected type"
 
-let initial_ssa_of_local (nt: valtype) (idx_offset: int) (idx: int): ssa =
-  { result = {vtype = Var_local; nt; idx = idx + idx_offset; vname = ""}; 
+let initial_ssa_of_local (idx: int) (nt: valtype): ssa =
+  { result = {vtype = Var_local; nt; idx = idx; vname = ""}; 
     etree = initial_local_value nt; 
     alive = true}
 
-let local_type_offset (ll: local_type list) (idx: int): int =
-  List.foldi ~init:0 ~f:(fun idx' acc lt -> if idx' >= idx then acc else acc + lt.n ) ll
-
-let initial_ssas_of_local_type (idx_offset: int) (ll: local_type list) (idx: int) (lt: local_type): ssa list =
-  List.init lt.n ~f:(initial_ssa_of_local lt.v (idx_offset + (local_type_offset ll idx)))
-
-let initial_ssas_of_locals (idx_offset: int) (ll: local_type list): ssa list =
-  List.concat (List.mapi ~f:(initial_ssas_of_local_type idx_offset ll) ll)
+let initial_ssas_of_locals (ll: local_type list): ssa list =
+  List.mapi ~f:initial_ssa_of_local ll
 
 let ssa_of_expr' (ctx: execution_context) (e: expr) acc: ssa list =
   List.fold_left ~f:(ssa_of_op ctx) ~init:acc e
@@ -237,7 +228,7 @@ let ssa_of_bb (ctx: execution_context) acc (bblock: Bb.bb): ssa list =
 
 let ssa_of_codepath (ctx: execution_context) (codepath: Cp.cp) (init_locals: bool): ssa list =
   List.fold ~f:(ssa_of_bb ctx) 
-            ~init:(if init_locals then (initial_ssas_of_locals (List.length ctx.param_types) ctx.local_types) else [])
+            ~init:(if init_locals then (initial_ssas_of_locals ctx.local_types) else [])
             codepath
 
 let rec expand_et (e: et) (s_src: ssa): et =

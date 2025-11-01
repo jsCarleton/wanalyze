@@ -73,19 +73,10 @@ let string_of_start idx =
 let get_type_sig (w: wm) idx =
   List.nth_exn w.type_section idx
 
-let rec string_repeat' s sep n acc =
-  match n with
-  | 0 -> acc
-  | _ -> string_repeat' s sep (n-1) (String.concat [acc ; sep ; s])
-let string_repeat s sep n = string_repeat' s sep n ""
-
-let string_of_local local = 
-  string_repeat (string_of_valtype local.v) " " local.n
-
 let string_of_locals locals =
   match List.length locals with
   | 0 -> ""
-  | _ -> String.concat ["\n    (local" ; (String.concat ~sep:"" (List.map ~f:string_of_local locals)) ; ")"]
+  | _ -> String.concat ["\n    (local " ; (String.concat ~sep:" " (List.map ~f:string_of_valtype locals)) ; ")"]
 
 let string_of_memarg m =
   let offset_part = 

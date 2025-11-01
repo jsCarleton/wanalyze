@@ -422,9 +422,6 @@ let rec create_globals (w:wm) (s: program_state) (imports: import list) (globals
                             create_globals w s tl globals n_imports global_vals (next+1)
         | _             ->  create_globals w s tl globals n_imports global_vals next)
 
-let sum_nlocals acc (l: local_type): int = acc + l.n
-let count_locals (ll: local_type list): int = List.fold_left ~f:sum_nlocals ~init:0 ll
-
 (*
     empty_program_state
       returns a program state with the stack, locals, globals and memory initialized
@@ -452,7 +449,7 @@ let empty_program_state
 { instr_count   = 0;
   value_stack   = []; 
   local_values  = init_values
-                    ((List.length param_types) + (count_locals local_types))
+                    ((List.length param_types) + (List.length local_types))
                     (et_of_local_value param_types local_types); 
   global_values = global_values;
   mem_values    = [] }

@@ -40,11 +40,6 @@ type et = Empty | Constant of constant_value | Variable of var
 let compare_vars (v1: var) (v2: var): int =
   String.compare (string_of_var v1) (string_of_var v2)
 
-let rec local_type_of_index (local_types: local_type list) (index: int) (types_index: int) (types_count: int): valtype =
-  match index < types_count + (List.nth_exn local_types types_index).n with
-  | true  -> (List.nth_exn local_types types_index).v
-  | _     -> local_type_of_index local_types index (types_index+1) (types_count + (List.nth_exn local_types types_index).n)
-
 let v_in_vlist (v: var) (vs: var list): bool =
   List.exists  vs ~f:(fun v1 -> (compare_vars v v1) = 0) 
 
@@ -53,10 +48,10 @@ let valtype_of_var (param_types: resulttype list) (local_types: local_type list)
   if idx < nparams then
     List.nth_exn param_types idx
   else
-    local_type_of_index local_types (idx - nparams) 0 0
+    List.nth_exn local_types (idx - nparams)
 
 let initialize_local_value (local_types: local_type list) (nparams: int) (i: int): constant_value =
-  match local_type_of_index local_types (i - nparams) 0 0 with
+  match List.nth_exn local_types (i - nparams) with
     | Numtype nt ->
       (match nt with
         | I32 -> Int_value 0

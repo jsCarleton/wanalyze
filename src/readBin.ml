@@ -536,11 +536,6 @@ let read_instr ic =
 
 let read_valtype ic = valtype_of_int (read_byte ic)
 
-let read_local ic = (fun _ ->
-  let n = uLEB ic 32 in
-  let v = read_valtype ic in
-  {n; v})
-
 let rec read_expr' ic (opnesting: int) (acc_instr: op_type list) : op_type list =
   let opsym, opname, arg, instrtype = read_instr ic in
   match opsym with
@@ -653,9 +648,14 @@ let read_element_section ic =
   read_section ic [] read_element_section'
   
 (* Code section *)
+let read_local ic =
+  let n = uLEB ic 32 in
+  let v = read_valtype ic in
+  (n, v)
+
 let read_code_section' ic =
   let _: int = read_section_length ic in
-  let locals = read_vec ic (read_local ic) in
+  let locals = List.fold_left ~init:[] ~f:(fun acc l -> List.append acc (List.init (fst l) ~f:(fun _ -> snd l))) (read_vec ic read_local) in
   let e = read_expr ic in
   {locals; e}
 
